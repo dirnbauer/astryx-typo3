@@ -1,0 +1,115 @@
+name: desiderio-grande/pricing-faq
+typeName: desiderio_grande_pricingfaq
+title: 'Pricing FAQ'
+description: 'Renders the questions a reader asks before paying — tax, invoices, currencies, contract length, what counts as a user — either as an accordion or as an open list in one or two columns. The accordion is native disclosure markup, so it opens without a line of script. Use it for: the foot of a pricing page, a billing help section, the small print of a rate card. Prefer ''Plan Change Explainer'' when every question is about switching tiers, and ''Trial Terms Panel'' when they are all about the trial.'
+group: pricing
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'variant'
+    type: 'Select'
+    renderType: 'selectSingle'
+    prefixField: true
+    label: 'Variant'
+    items:
+      -
+        label: 'Accordion'
+        value: 'accordion'
+      -
+        label: 'Open list'
+        value: 'open-list'
+    default: 'accordion'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: questions
+    type: Collection
+    foreign_table: desiderio_grande_qa_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Questions'
+    minitems: 1
+    maxitems: 20

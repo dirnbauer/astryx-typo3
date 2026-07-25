@@ -1,0 +1,56 @@
+name: desiderio-grande/article-meta
+typeName: desiderio_grande_articlemeta
+title: 'Article Meta Strip'
+description: 'Renders the byline strip that runs under an article''s title: publication date, reading time, category and the author''s name as one quiet line, optionally with a small portrait. Use it for: the head of a blog post, news articles, documentation pages that state when they were last reviewed, any page whose freshness is part of its credibility. Prefer ''Author Box'' for the full profile at the foot of a piece, and ''Article Header'' when you need the title band itself rather than the line beneath it.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'author'
+    type: 'Textarea'
+    rows: 1
+    label: 'Author'
+  -
+    identifier: 'role'
+    type: 'Textarea'
+    rows: 1
+    label: 'Role'
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'

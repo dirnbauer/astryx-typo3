@@ -1,0 +1,94 @@
+name: desiderio-grande/menu-featured
+typeName: desiderio_grande_menufeatured
+title: 'Featured Entry Menu'
+description: 'Renders one destination as a large card with its own picture and summary, and the remaining ones as a compact list beside it. Use it for: a news section with a lead story, a knowledge base with a most-read article, a course overview where one module starts the path, a shop category with a highlighted range. Prefer ''Page Card Menu'' when the destinations rank equally, and ''Up Next'' when there is only one thing to point at.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'subheader'
+    useExistingField: true
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: items
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Further destinations'
+    minitems: 1
+    maxitems: 8

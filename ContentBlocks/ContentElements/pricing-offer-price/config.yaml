@@ -1,0 +1,89 @@
+name: desiderio-grande/pricing-offer-price
+typeName: desiderio_grande_pricingofferprice
+title: 'Launch Offer Price'
+description: 'Renders a price that has been reduced: the former figure struck through, the current one large beside it, a badge for the reason and a written deadline in the small print. Use it for: a launch discount, a seasonal band, an early-bird conference rate, a clearance offer, a renewal incentive. Prefer ''Single Price Panel'' once the offer becomes the normal price, and ''Discount & Eligibility Note'' for a standing reduction that only some readers qualify for.'
+group: pricing
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'value'
+    type: 'Text'
+    max: 24
+    label: 'Value'
+  -
+    identifier: 'price'
+    type: 'Textarea'
+    rows: 1
+    label: 'Price'
+  -
+    identifier: 'period'
+    type: 'Text'
+    max: 32
+    label: 'Period'
+  -
+    identifier: 'badge_text'
+    type: 'Textarea'
+    rows: 1
+    label: 'Badge text'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'

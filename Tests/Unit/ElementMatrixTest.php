@@ -157,6 +157,32 @@ final class ElementMatrixTest extends TestCase
         }
     }
 
+    /**
+     * "categories" reaches every element through the TYPO3/Categories basic and
+     * "label" is reserved by Content Blocks. Declaring either throws while the
+     * whole catalog compiles, which points at no element in particular.
+     */
+    public function testNoElementClaimsAReservedIdentifier(): void
+    {
+        $reserved = ['categories', 'label'];
+
+        foreach (self::allElements() as $element) {
+            foreach ($element['fields'] ?? [] as $reference) {
+                $name = explode(':', (string)$reference, 2)[0];
+                self::assertNotContains($name, $reserved, $element['id'] . ' declares the reserved field "' . $name . '"');
+            }
+
+            $collection = $element['collection'] ?? null;
+            if (is_array($collection)) {
+                self::assertNotContains(
+                    $collection['identifier'] ?? 'items',
+                    $reserved,
+                    $element['id'] . ' names its collection with a reserved identifier',
+                );
+            }
+        }
+    }
+
     public function testEveryCollectionUsesASharedRecordType(): void
     {
         $recordTypes = self::readJson('Build/Data/record-types.json');

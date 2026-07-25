@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-pricing-compare-matrix" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Sibling columns only line up when their row lists share the same order and the same row titles; the template does not reconcile them for you.
+</f:comment>
+
+<section class="astryx-section g-pricing-compare-matrix" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

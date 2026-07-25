@@ -62,6 +62,13 @@
       "labelField": "title",
       "purpose": "A row of a specification, comparison or plan-feature table.",
       "fields": ["title", "value", "text", "included"]
+    },
+    "media-card": {
+      "table": "desiderio_grande_media_card",
+      "labelField": "title",
+      "purpose": "A card with its own picture: link cards, slides, partner tiles, anything where the image belongs to the item rather than to the band.",
+      "_note": "icon-lead carries an icon and logo-item only a mark, so neither can hold a picture card. This is the type to reach for whenever each item needs its own image.",
+      "fields": ["image", "title", "text", "link", "date"]
     }
   },
 
@@ -79,6 +86,7 @@
     "image": {"type": "File", "maxitems": 1, "allowed": "common-image-types"},
     "icon": {"type": "Select", "renderType": "selectSingle", "_items": "icon-library"},
     "rating": {"type": "Number", "_note": "Whole stars, 1–5."},
+    "date": {"type": "DateTime", "format": "date", "_note": "A real date rather than free text, so it can be formatted per language and sorted."},
     "included": {"type": "Checkbox", "renderType": "checkboxToggle", "_note": "Whether this row's feature is part of the plan."}
   }
 }

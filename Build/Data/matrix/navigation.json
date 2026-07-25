@@ -1,0 +1,2064 @@
+{
+  "group": "navigation",
+  "elements": [
+    {
+      "id": "menu-card-grid",
+      "title": "Page Card Menu",
+      "titleDe": "Seitenmenü als Karten",
+      "description": "Renders a set of destinations as a grid of cards, each with an icon, its title and a line explaining what is behind it. Use it for: the landing page of a section, a service overview, a topic hub, the entry point into a documentation area, a choice between four or five routes. Prefer 'Page List Menu' when there are more than a dozen destinations, and 'Link Grid' when the titles alone say enough without a card around them.",
+      "descriptionDe": "Rendert eine Auswahl von Zielen als Kartenraster, jede Karte mit Symbol, Titel und einer Zeile dazu, was dahintersteckt. Einsetzen für: die Einstiegsseite eines Bereichs, eine Leistungsübersicht, ein Themenportal, den Einstieg in eine Dokumentation, die Wahl zwischen vier oder fünf Wegen. Bei mehr als einem Dutzend Zielen besser 'Seitenmenü als Liste' verwenden, wenn die Titel ohne Karte genügen 'Linkraster'.",
+      "short": "Destinations as a **grid of cards** with an icon and a line each.",
+      "shortDe": "Ziele als **Kartenraster** mit Symbol und einer Zeile.",
+      "keywords": [
+        "subpages",
+        "cards",
+        "section menu",
+        "hub",
+        "landing",
+        "tiles",
+        "overview",
+        "children"
+      ],
+      "synonyms": [
+        "card menu",
+        "menu of subpages",
+        "child pages",
+        "section overview",
+        "topic cards",
+        "navigation cards",
+        "hub page",
+        "unterseiten",
+        "kachelmenü",
+        "entry points",
+        "choose a section",
+        "directory cards",
+        "portal"
+      ],
+      "keywordsDe": [
+        "Unterseiten",
+        "Karten",
+        "Bereichsmenü",
+        "Portal",
+        "Einstieg",
+        "Kacheln",
+        "Übersicht",
+        "Untermenü"
+      ],
+      "synonymsDe": [
+        "Kartenmenü",
+        "Kachelmenü",
+        "Menü der Unterseiten",
+        "Bereichsübersicht",
+        "Themenkarten",
+        "Navigationskarten",
+        "Einstiegsseite",
+        "Wegweiser",
+        "Auswahlkarten",
+        "Rubrikenübersicht"
+      ],
+      "astryx": [
+        "Grid",
+        "ClickableCard",
+        "Icon",
+        "Text"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "icon-top",
+        "icon-inline"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "items",
+        "labelEn": "Destinations",
+        "labelDe": "Ziele",
+        "min": 2,
+        "max": 12
+      },
+      "js": null,
+      "notes": "The whole card is the link target; the icon is decorative and the description line is what makes this worth a card rather than a row."
+    },
+    {
+      "id": "menu-list",
+      "title": "Page List Menu",
+      "titleDe": "Seitenmenü als Liste",
+      "description": "Renders destinations as full-width rows, each with its title, a line of context and a trailing arrow, ruled between. Use it for: a long section index, a list of services, department or team pages, a support category with twenty answers, anywhere a card grid would waste the space. Prefer 'Page Card Menu' when a handful of destinations deserve their own cards, and 'Section Index' when the list runs to dozens and needs columns.",
+      "descriptionDe": "Rendert Ziele als Zeilen über die volle Breite, jeweils mit Titel, einer Zeile Kontext und einem Pfeil am Ende, mit Linien dazwischen. Einsetzen für: ein langes Bereichsverzeichnis, eine Liste von Leistungen, Abteilungsseiten, eine Supportkategorie mit zwanzig Antworten, überall dort wo ein Kartenraster Platz verschwendet. Wenn wenige Ziele eigene Karten verdienen, besser 'Seitenmenü als Karten' verwenden, bei Dutzenden Einträgen in Spalten 'Bereichsverzeichnis'.",
+      "short": "Destinations as **full-width rows** with a line of context.",
+      "shortDe": "Ziele als **Zeilen über die volle Breite** mit Kontext.",
+      "keywords": [
+        "list menu",
+        "rows",
+        "section index",
+        "services",
+        "subpages",
+        "compact",
+        "arrow list",
+        "children"
+      ],
+      "synonyms": [
+        "menu list",
+        "link list",
+        "page list",
+        "row menu",
+        "navigation list",
+        "index list",
+        "unterseitenliste",
+        "themenliste",
+        "stacked links",
+        "listed pages",
+        "directory list",
+        "vertical menu"
+      ],
+      "keywordsDe": [
+        "Listenmenü",
+        "Zeilen",
+        "Bereichsindex",
+        "Leistungen",
+        "Unterseiten",
+        "Kompakt",
+        "Pfeilliste",
+        "Untermenü"
+      ],
+      "synonymsDe": [
+        "Linkliste",
+        "Seitenliste",
+        "Navigationsliste",
+        "Zeilenmenü",
+        "Themenliste",
+        "Verzeichnisliste",
+        "Untergeordnete Seiten",
+        "Vertikales Menü",
+        "Aufzählung von Seiten",
+        "Indexliste"
+      ],
+      "astryx": [
+        "List",
+        "Item",
+        "Icon",
+        "Divider"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "rows",
+        "two-column"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "items",
+        "labelEn": "Destinations",
+        "labelDe": "Ziele",
+        "min": 2,
+        "max": 30
+      },
+      "js": null,
+      "notes": "The whole row is clickable; the arrow is decorative, and rows without a description collapse to a single line."
+    },
+    {
+      "id": "menu-with-intro",
+      "title": "Explained Menu",
+      "titleDe": "Menü mit Einleitung",
+      "description": "Renders a heading and an explanatory paragraph on one side of the band and the list of destinations on the other, swappable left to right. Use it for: a section landing page that has to say what the section is before listing it, an overview aimed at one audience, a hub with a mission line above its links. Prefer 'Page Card Menu' when the intro belongs centred above the grid, and 'Featured Entry Menu' when one destination should lead the rest.",
+      "descriptionDe": "Rendert Überschrift und erklärenden Absatz auf der einen Seite des Bandes und die Zielliste auf der anderen, seitenverkehrt schaltbar. Einsetzen für: eine Bereichsseite, die erst erklären muss, worum es geht, eine Übersicht für eine bestimmte Zielgruppe, ein Portal mit Leitsatz über den Links. Wenn die Einleitung mittig über dem Raster stehen soll, besser 'Seitenmenü als Karten' verwenden, wenn ein Ziel die anderen anführen soll 'Menü mit Aufmacher'.",
+      "short": "**Explanation on one side, links on the other**, swappable.",
+      "shortDe": "**Erklärung links, Links rechts** — seitenverkehrt schaltbar.",
+      "keywords": [
+        "intro",
+        "two column",
+        "section landing",
+        "explained",
+        "hub",
+        "context",
+        "menu",
+        "split"
+      ],
+      "synonyms": [
+        "menu with text",
+        "navigation with intro",
+        "split menu",
+        "section intro",
+        "context menu band",
+        "einleitung mit menü",
+        "explained navigation",
+        "hub intro",
+        "guided menu",
+        "overview with text",
+        "sidebar links"
+      ],
+      "keywordsDe": [
+        "Einleitung",
+        "Zweispaltig",
+        "Bereichsseite",
+        "Erklärt",
+        "Portal",
+        "Kontext",
+        "Menü",
+        "Aufteilung"
+      ],
+      "synonymsDe": [
+        "Menü mit Text",
+        "Navigation mit Einleitung",
+        "Geteiltes Menü",
+        "Bereichseinleitung",
+        "Erklärende Navigation",
+        "Portalseite",
+        "Übersicht mit Text",
+        "Einführungstext mit Links",
+        "Kontextmenüband",
+        "Themenportal",
+        "Bereichsvorstellung",
+        "Menü mit Beschreibung",
+        "Zweispaltige Navigation"
+      ],
+      "astryx": [
+        "Grid",
+        "List",
+        "Item",
+        "Text"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "bodytext",
+        "reverse",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "links-right",
+        "links-below-narrow"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "items",
+        "labelEn": "Destinations",
+        "labelDe": "Ziele",
+        "min": 2,
+        "max": 12
+      },
+      "js": null,
+      "notes": "On narrow screens the intro always comes first; the link column keeps its own scroll rhythm and never wraps into the prose."
+    },
+    {
+      "id": "menu-featured",
+      "title": "Featured Entry Menu",
+      "titleDe": "Menü mit Aufmacher",
+      "description": "Renders one destination as a large card with its own picture and summary, and the remaining ones as a compact list beside it. Use it for: a news section with a lead story, a knowledge base with a most-read article, a course overview where one module starts the path, a shop category with a highlighted range. Prefer 'Page Card Menu' when the destinations rank equally, and 'Up Next' when there is only one thing to point at.",
+      "descriptionDe": "Rendert ein Ziel als große Karte mit eigenem Bild und Zusammenfassung, die übrigen als kompakte Liste daneben. Einsetzen für: einen Nachrichtenbereich mit Aufmacher, eine Wissensdatenbank mit meistgelesenem Beitrag, eine Kursübersicht, in der ein Modul den Weg eröffnet, eine Shopkategorie mit hervorgehobener Reihe. Wenn alle Ziele gleichrangig sind, besser 'Seitenmenü als Karten' verwenden, wenn es nur ein Ziel gibt 'Weiterlesen'.",
+      "short": "**One large entry** with a picture, the rest as a list beside it.",
+      "shortDe": "**Ein großer Aufmacher**, daneben die übrigen als Liste.",
+      "keywords": [
+        "featured",
+        "lead story",
+        "spotlight",
+        "hero link",
+        "primary",
+        "highlight",
+        "editor's pick",
+        "hub"
+      ],
+      "synonyms": [
+        "featured link",
+        "top story",
+        "main entry",
+        "hero card",
+        "promoted page",
+        "aufmacher",
+        "titelgeschichte",
+        "editors choice",
+        "pinned item",
+        "showcase",
+        "leading card",
+        "most read"
+      ],
+      "keywordsDe": [
+        "Aufmacher",
+        "Titelgeschichte",
+        "Hervorgehoben",
+        "Schwerpunkt",
+        "Hauptziel",
+        "Empfehlung",
+        "Redaktionstipp",
+        "Portal"
+      ],
+      "synonymsDe": [
+        "Hervorgehobener Beitrag",
+        "Leitartikel",
+        "Angepinnt",
+        "Meistgelesen",
+        "Schaufenster",
+        "Erste Karte",
+        "Hauptkarte",
+        "Ausgewähltes Ziel",
+        "Startpunkt",
+        "Empfohlener Einstieg"
+      ],
+      "astryx": [
+        "Grid",
+        "ClickableCard",
+        "List",
+        "Text"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "image",
+        "subheader",
+        "text",
+        "cta_label",
+        "cta_link",
+        "reverse",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "feature-left",
+        "feature-wide"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "items",
+        "labelEn": "Further destinations",
+        "labelDe": "Weitere Ziele",
+        "min": 1,
+        "max": 8
+      },
+      "js": null,
+      "notes": "The featured half lives in the block's own fields, the rest in the collection — that is what keeps one entry visibly senior to the others."
+    },
+    {
+      "id": "link-grid",
+      "title": "Link Grid",
+      "titleDe": "Linkraster",
+      "description": "Renders many bare links as a dense grid of labels, with no descriptions and no cards around them. Use it for: a list of locations, an index of tags, every country or language a site serves, all the forms of one document type, the sub-brands of a group. Prefer 'Page List Menu' when each link needs a line of explanation, and 'Category Chips' when the labels are a taxonomy the reader filters by rather than pages to open.",
+      "descriptionDe": "Rendert viele reine Links als dichtes Raster von Beschriftungen, ohne Beschreibungen und ohne Karten drumherum. Einsetzen für: eine Standortliste, ein Schlagwortverzeichnis, alle Länder oder Sprachen eines Auftritts, sämtliche Varianten eines Formulars, die Marken einer Gruppe. Wenn jeder Link eine Erklärungszeile braucht, besser 'Seitenmenü als Liste' verwenden, wenn die Beschriftungen eine Systematik zum Filtern sind 'Kategorie-Chips'.",
+      "short": "Many **bare links in a dense grid**, no descriptions.",
+      "shortDe": "Viele **reine Links im dichten Raster**, ohne Beschreibung.",
+      "keywords": [
+        "links",
+        "index",
+        "locations",
+        "tags",
+        "dense",
+        "columns",
+        "list of links",
+        "directory"
+      ],
+      "synonyms": [
+        "link list",
+        "site links",
+        "footer links",
+        "city list",
+        "country list",
+        "linkliste",
+        "übersicht der links",
+        "compact links",
+        "grid of links",
+        "topic list",
+        "tag index",
+        "sitemap block",
+        "shortcut grid"
+      ],
+      "keywordsDe": [
+        "Links",
+        "Verzeichnis",
+        "Standorte",
+        "Schlagwörter",
+        "Dicht",
+        "Spalten",
+        "Linkliste",
+        "Register"
+      ],
+      "synonymsDe": [
+        "Linksammlung",
+        "Städteliste",
+        "Länderliste",
+        "Kompakte Links",
+        "Linkübersicht",
+        "Themenliste",
+        "Schlagwortverzeichnis",
+        "Fußzeilenlinks",
+        "Rasterlinks",
+        "Kurzlinks"
+      ],
+      "astryx": [
+        "Grid",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "grid",
+        "columns-flow"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "links",
+        "labelEn": "Links",
+        "labelDe": "Links",
+        "min": 3,
+        "max": 60
+      },
+      "js": null,
+      "notes": "Descriptions and icons on the children are ignored on purpose — if they matter, the element is the wrong one."
+    },
+    {
+      "id": "quick-links",
+      "title": "Quick Links Bar",
+      "titleDe": "Schnellzugriff",
+      "description": "Renders a slim single-row bar of shortcuts, each one an icon and two or three words, wrapping onto a second line only on narrow screens. Use it for: the three or four things people came to a page to do, the forms and phone numbers on a service page, jump-offs directly under a page title. Prefer 'Link Grid' when there are more than about six, and 'Anchor Bar' when the targets are sections of the page itself.",
+      "descriptionDe": "Rendert eine schmale einzeilige Leiste mit Verknüpfungen, jede aus Symbol und zwei bis drei Wörtern, die erst auf schmalen Bildschirmen umbricht. Einsetzen für: die drei, vier Dinge, wegen derer Menschen auf die Seite kommen, Formulare und Telefonnummern einer Serviceseite, Absprünge direkt unter dem Seitentitel. Bei mehr als etwa sechs Einträgen besser 'Linkraster' verwenden, wenn die Ziele Abschnitte derselben Seite sind 'Sprungleiste'.",
+      "short": "A **slim bar of shortcuts**, icon plus two or three words.",
+      "shortDe": "Eine **schmale Leiste mit Verknüpfungen**, Symbol und Wort.",
+      "keywords": [
+        "shortcuts",
+        "quick access",
+        "toolbar",
+        "service links",
+        "icons",
+        "actions",
+        "top tasks",
+        "bar"
+      ],
+      "synonyms": [
+        "quick access",
+        "action bar",
+        "utility links",
+        "shortcut bar",
+        "top tasks",
+        "schnellzugriff",
+        "servicelinks",
+        "helpful links",
+        "key actions",
+        "button row",
+        "icon links",
+        "task bar"
+      ],
+      "keywordsDe": [
+        "Verknüpfungen",
+        "Kurzwege",
+        "Leiste",
+        "Servicelinks",
+        "Symbole",
+        "Aktionen",
+        "Häufige Wege",
+        "Kurzwahl"
+      ],
+      "synonymsDe": [
+        "Aktionsleiste",
+        "Servicezeile",
+        "Kurzlinks",
+        "Wichtige Aktionen",
+        "Symbolleiste",
+        "Direktzugriff",
+        "Buttonzeile",
+        "Nützliche Links",
+        "Schnellzugriffsleiste",
+        "Erledigungen"
+      ],
+      "astryx": [
+        "Toolbar",
+        "Button",
+        "Icon",
+        "Stack"
+      ],
+      "fields": [
+        "header",
+        "align",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "buttons",
+        "plain"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "links",
+        "labelEn": "Shortcuts",
+        "labelDe": "Verknüpfungen",
+        "min": 2,
+        "max": 6
+      },
+      "js": null,
+      "notes": "Labels are truncated hard at one line; the icon is required here because the bar is read at a glance, not word by word."
+    },
+    {
+      "id": "section-index",
+      "title": "Section Index",
+      "titleDe": "Bereichsverzeichnis",
+      "description": "Renders every page of a section as an annotated index laid out in columns — the way a mega menu reads when it is unfolded onto the page itself. Use it for: an all-products page, a documentation index, the full list under a large section, a directory of services or offices. Prefer 'Link Grid' when the entries need no explanation, and 'A–Z Index' when readers arrive already knowing the name they are looking for.",
+      "descriptionDe": "Rendert alle Seiten eines Bereichs als kommentiertes Verzeichnis in Spalten — so wie ein Mega-Menü liest, wenn man es auf die Seite selbst klappt. Einsetzen für: eine Seite mit allen Produkten, ein Dokumentationsverzeichnis, die vollständige Liste unter einem großen Bereich, ein Verzeichnis von Leistungen oder Standorten. Wenn die Einträge keine Erklärung brauchen, besser 'Linkraster' verwenden, wenn Lesende den gesuchten Namen schon kennen 'A–Z-Verzeichnis'.",
+      "short": "The whole section as an **annotated index in columns**.",
+      "shortDe": "Der ganze Bereich als **kommentiertes Spaltenverzeichnis**.",
+      "keywords": [
+        "index",
+        "mega menu",
+        "all pages",
+        "columns",
+        "annotated",
+        "catalogue",
+        "overview",
+        "directory"
+      ],
+      "synonyms": [
+        "site index",
+        "full index",
+        "everything page",
+        "all products",
+        "mega nav",
+        "unfolded menu",
+        "übersicht aller seiten",
+        "verzeichnis",
+        "catalogue page",
+        "index columns",
+        "content index",
+        "browse all"
+      ],
+      "keywordsDe": [
+        "Verzeichnis",
+        "Mega-Menü",
+        "Alle Seiten",
+        "Spalten",
+        "Kommentiert",
+        "Katalog",
+        "Übersicht",
+        "Register"
+      ],
+      "synonymsDe": [
+        "Gesamtverzeichnis",
+        "Alles im Überblick",
+        "Alle Produkte",
+        "Aufgeklapptes Menü",
+        "Seitenverzeichnis",
+        "Inhaltsverzeichnis des Bereichs",
+        "Katalogseite",
+        "Vollständige Liste",
+        "Spaltenverzeichnis",
+        "Bereichsindex",
+        "Alle Einträge",
+        "Themenverzeichnis",
+        "Aufgeklappte Navigation"
+      ],
+      "astryx": [
+        "Grid",
+        "List",
+        "Item",
+        "Text"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "columns",
+        "columns-ruled"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "entries",
+        "labelEn": "Entries",
+        "labelDe": "Einträge",
+        "min": 6,
+        "max": 60
+      },
+      "js": null,
+      "notes": "Entries flow down each column before moving to the next, so alphabetical order still reads correctly at every breakpoint."
+    },
+    {
+      "id": "directory-index",
+      "title": "A–Z Index",
+      "titleDe": "A–Z-Verzeichnis",
+      "description": "Renders entries grouped under their initial letter, with a row of letters at the top that jumps to each group and greys out the letters nobody used. Use it for: a glossary, a staff or department directory, an index of place names, an alphabetical list of forms or services. Prefer 'Section Index' when readers browse by topic rather than by name, and 'Definition List' when each entry's explanation should be shown rather than linked.",
+      "descriptionDe": "Rendert Einträge nach Anfangsbuchstaben gruppiert, darüber eine Buchstabenreihe, die zu jeder Gruppe springt und ungenutzte Buchstaben ausgraut. Einsetzen für: ein Glossar, ein Mitarbeiter- oder Abteilungsverzeichnis, ein Ortsnamenregister, eine alphabetische Liste von Formularen oder Leistungen. Wenn Lesende nach Thema statt nach Namen suchen, besser 'Bereichsverzeichnis' verwenden, wenn die Erklärung direkt sichtbar sein soll 'Definitionsliste'.",
+      "short": "Entries **grouped by first letter**, with a letter bar on top.",
+      "shortDe": "Einträge **nach Anfangsbuchstaben** mit Buchstabenleiste.",
+      "keywords": [
+        "alphabetical",
+        "glossary index",
+        "directory",
+        "letters",
+        "register",
+        "lookup",
+        "az",
+        "names"
+      ],
+      "synonyms": [
+        "a to z",
+        "alphabet bar",
+        "index by letter",
+        "phone book",
+        "staff directory",
+        "stichwortverzeichnis",
+        "register",
+        "name index",
+        "lexicon",
+        "encyclopedia index",
+        "alphabetical listing",
+        "browse by letter"
+      ],
+      "keywordsDe": [
+        "Alphabetisch",
+        "Glossarregister",
+        "Verzeichnis",
+        "Buchstaben",
+        "Register",
+        "Nachschlagen",
+        "Namen",
+        "Index"
+      ],
+      "synonymsDe": [
+        "Von A bis Z",
+        "Buchstabenleiste",
+        "Stichwortverzeichnis",
+        "Namensverzeichnis",
+        "Telefonbuch",
+        "Personenverzeichnis",
+        "Lexikonregister",
+        "Alphabetische Liste",
+        "Sachregister",
+        "Suchregister"
+      ],
+      "astryx": [
+        "Grid",
+        "List",
+        "Link",
+        "OverflowList",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "letter-headings",
+        "letter-bar-sticky"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "entries",
+        "labelEn": "Entries",
+        "labelDe": "Einträge",
+        "min": 6,
+        "max": 200
+      },
+      "js": null,
+      "notes": "Grouping is derived from the first character of each child's title, so the editor never maintains the letters by hand."
+    },
+    {
+      "id": "sitemap-tree",
+      "title": "Sitemap Tree",
+      "titleDe": "Sitemap-Baum",
+      "description": "Renders the page tree below the current page as a nested, indented outline with connector lines, two or three levels deep. Use it for: a sitemap page, an overview of a large section's structure, an accessible fallback for a menu that only exists in the header, an orientation page for a complex site. Prefer 'Section Index' for a flat annotated list of the same pages, and 'Page List Menu' when only the direct children matter.",
+      "descriptionDe": "Rendert den Seitenbaum unterhalb der aktuellen Seite als verschachtelte, eingerückte Gliederung mit Verbindungslinien, zwei bis drei Ebenen tief. Einsetzen für: eine Sitemap-Seite, den Strukturüberblick eines großen Bereichs, eine barrierefreie Entsprechung zum Menü in der Kopfzeile, eine Orientierungsseite für einen komplexen Auftritt. Für eine flache kommentierte Liste derselben Seiten besser 'Bereichsverzeichnis' verwenden, wenn nur die direkten Unterseiten zählen 'Seitenmenü als Liste'.",
+      "short": "The **page tree below this page**, nested and indented.",
+      "shortDe": "Der **Seitenbaum unter dieser Seite**, verschachtelt.",
+      "keywords": [
+        "sitemap",
+        "tree",
+        "hierarchy",
+        "structure",
+        "nested",
+        "levels",
+        "site structure",
+        "outline"
+      ],
+      "synonyms": [
+        "site map",
+        "page tree",
+        "navigation tree",
+        "hierarchical menu",
+        "folder view",
+        "seitenbaum",
+        "struktur",
+        "nested menu",
+        "multi level menu",
+        "tree view",
+        "site overview",
+        "structure page"
+      ],
+      "keywordsDe": [
+        "Sitemap",
+        "Baum",
+        "Hierarchie",
+        "Struktur",
+        "Verschachtelt",
+        "Ebenen",
+        "Seitenstruktur",
+        "Gliederung"
+      ],
+      "synonymsDe": [
+        "Seitenbaum",
+        "Navigationsbaum",
+        "Strukturübersicht",
+        "Mehrstufiges Menü",
+        "Baumansicht",
+        "Inhaltsstruktur",
+        "Seitenübersicht",
+        "Verzeichnisbaum",
+        "Ebenenmenü",
+        "Orientierungsseite"
+      ],
+      "astryx": [
+        "TreeList",
+        "List",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "two-levels",
+        "three-levels"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Built from the page tree under the current page rather than a curated list, so it can never fall out of date; hidden and no-search pages are skipped."
+    },
+    {
+      "id": "sibling-nav",
+      "title": "More in This Section",
+      "titleDe": "Mehr in diesem Bereich",
+      "description": "Renders the pages that sit beside this one under the same parent, with the current page marked and left unlinked. Use it for: the foot of an article inside a series, a rail on a policy page, orientation on a deep page whose menu is not visible, moving between the chapters of a handbook. Prefer 'Previous and Next' when only the two immediate neighbours matter, and 'Page List Menu' when the list should be curated rather than derived.",
+      "descriptionDe": "Rendert die Seiten, die neben dieser unter derselben Elternseite liegen, wobei die aktuelle Seite markiert und nicht verlinkt wird. Einsetzen für: das Ende eines Artikels innerhalb einer Serie, eine Seitenleiste auf einer Richtlinienseite, Orientierung auf einer tiefen Seite ohne sichtbares Menü, den Wechsel zwischen Kapiteln eines Handbuchs. Wenn nur die beiden direkten Nachbarn zählen, besser 'Zurück und Weiter' verwenden, für eine redaktionell gepflegte Liste 'Seitenmenü als Liste'.",
+      "short": "The **pages beside this one**, with the current one marked.",
+      "shortDe": "Die **Nachbarseiten**, die aktuelle davon markiert.",
+      "keywords": [
+        "siblings",
+        "same level",
+        "section rail",
+        "you are here",
+        "series",
+        "neighbours",
+        "context menu",
+        "current page"
+      ],
+      "synonyms": [
+        "also in this section",
+        "other pages",
+        "sibling pages",
+        "section navigation",
+        "in this series",
+        "weitere seiten",
+        "nachbarseiten",
+        "related pages in section",
+        "local navigation",
+        "sub navigation",
+        "same parent"
+      ],
+      "keywordsDe": [
+        "Nachbarseiten",
+        "Gleiche Ebene",
+        "Bereichsleiste",
+        "Sie sind hier",
+        "Serie",
+        "Umgebung",
+        "Aktuelle Seite",
+        "Unternavigation"
+      ],
+      "synonymsDe": [
+        "Auch in diesem Bereich",
+        "Weitere Seiten",
+        "Geschwisterseiten",
+        "Bereichsnavigation",
+        "In dieser Reihe",
+        "Lokale Navigation",
+        "Seiten derselben Ebene",
+        "Umgebende Seiten",
+        "Bereichsmenü",
+        "Seitenumgebung",
+        "Weitere Beiträge der Reihe",
+        "Nachbarschaftsnavigation",
+        "Ebenenübersicht"
+      ],
+      "astryx": [
+        "List",
+        "Item",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "rows",
+        "rail"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Derived from the page tree, not curated; the current page is rendered with aria-current=page and no href."
+    },
+    {
+      "id": "breadcrumb-band",
+      "title": "Path Band",
+      "titleDe": "Pfadleiste",
+      "description": "Renders the trail from the site root down to the current page as a row of links, collapsing the middle behind an ellipsis when it grows past the width. Use it for: the top of a deep detail page, a step inside a long section, any page that search engines drop readers into without context. Prefer 'Back to Section' when one link upwards is enough, and 'Sitemap Tree' when the reader needs the whole structure rather than their own path.",
+      "descriptionDe": "Rendert den Weg von der Startseite bis zur aktuellen Seite als Linkzeile und faltet die Mitte hinter Auslassungspunkten zusammen, sobald sie zu breit wird. Einsetzen für: den Kopf einer tief liegenden Detailseite, eine Station in einem großen Bereich, jede Seite, auf der Suchmaschinen ohne Kontext landen lassen. Wenn ein Link nach oben genügt, besser 'Zurück zum Bereich' verwenden, wenn die gesamte Struktur gebraucht wird 'Sitemap-Baum'.",
+      "short": "The **trail from the root** to the current page.",
+      "shortDe": "Der **Pfad von der Startseite** zur aktuellen Seite.",
+      "keywords": [
+        "breadcrumbs",
+        "trail",
+        "path",
+        "rootline",
+        "you are here",
+        "hierarchy",
+        "wayfinding",
+        "crumbs"
+      ],
+      "synonyms": [
+        "breadcrumb navigation",
+        "crumb trail",
+        "navigation path",
+        "location bar",
+        "pfadnavigation",
+        "brotkrumen",
+        "ancestry",
+        "parent path",
+        "context trail",
+        "where am i",
+        "page path",
+        "hierarchy links"
+      ],
+      "keywordsDe": [
+        "Brotkrumen",
+        "Pfad",
+        "Navigationspfad",
+        "Sie sind hier",
+        "Hierarchie",
+        "Orientierung",
+        "Wurzelpfad",
+        "Spur"
+      ],
+      "synonymsDe": [
+        "Brotkrümelnavigation",
+        "Pfadnavigation",
+        "Standortanzeige",
+        "Navigationsspur",
+        "Übergeordnete Seiten",
+        "Seitenpfad",
+        "Wegmarken",
+        "Positionsanzeige",
+        "Herkunftspfad",
+        "Navigationspfad",
+        "Ebenenpfad",
+        "Verlaufspfad",
+        "Standortpfad"
+      ],
+      "astryx": [
+        "Breadcrumbs",
+        "OverflowList",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "align",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "chevrons",
+        "slashes"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Built from the rootline; emits BreadcrumbList structured data and marks the last item with aria-current=page."
+    },
+    {
+      "id": "tabbed-sections",
+      "title": "Tabbed Sections",
+      "titleDe": "Registerkarten",
+      "description": "Renders several passages of text as tabs, one panel visible at a time and the rest a single click away. Use it for: instructions that differ by operating system, a product described for two audiences, prices per region, specifications by model, the same answer for private and business customers. Prefer 'Accordion' when the panels are a list a reader works through, and 'Side-by-Side Texts' when two of them should be visible at once.",
+      "descriptionDe": "Rendert mehrere Textpassagen als Register, von denen jeweils eines sichtbar ist und der Rest einen Klick entfernt. Einsetzen für: Anleitungen je Betriebssystem, ein Produkt für zwei Zielgruppen beschrieben, Preise je Region, technische Daten je Modell, dieselbe Antwort für Privat- und Geschäftskunden. Wenn die Bereiche eine Liste zum Durcharbeiten sind, besser 'Akkordeon' verwenden, wenn zwei davon gleichzeitig sichtbar sein sollen 'Textvergleich'.",
+      "short": "Passages of text as **tabs**, one panel at a time.",
+      "shortDe": "Textpassagen als **Register**, eines nach dem anderen.",
+      "keywords": [
+        "tabs",
+        "panels",
+        "switch",
+        "variants",
+        "by platform",
+        "segmented",
+        "toggle views",
+        "sections"
+      ],
+      "synonyms": [
+        "tab bar",
+        "tabbed content",
+        "tab group",
+        "tab strip",
+        "registerkarten",
+        "reiter",
+        "switcher",
+        "toggle panels",
+        "content tabs",
+        "os tabs",
+        "audience switch",
+        "view selector"
+      ],
+      "keywordsDe": [
+        "Reiter",
+        "Bereiche",
+        "Umschalten",
+        "Varianten",
+        "Nach Plattform",
+        "Segmentiert",
+        "Ansichten",
+        "Abschnitte"
+      ],
+      "synonymsDe": [
+        "Registerleiste",
+        "Tabs",
+        "Karteireiter",
+        "Umschalter",
+        "Inhaltsreiter",
+        "Ansichtswechsel",
+        "Zielgruppenumschalter",
+        "Reitergruppe",
+        "Registernavigation",
+        "Registerkartenleiste",
+        "Inhaltsumschaltung",
+        "Auswahlreiter",
+        "Panelnavigation"
+      ],
+      "astryx": [
+        "TabList",
+        "Text",
+        "Markdown",
+        "Section"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "underline",
+        "pills"
+      ],
+      "collection": {
+        "recordType": "qa-item",
+        "identifier": "panels",
+        "labelEn": "Panels",
+        "labelDe": "Bereiche",
+        "min": 2,
+        "max": 8
+      },
+      "js": "tabs",
+      "notes": "Panels are all rendered into the page, so the text is in the source before anything binds; without JavaScript the panels simply stack with their titles as headings."
+    },
+    {
+      "id": "anchor-bar",
+      "title": "Anchor Bar",
+      "titleDe": "Sprungleiste",
+      "description": "Renders the sections of the current page as a horizontal bar of links that sticks under the header while the reader scrolls. Use it for: a long landing page with named sections, a product page whose specifications sit far down, a report in parts, a campaign page with several stops. Prefer 'Outline Rail' when there is room for a vertical rail beside the text, and 'Jump List' when the links should stay exactly where they were placed.",
+      "descriptionDe": "Rendert die Abschnitte der aktuellen Seite als waagrechte Linkleiste, die beim Scrollen unter der Kopfzeile stehen bleibt. Einsetzen für: eine lange Landingpage mit benannten Abschnitten, eine Produktseite, deren technische Daten weit unten stehen, einen Bericht in Teilen, eine Kampagnenseite mit mehreren Stationen. Wenn neben dem Text Platz für eine senkrechte Leiste ist, besser 'Inhaltsleiste' verwenden, wenn die Links an Ort und Stelle bleiben sollen 'Sprungliste'.",
+      "short": "In-page section links in a **bar that sticks** while scrolling.",
+      "shortDe": "Abschnittslinks in einer **beim Scrollen fixen Leiste**.",
+      "keywords": [
+        "anchors",
+        "sticky",
+        "in-page",
+        "jump",
+        "section bar",
+        "scroll",
+        "sub navigation",
+        "landing page"
+      ],
+      "synonyms": [
+        "anchor navigation",
+        "sticky nav",
+        "page nav",
+        "section links",
+        "sprungmarken",
+        "ankernavigation",
+        "sub nav",
+        "in page menu",
+        "scroll nav",
+        "onpage navigation",
+        "section switcher",
+        "hash links"
+      ],
+      "keywordsDe": [
+        "Sprungmarken",
+        "Fixiert",
+        "Auf der Seite",
+        "Anker",
+        "Abschnittsleiste",
+        "Scrollen",
+        "Unternavigation",
+        "Landingpage"
+      ],
+      "synonymsDe": [
+        "Ankernavigation",
+        "Klebende Navigation",
+        "Seitennavigation",
+        "Abschnittslinks",
+        "Sprungnavigation",
+        "Onpage-Menü",
+        "Fixe Leiste",
+        "Ankerleiste",
+        "Themenleiste",
+        "Sprungmarkenleiste",
+        "Abschnittsnavigation",
+        "Mitlaufende Leiste",
+        "Ankerband"
+      ],
+      "astryx": [
+        "Toolbar",
+        "SegmentedControl",
+        "Link",
+        "OverflowList"
+      ],
+      "fields": [
+        "header",
+        "align",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "sticky",
+        "static"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "anchors",
+        "labelEn": "Anchors",
+        "labelDe": "Sprungziele",
+        "min": 2,
+        "max": 8
+      },
+      "js": null,
+      "notes": "Sticks with position: sticky and scrolls sideways when it overflows; there is no scroll spy, so no entry is highlighted as active."
+    },
+    {
+      "id": "outline-rail",
+      "title": "Outline Rail",
+      "titleDe": "Inhaltsleiste",
+      "description": "Renders the page's headings as a vertical rail beside the text, sticking while the reader scrolls past it and moving above the content on narrow screens. Use it for: documentation, a long policy or statute, a handbook chapter, a research paper, anything past about two screens of reading. Prefer 'Anchor Bar' for a horizontal band under the header, and 'Article Contents' for a box that scrolls away with the text.",
+      "descriptionDe": "Rendert die Überschriften der Seite als senkrechte Leiste neben dem Text, die beim Scrollen stehen bleibt und auf schmalen Bildschirmen über den Inhalt rutscht. Einsetzen für: eine Dokumentation, eine lange Richtlinie oder ein Gesetz, ein Handbuchkapitel, eine wissenschaftliche Arbeit, alles jenseits von etwa zwei Bildschirmseiten. Für ein waagrechtes Band unter der Kopfzeile besser 'Sprungleiste' verwenden, für einen mitscrollenden Kasten im Text 'Inhaltsübersicht'.",
+      "short": "A **vertical contents rail** beside the text that sticks.",
+      "shortDe": "Eine **senkrechte Inhaltsleiste** neben dem Text.",
+      "keywords": [
+        "outline",
+        "toc",
+        "sidebar",
+        "sticky",
+        "headings",
+        "documentation",
+        "on this page",
+        "rail"
+      ],
+      "synonyms": [
+        "table of contents sidebar",
+        "scroll spy",
+        "doc nav",
+        "side outline",
+        "inhaltsverzeichnis seitlich",
+        "sticky toc",
+        "page outline",
+        "heading navigation",
+        "right rail",
+        "aside navigation",
+        "chapter rail"
+      ],
+      "keywordsDe": [
+        "Gliederung",
+        "Inhaltsverzeichnis",
+        "Seitenleiste",
+        "Fixiert",
+        "Überschriften",
+        "Dokumentation",
+        "Auf dieser Seite",
+        "Leiste"
+      ],
+      "synonymsDe": [
+        "Seitliches Inhaltsverzeichnis",
+        "Gliederungsleiste",
+        "Dokumentationsnavigation",
+        "Mitlaufende Übersicht",
+        "Überschriftennavigation",
+        "Randleiste",
+        "Kapitelleiste",
+        "Navigationsschiene",
+        "Sticky-Inhaltsverzeichnis",
+        "Seitliche Gliederung",
+        "Dokumentleiste",
+        "Überschriftenleiste",
+        "Inhaltsschiene"
+      ],
+      "astryx": [
+        "Outline",
+        "List",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "left",
+        "right"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "entries",
+        "labelEn": "Headings",
+        "labelDe": "Überschriften",
+        "min": 3,
+        "max": 20
+      },
+      "js": null,
+      "notes": "Uses position: sticky inside a grid column; on small screens it collapses to a plain list above the first section rather than a floating layer."
+    },
+    {
+      "id": "jump-list",
+      "title": "Jump List",
+      "titleDe": "Sprungliste",
+      "description": "Renders a short inline run of links to points further down the page, sitting exactly where it is placed and scrolling away with the text around it. Use it for: a mid-article skip to the answer, the three parts of a form named above it, jumps into a long table, a shortcut past a legal preamble. Prefer 'Article Contents' for a boxed list of every section, and 'Anchor Bar' when the links should follow the reader down the page.",
+      "descriptionDe": "Rendert eine kurze Linkzeile zu Stellen weiter unten auf der Seite, genau dort wo sie steht, und scrollt mit dem Text darum herum weg. Einsetzen für: den Sprung zur Antwort mitten im Artikel, die drei Teile eines Formulars vorab benannt, Einstiege in eine lange Tabelle, eine Abkürzung über die rechtliche Präambel hinweg. Für einen gerahmten Überblick über alle Abschnitte besser 'Inhaltsübersicht' verwenden, wenn die Links mitwandern sollen 'Sprungleiste'.",
+      "short": "A short **inline run of links** to points further down.",
+      "shortDe": "Eine kurze **Linkzeile** zu Stellen weiter unten.",
+      "keywords": [
+        "jump",
+        "skip",
+        "anchors",
+        "inline",
+        "shortcuts",
+        "on this page",
+        "hash links",
+        "quick jump"
+      ],
+      "synonyms": [
+        "skip links",
+        "jump to",
+        "go to section",
+        "inline anchors",
+        "sprungmarken",
+        "direktlinks",
+        "shortcut links",
+        "jump navigation",
+        "quick nav",
+        "in-text links",
+        "section shortcuts",
+        "skip ahead"
+      ],
+      "keywordsDe": [
+        "Sprung",
+        "Überspringen",
+        "Anker",
+        "Inline",
+        "Kurzwege",
+        "Auf dieser Seite",
+        "Direktlinks",
+        "Schnellsprung"
+      ],
+      "synonymsDe": [
+        "Sprunglinks",
+        "Direkt zu",
+        "Zum Abschnitt",
+        "Textinterne Anker",
+        "Sprungnavigation",
+        "Abkürzungen",
+        "Schnellnavigation",
+        "Weiter unten",
+        "Sprungmarkenzeile",
+        "Sprungziele",
+        "Zum Abschnitt springen",
+        "Ankerzeile",
+        "Inline-Sprungmarken"
+      ],
+      "astryx": [
+        "Stack",
+        "Link",
+        "Text",
+        "Token"
+      ],
+      "fields": [
+        "header",
+        "align",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "inline",
+        "bulleted"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "targets",
+        "labelEn": "Targets",
+        "labelDe": "Sprungziele",
+        "min": 2,
+        "max": 10
+      },
+      "js": null,
+      "notes": "Deliberately unstyled beyond link colour and separators: it should read as part of the prose, not as a widget."
+    },
+    {
+      "id": "category-chips",
+      "title": "Category Chips",
+      "titleDe": "Kategorie-Chips",
+      "description": "Renders a taxonomy as a wrapping row of pill-shaped links, with the current one marked as selected. Use it for: filtering a blog by topic, browsing tags, choosing a product category, jumping between the branches of a knowledge base, switching between event types. Prefer 'Link Grid' when the labels are destinations rather than a taxonomy, and 'Tabbed Sections' when choosing one should change what is already on the page.",
+      "descriptionDe": "Rendert eine Systematik als umbrechende Reihe pillenförmiger Links, wobei die aktuelle als ausgewählt markiert ist. Einsetzen für: das Filtern eines Blogs nach Thema, das Stöbern in Schlagwörtern, die Wahl einer Produktkategorie, den Wechsel zwischen Ästen einer Wissensdatenbank, die Auswahl einer Veranstaltungsart. Wenn die Beschriftungen Ziele statt einer Systematik sind, besser 'Linkraster' verwenden, wenn die Auswahl den Seiteninhalt ändern soll 'Registerkarten'.",
+      "short": "A taxonomy as a **wrapping row of pills**, current one marked.",
+      "shortDe": "Eine Systematik als **Reihe von Pillen**, aktuelle markiert.",
+      "keywords": [
+        "tags",
+        "chips",
+        "categories",
+        "filter",
+        "pills",
+        "taxonomy",
+        "topics",
+        "labels"
+      ],
+      "synonyms": [
+        "tag list",
+        "filter chips",
+        "category pills",
+        "topic filter",
+        "facets",
+        "schlagwörter",
+        "kategorien",
+        "tag cloud",
+        "badges",
+        "toggle filters",
+        "rubrics",
+        "keyword links",
+        "browse by topic"
+      ],
+      "keywordsDe": [
+        "Schlagwörter",
+        "Chips",
+        "Kategorien",
+        "Filter",
+        "Pillen",
+        "Systematik",
+        "Themen",
+        "Rubriken"
+      ],
+      "synonymsDe": [
+        "Schlagwortliste",
+        "Filterchips",
+        "Kategoriepillen",
+        "Themenfilter",
+        "Facetten",
+        "Stichwortwolke",
+        "Kennzeichnungen",
+        "Rubrikenauswahl",
+        "Themenauswahl",
+        "Tags"
+      ],
+      "astryx": [
+        "Token",
+        "Badge",
+        "Stack",
+        "Link"
+      ],
+      "fields": [
+        "header",
+        "align",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "pills",
+        "outlined"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "chips",
+        "labelEn": "Categories",
+        "labelDe": "Kategorien",
+        "min": 2,
+        "max": 30
+      },
+      "js": null,
+      "notes": "The child whose link resolves to the current page is rendered as selected with aria-current=page; the row wraps rather than scrolling."
+    },
+    {
+      "id": "pagination",
+      "title": "Series Pagination",
+      "titleDe": "Seitennummerierung",
+      "description": "Renders a numbered pager for a hand-built series, with the current part marked and arrows to the one before and the one after. Use it for: a long article split across pages, a multi-part guide, a report published in instalments, an archive laid out page by page, a photo essay in chapters. Prefer 'Previous and Next' when the whole series need not be visible, and 'Chapter List' when readers should see what each part is about.",
+      "descriptionDe": "Rendert eine nummerierte Blätterleiste für eine redaktionell gepflegte Serie, mit markiertem aktuellem Teil und Pfeilen zum vorigen und nächsten. Einsetzen für: einen langen Artikel über mehrere Seiten, einen mehrteiligen Ratgeber, einen in Folgen veröffentlichten Bericht, ein seitenweise angelegtes Archiv, eine Fotostrecke in Kapiteln. Wenn die ganze Serie nicht sichtbar sein muss, besser 'Zurück und Weiter' verwenden, wenn der Inhalt jedes Teils erkennbar sein soll 'Kapitelübersicht'.",
+      "short": "A **numbered pager** for a series, current part marked.",
+      "shortDe": "Eine **nummerierte Blätterleiste**, aktueller Teil markiert.",
+      "keywords": [
+        "pager",
+        "pages",
+        "series",
+        "parts",
+        "numbers",
+        "next page",
+        "instalments",
+        "paging"
+      ],
+      "synonyms": [
+        "pagination bar",
+        "page numbers",
+        "paginator",
+        "multi page article",
+        "seitenzahlen",
+        "blättern",
+        "page control",
+        "numbered links",
+        "page selector",
+        "continue reading",
+        "part 2 of 7",
+        "page navigation"
+      ],
+      "keywordsDe": [
+        "Blätterleiste",
+        "Seiten",
+        "Serie",
+        "Teile",
+        "Nummern",
+        "Nächste Seite",
+        "Folgen",
+        "Paginierung"
+      ],
+      "synonymsDe": [
+        "Seitenzahlen",
+        "Blättern",
+        "Seitenwahl",
+        "Mehrseitiger Artikel",
+        "Nummerierte Links",
+        "Seitensteuerung",
+        "Weiterblättern",
+        "Teil 2 von 7",
+        "Seitennavigation",
+        "Fortsetzung"
+      ],
+      "astryx": [
+        "Pagination",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "note",
+        "align",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "numbers",
+        "compact"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "pages",
+        "labelEn": "Parts",
+        "labelDe": "Teile",
+        "min": 2,
+        "max": 30
+      },
+      "js": null,
+      "notes": "The child whose link resolves to the current page is rendered without a link and marked aria-current=page; the arrows are derived from its position."
+    },
+    {
+      "id": "prev-next",
+      "title": "Previous and Next",
+      "titleDe": "Zurück und Weiter",
+      "description": "Renders two facing links at the foot of a page, one back to what came before and one on to what comes next, each showing its own title. Use it for: the end of a chapter, a step in a documented process, an article inside a series, an entry in a catalogue, a gallery item. Prefer 'Up Next' when there is only a forward step and it deserves a card of its own, and 'Series Pagination' when the reader should see the whole sequence at once.",
+      "descriptionDe": "Rendert zwei gegenüberliegende Links am Seitenende, einen zurück zum Vorherigen und einen weiter zum Nächsten, jeweils mit eigenem Titel. Einsetzen für: das Ende eines Kapitels, eine Station in einem dokumentierten Ablauf, einen Artikel innerhalb einer Serie, einen Eintrag in einem Katalog, ein Galeriemotiv. Wenn es nur einen Schritt nach vorne gibt und dieser eine eigene Karte verdient, besser 'Weiterlesen' verwenden, wenn die gesamte Abfolge sichtbar sein soll 'Seitennummerierung'.",
+      "short": "Two facing links: **back to the last, on to the next**.",
+      "shortDe": "Zwei Links: **zurück zum letzten, weiter zum nächsten**.",
+      "keywords": [
+        "previous",
+        "next",
+        "pager",
+        "series",
+        "chapter",
+        "neighbours",
+        "back forward",
+        "sequence"
+      ],
+      "synonyms": [
+        "prev next",
+        "older newer",
+        "back and forward",
+        "post navigation",
+        "vor und zurück",
+        "vorheriger beitrag",
+        "next article",
+        "sequential navigation",
+        "step links",
+        "continue",
+        "adjacent pages",
+        "paging links"
+      ],
+      "keywordsDe": [
+        "Zurück",
+        "Weiter",
+        "Blättern",
+        "Serie",
+        "Kapitel",
+        "Nachbarn",
+        "Vor und zurück",
+        "Abfolge"
+      ],
+      "synonymsDe": [
+        "Vorheriger Beitrag",
+        "Nächster Beitrag",
+        "Älter Neuer",
+        "Beitragsnavigation",
+        "Sequenzielle Navigation",
+        "Schrittlinks",
+        "Fortsetzen",
+        "Benachbarte Seiten",
+        "Blätterlinks",
+        "Vor und Zurück",
+        "Nachbarbeiträge",
+        "Weiterblättern",
+        "Serienlinks"
+      ],
+      "astryx": [
+        "Grid",
+        "ClickableCard",
+        "Icon",
+        "Text"
+      ],
+      "fields": [
+        "cta_label",
+        "cta_link",
+        "secondary_label",
+        "secondary_link",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "cards",
+        "plain"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "cta_* is the next page and gets the emphasis, secondary_* is the previous one; either half may be empty at the ends of a series and the other then spans the band."
+    },
+    {
+      "id": "up-next",
+      "title": "Up Next",
+      "titleDe": "Weiterlesen",
+      "description": "Renders a single onward pointer as one wide card: a small label, the title of what comes next, a sentence of context and a picture. Use it for: the end of a blog post, the last step of a guide pointing at what to do now, a landing page handing off to the next stage, the close of a case study. Prefer 'Previous and Next' when the reader may also want to go back, and 'Related Links' for several suggestions of equal weight.",
+      "descriptionDe": "Rendert einen einzelnen Hinweis auf das Nächste als breite Karte: eine kleine Beschriftung, den Titel des Folgenden, einen Satz Kontext und ein Bild. Einsetzen für: das Ende eines Blogbeitrags, den letzten Schritt eines Ratgebers mit Hinweis auf das weitere Vorgehen, eine Landingpage, die an die nächste Stufe übergibt, den Abschluss einer Fallstudie. Wenn auch der Weg zurück offenstehen soll, besser 'Zurück und Weiter' verwenden, für mehrere gleichwertige Vorschläge 'Verwandte Inhalte'.",
+      "short": "**One wide card** pointing at the single next thing.",
+      "shortDe": "**Eine breite Karte** mit dem einen nächsten Schritt.",
+      "keywords": [
+        "next",
+        "continue",
+        "read next",
+        "handoff",
+        "onward",
+        "follow up",
+        "next step",
+        "recommendation"
+      ],
+      "synonyms": [
+        "up next",
+        "read this next",
+        "continue reading",
+        "keep going",
+        "what's next",
+        "weiterlesen",
+        "nächster schritt",
+        "next article",
+        "recommended next",
+        "onward link",
+        "follow on",
+        "next chapter"
+      ],
+      "keywordsDe": [
+        "Weiter",
+        "Fortsetzen",
+        "Als Nächstes",
+        "Übergabe",
+        "Nächster Schritt",
+        "Empfehlung",
+        "Anschluss",
+        "Folgebeitrag"
+      ],
+      "synonymsDe": [
+        "Das könnte folgen",
+        "Weiter geht es",
+        "Nächster Beitrag",
+        "Empfohlen als Nächstes",
+        "Anschlussartikel",
+        "Wie es weitergeht",
+        "Nächstes Kapitel",
+        "Weiterführender Beitrag",
+        "Weiterlesen-Karte",
+        "Nächster Schritt",
+        "Anschlussempfehlung",
+        "Übergabekarte",
+        "Folgeinhalt"
+      ],
+      "astryx": [
+        "ClickableCard",
+        "Text",
+        "Icon",
+        "AspectRatio"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "text",
+        "image",
+        "cta_label",
+        "cta_link",
+        "tone",
+        "width"
+      ],
+      "variants": [
+        "image-right",
+        "no-image"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "The whole card is one link; eyebrow carries the label that names the relationship, such as 'Next in this series'."
+    },
+    {
+      "id": "step-nav",
+      "title": "Step Navigation",
+      "titleDe": "Schrittnavigation",
+      "description": "Renders the stages of a multi-page process as numbered links, with the stages behind the reader marked as done and the current one held in place. Use it for: an application spread over several pages, a guided setup, a course working through modules, a sequence of information pages before a form. Prefer 'Numbered Steps' when every step is on this one page, and 'Series Pagination' when the parts have no order that has to be completed.",
+      "descriptionDe": "Rendert die Stationen eines mehrseitigen Ablaufs als nummerierte Links, wobei zurückliegende Stationen als erledigt markiert sind und die aktuelle festgehalten wird. Einsetzen für: einen Antrag über mehrere Seiten, eine geführte Einrichtung, einen Kurs mit aufeinander folgenden Modulen, eine Folge von Informationsseiten vor einem Formular. Wenn alle Schritte auf dieser einen Seite stehen, besser 'Schritt für Schritt' verwenden, wenn die Teile keine verbindliche Reihenfolge haben 'Seitennummerierung'.",
+      "short": "Stages of a **multi-page process**, done ones marked.",
+      "shortDe": "Stationen eines **mehrseitigen Ablaufs**, erledigte markiert.",
+      "keywords": [
+        "stepper",
+        "progress",
+        "wizard",
+        "stages",
+        "process",
+        "checkout",
+        "guided",
+        "multi-page"
+      ],
+      "synonyms": [
+        "step indicator",
+        "progress tracker",
+        "wizard nav",
+        "form steps",
+        "application steps",
+        "fortschrittsanzeige",
+        "schrittanzeige",
+        "onboarding steps",
+        "journey",
+        "milestone nav",
+        "stage bar",
+        "guided flow"
+      ],
+      "keywordsDe": [
+        "Schrittanzeige",
+        "Fortschritt",
+        "Assistent",
+        "Stationen",
+        "Ablauf",
+        "Kasse",
+        "Geführt",
+        "Mehrseitig"
+      ],
+      "synonymsDe": [
+        "Fortschrittsanzeige",
+        "Prozessleiste",
+        "Antragsschritte",
+        "Formularschritte",
+        "Einrichtungsassistent",
+        "Etappenanzeige",
+        "Wegstrecke",
+        "Schrittfolge",
+        "Geführter Ablauf",
+        "Schrittleiste",
+        "Prozessnavigation",
+        "Antragsverlauf",
+        "Kursfortschritt"
+      ],
+      "astryx": [
+        "Stack",
+        "Item",
+        "Badge",
+        "Link",
+        "Divider"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "horizontal",
+        "vertical"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "steps",
+        "labelEn": "Steps",
+        "labelDe": "Schritte",
+        "min": 2,
+        "max": 10
+      },
+      "js": null,
+      "notes": "The current step is the child whose link resolves to this page; everything before it is marked complete, everything after it is still a plain link."
+    },
+    {
+      "id": "chapter-list",
+      "title": "Chapter List",
+      "titleDe": "Kapitelübersicht",
+      "description": "Renders the parts of a long work as a numbered contents list spanning several pages, each entry with its number, title and a line about what it covers. Use it for: the front page of a handbook, a course syllabus, a report's contents, a guide published chapter by chapter, a documentation landing page. Prefer 'Article Contents' when the sections all live on the current page, and 'Step Navigation' when the parts have to be worked through in order.",
+      "descriptionDe": "Rendert die Teile eines längeren Werks als nummerierte Inhaltsliste über mehrere Seiten hinweg, jeder Eintrag mit Nummer, Titel und einer Zeile zum Inhalt. Einsetzen für: die Titelseite eines Handbuchs, ein Kurscurriculum, das Inhaltsverzeichnis eines Berichts, einen kapitelweise veröffentlichten Ratgeber, die Einstiegsseite einer Dokumentation. Wenn alle Abschnitte auf der aktuellen Seite liegen, besser 'Inhaltsübersicht' verwenden, wenn die Teile der Reihe nach abzuarbeiten sind 'Schrittnavigation'.",
+      "short": "The **numbered chapters** of a long work, across pages.",
+      "shortDe": "Die **nummerierten Kapitel** eines längeren Werks.",
+      "keywords": [
+        "chapters",
+        "contents",
+        "handbook",
+        "curriculum",
+        "modules",
+        "numbered",
+        "guide",
+        "syllabus"
+      ],
+      "synonyms": [
+        "table of contents",
+        "book contents",
+        "course outline",
+        "module list",
+        "kapitelverzeichnis",
+        "lehrplan",
+        "part list",
+        "series contents",
+        "documentation index",
+        "study plan",
+        "chapter overview",
+        "sections across pages"
+      ],
+      "keywordsDe": [
+        "Kapitel",
+        "Inhalt",
+        "Handbuch",
+        "Lehrplan",
+        "Module",
+        "Nummeriert",
+        "Ratgeber",
+        "Curriculum"
+      ],
+      "synonymsDe": [
+        "Kapitelverzeichnis",
+        "Buchinhalt",
+        "Kursübersicht",
+        "Modulliste",
+        "Teileliste",
+        "Serienübersicht",
+        "Dokumentationsverzeichnis",
+        "Studienplan",
+        "Kapitelliste",
+        "Gliederung des Werks"
+      ],
+      "astryx": [
+        "List",
+        "Item",
+        "Text",
+        "Divider"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "numbered",
+        "lettered"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "chapters",
+        "labelEn": "Chapters",
+        "labelDe": "Kapitel",
+        "min": 2,
+        "max": 30
+      },
+      "js": null,
+      "notes": "Numbers come from the position in the list, so inserting a chapter renumbers the rest; the icon slot is ignored."
+    },
+    {
+      "id": "related-links",
+      "title": "Related Links",
+      "titleDe": "Verwandte Inhalte",
+      "description": "Renders a short set of further pages worth reading, each with its title and a line of context, side by side. Use it for: the foot of an article, a support answer pointing at neighbouring answers, a product page linking to its case studies, a topic page gathering its background pieces. Prefer 'Up Next' when one suggestion should dominate the others, and 'External Resources' when the links leave the site.",
+      "descriptionDe": "Rendert eine kurze Auswahl weiterführender Seiten, jede mit Titel und einer Zeile Kontext, nebeneinander gestellt. Einsetzen für: das Ende eines Artikels, eine Supportantwort mit Verweis auf benachbarte Antworten, eine Produktseite mit ihren Fallstudien, eine Themenseite, die ihre Hintergrundbeiträge bündelt. Wenn ein Vorschlag die anderen überstrahlen soll, besser 'Weiterlesen' verwenden, wenn die Links die Website verlassen 'Externe Quellen'.",
+      "short": "A few **further pages worth reading**, with context lines.",
+      "shortDe": "Ein paar **weiterführende Seiten** mit Kontextzeile.",
+      "keywords": [
+        "related",
+        "see also",
+        "further reading",
+        "more",
+        "recommended",
+        "cross links",
+        "similar",
+        "suggestions"
+      ],
+      "synonyms": [
+        "you might also like",
+        "related articles",
+        "read more",
+        "similar pages",
+        "auch interessant",
+        "weiterführende links",
+        "related content",
+        "recommendations",
+        "more on this topic",
+        "see also list",
+        "cross references"
+      ],
+      "keywordsDe": [
+        "Verwandt",
+        "Siehe auch",
+        "Weiterführend",
+        "Mehr dazu",
+        "Empfohlen",
+        "Querverweise",
+        "Ähnlich",
+        "Vorschläge"
+      ],
+      "synonymsDe": [
+        "Das könnte Sie interessieren",
+        "Ähnliche Beiträge",
+        "Mehr zum Thema",
+        "Weitere Artikel",
+        "Auch interessant",
+        "Verwandte Seiten",
+        "Empfehlungen",
+        "Querverweise",
+        "Weiterführende Inhalte",
+        "Verwandte Beiträge",
+        "Themenverwandtes",
+        "Ergänzende Inhalte",
+        "Lesetipps"
+      ],
+      "astryx": [
+        "Grid",
+        "Card",
+        "Item",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "cards",
+        "rows"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "links",
+        "labelEn": "Links",
+        "labelDe": "Links",
+        "min": 2,
+        "max": 8
+      },
+      "js": null,
+      "notes": "Deliberately capped at eight: a related list longer than that is a section index wearing the wrong element."
+    },
+    {
+      "id": "resource-links",
+      "title": "External Resources",
+      "titleDe": "Externe Quellen",
+      "description": "Renders a reading list of links that leave the site, each showing its title, the source it comes from and a marker that says the link goes elsewhere. Use it for: further reading under a research piece, the standards and legislation a page refers to, partner and association sites, tools you recommend, official registers. Prefer 'Related Links' for pages on this site, and 'Footnotes' when the sources back up specific claims in the text.",
+      "descriptionDe": "Rendert eine Leseliste von Links, die die Website verlassen, jeweils mit Titel, Herkunft und einem Hinweis darauf, dass der Link nach außen führt. Einsetzen für: weiterführende Literatur unter einem Fachbeitrag, Normen und Rechtsvorschriften, auf die eine Seite verweist, Partner- und Verbandsseiten, empfohlene Werkzeuge, amtliche Register. Für Seiten dieser Website besser 'Verwandte Inhalte' verwenden, wenn die Quellen konkrete Aussagen im Text belegen 'Fußnoten'.",
+      "short": "A reading list of **links that leave the site**, with sources.",
+      "shortDe": "Eine Leseliste **externer Links** samt Herkunft.",
+      "keywords": [
+        "external",
+        "resources",
+        "further reading",
+        "sources",
+        "outbound",
+        "partners",
+        "standards",
+        "links out"
+      ],
+      "synonyms": [
+        "useful links",
+        "link collection",
+        "bibliography",
+        "reference list",
+        "weiterführende links",
+        "externe links",
+        "recommended reading",
+        "third party",
+        "outbound links",
+        "official sources",
+        "link roundup",
+        "webliography"
+      ],
+      "keywordsDe": [
+        "Extern",
+        "Quellen",
+        "Weiterführend",
+        "Herkunft",
+        "Ausgehend",
+        "Partner",
+        "Normen",
+        "Linkliste"
+      ],
+      "synonymsDe": [
+        "Nützliche Links",
+        "Linksammlung",
+        "Literaturhinweise",
+        "Externe Links",
+        "Empfohlene Lektüre",
+        "Fremde Websites",
+        "Amtliche Quellen",
+        "Verweise nach außen",
+        "Quellenverzeichnis",
+        "Externe Verweise",
+        "Weiterführende Quellen",
+        "Fremdlinks",
+        "Fachliteratur"
+      ],
+      "astryx": [
+        "List",
+        "Item",
+        "Link",
+        "Citation",
+        "Icon"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "note",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "rows",
+        "compact"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "links",
+        "labelEn": "Resources",
+        "labelDe": "Quellen",
+        "min": 2,
+        "max": 20
+      },
+      "js": null,
+      "notes": "External targets get rel=noopener and a visible out-of-site marker; the child's description doubles as the name of the source."
+    },
+    {
+      "id": "back-to-parent",
+      "title": "Back to Section",
+      "titleDe": "Zurück zum Bereich",
+      "description": "Renders one slim band with a back arrow and the title of the page above this one, nothing else. Use it for: the top of a detail page inside a long list, the confirmation page after a form, a deep page whose menu is hidden on small screens, a printed-view page that needs a way home. Prefer 'Path Band' when the reader needs the full trail rather than a single step, and 'Previous and Next' for movement between siblings.",
+      "descriptionDe": "Rendert ein schmales Band mit Rückwärtspfeil und dem Titel der übergeordneten Seite, sonst nichts. Einsetzen für: den Kopf einer Detailseite innerhalb einer langen Liste, die Bestätigungsseite nach einem Formular, eine tief liegende Seite, deren Menü auf kleinen Bildschirmen verborgen ist, eine Druckansicht, die einen Rückweg braucht. Wenn der vollständige Pfad gebraucht wird, besser 'Pfadleiste' verwenden, für die Bewegung zwischen Nachbarseiten 'Zurück und Weiter'.",
+      "short": "A slim band: **back arrow and the parent page's title**.",
+      "shortDe": "Ein schmales Band: **Pfeil und Titel der Elternseite**.",
+      "keywords": [
+        "back",
+        "parent",
+        "return",
+        "up one level",
+        "overview",
+        "escape",
+        "detail page",
+        "arrow"
+      ],
+      "synonyms": [
+        "back link",
+        "return to overview",
+        "go back",
+        "up a level",
+        "zurück zur übersicht",
+        "back to list",
+        "parent page",
+        "close detail",
+        "leave detail view",
+        "back button",
+        "one level up"
+      ],
+      "keywordsDe": [
+        "Zurück",
+        "Elternseite",
+        "Rückweg",
+        "Eine Ebene höher",
+        "Übersicht",
+        "Detailseite",
+        "Pfeil",
+        "Ausstieg"
+      ],
+      "synonymsDe": [
+        "Zurück zur Übersicht",
+        "Zurück zur Liste",
+        "Übergeordnete Seite",
+        "Zurück-Link",
+        "Eine Ebene zurück",
+        "Detailansicht verlassen",
+        "Zurück zum Überblick",
+        "Rücksprung",
+        "Zurück nach oben im Menü",
+        "Rückkehr zur Übersicht",
+        "Elternseite aufrufen",
+        "Zurück zur Rubrik",
+        "Ausstiegslink"
+      ],
+      "astryx": [
+        "Link",
+        "Icon",
+        "Stack",
+        "Toolbar"
+      ],
+      "fields": [
+        "cta_label",
+        "cta_link",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "plain",
+        "boxed"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Falls back to the parent page from the rootline when cta_link is left empty, so the element still works on a page that gets moved."
+    },
+    {
+      "id": "nav-carousel",
+      "title": "Scrolling Link Row",
+      "titleDe": "Scrollende Linkreihe",
+      "description": "Renders many destinations as a single row of cards that scrolls sideways, with arrows on wide screens and a swipe on touch. Use it for: a long list of categories under a shop-style page, the other courses in a catalogue, a row of location pages, related topics where a grid would push the rest of the page too far down. Prefer 'Page Card Menu' when the whole set should be visible at once, and 'Link Grid' when the labels are short enough to wrap into a grid.",
+      "descriptionDe": "Rendert viele Ziele als eine Kartenreihe, die seitlich scrollt, auf breiten Bildschirmen mit Pfeilen und am Touchscreen per Wischgeste. Einsetzen für: eine lange Kategorienliste unter einer Shopseite, die übrigen Kurse eines Katalogs, eine Reihe von Standortseiten, verwandte Themen, bei denen ein Raster den Rest der Seite zu weit nach unten drücken würde. Wenn der ganze Satz auf einen Blick sichtbar sein soll, besser 'Seitenmenü als Karten' verwenden, bei kurzen Beschriftungen 'Linkraster'.",
+      "short": "Destinations in a **row that scrolls sideways**.",
+      "shortDe": "Ziele in einer **seitlich scrollenden Reihe**.",
+      "keywords": [
+        "carousel",
+        "scroller",
+        "sideways",
+        "swipe",
+        "cards",
+        "filmstrip",
+        "overflow row",
+        "categories"
+      ],
+      "synonyms": [
+        "horizontal scroll",
+        "slider",
+        "scroll snap",
+        "card row",
+        "swipe row",
+        "karussell",
+        "kachelreihe",
+        "shelf",
+        "rail",
+        "browse sideways",
+        "scrolling shelf",
+        "content rail"
+      ],
+      "keywordsDe": [
+        "Karussell",
+        "Scroller",
+        "Seitlich",
+        "Wischen",
+        "Karten",
+        "Bildstreifen",
+        "Überlaufreihe",
+        "Kategorien"
+      ],
+      "synonymsDe": [
+        "Horizontales Scrollen",
+        "Slider",
+        "Kartenreihe",
+        "Wischreihe",
+        "Kachelreihe",
+        "Regal",
+        "Schiene",
+        "Seitliches Blättern",
+        "Scrollreihe",
+        "Scrollbare Kartenreihe",
+        "Themenkarussell",
+        "Wischbare Navigation",
+        "Kartenschiene"
+      ],
+      "astryx": [
+        "Carousel",
+        "ClickableCard",
+        "IconButton",
+        "Text"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "cards",
+        "compact"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "items",
+        "labelEn": "Destinations",
+        "labelDe": "Ziele",
+        "min": 3,
+        "max": 20
+      },
+      "js": "carousel",
+      "notes": "The track is a scroll-snap row that already works with keyboard and touch alone; the script only adds the arrow buttons and hides them when there is nothing left to scroll."
+    }
+  ]
+}

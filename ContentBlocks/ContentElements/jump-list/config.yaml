@@ -1,0 +1,61 @@
+name: desiderio-grande/jump-list
+typeName: desiderio_grande_jumplist
+title: 'Jump List'
+description: 'Renders a short inline run of links to points further down the page, sitting exactly where it is placed and scrolling away with the text around it. Use it for: a mid-article skip to the answer, the three parts of a form named above it, jumps into a long table, a shortcut past a legal preamble. Prefer ''Article Contents'' for a boxed list of every section, and ''Anchor Bar'' when the links should follow the reader down the page.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: targets
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Targets'
+    minitems: 2
+    maxitems: 10

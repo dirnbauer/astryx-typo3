@@ -1,0 +1,77 @@
+name: desiderio-grande/conversion-cta-inline
+typeName: desiderio_grande_conversionctainline
+title: 'Inline CTA Strip'
+description: 'Renders a single slim row — an icon, one line of text, one button — meant to sit inside running content without stopping it. Use it for: a mid-article prompt, a nudge between two documentation sections, a reminder above a long form, a rail in a footer, a related-offer line. Prefer ''Closing CTA Band'' when the call deserves the full height of a section, and ''Sticky Bottom CTA'' when it should follow the reader down the page.'
+group: conversion
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'icon'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Icon'
+    itemsProcConfig:
+      itemsProcFunc: Webconsulting\Desiderio\DataHandling\IconItemsProcessor
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

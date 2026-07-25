@@ -1,0 +1,93 @@
+name: desiderio-grande/endorsement-single
+typeName: desiderio_grande_endorsementsingle
+title: 'Endorsement'
+description: 'Renders a statement from a named individual whose standing is the point, with a small portrait, their credentials and an optional marker such as the body they chair. Use it for: a word from an industry figure, a scientific advisor backing a claim, a jury chair explaining an award. Prefer ''Single Testimonial'' when the speaker is an ordinary satisfied customer, since an endorsement leans on who is speaking rather than on their experience of using the product.'
+group: social-proof
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'quote_text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Quote text'
+  -
+    identifier: 'author'
+    type: 'Textarea'
+    rows: 1
+    label: 'Author'
+  -
+    identifier: 'role'
+    type: 'Textarea'
+    rows: 1
+    label: 'Role'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'badge_text'
+    type: 'Textarea'
+    rows: 1
+    label: 'Badge text'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

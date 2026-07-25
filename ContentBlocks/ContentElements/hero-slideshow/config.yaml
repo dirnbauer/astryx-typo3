@@ -1,0 +1,89 @@
+name: desiderio-grande/hero-slideshow
+typeName: desiderio_grande_heroslideshow
+title: 'Rotating Backdrop Hero'
+description: 'Renders one fixed set of copy over a series of backdrop images that cross-fade on a timer, with dots to step through them by hand. Use it for: seasonal campaigns, destination and venue pages, portfolio openings and gallery sites where several pictures carry equal weight. Prefer ''Full-Bleed Image Hero'' when one picture is enough — it needs no script at all — and ''Split Media Hero'' when the images belong beside the copy rather than behind it.'
+group: hero
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'images'
+    type: 'File'
+    maxitems: 12
+    allowed: 'common-image-types'
+    label: 'Images'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'

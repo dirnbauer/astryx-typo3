@@ -1,0 +1,62 @@
+name: desiderio-grande/outline-rail
+typeName: desiderio_grande_outlinerail
+title: 'Outline Rail'
+description: 'Renders the page''s headings as a vertical rail beside the text, sticking while the reader scrolls past it and moving above the content on narrow screens. Use it for: documentation, a long policy or statute, a handbook chapter, a research paper, anything past about two screens of reading. Prefer ''Anchor Bar'' for a horizontal band under the header, and ''Article Contents'' for a box that scrolls away with the text.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: entries
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Headings'
+    minitems: 3
+    maxitems: 20

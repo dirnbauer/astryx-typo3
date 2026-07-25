@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-hero-announcement" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): note carries the strip's sentence and header_link its target; the strip is not dismissible on purpose, so it stays until an editor removes it.
+</f:comment>
+
+<section class="astryx-section g-hero-announcement" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

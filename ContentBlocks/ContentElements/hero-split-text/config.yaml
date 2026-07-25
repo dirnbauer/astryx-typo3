@@ -1,0 +1,83 @@
+name: desiderio-grande/hero-split-text
+typeName: desiderio_grande_herosplittext
+title: 'Split Text Hero'
+description: 'Renders an editorial opening with no media at all: the headline holds the left column, the supporting rich text and the action sit in the right, both aligned to the same top baseline. Use it for: agency and consultancy home pages, about pages, report and whitepaper covers, positioning statements too long for a single line. Prefer ''Statement Hero'' when the claim needs no supporting paragraph, and ''Split Media Hero'' when the second column should hold a picture.'
+group: hero
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'bodytext'
+    useExistingField: true
+    enableRichtext: true
+    richtextConfiguration: 'default'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'secondary_label'
+    type: 'Text'
+    label: 'Secondary label'
+  -
+    identifier: 'secondary_link'
+    type: 'Link'
+    label: 'Secondary link'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

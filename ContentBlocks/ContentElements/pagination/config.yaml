@@ -1,0 +1,66 @@
+name: desiderio-grande/pagination
+typeName: desiderio_grande_pagination
+title: 'Series Pagination'
+description: 'Renders a numbered pager for a hand-built series, with the current part marked and arrows to the one before and the one after. Use it for: a long article split across pages, a multi-part guide, a report published in instalments, an archive laid out page by page, a photo essay in chapters. Prefer ''Previous and Next'' when the whole series need not be visible, and ''Chapter List'' when readers should see what each part is about.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: pages
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Parts'
+    minitems: 2
+    maxitems: 30

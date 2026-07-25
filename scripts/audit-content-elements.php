@@ -18,6 +18,17 @@ declare(strict_types=1);
 $root = dirname(__DIR__);
 $json = in_array('--json', $argv, true);
 
+// Parse YAML through Symfony rather than the optional ext-yaml, so the audit
+// runs on a bare PHP CLI as well as inside the container.
+$autoload = dirname($root, 2) . '/vendor/autoload.php';
+if (is_file($autoload)) {
+    require_once $autoload;
+}
+if (!class_exists(\Symfony\Component\Yaml\Yaml::class)) {
+    fwrite(STDERR, "Symfony YAML is unavailable — run composer install in the project root.\n");
+    exit(1);
+}
+
 $elementsDir = $root . '/ContentBlocks/ContentElements';
 $directories = is_dir($elementsDir) ? array_values(array_filter(
     scandir($elementsDir) ?: [],
@@ -63,14 +74,16 @@ foreach ($directories as $name) {
     if (!is_file($configPath)) {
         continue;
     }
-    $config = @yaml_parse_file($configPath);
+    $configText = (string)file_get_contents($configPath);
+    try {
+        $config = \Symfony\Component\Yaml\Yaml::parse($configText);
+    } catch (\Throwable $error) {
+        $add($name, 'invalid_config_yaml', $error->getMessage());
+        continue;
+    }
     if (!is_array($config)) {
-        // yaml extension is optional in some CLI builds; fall back to the
-        // structural checks that only need the raw text.
-        $config = null;
-        $configText = (string)file_get_contents($configPath);
-    } else {
-        $configText = (string)file_get_contents($configPath);
+        $add($name, 'invalid_config_yaml', 'did not parse to a mapping');
+        continue;
     }
 
     // --- identity -----------------------------------------------------
@@ -89,7 +102,7 @@ foreach ($directories as $name) {
     }
     $seenTypeNames[$expectedType] = $name;
 
-    if ($config !== null) {
+    {
         $title = (string)($config['title'] ?? '');
         if ($title === '') {
             $add($name, 'missing_title', 'config.yaml has no title');

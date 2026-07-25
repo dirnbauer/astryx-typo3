@@ -1,0 +1,85 @@
+name: desiderio-grande/conversion-waitlist
+typeName: desiderio_grande_conversionwaitlist
+title: 'Waitlist Band'
+description: 'Renders the invitation to join a queue for something not released yet: what is coming, roughly when, how many people are already waiting, and the button. Use it for: a pre-launch page, a closed beta, a course that runs twice a year, a sold-out product, a region you do not serve yet. Prefer ''Deadline CTA'' when the thing exists and the window is closing, and ''Event Registration Band'' when there is a date and a place to sign up for.'
+group: conversion
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'value'
+    type: 'Text'
+    max: 24
+    label: 'Value'
+  -
+    identifier: 'unit'
+    type: 'Text'
+    max: 24
+    label: 'Unit'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'

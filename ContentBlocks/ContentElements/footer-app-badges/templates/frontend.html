@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-footer-app-badges" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Badges are icon links from the shared library and the QR code is an editor-supplied image, so nothing is fetched from a store at render time.
+</f:comment>
+
+<section class="astryx-section g-footer-app-badges" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

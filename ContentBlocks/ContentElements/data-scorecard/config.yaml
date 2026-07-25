@@ -1,0 +1,92 @@
+name: desiderio-grande/data-scorecard
+typeName: desiderio_grande_datascorecard
+title: 'Scorecard'
+description: 'Renders an overall score with its scale, then one row per criterion with its own score shown as filled segments. Use it for: a test verdict on a product page, an assessment result, supplier ratings, a self-evaluation published in a report. Prefer ''Progress Bars'' when the rows are percentages of completion, and ''Distribution Bars'' when you are showing how many people gave each rating.'
+group: data
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'value'
+    type: 'Text'
+    max: 24
+    label: 'Value'
+  -
+    identifier: 'unit'
+    type: 'Text'
+    max: 24
+    label: 'Unit'
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: metrics
+    type: Collection
+    foreign_table: desiderio_grande_metric_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Criteria'
+    minitems: 2
+    maxitems: 10

@@ -1,0 +1,83 @@
+name: desiderio-grande/author-box
+typeName: desiderio_grande_authorbox
+title: 'Author Box'
+description: 'Renders a compact byline block with a small portrait, the author''s name and role, two lines about them and a link to everything they have written. Use it for: the foot of a blog article, the head of a long guide, a documentation page with a named maintainer. Prefer ''Person Profile'' when the biography deserves a page of its own, and ''Person with Quote'' when the block should carry a statement rather than credentials.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'author'
+    type: 'Textarea'
+    rows: 1
+    label: 'Author'
+  -
+    identifier: 'role'
+    type: 'Textarea'
+    rows: 1
+    label: 'Role'
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'

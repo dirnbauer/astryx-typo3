@@ -1,0 +1,96 @@
+name: desiderio-grande/speaker-featured
+typeName: desiderio_grande_speakerfeatured
+title: 'Featured Speaker'
+description: 'Renders one talk at full width: the session title as the heading, an abstract, the speaker with their affiliation, a marker for the stage or slot and a link to register. Use it for: a keynote announcement, the opening session of a programme, a guest lecture promoted on its own. Prefer ''Speaker Lineup'' for the whole bill, and ''Person Profile'' when the biography rather than the session is the point.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'author'
+    type: 'Textarea'
+    rows: 1
+    label: 'Author'
+  -
+    identifier: 'role'
+    type: 'Textarea'
+    rows: 1
+    label: 'Role'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'badge_text'
+    type: 'Textarea'
+    rows: 1
+    label: 'Badge text'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

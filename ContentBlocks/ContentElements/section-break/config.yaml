@@ -1,0 +1,59 @@
+name: desiderio-grande/section-break
+typeName: desiderio_grande_sectionbreak
+title: 'Section Break'
+description: 'Renders a titled rule that closes one part of a long page and opens the next: an eyebrow, a heading, an optional line under it and a separator. Use it for: chapter breaks in a handbook, the start of a new topic in a report, splitting a one-page guide into named parts. Prefer ''Statement Band'' when the words are a claim rather than a label, and ''Rich Text'' when the heading really belongs to the prose beneath it.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'subheader'
+    useExistingField: true
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'

@@ -1,0 +1,99 @@
+name: desiderio-grande/hero-checklist
+typeName: desiderio_grande_herochecklist
+title: 'Hero with Benefit Bullets'
+description: 'Renders the opening claim with three or four ticked one-line benefits beside or beneath it, each with its own icon, and the action after them. Use it for: comparison landing pages, paid-campaign pages, B2B offers where the reader wants the shortlist before scrolling, tender and grant pages. Prefer ''Hero with Metrics'' when the proof is numeric, and ''Split Media Hero'' when a screenshot says it faster than three ticked lines.'
+group: hero
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'secondary_label'
+    type: 'Text'
+    label: 'Secondary label'
+  -
+    identifier: 'secondary_link'
+    type: 'Link'
+    label: 'Secondary link'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: bullets
+    type: Collection
+    foreign_table: desiderio_grande_icon_lead
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Bullets'
+    minitems: 2
+    maxitems: 5

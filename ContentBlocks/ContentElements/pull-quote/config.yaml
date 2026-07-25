@@ -1,0 +1,58 @@
+name: desiderio-grande/pull-quote
+typeName: desiderio_grande_pullquote
+title: 'Pull Quote'
+description: 'Renders a short sentence lifted out of the surrounding text and set large between paragraphs, optionally credited to whoever said it. Use it for: breaking up a long read, giving a striking line room to breathe, marking the turn of an argument, repeating the sentence readers should remember. Prefer ''Quote with Portrait'' when the speaker needs a face and a role, and ''Statement Band'' when the line is the site''s own claim rather than a quotation.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'quote_text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Quote text'
+  -
+    identifier: 'author'
+    type: 'Textarea'
+    rows: 1
+    label: 'Author'
+  -
+    identifier: 'role'
+    type: 'Textarea'
+    rows: 1
+    label: 'Role'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

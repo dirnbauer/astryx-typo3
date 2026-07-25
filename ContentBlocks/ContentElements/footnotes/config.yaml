@@ -1,0 +1,53 @@
+name: desiderio-grande/footnotes
+typeName: desiderio_grande_footnotes
+title: 'Footnotes'
+description: 'Renders numbered notes and sources at the foot of an article, each with its text and an optional link to where the claim came from. Use it for: references under a research piece, legal citations, sources for the figures in a report, a translator''s remarks, small print that belongs to specific sentences. Prefer ''Downloads'' when the references are files to take away, and ''External Resources'' for a reading list meant to be browsed.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: notes
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Notes'
+    minitems: 1
+    maxitems: 40

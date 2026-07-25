@@ -1,0 +1,101 @@
+name: desiderio-grande/mentor-list
+typeName: desiderio_grande_mentorlist
+title: 'Mentor List'
+description: 'Renders available mentors with the subjects they cover and a way to request a session with each. Use it for: an accelerator''s mentor pool, an association''s expert directory, a coaching programme where readers pick a person. Prefer ''Advisory Board'' when the people advise the organisation instead of its members, and ''Team Grid'' when nobody is meant to book anything.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: people
+    type: Collection
+    foreign_table: desiderio_grande_person_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Mentors'
+    minitems: 2
+    maxitems: 30

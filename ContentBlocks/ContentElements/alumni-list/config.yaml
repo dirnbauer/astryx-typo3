@@ -1,0 +1,98 @@
+name: desiderio-grande/alumni-list
+typeName: desiderio_grande_alumnilist
+title: 'Alumni'
+description: 'Renders people who have left, with the years they were here and a line on where they went. Use it for: a research group listing former doctoral students, a fellowship programme, an agency proud of where its people ended up. Prefer ''Contributor Wall'' when past involvement needs no dates or destinations, and ''Team Directory'' for the people who are still here.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: people
+    type: Collection
+    foreign_table: desiderio_grande_person_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Alumni'
+    minitems: 2
+    maxitems: 60

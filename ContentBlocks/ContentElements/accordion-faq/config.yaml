@@ -1,0 +1,72 @@
+name: desiderio-grande/accordion-faq
+typeName: desiderio_grande_accordionfaq
+title: 'Accordion'
+description: 'Renders a stack of questions that each fold open to reveal their answer, all closed on first paint so the page stays scannable. Use it for: a frequently asked questions block, terms explained one by one, support answers under a product, a long list of details most readers will skip. Prefer ''Definition List'' when the answers are short enough to leave open, and ''Tabbed Sections'' when the panels are alternatives rather than a list.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: questions
+    type: Collection
+    foreign_table: desiderio_grande_qa_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Questions'
+    minitems: 2
+    maxitems: 30

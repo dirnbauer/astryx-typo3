@@ -1,0 +1,88 @@
+name: desiderio-grande/feature-callouts
+typeName: desiderio_grande_featurecallouts
+title: 'Annotated Screenshot'
+description: 'Renders one large image with a numbered legend beside it, each entry naming a marked place in the picture and explaining it in a sentence. Use it for: interface tours, hardware anatomy, dashboard explanations, print and packaging breakdowns, editor onboarding, map and floor-plan keys. Prefer ''Feature Showcase Row'' when the points do not refer to anything inside the image, and ''Before and After'' when two pictures matter more than one annotated one.'
+group: features
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'caption'
+    type: 'Textarea'
+    rows: 1
+    label: 'Caption'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: callouts
+    type: Collection
+    foreign_table: desiderio_grande_icon_lead
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Callouts'
+    minitems: 2
+    maxitems: 8

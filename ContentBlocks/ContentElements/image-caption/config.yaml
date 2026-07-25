@@ -1,0 +1,62 @@
+name: desiderio-grande/image-caption
+typeName: desiderio_grande_imagecaption
+title: 'Captioned Image'
+description: 'Renders a single figure with its caption and credit line underneath, at the width you choose from narrow to full bleed. Use it for: a photograph inside an article, a chart with its source, a screenshot that needs explaining, a full-width opening picture. Prefer ''Image Gallery'' for more than one picture, and ''Text with Media'' when the picture needs a column of prose beside it rather than a line below it.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'caption'
+    type: 'Textarea'
+    rows: 1
+    label: 'Caption'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'

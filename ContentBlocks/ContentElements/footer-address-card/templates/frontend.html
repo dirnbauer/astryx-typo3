@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-footer-address-card" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): The map is an editor-supplied still image with a link out — no map provider is embedded, so nothing loads from a third party.
+</f:comment>
+
+<section class="astryx-section g-footer-address-card" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

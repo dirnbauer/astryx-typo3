@@ -1,0 +1,101 @@
+name: desiderio-grande/hero-metrics
+typeName: desiderio_grande_herometrics
+title: 'Hero with Metrics'
+description: 'Renders the opening band with a row of two to four figures under the copy — uptime, customers, hours saved — each with its own label and optional unit. Use it for: infrastructure and enterprise home pages, investor-facing pages, agency sites that lead with results, annual report covers. Prefer ''Hero with Logo Strip'' when the proof is customer names rather than numbers, and ''Hero with Benefit Bullets'' when the proof is what the product actually does.'
+group: hero
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'secondary_label'
+    type: 'Text'
+    label: 'Secondary label'
+  -
+    identifier: 'secondary_link'
+    type: 'Link'
+    label: 'Secondary link'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: metrics
+    type: Collection
+    foreign_table: desiderio_grande_metric_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Metrics'
+    minitems: 2
+    maxitems: 4

@@ -1,0 +1,87 @@
+name: desiderio-grande/person-profile
+typeName: desiderio_grande_personprofile
+title: 'Person Profile'
+description: 'Renders one person in full: a large portrait beside their name, role, a rich-text biography and up to two links such as a profile or a publication list. Use it for: a partner page in a law firm, a therapist or consultant page, a detail page reached from a team grid. Prefer ''Contact Person Panel'' when the reader should get in touch rather than read a biography, and ''Founder Story'' when the text is really the company''s origin story.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'subheader'
+    useExistingField: true
+  -
+    identifier: 'bodytext'
+    useExistingField: true
+    enableRichtext: true
+    richtextConfiguration: 'default'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'secondary_label'
+    type: 'Text'
+    label: 'Secondary label'
+  -
+    identifier: 'secondary_link'
+    type: 'Link'
+    label: 'Secondary link'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

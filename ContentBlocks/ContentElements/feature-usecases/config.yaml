@@ -1,0 +1,96 @@
+name: desiderio-grande/feature-usecases
+typeName: desiderio_grande_featureusecases
+title: 'Use-Case Cards'
+description: 'Renders a grid of cards that each name an audience or a job to be done and link away to the page that covers it. Use it for: ''built for'' sections, industry and role landings, solution overviews, the hub of a programmatic set of pages, department overviews on an intranet. Prefer ''Feature Grid'' when the entries describe capabilities and stay on this page, and ''Full Feature Index'' when there are forty of them and each is a single line.'
+group: features
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: cases
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Use cases'
+    minitems: 2
+    maxitems: 9

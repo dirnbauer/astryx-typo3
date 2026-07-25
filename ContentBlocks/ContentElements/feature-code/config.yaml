@@ -1,0 +1,93 @@
+name: desiderio-grande/feature-code
+typeName: desiderio_grande_featurecode
+title: 'Feature with Code Sample'
+description: 'Renders a capability explained in prose on one side and demonstrated in a syntax-highlighted snippet on the other, with a link to the reference underneath. Use it for: API and SDK feature sections, configuration examples, CLI capabilities, webhook payloads, developer-facing platform pages. Prefer ''Feature Showcase Row'' when a screenshot serves the same argument, and ''Spec Sheet'' when the reader wants limits and values rather than a working example.'
+group: features
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'bodytext'
+    useExistingField: true
+    enableRichtext: true
+    richtextConfiguration: 'default'
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'caption'
+    type: 'Textarea'
+    rows: 1
+    label: 'Caption'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'secondary_label'
+    type: 'Text'
+    label: 'Secondary label'
+  -
+    identifier: 'secondary_link'
+    type: 'Link'
+    label: 'Secondary link'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

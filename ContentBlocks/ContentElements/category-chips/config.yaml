@@ -1,0 +1,61 @@
+name: desiderio-grande/category-chips
+typeName: desiderio_grande_categorychips
+title: 'Category Chips'
+description: 'Renders a taxonomy as a wrapping row of pill-shaped links, with the current one marked as selected. Use it for: filtering a blog by topic, browsing tags, choosing a product category, jumping between the branches of a knowledge base, switching between event types. Prefer ''Link Grid'' when the labels are destinations rather than a taxonomy, and ''Tabbed Sections'' when choosing one should change what is already on the page.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: chips
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Categories'
+    minitems: 2
+    maxitems: 30

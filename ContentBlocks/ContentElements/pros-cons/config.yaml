@@ -1,0 +1,72 @@
+name: desiderio-grande/pros-cons
+typeName: desiderio_grande_proscons
+title: 'Pros and Cons'
+description: 'Renders arguments for and against in two facing columns, each row marked as a point in favour or a point against. Use it for: weighing two options in a buying guide, an honest assessment of a method, the trade-offs behind a decision, the verdict at the end of a review. Prefer ''Side-by-Side Texts'' when each side is a paragraph rather than a list of points, and ''Definition List'' when nothing is being weighed against anything.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: points
+    type: Collection
+    foreign_table: desiderio_grande_label_value
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Arguments'
+    minitems: 2
+    maxitems: 20

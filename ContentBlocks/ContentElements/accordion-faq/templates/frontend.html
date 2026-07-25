@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-accordion-faq" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Every row is a native details element; the exclusive variant only adds the shared name attribute, so nothing has to be scripted.
+</f:comment>
+
+<section class="astryx-section g-accordion-faq" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

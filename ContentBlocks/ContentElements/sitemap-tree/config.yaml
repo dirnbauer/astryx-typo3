@@ -1,0 +1,73 @@
+name: desiderio-grande/sitemap-tree
+typeName: desiderio_grande_sitemaptree
+title: 'Sitemap Tree'
+description: 'Renders the page tree below the current page as a nested, indented outline with connector lines, two or three levels deep. Use it for: a sitemap page, an overview of a large section''s structure, an accessible fallback for a menu that only exists in the header, an orientation page for a complex site. Prefer ''Section Index'' for a flat annotated list of the same pages, and ''Page List Menu'' when only the direct children matter.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'

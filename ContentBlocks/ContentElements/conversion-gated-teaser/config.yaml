@@ -1,0 +1,92 @@
+name: desiderio-grande/conversion-gated-teaser
+typeName: desiderio_grande_conversiongatedteaser
+title: 'Gated Content Teaser'
+description: 'Renders the visible opening of a piece of content and the invitation to see the rest: a real excerpt, a fade at its foot, then the ask. The excerpt is editorial text like any other — this element draws a boundary, it does not enforce one, and access control stays with TYPO3''s own access rules. Use it for: research summaries, premium articles, a members-only guide, a partner document. Prefer ''Lead Magnet Download'' when the thing behind the gate is a file, and ''Closing CTA Band'' when nothing is withheld.'
+group: conversion
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'subheader'
+    useExistingField: true
+  -
+    identifier: 'bodytext'
+    useExistingField: true
+    enableRichtext: true
+    richtextConfiguration: 'default'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'secondary_label'
+    type: 'Text'
+    label: 'Secondary label'
+  -
+    identifier: 'secondary_link'
+    type: 'Link'
+    label: 'Secondary link'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

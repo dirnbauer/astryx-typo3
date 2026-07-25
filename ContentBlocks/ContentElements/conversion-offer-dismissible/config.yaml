@@ -1,0 +1,82 @@
+name: desiderio-grande/conversion-offer-dismissible
+typeName: desiderio_grande_conversionofferdismissible
+title: 'Dismissible Offer Bar'
+description: 'Renders a short offer the reader can close and not meet again: a badge, one line, a button and a close control, either as a full-width bar or as a card in the corner. Use it for: a shipping-threshold reminder, a newsletter offer on a second visit, a seasonal discount, a beta invitation, a survey nudge. Prefer ''Inline CTA Strip'' when nothing needs closing, and ''Deadline CTA'' when the pressure is a date rather than an interruption.'
+group: conversion
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'badge_text'
+    type: 'Textarea'
+    rows: 1
+    label: 'Badge text'
+  -
+    identifier: 'icon'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Icon'
+    itemsProcConfig:
+      itemsProcFunc: Webconsulting\Desiderio\DataHandling\IconItemsProcessor
+  -
+    identifier: 'variant'
+    type: 'Select'
+    renderType: 'selectSingle'
+    prefixField: true
+    label: 'Variant'
+    items:
+      -
+        label: 'Bar'
+        value: 'bar'
+      -
+        label: 'Corner card'
+        value: 'corner-card'
+    default: 'bar'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'

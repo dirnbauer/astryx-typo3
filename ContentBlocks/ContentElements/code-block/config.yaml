@@ -1,0 +1,48 @@
+name: desiderio-grande/code-block
+typeName: desiderio_grande_codeblock
+title: 'Code Block'
+description: 'Renders a block of code in a monospaced, horizontally scrollable panel, with the language or file name shown above it and a note beneath. Use it for: configuration samples, terminal commands, an API response, a snippet inside a technical article, a template excerpt. Prefer ''Rich Text'' for a few words of inline code inside a sentence, and ''Callout'' when the point is the warning around the code rather than the code itself.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'caption'
+    type: 'Textarea'
+    rows: 1
+    label: 'Caption'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

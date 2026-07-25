@@ -1,0 +1,67 @@
+/*
+ * Page-module preview cards.
+ *
+ * This is backend chrome, not frontend rendering: it loads inside TYPO3's own
+ * interface, where the Astryx tokens do not exist. It therefore uses TYPO3's
+ * backend variables, and falls back to fixed values for the few that older
+ * backend skins do not define.
+ */
+
+.g-ce-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  background: var(--typo3-component-bg, #fff);
+  color: var(--typo3-component-color, #1a1a1a);
+  border: 1px solid var(--typo3-component-border-color, #d7d7d7);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.g-ce-preview__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.g-ce-preview__ctype {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--typo3-surface-container-high, #f2f2f2);
+  color: var(--typo3-text-color-variant, #6e6e6e);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.g-ce-preview__title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.g-ce-preview__field {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.g-ce-preview__label {
+  flex: 0 0 auto;
+  color: var(--typo3-text-color-variant, #6e6e6e);
+  font-size: 11px;
+}
+
+/* One line per field: the card is a scan target, so a long paragraph must not
+   push the next field out of view. */
+.g-ce-preview__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

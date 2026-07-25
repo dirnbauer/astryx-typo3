@@ -1,0 +1,72 @@
+name: desiderio-grande/testimonial-carousel
+typeName: desiderio_grande_testimonialcarousel
+title: 'Testimonial Carousel'
+description: 'Renders a horizontally scrolling track of quotes with previous and next controls, showing one or two at a time. Use it for: a long list of references that would otherwise dominate the page, quotes on a narrow mobile layout, a rotating band of customer voices near the footer. Prefer ''Testimonial Grid'' when every quote should be visible and printable at once, since a carousel hides most of its content by design.'
+group: social-proof
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: quotes
+    type: Collection
+    foreign_table: desiderio_grande_quote_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Testimonials'
+    minitems: 2
+    maxitems: 16

@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-step-nav" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): The current step is the child whose link resolves to this page; everything before it is marked complete, everything after it is still a plain link.
+</f:comment>
+
+<section class="astryx-section g-step-nav" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-conversion-newsletter" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Point cta_link at the page holding the form plugin. Keep the consent wording in note where the form's own privacy text can be repeated verbatim.
+</f:comment>
+
+<section class="astryx-section g-conversion-newsletter" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

@@ -1,0 +1,85 @@
+name: desiderio-grande/feature-sticky-list
+typeName: desiderio_grande_featurestickylist
+title: 'Sticky Intro with Feature List'
+description: 'Renders the band intro in one column that stays put while a long list of entries scrolls past it in the other. Use it for: dense capability pages, platform overviews with a dozen entries, documentation-style marketing pages, security and compliance inventories, long service catalogues. Prefer ''Benefit List'' when the intro should scroll away with the content, and ''Capability Tabs'' when the list is better cut into a handful of named groups.'
+group: features
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: items
+    type: Collection
+    foreign_table: desiderio_grande_icon_lead
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Entries'
+    minitems: 3
+    maxitems: 12

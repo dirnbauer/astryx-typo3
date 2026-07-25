@@ -1,0 +1,101 @@
+name: desiderio-grande/feature-ribbon
+typeName: desiderio_grande_featureribbon
+title: 'Capability Ribbon'
+description: 'Renders one tight row of icons with one- or two-word labels and no descriptions at all — the quiet strip that sits directly under a hero and names what the product covers. Use it for: reassurance strips, shipping and returns promises, coverage summaries, certification rows, the compact restatement of a feature grid near the fold. Prefer ''Feature Grid'' when each entry needs a sentence, and ''Integration Grid'' when the marks are third-party logos rather than icons.'
+group: features
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: items
+    type: Collection
+    foreign_table: desiderio_grande_icon_lead
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Ribbon items'
+    minitems: 3
+    maxitems: 6

@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-outline-rail" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Uses position: sticky inside a grid column; on small screens it collapses to a plain list above the first section rather than a floating layer.
+</f:comment>
+
+<section class="astryx-section g-outline-rail" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

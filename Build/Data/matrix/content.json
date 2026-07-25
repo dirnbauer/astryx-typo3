@@ -1,0 +1,2047 @@
+{
+  "group": "content",
+  "elements": [
+    {
+      "id": "rich-text",
+      "title": "Rich Text",
+      "titleDe": "Fließtext",
+      "description": "Renders formatted prose from the rich text editor — subheadings, lists, links and emphasis, held to a comfortable reading measure. Use it for: the body of an article, a legal or policy page, a long explanation, any passage an editor writes as continuous text. Prefer 'Lead Paragraph' for the standfirst that opens a piece, and 'Callout' for a passage that has to break out of the reading flow.",
+      "descriptionDe": "Rendert formatierten Fließtext aus dem Rich-Text-Editor — Zwischenüberschriften, Listen, Links und Auszeichnungen in angenehmer Zeilenbreite. Einsetzen für: den Haupttext eines Artikels, Rechts- und Richtlinienseiten, ausführliche Erklärungen, jeden zusammenhängend geschriebenen Abschnitt. Für den Vorspann am Anfang besser 'Vorspann' verwenden, für Passagen, die aus dem Lesefluss heraustreten sollen, 'Hinweisbox'.",
+      "short": "The **main prose block** — formatted body copy at a readable measure.",
+      "shortDe": "Der **Haupttext** — formatierter Fließtext in lesbarer Breite.",
+      "keywords": [
+        "prose",
+        "body copy",
+        "paragraph",
+        "editorial",
+        "article body",
+        "wysiwyg",
+        "formatted text",
+        "copy"
+      ],
+      "synonyms": [
+        "text block",
+        "rte",
+        "rich text editor",
+        "ckeditor",
+        "running text",
+        "longform",
+        "copy block",
+        "html text",
+        "paragraph block",
+        "body text",
+        "editorial text",
+        "standard text",
+        "text element",
+        "word processor",
+        "prose block",
+        "article copy",
+        "written content",
+        "textblock"
+      ],
+      "keywordsDe": [
+        "Textblock",
+        "Absatz",
+        "Redaktion",
+        "Artikeltext",
+        "Haupttext",
+        "Prosa",
+        "Formatierter Text",
+        "Editor"
+      ],
+      "synonymsDe": [
+        "Freitext",
+        "Textelement",
+        "Rich Text",
+        "CKEditor",
+        "Texteditor",
+        "Standardtext",
+        "Lauftext",
+        "Mengentext",
+        "Textbaustein",
+        "Inhaltstext",
+        "Beitragstext",
+        "Textabschnitt",
+        "Redaktionstext",
+        "Formatierter Inhalt",
+        "Textfeld",
+        "Copytext"
+      ],
+      "astryx": [
+        "Markdown",
+        "Text",
+        "Section"
+      ],
+      "fields": [
+        "header",
+        "bodytext",
+        "width",
+        "align",
+        "tone"
+      ],
+      "variants": [],
+      "collection": null,
+      "js": null,
+      "notes": "Measure caps around 68ch; headings inside the editor start at h3 so the page keeps exactly one h1."
+    },
+    {
+      "id": "lead-paragraph",
+      "title": "Lead Paragraph",
+      "titleDe": "Vorspann",
+      "description": "Renders one or two large sentences that introduce whatever follows, set above the body at a bigger size and looser leading. Use it for: the standfirst of an article, the summary line under a page title, the opening of a chapter, a short abstract above a long text. Prefer 'Rich Text' for the body itself, and 'Key Takeaways' when the summary is really a list of points rather than a sentence.",
+      "descriptionDe": "Rendert ein bis zwei große Sätze, die auf den folgenden Text einstimmen — größer gesetzt und mit mehr Zeilenabstand als der Haupttext. Einsetzen für: den Vorspann eines Artikels, die Zusammenfassung unter dem Seitentitel, den Einstieg in ein Kapitel, ein kurzes Abstract über einem langen Text. Für den Haupttext selbst besser 'Fließtext' verwenden, für zusammenfassende Aufzählungen 'Das Wichtigste in Kürze'.",
+      "short": "The **standfirst**: one or two large sentences that open a piece.",
+      "shortDe": "Der **Anrisstext**: ein, zwei große Sätze am Anfang.",
+      "keywords": [
+        "standfirst",
+        "intro",
+        "deck",
+        "abstract",
+        "summary",
+        "opening",
+        "teaser",
+        "kicker"
+      ],
+      "synonyms": [
+        "lede",
+        "lead-in",
+        "intro paragraph",
+        "introduction",
+        "preamble",
+        "subtitle",
+        "dek",
+        "summary line",
+        "excerpt",
+        "blurb",
+        "opening paragraph",
+        "article intro",
+        "précis",
+        "synopsis",
+        "teaser text"
+      ],
+      "keywordsDe": [
+        "Anrisstext",
+        "Einleitung",
+        "Teaser",
+        "Zusammenfassung",
+        "Abstract",
+        "Einstieg",
+        "Untertitel",
+        "Auftakt"
+      ],
+      "synonymsDe": [
+        "Lead",
+        "Vorlauf",
+        "Anreißer",
+        "Einleitungstext",
+        "Kurzfassung",
+        "Kurzbeschreibung",
+        "Vorbemerkung",
+        "Aufmachertext",
+        "Anmoderation",
+        "Vorspanntext",
+        "Introtext",
+        "Eingangstext",
+        "Klappentext"
+      ],
+      "astryx": [
+        "Text",
+        "Section",
+        "Stack"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "align",
+        "width",
+        "tone"
+      ],
+      "variants": [],
+      "collection": null,
+      "js": null,
+      "notes": "Renders at about 1.25rem with looser leading; three sentences is the practical ceiling."
+    },
+    {
+      "id": "article-header",
+      "title": "Article Header",
+      "titleDe": "Artikelkopf",
+      "description": "Renders the opening block of an editorial page: eyebrow, title, standfirst, a byline with portrait and dateline, and a wide lead image with its credit. Use it for: the top of a news story, a blog post, a case study, a press release, a long-read feature. Prefer 'Section Break' for a heading that opens a part inside a page, and 'Author Box' when the byline belongs at the end rather than the top.",
+      "descriptionDe": "Rendert den Kopf einer redaktionellen Seite: Dachzeile, Titel, Vorspann, Autorenzeile mit Porträt und Datum sowie ein breites Aufmacherbild samt Bildnachweis. Einsetzen für: den Anfang einer Meldung, eines Blogbeitrags, einer Fallstudie, einer Presseaussendung, einer Reportage. Für Überschriften mitten in der Seite besser 'Abschnittswechsel' verwenden, für die Autorenangabe am Textende 'Autorenbox'.",
+      "short": "**Title, standfirst, byline and lead image** at the top of an article.",
+      "shortDe": "**Titel, Vorspann, Autorenzeile und Aufmacherbild** am Artikelanfang.",
+      "keywords": [
+        "byline",
+        "masthead",
+        "article top",
+        "hero image",
+        "dateline",
+        "headline",
+        "news header",
+        "opener"
+      ],
+      "synonyms": [
+        "post header",
+        "blog header",
+        "article intro",
+        "story header",
+        "title block",
+        "editorial header",
+        "feature header",
+        "cover block",
+        "author line",
+        "publication date",
+        "reading time",
+        "kicker",
+        "hero header",
+        "press header"
+      ],
+      "keywordsDe": [
+        "Autorenzeile",
+        "Titelblock",
+        "Aufmacherbild",
+        "Datumszeile",
+        "Schlagzeile",
+        "Artikelanfang",
+        "Kopfzeile",
+        "Beitragskopf"
+      ],
+      "synonymsDe": [
+        "Blogkopf",
+        "Meldungskopf",
+        "Titelkopf",
+        "Aufmacher",
+        "Artikelkopfzeile",
+        "Verfasserzeile",
+        "Veröffentlichungsdatum",
+        "Lesedauer",
+        "Dachzeile",
+        "Beitragsheader",
+        "Storykopf",
+        "Redaktionskopf"
+      ],
+      "astryx": [
+        "Text",
+        "Avatar",
+        "Timestamp",
+        "Badge",
+        "AspectRatio"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "image",
+        "caption",
+        "author",
+        "role",
+        "note",
+        "tone",
+        "align"
+      ],
+      "variants": [
+        "stacked",
+        "image-below",
+        "image-beside"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "note carries the dateline and reading time as one small line; caption is the image credit."
+    },
+    {
+      "id": "section-break",
+      "title": "Section Break",
+      "titleDe": "Abschnittswechsel",
+      "description": "Renders a titled rule that closes one part of a long page and opens the next: an eyebrow, a heading, an optional line under it and a separator. Use it for: chapter breaks in a handbook, the start of a new topic in a report, splitting a one-page guide into named parts. Prefer 'Statement Band' when the words are a claim rather than a label, and 'Rich Text' when the heading really belongs to the prose beneath it.",
+      "descriptionDe": "Rendert eine betitelte Trennlinie, die einen Teil einer langen Seite abschließt und den nächsten eröffnet: Dachzeile, Überschrift, optionale Unterzeile und Trenner. Einsetzen für: Kapitelwechsel in einem Handbuch, den Beginn eines neuen Themas in einem Bericht, die Gliederung eines langen Ratgebers in benannte Teile. Für Aussagen statt Beschriftungen besser 'Aussagenband' verwenden, für Überschriften, die zum Text darunter gehören, 'Fließtext'.",
+      "short": "A **titled rule** that starts a new part of a long page.",
+      "shortDe": "Eine **betitelte Trennlinie** für den nächsten Seitenteil.",
+      "keywords": [
+        "divider",
+        "chapter",
+        "heading",
+        "separator",
+        "rule",
+        "section title",
+        "break",
+        "part"
+      ],
+      "synonyms": [
+        "horizontal rule",
+        "hr",
+        "section heading",
+        "chapter heading",
+        "content divider",
+        "spacer",
+        "topic break",
+        "subhead",
+        "part title",
+        "segment",
+        "banner heading",
+        "rubric",
+        "caesura"
+      ],
+      "keywordsDe": [
+        "Trenner",
+        "Kapitel",
+        "Überschrift",
+        "Trennlinie",
+        "Zwischentitel",
+        "Abschnitt",
+        "Gliederung",
+        "Teil"
+      ],
+      "synonymsDe": [
+        "Trennstrich",
+        "Abschnittstitel",
+        "Kapitelüberschrift",
+        "Zwischenüberschrift",
+        "Rubrik",
+        "Absatztrenner",
+        "Gliederungspunkt",
+        "Themenwechsel",
+        "Linie",
+        "Abstandhalter",
+        "Kapitelmarke"
+      ],
+      "astryx": [
+        "Divider",
+        "Text",
+        "Section"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "subheader",
+        "align",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "rule-above",
+        "rule-below",
+        "centred-mark"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Outputs an h2 so the outline of a long page stays readable; the rule is decorative and hidden from assistive technology."
+    },
+    {
+      "id": "text-media",
+      "title": "Text with Media",
+      "titleDe": "Text mit Bild",
+      "description": "Renders a two-column band with prose on one side and a picture on the other, swappable left to right so consecutive bands can alternate. Use it for: explaining a product beside its screenshot, a portrait next to a profile, a diagram beside its explanation, a feature walked through step by step. Prefer 'Captioned Image' when there is no text column to balance, and 'Side-by-Side Texts' when both columns are prose.",
+      "descriptionDe": "Rendert ein zweispaltiges Band mit Text auf der einen und einem Bild auf der anderen Seite, seitenverkehrt schaltbar, damit sich aufeinanderfolgende Bänder abwechseln können. Einsetzen für: die Erklärung eines Produkts neben dem Screenshot, ein Porträt neben dem Profiltext, eine Grafik neben ihrer Erläuterung, eine Funktion Schritt für Schritt. Ohne Textspalte besser 'Bild mit Bildunterschrift' verwenden, bei zwei Textspalten 'Textvergleich'.",
+      "short": "**Prose and a picture** side by side, swappable left to right.",
+      "shortDe": "**Text und Bild** nebeneinander, seitenverkehrt schaltbar.",
+      "keywords": [
+        "textmedia",
+        "split",
+        "two column",
+        "image left",
+        "image right",
+        "alternating",
+        "media",
+        "side by side"
+      ],
+      "synonyms": [
+        "text and image",
+        "text media",
+        "image with text",
+        "media object",
+        "content with picture",
+        "split band",
+        "half and half",
+        "zigzag",
+        "alternating rows",
+        "feature row",
+        "picture beside text",
+        "bild und text",
+        "media block",
+        "duo"
+      ],
+      "keywordsDe": [
+        "Textmedia",
+        "Zweispaltig",
+        "Bild links",
+        "Bild rechts",
+        "Wechselnd",
+        "Medien",
+        "Nebeneinander",
+        "Aufteilung"
+      ],
+      "synonymsDe": [
+        "Text und Bild",
+        "Bild mit Text",
+        "Textbild",
+        "Zweispalter",
+        "Halbe Halbe",
+        "Zickzack",
+        "Abwechselnde Zeilen",
+        "Funktionszeile",
+        "Medienblock",
+        "Bildspalte",
+        "Textspalte",
+        "Gegenüberstellung Bild Text"
+      ],
+      "astryx": [
+        "Grid",
+        "Stack",
+        "Text",
+        "Button",
+        "AspectRatio"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "bodytext",
+        "image",
+        "caption",
+        "cta_label",
+        "cta_link",
+        "reverse",
+        "tone",
+        "width"
+      ],
+      "variants": [
+        "equal",
+        "media-narrow",
+        "media-wide"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Media keeps its aspect ratio and the text column caps at 60ch; on narrow screens the picture always comes first."
+    },
+    {
+      "id": "image-caption",
+      "title": "Captioned Image",
+      "titleDe": "Bild mit Bildunterschrift",
+      "description": "Renders a single figure with its caption and credit line underneath, at the width you choose from narrow to full bleed. Use it for: a photograph inside an article, a chart with its source, a screenshot that needs explaining, a full-width opening picture. Prefer 'Image Gallery' for more than one picture, and 'Text with Media' when the picture needs a column of prose beside it rather than a line below it.",
+      "descriptionDe": "Rendert ein einzelnes Bild mit Bildunterschrift und Bildnachweis darunter, in der gewählten Breite von schmal bis randabfallend. Einsetzen für: ein Foto im Artikel, eine Grafik samt Quellenangabe, einen erklärungsbedürftigen Screenshot, ein breites Auftaktbild. Bei mehreren Bildern besser 'Bildergalerie' verwenden, bei begleitendem Textblock daneben 'Text mit Bild'.",
+      "short": "One **picture with its caption** and credit line.",
+      "shortDe": "Ein **Bild mit Bildunterschrift** und Nachweis.",
+      "keywords": [
+        "figure",
+        "photo",
+        "caption",
+        "credit",
+        "picture",
+        "screenshot",
+        "illustration",
+        "chart"
+      ],
+      "synonyms": [
+        "image",
+        "single image",
+        "photograph",
+        "figure caption",
+        "alt text",
+        "image credit",
+        "source line",
+        "diagram",
+        "graphic",
+        "full bleed image",
+        "standalone image",
+        "picture block",
+        "media",
+        "banner image"
+      ],
+      "keywordsDe": [
+        "Abbildung",
+        "Foto",
+        "Bildunterschrift",
+        "Bildnachweis",
+        "Grafik",
+        "Screenshot",
+        "Illustration",
+        "Diagramm"
+      ],
+      "synonymsDe": [
+        "Einzelbild",
+        "Bildlegende",
+        "Quellenangabe",
+        "Fotografie",
+        "Schaubild",
+        "Bildelement",
+        "Randabfallendes Bild",
+        "Bildblock",
+        "Aufmacherbild",
+        "Motiv",
+        "Bilddatei",
+        "Alternativtext"
+      ],
+      "astryx": [
+        "AspectRatio",
+        "Text",
+        "Section"
+      ],
+      "fields": [
+        "header",
+        "image",
+        "caption",
+        "note",
+        "width",
+        "align"
+      ],
+      "variants": [
+        "caption-below",
+        "caption-beside"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Outputs figure and figcaption; note holds the credit and is rendered smaller than the caption."
+    },
+    {
+      "id": "image-gallery",
+      "title": "Image Gallery",
+      "titleDe": "Bildergalerie",
+      "description": "Renders several pictures as an even grid of thumbnails, each one opening the full-size file in a new tab. Use it for: photographs from an event, a product shown from every angle, a project's before and after shots, a portfolio page, a room-by-room tour. Prefer 'Captioned Image' when a single picture carries the point and needs its own caption, and 'Text with Media' when the pictures illustrate a running argument.",
+      "descriptionDe": "Rendert mehrere Bilder als gleichmäßiges Raster aus Vorschaubildern, die sich jeweils in voller Größe in einem neuen Tab öffnen. Einsetzen für: Fotos von einer Veranstaltung, ein Produkt aus allen Blickwinkeln, Vorher-Nachher-Aufnahmen eines Projekts, eine Portfolioseite, einen Rundgang Raum für Raum. Wenn ein einzelnes Bild die Aussage trägt, besser 'Bild mit Bildunterschrift' verwenden, als Illustration eines laufenden Textes 'Text mit Bild'.",
+      "short": "Several pictures in an **even grid** of thumbnails.",
+      "shortDe": "Mehrere Bilder im **gleichmäßigen Raster**.",
+      "keywords": [
+        "gallery",
+        "photos",
+        "grid",
+        "thumbnails",
+        "album",
+        "portfolio",
+        "images",
+        "event photos"
+      ],
+      "synonyms": [
+        "photo gallery",
+        "image grid",
+        "picture grid",
+        "mosaic",
+        "masonry",
+        "lightbox",
+        "slideshow",
+        "photo album",
+        "photo set",
+        "moodboard",
+        "screenshots",
+        "gallery grid",
+        "photo wall",
+        "bildergalerie",
+        "image collection"
+      ],
+      "keywordsDe": [
+        "Galerie",
+        "Fotos",
+        "Raster",
+        "Vorschaubilder",
+        "Album",
+        "Portfolio",
+        "Bilder",
+        "Eventfotos"
+      ],
+      "synonymsDe": [
+        "Fotogalerie",
+        "Bildraster",
+        "Bildergitter",
+        "Mosaik",
+        "Diaschau",
+        "Fotoalbum",
+        "Bildstrecke",
+        "Moodboard",
+        "Screenshots",
+        "Bilderwand",
+        "Bildsammlung",
+        "Fotoserie",
+        "Bilderreihe"
+      ],
+      "astryx": [
+        "Grid",
+        "AspectRatio",
+        "Text",
+        "Thumbnail"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "images",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "uniform",
+        "first-large"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "Thumbnails are cropped to a shared ratio and link straight to the original file; no lightbox script is involved."
+    },
+    {
+      "id": "video-embed",
+      "title": "Video Embed",
+      "titleDe": "Video-Einbettung",
+      "description": "Renders a video from a URL inside a fixed sixteen-by-nine frame, with a poster image standing in until the player loads and a caption underneath. Use it for: a recorded talk, a product demo, an interview, an explainer on a help page, a testimonial on film. Prefer 'Captioned Image' for a still frame, and 'Text with Media' when the video should sit beside a column of prose instead of spanning the band.",
+      "descriptionDe": "Rendert ein Video aus einer URL in einem festen 16:9-Rahmen, mit einem Vorschaubild als Platzhalter bis der Player geladen ist und einer Bildunterschrift darunter. Einsetzen für: einen mitgeschnittenen Vortrag, eine Produktdemo, ein Interview, ein Erklärvideo auf einer Hilfeseite, ein gefilmtes Kundenstatement. Für ein Standbild besser 'Bild mit Bildunterschrift' verwenden, für ein Video neben einer Textspalte 'Text mit Bild'.",
+      "short": "A **video in a 16:9 frame** with poster image and caption.",
+      "shortDe": "Ein **Video im 16:9-Rahmen** mit Vorschaubild und Unterschrift.",
+      "keywords": [
+        "video",
+        "embed",
+        "youtube",
+        "vimeo",
+        "player",
+        "poster",
+        "film",
+        "demo"
+      ],
+      "synonyms": [
+        "iframe",
+        "oembed",
+        "media embed",
+        "movie",
+        "clip",
+        "recording",
+        "webinar",
+        "screencast",
+        "livestream",
+        "mp4",
+        "video player",
+        "watch",
+        "trailer",
+        "explainer video"
+      ],
+      "keywordsDe": [
+        "Video",
+        "Einbettung",
+        "YouTube",
+        "Vimeo",
+        "Player",
+        "Vorschaubild",
+        "Film",
+        "Demo"
+      ],
+      "synonymsDe": [
+        "iframe",
+        "Medien einbetten",
+        "Filmclip",
+        "Aufzeichnung",
+        "Webinar",
+        "Screencast",
+        "Livestream",
+        "Videoplayer",
+        "Bewegtbild",
+        "Erklärvideo",
+        "Mitschnitt",
+        "Trailer",
+        "Videobeitrag"
+      ],
+      "astryx": [
+        "AspectRatio",
+        "Overlay",
+        "Button",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "cta_link",
+        "image",
+        "caption",
+        "note",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "contained",
+        "full-bleed"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "cta_link takes the video URL (external or a FAL file); the frame is a plain iframe inside AspectRatio, so nothing has to run first."
+    },
+    {
+      "id": "code-block",
+      "title": "Code Block",
+      "titleDe": "Codeblock",
+      "description": "Renders a block of code in a monospaced, horizontally scrollable panel, with the language or file name shown above it and a note beneath. Use it for: configuration samples, terminal commands, an API response, a snippet inside a technical article, a template excerpt. Prefer 'Rich Text' for a few words of inline code inside a sentence, and 'Callout' when the point is the warning around the code rather than the code itself.",
+      "descriptionDe": "Rendert Quelltext in einem dicktengleichen, horizontal scrollbaren Feld, darüber die Sprache oder der Dateiname, darunter eine Anmerkung. Einsetzen für: Konfigurationsbeispiele, Kommandozeilenbefehle, eine API-Antwort, ein Codebeispiel im Fachartikel, einen Template-Auszug. Für einzelne Wörter Code mitten im Satz besser 'Fließtext' verwenden, wenn die Warnung rund um den Code die eigentliche Aussage ist 'Hinweisbox'.",
+      "short": "**Code in a monospaced panel** with language and file name.",
+      "shortDe": "**Code im Monospace-Feld** mit Sprache und Dateiname.",
+      "keywords": [
+        "code",
+        "snippet",
+        "syntax",
+        "terminal",
+        "monospace",
+        "command",
+        "config",
+        "developer"
+      ],
+      "synonyms": [
+        "pre",
+        "codeblock",
+        "source code",
+        "highlighting",
+        "shell",
+        "bash",
+        "console",
+        "json",
+        "yaml",
+        "sample",
+        "listing",
+        "programmcode",
+        "script",
+        "cli",
+        "quellcode"
+      ],
+      "keywordsDe": [
+        "Code",
+        "Quelltext",
+        "Syntax",
+        "Terminal",
+        "Monospace",
+        "Befehl",
+        "Konfiguration",
+        "Entwickler"
+      ],
+      "synonymsDe": [
+        "Codeausschnitt",
+        "Programmcode",
+        "Skript",
+        "Konsole",
+        "Kommandozeile",
+        "Shell",
+        "Listing",
+        "Beispielcode",
+        "Syntaxhervorhebung",
+        "Codebeispiel",
+        "Konfigurationsdatei",
+        "Dicktengleich"
+      ],
+      "astryx": [
+        "CodeBlock",
+        "Text",
+        "Kbd"
+      ],
+      "fields": [
+        "header",
+        "text",
+        "caption",
+        "note",
+        "width"
+      ],
+      "variants": [
+        "plain",
+        "numbered-lines"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "caption names the language or file; the panel scrolls sideways rather than wrapping, and there is no copy button because that would need a script."
+    },
+    {
+      "id": "callout-note",
+      "title": "Callout",
+      "titleDe": "Hinweisbox",
+      "description": "Renders a bordered note that steps out of the reading flow, with an icon and a tone that says whether it informs, warns, reassures or forbids. Use it for: a prerequisite before a set of instructions, a legal caveat, a tip worth knowing, a deprecation warning, a deadline. Prefer 'Key Takeaways' when several points are being summarised, and 'Statement Band' when the sentence should carry the full width of the page.",
+      "descriptionDe": "Rendert einen umrandeten Hinweis, der aus dem Lesefluss heraustritt, mit Symbol und einer Tonalität, die informiert, warnt, bestätigt oder abrät. Einsetzen für: eine Voraussetzung vor einer Anleitung, einen rechtlichen Vorbehalt, einen nützlichen Tipp, eine Veraltungswarnung, eine Frist. Wenn mehrere Punkte zusammengefasst werden, besser 'Das Wichtigste in Kürze' verwenden, für einen Satz über die volle Seitenbreite 'Aussagenband'.",
+      "short": "A **bordered note** that steps out of the reading flow.",
+      "shortDe": "Ein **umrandeter Hinweis** außerhalb des Leseflusses.",
+      "keywords": [
+        "note",
+        "warning",
+        "tip",
+        "alert",
+        "admonition",
+        "info box",
+        "caution",
+        "notice"
+      ],
+      "synonyms": [
+        "callout box",
+        "banner",
+        "message",
+        "hint",
+        "attention",
+        "important",
+        "danger",
+        "disclaimer",
+        "aside",
+        "sidebar note",
+        "flash",
+        "highlight box",
+        "achtung",
+        "merkkasten",
+        "infobox"
+      ],
+      "keywordsDe": [
+        "Hinweis",
+        "Warnung",
+        "Tipp",
+        "Achtung",
+        "Infobox",
+        "Merkkasten",
+        "Vorsicht",
+        "Anmerkung"
+      ],
+      "synonymsDe": [
+        "Hinweiskasten",
+        "Warnhinweis",
+        "Meldung",
+        "Wichtig",
+        "Gefahr",
+        "Haftungsausschluss",
+        "Randnotiz",
+        "Merksatz",
+        "Kasten",
+        "Auszeichnung",
+        "Wichtiger Hinweis",
+        "Sicherheitshinweis"
+      ],
+      "astryx": [
+        "Banner",
+        "Icon",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "bodytext",
+        "icon",
+        "tone",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "critical"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "The variant picks the icon, the border accent and the ARIA role: note for info and success, alert for warning and critical."
+    },
+    {
+      "id": "pull-quote",
+      "title": "Pull Quote",
+      "titleDe": "Zitat-Auszug",
+      "description": "Renders a short sentence lifted out of the surrounding text and set large between paragraphs, optionally credited to whoever said it. Use it for: breaking up a long read, giving a striking line room to breathe, marking the turn of an argument, repeating the sentence readers should remember. Prefer 'Quote with Portrait' when the speaker needs a face and a role, and 'Statement Band' when the line is the site's own claim rather than a quotation.",
+      "descriptionDe": "Rendert einen kurzen Satz, der aus dem umgebenden Text herausgehoben und groß zwischen den Absätzen gesetzt wird, auf Wunsch mit Quellenangabe. Einsetzen für: das Auflockern eines langen Textes, eine prägnante Zeile mit Luft ringsum, den Wendepunkt einer Argumentation, den Satz, den Leserinnen und Leser behalten sollen. Wenn die sprechende Person Gesicht und Funktion braucht, besser 'Zitat mit Porträt' verwenden, für eigene Aussagen des Hauses 'Aussagenband'.",
+      "short": "A **short line lifted from the text**, set large between paragraphs.",
+      "shortDe": "Ein **herausgehobener Satz** groß zwischen den Absätzen.",
+      "keywords": [
+        "quote",
+        "pullquote",
+        "excerpt",
+        "highlight",
+        "citation",
+        "blockquote",
+        "emphasis",
+        "editorial"
+      ],
+      "synonyms": [
+        "quotation",
+        "cite",
+        "lifted quote",
+        "callout quote",
+        "magazine quote",
+        "featured sentence",
+        "sound bite",
+        "epigraph",
+        "zitat",
+        "spruch",
+        "verbatim",
+        "quoted text",
+        "quote block"
+      ],
+      "keywordsDe": [
+        "Zitat",
+        "Auszug",
+        "Hervorhebung",
+        "Quellenangabe",
+        "Blockzitat",
+        "Betonung",
+        "Redaktion",
+        "Merksatz"
+      ],
+      "synonymsDe": [
+        "Zitatblock",
+        "Herausgehobenes Zitat",
+        "Schmuckzitat",
+        "Zwischenzitat",
+        "Kernsatz",
+        "Wortlaut",
+        "Ausspruch",
+        "Zitierter Satz",
+        "Magazinzitat",
+        "Leitsatz",
+        "Spruch"
+      ],
+      "astryx": [
+        "Blockquote",
+        "Text"
+      ],
+      "fields": [
+        "quote_text",
+        "author",
+        "role",
+        "align",
+        "width"
+      ],
+      "variants": [
+        "indented",
+        "centred",
+        "margin"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "The template draws the quotation marks, so quote_text is stored without them; author and role may both be empty."
+    },
+    {
+      "id": "quote-portrait",
+      "title": "Quote with Portrait",
+      "titleDe": "Zitat mit Porträt",
+      "description": "Renders a quotation beside the portrait of the person who said it, with their name and role set underneath. Use it for: a customer's verdict inside a case study, a founder's comment on an about page, an expert's assessment in a report, a partner statement in a press release. Prefer 'Pull Quote' when the words come from the article's own text, and 'Quote Carousel' when several people should be heard in turn.",
+      "descriptionDe": "Rendert ein Zitat neben dem Porträt der Person, die es gesagt hat, mit Namen und Funktion darunter. Einsetzen für: das Urteil einer Kundin in einer Fallstudie, den Kommentar des Gründers auf einer Über-uns-Seite, die Einschätzung einer Fachperson in einem Bericht, ein Partnerstatement in einer Aussendung. Wenn die Worte aus dem Artikeltext selbst stammen, besser 'Zitat-Auszug' verwenden, bei mehreren Stimmen nacheinander 'Zitat-Karussell'.",
+      "short": "A quotation **beside the face** of the person who said it.",
+      "shortDe": "Ein Zitat **neben dem Gesicht** der sprechenden Person.",
+      "keywords": [
+        "testimonial",
+        "quote",
+        "portrait",
+        "avatar",
+        "attribution",
+        "customer voice",
+        "statement",
+        "endorsement"
+      ],
+      "synonyms": [
+        "customer quote",
+        "review",
+        "recommendation",
+        "reference",
+        "voice of customer",
+        "case study quote",
+        "kundenstimme",
+        "referenz",
+        "spokesperson",
+        "witness",
+        "quoted person",
+        "profile quote",
+        "praise"
+      ],
+      "keywordsDe": [
+        "Kundenstimme",
+        "Zitat",
+        "Porträt",
+        "Bildnis",
+        "Zuschreibung",
+        "Aussage",
+        "Empfehlung",
+        "Referenz"
+      ],
+      "synonymsDe": [
+        "Testimonial",
+        "Kundenzitat",
+        "Bewertung",
+        "Referenzstimme",
+        "Erfahrungsbericht",
+        "Statement",
+        "Fürsprache",
+        "Zitatkarte",
+        "Personenzitat",
+        "Stimme",
+        "Anerkennung"
+      ],
+      "astryx": [
+        "Blockquote",
+        "Avatar",
+        "Text",
+        "Card"
+      ],
+      "fields": [
+        "quote_text",
+        "author",
+        "role",
+        "image",
+        "tone",
+        "align",
+        "width"
+      ],
+      "variants": [
+        "portrait-left",
+        "portrait-above"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "The portrait is cropped to a circle at small sizes and a rounded square when the variant puts it above the quote."
+    },
+    {
+      "id": "quote-carousel",
+      "title": "Quote Carousel",
+      "titleDe": "Zitat-Karussell",
+      "description": "Renders several quotations in a track that shows one at a time, with dots and arrows to move between them and a swipe on touch. Use it for: a run of customer verdicts, reviews after a conference, alumni voices on a course page, statements from every partner in a consortium. Prefer 'Quote with Portrait' when one voice is enough for the page, and 'Pull Quote' for a line taken from the article itself.",
+      "descriptionDe": "Rendert mehrere Zitate in einer Spur, die jeweils eines zeigt, mit Punkten und Pfeilen zum Blättern und Wischgeste am Touchscreen. Einsetzen für: eine Reihe von Kundenurteilen, Rückmeldungen nach einer Konferenz, Absolventenstimmen auf einer Kursseite, Statements aller Partner eines Konsortiums. Wenn eine Stimme für die Seite genügt, besser 'Zitat mit Porträt' verwenden, für eine Zeile aus dem Artikeltext 'Zitat-Auszug'.",
+      "short": "Several quotations, **one at a time**, with arrows and dots.",
+      "shortDe": "Mehrere Zitate, **eines nach dem anderen**, mit Pfeilen.",
+      "keywords": [
+        "testimonials",
+        "carousel",
+        "slider",
+        "reviews",
+        "rotating",
+        "voices",
+        "customer quotes",
+        "swipe"
+      ],
+      "synonyms": [
+        "quote slider",
+        "testimonial slider",
+        "review carousel",
+        "rotator",
+        "slideshow",
+        "kundenstimmen",
+        "swiper",
+        "filmstrip",
+        "cycling quotes",
+        "sliding quotes",
+        "feedback carousel",
+        "praise slider"
+      ],
+      "keywordsDe": [
+        "Kundenstimmen",
+        "Karussell",
+        "Slider",
+        "Bewertungen",
+        "Rotierend",
+        "Stimmen",
+        "Zitate",
+        "Wischen"
+      ],
+      "synonymsDe": [
+        "Zitatslider",
+        "Testimonial-Slider",
+        "Bewertungskarussell",
+        "Diaschau",
+        "Rotator",
+        "Blätterelement",
+        "Feedback-Karussell",
+        "Meinungsslider",
+        "Zitatwechsler",
+        "Referenzslider"
+      ],
+      "astryx": [
+        "Carousel",
+        "Blockquote",
+        "Avatar",
+        "Pagination"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "tone",
+        "width"
+      ],
+      "variants": [
+        "single",
+        "peek"
+      ],
+      "collection": {
+        "recordType": "quote-item",
+        "identifier": "quotes",
+        "labelEn": "Quotes",
+        "labelDe": "Zitate",
+        "min": 2,
+        "max": 12
+      },
+      "js": "carousel",
+      "notes": "The track is a scroll-snap row that already works as a scroller without JavaScript; the script only adds arrows, dots and the live region."
+    },
+    {
+      "id": "statement-band",
+      "title": "Statement Band",
+      "titleDe": "Aussagenband",
+      "description": "Renders one large sentence across the full width of the page, with an optional supporting line beneath it and nothing else competing for attention. Use it for: a mission statement, the promise that opens a section, a manifesto line between two chapters, a closing thought at the end of a report. Prefer 'Pull Quote' when the words belong to a named person, and 'Callout' when the sentence is a caveat rather than a claim.",
+      "descriptionDe": "Rendert einen großen Satz über die volle Seitenbreite, darunter optional eine stützende Zeile und sonst nichts, was um Aufmerksamkeit konkurriert. Einsetzen für: ein Leitbild, das Versprechen am Beginn eines Abschnitts, einen Manifestsatz zwischen zwei Kapiteln, einen Schlussgedanken am Ende eines Berichts. Wenn die Worte einer benannten Person gehören, besser 'Zitat-Auszug' verwenden, bei einem Vorbehalt statt einer Behauptung 'Hinweisbox'.",
+      "short": "**One large sentence** across the full width of the page.",
+      "shortDe": "**Ein großer Satz** über die volle Seitenbreite.",
+      "keywords": [
+        "statement",
+        "manifesto",
+        "mission",
+        "claim",
+        "big text",
+        "slogan",
+        "banner",
+        "promise"
+      ],
+      "synonyms": [
+        "mission statement",
+        "vision",
+        "tagline",
+        "headline band",
+        "big type",
+        "declaration",
+        "credo",
+        "motto",
+        "leitbild",
+        "aussage",
+        "pledge",
+        "value statement",
+        "brand line",
+        "position"
+      ],
+      "keywordsDe": [
+        "Aussage",
+        "Manifest",
+        "Leitbild",
+        "Behauptung",
+        "Großtext",
+        "Slogan",
+        "Band",
+        "Versprechen"
+      ],
+      "synonymsDe": [
+        "Leitsatz",
+        "Vision",
+        "Claim",
+        "Motto",
+        "Credo",
+        "Erklärung",
+        "Grundsatz",
+        "Positionierung",
+        "Markenkern",
+        "Schlagzeile",
+        "Großes Statement",
+        "Selbstverständnis"
+      ],
+      "astryx": [
+        "Section",
+        "Text",
+        "Divider"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "tone",
+        "align",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "display",
+        "underlined"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "header is rendered as a paragraph in display type, not as a heading, so it never disturbs the page outline."
+    },
+    {
+      "id": "accordion-faq",
+      "title": "Accordion",
+      "titleDe": "Akkordeon",
+      "description": "Renders a stack of questions that each fold open to reveal their answer, all closed on first paint so the page stays scannable. Use it for: a frequently asked questions block, terms explained one by one, support answers under a product, a long list of details most readers will skip. Prefer 'Definition List' when the answers are short enough to leave open, and 'Tabbed Sections' when the panels are alternatives rather than a list.",
+      "descriptionDe": "Rendert einen Stapel von Fragen, die sich jeweils aufklappen lassen, standardmäßig alle geschlossen, damit die Seite überschaubar bleibt. Einsetzen für: häufige Fragen, Begriffe einzeln erklärt, Supportantworten unter einem Produkt, eine lange Detailliste, die die meisten überspringen. Wenn die Antworten kurz genug sind, um offen zu bleiben, besser 'Definitionsliste' verwenden, bei Alternativen statt einer Liste 'Registerkarten'.",
+      "short": "Questions that **fold open** to their answers.",
+      "shortDe": "Fragen, die sich zur Antwort **aufklappen**.",
+      "keywords": [
+        "faq",
+        "questions",
+        "collapse",
+        "expand",
+        "disclosure",
+        "details",
+        "answers",
+        "toggle"
+      ],
+      "synonyms": [
+        "frequently asked questions",
+        "accordion list",
+        "expander",
+        "foldout",
+        "show more",
+        "drop down",
+        "q and a",
+        "help",
+        "häufige fragen",
+        "fragen und antworten",
+        "collapsible",
+        "twisty",
+        "reveal"
+      ],
+      "keywordsDe": [
+        "FAQ",
+        "Fragen",
+        "Aufklappen",
+        "Zuklappen",
+        "Antworten",
+        "Details",
+        "Umschalten",
+        "Ausklappbar"
+      ],
+      "synonymsDe": [
+        "Häufige Fragen",
+        "Fragen und Antworten",
+        "Ausklappliste",
+        "Klappbox",
+        "Aufklappmenü",
+        "Mehr anzeigen",
+        "Hilfebereich",
+        "Faltelement",
+        "Zusammenklappbar",
+        "Fragenkatalog",
+        "Wissensfragen"
+      ],
+      "astryx": [
+        "Collapsible",
+        "Text",
+        "Divider"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "independent",
+        "exclusive"
+      ],
+      "collection": {
+        "recordType": "qa-item",
+        "identifier": "questions",
+        "labelEn": "Questions",
+        "labelDe": "Fragen",
+        "min": 2,
+        "max": 30
+      },
+      "js": null,
+      "notes": "Every row is a native details element; the exclusive variant only adds the shared name attribute, so nothing has to be scripted."
+    },
+    {
+      "id": "definition-list",
+      "title": "Definition List",
+      "titleDe": "Definitionsliste",
+      "description": "Renders term and description pairs in two columns, one pair per row, ruled between so the eye can run down either side. Use it for: a glossary, technical specifications, the facts under a record, opening hours, key data on a profile page. Prefer 'Accordion' when the descriptions are long enough to be worth hiding, and 'Pros and Cons' when the rows split into two opposed lists rather than pairs.",
+      "descriptionDe": "Rendert Paare aus Begriff und Erläuterung in zwei Spalten, ein Paar pro Zeile, mit Linien dazwischen, damit das Auge beiden Spalten folgen kann. Einsetzen für: ein Glossar, technische Daten, die Eckdaten eines Datensatzes, Öffnungszeiten, Kennzahlen auf einer Profilseite. Wenn die Erläuterungen lang genug sind, um versteckt zu werden, besser 'Akkordeon' verwenden, bei zwei gegenüberstehenden Listen 'Pro und Contra'.",
+      "short": "**Term and description** pairs, one per row.",
+      "shortDe": "Paare aus **Begriff und Erläuterung**, zeilenweise.",
+      "keywords": [
+        "glossary",
+        "specifications",
+        "key value",
+        "terms",
+        "metadata",
+        "facts",
+        "data sheet",
+        "details"
+      ],
+      "synonyms": [
+        "dl",
+        "description list",
+        "spec table",
+        "properties",
+        "attributes",
+        "parameters",
+        "technical data",
+        "fact sheet",
+        "glossar",
+        "kennzahlen",
+        "lexicon",
+        "dictionary",
+        "summary table",
+        "key facts"
+      ],
+      "keywordsDe": [
+        "Glossar",
+        "Technische Daten",
+        "Schlüssel-Wert",
+        "Begriffe",
+        "Metadaten",
+        "Fakten",
+        "Datenblatt",
+        "Details"
+      ],
+      "synonymsDe": [
+        "Beschreibungsliste",
+        "Merkmalsliste",
+        "Eigenschaften",
+        "Parameter",
+        "Kenndaten",
+        "Faktenblatt",
+        "Lexikon",
+        "Wörterverzeichnis",
+        "Übersichtstabelle",
+        "Eckdaten",
+        "Stammdaten",
+        "Begriffserklärung"
+      ],
+      "astryx": [
+        "MetadataList",
+        "Text",
+        "Divider"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "two-column",
+        "stacked"
+      ],
+      "collection": {
+        "recordType": "label-value",
+        "identifier": "entries",
+        "labelEn": "Entries",
+        "labelDe": "Einträge",
+        "min": 2,
+        "max": 40
+      },
+      "js": null,
+      "notes": "Outputs a real dl with dt and dd pairs; the child's text field holds a longer explanation shown under the value."
+    },
+    {
+      "id": "timeline",
+      "title": "Timeline",
+      "titleDe": "Zeitleiste",
+      "description": "Renders dated entries down a line in order, each with its year or date, a heading and a short paragraph. Use it for: a company history, the milestones of a project, the stages of a legal case, a roadmap of what has already shipped, a festival programme by day. Prefer 'Numbered Steps' when the entries are instructions to follow rather than events that happened, and 'Definition List' for undated pairs.",
+      "descriptionDe": "Rendert datierte Einträge der Reihe nach entlang einer Linie, jeweils mit Jahr oder Datum, Überschrift und einem kurzen Absatz. Einsetzen für: eine Firmengeschichte, Meilensteine eines Projekts, die Stationen eines Verfahrens, eine Roadmap des bereits Erreichten, ein Festivalprogramm nach Tagen. Wenn die Einträge Anweisungen statt Ereignisse sind, besser 'Schritt für Schritt' verwenden, für Paare ohne Datum 'Definitionsliste'.",
+      "short": "**Dated entries** down a line, in order.",
+      "shortDe": "**Datierte Einträge** entlang einer Linie.",
+      "keywords": [
+        "history",
+        "milestones",
+        "chronology",
+        "roadmap",
+        "dates",
+        "events",
+        "story",
+        "years"
+      ],
+      "synonyms": [
+        "timeline chart",
+        "company history",
+        "journey",
+        "path",
+        "progression",
+        "log",
+        "calendar of events",
+        "firmengeschichte",
+        "meilensteine",
+        "historie",
+        "sequence of events",
+        "anniversary",
+        "since"
+      ],
+      "keywordsDe": [
+        "Historie",
+        "Meilensteine",
+        "Chronologie",
+        "Roadmap",
+        "Daten",
+        "Ereignisse",
+        "Werdegang",
+        "Jahre"
+      ],
+      "synonymsDe": [
+        "Firmengeschichte",
+        "Zeitstrahl",
+        "Chronik",
+        "Entwicklungsweg",
+        "Stationen",
+        "Verlauf",
+        "Zeittafel",
+        "Jubiläum",
+        "Etappen",
+        "Geschichtlicher Überblick",
+        "Ablauf nach Datum"
+      ],
+      "astryx": [
+        "Stack",
+        "Divider",
+        "Timestamp",
+        "Text",
+        "StatusDot"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "tone",
+        "width"
+      ],
+      "variants": [
+        "vertical",
+        "alternating"
+      ],
+      "collection": {
+        "recordType": "metric-item",
+        "identifier": "entries",
+        "labelEn": "Milestones",
+        "labelDe": "Meilensteine",
+        "min": 2,
+        "max": 20
+      },
+      "js": null,
+      "notes": "The child's value carries the year or date label and unit a qualifier such as Q3; the connecting line is drawn with a border, not an element."
+    },
+    {
+      "id": "steps-howto",
+      "title": "Numbered Steps",
+      "titleDe": "Schritt für Schritt",
+      "description": "Renders instructions as a numbered sequence, each step with an icon, a heading and a sentence or two of what to do. Use it for: a how-to in a help centre, an application procedure, an onboarding checklist, assembly instructions, the stages of a service. Prefer 'Timeline' when the sequence is history rather than instruction, and 'Step Navigation' when each step is a page of its own that the reader has to travel to.",
+      "descriptionDe": "Rendert eine Anleitung als nummerierte Abfolge, jeder Schritt mit Symbol, Überschrift und ein bis zwei Sätzen zum Vorgehen. Einsetzen für: eine Anleitung im Hilfebereich, ein Antragsverfahren, eine Checkliste für den Einstieg, eine Montageanleitung, den Ablauf einer Dienstleistung. Wenn die Abfolge Geschichte statt Anleitung ist, besser 'Zeitleiste' verwenden, wenn jeder Schritt eine eigene Seite ist 'Schrittnavigation'.",
+      "short": "Instructions as a **numbered sequence** of steps.",
+      "shortDe": "Eine Anleitung als **nummerierte Abfolge**.",
+      "keywords": [
+        "how to",
+        "instructions",
+        "steps",
+        "procedure",
+        "guide",
+        "checklist",
+        "process",
+        "numbered"
+      ],
+      "synonyms": [
+        "tutorial",
+        "walkthrough",
+        "recipe",
+        "manual",
+        "workflow",
+        "sequence",
+        "stages",
+        "anleitung",
+        "ablauf",
+        "arbeitsschritte",
+        "onboarding",
+        "setup guide",
+        "step by step",
+        "playbook"
+      ],
+      "keywordsDe": [
+        "Anleitung",
+        "Schritte",
+        "Verfahren",
+        "Ratgeber",
+        "Checkliste",
+        "Ablauf",
+        "Nummeriert",
+        "Vorgehen"
+      ],
+      "synonymsDe": [
+        "Tutorial",
+        "Arbeitsschritte",
+        "Handlungsanleitung",
+        "Prozess",
+        "Reihenfolge",
+        "Etappen",
+        "Bedienungsanleitung",
+        "Rezept",
+        "Leitfaden",
+        "Einrichtung",
+        "Wegweiser",
+        "Vorgehensweise"
+      ],
+      "astryx": [
+        "List",
+        "Item",
+        "Text",
+        "Badge"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "lead",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "stacked",
+        "columns"
+      ],
+      "collection": {
+        "recordType": "icon-lead",
+        "identifier": "steps",
+        "labelEn": "Steps",
+        "labelDe": "Schritte",
+        "min": 2,
+        "max": 12
+      },
+      "js": null,
+      "notes": "Outputs an ordered list so the numbers survive reordering; the icon is optional and the number is always shown."
+    },
+    {
+      "id": "key-takeaways",
+      "title": "Key Takeaways",
+      "titleDe": "Das Wichtigste in Kürze",
+      "description": "Renders a boxed list of the few points a reader should leave with, each of them one line long. Use it for: the summary at the top of a long report, the recap at the end of a guide, the essentials above a legal text, an executive summary on a study page. Prefer 'Callout' for a single remark that needs a warning tone, and 'Pros and Cons' when the points fall into two opposed columns.",
+      "descriptionDe": "Rendert eine gerahmte Liste der wenigen Punkte, die hängen bleiben sollen, jeder Punkt eine Zeile lang. Einsetzen für: die Zusammenfassung am Anfang eines langen Berichts, das Fazit am Ende eines Ratgebers, die Eckpunkte über einem Rechtstext, ein Management Summary auf einer Studienseite. Für eine einzelne Bemerkung mit Warncharakter besser 'Hinweisbox' verwenden, bei zwei gegenüberstehenden Spalten 'Pro und Contra'.",
+      "short": "A boxed list of the **points to take away**.",
+      "shortDe": "Eine gerahmte Liste der **wichtigsten Punkte**.",
+      "keywords": [
+        "summary",
+        "tldr",
+        "recap",
+        "essentials",
+        "highlights",
+        "abstract",
+        "conclusions",
+        "in brief"
+      ],
+      "synonyms": [
+        "key points",
+        "at a glance",
+        "executive summary",
+        "bullet summary",
+        "what you need to know",
+        "wrap up",
+        "fazit",
+        "kurzfassung",
+        "überblick",
+        "digest",
+        "main points",
+        "learnings",
+        "takeaway box"
+      ],
+      "keywordsDe": [
+        "Zusammenfassung",
+        "Fazit",
+        "Eckpunkte",
+        "Überblick",
+        "Kernaussagen",
+        "Kurzfassung",
+        "Auf einen Blick",
+        "Wesentliches"
+      ],
+      "synonymsDe": [
+        "Management Summary",
+        "Kurzüberblick",
+        "Merkpunkte",
+        "Schlussfolgerungen",
+        "Das Wichtigste",
+        "Zusammenschau",
+        "Wissenswertes",
+        "Kernbotschaften",
+        "Resümee",
+        "Übersicht in Stichworten"
+      ],
+      "astryx": [
+        "Card",
+        "List",
+        "Icon",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "icon",
+        "tone",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "boxed",
+        "ruled"
+      ],
+      "collection": {
+        "recordType": "icon-lead",
+        "identifier": "points",
+        "labelEn": "Points",
+        "labelDe": "Punkte",
+        "min": 2,
+        "max": 6
+      },
+      "js": null,
+      "notes": "The child's text is optional: most takeaway boxes fill only the title, and the icon on the block is the fallback marker for every row."
+    },
+    {
+      "id": "pros-cons",
+      "title": "Pros and Cons",
+      "titleDe": "Pro und Contra",
+      "description": "Renders arguments for and against in two facing columns, each row marked as a point in favour or a point against. Use it for: weighing two options in a buying guide, an honest assessment of a method, the trade-offs behind a decision, the verdict at the end of a review. Prefer 'Side-by-Side Texts' when each side is a paragraph rather than a list of points, and 'Definition List' when nothing is being weighed against anything.",
+      "descriptionDe": "Rendert Argumente dafür und dagegen in zwei gegenüberliegenden Spalten, jede Zeile als Für- oder Gegenpunkt markiert. Einsetzen für: das Abwägen zweier Optionen in einem Kaufratgeber, eine ehrliche Einschätzung einer Methode, die Kompromisse hinter einer Entscheidung, das Fazit am Ende einer Rezension. Wenn jede Seite ein Absatz statt einer Punkteliste ist, besser 'Textvergleich' verwenden, wenn nichts abgewogen wird 'Definitionsliste'.",
+      "short": "Arguments **for and against** in two facing columns.",
+      "shortDe": "Argumente **dafür und dagegen** in zwei Spalten.",
+      "keywords": [
+        "pros",
+        "cons",
+        "advantages",
+        "drawbacks",
+        "trade-offs",
+        "for and against",
+        "verdict",
+        "weighing"
+      ],
+      "synonyms": [
+        "plus minus",
+        "benefits and risks",
+        "strengths weaknesses",
+        "upsides downsides",
+        "vorteile nachteile",
+        "gegenüberstellung",
+        "balance sheet",
+        "pluspunkte",
+        "critique",
+        "assessment",
+        "review verdict",
+        "decision aid"
+      ],
+      "keywordsDe": [
+        "Vorteile",
+        "Nachteile",
+        "Stärken",
+        "Schwächen",
+        "Abwägung",
+        "Dafür und dagegen",
+        "Fazit",
+        "Bilanz"
+      ],
+      "synonymsDe": [
+        "Plus und Minus",
+        "Chancen und Risiken",
+        "Gegenüberstellung",
+        "Vor- und Nachteile",
+        "Bewertung",
+        "Einschätzung",
+        "Entscheidungshilfe",
+        "Kritikpunkte",
+        "Positiv Negativ",
+        "Argumente"
+      ],
+      "astryx": [
+        "Grid",
+        "List",
+        "Icon",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "tone",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "two-column",
+        "single-column"
+      ],
+      "collection": {
+        "recordType": "label-value",
+        "identifier": "points",
+        "labelEn": "Arguments",
+        "labelDe": "Argumente",
+        "min": 2,
+        "max": 20
+      },
+      "js": null,
+      "notes": "The child's included toggle decides the column: on lands in the column for, off in the column against; value may hold a weighting such as 'major'."
+    },
+    {
+      "id": "footnotes",
+      "title": "Footnotes",
+      "titleDe": "Fußnoten",
+      "description": "Renders numbered notes and sources at the foot of an article, each with its text and an optional link to where the claim came from. Use it for: references under a research piece, legal citations, sources for the figures in a report, a translator's remarks, small print that belongs to specific sentences. Prefer 'Downloads' when the references are files to take away, and 'External Resources' for a reading list meant to be browsed.",
+      "descriptionDe": "Rendert nummerierte Anmerkungen und Quellen am Ende eines Artikels, jeweils mit Text und optionalem Link zur Herkunft der Aussage. Einsetzen für: Nachweise unter einem Forschungsbeitrag, juristische Zitate, Quellen für Zahlen in einem Bericht, Anmerkungen der Übersetzung, Kleingedrucktes zu einzelnen Sätzen. Wenn die Nachweise Dateien zum Mitnehmen sind, besser 'Download-Liste' verwenden, für eine Leseliste zum Stöbern 'Externe Quellen'.",
+      "short": "**Numbered notes and sources** at the foot of an article.",
+      "shortDe": "**Nummerierte Anmerkungen und Quellen** am Textende.",
+      "keywords": [
+        "references",
+        "sources",
+        "citations",
+        "endnotes",
+        "notes",
+        "bibliography",
+        "small print",
+        "attribution"
+      ],
+      "synonyms": [
+        "footnote list",
+        "works cited",
+        "literature",
+        "further reading",
+        "annotations",
+        "remarks",
+        "quellenangaben",
+        "literaturverzeichnis",
+        "anmerkungen",
+        "legal notes",
+        "disclaimer notes",
+        "numbered notes",
+        "provenance"
+      ],
+      "keywordsDe": [
+        "Quellen",
+        "Nachweise",
+        "Endnoten",
+        "Anmerkungen",
+        "Literatur",
+        "Kleingedrucktes",
+        "Belege",
+        "Zitate"
+      ],
+      "synonymsDe": [
+        "Quellenangaben",
+        "Literaturverzeichnis",
+        "Fußnotenliste",
+        "Belegstellen",
+        "Randbemerkungen",
+        "Zitatnachweise",
+        "Rechtliche Hinweise",
+        "Nummerierte Anmerkungen",
+        "Herkunftsangaben",
+        "Bibliografie"
+      ],
+      "astryx": [
+        "List",
+        "Citation",
+        "Link",
+        "Text"
+      ],
+      "fields": [
+        "header",
+        "note",
+        "width",
+        "compact"
+      ],
+      "variants": [
+        "numbered",
+        "lettered"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "notes",
+        "labelEn": "Notes",
+        "labelDe": "Anmerkungen",
+        "min": 1,
+        "max": 40
+      },
+      "js": null,
+      "notes": "Children render as an ordered list, so the marker is the position: reordering rows renumbers the markers in the prose above."
+    },
+    {
+      "id": "downloads-list",
+      "title": "Downloads",
+      "titleDe": "Download-Liste",
+      "description": "Renders a list of files to take away, each row showing an icon for the file type, a title, a line of context and the size. Use it for: forms on a service page, a press kit, slides after a talk, terms and conditions as PDF, an annual report and its appendices. Prefer 'Footnotes' for sources that are not files, and 'Link Grid' when the targets are pages on the site rather than documents.",
+      "descriptionDe": "Rendert eine Liste von Dateien zum Mitnehmen, jede Zeile mit Symbol für den Dateityp, Titel, einer Zeile Kontext und der Größe. Einsetzen für: Formulare auf einer Serviceseite, ein Pressekit, Folien nach einem Vortrag, AGB als PDF, einen Geschäftsbericht samt Anhängen. Für Quellen, die keine Dateien sind, besser 'Fußnoten' verwenden, wenn die Ziele Seiten statt Dokumente sind 'Linkraster'.",
+      "short": "**Files to take away**, with type and size.",
+      "shortDe": "**Dateien zum Herunterladen**, mit Typ und Größe.",
+      "keywords": [
+        "files",
+        "pdf",
+        "attachments",
+        "documents",
+        "forms",
+        "press kit",
+        "assets",
+        "media kit"
+      ],
+      "synonyms": [
+        "download list",
+        "file list",
+        "resources",
+        "handouts",
+        "brochures",
+        "datasheets",
+        "dokumente",
+        "formulare",
+        "unterlagen",
+        "anhänge",
+        "attachments list",
+        "material",
+        "papers",
+        "leaflets"
+      ],
+      "keywordsDe": [
+        "Dateien",
+        "PDF",
+        "Anhänge",
+        "Dokumente",
+        "Formulare",
+        "Pressemappe",
+        "Unterlagen",
+        "Merkblätter"
+      ],
+      "synonymsDe": [
+        "Downloadbereich",
+        "Dateiliste",
+        "Materialien",
+        "Handouts",
+        "Broschüren",
+        "Datenblätter",
+        "Vordrucke",
+        "Beilagen",
+        "Prospekte",
+        "Downloads zum Mitnehmen",
+        "Dokumentenliste"
+      ],
+      "astryx": [
+        "List",
+        "Item",
+        "Icon",
+        "Button"
+      ],
+      "fields": [
+        "header",
+        "lead",
+        "note",
+        "columns",
+        "width",
+        "tone"
+      ],
+      "variants": [
+        "rows",
+        "cards"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "files",
+        "labelEn": "Files",
+        "labelDe": "Dateien",
+        "min": 1,
+        "max": 20
+      },
+      "js": null,
+      "notes": "A child's link may be a FAL file reference; when it is, the template prints the extension and file size and adds the download attribute."
+    },
+    {
+      "id": "article-meta",
+      "title": "Article Meta Strip",
+      "titleDe": "Artikel-Metazeile",
+      "description": "Renders the byline strip that runs under an article's title: publication date, reading time, category and the author's name as one quiet line, optionally with a small portrait. Use it for: the head of a blog post, news articles, documentation pages that state when they were last reviewed, any page whose freshness is part of its credibility. Prefer 'Author Box' for the full profile at the foot of a piece, and 'Article Header' when you need the title band itself rather than the line beneath it.",
+      "descriptionDe": "Rendert die Metazeile unter dem Artikeltitel: Veröffentlichungsdatum, Lesedauer, Rubrik und Autorenname als eine zurückhaltende Zeile, wahlweise mit kleinem Porträt. Einsatz für: Kopf eines Blogbeitrags, Nachrichtenartikel, Dokumentationsseiten mit Angabe der letzten Prüfung, jede Seite, deren Aktualität zur Glaubwürdigkeit gehört. Für das ausführliche Profil am Textende besser 'Autorenbox', für das Titelband selbst 'Artikelkopf'.",
+      "short": "A quiet **byline strip**: date, reading time, category, author.",
+      "shortDe": "Zurückhaltende **Metazeile**: Datum, Lesedauer, Rubrik, Autor.",
+      "keywords": [
+        "byline",
+        "publication date",
+        "reading time",
+        "category",
+        "author line",
+        "article meta",
+        "last updated"
+      ],
+      "keywordsDe": [
+        "Verfasserzeile",
+        "Veröffentlichungsdatum",
+        "Lesedauer",
+        "Rubrik",
+        "Autorenzeile",
+        "Artikel-Meta",
+        "zuletzt aktualisiert"
+      ],
+      "synonyms": [
+        "dateline",
+        "post meta",
+        "article info",
+        "published on",
+        "time to read",
+        "kicker line",
+        "meta row",
+        "article details",
+        "byline bar",
+        "post details",
+        "authored by",
+        "date and author",
+        "reading estimate",
+        "article credits",
+        "news meta",
+        "timestamp line"
+      ],
+      "synonymsDe": [
+        "Datumszeile",
+        "Beitrags-Meta",
+        "Artikelinfo",
+        "veröffentlicht am",
+        "Lesezeit",
+        "Metazeile",
+        "Beitragsdetails",
+        "verfasst von",
+        "Datum und Autor",
+        "Artikelangaben",
+        "Zeitstempel",
+        "Rubrikzeile"
+      ],
+      "astryx": [
+        "Stack",
+        "Text",
+        "Avatar",
+        "Timestamp",
+        "Divider"
+      ],
+      "fields": [
+        "author",
+        "role",
+        "eyebrow",
+        "note",
+        "image",
+        "tone"
+      ],
+      "variants": [],
+      "collection": null,
+      "js": null,
+      "notes": "One line at small sizes: the portrait is optional and the separators are pseudo-elements so a screen reader reads plain items. 'note' carries the date and reading time, 'eyebrow' the category."
+    },
+    {
+      "id": "contents-box",
+      "title": "Article Contents",
+      "titleDe": "Inhaltsübersicht",
+      "description": "Renders a boxed list of the sections of the page it sits on, each entry jumping straight to its heading. Use it for: the top of a long guide, a report with numbered chapters, a policy page with many parts, a documentation page before the first section. Prefer 'Outline Rail' when the contents should follow the reader down the page, and 'Jump List' for a bare inline run of links with no box around it.",
+      "descriptionDe": "Rendert eine gerahmte Liste der Abschnitte der Seite, auf der das Element steht, jeder Eintrag springt direkt zur Überschrift. Einsetzen für: den Anfang eines langen Ratgebers, einen Bericht mit nummerierten Kapiteln, eine Richtlinienseite mit vielen Teilen, eine Dokumentationsseite vor dem ersten Abschnitt. Wenn die Übersicht beim Scrollen mitwandern soll, besser 'Inhaltsleiste' verwenden, für eine schlichte Linkzeile ohne Rahmen 'Sprungliste'.",
+      "short": "A **boxed table of contents** for the page it sits on.",
+      "shortDe": "Ein **gerahmtes Inhaltsverzeichnis** der aktuellen Seite.",
+      "keywords": [
+        "table of contents",
+        "toc",
+        "on this page",
+        "sections",
+        "index",
+        "overview",
+        "anchors",
+        "contents"
+      ],
+      "synonyms": [
+        "contents list",
+        "page contents",
+        "in this article",
+        "chapter list",
+        "inhaltsverzeichnis",
+        "gliederung",
+        "übersicht",
+        "outline",
+        "summary of sections",
+        "quick links",
+        "navigation box",
+        "topics covered"
+      ],
+      "keywordsDe": [
+        "Inhaltsverzeichnis",
+        "Auf dieser Seite",
+        "Abschnitte",
+        "Gliederung",
+        "Übersicht",
+        "Sprungmarken",
+        "Kapitel",
+        "Inhalt"
+      ],
+      "synonymsDe": [
+        "Seiteninhalt",
+        "In diesem Artikel",
+        "Kapitelverzeichnis",
+        "Themenübersicht",
+        "Navigationsbox",
+        "Inhaltsliste",
+        "Übersichtskasten",
+        "Ankerliste",
+        "Struktur",
+        "Verzeichnis"
+      ],
+      "astryx": [
+        "Outline",
+        "List",
+        "Link",
+        "Card"
+      ],
+      "fields": [
+        "header",
+        "width",
+        "tone",
+        "compact"
+      ],
+      "variants": [
+        "boxed",
+        "ruled"
+      ],
+      "collection": {
+        "recordType": "nav-item",
+        "identifier": "entries",
+        "labelEn": "Entries",
+        "labelDe": "Einträge",
+        "min": 2,
+        "max": 20
+      },
+      "js": null,
+      "notes": "Entries are curated, not scraped: the child's link takes an anchor such as #part-two, so renaming a heading never silently breaks the list."
+    },
+    {
+      "id": "text-comparison",
+      "title": "Side-by-Side Texts",
+      "titleDe": "Textvergleich",
+      "description": "Renders two passages of prose in facing columns under their own headings, so a reader can compare them line for line. Use it for: before and after wording, the old rule against the new one, two translations of the same paragraph, a claim next to its correction, two positions in a debate. Prefer 'Pros and Cons' when each side is a list of points, and 'Text with Media' when one of the two sides is a picture.",
+      "descriptionDe": "Rendert zwei Textpassagen in gegenüberliegenden Spalten unter je eigener Überschrift, damit sie sich Zeile für Zeile vergleichen lassen. Einsetzen für: Formulierungen vorher und nachher, die alte Regelung gegen die neue, zwei Übersetzungen desselben Absatzes, eine Behauptung neben ihrer Richtigstellung, zwei Positionen in einer Debatte. Wenn jede Seite eine Punkteliste ist, besser 'Pro und Contra' verwenden, wenn eine Seite ein Bild ist 'Text mit Bild'.",
+      "short": "Two passages of prose in **facing columns**.",
+      "shortDe": "Zwei Textpassagen in **gegenüberliegenden Spalten**.",
+      "keywords": [
+        "comparison",
+        "before after",
+        "versus",
+        "two columns",
+        "contrast",
+        "old new",
+        "diff",
+        "opposing"
+      ],
+      "synonyms": [
+        "side by side",
+        "compare texts",
+        "this vs that",
+        "gegenüberstellung",
+        "vergleich",
+        "before and after",
+        "parallel texts",
+        "two views",
+        "translation pair",
+        "counterpoint",
+        "juxtaposition",
+        "twin columns"
+      ],
+      "keywordsDe": [
+        "Vergleich",
+        "Vorher Nachher",
+        "Gegenüberstellung",
+        "Zweispaltig",
+        "Kontrast",
+        "Alt Neu",
+        "Unterschied",
+        "Positionen"
+      ],
+      "synonymsDe": [
+        "Nebeneinander",
+        "Texte vergleichen",
+        "Vorher und nachher",
+        "Parallelbetrachtung",
+        "Zwei Sichtweisen",
+        "Übersetzungsvergleich",
+        "Kontrastdarstellung",
+        "Direktvergleich",
+        "Gegensatz",
+        "Zweispaltiger Vergleich"
+      ],
+      "astryx": [
+        "Grid",
+        "Section",
+        "Text",
+        "Divider"
+      ],
+      "fields": [
+        "eyebrow",
+        "header",
+        "bodytext",
+        "subheader",
+        "text",
+        "reverse",
+        "tone",
+        "width"
+      ],
+      "variants": [
+        "equal",
+        "ruled-centre"
+      ],
+      "collection": null,
+      "js": null,
+      "notes": "header labels the left column and subheader the right; reverse swaps both the headings and their texts so the emphasis can move."
+    }
+  ]
+}

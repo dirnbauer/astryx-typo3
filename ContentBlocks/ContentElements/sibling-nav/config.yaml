@@ -1,0 +1,57 @@
+name: desiderio-grande/sibling-nav
+typeName: desiderio_grande_siblingnav
+title: 'More in This Section'
+description: 'Renders the pages that sit beside this one under the same parent, with the current page marked and left unlinked. Use it for: the foot of an article inside a series, a rail on a policy page, orientation on a deep page whose menu is not visible, moving between the chapters of a handbook. Prefer ''Previous and Next'' when only the two immediate neighbours matter, and ''Page List Menu'' when the list should be curated rather than derived.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'

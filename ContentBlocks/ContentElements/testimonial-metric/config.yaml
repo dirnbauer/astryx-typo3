@@ -1,0 +1,90 @@
+name: desiderio-grande/testimonial-metric
+typeName: desiderio_grande_testimonialmetric
+title: 'Quote with Result'
+description: 'Renders one quote beside the single number the described work produced, with a short line explaining how the figure was measured. Use it for: pairing a satisfied sentence with hard evidence, the summary panel at the top of a case study, a proof band on a solution page. Prefer ''Case Study Metrics Band'' when there are several numbers and no voice, and ''Before and After'' when the interesting part is the change rather than the endpoint.'
+group: social-proof
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'quote_text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Quote text'
+  -
+    identifier: 'author'
+    type: 'Textarea'
+    rows: 1
+    label: 'Author'
+  -
+    identifier: 'role'
+    type: 'Textarea'
+    rows: 1
+    label: 'Role'
+  -
+    identifier: 'image'
+    type: 'File'
+    maxitems: 1
+    allowed: 'common-image-types'
+    label: 'Image'
+  -
+    identifier: 'value'
+    type: 'Text'
+    max: 24
+    label: 'Value'
+  -
+    identifier: 'unit'
+    type: 'Text'
+    max: 24
+    label: 'Unit'
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'reverse'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Reverse'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'

@@ -1,0 +1,99 @@
+name: desiderio-grande/conversion-contact-options
+typeName: desiderio_grande_conversioncontactoptions
+title: 'Contact Options Grid'
+description: 'Renders every way to reach you as a grid of cards or a list of rows: chat, phone, email, the help centre, the status page, the shop counter — each with an icon, its hours or response time, and a link. Use it for: a support landing page, the main section of a contact page, the foot of a documentation site. Prefer ''Named Contact Panel'' when one person should be the face of the page, and ''Sales or Self-Serve Fork'' when the routes lead to buying rather than to help.'
+group: conversion
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'subheader'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'variant'
+    type: 'Select'
+    renderType: 'selectSingle'
+    prefixField: true
+    label: 'Variant'
+    items:
+      -
+        label: 'Cards'
+        value: 'cards'
+      -
+        label: 'List'
+        value: 'list'
+    default: 'cards'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: channels
+    type: Collection
+    foreign_table: desiderio_grande_nav_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Contact channels'
+    minitems: 2
+    maxitems: 8

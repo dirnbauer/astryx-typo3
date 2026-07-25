@@ -1,0 +1,46 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Preview"/>
+
+<f:section name="Header"></f:section>
+
+<f:section name="Content">
+    <f:asset.css identifier="grande-content-preview" href="EXT:desiderio_grande/Resources/Public/Css/content-preview.css"/>
+    <div class="g-ce-preview" data-slot="card">
+        <div class="g-ce-preview__meta">
+            <span class="g-ce-preview__ctype">Endorsement</span>
+            <span class="g-ce-preview__ctype">uid {data.uid}</span>
+        </div>
+        <f:if condition="{data.header}">
+            <h3 class="g-ce-preview__title">{data.header -> f:format.stripTags() -> f:format.htmlspecialchars()}</h3>
+        </f:if>
+        <f:if condition="{data.eyebrow}">
+            <div class="g-ce-preview__field">
+                <span class="g-ce-preview__label">Eyebrow</span>
+                <span class="g-ce-preview__value">{data.eyebrow -> f:format.stripTags() -> f:format.htmlspecialchars()}</span>
+            </div>
+        </f:if>
+        <f:if condition="{data.quote_text}">
+            <div class="g-ce-preview__field">
+                <span class="g-ce-preview__label">Quote text</span>
+                <span class="g-ce-preview__value">{data.quote_text -> f:format.stripTags() -> f:format.htmlspecialchars()}</span>
+            </div>
+        </f:if>
+        <f:if condition="{data.author}">
+            <div class="g-ce-preview__field">
+                <span class="g-ce-preview__label">Author</span>
+                <span class="g-ce-preview__value">{data.author -> f:format.stripTags() -> f:format.htmlspecialchars()}</span>
+            </div>
+        </f:if>
+        <f:if condition="{data.role}">
+            <div class="g-ce-preview__field">
+                <span class="g-ce-preview__label">Role</span>
+                <span class="g-ce-preview__value">{data.role -> f:format.stripTags() -> f:format.htmlspecialchars()}</span>
+            </div>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

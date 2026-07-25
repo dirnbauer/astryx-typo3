@@ -1,0 +1,100 @@
+name: desiderio-grande/team-facepile
+typeName: desiderio_grande_teamfacepile
+title: 'Team Facepile'
+description: 'Renders a compact cluster of overlapping portraits with a count and one sentence, small enough to sit directly above a button. Use it for: reassurance next to a sign-up form, the people behind a support promise, a short line naming how many specialists are on call. Prefer ''Contributor Wall'' when every name should be legible, and ''Team Grid'' when roles and links matter.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'value'
+    type: 'Text'
+    max: 24
+    label: 'Value'
+  -
+    identifier: 'unit'
+    type: 'Text'
+    max: 24
+    label: 'Unit'
+  -
+    identifier: 'text'
+    type: 'Textarea'
+    rows: 4
+    label: 'Text'
+  -
+    identifier: 'cta_label'
+    type: 'Text'
+    label: 'Cta label'
+  -
+    identifier: 'cta_link'
+    type: 'Link'
+    label: 'Cta link'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: people
+    type: Collection
+    foreign_table: desiderio_grande_person_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'People'
+    minitems: 3
+    maxitems: 20

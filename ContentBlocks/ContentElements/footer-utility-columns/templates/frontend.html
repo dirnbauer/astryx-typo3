@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-footer-utility-columns" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Only place this where the site's template footer is switched off, otherwise the page ends twice; an entry with an empty link starts a new column.
+</f:comment>
+
+<section class="astryx-section g-footer-utility-columns" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

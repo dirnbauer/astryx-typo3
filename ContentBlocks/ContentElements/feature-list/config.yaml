@@ -1,0 +1,90 @@
+name: desiderio-grande/feature-list
+typeName: desiderio_grande_featurelist
+title: 'Benefit List'
+description: 'Renders the entries as full-width rows — icon on the left, title and a real paragraph on the right, a rule between them — so each one can carry an argument rather than a caption. Use it for: benefit sections that persuade rather than list, service descriptions, ''why teams switch'' bands, security and compliance summaries. Prefer ''Feature Grid'' when the entries are short enough to scan side by side, and ''Expandable Feature List'' when most readers only want one of them.'
+group: features
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'align'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Align'
+    items:
+      -
+        label: 'Left'
+        value: 'start'
+      -
+        label: 'Centred'
+        value: 'center'
+    default: 'start'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: items
+    type: Collection
+    foreign_table: desiderio_grande_icon_lead
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Benefits'
+    minitems: 2
+    maxitems: 10

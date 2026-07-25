@@ -1,0 +1,87 @@
+name: desiderio-grande/data-table-caption
+typeName: desiderio_grande_datatablecaption
+title: 'Captioned Data Table'
+description: 'Renders rows as a proper table with a caption above and a source note below, so the figures can be cited. Use it for: measurement results in a report, a price and quantity list, statistics reproduced from an official source, appendix data. Prefer ''Specification Table'' for product attributes without a source apparatus, and ''Ranking List'' when the order of the rows is the point.'
+group: data
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'caption'
+    type: 'Textarea'
+    rows: 1
+    label: 'Caption'
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'note'
+    type: 'Textarea'
+    rows: 2
+    label: 'Note'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: rows
+    type: Collection
+    foreign_table: desiderio_grande_label_value
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Rows'
+    minitems: 2
+    maxitems: 40

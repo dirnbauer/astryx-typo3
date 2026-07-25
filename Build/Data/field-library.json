@@ -17,7 +17,6 @@
     "Never name a field 'label': Content Blocks reserves it and the generated",
     "table breaks."
   ],
-
   "fields": {
     "header": {
       "identifier": "header",
@@ -41,12 +40,11 @@
       "useExistingField": true,
       "_note": "Core header_link column."
     },
-
     "eyebrow": {
       "identifier": "eyebrow",
-      "type": "Text",
-      "max": 60,
-      "_note": "The small label above a heading that says which section this is."
+      "type": "Textarea",
+      "_note": "The small label above a heading that says which section this is. Textarea with one row: the type is shared with Desiderio, whose columns these already are.",
+      "rows": 1
     },
     "lead": {
       "identifier": "lead",
@@ -68,8 +66,9 @@
     },
     "caption": {
       "identifier": "caption",
-      "type": "Text",
-      "_note": "Media caption."
+      "type": "Textarea",
+      "_note": "Media caption. Textarea with one row: the type is shared with Desiderio, whose columns these already are.",
+      "rows": 1
     },
     "quote_text": {
       "identifier": "quote_text",
@@ -79,13 +78,15 @@
     },
     "author": {
       "identifier": "author",
-      "type": "Text",
-      "_note": "Person being quoted or credited."
+      "type": "Textarea",
+      "_note": "Person being quoted or credited. Textarea with one row: the type is shared with Desiderio, whose columns these already are.",
+      "rows": 1
     },
     "role": {
       "identifier": "role",
-      "type": "Text",
-      "_note": "Job title and company of the person in 'author'."
+      "type": "Textarea",
+      "_note": "Job title and company of the person in 'author'. Textarea with one row: the type is shared with Desiderio, whose columns these already are.",
+      "rows": 1
     },
     "value": {
       "identifier": "value",
@@ -101,9 +102,9 @@
     },
     "price": {
       "identifier": "price",
-      "type": "Text",
-      "max": 24,
-      "_note": "Displayed price. Text, because '€49', 'Free' and 'Let's talk' all belong in the same slot."
+      "type": "Textarea",
+      "_note": "Displayed price as text, because '€49', 'Free' and 'Let's talk' all belong in the same slot. Textarea with one row: the type is shared with Desiderio, whose column this already is.",
+      "rows": 1
     },
     "period": {
       "identifier": "period",
@@ -113,11 +114,10 @@
     },
     "badge_text": {
       "identifier": "badge_text",
-      "type": "Text",
-      "max": 32,
-      "_note": "Short marker on a card: 'Most popular', 'New', 'Beta'."
+      "type": "Textarea",
+      "_note": "Short marker on a card: 'Most popular', 'New', 'Beta'. Textarea with one row: the type is shared with Desiderio, whose columns these already are.",
+      "rows": 1
     },
-
     "cta_label": {
       "identifier": "cta_label",
       "type": "Text",
@@ -138,7 +138,6 @@
       "type": "Link",
       "_note": "Target of the secondary action."
     },
-
     "image": {
       "identifier": "image",
       "type": "File",
@@ -160,7 +159,6 @@
       "_items": "icon-library",
       "_note": "Semantic icon key, resolved by the shared icon registry at render time so switching icon library never rewrites a record."
     },
-
     "variant": {
       "identifier": "variant",
       "type": "Select",
@@ -196,7 +194,6 @@
       "_items": "width",
       "_note": "Container width for this band."
     },
-
     "featured": {
       "identifier": "featured",
       "type": "Checkbox",
@@ -216,28 +213,66 @@
       "_note": "Tightens the band's vertical rhythm."
     }
   },
-
   "itemSets": {
     "tone": [
-      {"value": "body", "label": "Page background"},
-      {"value": "surface", "label": "Raised surface"},
-      {"value": "muted", "label": "Muted"},
-      {"value": "accent", "label": "Accent"}
+      {
+        "value": "body",
+        "label": "Page background"
+      },
+      {
+        "value": "surface",
+        "label": "Raised surface"
+      },
+      {
+        "value": "muted",
+        "label": "Muted"
+      },
+      {
+        "value": "accent",
+        "label": "Accent"
+      }
     ],
     "align": [
-      {"value": "start", "label": "Left"},
-      {"value": "center", "label": "Centred"}
+      {
+        "value": "start",
+        "label": "Left"
+      },
+      {
+        "value": "center",
+        "label": "Centred"
+      }
     ],
     "columns": [
-      {"value": "2", "label": "Two"},
-      {"value": "3", "label": "Three"},
-      {"value": "4", "label": "Four"}
+      {
+        "value": "2",
+        "label": "Two"
+      },
+      {
+        "value": "3",
+        "label": "Three"
+      },
+      {
+        "value": "4",
+        "label": "Four"
+      }
     ],
     "width": [
-      {"value": "md", "label": "Narrow"},
-      {"value": "lg", "label": "Default"},
-      {"value": "xl", "label": "Wide"},
-      {"value": "full", "label": "Full bleed"}
+      {
+        "value": "md",
+        "label": "Narrow"
+      },
+      {
+        "value": "lg",
+        "label": "Default"
+      },
+      {
+        "value": "xl",
+        "label": "Wide"
+      },
+      {
+        "value": "full",
+        "label": "Full bleed"
+      }
     ]
   }
 }

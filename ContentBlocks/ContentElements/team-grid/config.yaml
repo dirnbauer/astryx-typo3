@@ -1,0 +1,88 @@
+name: desiderio-grande/team-grid
+typeName: desiderio_grande_teamgrid
+title: 'Team Grid'
+description: 'Renders the whole team as an even grid of portraits, each with a name, a role and an optional link to a profile. Use it for: the main block of an about page, a department page after a short intro, a studio showing everyone at equal size. Prefer ''Leadership Row'' when a handful of people should be shown larger than the rest, and ''Team Directory'' when the team has outgrown portraits and needs readable rows instead.'
+group: team
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'columns'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Columns'
+    items:
+      -
+        label: 'Two'
+        value: '2'
+      -
+        label: 'Three'
+        value: '3'
+      -
+        label: 'Four'
+        value: '4'
+    default: '2'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: people
+    type: Collection
+    foreign_table: desiderio_grande_person_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'People'
+    minitems: 2
+    maxitems: 40

@@ -1,0 +1,79 @@
+name: desiderio-grande/key-takeaways
+typeName: desiderio_grande_keytakeaways
+title: 'Key Takeaways'
+description: 'Renders a boxed list of the few points a reader should leave with, each of them one line long. Use it for: the summary at the top of a long report, the recap at the end of a guide, the essentials above a legal text, an executive summary on a study page. Prefer ''Callout'' for a single remark that needs a warning tone, and ''Pros and Cons'' when the points fall into two opposed columns.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'icon'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Icon'
+    itemsProcConfig:
+      itemsProcFunc: Webconsulting\Desiderio\DataHandling\IconItemsProcessor
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'
+  -
+    identifier: points
+    type: Collection
+    foreign_table: desiderio_grande_icon_lead
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Points'
+    minitems: 2
+    maxitems: 6

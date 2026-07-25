@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-article-meta" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): One line at small sizes: the portrait is optional and the separators are pseudo-elements so a screen reader reads plain items. 'note' carries the date and reading time, 'eyebrow' the category.
+</f:comment>
+
+<section class="astryx-section g-article-meta" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

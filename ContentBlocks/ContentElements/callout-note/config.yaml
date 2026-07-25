@@ -1,0 +1,69 @@
+name: desiderio-grande/callout-note
+typeName: desiderio_grande_calloutnote
+title: 'Callout'
+description: 'Renders a bordered note that steps out of the reading flow, with an icon and a tone that says whether it informs, warns, reassures or forbids. Use it for: a prerequisite before a set of instructions, a legal caveat, a tip worth knowing, a deprecation warning, a deadline. Prefer ''Key Takeaways'' when several points are being summarised, and ''Statement Band'' when the sentence should carry the full width of the page.'
+group: content
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'bodytext'
+    useExistingField: true
+    enableRichtext: true
+    richtextConfiguration: 'default'
+  -
+    identifier: 'icon'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Icon'
+    itemsProcConfig:
+      itemsProcFunc: Webconsulting\Desiderio\DataHandling\IconItemsProcessor
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'compact'
+    type: 'Checkbox'
+    renderType: 'checkboxToggle'
+    label: 'Compact'

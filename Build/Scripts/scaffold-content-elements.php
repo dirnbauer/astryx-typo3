@@ -36,6 +36,15 @@ declare(strict_types=1);
  *   fixture.json                     showcase-page content
  */
 
+/**
+ * Identifiers an element may not declare.
+ *
+ * "categories" is contributed to every element by the TYPO3/Categories basic,
+ * and "label" is reserved by Content Blocks — either one makes the compiled
+ * definition throw at cache-flush time, far from the file that caused it.
+ */
+const RESERVED_IDENTIFIERS = ['categories', 'label'];
+
 $root = dirname(__DIR__, 2);
 $options = parseOptions($argv);
 
@@ -462,8 +471,17 @@ function elementConfig(array $row, string $group, array $fieldLibrary, array $re
             fwrite(STDERR, "Element {$id} uses unknown record type \"{$collection['recordType']}\".\n");
             exit(1);
         }
+        $identifier = (string)($collection['identifier'] ?? 'items');
+        // "categories" arrives on every element from the TYPO3/Categories basic
+        // and "label" is reserved by Content Blocks itself; either one silently
+        // breaks the compiled definition, so catch it here rather than at
+        // cache-flush time three hundred elements later.
+        if (in_array($identifier, RESERVED_IDENTIFIERS, true)) {
+            fwrite(STDERR, "Element {$id}: \"{$identifier}\" is reserved and cannot name a collection.\n");
+            exit(1);
+        }
         $lines[] = '  -';
-        $lines[] = '    identifier: ' . ($collection['identifier'] ?? 'items');
+        $lines[] = '    identifier: ' . $identifier;
         $lines[] = '    type: Collection';
         $lines[] = '    foreign_table: ' . $type['table'];
         $lines[] = '    shareAcrossTables: true';
@@ -472,8 +490,17 @@ function elementConfig(array $row, string $group, array $fieldLibrary, array $re
         // would collide on the parent column.
         $lines[] = '    prefixField: true';
         $lines[] = '    label: ' . yamlString($collection['labelEn'] ?? 'Items');
-        $lines[] = '    minItems: ' . (int)($collection['min'] ?? 1);
-        $lines[] = '    maxItems: ' . (int)($collection['max'] ?? 12);
+        // Lower-case, as in TCA: content-blocks:lint rejects the camel-case
+        // spelling, which is easy to write and silently unvalidated.
+        //
+        // A row asking for no minimum means the list is optional, and the way
+        // to say that is to leave the key out — minitems: 0 is not a valid
+        // lower bound.
+        $minimum = (int)($collection['min'] ?? 1);
+        if ($minimum >= 1) {
+            $lines[] = '    minitems: ' . $minimum;
+        }
+        $lines[] = '    maxitems: ' . max(1, (int)($collection['max'] ?? 12));
     }
 
     return implode("\n", $lines) . "\n";
@@ -509,21 +536,62 @@ function frontendTemplate(array $row): string
     HTML;
 }
 
+/**
+ * The page-module card.
+ *
+ * It lists the element's own text fields rather than trying to look like the
+ * frontend: in the page module an editor is scanning for "which one is the
+ * paragraph about pricing", and a shrunken render answers that far worse than
+ * the words themselves do.
+ */
 function backendPreview(array $row): string
 {
     $title = xmlEscape($row['title']);
 
+    // Text-bearing fields, in the order the element declares them. Files,
+    // selects and checkboxes say nothing useful at this size.
+    $textual = ['header', 'subheader', 'eyebrow', 'lead', 'text', 'bodytext', 'quote_text', 'author', 'role', 'value', 'price', 'cta_label', 'note', 'caption'];
+    $fields = [];
+    foreach ($row['fields'] ?? [] as $reference) {
+        $name = explode(':', (string)$reference, 2)[0];
+        if ($name !== 'header' && in_array($name, $textual, true)) {
+            $fields[] = $name;
+        }
+    }
+
+    $fieldMarkup = '';
+    foreach ($fields as $field) {
+        $label = xmlEscape(ucfirst(str_replace('_', ' ', $field)));
+        $fieldMarkup .= <<<HTML
+
+            <f:if condition="{data.{$field}}">
+                <div class="g-ce-preview__field">
+                    <span class="g-ce-preview__label">{$label}</span>
+                    <span class="g-ce-preview__value">{data.{$field} -> f:format.stripTags() -> f:format.htmlspecialchars()}</span>
+                </div>
+            </f:if>
+    HTML;
+    }
+
     return <<<HTML
-    <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+          xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+          data-namespace-typo3-fluid="true">
 
     <f:layout name="Preview"/>
 
+    <f:section name="Header"></f:section>
+
     <f:section name="Content">
-        <div class="g-ce-preview">
-            <span class="g-ce-preview__type">{$title}</span>
+        <f:asset.css identifier="grande-content-preview" href="EXT:desiderio_grande/Resources/Public/Css/content-preview.css"/>
+        <div class="g-ce-preview" data-slot="card">
+            <div class="g-ce-preview__meta">
+                <span class="g-ce-preview__ctype">{$title}</span>
+                <span class="g-ce-preview__ctype">uid {data.uid}</span>
+            </div>
             <f:if condition="{data.header}">
-                <strong class="g-ce-preview__header">{data.header}</strong>
-            </f:if>
+                <h3 class="g-ce-preview__title">{data.header -> f:format.stripTags() -> f:format.htmlspecialchars()}</h3>
+            </f:if>{$fieldMarkup}
         </div>
     </f:section>
 

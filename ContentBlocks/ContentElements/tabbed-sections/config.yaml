@@ -1,0 +1,72 @@
+name: desiderio-grande/tabbed-sections
+typeName: desiderio_grande_tabbedsections
+title: 'Tabbed Sections'
+description: 'Renders several passages of text as tabs, one panel visible at a time and the rest a single click away. Use it for: instructions that differ by operating system, a product described for two audiences, prices per region, specifications by model, the same answer for private and business customers. Prefer ''Accordion'' when the panels are a list a reader works through, and ''Side-by-Side Texts'' when two of them should be visible at once.'
+group: navigation
+prefixFields: false
+basics:
+  - TYPO3/Appearance
+  - TYPO3/Links
+  - TYPO3/Categories
+fields:
+  -
+    identifier: 'eyebrow'
+    type: 'Textarea'
+    rows: 1
+    label: 'Eyebrow'
+  -
+    identifier: 'header'
+    useExistingField: true
+  -
+    identifier: 'lead'
+    type: 'Textarea'
+    rows: 3
+    label: 'Lead'
+  -
+    identifier: 'width'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Width'
+    items:
+      -
+        label: 'Narrow'
+        value: 'md'
+      -
+        label: 'Default'
+        value: 'lg'
+      -
+        label: 'Wide'
+        value: 'xl'
+      -
+        label: 'Full bleed'
+        value: 'full'
+    default: 'md'
+  -
+    identifier: 'tone'
+    type: 'Select'
+    renderType: 'selectSingle'
+    label: 'Tone'
+    items:
+      -
+        label: 'Page background'
+        value: 'body'
+      -
+        label: 'Raised surface'
+        value: 'surface'
+      -
+        label: 'Muted'
+        value: 'muted'
+      -
+        label: 'Accent'
+        value: 'accent'
+    default: 'body'
+  -
+    identifier: panels
+    type: Collection
+    foreign_table: desiderio_grande_qa_item
+    shareAcrossTables: true
+    shareAcrossFields: true
+    prefixField: true
+    label: 'Panels'
+    minitems: 2
+    maxitems: 8

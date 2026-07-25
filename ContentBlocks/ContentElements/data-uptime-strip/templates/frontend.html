@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-data-uptime-strip" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): A published record, not a monitor: every tick is typed by an editor, so state the period and the reporting date in `note` and keep it under about 31 children.
+</f:comment>
+
+<section class="astryx-section g-data-uptime-strip" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

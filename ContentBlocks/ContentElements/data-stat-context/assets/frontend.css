@@ -1,0 +1,10 @@
+/*
+ * Stat with Context
+ *
+ * Tokens only: no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ */
+
+.g-data-stat-context {
+  display: block;
+}

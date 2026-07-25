@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-conversion-contact-options" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Use real protocol links (tel:, mailto:) so a phone opens the dialler; put opening hours in each item's description, not in the shared note.
+</f:comment>
+
+<section class="astryx-section g-conversion-contact-options" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-conversion-waitlist" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): value/unit hold the social-proof count ('2,400' / 'already waiting'); it is typed by an editor, never counted, so keep it plausible and update it.
+</f:comment>
+
+<section class="astryx-section g-conversion-waitlist" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

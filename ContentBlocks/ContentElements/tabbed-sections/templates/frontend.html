@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-tabbed-sections" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): Panels are all rendered into the page, so the text is in the source before anything binds; without JavaScript the panels simply stack with their titles as headings.
+</f:comment>
+
+<section class="astryx-section g-tabbed-sections" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>

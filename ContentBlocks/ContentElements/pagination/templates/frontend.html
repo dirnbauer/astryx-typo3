@@ -1,0 +1,19 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:asset.css identifier="g-pagination" href="{cb:assetPath()}/frontend.css"/>
+
+<f:comment>
+    TODO(grande): The child whose link resolves to the current page is rendered without a link and marked aria-current=page; the arrows are derived from its position.
+</f:comment>
+
+<section class="astryx-section g-pagination" data-variant="{data.variant}">
+    <div class="astryx-layout">
+        <f:if condition="{data.header}">
+            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+        </f:if>
+    </div>
+</section>
+
+</html>
