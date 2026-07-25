@@ -5,6 +5,61 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-code {
-  display: block;
+.g-hero-code__grid {
+  align-items: center;
+}
+
+.g-hero-code__grid:not(:has(.g-hero-code__block)) {
+  grid-template-columns: 1fr;
+}
+
+.g-hero-code__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 36rem;
+}
+
+.g-hero-code__flags {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.g-hero-code__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-code__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+/* An install line is short and wide; letting the block grow to the height of
+   the copy beside it would turn one command into a poster. */
+.g-hero-code__block {
+  align-self: center;
+  box-shadow: var(--shadow-low);
+}
+
+.g-hero-code__pre {
+  padding-block: var(--spacing-4);
+}
+
+.g-hero-code.accent .g-hero-code__lead,
+.g-hero-code.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-hero-code.accent .g-hero-code__version {
+  border-color: currentColor;
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-hero-code__copy {
+    max-inline-size: none;
+  }
 }

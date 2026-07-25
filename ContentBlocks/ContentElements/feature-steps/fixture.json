@@ -1,1 +1,28 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "How It Works",
+    "header": "A numbered sequence along a connector",
+    "lead": "Steps in the order an editor puts them, joined by a line so the sequence reads before the words do. Below the small breakpoint the connector becomes a vertical rail.",
+    "columns": "3",
+    "variant": "horizontal",
+    "tone": "muted",
+    "width": "lg",
+    "align": "start",
+    "steps": [
+        {
+            "icon": "sort",
+            "title": "Numbers follow the order",
+            "text": "Reordering the children renumbers the band, because the figures come from the list's own counter."
+        },
+        {
+            "icon": "layout",
+            "title": "Two to four across",
+            "text": "The column count is fixed rather than fluid, so a three-step process never reflows into two."
+        },
+        {
+            "icon": "rotate",
+            "title": "Horizontal or vertical",
+            "text": "The vertical variant keeps the rail at every width, which suits a sequence with a lot to say per step."
+        }
+    ]
+}

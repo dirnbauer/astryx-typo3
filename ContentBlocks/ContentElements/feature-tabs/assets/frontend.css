@@ -5,6 +5,71 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-tabs {
-  display: block;
+.g-feature-tabs__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-tabs__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-tabs[data-align='center'] .g-feature-tabs__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* A tab strip must never wrap: six tabs on a phone scroll sideways, because a
+   second row of tabs reads as a second, unrelated group. */
+.g-feature-tabs__list {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-track) transparent;
+}
+
+.g-feature-tabs__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding-block-start: var(--spacing-6);
+  max-inline-size: 56rem;
+}
+
+.g-feature-tabs__panel + .g-feature-tabs__panel {
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-feature-tabs__text {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-tabs__action {
+  margin: 0;
+}
+
+.g-feature-tabs.accent .g-feature-tabs__text {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-feature-tabs.accent .g-feature-tabs__lead,
+.g-feature-tabs.accent .astryx-eyebrow,
+.g-feature-tabs.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-tabs__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-feature-tabs__panel {
+    padding-block-start: var(--spacing-5);
+  }
 }

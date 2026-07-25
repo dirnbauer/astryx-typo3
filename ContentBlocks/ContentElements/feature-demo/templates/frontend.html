@@ -5,15 +5,71 @@
 <f:asset.css identifier="g-feature-demo" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): cta_link is the video URL and is only loaded when the overlay opens; note carries the running time, caption the credit.
+    The frame is lazy and lives inside a closed dialog, so nothing about the
+    recording is fetched until somebody opens it: a closed dialog is not
+    rendered, and a lazy frame in an unrendered box never starts loading.
 </f:comment>
 
-<section class="astryx-section g-feature-demo" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="videoUri"><f:uri.typolink parameter="{data.cta_link}"/></f:variable>
+
+<section class="astryx-section g-feature-demo {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-feature-demo__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-feature-demo__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-feature-demo__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-feature-demo__runtime">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <figure class="g-feature-demo__media">
+                <div class="astryx-overlay g-feature-demo__poster">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-demo__image"/>
+                    </f:for>
+
+                    <f:if condition="{data.cta_label}">
+                        <span class="astryx-overlay-scrim fill align-center always g-feature-demo__scrim">
+                            <button type="button" class="astryx-button primary lg g-feature-demo__play" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</button>
+                        </span>
+                    </f:if>
+                </div>
+
+                <f:if condition="{data.caption}">
+                    <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                </f:if>
+            </figure>
+
+        </div>
     </div>
+
+    <f:if condition="{data.cta_link}">
+        <dialog class="astryx-dialog g-feature-demo__dialog" id="g-feature-demo-{data.uid}" aria-labelledby="g-feature-demo-{data.uid}-title">
+            <div class="astryx-dialog-header">
+                <h3 class="astryx-dialog-title" id="g-feature-demo-{data.uid}-title">{data.header}</h3>
+
+                <button type="button" class="astryx-button ghost astryx-icon-button g-feature-demo__close" data-g-dialog-close aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}">
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </button>
+            </div>
+
+            <div class="astryx-dialog-body">
+                <div class="astryx-aspect-ratio g-feature-demo__frame">
+                    <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+        </dialog>
+    </f:if>
 </section>
 
 </html>

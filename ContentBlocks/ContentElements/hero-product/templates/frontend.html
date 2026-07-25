@@ -4,16 +4,48 @@
 
 <f:asset.css identifier="g-hero-product" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): The image keeps its own ratio; the bleed variant lets it run off the bottom edge of the band without cropping the top.
-</f:comment>
+<section class="astryx-section g-hero-product {data.tone} {data.variant}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-product__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-product" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-product__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-hero-product__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+        </div>
     </div>
+
+    <f:if condition="{data.image}">
+        <f:comment>
+            The picture is a sibling of the copy column rather than a child, so
+            the bleed variant can run it to the band's bottom edge without
+            dragging the headline down with it.
+        </f:comment>
+        <div class="astryx-layout {data.width} g-hero-product__frame">
+            <f:for each="{data.image}" as="image">
+                <f:comment>
+                    eager, because this is the first band on the page: deferring
+                    it only delays the largest paint.
+                </f:comment>
+                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1440" loading="eager" class="g-hero-product__image"/>
+            </f:for>
+        </div>
+    </f:if>
 </section>
 
 </html>

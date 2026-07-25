@@ -5,14 +5,44 @@
 <f:asset.css identifier="g-steps-howto" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Outputs an ordered list so the numbers survive reordering; the icon is optional and the number is always shown.
+    The number is drawn by a CSS counter rather than stored on the step, so
+    reordering the rows in the backend renumbers them and no editor is ever
+    left maintaining a sequence by hand.
 </f:comment>
 
-<section class="astryx-section g-steps-howto" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-steps-howto {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-steps-howto__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-steps-howto__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ol class="g-steps-howto__list columns-{data.columns}">
+            <f:for each="{data.steps}" as="item">
+                <li class="g-steps-howto__step">
+                    <h3 class="astryx-heading level-4 g-steps-howto__title">{item -> f:render.text(field: 'title')}</h3>
+
+                    <f:if condition="{item.text}">
+                        <p class="astryx-text body g-steps-howto__text">{item -> f:render.text(field: 'text')}</p>
+                    </f:if>
+
+                    <f:if condition="{item.link}">
+                        <f:link.typolink parameter="{item.link}" class="astryx-link cta g-steps-howto__link">{item.title}</f:link.typolink>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+
     </div>
 </section>
 

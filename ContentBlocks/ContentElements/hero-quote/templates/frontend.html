@@ -4,15 +4,54 @@
 
 <f:asset.css identifier="g-hero-quote" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): quote_text is stored without quotation marks — the template draws them — and header stays optional so the quote can lead.
-</f:comment>
+<section class="astryx-section g-hero-quote {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-quote__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-quote" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-3 g-hero-quote__header">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <figure class="g-hero-quote__figure">
+                <f:comment>
+                    quote_text is stored without quotation marks so the same
+                    sentence can be reused where a different pair — or none —
+                    is wanted; the marks here are drawn, not typed.
+                </f:comment>
+                <blockquote class="astryx-blockquote g-hero-quote__quote">
+                    <p class="g-hero-quote__text">{data -> f:render.text(field: 'quote_text')}</p>
+                </blockquote>
+
+                <f:if condition="{data.author} || {data.image}">
+                    <figcaption class="g-hero-quote__attribution">
+                        <f:if condition="{data.image}">
+                            <span class="astryx-avatar g-hero-quote__portrait">
+                                <f:for each="{data.image}" as="image">
+                                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="128" height="128" loading="eager"/>
+                                </f:for>
+                            </span>
+                        </f:if>
+                        <span class="g-hero-quote__attribution-text">
+                            <f:if condition="{data.author}">
+                                <span class="g-hero-quote__author">{data -> f:render.text(field: 'author')}</span>
+                            </f:if>
+                            <f:if condition="{data.role}">
+                                <span class="astryx-text supporting g-hero-quote__role">{data -> f:render.text(field: 'role')}</span>
+                            </f:if>
+                        </span>
+                    </figcaption>
+                </f:if>
+            </figure>
+
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-hero-quote__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+        </div>
     </div>
 </section>
 

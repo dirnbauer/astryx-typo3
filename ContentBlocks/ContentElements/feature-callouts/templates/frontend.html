@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-feature-callouts" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The markers live in the artwork itself; legend numbers follow the child order, so reordering children renumbers the list.
+    The markers belong to the artwork, not to the template: drawing them over a
+    responsive image means guessing at coordinates that were true for one width.
+    The legend numbers the entries and the picture already carries the same
+    numbers.
 </f:comment>
 
-<section class="astryx-section g-feature-callouts" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-callouts {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-callouts__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-callouts__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-split g-feature-callouts__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <f:if condition="{data.image}">
+                <figure class="g-feature-callouts__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="lazy" class="g-feature-callouts__image"/>
+                    </f:for>
+
+                    <f:if condition="{data.caption}">
+                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    </f:if>
+                </figure>
+            </f:if>
+
+            <ol class="g-feature-callouts__legend">
+                <f:for each="{data.callouts}" as="callout">
+                    <li class="g-feature-callouts__entry">
+                        <span class="g-feature-callouts__marker" aria-hidden="true"></span>
+
+                        <div class="g-feature-callouts__body">
+                            <h3 class="astryx-heading level-4">{callout -> f:render.text(field: 'title')}</h3>
+
+                            <f:if condition="{callout.text}">
+                                <p class="astryx-text supporting">{callout -> f:render.text(field: 'text')}</p>
+                            </f:if>
+                        </div>
+                    </li>
+                </f:for>
+            </ol>
+
+        </div>
     </div>
 </section>
 

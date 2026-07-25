@@ -5,6 +5,45 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-definition-list {
-  display: block;
+.g-definition-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+/* Four across is the one count the shared metadata list does not carry, and a
+   glossary set to four columns would otherwise fall back to a single one. */
+.g-definition-list__list.columns-4 {
+  grid-template-columns: repeat(auto-fill, minmax(min(16rem, 100%), 1fr));
+  gap: var(--spacing-4);
+}
+
+/* The rule under each pair is what lets the eye run down either side of the
+   list without losing the row it started on. */
+.g-definition-list__row {
+  padding-block-end: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-definition-list__term {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.g-definition-list__description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.g-definition-list__note {
+  max-inline-size: 60ch;
+}
+
+@media (max-width: 639px) {
+  .g-definition-list__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

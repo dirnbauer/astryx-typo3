@@ -5,6 +5,71 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-steps-howto {
-  display: block;
+.g-steps-howto__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-steps-howto__list {
+  counter-reset: g-step;
+  display: grid;
+  gap: var(--spacing-8) var(--spacing-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.g-steps-howto__list.columns-3 { grid-template-columns: repeat(3, 1fr); }
+.g-steps-howto__list.columns-4 { grid-template-columns: repeat(4, 1fr); }
+
+.g-steps-howto__step {
+  position: relative;
+  counter-increment: g-step;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding-block-start: var(--spacing-9);
+  max-inline-size: 44ch;
+}
+
+/* The number is the step's only marker, so it is drawn rather than left to
+   list-style: a native marker cannot be sized, coloured or placed above the
+   heading the way the sequence needs it to be. */
+.g-steps-howto__step::before {
+  content: counter(g-step);
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-element-sm);
+  block-size: var(--size-element-sm);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.g-steps-howto__text {
+  color: var(--color-text-secondary);
+}
+
+.g-steps-howto__link {
+  margin-block-start: var(--spacing-1);
+}
+
+@media (max-width: 767px) {
+  .g-steps-howto__list,
+  .g-steps-howto__list.columns-3,
+  .g-steps-howto__list.columns-4 {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
 }

@@ -5,14 +5,22 @@
 <f:asset.css identifier="g-rich-text" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Measure caps around 68ch; headings inside the editor start at h3 so the page keeps exactly one h1.
+    The editor's own markup is handed to .astryx-prose rather than styled here:
+    a paragraph inside a rich text block has to read the same on every page,
+    and one shared rule is the only way that stays true across the catalog.
 </f:comment>
 
-<section class="astryx-section g-rich-text" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-rich-text {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-rich-text__body align-{data.align}">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
+
+        </div>
     </div>
 </section>
 

@@ -5,14 +5,36 @@
 <f:asset.css identifier="g-code-block" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): caption names the language or file; the panel scrolls sideways rather than wrapping, and there is no copy button because that would need a script.
+    Two branches for one field. In the frontend the code is escaped and left
+    exactly as typed, because f:render.text would turn every newline into a
+    break element, and inside preformatted text that break is a line the reader
+    would copy. In the editor the same field does go through f:render.text, so
+    the block becomes an inline plain-text editable — there the breaks are the
+    point.
 </f:comment>
 
-<section class="astryx-section g-code-block" data-variant="{data.variant}">
-    <div class="astryx-layout">
+<section class="astryx-section g-code-block">
+    <div class="astryx-layout {data.width}">
+
         <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-2 g-code-block__title">{data -> f:render.text(field: 'header')}</h2>
         </f:if>
+
+        <div class="astryx-codeblock g-code-block__panel">
+            <f:if condition="{data.caption}">
+                <div class="astryx-codeblock-header">{data -> f:render.text(field: 'caption')}</div>
+            </f:if>
+
+            <f:editMode>
+                <f:then><pre class="g-code-block__pre"><code>{data -> f:render.text(field: 'text')}</code></pre></f:then>
+                <f:else><pre class="g-code-block__pre" tabindex="0"><code>{data.text -> f:format.htmlspecialchars()}</code></pre></f:else>
+            </f:editMode>
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-code-block__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

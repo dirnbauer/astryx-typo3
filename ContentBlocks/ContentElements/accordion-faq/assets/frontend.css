@@ -5,6 +5,38 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-accordion-faq {
-  display: block;
+.g-accordion-faq__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+/* A heading inside a summary is valid and gives the questions an outline; what
+   it must not bring with it is heading typography, because the summary already
+   sets the row's own scale and weight. */
+.g-accordion-faq__question {
+  font: inherit;
+  margin: 0;
+}
+
+.g-accordion-faq__answer {
+  max-inline-size: 70ch;
+  padding-inline-end: var(--spacing-6);
+}
+
+.g-accordion-faq__group {
+  border-block-start: var(--border-width) solid var(--color-border);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+@media (max-width: 639px) {
+  .g-accordion-faq__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-accordion-faq__answer {
+    padding-inline-end: 0;
+  }
 }

@@ -5,14 +5,74 @@
 <f:asset.css identifier="g-pros-cons" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child's included toggle decides the column: on lands in the column for, off in the column against; value may hold a weighting such as 'major'.
+    One collection, sorted into two columns by the child's own toggle, so an
+    editor moves an argument from one side to the other by flipping a switch
+    rather than by cutting and pasting between two lists.
+
+    The two markers are a plus and a minus, not two colours: on a monochrome
+    printout and to anyone who cannot tell the two hues apart, the glyph is the
+    only thing that still says which side a row is on.
 </f:comment>
 
-<section class="astryx-section g-pros-cons" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-pros-cons {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-pros-cons__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-pros-cons__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <div class="g-pros-cons__grid">
+
+            <div class="g-pros-cons__column for">
+                <h3 class="astryx-heading level-4 g-pros-cons__columnTitle">
+                    <f:translate extensionName="desiderio_grande" key="content.prosCons.for">For</f:translate>
+                </h3>
+                <ul class="astryx-list g-pros-cons__list">
+                    <f:for each="{data.points}" as="item">
+                        <f:if condition="{item.included}">
+                            <li class="g-pros-cons__point">
+                                <span class="g-pros-cons__body">
+                                    <span class="astryx-text body">{item -> f:render.text(field: 'title')}</span>
+                                    <f:if condition="{item.value}">
+                                        <span class="astryx-text supporting">{item -> f:render.text(field: 'value')}</span>
+                                    </f:if>
+                                </span>
+                            </li>
+                        </f:if>
+                    </f:for>
+                </ul>
+            </div>
+
+            <div class="g-pros-cons__column against">
+                <h3 class="astryx-heading level-4 g-pros-cons__columnTitle">
+                    <f:translate extensionName="desiderio_grande" key="content.prosCons.against">Against</f:translate>
+                </h3>
+                <ul class="astryx-list g-pros-cons__list">
+                    <f:for each="{data.points}" as="item">
+                        <f:if condition="{item.included}">
+                            <f:else>
+                                <li class="g-pros-cons__point">
+                                    <span class="g-pros-cons__body">
+                                        <span class="astryx-text body">{item -> f:render.text(field: 'title')}</span>
+                                        <f:if condition="{item.value}">
+                                            <span class="astryx-text supporting">{item -> f:render.text(field: 'value')}</span>
+                                        </f:if>
+                                    </span>
+                                </li>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </ul>
+            </div>
+
+        </div>
     </div>
 </section>
 

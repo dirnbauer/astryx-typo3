@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Bento Grid",
+    "header": "Tiles of deliberately unequal size",
+    "lead": "One grid, one leading tile, and the rest falling in around it. Use it when a product overview has a headline capability; use the feature grid when every entry weighs the same.",
+    "tone": "body",
+    "width": "lg",
+    "align": "start",
+    "tiles": [
+        {
+            "icon": "star",
+            "title": "The lead tile takes two cells",
+            "text": "It also takes a larger title, so the composition is legible from size alone rather than from reading the copy in it. Only the first child is treated this way, and only where there is room for three columns."
+        },
+        {
+            "icon": "grid",
+            "title": "Three columns at the top end",
+            "text": "Two in the middle, one on a phone. Nothing rearranges beyond that."
+        },
+        {
+            "icon": "square",
+            "title": "Ordinary tiles otherwise",
+            "text": "Same card, same icon tile, same optional link as everywhere else."
+        },
+        {
+            "icon": "link",
+            "title": "Any tile can be a link",
+            "text": "The whole tile becomes the target and the title carries the name."
+        }
+    ]
+}

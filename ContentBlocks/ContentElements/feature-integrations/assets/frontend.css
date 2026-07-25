@@ -5,6 +5,70 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-integrations {
-  display: block;
+.g-feature-integrations__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-integrations__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-integrations__logos {
+  --grid-gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-integrations__logos.compact {
+  --grid-min: 9rem;
+}
+
+.g-feature-integrations__tile {
+  block-size: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3);
+  text-align: center;
+}
+
+/* One optical height for every mark, whatever aspect the supplied file has —
+   a wordmark and a square badge must not read as two different sizes. */
+.g-feature-integrations__mark {
+  block-size: var(--spacing-8);
+  inline-size: auto;
+  max-inline-size: 100%;
+  object-fit: contain;
+}
+
+.g-feature-integrations__name {
+  color: var(--color-text-primary);
+}
+
+.g-feature-integrations__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-8);
+}
+
+.g-feature-integrations.accent .g-feature-integrations__lead,
+.g-feature-integrations.accent .astryx-eyebrow,
+.g-feature-integrations.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-integrations__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-feature-integrations__logos {
+    --grid-min: 8rem;
+  }
 }

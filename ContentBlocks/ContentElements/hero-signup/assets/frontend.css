@@ -5,6 +5,84 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-signup {
-  display: block;
+.g-hero-signup__grid {
+  align-items: center;
+}
+
+/* Without an image the split has one child and would leave half the band
+   empty; the copy takes the whole width instead. */
+.g-hero-signup__grid:not(:has(.g-hero-signup__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-hero-signup__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 38rem;
+}
+
+.g-hero-signup__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-signup__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-signup__form {
+  inline-size: 100%;
+  max-inline-size: 30rem;
+  margin-block-start: var(--spacing-2);
+}
+
+/* The button must not shrink to fit its label inside the group, or a long
+   call to action wraps the input into a two-line box. */
+.g-hero-signup__submit {
+  flex: 0 0 auto;
+}
+
+.g-hero-signup__note {
+  margin: 0;
+  max-inline-size: 30rem;
+}
+
+.g-hero-signup__media {
+  display: flex;
+}
+
+.g-hero-signup__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-hero-signup.accent .g-hero-signup__lead,
+.g-hero-signup.accent .g-hero-signup__note,
+.g-hero-signup.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 639px) {
+  .g-hero-signup__copy {
+    max-inline-size: none;
+  }
+
+  /* Side by side the field would be too narrow to type an address into. */
+  .g-hero-signup .astryx-input-group {
+    flex-wrap: wrap;
+    block-size: auto;
+    gap: var(--spacing-2);
+  }
+
+  .g-hero-signup .astryx-input-group > * {
+    flex: 1 0 100%;
+    margin-inline-start: 0;
+    block-size: var(--size-element-lg);
+    border-radius: var(--radius-element);
+  }
 }

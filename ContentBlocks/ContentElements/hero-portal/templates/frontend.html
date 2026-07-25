@@ -4,14 +4,43 @@
 
 <f:asset.css identifier="g-hero-portal" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): Whole cards are the link target, so the title is not a nested anchor; the child description is one line, not a paragraph.
-</f:comment>
+<section class="astryx-section g-hero-portal {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-portal__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-portal" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-portal__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.routes}">
+            <ul class="astryx-grid fixed-{data.columns} g-hero-portal__routes">
+                <f:for each="{data.routes}" as="route">
+                    <li class="astryx-card astryx-clickable-card g-hero-portal__card">
+                        <f:comment>
+                            The whole card is the target, so the title is a plain
+                            heading and the single link inside it spreads over the
+                            card — one link per destination, not two.
+                        </f:comment>
+                        <h3 class="astryx-card-title g-hero-portal__card-title">
+                            <f:link.typolink parameter="{route.link}">{route.title}</f:link.typolink>
+                        </h3>
+                        <f:if condition="{route.description}">
+                            <p class="astryx-card-body g-hero-portal__card-body">{route.description}</p>
+                        </f:if>
+                        <span class="g-hero-portal__chevron" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                <path d="M4 10h11m0 0-4-4m4 4-4 4"/>
+                            </svg>
+                        </span>
+                    </li>
+                </f:for>
+            </ul>
         </f:if>
     </div>
 </section>

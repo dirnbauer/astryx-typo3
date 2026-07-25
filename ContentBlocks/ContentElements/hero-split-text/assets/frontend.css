@@ -5,6 +5,45 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-split-text {
-  display: block;
+/* Both columns start at the top: with no media in the band, centring them
+   would leave a short claim floating beside a long paragraph. */
+.g-hero-split-text__grid {
+  align-items: start;
+}
+
+.g-hero-split-text__claim {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-hero-split-text__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.g-hero-split-text__prose {
+  color: var(--color-text-secondary);
+  max-inline-size: 38rem;
+}
+
+.g-hero-split-text.accent .g-hero-split-text__prose,
+.g-hero-split-text.accent .astryx-eyebrow {
+  color: currentColor;
+}
+
+.g-hero-split-text.accent .g-hero-split-text__prose :where(p, li) {
+  color: currentColor;
+  opacity: 0.9;
+}
+
+.g-hero-split-text.accent .g-hero-split-text__prose :where(a) {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-hero-split-text__prose {
+    max-inline-size: none;
+  }
 }

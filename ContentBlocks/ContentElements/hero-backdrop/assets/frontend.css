@@ -5,6 +5,92 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-backdrop {
+.g-hero-backdrop__frame {
+  position: relative;
+  display: grid;
+}
+
+.g-hero-backdrop.full-height .g-hero-backdrop__frame {
+  min-block-size: min(80svh, 46rem);
+}
+
+.g-hero-backdrop.band .g-hero-backdrop__frame {
+  min-block-size: 24rem;
+}
+
+.g-hero-backdrop__image {
+  grid-area: 1 / 1;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
   display: block;
+}
+
+/* --scrim is the one knob the tones move; everything below reads it, so the
+   opacity of the layer lives in exactly one place. */
+.g-hero-backdrop__scrim {
+  --scrim: 45%;
+  position: relative;
+  grid-area: 1 / 1;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  padding-block: var(--grande-band);
+  background-color: color-mix(in srgb, var(--color-overlay) var(--scrim), transparent);
+}
+
+.g-hero-backdrop.muted .g-hero-backdrop__scrim {
+  --scrim: 30%;
+}
+
+.g-hero-backdrop.surface .g-hero-backdrop__scrim {
+  --scrim: 60%;
+}
+
+/* The accent tone tints the photograph rather than only darkening it. */
+.g-hero-backdrop.accent .g-hero-backdrop__scrim {
+  background-color: color-mix(in srgb, var(--color-accent) 65%, transparent);
+}
+
+.g-hero-backdrop__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  color: var(--color-on-dark);
+}
+
+.g-hero-backdrop__copy.center {
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-backdrop__headline,
+.g-hero-backdrop__lead,
+.g-hero-backdrop__eyebrow {
+  color: currentColor;
+  max-inline-size: 40rem;
+}
+
+.g-hero-backdrop__lead {
+  opacity: 0.9;
+}
+
+.g-hero-backdrop__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+@media (max-width: 767px) {
+  .g-hero-backdrop.full-height .g-hero-backdrop__frame {
+    min-block-size: 28rem;
+  }
+
+  .g-hero-backdrop.band .g-hero-backdrop__frame {
+    min-block-size: 20rem;
+  }
+
+  /* A photograph read on a phone carries far less contrast than the same file
+     on a desktop, so the layer over it gets heavier rather than lighter. */
+  .g-hero-backdrop__scrim {
+    --scrim: 60%;
+  }
 }

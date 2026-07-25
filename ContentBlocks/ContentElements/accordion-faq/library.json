@@ -1,1 +1,29 @@
-{}
+{
+    "eyebrow": "Data portal",
+    "header": "Questions we get about the readings",
+    "lead": "If your question is not here, the data desk answers within two working days.",
+    "width": "md",
+    "tone": "body",
+    "questions": [
+        {
+            "title": "May I republish the series commercially?",
+            "bodytext": "<p>Yes. The licence is CC BY 4.0 and makes no distinction between commercial and non-commercial reuse. Credit the Marnau Institute and name the series you used — the identifier is in every export header.</p>"
+        },
+        {
+            "title": "What is the difference between the raw and the checked series?",
+            "bodytext": "<p>The raw series is exactly what the loggers sent, gaps and all. The checked series has had sensor drift corrected, obviously impossible values removed and short outages filled from the station's local copy. Every change is listed in the quality log that ships with the export.</p>"
+        },
+        {
+            "title": "How far back do the readings go?",
+            "bodytext": "<p>To March 2013 for the eleven original stations. The rest joined between 2014 and 2019, and each station's export states its own start date rather than padding the earlier years with nulls.</p>"
+        },
+        {
+            "title": "Can I get an alert when a level is exceeded?",
+            "bodytext": "<p>Not from us. The institute publishes readings; it does not run a warning service, and treating our portal as one would put a research system between a community and a flood warning. Threshold alerts for the Anbach come from the regional hydrographic service.</p>"
+        },
+        {
+            "title": "May I visit a station?",
+            "bodytext": "<p>Station 14 at Reidau is on a public path and can be looked at any time. The other forty-five stand on private land or in the water, so a visit needs an appointment and, in most cases, the landowner's agreement as well as ours.</p>"
+        }
+    ]
+}

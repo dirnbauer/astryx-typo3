@@ -5,6 +5,64 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-ribbon {
-  display: block;
+.g-feature-ribbon__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin-block-end: var(--spacing-6);
+}
+
+.g-feature-ribbon[data-align='center'] .g-feature-ribbon__intro {
+  text-align: center;
+}
+
+/* An empty intro would still take its margin, and this band is meant to be the
+   quiet strip under something louder. */
+.g-feature-ribbon__intro:empty {
+  display: none;
+}
+
+.g-feature-ribbon__items {
+  display: grid;
+  gap: var(--spacing-4);
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-ribbon__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-inline-size: 0;
+}
+
+.g-feature-ribbon[data-align='center'] .g-feature-ribbon__item {
+  justify-content: center;
+}
+
+.g-feature-ribbon__icon {
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+}
+
+.g-feature-ribbon__items.compact {
+  gap: var(--spacing-3);
+}
+
+.g-feature-ribbon__items.compact .g-feature-ribbon__icon {
+  inline-size: var(--spacing-7);
+  block-size: var(--spacing-7);
+}
+
+.g-feature-ribbon.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-feature-ribbon[data-columns='2'] .g-feature-ribbon__items { grid-template-columns: repeat(2, 1fr); }
+  .g-feature-ribbon[data-columns='3'] .g-feature-ribbon__items { grid-template-columns: repeat(3, 1fr); }
+  .g-feature-ribbon[data-columns='4'] .g-feature-ribbon__items { grid-template-columns: repeat(4, 1fr); }
 }

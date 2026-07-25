@@ -5,14 +5,43 @@
 <f:asset.css identifier="g-feature-index" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Columns are CSS columns, not a grid, so a long list flows evenly and reads top-to-bottom in each column.
+    CSS columns rather than a grid, so a list of forty flows evenly and still
+    reads top-to-bottom in each column: a grid would put the second entry beside
+    the first and make the alphabet unusable.
 </f:comment>
 
-<section class="astryx-section g-feature-index" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-index {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-index__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-index__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list {f:if(condition: data.compact, then: 'compact', else: 'balanced')} g-feature-index__entries">
+            <f:for each="{data.entries}" as="entry">
+                <li class="g-feature-index__entry">
+                    <span class="g-feature-index__name">
+                        <f:if condition="{entry.link}">
+                            <f:then><f:link.typolink parameter="{entry.link}" class="astryx-link quiet">{entry.title}</f:link.typolink></f:then>
+                            <f:else>{entry -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </span>
+
+                    <f:if condition="{entry.description}">
+                        <span class="astryx-text supporting g-feature-index__description">{entry -> f:render.text(field: 'description')}</span>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

@@ -5,14 +5,43 @@
 <f:asset.css identifier="g-footnotes" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Children render as an ordered list, so the marker is the position: reordering rows renumbers the markers in the prose above.
+    The marker is the note's position in the ordered list, not a number stored
+    on the row: reordering the rows renumbers the list, which is exactly what an
+    editor who inserts a source in the middle of an article needs to happen.
+
+    Each item carries an id keyed to the record and the loop index, so a
+    superscript in the prose above can link straight to it.
 </f:comment>
 
-<section class="astryx-section g-footnotes" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footnotes {f:if(condition: data.compact, then: 'tight')}"
+         aria-labelledby="g-footnotes-title-{data.uid}">
+    <div class="astryx-layout {data.width}">
+
+        <h2 class="astryx-heading level-4 g-footnotes__title" id="g-footnotes-title-{data.uid}">
+            <f:if condition="{data.header}">
+                <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                <f:else><f:translate extensionName="desiderio_grande" key="content.footnotes.label">Notes and sources</f:translate></f:else>
+            </f:if>
+        </h2>
+
+        <ol class="g-footnotes__list">
+            <f:for each="{data.notes}" as="item" iteration="position">
+                <li class="g-footnotes__note" id="fn-{data.uid}-{position.cycle}">
+                    <span class="astryx-text supporting g-footnotes__text">{item -> f:render.text(field: 'title')}</span>
+                    <f:if condition="{item.description}">
+                        <span class="astryx-text supporting g-footnotes__source">{item -> f:render.text(field: 'description')}</span>
+                    </f:if>
+                    <f:if condition="{item.link}">
+                        <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footnotes__link">{item.link}</f:link.typolink>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footnotes__note-all">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

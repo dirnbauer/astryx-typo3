@@ -4,15 +4,56 @@
 
 <f:asset.css identifier="g-hero-signup" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): cta_link is the form action and the field posts natively as 'email'; note holds the consent or reassurance line.
-</f:comment>
+<section class="astryx-section g-hero-signup {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-hero-signup__grid">
 
-<section class="astryx-section g-hero-signup" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-signup__copy {data.align}">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-hero-signup__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:comment>
+                    An ordinary GET-less form posting one named field: whatever
+                    sits behind cta_link — a mailing service, a TYPO3 form page —
+                    receives "email" and needs no JavaScript from this element.
+                </f:comment>
+                <form class="astryx-field g-hero-signup__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="post">
+                    <label class="astryx-visually-hidden" for="g-hero-signup-email-{data.uid}">
+                        <f:translate extensionName="desiderio_grande" key="hero.email" default="Email address"/>
+                    </label>
+                    <div class="astryx-input-group lg">
+                        <input class="astryx-text-input lg" type="email" name="email" id="g-hero-signup-email-{data.uid}" required="required"
+                               placeholder="{f:translate(extensionName: 'desiderio_grande', key: 'hero.emailPlaceholder', default: 'name@company.com')}"/>
+                        <button class="astryx-button primary lg g-hero-signup__submit" type="submit">
+                            <f:if condition="{data.cta_label}">
+                                <f:then>{data.cta_label}</f:then>
+                                <f:else><f:translate extensionName="desiderio_grande" key="hero.subscribe" default="Sign up"/></f:else>
+                            </f:if>
+                        </button>
+                    </div>
+                </form>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-hero-signup__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-hero-signup__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="800" loading="eager" class="g-hero-signup__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

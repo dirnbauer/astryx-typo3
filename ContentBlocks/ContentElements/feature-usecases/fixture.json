@@ -1,1 +1,37 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Use-Case Cards",
+    "header": "Cards that name an audience and link to its page",
+    "lead": "The hub of a set of pages rather than the argument itself. Each card names a job or a sector and sends the reader somewhere that can afford the detail.",
+    "columns": "3",
+    "cta_label": "Secondary action",
+    "cta_link": "#",
+    "tone": "muted",
+    "width": "lg",
+    "cases": [
+        {
+            "icon": "link",
+            "title": "The whole card is the link",
+            "description": "One tab stop per card, and the title carries the accessible name.",
+            "link": "#"
+        },
+        {
+            "icon": "text",
+            "title": "The description stays short",
+            "description": "Two lines at most, because the page behind the card is where the argument belongs.",
+            "link": "#"
+        },
+        {
+            "icon": "columns",
+            "title": "Two to four columns",
+            "description": "Same grid as the feature band, so a page using both keeps one rhythm.",
+            "link": "#"
+        },
+        {
+            "icon": "compass",
+            "title": "A browse-all action",
+            "description": "For the set that outgrew nine cards and became a directory.",
+            "link": "#"
+        }
+    ]
+}

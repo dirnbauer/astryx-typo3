@@ -5,6 +5,53 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-usecases {
-  display: block;
+.g-feature-usecases__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-usecases__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-usecases__cases {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-usecases__card {
+  block-size: 100%;
+}
+
+/* One line, because a use-case card is a signpost: the page it points at is
+   where the argument belongs. */
+.g-feature-usecases__description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.g-feature-usecases__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-8);
+}
+
+.g-feature-usecases.accent .g-feature-usecases__lead,
+.g-feature-usecases.accent .astryx-eyebrow,
+.g-feature-usecases.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-usecases__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

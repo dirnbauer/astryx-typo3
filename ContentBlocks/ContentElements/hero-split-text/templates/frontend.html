@@ -4,15 +4,42 @@
 
 <f:asset.css identifier="g-hero-split-text" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): The only hero that takes rich text, because the right column is genuinely prose; it collapses to one column below the medium breakpoint.
-</f:comment>
+<section class="astryx-section g-hero-split-text {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-hero-split-text__grid {f:if(condition: data.reverse, then: 'media-first')}">
 
-<section class="astryx-section g-hero-split-text" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-split-text__claim">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            </div>
+
+            <div class="g-hero-split-text__body">
+                <f:comment>
+                    The only hero that takes rich text, because the right column
+                    is genuinely prose — links and emphasis belong in it, and the
+                    prose rules give them their rhythm without this element
+                    styling a single tag.
+                </f:comment>
+                <div class="astryx-prose g-hero-split-text__prose">
+                    <f:format.html>{data.bodytext}</f:format.html>
+                </div>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-hero-split-text__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

@@ -5,6 +5,102 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-before-after {
-  display: block;
+.g-feature-before-after__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-before-after__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-before-after__pair {
+  display: grid;
+  gap: var(--spacing-4);
+}
+
+.g-feature-before-after__state {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+.g-feature-before-after__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-feature-before-after__note {
+  margin-block-start: var(--spacing-4);
+  max-inline-size: 62ch;
+}
+
+.g-feature-before-after__caption {
+  margin-block-start: var(--spacing-3);
+}
+
+.g-feature-before-after__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-before-after.accent .g-feature-before-after__lead,
+.g-feature-before-after.accent .astryx-eyebrow,
+.g-feature-before-after.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-feature-before-after__pair {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-6);
+  }
+
+  /* The reveal stacks the two states in one cell and slides the boundary. It
+     is deliberately confined to wide viewports: on a phone the two pictures
+     stacked are both larger and easier to compare. */
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state {
+    grid-area: 1 / 1;
+  }
+
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state[data-state='2'] {
+    clip-path: inset(0 0 0 50%);
+    transition: clip-path var(--duration-medium) var(--ease-standard);
+  }
+
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair:hover .g-feature-before-after__state[data-state='2'],
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair:focus-within .g-feature-before-after__state[data-state='2'] {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Two captions in one cell would sit on top of each other. */
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state[data-state='2'] figcaption {
+    text-align: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state[data-state='2'] {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-feature-before-after__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -5,6 +5,82 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-checklist {
-  display: block;
+.g-hero-checklist__grid {
+  align-items: center;
+}
+
+.g-hero-checklist__grid:not(:has(.g-hero-checklist__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-hero-checklist__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 38rem;
+}
+
+.g-hero-checklist__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-checklist__bullets {
+  gap: var(--spacing-3);
+  margin-block: var(--spacing-2);
+}
+
+.g-hero-checklist__bullet {
+  gap: var(--spacing-3);
+}
+
+/* Aligned to the cap height of the first line rather than to the box, so the
+   tick sits beside the word and not above it. */
+.g-hero-checklist__tick {
+  flex: 0 0 auto;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin-block-start: calc((1em * var(--text-body-leading) - var(--spacing-5)) / 2);
+  color: var(--color-icon-accent);
+}
+
+/* A bullet with only a title is one line; the wrapper must not add a gap that
+   would make the single line look like a truncated pair. */
+.g-hero-checklist__bullet-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+.g-hero-checklist__bullet-title {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-hero-checklist__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-checklist__media {
+  display: flex;
+}
+
+.g-hero-checklist__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-hero-checklist.accent .g-hero-checklist__lead,
+.g-hero-checklist.accent .astryx-eyebrow,
+.g-hero-checklist.accent .astryx-text.supporting,
+.g-hero-checklist.accent .g-hero-checklist__tick {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-checklist__copy {
+    max-inline-size: none;
+  }
 }

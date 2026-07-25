@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-feature-tabs" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): data-g-tabs; every panel is in the markup and the first is open, so the content is indexed, printable and works without the script.
+    Every panel is in the markup and none of them starts hidden, so the band is
+    indexed, printed and searched in full. The script is what takes the others
+    out of the flow — without it the page is longer, never broken.
 </f:comment>
 
-<section class="astryx-section g-feature-tabs" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-tabs {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-tabs__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-tabs__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="g-feature-tabs__tabs" data-g-tabs>
+            <div class="astryx-tab-list divided g-feature-tabs__list" role="tablist">
+                <f:for each="{data.panels}" as="panel" iteration="position">
+                    <button type="button"
+                            class="astryx-tab"
+                            role="tab"
+                            data-g-tab
+                            id="g-feature-tabs-{data.uid}-tab-{position.index}"
+                            aria-controls="g-feature-tabs-{data.uid}-panel-{position.index}"
+                            aria-selected="{f:if(condition: position.isFirst, then: 'true', else: 'false')}">{panel.title}</button>
+                </f:for>
+            </div>
+
+            <f:for each="{data.panels}" as="panel" iteration="position">
+                <div class="g-feature-tabs__panel"
+                     role="tabpanel"
+                     id="g-feature-tabs-{data.uid}-panel-{position.index}"
+                     aria-labelledby="g-feature-tabs-{data.uid}-tab-{position.index}"
+                     tabindex="0">
+                    <h3 class="astryx-heading level-3">{panel -> f:render.text(field: 'title')}</h3>
+
+                    <f:if condition="{panel.text}">
+                        <p class="astryx-text body g-feature-tabs__text">{panel -> f:render.text(field: 'text')}</p>
+                    </f:if>
+
+                    <f:if condition="{panel.link}">
+                        <p class="g-feature-tabs__action">
+                            <f:link.typolink parameter="{panel.link}" class="astryx-link cta">{panel.title}</f:link.typolink>
+                        </p>
+                    </f:if>
+                </div>
+            </f:for>
+        </div>
+
     </div>
 </section>
 

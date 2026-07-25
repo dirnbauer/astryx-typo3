@@ -1,1 +1,27 @@
-{}
+{
+    "_type": "content",
+    "eyebrow": "Numbered Steps",
+    "header": "Instructions as a numbered sequence",
+    "lead": "Two to twelve steps at two, three or four across. The numbers come from a CSS counter, so reordering the rows in the backend renumbers them — nobody has to keep a sequence correct by hand.",
+    "columns": "2",
+    "width": "md",
+    "tone": "surface",
+    "steps": [
+        {
+            "title": "Each step has a heading",
+            "text": "A level-three heading, so a reader navigating by heading can jump into the middle of a procedure."
+        },
+        {
+            "title": "And a sentence or two of what to do",
+            "text": "Long enough to be an instruction, short enough that the whole procedure still fits on one screen."
+        },
+        {
+            "title": "The link is optional",
+            "text": "When a step continues on a page of its own, it can carry a link to it."
+        },
+        {
+            "title": "Below 768px the columns collapse",
+            "text": "One column, and the numbers keep counting across the change."
+        }
+    ]
+}

@@ -4,14 +4,50 @@
 
 <f:asset.css identifier="g-hero-article" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): note takes the date and reading time; caption credits the cover image so the credit never leaks into the standfirst.
-</f:comment>
+<section class="astryx-section g-hero-article {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-article__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-article" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-article__standfirst">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.author} || {data.note}">
+                <div class="g-hero-article__byline">
+                    <f:if condition="{data.author}">
+                        <f:comment>
+                            The initial stands in for a portrait: the element has one
+                            image field and it belongs to the cover, not the author.
+                        </f:comment>
+                        <span class="astryx-avatar g-hero-article__avatar" aria-hidden="true"><f:format.crop maxCharacters="1" append="">{data.author}</f:format.crop></span>
+                    </f:if>
+
+                    <div class="g-hero-article__byline-text">
+                        <f:if condition="{data.author}">
+                            <p class="astryx-text label g-hero-article__author">{data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-hero-article__role">{data -> f:render.text(field: 'role')}</span></f:if></p>
+                        </f:if>
+                        <f:if condition="{data.note}">
+                            <p class="astryx-text supporting"><span class="astryx-timestamp">{data -> f:render.text(field: 'note')}</span></p>
+                        </f:if>
+                    </div>
+                </div>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.image}">
+            <figure class="g-hero-article__cover">
+                <f:for each="{data.image}" as="image">
+                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1440" loading="eager" class="g-hero-article__image"/>
+                </f:for>
+                <f:if condition="{data.caption}">
+                    <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                </f:if>
+            </figure>
         </f:if>
     </div>
 </section>

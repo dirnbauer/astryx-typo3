@@ -5,6 +5,76 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-product {
+.g-hero-product__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  /* A hero line that runs the full column width stops being a hero line. */
+  max-inline-size: 44rem;
+}
+
+.g-hero-product__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-product__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-product__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-product__frame {
+  margin-block-start: var(--spacing-10);
+}
+
+/* The picture keeps its own proportions: a product shot is chosen, and
+   cropping it to a fixed ratio is a decision the element should not make. */
+.g-hero-product__image {
   display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-med);
+}
+
+/* Bleed: the band stops where the picture is cut, so the screenshot runs off
+   the bottom edge with its top — the part that carries meaning — intact. */
+.g-hero-product.bleed {
+  padding-block-end: 0;
+}
+
+.g-hero-product.bleed .g-hero-product__frame {
+  max-block-size: 26rem;
+  overflow: hidden;
+}
+
+.g-hero-product.bleed .g-hero-product__image {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+/* On an accent band the lead and the eyebrow would otherwise reach for colours
+   tuned for the page background. */
+.g-hero-product.accent .g-hero-product__lead,
+.g-hero-product.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-product__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-product__frame {
+    margin-block-start: var(--spacing-8);
+  }
+
+  .g-hero-product.bleed .g-hero-product__frame {
+    max-block-size: 15rem;
+  }
 }

@@ -5,14 +5,52 @@
 <f:asset.css identifier="g-feature-checklist" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child's 'included' toggle draws the tick or the cross, and 'value' is the qualifier shown at the end of the row.
+    The tick and the cross are the only thing distinguishing two otherwise
+    identical rows, so each one carries its own name rather than relying on
+    colour — a red cross and a green tick are the same shape to a lot of
+    readers.
 </f:comment>
 
-<section class="astryx-section g-feature-checklist" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-checklist {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-checklist__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-checklist__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list {f:if(condition: data.compact, then: 'compact', else: 'balanced')} g-feature-checklist__rows">
+            <f:for each="{data.rows}" as="row">
+                <li class="g-feature-checklist__row" data-included="{f:if(condition: row.included, then: 'yes', else: 'no')}">
+                    <f:if condition="{row.included}">
+                        <f:then>
+                            <svg class="g-feature-checklist__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/feature-checklist/language/labels.xlf:row.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </f:then>
+                        <f:else>
+                            <svg class="g-feature-checklist__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/feature-checklist/language/labels.xlf:row.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                        </f:else>
+                    </f:if>
+
+                    <span class="g-feature-checklist__label">{row -> f:render.text(field: 'title')}</span>
+
+                    <f:if condition="{row.value}">
+                        <span class="astryx-badge outline g-feature-checklist__qualifier">{row.value}</span>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-feature-checklist__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

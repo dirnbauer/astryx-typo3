@@ -1,1 +1,39 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Spec Sheet",
+    "header": "Name and value, in a description list",
+    "lead": "Pairs in two to four columns, with an optional caveat under any of them. It is a real description list, so the pairs survive a copy and paste into a document.",
+    "columns": "2",
+    "note": "Where the answer is only yes or no, the included checklist reads faster than a column of the same word repeated.",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "rows": [
+        {
+            "title": "Pairs per band",
+            "value": "2 to 30"
+        },
+        {
+            "title": "Columns",
+            "value": "2, 3 or 4",
+            "text": "Narrower viewports drop to two and then to one."
+        },
+        {
+            "title": "Caveat under a pair",
+            "value": "optional"
+        },
+        {
+            "title": "Numerals",
+            "value": "tabular",
+            "text": "Values line up on the decimal, which is the point of a spec sheet."
+        },
+        {
+            "title": "Markup",
+            "value": "dl / dt / dd"
+        },
+        {
+            "title": "Compact spacing",
+            "value": "toggle"
+        }
+    ]
+}

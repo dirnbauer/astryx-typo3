@@ -5,14 +5,34 @@
 <f:asset.css identifier="g-feature-ribbon" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Child text is ignored here by design — only icon and title render — so the same records can be reused in a fuller grid.
+    The child's text is deliberately not rendered: this strip names things in one
+    or two words. Leaving the field alone rather than forbidding it is what lets
+    the same records be reused in a fuller grid further down the page.
 </f:comment>
 
-<section class="astryx-section g-feature-ribbon" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section tight g-feature-ribbon {data.tone}" data-columns="{data.columns}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-ribbon__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+        </div>
+
+        <ul class="g-feature-ribbon__items {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.items}" as="item">
+                <li class="g-feature-ribbon__item">
+                    <f:if condition="{item.icon}">
+                        <span class="astryx-feature-icon g-feature-ribbon__icon" data-icon="{item.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <span class="astryx-text label g-feature-ribbon__label">{item -> f:render.text(field: 'title')}</span>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

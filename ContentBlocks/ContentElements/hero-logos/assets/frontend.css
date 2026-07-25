@@ -5,6 +5,91 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-logos {
+.g-hero-logos__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+}
+
+.g-hero-logos__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-logos__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-logos__proof {
+  margin-block-start: var(--spacing-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-hero-logos__note {
+  margin: 0;
+}
+
+.g-hero-logos__row {
+  margin: 0;
+  padding-inline-start: 0;
+  list-style: none;
+  gap: var(--spacing-8);
+  row-gap: var(--spacing-5);
+}
+
+/* Marks are normalised on height, not width: a wide wordmark and a square
+   emblem set to the same pixel width read as two different sizes. */
+.g-hero-logos__image {
   display: block;
+  block-size: var(--spacing-8);
+  inline-size: auto;
+  max-inline-size: 10rem;
+}
+
+.g-hero-logos__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--spacing-8);
+  color: var(--color-text-secondary);
+}
+
+.g-hero-logos__link {
+  display: block;
+}
+
+/* On the muted band the row is background, not content: colour in the marks
+   would pull the eye away from the headline above them. */
+.g-hero-logos.muted .g-hero-logos__image {
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+
+.g-hero-logos.accent .g-hero-logos__lead,
+.g-hero-logos.accent .g-hero-logos__note,
+.g-hero-logos.accent .g-hero-logos__wordmark,
+.g-hero-logos.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-logos__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-logos__proof {
+    margin-block-start: var(--spacing-8);
+  }
+
+  .g-hero-logos__row {
+    gap: var(--spacing-6);
+    row-gap: var(--spacing-4);
+  }
+
+  .g-hero-logos__image {
+    block-size: var(--spacing-6);
+  }
 }

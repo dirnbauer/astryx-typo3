@@ -4,15 +4,63 @@
 
 <f:asset.css identifier="g-hero-announcement" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): note carries the strip's sentence and header_link its target; the strip is not dismissible on purpose, so it stays until an editor removes it.
-</f:comment>
+<section class="astryx-section g-hero-announcement {data.tone}">
 
-<section class="astryx-section g-hero-announcement" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+    <f:if condition="{data.note}">
+        <f:comment>
+            No dismiss control on purpose: a notice that a reader can wave away
+            stops being a notice, and the editor who put it here is the one who
+            decides when it goes.
+        </f:comment>
+        <div class="g-hero-announcement__strip">
+            <div class="astryx-layout {data.width}">
+                <p class="astryx-banner info g-hero-announcement__notice">
+                    <f:if condition="{data.badge_text}">
+                        <span class="astryx-badge accent g-hero-announcement__badge">{data.badge_text}</span>
+                    </f:if>
+                    <span class="astryx-banner-content">
+                        <f:if condition="{data.header_link}">
+                            <f:then>
+                                <f:link.typolink parameter="{data.header_link}" class="astryx-link g-hero-announcement__link">{data -> f:render.text(field: 'note')}</f:link.typolink>
+                            </f:then>
+                            <f:else>{data -> f:render.text(field: 'note')}</f:else>
+                        </f:if>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </f:if>
+
+    <div class="astryx-layout {data.width} g-hero-announcement__body">
+        <div class="astryx-split g-hero-announcement__grid">
+
+            <div class="g-hero-announcement__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-hero-announcement__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <div class="astryx-button-group g-hero-announcement__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </div>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-hero-announcement__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="eager" class="g-hero-announcement__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

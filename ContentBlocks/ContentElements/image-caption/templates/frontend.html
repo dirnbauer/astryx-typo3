@@ -5,14 +5,35 @@
 <f:asset.css identifier="g-image-caption" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Outputs figure and figcaption; note holds the credit and is rendered smaller than the caption.
+    Caption and credit are one figcaption, not two: the credit belongs to the
+    same picture, and a second block outside the figure would leave it orphaned
+    for anyone reading the figure on its own.
 </f:comment>
 
-<section class="astryx-section g-image-caption" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-image-caption">
+    <div class="astryx-layout {data.width}">
+        <figure class="g-image-caption__figure align-{data.align}">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-3 g-image-caption__title">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <f:for each="{data.image}" as="image">
+                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="lazy" class="g-image-caption__image"/>
+            </f:for>
+
+            <f:if condition="{data.caption} || {data.note}">
+                <figcaption class="g-image-caption__caption">
+                    <f:if condition="{data.caption}">
+                        <span class="astryx-text body">{data -> f:render.text(field: 'caption')}</span>
+                    </f:if>
+                    <f:if condition="{data.note}">
+                        <span class="astryx-text supporting g-image-caption__credit">{data -> f:render.text(field: 'note')}</span>
+                    </f:if>
+                </figcaption>
+            </f:if>
+
+        </figure>
     </div>
 </section>
 

@@ -1,1 +1,39 @@
-{}
+{
+    "header": "What a station is made of",
+    "lead": "The same specification has been fitted to every mast since the 2024 refit. Anything on this list can be replaced from the van without a laptop.",
+    "columns": "2",
+    "width": "md",
+    "tone": "body",
+    "entries": [
+        {
+            "title": "Sampling interval",
+            "value": "15 minutes",
+            "text": "Fixed. Shorter intervals fill the local store before a winter service round can reach the mast."
+        },
+        {
+            "title": "Level sensor",
+            "value": "±5 mm",
+            "text": "Pressure probe against a fixed reference plate, re-surveyed every spring."
+        },
+        {
+            "title": "Temperature",
+            "value": "Two depths",
+            "text": "30 cm below the surface and 20 cm above the bed, so stratification shows up as a difference rather than a guess."
+        },
+        {
+            "title": "Local storage",
+            "value": "90 days",
+            "text": "Enough to bridge an outage until the next scheduled visit."
+        },
+        {
+            "title": "Power",
+            "value": "40 W panel",
+            "text": "Sized for willow shade in January, not for June."
+        },
+        {
+            "title": "Transmission",
+            "value": "Mobile, hourly",
+            "text": "Four readings per message. A failed send is retried on the next hour rather than immediately."
+        }
+    ]
+}

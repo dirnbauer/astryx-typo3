@@ -1,1 +1,15 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Feature with Code Sample",
+    "header": "Prose on one side, a working example on the other",
+    "bodytext": "<p>For API and SDK sections, configuration examples and webhook payloads. Where a screenshot would carry the same argument, the showcase row is lighter; where the reader wants limits rather than a working call, the spec sheet is.</p>",
+    "text": "# The snippet is stored verbatim and is never rich text.\n# The caption above the block names the file or the call.\n\nGET /v2/sites/17/rota?week=2026-W31\nAuthorization: Bearer <token>",
+    "caption": "example.http",
+    "cta_label": "Primary action",
+    "cta_link": "#",
+    "secondary_label": "Secondary action",
+    "secondary_link": "#",
+    "reverse": false,
+    "tone": "body",
+    "width": "lg"
+}

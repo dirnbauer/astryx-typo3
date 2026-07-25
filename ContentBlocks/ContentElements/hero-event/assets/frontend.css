@@ -5,6 +5,80 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-event {
-  display: block;
+.g-hero-event__grid {
+  align-items: center;
+}
+
+.g-hero-event__grid:not(:has(.g-hero-event__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-hero-event__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 40rem;
+}
+
+.g-hero-event__flags {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.g-hero-event__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The facts are the reason somebody opens an event page, so they get a rule
+   above and below rather than sitting in the flow of the lead. */
+.g-hero-event__facts {
+  margin-block: var(--spacing-2);
+  padding-block: var(--spacing-4);
+  border-block: var(--border-width) solid var(--color-border);
+}
+
+.g-hero-event__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-event__note {
+  margin: 0;
+}
+
+.g-hero-event__media {
+  display: flex;
+}
+
+.g-hero-event__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-hero-event.accent .g-hero-event__lead,
+.g-hero-event.accent .g-hero-event__note,
+.g-hero-event.accent .astryx-eyebrow,
+.g-hero-event.accent .astryx-metadata-list :where(dt, dd),
+.g-hero-event.accent .astryx-text.supporting {
+  color: currentColor;
+}
+
+.g-hero-event.accent .g-hero-event__lead,
+.g-hero-event.accent .g-hero-event__note,
+.g-hero-event.accent .astryx-metadata-list :where(dt) {
+  opacity: 0.85;
+}
+
+.g-hero-event.accent .g-hero-event__facts {
+  border-color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-hero-event__copy {
+    max-inline-size: none;
+  }
 }

@@ -5,14 +5,37 @@
 <f:asset.css identifier="g-key-takeaways" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child's text is optional: most takeaway boxes fill only the title, and the icon on the block is the fallback marker for every row.
+    A point is a line of text, not a section, so it gets no heading of its own —
+    six one-line headings would fill the page outline with entries that lead
+    nowhere. The optional explanation sits under the point in the same item.
 </f:comment>
 
-<section class="astryx-section g-key-takeaways" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-key-takeaways {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-card {f:if(condition: data.compact, then: 'tight')} g-key-takeaways__box">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-3 g-key-takeaways__title">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-key-takeaways__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <ul class="astryx-list g-key-takeaways__list">
+                <f:for each="{data.points}" as="item">
+                    <li class="g-key-takeaways__point">
+                        <span class="g-key-takeaways__body">
+                            <span class="astryx-text body g-key-takeaways__lineLabel">{item -> f:render.text(field: 'title')}</span>
+                            <f:if condition="{item.text}">
+                                <span class="astryx-text supporting">{item -> f:render.text(field: 'text')}</span>
+                            </f:if>
+                        </span>
+                    </li>
+                </f:for>
+            </ul>
+
+        </div>
     </div>
 </section>
 

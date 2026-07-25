@@ -35,3 +35,6 @@ fields:
     type: 'Select'
     renderType: 'selectSingle'
     label: 'Icon'
+    itemsProcessors:
+      10:
+        class: Webconsulting\Desiderio\DataHandling\IconItemsProcessor

@@ -4,14 +4,62 @@
 
 <f:asset.css identifier="g-hero-docs" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): cta_link is the search results page and the input submits natively as 'q'; badge_text holds the version.
-</f:comment>
+<section class="astryx-section g-hero-docs {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-docs__copy">
+            <p class="g-hero-docs__flags">
+                <f:if condition="{data.eyebrow}">
+                    <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                </f:if>
+                <f:if condition="{data.badge_text}">
+                    <span class="astryx-badge outline g-hero-docs__version">{data.badge_text}</span>
+                </f:if>
+            </p>
 
-<section class="astryx-section g-hero-docs" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-docs__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:comment>
+                A GET form pointed at the results page: the query arrives as "q"
+                on a full page load, so search works before any script does.
+            </f:comment>
+            <form class="astryx-field g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+                <label class="astryx-visually-hidden" for="g-hero-docs-q-{data.uid}">
+                    <f:translate extensionName="desiderio_grande" key="hero.searchQuery" default="Search term"/>
+                </label>
+                <div class="astryx-input-group lg">
+                    <input class="astryx-text-input lg" type="search" name="q" id="g-hero-docs-q-{data.uid}"
+                           placeholder="{f:translate(extensionName: 'desiderio_grande', key: 'hero.searchPlaceholder', default: 'Search the documentation')}"/>
+                    <button class="astryx-button primary lg g-hero-docs__submit" type="submit">
+                        <f:if condition="{data.cta_label}">
+                            <f:then>{data.cta_label}</f:then>
+                            <f:else><f:translate extensionName="desiderio_grande" key="hero.search" default="Search"/></f:else>
+                        </f:if>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <f:if condition="{data.links}">
+            <nav class="g-hero-docs__quick" aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'hero.quickLinks', default: 'Quick links')}">
+                <ul class="astryx-list g-hero-docs__list">
+                    <f:for each="{data.links}" as="link">
+                        <li>
+                            <f:link.typolink parameter="{link.link}" class="astryx-item interactive g-hero-docs__link">
+                                <span class="astryx-item-content">
+                                    <span class="astryx-item-label g-hero-docs__link-title">{link.title}</span>
+                                    <f:if condition="{link.description}">
+                                        <span class="astryx-item-description">{link.description}</span>
+                                    </f:if>
+                                </span>
+                            </f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
         </f:if>
     </div>
 </section>

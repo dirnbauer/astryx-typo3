@@ -1,1 +1,14 @@
-{}
+{
+    "eyebrow": "API",
+    "header": "Pull the published week into anything you already run",
+    "bodytext": "<p>Every rota, punch and absence record is readable over a REST API with a token you issue yourself and can revoke without calling us. Rates are per organisation rather than per token, so an integration you write today does not compete with one somebody wrote last year.</p><p>Webhooks fire on publish, on approval and on any change to a published shift, which is usually enough to keep a second system in step without polling at all.</p>",
+    "text": "curl https://api.marlbrook.example/v2/sites/17/rota \\\n  -H \"Authorization: Bearer $MARLBROOK_TOKEN\" \\\n  -d week=2026-W31\n\n{\n  \"site\": 17,\n  \"week\": \"2026-W31\",\n  \"published_at\": \"2026-07-24T09:12:44+02:00\",\n  \"shifts\": [\n    { \"employee\": 4412, \"start\": \"06:00\", \"end\": \"14:30\", \"role\": \"till\" },\n    { \"employee\": 3980, \"start\": \"09:00\", \"end\": \"17:00\", \"role\": \"nursery\" }\n  ]\n}",
+    "caption": "GET /v2/sites/{id}/rota",
+    "cta_label": "Read the API reference",
+    "cta_link": "#",
+    "secondary_label": "Get a sandbox token",
+    "secondary_link": "#",
+    "reverse": false,
+    "tone": "body",
+    "width": "lg"
+}

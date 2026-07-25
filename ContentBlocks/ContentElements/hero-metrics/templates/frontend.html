@@ -4,14 +4,47 @@
 
 <f:asset.css identifier="g-hero-metrics" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): Figures share one optical size regardless of digit count, so a four-figure number never dwarfs a percentage.
-</f:comment>
+<section class="astryx-section g-hero-metrics {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-metrics__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-metrics" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-metrics__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-hero-metrics__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.metrics}">
+            <hr class="astryx-divider g-hero-metrics__rule"/>
+
+            <dl class="astryx-grid cols-4 g-hero-metrics__figures">
+                <f:for each="{data.metrics}" as="metric">
+                    <div class="g-hero-metrics__figure">
+                        <dt class="astryx-text label g-hero-metrics__label">{metric -> f:render.text(field: 'title')}</dt>
+                        <dd class="g-hero-metrics__value">
+                            <span class="g-hero-metrics__number">{metric -> f:render.text(field: 'value')}</span><f:if condition="{metric.unit}"><span class="g-hero-metrics__unit">{metric.unit}</span></f:if>
+                        </dd>
+                        <f:if condition="{metric.text}">
+                            <dd class="astryx-text supporting g-hero-metrics__note">{metric -> f:render.text(field: 'text')}</dd>
+                        </f:if>
+                    </div>
+                </f:for>
+            </dl>
         </f:if>
     </div>
 </section>

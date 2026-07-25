@@ -5,6 +5,63 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-article-header {
-  display: block;
+.g-article-header__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 70ch;
+}
+
+.g-article-header__intro.align-center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-article-header__lead {
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+/* The byline is one line of small print, so it is ruled off rather than
+   boxed — a border is enough separation for four words and a date. */
+.g-article-header__byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-3);
+  padding-block-start: var(--spacing-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-article-header__intro.align-center .g-article-header__byline {
+  justify-content: center;
+}
+
+.g-article-header__role::before {
+  /* Drawn rather than typed, so the comma never ends up in the copied text or
+     in what a screen reader reads out as part of the name. */
+  content: ', ';
+}
+
+.g-article-header__figure-layout {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-article-header__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-article-header__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+@media (max-width: 639px) {
+  .g-article-header__figure-layout {
+    margin-block-start: var(--spacing-6);
+  }
 }

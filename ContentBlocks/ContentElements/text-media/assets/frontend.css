@@ -5,6 +5,43 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-text-media {
-  display: block;
+.g-text-media__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  /* Half a wide band is still too wide for running text, and "Full bleed"
+     would make it wider still. */
+  max-inline-size: 60ch;
+}
+
+.g-text-media__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* No fixed ratio: the picture beside a paragraph was chosen for what is in it,
+   and cropping it to a shape the element preferred would cut that out. */
+.g-text-media__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-text-media__action {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+}
+
+@media (min-width: 768px) {
+  /* Source order is media then copy; by default the picture moves to the
+     right-hand column, and the toggle sends it back to the left. */
+  .g-text-media__grid > .g-text-media__media {
+    order: 2;
+  }
+
+  .g-text-media__grid.reverse > .g-text-media__media {
+    order: 0;
+  }
 }

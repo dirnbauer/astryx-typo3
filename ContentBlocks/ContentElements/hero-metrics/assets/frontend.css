@@ -5,6 +5,93 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-metrics {
-  display: block;
+.g-hero-metrics__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+}
+
+.g-hero-metrics__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-metrics__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-metrics__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-metrics__rule {
+  margin-block: var(--spacing-10) var(--spacing-8);
+}
+
+.g-hero-metrics__figures {
+  margin: 0;
+}
+
+/* A definition list fixes the source order as term-then-value; the figure has
+   to read the other way round, so the visual order is set here. */
+.g-hero-metrics__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.g-hero-metrics__value {
+  order: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+}
+
+.g-hero-metrics__label {
+  order: 2;
+  color: var(--color-text-secondary);
+}
+
+.g-hero-metrics__note {
+  order: 3;
+  margin: 0;
+}
+
+/* One optical size for every figure, and lining digits of equal width, so a
+   four-digit count and a percentage sit at the same weight in the row. */
+.g-hero-metrics__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-3-size);
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-hero-metrics__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-hero-metrics.accent .g-hero-metrics__lead,
+.g-hero-metrics.accent .g-hero-metrics__label,
+.g-hero-metrics.accent .g-hero-metrics__unit,
+.g-hero-metrics.accent .g-hero-metrics__note,
+.g-hero-metrics.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-metrics__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-metrics__rule {
+    margin-block: var(--spacing-8) var(--spacing-6);
+  }
 }

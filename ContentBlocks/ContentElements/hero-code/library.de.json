@@ -1,1 +1,14 @@
-{}
+{
+    "eyebrow": "Für Entwickler",
+    "header": "Jeder Auftrag in Kestrel ist einen HTTP-Aufruf entfernt",
+    "lead": "Eine lesende und schreibende REST-Schnittstelle und ein signierter Webhook bei jedem Statuswechsel — Ihr bestehendes ERP bleibt das führende System.",
+    "text": "curl -H \"Authorization: Bearer $KESTREL_TOKEN\" \\\n  https://api.kestrelfieldops.example/v1/jobs?status=open",
+    "badge_text": "API v1",
+    "cta_label": "Zur API-Referenz",
+    "cta_link": "#",
+    "secondary_label": "Sandbox-Schlüssel holen",
+    "secondary_link": "#",
+    "reverse": 0,
+    "tone": "body",
+    "width": "lg"
+}

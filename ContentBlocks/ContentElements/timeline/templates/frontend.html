@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-timeline" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child's value carries the year or date label and unit a qualifier such as Q3; the connecting line is drawn with a border, not an element.
+    An ordered list, because the sequence is the content: read without styling —
+    in a feed reader, in print, by a screen reader — the entries still arrive in
+    the order they happened. The line down the side is a border on that list,
+    not an element of its own.
 </f:comment>
 
-<section class="astryx-section g-timeline" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-timeline {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-timeline__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-timeline__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ol class="g-timeline__list">
+            <f:for each="{data.entries}" as="item">
+                <li class="g-timeline__entry">
+                    <p class="g-timeline__when">
+                        <span class="astryx-text label g-timeline__date">{item -> f:render.text(field: 'value')}</span>
+                        <f:if condition="{item.unit}">
+                            <span class="astryx-text supporting g-timeline__qualifier">{item -> f:render.text(field: 'unit')}</span>
+                        </f:if>
+                    </p>
+
+                    <f:if condition="{item.title}">
+                        <h3 class="astryx-heading level-4 g-timeline__title">{item -> f:render.text(field: 'title')}</h3>
+                    </f:if>
+
+                    <f:if condition="{item.text}">
+                        <p class="astryx-text body g-timeline__text">{item -> f:render.text(field: 'text')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+
     </div>
 </section>
 

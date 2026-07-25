@@ -5,6 +5,85 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-article {
+.g-hero-article__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  /* The standfirst is read, not scanned, so the column keeps a prose measure
+     even when the band around it is set to a wide layout. */
+  max-inline-size: 46rem;
+}
+
+.g-hero-article__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-article__standfirst {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-article__byline {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-article__avatar {
+  --_avatar-size: var(--spacing-10);
+}
+
+.g-hero-article__byline-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  text-align: start;
+}
+
+.g-hero-article__author {
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-hero-article__role::before {
+  content: ' · ';
+}
+
+.g-hero-article__role {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+}
+
+.g-hero-article__cover {
+  margin: var(--spacing-8) 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-hero-article__image {
   display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-hero-article.accent .g-hero-article__standfirst,
+.g-hero-article.accent .g-hero-article__role,
+.g-hero-article.accent .astryx-eyebrow,
+.g-hero-article.accent .astryx-timestamp,
+.g-hero-article.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-article__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-article__cover {
+    margin-block-start: var(--spacing-6);
+  }
 }

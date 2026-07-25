@@ -1,1 +1,14 @@
-{}
+{
+    "eyebrow": "API",
+    "header": "Die veröffentlichte Woche in alles holen, was Sie ohnehin betreiben",
+    "bodytext": "<p>Jeder Dienstplan, jede Buchung und jede Abwesenheit ist über eine REST-Schnittstelle lesbar — mit einem Token, das Sie selbst ausstellen und ohne Anruf bei uns widerrufen. Die Limits gelten je Organisation statt je Token; eine Integration, die Sie heute schreiben, konkurriert also nicht mit einer aus dem Vorjahr.</p><p>Webhooks feuern beim Veröffentlichen, beim Freigeben und bei jeder Änderung an einer veröffentlichten Schicht. Das reicht meistens, um ein zweites System ganz ohne Abfragen aktuell zu halten.</p>",
+    "text": "curl https://api.marlbrook.example/v2/sites/17/rota \\\n  -H \"Authorization: Bearer $MARLBROOK_TOKEN\" \\\n  -d week=2026-W31\n\n{\n  \"site\": 17,\n  \"week\": \"2026-W31\",\n  \"published_at\": \"2026-07-24T09:12:44+02:00\",\n  \"shifts\": [\n    { \"employee\": 4412, \"start\": \"06:00\", \"end\": \"14:30\", \"role\": \"kassa\" },\n    { \"employee\": 3980, \"start\": \"09:00\", \"end\": \"17:00\", \"role\": \"pflanzen\" }\n  ]\n}",
+    "caption": "GET /v2/sites/{id}/rota",
+    "cta_label": "API-Referenz lesen",
+    "cta_link": "#",
+    "secondary_label": "Sandbox-Token holen",
+    "secondary_link": "#",
+    "reverse": false,
+    "tone": "body",
+    "width": "lg"
+}

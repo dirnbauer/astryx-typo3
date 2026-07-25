@@ -1,1 +1,23 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Expandable Feature List",
+    "header": "Rows that open on click, with no script at all",
+    "lead": "Native disclosure markup: the browser owns the open state, the keyboard and the accessible name. Use it where the detail would swamp the page but a knowledgeable minority still wants it.",
+    "tone": "surface",
+    "width": "md",
+    "compact": false,
+    "entries": [
+        {
+            "title": "Why details and summary rather than a script",
+            "bodytext": "<p>Because everything an accordion needs already exists in HTML: a toggle, a labelled region, Enter and Space, and a state the browser can restore when a reader navigates back. Rebuilding that in JavaScript adds a dependency and a way for the band to break.</p>"
+        },
+        {
+            "title": "Several rows can be open at once",
+            "bodytext": "<p>None of the rows are grouped by a shared name, so opening one leaves the others alone. Where only one entry should ever be open, the capability tabs band is the right one instead.</p>"
+        },
+        {
+            "title": "It prints open",
+            "bodytext": "<p>A closed row would otherwise print as a headline with nothing underneath it. One print rule releases the disclosure's own box, which is the single thing the platform does not do on its own.</p>"
+        }
+    ]
+}

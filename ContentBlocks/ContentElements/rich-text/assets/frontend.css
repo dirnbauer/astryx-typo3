@@ -5,6 +5,28 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-rich-text {
-  display: block;
+.g-rich-text__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  /* The width select governs the band; this governs the reading measure. Past
+     about seventy characters the eye loses the start of the next line. */
+  max-inline-size: 70ch;
+}
+
+/* Centred means the column is centred — the prose inside it is not. Centred
+   running text begins every line in a different place, which is the one thing
+   a long passage must never do. */
+.g-rich-text__body.align-center {
+  margin-inline: auto;
+}
+
+.g-rich-text__body.align-center > .astryx-heading {
+  text-align: center;
+}
+
+@media (max-width: 639px) {
+  .g-rich-text__body {
+    gap: var(--spacing-4);
+  }
 }

@@ -5,6 +5,67 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* This is the one hero built to sit flush under a sticky navigation, so it
+   never reaches for the full band rhythm and never grows past its content. */
 .g-hero-page-header {
-  display: block;
+  --section-gap: var(--grande-band-tight);
+}
+
+.g-hero-page-header.tight {
+  --section-gap: var(--spacing-6);
+}
+
+.g-hero-page-header__bar {
+  align-items: flex-end;
+  gap: var(--spacing-4);
+}
+
+.g-hero-page-header__titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+}
+
+.g-hero-page-header__titles.center {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.g-hero-page-header__subheader {
+  color: var(--color-text-secondary);
+  max-inline-size: 46rem;
+}
+
+.g-hero-page-header__action {
+  flex: 0 0 auto;
+}
+
+.g-hero-page-header__rule {
+  margin-block-start: var(--spacing-5);
+}
+
+.g-hero-page-header.accent .g-hero-page-header__subheader,
+.g-hero-page-header.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-hero-page-header.accent .g-hero-page-header__rule {
+  background-color: currentColor;
+  opacity: 0.3;
+}
+
+@media (max-width: 640px) {
+  /* Stacked, because a title and a button sharing 320px leaves room for
+     neither. */
+  .g-hero-page-header__bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .g-hero-page-header__action {
+    display: flex;
+  }
 }

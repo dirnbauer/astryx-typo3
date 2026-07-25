@@ -1,1 +1,27 @@
-{}
+{
+    "_type": "hero",
+    "eyebrow": "Portal Hero",
+    "header": "A welcome line over linked cards",
+    "lead": "Two to four destinations, each an entire card rather than a link inside one.",
+    "columns": "3",
+    "tone": "surface",
+    "width": "lg",
+    "align": "start",
+    "routes": [
+        {
+            "title": "Two to four cards",
+            "description": "Fewer is a link list, more is a menu.",
+            "link": "#"
+        },
+        {
+            "title": "The whole card is the target",
+            "description": "So the title is not a second, nested anchor.",
+            "link": "#"
+        },
+        {
+            "title": "One line each",
+            "description": "The description is a line, never a paragraph.",
+            "link": "#"
+        }
+    ]
+}

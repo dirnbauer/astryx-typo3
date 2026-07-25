@@ -5,14 +5,53 @@
 <f:asset.css identifier="g-feature-versus" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): subheader labels the status-quo column and badge_text labels yours; per row, 'text' is the old way and 'value' the new one.
+    A real table, because the contrast is two labelled columns read line by line
+    and that is exactly what a table row is. The first column header stays empty
+    on purpose: the row headings are the points, and naming them twice is noise.
 </f:comment>
 
-<section class="astryx-section g-feature-versus" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-versus {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-versus__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-versus__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-table-wrap g-feature-versus__wrap">
+            <table class="astryx-table g-feature-versus__table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col" class="g-feature-versus__old-head">{data -> f:render.text(field: 'subheader')}</th>
+                        <th scope="col" class="g-feature-versus__new-head">
+                            <span class="astryx-badge accent">{data -> f:render.text(field: 'badge_text')}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{data.rows}" as="row">
+                        <tr>
+                            <th scope="row" class="g-feature-versus__point">{row -> f:render.text(field: 'title')}</th>
+                            <td class="g-feature-versus__old">{row -> f:render.text(field: 'text')}</td>
+                            <td class="g-feature-versus__new">{row -> f:render.text(field: 'value')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-feature-versus__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

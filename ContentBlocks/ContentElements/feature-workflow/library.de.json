@@ -1,1 +1,31 @@
-{}
+{
+    "eyebrow": "Was mit einer Stunde geschieht",
+    "header": "Von der Buchung am Tablet zur Zeile in der Lohndatei",
+    "lead": "Vier Stufen, und eine erfasste Minute überspringt keine davon. Das ist die Kette, nach der eine Prüfung fragt.",
+    "note": "Jeder Übergang ist mit Zeitstempel und Verursacher versehen. Das Protokoll wird sieben Jahre aufbewahrt und lässt sich an jeder Stelle exportieren.",
+    "tone": "body",
+    "width": "lg",
+    "align": "start",
+    "stages": [
+        {
+            "icon": "tap",
+            "title": "Buchen",
+            "text": "Die Person stempelt. Das Gerät signiert die Zeit und hält sie, wenn kein Netz da ist."
+        },
+        {
+            "icon": "compare",
+            "title": "Abgleichen",
+            "text": "Die Buchung wird mit der geplanten Schicht verglichen; jede Abweichung über der Toleranz wird markiert."
+        },
+        {
+            "icon": "check",
+            "title": "Freigeben",
+            "text": "Die Führungskraft bestätigt oder korrigiert. Eine Korrektur behält beide Werte und den angegebenen Grund."
+        },
+        {
+            "icon": "file-export",
+            "title": "Exportieren",
+            "text": "Freigegebene Minuten werden je Vertrag summiert und zum Monatsende in die Lohndatei geschrieben."
+        }
+    ]
+}

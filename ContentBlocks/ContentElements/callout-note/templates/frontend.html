@@ -5,14 +5,29 @@
 <f:asset.css identifier="g-callout-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The variant picks the icon, the border accent and the ARIA role: note for info and success, alert for warning and critical.
+    An aside, because the passage is related to the text around it but is not
+    part of its argument — which is exactly what a reader skipping the callout
+    should be able to do without losing the thread.
+
+    The chosen icon is not painted: this theme ships no icon set of its own, and
+    a callout that needs a glyph to be recognised is one that stops working the
+    moment the glyph fails to load. The tinted plate and the accent edge carry
+    the distinction instead.
 </f:comment>
 
-<section class="astryx-section g-callout-note" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-callout-note {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <aside class="astryx-banner g-callout-note__box {f:if(condition: data.compact, then: 'compact')}">
+            <div class="astryx-banner-content">
+
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-banner-title g-callout-note__title">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+
+                <div class="astryx-prose astryx-banner-body"><f:format.html>{data.bodytext}</f:format.html></div>
+
+            </div>
+        </aside>
     </div>
 </section>
 

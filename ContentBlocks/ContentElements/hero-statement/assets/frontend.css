@@ -5,6 +5,52 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-statement {
-  display: block;
+.g-hero-statement__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  max-inline-size: 52rem;
+}
+
+.g-hero-statement__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+/* The claim is the whole element, so it scales with the viewport rather than
+   sitting at one step of the type scale. Both ends of the clamp are tokens:
+   it never grows past the display size and never falls below heading 2, which
+   is the floor at which a long sentence still reads on a phone. */
+.g-hero-statement__claim {
+  font-size: clamp(var(--text-heading-2-size), 7vw, var(--text-display-1-size));
+  line-height: var(--text-display-1-leading);
+}
+
+/* Deliberately body size: the gap between the claim and this line is the
+   contrast the element is built on, so the subheader must not creep upwards. */
+.g-hero-statement__subheader {
+  color: var(--color-text-secondary);
+  max-inline-size: 40rem;
+}
+
+.g-hero-statement__action {
+  margin: 0;
+}
+
+.g-hero-statement.accent .g-hero-statement__subheader,
+.g-hero-statement.accent .astryx-eyebrow,
+.g-hero-statement.accent .astryx-link {
+  color: currentColor;
+}
+
+.g-hero-statement.accent .g-hero-statement__subheader {
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-statement__copy {
+    gap: var(--spacing-4);
+    max-inline-size: none;
+  }
 }

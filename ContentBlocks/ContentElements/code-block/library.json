@@ -1,1 +1,7 @@
-{}
+{
+    "header": "Fetching a station's readings",
+    "text": "curl -s 'https://daten.marnau-institut.example/v2/stations/14/readings' \\\n  --get \\\n  --data-urlencode 'from=2025-07-01T00:00:00Z' \\\n  --data-urlencode 'to=2025-07-31T23:59:59Z' \\\n  --data-urlencode 'fields=level,temperature' \\\n  --data-urlencode 'series=raw'\n\n# 15-minute values, ISO 8601 timestamps, UTC.\n# Omit series=raw to get the quality-checked series instead.",
+    "caption": "shell",
+    "note": "The endpoint is open and unauthenticated up to 5,000 requests a day. Above that, register for a key on the data portal.",
+    "width": "md"
+}

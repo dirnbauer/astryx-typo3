@@ -5,6 +5,32 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+.g-lead-paragraph__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 70ch;
+}
+
+.g-lead-paragraph__body.align-center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* A standfirst is short enough that centring stays legible — which is why this
+   element centres its text and Rich Text does not. */
+.g-lead-paragraph__lead {
+  text-wrap: pretty;
+}
+
+/* The band exists to introduce whatever comes next, so it gives back the air
+   under it rather than sitting in the middle of its own gap. */
 .g-lead-paragraph {
-  display: block;
+  --section-gap: var(--grande-band-tight);
+}
+
+@media (max-width: 639px) {
+  .g-lead-paragraph__body {
+    gap: var(--spacing-3);
+  }
 }

@@ -5,14 +5,38 @@
 <f:asset.css identifier="g-feature-disclosure" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Built on details and summary, so there is no data-g behaviour and every row prints open.
+    Built on details and summary, so there is nothing to initialise and nothing
+    to break: the open state, the keyboard handling and the accessible name are
+    the browser's. The print rule is the one thing the platform does not give.
 </f:comment>
 
-<section class="astryx-section g-feature-disclosure" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-disclosure {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-disclosure__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-disclosure__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-collapsible-group g-feature-disclosure__entries">
+            <f:for each="{data.entries}" as="entry">
+                <details class="astryx-collapsible {f:if(condition: data.compact, then: 'compact', else: 'balanced')} g-feature-disclosure__entry">
+                    <summary>
+                        <h3 class="astryx-heading level-3 g-feature-disclosure__title">{entry -> f:render.text(field: 'title')}</h3>
+                    </summary>
+
+                    <div class="astryx-collapsible-content astryx-prose g-feature-disclosure__body"><f:format.html>{entry.bodytext}</f:format.html></div>
+                </details>
+            </f:for>
+        </div>
+
     </div>
 </section>
 

@@ -1,1 +1,8 @@
-{}
+{
+    "_type": "content",
+    "header": "Code in a monospaced panel",
+    "text": "# The caption above the panel names the language or the file.\n$ ddev exec vendor/bin/typo3 cache:flush\n\n# Long lines scroll sideways instead of wrapping, because a wrapped\n# command is a command someone will copy wrongly. The panel is a tab\n# stop, so that scroll is reachable without a mouse.\n$ curl -sk https://example.test/ | head -c 120",
+    "caption": "shell",
+    "note": "There is no copy button: it would need a script, and this catalog spends its script budget on the four behaviours the platform has no element for.",
+    "width": "md"
+}

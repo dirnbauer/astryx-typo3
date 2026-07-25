@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-image-gallery" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Thumbnails are cropped to a shared ratio and link straight to the original file; no lightbox script is involved.
+    Each thumbnail links to the original file rather than opening a scripted
+    lightbox. The browser's own image view zooms, rotates and saves, which is
+    more than any overlay this element could ship — and it still works when the
+    script does not load.
 </f:comment>
 
-<section class="astryx-section g-image-gallery" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-image-gallery {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-image-gallery__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-image-gallery__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ul class="g-image-gallery__grid columns-{data.columns}">
+            <f:for each="{data.images}" as="image">
+                <li class="g-image-gallery__cell">
+                    <figure class="g-image-gallery__figure">
+                        <a class="g-image-gallery__link"
+                           href="{f:uri.image(image: image)}"
+                           target="_blank"
+                           rel="noopener"
+                           title="{f:translate(extensionName: 'desiderio_grande', key: 'content.gallery.openOriginal', default: 'Open the full-size picture')}">
+                            <f:image image="{image}" alt="{image.alternative}" width="640c" height="480c" loading="lazy" class="g-image-gallery__image"/>
+                        </a>
+                        <f:if condition="{image.description}">
+                            <figcaption class="astryx-text supporting">{image.description}</figcaption>
+                        </f:if>
+                    </figure>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

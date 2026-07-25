@@ -5,6 +5,75 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-outcomes {
-  display: block;
+.g-feature-outcomes__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-outcomes__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-outcomes__metrics {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-outcomes__metric {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-feature-outcomes__figure {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  margin: 0;
+  color: var(--color-text-accent);
+}
+
+/* Figures across a row have to line up on the digit, not on the glyph widths
+   the font happens to give them. */
+.g-feature-outcomes__value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The unit is read with the figure but is not part of it, so it drops to the
+   body scale rather than shouting alongside. */
+.g-feature-outcomes__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-feature-outcomes__source {
+  margin-block-start: var(--spacing-1);
+}
+
+.g-feature-outcomes__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-outcomes__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-outcomes.accent .g-feature-outcomes__lead,
+.g-feature-outcomes.accent .astryx-eyebrow,
+.g-feature-outcomes.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-outcomes__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

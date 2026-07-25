@@ -5,6 +5,84 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-docs {
-  display: block;
+.g-hero-docs__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+}
+
+.g-hero-docs__flags {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.g-hero-docs__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-docs__search {
+  inline-size: 100%;
+  max-inline-size: 34rem;
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-docs__submit {
+  flex: 0 0 auto;
+}
+
+.g-hero-docs__quick {
+  margin-block-start: var(--spacing-8);
+}
+
+/* Quick links are a grid, not a column: six of them stacked would push the
+   search field off a laptop screen, which is the one thing this band exists
+   to keep in view. */
+.g-hero-docs__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: var(--spacing-2);
+}
+
+.g-hero-docs__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.g-hero-docs__link-title {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-hero-docs.accent .g-hero-docs__lead,
+.g-hero-docs.accent .astryx-eyebrow,
+.g-hero-docs.accent .astryx-item-description {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-hero-docs.accent .g-hero-docs__version {
+  border-color: currentColor;
+  color: currentColor;
+}
+
+@media (max-width: 639px) {
+  .g-hero-docs__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-docs .astryx-input-group {
+    flex-wrap: wrap;
+    block-size: auto;
+    gap: var(--spacing-2);
+  }
+
+  .g-hero-docs .astryx-input-group > * {
+    flex: 1 0 100%;
+    margin-inline-start: 0;
+    block-size: var(--size-element-lg);
+    border-radius: var(--radius-element);
+  }
 }

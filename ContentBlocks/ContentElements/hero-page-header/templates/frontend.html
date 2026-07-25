@@ -4,15 +4,34 @@
 
 <f:asset.css identifier="g-hero-page-header" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): The only hero designed to sit flush under a sticky navigation; it never grows taller than its content.
-</f:comment>
+<section class="astryx-section g-hero-page-header {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <f:comment>
+            A toolbar rather than a stack: the title and its one action share a
+            line on a wide screen, which is what keeps this band shorter than
+            everything else in the group.
+        </f:comment>
+        <div class="astryx-toolbar g-hero-page-header__bar">
+            <div class="astryx-toolbar-start g-hero-page-header__titles {data.align}">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
 
-<section class="astryx-section g-hero-page-header" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text body g-hero-page-header__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-toolbar-end g-hero-page-header__action">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+        </div>
+
+        <hr class="astryx-divider g-hero-page-header__rule"/>
     </div>
 </section>
 

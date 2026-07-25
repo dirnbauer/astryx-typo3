@@ -5,6 +5,58 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-grid {
-  display: block;
+.g-feature-grid__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-grid__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-grid[data-align='center'] .g-feature-grid__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-feature-grid__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grid children stretch, so every cell is as tall as the tallest of its row and
+   the icon tiles land on one optical line whatever the copy does below them. */
+.g-feature-grid__item {
+  block-size: 100%;
+}
+
+.g-feature-grid[data-align='center'] .g-feature-grid__item {
+  align-items: center;
+  text-align: center;
+}
+
+/* Without the card surface the cell text sits straight on the accent band, so
+   the secondary colour tuned for the page background has to give way. */
+.g-feature-grid.accent[data-variant='plain'] .astryx-card-body {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-feature-grid.accent .g-feature-grid__lead,
+.g-feature-grid.accent .astryx-eyebrow,
+.g-feature-grid.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-grid__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -5,6 +5,28 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-code-block {
-  display: block;
+.g-code-block__title {
+  margin-block-end: var(--spacing-4);
+}
+
+.g-code-block__panel {
+  max-inline-size: 100%;
+}
+
+/* Code wraps where its author wrapped it, so the panel scrolls sideways rather
+   than reflowing. tabindex makes that scroll reachable from the keyboard —
+   without it the overflow is only usable with a pointer. */
+.g-code-block__pre {
+  overflow-x: auto;
+}
+
+.g-code-block__note {
+  margin-block-start: var(--spacing-3);
+  max-inline-size: 70ch;
+}
+
+@media (max-width: 639px) {
+  .g-code-block__title {
+    margin-block-end: var(--spacing-3);
+  }
 }

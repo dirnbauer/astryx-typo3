@@ -4,15 +4,61 @@
 
 <f:asset.css identifier="g-hero-app" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): Store links use the child icon plus title, so no store artwork has to be uploaded; note carries the minimum OS version.
-</f:comment>
+<section class="astryx-section g-hero-app {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-hero-app__grid {f:if(condition: data.reverse, then: 'media-first')}">
 
-<section class="astryx-section g-hero-app" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-app__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-hero-app__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.stores}">
+                    <ul class="g-hero-app__stores">
+                        <f:for each="{data.stores}" as="store">
+                            <li>
+                                <f:link.typolink parameter="{store.link}" class="astryx-item interactive g-hero-app__store">
+                                    <f:comment>
+                                        One glyph for every store: the child carries the
+                                        platform name, so no store artwork — with its own
+                                        trademark rules — has to be uploaded at all.
+                                    </f:comment>
+                                    <svg class="g-hero-app__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false">
+                                        <path d="M12 3v11m0 0 4-4m-4 4-4-4"/>
+                                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+                                    </svg>
+                                    <span class="astryx-item-content">
+                                        <f:if condition="{store.description}">
+                                            <span class="astryx-item-description">{store.description}</span>
+                                        </f:if>
+                                        <span class="astryx-item-label g-hero-app__store-name">{store.title}</span>
+                                    </span>
+                                </f:link.typolink>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-hero-app__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-hero-app__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="560" loading="eager" class="g-hero-app__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

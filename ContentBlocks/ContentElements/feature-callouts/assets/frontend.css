@@ -5,6 +5,103 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-callouts {
-  display: block;
+.g-feature-callouts__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-callouts__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-callouts__grid {
+  align-items: start;
+}
+
+.g-feature-callouts__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-feature-callouts__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-feature-callouts__legend {
+  counter-reset: g-callout;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-callouts__entry {
+  counter-increment: g-callout;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+/* The same disc the artwork uses, so the legend and the picture read as one
+   drawing rather than as a list that happens to sit beside a photograph. */
+.g-feature-callouts__marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: var(--spacing-7);
+  block-size: var(--spacing-7);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-feature-callouts__marker::before {
+  content: counter(g-callout);
+}
+
+.g-feature-callouts__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+}
+
+.g-feature-callouts.accent .g-feature-callouts__lead,
+.g-feature-callouts.accent .astryx-eyebrow,
+.g-feature-callouts.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 1024px) {
+  /* The legend is the shorter column: giving the picture more of the band is
+     what keeps the numbers in it readable. */
+  .g-feature-callouts__grid {
+    grid-template-columns: 3fr 2fr;
+  }
+
+  .g-feature-callouts__grid.media-first {
+    grid-template-columns: 2fr 3fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-feature-callouts__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

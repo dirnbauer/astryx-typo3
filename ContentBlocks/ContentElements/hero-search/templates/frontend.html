@@ -4,15 +4,52 @@
 
 <f:asset.css identifier="g-hero-search" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): The field submits natively to cta_link as 'q'; suggestions are ordinary links, not a script-driven typeahead.
-</f:comment>
+<section class="astryx-section g-hero-search {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-search__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-search" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-search__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <form class="astryx-field g-hero-search__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+                <label class="astryx-visually-hidden" for="g-hero-search-q-{data.uid}">
+                    <f:translate extensionName="desiderio_grande" key="hero.searchQuery" default="Search term"/>
+                </label>
+                <div class="astryx-input-group lg">
+                    <input class="astryx-text-input lg" type="search" name="q" id="g-hero-search-q-{data.uid}"
+                           placeholder="{f:translate(extensionName: 'desiderio_grande', key: 'hero.searchSitePlaceholder', default: 'What are you looking for?')}"/>
+                    <button class="astryx-button primary lg g-hero-search__submit" type="submit">
+                        <f:if condition="{data.cta_label}">
+                            <f:then>{data.cta_label}</f:then>
+                            <f:else><f:translate extensionName="desiderio_grande" key="hero.search" default="Search"/></f:else>
+                        </f:if>
+                    </button>
+                </div>
+            </form>
+
+            <f:if condition="{data.suggestions}">
+                <f:comment>
+                    Ordinary links, not a typeahead: each one is a query somebody
+                    already answered, so they work with the network off and are
+                    crawlable on their own.
+                </f:comment>
+                <nav class="g-hero-search__suggestions" aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'hero.suggestedSearches', default: 'Suggested searches')}">
+                    <ul class="g-hero-search__tokens">
+                        <f:for each="{data.suggestions}" as="suggestion">
+                            <li>
+                                <f:link.typolink parameter="{suggestion.link}" class="astryx-token g-hero-search__token">{suggestion.title}</f:link.typolink>
+                            </li>
+                        </f:for>
+                    </ul>
+                </nav>
+            </f:if>
+        </div>
     </div>
 </section>
 

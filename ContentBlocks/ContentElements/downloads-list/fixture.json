@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "content",
+    "header": "A list of files to take away",
+    "lead": "One to twenty rows at two, three or four across. Each row is a single link target, so a reader aiming at it on a phone does not have to hit the four words of the title exactly.",
+    "note": "The format and size live in the row's own description, where an editor can keep them true — nothing on the page can read the size of a file that sits on another server.",
+    "columns": "2",
+    "width": "md",
+    "tone": "muted",
+    "files": [
+        {
+            "title": "The title is the first line",
+            "description": "PDF · 1.2 MB · and the context line sits under it",
+            "link": "#"
+        },
+        {
+            "title": "The whole row is the link",
+            "description": "Not just the title",
+            "link": "#"
+        },
+        {
+            "title": "The arrow is drawn in CSS",
+            "description": "No icon request, nothing to fall back from",
+            "link": "#"
+        },
+        {
+            "title": "Below 768px the columns collapse to one",
+            "description": "A download row is unreadable at half a phone's width",
+            "link": "#"
+        }
+    ]
+}

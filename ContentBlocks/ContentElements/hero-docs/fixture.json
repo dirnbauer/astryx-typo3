@@ -1,1 +1,29 @@
-{}
+{
+    "_type": "hero",
+    "eyebrow": "Documentation Hero",
+    "header": "The top of a documentation home page",
+    "lead": "Product name, one line on what the docs cover, a search field, a version badge and the short list of pages people actually open. The field submits as “q” on a full page load, so search works before any script does.",
+    "badge_text": "Version badge",
+    "cta_label": "Search",
+    "cta_link": "#",
+    "tone": "surface",
+    "width": "lg",
+    "compact": 0,
+    "links": [
+        {
+            "title": "Quick links",
+            "description": "Two to six of them, each a title and one line.",
+            "link": "#"
+        },
+        {
+            "title": "Laid out as a grid",
+            "description": "Six stacked would push the search field off the screen.",
+            "link": "#"
+        },
+        {
+            "title": "Ordinary links",
+            "description": "No script, no typeahead, crawlable on their own.",
+            "link": "#"
+        }
+    ]
+}

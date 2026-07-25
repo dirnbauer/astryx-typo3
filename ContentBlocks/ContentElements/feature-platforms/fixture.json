@@ -1,1 +1,37 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Platform Availability",
+    "header": "Where the product runs, each entry linking out",
+    "lead": "Icon-led rows for the platforms your own product supports. Where the marks belong to somebody else's product, the integration grid is the right band.",
+    "note": "The note carries the support caveat for the whole row rather than repeating it per entry.",
+    "columns": "4",
+    "tone": "muted",
+    "width": "lg",
+    "compact": false,
+    "platforms": [
+        {
+            "icon": "browser",
+            "title": "Name on the first line",
+            "description": "Version or requirement underneath",
+            "link": "#"
+        },
+        {
+            "icon": "link",
+            "title": "Each entry links out",
+            "description": "To a download or to its documentation",
+            "link": "#"
+        },
+        {
+            "icon": "columns",
+            "title": "Two to four columns",
+            "description": "Compact narrows them further",
+            "link": ""
+        },
+        {
+            "icon": "note",
+            "title": "A closing note",
+            "description": "For the caveat that covers the row",
+            "link": ""
+        }
+    ]
+}

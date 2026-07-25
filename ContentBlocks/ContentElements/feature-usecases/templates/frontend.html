@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-feature-usecases" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The whole card is the link target, so the title never becomes a nested anchor; the description stays to one line.
+    The whole card is one link and the title carries its name, so the card never
+    becomes an anchor inside an anchor and a reader tabbing through gets one
+    stop per use case rather than two.
 </f:comment>
 
-<section class="astryx-section g-feature-usecases" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-usecases {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-usecases__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-usecases__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-feature-usecases__cases">
+            <f:for each="{data.cases}" as="case">
+                <li class="astryx-card astryx-clickable-card g-feature-usecases__card">
+                    <f:if condition="{case.icon}">
+                        <span class="astryx-feature-icon" data-icon="{case.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title">
+                        <f:link.typolink parameter="{case.link}">{case.title}</f:link.typolink>
+                    </h3>
+
+                    <f:if condition="{case.description}">
+                        <p class="astryx-card-body g-feature-usecases__description">{case -> f:render.text(field: 'description')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-feature-usecases__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
         </f:if>
+
     </div>
 </section>
 

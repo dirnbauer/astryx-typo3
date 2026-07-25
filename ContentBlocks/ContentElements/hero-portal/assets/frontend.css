@@ -5,6 +5,78 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-portal {
-  display: block;
+.g-hero-portal__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+}
+
+.g-hero-portal__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-portal__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-portal__routes {
+  margin: var(--spacing-8) 0 0;
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.g-hero-portal__card {
+  gap: var(--spacing-2);
+}
+
+.g-hero-portal__card-title a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* The arrow sits at the foot of the card so cards of unequal text length still
+   end on the same mark. */
+.g-hero-portal__chevron {
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-3);
+  display: inline-flex;
+  color: var(--color-icon-accent);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.g-hero-portal__chevron > svg {
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+}
+
+@media (hover: hover) {
+  .g-hero-portal__card:hover .g-hero-portal__chevron {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g-hero-portal__chevron {
+    transition: none;
+    transform: none;
+  }
+}
+
+.g-hero-portal.accent .g-hero-portal__lead,
+.g-hero-portal.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-portal__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-portal__routes {
+    margin-block-start: var(--spacing-6);
+  }
 }

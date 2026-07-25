@@ -1,1 +1,32 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Workflow Stages",
+    "header": "Stages chained with arrows, input to output",
+    "lead": "Use it where the boxes are system states rather than things the reader does. Where the reader is the one performing them, the how-it-works band is the right one.",
+    "note": "The note takes the legend or the caveat the diagram itself has no room for.",
+    "tone": "body",
+    "width": "lg",
+    "align": "start",
+    "stages": [
+        {
+            "icon": "arrow-down",
+            "title": "Column first",
+            "text": "On a phone the chain runs downwards, arrows and all."
+        },
+        {
+            "icon": "arrow-right",
+            "title": "Row above 768px",
+            "text": "The arrows turn and sit exactly in the gap between two stages."
+        },
+        {
+            "icon": "hash",
+            "title": "Two to six stages",
+            "text": "Beyond six the row is too narrow to read and the diagram stops helping."
+        },
+        {
+            "icon": "note",
+            "title": "A closing note",
+            "text": "For the caveat the boxes have no room for."
+        }
+    ]
+}

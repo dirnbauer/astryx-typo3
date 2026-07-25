@@ -1,1 +1,31 @@
-{}
+{
+    "eyebrow": "What happens to an hour",
+    "header": "From a punch on a tablet to a line in the payroll file",
+    "lead": "Four stages, and a recorded minute never skips one of them. This is the chain an auditor asks to see.",
+    "note": "Every transition is timestamped and attributed. The trail is kept for seven years and is exportable at any point in it.",
+    "tone": "body",
+    "width": "lg",
+    "align": "start",
+    "stages": [
+        {
+            "icon": "tap",
+            "title": "Punch",
+            "text": "The employee clocks in. The device signs the time and holds it if there is no network."
+        },
+        {
+            "icon": "compare",
+            "title": "Match",
+            "text": "The punch is compared with the planned shift and any difference over the tolerance is flagged."
+        },
+        {
+            "icon": "check",
+            "title": "Approve",
+            "text": "The manager confirms or corrects. A correction keeps both values and the reason given."
+        },
+        {
+            "icon": "file-export",
+            "title": "Export",
+            "text": "Approved minutes are totalled per contract and written to the payroll file at month end."
+        }
+    ]
+}

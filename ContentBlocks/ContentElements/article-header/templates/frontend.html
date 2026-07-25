@@ -5,15 +5,57 @@
 <f:asset.css identifier="g-article-header" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): note carries the dateline and reading time as one small line; caption is the image credit.
+    The title is an h2, not an h1: the page template already prints the page
+    title as the document's single h1, and a second one would leave a reader
+    who navigates by landmark with two competing answers to "where am I".
 </f:comment>
 
-<section class="astryx-section g-article-header" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<header class="astryx-section g-article-header {data.tone}">
+    <div class="astryx-layout md">
+        <div class="g-article-header__intro align-{data.align}">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-article-header__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.author} || {data.note}">
+                <div class="g-article-header__byline">
+                    <f:if condition="{data.author}">
+                        <p class="astryx-text label g-article-header__author">
+                            {data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-article-header__role">{data -> f:render.text(field: 'role')}</span></f:if>
+                        </p>
+                    </f:if>
+                    <f:if condition="{data.note}">
+                        <p class="astryx-text supporting g-article-header__dateline">{data -> f:render.text(field: 'note')}</p>
+                    </f:if>
+                </div>
+            </f:if>
+
+        </div>
     </div>
-</section>
+
+    <f:if condition="{data.image}">
+        <div class="astryx-layout lg g-article-header__figure-layout">
+            <figure class="g-article-header__figure">
+                <f:for each="{data.image}" as="image">
+                    <f:comment>
+                        eager: the lead image is inside the first screen of an
+                        article, so deferring it only delays the largest paint.
+                    </f:comment>
+                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="eager" class="g-article-header__image"/>
+                </f:for>
+                <f:if condition="{data.caption}">
+                    <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                </f:if>
+            </figure>
+        </div>
+    </f:if>
+</header>
 
 </html>

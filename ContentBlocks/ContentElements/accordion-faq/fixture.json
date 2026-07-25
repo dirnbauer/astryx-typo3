@@ -1,1 +1,26 @@
-{}
+{
+    "_type": "content",
+    "eyebrow": "Accordion",
+    "header": "Questions that fold open one at a time",
+    "lead": "Two to thirty rows, all closed on first paint so the page stays scannable. Everything below is native browser behaviour — this element ships no script of any kind.",
+    "width": "md",
+    "tone": "body",
+    "questions": [
+        {
+            "title": "How is the exclusive behaviour done without a script?",
+            "bodytext": "<p>Every row is a <code>details</code> element and they all share one <code>name</code> attribute. The browser then treats them as a group and closes the open row when another is opened — the same relationship a set of radio buttons has.</p>"
+        },
+        {
+            "title": "What happens to find-in-page?",
+            "bodytext": "<p>It still works. Browsers open a closed disclosure to reveal a match, which a scripted accordion built from divs and hidden attributes has to reimplement, usually badly.</p>"
+        },
+        {
+            "title": "Do the questions appear in the page outline?",
+            "bodytext": "<p>Yes. Each summary contains a level-three heading, so a reader navigating by heading can move between the questions without opening any of them.</p>"
+        },
+        {
+            "title": "Can two accordions sit on one page?",
+            "bodytext": "<p>They can. The shared name is keyed to the record, so each block forms its own exclusive group and neither closes the other's rows.</p>"
+        }
+    ]
+}

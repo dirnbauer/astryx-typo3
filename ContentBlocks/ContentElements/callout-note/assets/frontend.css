@@ -5,6 +5,31 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-callout-note {
-  display: block;
+.g-callout-note__box {
+  /* The accent edge is what makes the box read as an interruption rather than
+     as a paragraph on a slightly different background — several themes set the
+     muted surface very close to the page colour. */
+  border-inline-start: var(--spacing-0-5) solid var(--color-accent);
+  padding: var(--spacing-5);
+  max-inline-size: 70ch;
+}
+
+.g-callout-note__box.compact {
+  padding: var(--spacing-3);
+}
+
+.g-callout-note__title {
+  font-size: var(--text-heading-4-size);
+  line-height: var(--text-heading-4-leading);
+}
+
+.g-callout-note__box.compact .g-callout-note__title {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+@media (max-width: 639px) {
+  .g-callout-note__box {
+    padding: var(--spacing-4);
+  }
 }

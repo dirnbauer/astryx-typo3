@@ -5,14 +5,42 @@
 <f:asset.css identifier="g-definition-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Outputs a real dl with dt and dd pairs; the child's text field holds a longer explanation shown under the value.
+    Each pair is wrapped in a div so the term and its description stay one grid
+    child and cannot be pulled apart into different columns. HTML has allowed
+    that wrapper inside a dl since 5.2, and it is the only way a multi-column
+    definition list keeps its pairs together.
 </f:comment>
 
-<section class="astryx-section g-definition-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-definition-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-definition-list__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-definition-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <dl class="astryx-metadata-list columns-{data.columns} g-definition-list__list">
+            <f:for each="{data.entries}" as="item">
+                <div class="astryx-metadata-list-item g-definition-list__row">
+                    <dt class="g-definition-list__term">{item -> f:render.text(field: 'title')}</dt>
+                    <dd class="g-definition-list__description">
+                        <f:if condition="{item.value}">
+                            <span class="g-definition-list__value">{item -> f:render.text(field: 'value')}</span>
+                        </f:if>
+                        <f:if condition="{item.text}">
+                            <span class="astryx-text supporting g-definition-list__note">{item -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </dd>
+                </div>
+            </f:for>
+        </dl>
+
     </div>
 </section>
 

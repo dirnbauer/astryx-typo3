@@ -1,1 +1,22 @@
-{}
+{
+    "_type": "content",
+    "header": "Numbered notes at the foot of an article",
+    "note": "The block's own note sits under the list, for anything that applies to every source rather than to one of them.",
+    "width": "md",
+    "compact": 0,
+    "notes": [
+        {
+            "title": "The marker is the note's position in an ordered list, not a number stored on the row.",
+            "description": "Reordering the rows renumbers the markers, which is what inserting a source in the middle of an article has to do."
+        },
+        {
+            "title": "Each note carries an id, so a superscript in the prose above can link straight to it.",
+            "description": "The note it lands on is highlighted, because the browser gives no other indication of where the jump ended."
+        },
+        {
+            "title": "A link is optional and takes the whole URL as its text.",
+            "description": "Printed in full so the reference survives being printed on paper.",
+            "link": "#"
+        }
+    ]
+}

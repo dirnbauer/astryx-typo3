@@ -5,6 +5,61 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-demo {
-  display: block;
+.g-feature-demo__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 34rem;
+}
+
+.g-feature-demo__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-feature-demo__poster {
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-feature-demo__image {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/* The scrim is only there to keep the control legible over whatever frame the
+   editor picked; it must not become a second surface. */
+.g-feature-demo__scrim {
+  background-color: var(--color-overlay);
+}
+
+.g-feature-demo__dialog {
+  inline-size: 56rem;
+  max-block-size: 90vh;
+}
+
+.g-feature-demo__frame {
+  --aspect: 16 / 9;
+}
+
+.g-feature-demo__close {
+  flex: 0 0 auto;
+}
+
+.g-feature-demo.accent .astryx-eyebrow,
+.g-feature-demo.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-feature-demo__copy {
+    max-inline-size: none;
+  }
+
+  .g-feature-demo__dialog {
+    inline-size: 100%;
+  }
 }

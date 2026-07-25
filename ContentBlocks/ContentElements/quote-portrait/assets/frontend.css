@@ -5,6 +5,62 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-quote-portrait {
-  display: block;
+.g-quote-portrait__figure {
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-6);
+}
+
+.g-quote-portrait__portrait {
+  /* The shared avatar already crops to a circle and clips the image; only the
+     shrink guard belongs to this element, because the quote beside it will
+     take every pixel it is offered. */
+  flex-shrink: 0;
+}
+
+.g-quote-portrait__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 56ch;
+}
+
+.g-quote-portrait__quote {
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+}
+
+.g-quote-portrait__quote > p {
+  margin: 0;
+}
+
+.g-quote-portrait__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-quote-portrait__role::before {
+  content: ', ';
+}
+
+/* Centred, the portrait sits above the words rather than beside them: a
+   centred column with something hanging off its start edge is not centred. */
+.g-quote-portrait__figure.align-center {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.g-quote-portrait__figure.align-center .g-quote-portrait__quote {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+@media (max-width: 639px) {
+  .g-quote-portrait__figure {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
 }

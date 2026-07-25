@@ -5,6 +5,77 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-roadmap {
-  display: block;
+.g-feature-roadmap__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-roadmap__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-roadmap__item {
+  gap: var(--spacing-3);
+  align-items: flex-start;
+}
+
+/* The dot sits on the title's first line rather than on the top of the row,
+   which is where it would land in a list item that has two lines of text. */
+.g-feature-roadmap__dot {
+  margin-block-start: 0.5em;
+}
+
+.g-feature-roadmap__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-feature-roadmap__state {
+  flex: 0 0 auto;
+  margin-block-start: 0.15em;
+}
+
+.g-feature-roadmap__item[data-shipped='no'] .astryx-heading {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-roadmap__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-roadmap__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-roadmap.accent .g-feature-roadmap__lead,
+.g-feature-roadmap.accent .astryx-eyebrow,
+.g-feature-roadmap.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-roadmap__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  /* The state badge drops under the title rather than squeezing it to a word
+     per line. */
+  .g-feature-roadmap__item {
+    flex-wrap: wrap;
+  }
+
+  .g-feature-roadmap__state {
+    order: 3;
+    margin-inline-start: var(--spacing-5);
+  }
 }

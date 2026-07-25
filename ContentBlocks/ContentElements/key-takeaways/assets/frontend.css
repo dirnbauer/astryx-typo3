@@ -5,6 +5,44 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-key-takeaways {
-  display: block;
+.g-key-takeaways__box {
+  max-inline-size: 70ch;
+  gap: var(--spacing-4);
+}
+
+.g-key-takeaways__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-key-takeaways__list {
+  gap: var(--spacing-3);
+}
+
+/* The marker is drawn on the item rather than taken from list-style, because a
+   native bullet cannot be aligned to the first line of a point that runs to
+   three of them. */
+.g-key-takeaways__point::before {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  margin-block-start: 0.45em;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.g-key-takeaways__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.g-key-takeaways__lineLabel {
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 639px) {
+  .g-key-takeaways__box {
+    gap: var(--spacing-3);
+  }
 }

@@ -4,15 +4,52 @@
 
 <f:asset.css identifier="g-hero-code" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): text holds the snippet verbatim and is never rich text; copy-to-clipboard comes from the shared code atom, not from this element.
-</f:comment>
+<section class="astryx-section g-hero-code {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-hero-code__grid {f:if(condition: data.reverse, then: 'media-first')}">
 
-<section class="astryx-section g-hero-code" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-code__copy">
+                <p class="g-hero-code__flags">
+                    <f:if condition="{data.eyebrow}">
+                        <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                    </f:if>
+                    <f:if condition="{data.badge_text}">
+                        <span class="astryx-badge outline g-hero-code__version">{data.badge_text}</span>
+                    </f:if>
+                </p>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-hero-code__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-hero-code__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.text}">
+                <div class="astryx-codeblock g-hero-code__block">
+                    <f:comment>
+                        Preformatted text has to stay verbatim, and outside the
+                        editor the inline-editable rendering turns newlines into
+                        markup — which would double every line break in here.
+                        Editing keeps the editable field; the delivered page
+                        keeps the whitespace it was given.
+                    </f:comment>
+                    <pre class="g-hero-code__pre"><code><f:editMode><f:then>{data -> f:render.text(field: 'text')}</f:then><f:else>{data.text}</f:else></f:editMode></code></pre>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

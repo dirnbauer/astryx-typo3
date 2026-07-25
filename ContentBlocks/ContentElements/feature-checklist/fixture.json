@@ -1,1 +1,47 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Included Checklist",
+    "header": "Ticked, crossed, and a word at the end",
+    "lead": "A dense list where every row answers yes or no. The optional qualifier at the end of a row is what keeps an honest yes from becoming a misleading one.",
+    "columns": "2",
+    "note": "Reach for the spec sheet instead when each row carries a measured value rather than a yes or a no.",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "rows": [
+        {
+            "title": "Two, three or four columns",
+            "included": true
+        },
+        {
+            "title": "A tick or a cross per row",
+            "included": true
+        },
+        {
+            "title": "Qualifier at the end of a row",
+            "included": true,
+            "value": "optional"
+        },
+        {
+            "title": "Named marks, not coloured ones",
+            "included": true
+        },
+        {
+            "title": "Compact spacing for long lists",
+            "included": true
+        },
+        {
+            "title": "A closing note under the list",
+            "included": true,
+            "value": "optional"
+        },
+        {
+            "title": "Measured values per row",
+            "included": false
+        },
+        {
+            "title": "A second column to compare against",
+            "included": false
+        }
+    ]
+}

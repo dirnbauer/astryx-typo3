@@ -5,6 +5,65 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-showcase {
-  display: block;
+.g-feature-showcase__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 34rem;
+}
+
+.g-feature-showcase__point {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.g-feature-showcase__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+}
+
+.g-feature-showcase__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* The picture keeps its own proportions: a screenshot cropped to a fixed ratio
+   loses the toolbar or the sidebar the copy is pointing at. */
+.g-feature-showcase__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+/* "Featured" lifts one row out of a stack without overruling the band tone the
+   editor chose: the pair moves onto its own surface instead. */
+.g-feature-showcase.featured .g-feature-showcase__grid {
+  padding: var(--spacing-8);
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-surface);
+  box-shadow: var(--shadow-low);
+}
+
+.g-feature-showcase.accent .astryx-eyebrow,
+.g-feature-showcase.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-feature-showcase.accent .astryx-prose :where(p, li) {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-feature-showcase__copy {
+    max-inline-size: none;
+  }
+
+  .g-feature-showcase.featured .g-feature-showcase__grid {
+    padding: var(--spacing-5);
+  }
 }

@@ -5,6 +5,96 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-workflow {
-  display: block;
+.g-feature-workflow__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-workflow__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-workflow[data-align='center'] .g-feature-workflow__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-feature-workflow__stages {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-workflow__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+/* The arrow occupies exactly the gap between two stages, so it is centred on
+   the join rather than nudged towards one of them. */
+.g-feature-workflow__stage + .g-feature-workflow__stage::before {
+  content: '↓';
+  position: absolute;
+  inset-inline-start: calc(var(--spacing-10) / 2);
+  inset-block-start: calc(-1 * var(--spacing-8));
+  block-size: var(--spacing-8);
+  display: flex;
+  align-items: center;
+  translate: -50% 0;
+  color: var(--color-icon-secondary);
+}
+
+.g-feature-workflow__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-feature-workflow.accent .g-feature-workflow__lead,
+.g-feature-workflow.accent .astryx-eyebrow,
+.g-feature-workflow.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-feature-workflow__stages {
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--spacing-8);
+  }
+
+  .g-feature-workflow__stage {
+    flex: 1 1 0;
+  }
+
+  .g-feature-workflow__stage + .g-feature-workflow__stage::before {
+    content: '→';
+    inset-inline-start: calc(-1 * var(--spacing-8));
+    inset-block-start: var(--spacing-5);
+    inline-size: var(--spacing-8);
+    block-size: auto;
+    justify-content: center;
+    translate: 0 -50%;
+  }
+
+  .g-feature-workflow[data-align='center'] .g-feature-workflow__stage {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-feature-workflow__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -1,1 +1,27 @@
-{}
+{
+    "_type": "content",
+    "eyebrow": "Timeline",
+    "header": "Dated entries down a line, in order",
+    "lead": "Two to twenty milestones, each with its date, a heading and a short paragraph. The list is a real ordered list, so the sequence survives being read without any styling at all.",
+    "tone": "body",
+    "width": "md",
+    "entries": [
+        {
+            "value": "2013",
+            "unit": "March",
+            "title": "The date sits above the heading",
+            "text": "The child's value field holds the year or date, and the unit beside it takes a qualifier such as a month or a quarter."
+        },
+        {
+            "value": "2019",
+            "title": "The connecting line is a border",
+            "text": "Drawn on the entries themselves rather than as a separate rule, so it can never run past the last one."
+        },
+        {
+            "value": "2026",
+            "unit": "Today",
+            "title": "The last entry ends the line",
+            "text": "Its border goes transparent instead of the list gaining an exception — the dot still marks where the sequence stops."
+        }
+    ]
+}

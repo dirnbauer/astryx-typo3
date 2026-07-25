@@ -5,6 +5,73 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* This band introduces the list that follows it. Ordinary bottom spacing would
+   read as a gap between two unrelated sections, so it is deliberately smaller
+   than every other hero in the group. */
 .g-hero-category {
+  --section-gap: var(--grande-band-tight);
+  padding-block-end: var(--spacing-6);
+}
+
+.g-hero-category__band {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.g-hero-category__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 44rem;
+  flex: 1 1 auto;
+}
+
+.g-hero-category__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-category__flags {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-hero-category__lead {
+  color: var(--color-text-secondary);
+}
+
+/* Decoration, not content: it never grows and it is the first thing dropped
+   when the band gets narrow. */
+.g-hero-category__media {
+  flex: 0 0 auto;
+}
+
+.g-hero-category__image {
   display: block;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  object-fit: cover;
+  border-radius: var(--radius-element);
+}
+
+.g-hero-category.accent .g-hero-category__lead,
+.g-hero-category.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-hero-category__band.has-media {
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+
+  .g-hero-category__copy {
+    max-inline-size: none;
+  }
 }

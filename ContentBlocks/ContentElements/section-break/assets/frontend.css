@@ -5,6 +5,36 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-section-break {
-  display: block;
+.g-section-break__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-section-break__rule {
+  /* The gap under the rule is larger than the gap between the words, so the
+     line reads as the top edge of what follows rather than as a separator
+     floating between two parts. */
+  margin-block-end: var(--spacing-3);
+}
+
+.g-section-break__inner.align-center {
+  text-align: center;
+  align-items: center;
+}
+
+/* Centred, the rule stops at a token width: a full-width line under a centred
+   heading reads as a page divider, not as a mark belonging to the title. */
+.g-section-break__inner.align-center .g-section-break__rule {
+  inline-size: var(--spacing-12);
+}
+
+.g-section-break__sub {
+  max-inline-size: 70ch;
+}
+
+@media (max-width: 639px) {
+  .g-section-break__inner {
+    gap: var(--spacing-2);
+  }
 }

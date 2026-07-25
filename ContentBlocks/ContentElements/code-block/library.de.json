@@ -1,1 +1,7 @@
-{}
+{
+    "header": "Messwerte einer Station abrufen",
+    "text": "curl -s 'https://daten.marnau-institut.example/v2/stations/14/readings' \\\n  --get \\\n  --data-urlencode 'from=2025-07-01T00:00:00Z' \\\n  --data-urlencode 'to=2025-07-31T23:59:59Z' \\\n  --data-urlencode 'fields=level,temperature' \\\n  --data-urlencode 'series=raw'\n\n# Viertelstundenwerte, Zeitstempel nach ISO 8601 in UTC.\n# Ohne series=raw kommt die geprüfte Reihe zurück.",
+    "caption": "shell",
+    "note": "Der Endpunkt ist offen und ohne Anmeldung bis 5.000 Abrufe pro Tag nutzbar. Darüber hinaus braucht es einen Schlüssel aus dem Datenportal.",
+    "width": "md"
+}

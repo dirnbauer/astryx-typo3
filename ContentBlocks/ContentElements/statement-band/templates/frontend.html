@@ -5,14 +5,23 @@
 <f:asset.css identifier="g-statement-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): header is rendered as a paragraph in display type, not as a heading, so it never disturbs the page outline.
+    The sentence is a paragraph in display type, not a heading. It is set large
+    because it is the only thing in the band — not because it opens a section —
+    and a heading here would put a claim into the page outline where a reader
+    jumping between headings expects a place to go.
 </f:comment>
 
-<section class="astryx-section g-statement-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-statement-band {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-statement-band__inner align-{data.align}">
+
+            <p class="astryx-text display-3 g-statement-band__statement">{data -> f:render.text(field: 'header')}</p>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-statement-band__support">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

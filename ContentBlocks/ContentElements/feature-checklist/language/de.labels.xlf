@@ -13,5 +13,17 @@
         <target>Rendert eine dichte zweispaltige Checkliste, in der jede Zeile ein Haken oder ein Kreuz ist, am Ende optional ein kurzer Zusatz. Einsatz für: &apos;Alles inklusive&apos;-Bänder, Leistungsumfang, Paketinhalte, Anforderungslisten auf Ausschreibungs- und Förderseiten, Lieferumfang. Trägt jede Zeile einen Messwert statt eines Ja oder Nein, besser &apos;Technische Daten&apos;; ergeben die Haken erst neben fremden Kreuzen Sinn, &apos;Gegenüberstellung zum Status quo&apos;.</target>
       </segment>
     </unit>
+    <unit id="row.included">
+      <segment state="final">
+        <source>Included</source>
+        <target>Enthalten</target>
+      </segment>
+    </unit>
+    <unit id="row.excluded">
+      <segment state="final">
+        <source>Not included</source>
+        <target>Nicht enthalten</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

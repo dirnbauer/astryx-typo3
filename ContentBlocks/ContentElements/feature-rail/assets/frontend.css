@@ -5,6 +5,59 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-rail {
-  display: block;
+.g-feature-rail__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-rail__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-rail__track {
+  margin: 0;
+  padding-inline-start: var(--spacing-1);
+  list-style: none;
+}
+
+/* A rail with no visible edge looks like a grid that ran out of room, so the
+   last card is allowed to sit short of the container's end. */
+.g-feature-rail__item {
+  inline-size: 20rem;
+  max-inline-size: 80%;
+}
+
+.g-feature-rail__track.compact .g-feature-rail__item {
+  inline-size: 15rem;
+}
+
+.g-feature-rail__card {
+  inline-size: 100%;
+}
+
+.g-feature-rail__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-rail.accent .g-feature-rail__lead,
+.g-feature-rail.accent .astryx-eyebrow,
+.g-feature-rail.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-rail__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-feature-rail__item {
+    inline-size: 17rem;
+  }
 }

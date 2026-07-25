@@ -6,5 +6,54 @@
  */
 
 .g-footnotes {
-  display: block;
+  --section-gap: var(--grande-band-tight);
+}
+
+.g-footnotes__title {
+  padding-block-end: var(--spacing-2);
+  margin-block-end: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+  padding-block-start: var(--spacing-4);
+}
+
+.g-footnotes__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin: 0;
+  padding-inline-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-footnotes__note {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+/* The note a superscript points at has to be findable once the jump lands, and
+   the browser gives no indication of where it landed. */
+.g-footnotes__note:target {
+  background-color: var(--color-accent-muted);
+  border-radius: var(--radius-inner);
+  box-shadow: 0 0 0 var(--spacing-2) var(--color-accent-muted);
+}
+
+.g-footnotes__source {
+  color: var(--color-text-secondary);
+}
+
+.g-footnotes__link {
+  overflow-wrap: anywhere;
+}
+
+.g-footnotes__note-all {
+  margin-block-start: var(--spacing-5);
+  max-inline-size: 70ch;
+}
+
+@media (max-width: 639px) {
+  .g-footnotes__list {
+    padding-inline-start: var(--spacing-5);
+  }
 }

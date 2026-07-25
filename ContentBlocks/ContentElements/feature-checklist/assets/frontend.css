@@ -5,6 +5,84 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-checklist {
+.g-feature-checklist__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-checklist__lead {
+  color: var(--color-text-secondary);
+}
+
+/* CSS columns, not a grid: the rows are one continuous list, so they should
+   read down the first column and then down the second rather than snake. */
+.g-feature-checklist__rows {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+}
+
+.g-feature-checklist__row {
+  gap: var(--spacing-3);
+  break-inside: avoid;
+}
+
+.g-feature-checklist__mark {
+  flex: 0 0 auto;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  /* Optical, not geometric: the glyph sits on the text's x-height rather than
+     on the top of its line box. */
+  margin-block-start: 0.2em;
+}
+
+.g-feature-checklist__row[data-included='yes'] .g-feature-checklist__mark {
+  color: var(--color-success);
+}
+
+.g-feature-checklist__row[data-included='no'] .g-feature-checklist__mark,
+.g-feature-checklist__row[data-included='no'] .g-feature-checklist__label {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-checklist__label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-feature-checklist__qualifier {
+  flex: 0 0 auto;
+}
+
+.g-feature-checklist__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-feature-checklist.accent .g-feature-checklist__lead,
+.g-feature-checklist.accent .astryx-eyebrow,
+.g-feature-checklist.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 641px) {
+  .g-feature-checklist[data-columns='2'] .g-feature-checklist__rows { columns: 2; }
+  .g-feature-checklist[data-columns='3'] .g-feature-checklist__rows { columns: 2; }
+  .g-feature-checklist[data-columns='4'] .g-feature-checklist__rows { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-feature-checklist[data-columns='3'] .g-feature-checklist__rows { columns: 3; }
+  .g-feature-checklist[data-columns='4'] .g-feature-checklist__rows { columns: 4; }
+}
+
+@media (max-width: 640px) {
+  .g-feature-checklist__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

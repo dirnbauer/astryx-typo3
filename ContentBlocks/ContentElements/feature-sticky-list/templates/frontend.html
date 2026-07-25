@@ -5,14 +5,57 @@
 <f:asset.css identifier="g-feature-sticky-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): position: sticky on the intro column only; below the medium breakpoint the columns stack and stickiness is dropped.
+    Stickiness is dropped below the medium breakpoint rather than merely made
+    smaller: a pinned intro on a phone would eat a third of the screen the list
+    is being read in.
 </f:comment>
 
-<section class="astryx-section g-feature-sticky-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-feature-sticky-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-feature-sticky-list__grid {f:if(condition: data.reverse, then: 'reversed')}">
+
+            <div class="g-feature-sticky-list__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-feature-sticky-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-feature-sticky-list__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <ul class="astryx-list with-dividers spacious g-feature-sticky-list__items">
+                <f:for each="{data.items}" as="item">
+                    <li class="g-feature-sticky-list__item {f:if(condition: item.link, then: 'astryx-clickable-card')}">
+                        <f:if condition="{item.icon}">
+                            <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"></span>
+                        </f:if>
+
+                        <div class="g-feature-sticky-list__body">
+                            <h3 class="astryx-heading level-4">
+                                <f:if condition="{item.link}">
+                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </h3>
+
+                            <f:if condition="{item.text}">
+                                <p class="astryx-text supporting">{item -> f:render.text(field: 'text')}</p>
+                            </f:if>
+                        </div>
+                    </li>
+                </f:for>
+            </ul>
+
+        </div>
     </div>
 </section>
 

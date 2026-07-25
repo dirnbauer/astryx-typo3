@@ -5,14 +5,49 @@
 <f:asset.css identifier="g-feature-code" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): text holds the snippet verbatim and is never rich text; caption names the file or the language shown above the block.
+    Outside edit mode the snippet is printed verbatim: the inline-edit wrapper
+    turns newlines into markup, and inside a pre element that doubles every
+    line break in the sample.
 </f:comment>
 
-<section class="astryx-section g-feature-code" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-feature-code {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-feature-code__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-feature-code__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-feature-code__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <p class="astryx-button-group g-feature-code__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </p>
+                </f:if>
+            </div>
+
+            <div class="astryx-codeblock g-feature-code__block">
+                <f:if condition="{data.caption}">
+                    <div class="astryx-codeblock-header">{data -> f:render.text(field: 'caption')}</div>
+                </f:if>
+
+                <div class="astryx-codeblock-scroll">
+                    <pre><code><f:editMode><f:then>{data -> f:render.text(field: 'text')}</f:then><f:else>{data.text}</f:else></f:editMode></code></pre>
+                </div>
+            </div>
+
+        </div>
     </div>
 </section>
 

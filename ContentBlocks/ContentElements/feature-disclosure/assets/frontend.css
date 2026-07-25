@@ -5,6 +5,59 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-disclosure {
-  display: block;
+.g-feature-disclosure__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-disclosure__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-disclosure__entries {
+  border-block-start: var(--border-width) solid var(--color-border);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+/* The heading is the summary's whole label, so it must not add a second line
+   box on top of the row the summary already lays out. */
+.g-feature-disclosure__title {
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.g-feature-disclosure__body {
+  max-inline-size: 68ch;
+  padding-block-end: var(--spacing-4);
+}
+
+.g-feature-disclosure.accent .g-feature-disclosure__body :where(p, li) {
+  color: currentColor;
+}
+
+.g-feature-disclosure.accent .g-feature-disclosure__lead,
+.g-feature-disclosure.accent .astryx-eyebrow,
+.g-feature-disclosure.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* On paper there is no click, so a closed row would print as a headline with
+   nothing under it. */
+@media print {
+  .g-feature-disclosure__entry::details-content {
+    block-size: auto;
+    content-visibility: visible;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-feature-disclosure__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

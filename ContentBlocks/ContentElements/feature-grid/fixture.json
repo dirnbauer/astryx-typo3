@@ -1,1 +1,33 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Feature Grid",
+    "header": "An icon, a title and one sentence — repeated",
+    "lead": "The default capability grid in two to four columns. The card variant gives every cell a surface, the plain variant takes it away, and nothing else about the cell changes.",
+    "columns": "3",
+    "variant": "card",
+    "tone": "body",
+    "width": "lg",
+    "align": "start",
+    "items": [
+        {
+            "icon": "columns",
+            "title": "Two to four columns",
+            "text": "The count is an editor's choice, and the grid still reflows on the room it has rather than on the width of the viewport."
+        },
+        {
+            "icon": "square",
+            "title": "Card or plain",
+            "text": "The variant adds or removes the card surface. Everything else — spacing, order, icon tile — stays exactly where it was."
+        },
+        {
+            "icon": "align",
+            "title": "Cells of equal height",
+            "text": "Every cell stretches to the tallest of its row, which is what keeps the icon tiles on one optical line."
+        },
+        {
+            "icon": "link",
+            "title": "One link per cell",
+            "text": "Give a cell a link and the whole cell becomes the target, with the title carrying the accessible name."
+        }
+    ]
+}

@@ -5,6 +5,38 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-statement-band {
-  display: block;
+.g-statement-band__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+.g-statement-band__statement {
+  /* Narrower than the reading measure on purpose: a display line is read in
+     one or two glances, and a long one stops being a statement. */
+  max-inline-size: 26ch;
+  text-wrap: balance;
+}
+
+.g-statement-band__support {
+  max-inline-size: 60ch;
+  color: var(--color-text-secondary);
+}
+
+.g-statement-band__inner.align-center {
+  align-items: center;
+  text-align: center;
+}
+
+/* On an accent band the supporting line would otherwise reach for a secondary
+   text colour that is tuned for the page background. */
+.g-statement-band.accent .g-statement-band__support {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-statement-band__statement {
+    max-inline-size: none;
+  }
 }

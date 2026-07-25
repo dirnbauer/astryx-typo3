@@ -4,15 +4,53 @@
 
 <f:asset.css identifier="g-hero-status" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): The state is editorial rather than polled: an editor sets badge_text and tone when something changes, and note timestamps it.
-</f:comment>
+<section class="astryx-section g-hero-status {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-status__band">
 
-<section class="astryx-section g-hero-status" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-status__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <f:comment>
+                    The dot and the badge always say the same thing in two ways:
+                    colour alone would leave the state unreadable to anyone who
+                    cannot tell green from amber.
+                </f:comment>
+                <h2 class="astryx-heading level-2 g-hero-status__headline">
+                    <span class="astryx-statusdot accent g-hero-status__dot" aria-hidden="true"></span>
+                    <span>{data -> f:render.text(field: 'header')}</span>
+                </h2>
+
+                <f:if condition="{data.badge_text}">
+                    <p class="g-hero-status__flag"><span class="astryx-badge accent">{data.badge_text}</span></p>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-hero-status__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-hero-status__note"><span class="astryx-timestamp">{data -> f:render.text(field: 'note')}</span></p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.value} || {data.cta_label}">
+                <div class="g-hero-status__reading">
+                    <f:if condition="{data.value}">
+                        <p class="g-hero-status__figure">
+                            <span class="g-hero-status__value">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-hero-status__unit">{data.unit}</span></f:if>
+                        </p>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta g-hero-status__history">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

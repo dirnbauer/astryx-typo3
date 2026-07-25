@@ -5,14 +5,43 @@
 <f:asset.css identifier="g-accordion-faq" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Every row is a native details element; the exclusive variant only adds the shared name attribute, so nothing has to be scripted.
+    Every row is a native details element, and the shared name attribute is what
+    makes them exclusive — opening one closes the rest without a line of script,
+    and the keyboard, the find-in-page behaviour and the print rendering all
+    remain the browser's own.
+
+    The name is keyed to the record uid so that two accordions on one page do
+    not close each other's rows.
 </f:comment>
 
-<section class="astryx-section g-accordion-faq" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-accordion-faq {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-accordion-faq__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-accordion-faq__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <div class="astryx-collapsible-group g-accordion-faq__group">
+            <f:for each="{data.questions}" as="item">
+                <details class="astryx-collapsible spacious g-accordion-faq__item" name="g-accordion-faq-{data.uid}">
+                    <summary>
+                        <h3 class="g-accordion-faq__question">{item -> f:render.text(field: 'title')}</h3>
+                    </summary>
+                    <div class="astryx-collapsible-content astryx-prose g-accordion-faq__answer"><f:format.html>{item.bodytext}</f:format.html></div>
+                </details>
+            </f:for>
+        </div>
+
     </div>
 </section>
 

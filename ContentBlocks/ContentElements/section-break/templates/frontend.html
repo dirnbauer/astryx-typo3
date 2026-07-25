@@ -5,14 +5,28 @@
 <f:asset.css identifier="g-section-break" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Outputs an h2 so the outline of a long page stays readable; the rule is decorative and hidden from assistive technology.
+    The rule is a div and not an hr: the heading under it already announces the
+    break, and an hr would report a second, wordless one to anyone listening
+    rather than looking.
 </f:comment>
 
-<section class="astryx-section g-section-break" data-variant="{data.variant}">
+<section class="astryx-section g-section-break {data.tone} {f:if(condition: data.compact, then: 'tight')}">
     <div class="astryx-layout">
-        <f:if condition="{data.header}">
+        <div class="g-section-break__inner align-{data.align}">
+
+            <div class="astryx-divider g-section-break__rule"></div>
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text supporting g-section-break__sub">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

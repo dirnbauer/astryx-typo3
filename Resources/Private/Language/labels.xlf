@@ -118,5 +118,122 @@
         <source>Home</source>
       </segment>
     </unit>
+
+    <!-- Content group. The few strings a content element has to speak itself,
+         because no editor field carries them: carousel controls, the two
+         column headings of a pros-and-cons list, a gallery link's purpose. -->
+    <unit id="content.carousel.previous">
+      <segment>
+        <source>Previous quote</source>
+      </segment>
+    </unit>
+    <unit id="content.carousel.next">
+      <segment>
+        <source>Next quote</source>
+      </segment>
+    </unit>
+    <unit id="content.carousel.region">
+      <segment>
+        <source>Quotes</source>
+      </segment>
+    </unit>
+    <unit id="content.prosCons.for">
+      <segment>
+        <source>For</source>
+      </segment>
+    </unit>
+    <unit id="content.prosCons.against">
+      <segment>
+        <source>Against</source>
+      </segment>
+    </unit>
+    <unit id="content.gallery.openOriginal">
+      <segment>
+        <source>Open the full-size picture</source>
+      </segment>
+    </unit>
+    <unit id="content.contents.label">
+      <segment>
+        <source>On this page</source>
+      </segment>
+    </unit>
+    <unit id="content.footnotes.label">
+      <segment>
+        <source>Notes and sources</source>
+      </segment>
+    </unit>
+
+    <!-- Strings the hero elements render themselves: control labels and
+         placeholders that are chrome, not editorial content. -->
+    <unit id="hero.play">
+      <segment>
+        <source>Play the film</source>
+      </segment>
+    </unit>
+    <unit id="hero.openFilm">
+      <segment>
+        <source>Open the film</source>
+      </segment>
+    </unit>
+    <unit id="hero.close">
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
+    <unit id="hero.email">
+      <segment>
+        <source>Email address</source>
+      </segment>
+    </unit>
+    <unit id="hero.emailPlaceholder">
+      <segment>
+        <source>name@company.com</source>
+      </segment>
+    </unit>
+    <unit id="hero.subscribe">
+      <segment>
+        <source>Sign up</source>
+      </segment>
+    </unit>
+    <unit id="hero.search">
+      <segment>
+        <source>Search</source>
+      </segment>
+    </unit>
+    <unit id="hero.searchQuery">
+      <segment>
+        <source>Search term</source>
+      </segment>
+    </unit>
+    <unit id="hero.searchPlaceholder">
+      <segment>
+        <source>Search the documentation</source>
+      </segment>
+    </unit>
+    <unit id="hero.searchSitePlaceholder">
+      <segment>
+        <source>What are you looking for?</source>
+      </segment>
+    </unit>
+    <unit id="hero.suggestedSearches">
+      <segment>
+        <source>Suggested searches</source>
+      </segment>
+    </unit>
+    <unit id="hero.quickLinks">
+      <segment>
+        <source>Quick links</source>
+      </segment>
+    </unit>
+    <unit id="hero.profileLinks">
+      <segment>
+        <source>Profile links</source>
+      </segment>
+    </unit>
+    <unit id="hero.showImage">
+      <segment>
+        <source>Show image</source>
+      </segment>
+    </unit>
   </file>
 </xliff>

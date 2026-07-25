@@ -5,6 +5,59 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-video-embed {
-  display: block;
+.g-video-embed__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-video-embed__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-video-embed__frame {
+  /* A muted plate under the frame, so the band never flashes the page colour
+     through a transparent iframe before the player paints. */
+  background-color: var(--color-background-muted);
+  box-shadow: var(--shadow-low);
+}
+
+/* The poster is painted by the element, not by an <img>, because it has to sit
+   underneath a player that will cover it — an image would have to be positioned
+   and hidden, which is the same rule written twice. */
+.g-video-embed__poster {
+  position: absolute;
+  inset: 0;
+  background-image: var(--g-poster);
+  background-size: cover;
+  background-position: center;
+}
+
+.g-video-embed__player {
+  position: relative;
+  border: 0;
+}
+
+.g-video-embed__still {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-element);
+}
+
+.g-video-embed__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  max-inline-size: 70ch;
+}
+
+@media (max-width: 639px) {
+  .g-video-embed__intro {
+    margin-block-end: var(--spacing-4);
+  }
 }

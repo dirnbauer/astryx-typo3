@@ -5,14 +5,46 @@
 <f:asset.css identifier="g-text-media" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Media keeps its aspect ratio and the text column caps at 60ch; on narrow screens the picture always comes first.
+    The picture comes first in the source so that a one-column screen shows the
+    thing being explained before the explanation. The two-column order is set
+    with `order` and only exists above 768px, where both are visible at once
+    and reading order no longer follows the DOM.
 </f:comment>
 
-<section class="astryx-section g-text-media" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-text-media {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-text-media__grid {f:if(condition: data.reverse, then: 'reverse')}">
+
+            <f:if condition="{data.image}">
+                <figure class="g-text-media__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="800" loading="lazy" class="g-text-media__image"/>
+                    </f:for>
+                    <f:if condition="{data.caption}">
+                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    </f:if>
+                </figure>
+            </f:if>
+
+            <div class="g-text-media__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+
+                <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-text-media__action">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

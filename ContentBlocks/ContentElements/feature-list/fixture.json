@@ -1,1 +1,27 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Benefit List",
+    "header": "Full-width rows, with room for a real paragraph",
+    "lead": "Each entry gets an icon on the left and a proper paragraph on the right, with a rule between rows. Use it where a grid cell would cut the argument off after half a sentence.",
+    "tone": "surface",
+    "width": "lg",
+    "align": "start",
+    "compact": false,
+    "items": [
+        {
+            "icon": "text",
+            "title": "One paragraph per entry, not one caption",
+            "text": "The row is as wide as the band, so an entry can carry a claim, the reason behind it and the consequence without being trimmed to fit a column. That is the whole difference between this band and the feature grid it otherwise resembles."
+        },
+        {
+            "icon": "divider",
+            "title": "A rule instead of a gap",
+            "text": "Rows are separated by a hairline rather than by whitespace, which is what stops a long list from reading as several unrelated groups. The rule comes from the list component, so it matches every other divided list on the page."
+        },
+        {
+            "icon": "resize",
+            "title": "Compact when the list gets long",
+            "text": "The compact toggle tightens the vertical padding without touching the type scale, so a ten-entry list stays one band tall instead of pushing everything after it below a second fold."
+        }
+    ]
+}

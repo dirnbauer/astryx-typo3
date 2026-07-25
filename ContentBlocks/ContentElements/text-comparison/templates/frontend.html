@@ -5,14 +5,35 @@
 <f:asset.css identifier="g-text-comparison" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): header labels the left column and subheader the right; reverse swaps both the headings and their texts so the emphasis can move.
+    Both column headings are h2, because the two passages are peers. Promoting
+    one and demoting the other would tell a reader navigating by heading that
+    the second column sits inside the first, which is the opposite of what a
+    comparison says.
+
+    Reverse swaps the columns with `order`, so the source keeps the left-hand
+    text first and a one-column screen reads them in the stored order.
 </f:comment>
 
-<section class="astryx-section g-text-comparison" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-text-comparison {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow}">
+            <p class="astryx-eyebrow g-text-comparison__eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
         </f:if>
+
+        <div class="g-text-comparison__grid {f:if(condition: data.reverse, then: 'reverse')}">
+
+            <div class="g-text-comparison__column first">
+                <h2 class="astryx-heading level-3 g-text-comparison__title">{data -> f:render.text(field: 'header')}</h2>
+                <div class="astryx-prose g-text-comparison__prose"><f:format.html>{data.bodytext}</f:format.html></div>
+            </div>
+
+            <div class="g-text-comparison__column second">
+                <h2 class="astryx-heading level-3 g-text-comparison__title">{data -> f:render.text(field: 'subheader')}</h2>
+                <p class="astryx-text body g-text-comparison__plain">{data -> f:render.text(field: 'text')}</p>
+            </div>
+
+        </div>
     </div>
 </section>
 

@@ -1,1 +1,26 @@
-{}
+{
+    "eyebrow": "The detail underneath",
+    "header": "Questions the operations manager asks in week two",
+    "lead": "None of this belongs on a first read. It is here because somebody always comes back for it before signing anything.",
+    "tone": "surface",
+    "width": "md",
+    "compact": false,
+    "entries": [
+        {
+            "title": "How are working-time rules kept up to date?",
+            "bodytext": "<p>The rule set ships with the standard Austrian and German provisions on daily and weekly maximum hours, rest between shifts, night work and the protection of workers under eighteen. We update it when the law changes and tell you in the release note which rule moved.</p><p>Anything specific to your house agreement — a longer minimum rest, a cap on consecutive closes, a branch that may never be staffed by one person — is configured per organisation and is never overwritten by an update.</p>"
+        },
+        {
+            "title": "What happens when the tablet has no network?",
+            "bodytext": "<p>The clock-in app keeps working offline. Punches are written to the device with a signed timestamp and sent as soon as the connection returns, usually within seconds. A punch that arrives late is marked as such in the audit trail, so it is visible without being treated as a correction.</p>"
+        },
+        {
+            "title": "Can two people plan the same week at once?",
+            "bodytext": "<p>Yes. Edits are applied per shift rather than per week, and a shift somebody else is holding is shown as locked with their name on it. There is no check-out and no merge dialogue — the case it protects against is two managers filling the same Saturday gap, and that one is prevented at the shift.</p>"
+        },
+        {
+            "title": "Who can see an individual's recorded hours?",
+            "bodytext": "<p>The employee, their direct manager, anyone with the payroll role, and nobody else. Area managers see branch totals rather than individuals unless they are also somebody's direct manager. Every view of an individual record is logged, and the log is available to the works council on request.</p>"
+        }
+    ]
+}

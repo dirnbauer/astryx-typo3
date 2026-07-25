@@ -5,14 +5,57 @@
 <f:asset.css identifier="g-feature-rail" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): CSS scroll-snap and overflow only, no script; the row is a focusable region so it can be scrolled from the keyboard.
+    Scroll snapping and overflow do the whole job, so there is nothing to
+    initialise. The row is a focus stop because a scroll container that only a
+    pointer can reach is a scroll container half the readers cannot use.
 </f:comment>
 
-<section class="astryx-section g-feature-rail" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-feature-rail {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-rail__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-2" id="g-feature-rail-{data.uid}-heading">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-rail__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-carousel gap-4 g-feature-rail__rail">
+            <ul class="astryx-carousel-track g-feature-rail__track {f:if(condition: data.compact, then: 'compact')}" tabindex="0" aria-labelledby="g-feature-rail-{data.uid}-heading">
+                <f:for each="{data.items}" as="item">
+                    <li class="astryx-carousel-item g-feature-rail__item">
+                        <article class="astryx-card astryx-feature g-feature-rail__card {f:if(condition: item.link, then: 'astryx-clickable-card')}">
+                            <f:if condition="{item.icon}">
+                                <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"></span>
+                            </f:if>
+
+                            <h3 class="astryx-card-title">
+                                <f:if condition="{item.link}">
+                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </h3>
+
+                            <f:if condition="{item.text}">
+                                <p class="astryx-card-body">{item -> f:render.text(field: 'text')}</p>
+                            </f:if>
+                        </article>
+                    </li>
+                </f:for>
+            </ul>
+        </div>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-feature-rail__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
         </f:if>
+
     </div>
 </section>
 

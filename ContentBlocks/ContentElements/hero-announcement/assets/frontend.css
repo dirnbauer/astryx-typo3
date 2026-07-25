@@ -5,6 +5,88 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* The strip is fused to the top of the band: the section gives up its own top
+   padding so nothing separates the notice from the page chrome above it. */
 .g-hero-announcement {
-  display: block;
+  padding-block-start: 0;
+}
+
+.g-hero-announcement__strip {
+  padding-block: var(--spacing-3);
+  margin-block-end: var(--section-gap);
+  background-color: var(--color-background-muted);
+}
+
+.g-hero-announcement__notice {
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: 0;
+  background-color: transparent;
+  color: inherit;
+}
+
+.g-hero-announcement__badge {
+  flex: 0 0 auto;
+}
+
+.g-hero-announcement__link {
+  color: inherit;
+}
+
+.g-hero-announcement__grid {
+  align-items: center;
+}
+
+.g-hero-announcement__grid:not(:has(.g-hero-announcement__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-hero-announcement__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 38rem;
+}
+
+.g-hero-announcement__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-announcement__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-hero-announcement__media {
+  display: flex;
+}
+
+.g-hero-announcement__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+/* On the accent band the muted strip disappears into the background, so it
+   takes a translucent layer of the band's own text colour instead. */
+.g-hero-announcement.accent .g-hero-announcement__strip {
+  background-color: color-mix(in srgb, var(--color-on-accent) 15%, transparent);
+}
+
+.g-hero-announcement.accent .g-hero-announcement__lead,
+.g-hero-announcement.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-announcement__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-announcement__notice {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
 }

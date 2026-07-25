@@ -5,6 +5,61 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-list {
-  display: block;
+.g-feature-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-list[data-align='center'] .g-feature-list__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* The rule between rows belongs to the list component; only the leading gap is
+   ours, because a tile needs more air beside it than a bullet does. */
+.g-feature-list__row {
+  gap: var(--spacing-4);
+}
+
+.g-feature-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+.g-feature-list__text {
+  color: var(--color-text-secondary);
+  max-inline-size: 62ch;
+}
+
+.g-feature-list.accent .g-feature-list__text {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-feature-list.accent .g-feature-list__lead,
+.g-feature-list.accent .astryx-eyebrow,
+.g-feature-list.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-list__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-feature-list__row {
+    gap: var(--spacing-3);
+  }
 }

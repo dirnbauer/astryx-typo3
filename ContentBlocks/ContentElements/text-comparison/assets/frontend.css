@@ -5,6 +5,48 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-text-comparison {
-  display: block;
+.g-text-comparison__eyebrow {
+  margin-block-end: var(--spacing-4);
+}
+
+.g-text-comparison__grid {
+  display: grid;
+  gap: var(--spacing-8);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+
+.g-text-comparison__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-text-comparison__title {
+  padding-block-end: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-text-comparison__prose,
+.g-text-comparison__plain {
+  max-inline-size: 60ch;
+}
+
+@media (min-width: 768px) {
+  .g-text-comparison__grid {
+    grid-template-columns: 1fr 1fr;
+    /* The gap doubles as the rule between the two passages: at this width the
+       columns are close enough that a reader's eye needs the boundary. */
+    gap: var(--spacing-10);
+  }
+
+  .g-text-comparison__grid > .second {
+    padding-inline-start: var(--spacing-10);
+    border-inline-start: var(--border-width) solid var(--color-border);
+    margin-inline-start: calc(-1 * var(--spacing-10));
+  }
+
+  .g-text-comparison__grid.reverse > .first {
+    order: 2;
+  }
 }

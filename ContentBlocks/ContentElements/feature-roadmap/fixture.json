@@ -1,1 +1,37 @@
-{}
+{
+    "_type": "feature",
+    "eyebrow": "Shipping Status List",
+    "header": "Capabilities with a state against each one",
+    "lead": "Shipped, in progress, planned — as a dated list rather than a marketing grid. Use it for a public roadmap, and the included checklist where the state is only yes or no.",
+    "note": "The note is where the caveat about targets and commitments goes.",
+    "cta_label": "Secondary action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "md",
+    "compact": false,
+    "items": [
+        {
+            "title": "The state word is the editor's",
+            "value": "Shipped",
+            "included": true,
+            "text": "It renders as a badge and can be in any language."
+        },
+        {
+            "title": "The dot follows the toggle",
+            "value": "Shipped",
+            "included": true,
+            "text": "A fact rather than a string, so the colour never disagrees with the word."
+        },
+        {
+            "title": "Unshipped rows step back",
+            "value": "In progress",
+            "included": false,
+            "text": "The title drops to the secondary colour so a scan lands on what exists."
+        },
+        {
+            "title": "Two to fifteen entries",
+            "value": "Planned",
+            "included": false
+        }
+    ]
+}

@@ -4,16 +4,68 @@
 
 <f:asset.css identifier="g-hero-logos" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): Marks render at one optical height rather than one pixel height, and desaturate on the muted tone; note introduces the row.
-</f:comment>
+<section class="astryx-section g-hero-logos {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-logos__copy">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-logos" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-hero-logos__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-hero-logos__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.logos}">
+            <div class="g-hero-logos__proof">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-hero-logos__note" id="g-hero-logos-note-{data.uid}">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+
+                <ul class="astryx-overflow-list multi-row g-hero-logos__row" aria-labelledby="g-hero-logos-note-{data.uid}">
+                    <f:for each="{data.logos}" as="logo">
+                        <li class="g-hero-logos__mark">
+                            <f:if condition="{logo.link}">
+                                <f:then>
+                                    <f:link.typolink parameter="{logo.link}" class="g-hero-logos__link">
+                                        <f:render section="mark" arguments="{logo: logo}"/>
+                                    </f:link.typolink>
+                                </f:then>
+                                <f:else>
+                                    <f:render section="mark" arguments="{logo: logo}"/>
+                                </f:else>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
         </f:if>
     </div>
 </section>
+
+<f:comment>
+    A mark is either artwork or, when nobody has uploaded any, the customer's
+    name set as type — which is still proof, and better than an empty slot.
+</f:comment>
+<f:section name="mark">
+    <f:if condition="{logo.image}">
+        <f:then>
+            <f:for each="{logo.image}" as="image">
+                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}" height="48" loading="lazy" class="g-hero-logos__image"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <span class="g-hero-logos__wordmark">{logo.title}</span>
+        </f:else>
+    </f:if>
+</f:section>
 
 </html>

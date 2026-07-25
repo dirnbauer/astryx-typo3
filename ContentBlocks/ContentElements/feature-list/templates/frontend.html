@@ -5,14 +5,48 @@
 <f:asset.css identifier="g-feature-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The row text is a Textarea, not rich text: if an entry needs headings of its own it belongs in its own band.
+    The row text is a plain textarea on purpose: an entry that needs headings of
+    its own has outgrown a list row and belongs in a band of its own.
 </f:comment>
 
-<section class="astryx-section g-feature-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-list {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list with-dividers {f:if(condition: data.compact, then: 'balanced', else: 'spacious')} g-feature-list__items">
+            <f:for each="{data.items}" as="item">
+                <li class="g-feature-list__row {f:if(condition: item.link, then: 'astryx-clickable-card')}">
+                    <f:if condition="{item.icon}">
+                        <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <div class="g-feature-list__body">
+                        <h3 class="astryx-heading level-3">
+                            <f:if condition="{item.link}">
+                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </h3>
+
+                        <f:if condition="{item.text}">
+                            <p class="astryx-text body g-feature-list__text">{item -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </div>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

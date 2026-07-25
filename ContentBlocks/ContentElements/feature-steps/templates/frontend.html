@@ -5,14 +5,47 @@
 <f:asset.css identifier="g-feature-steps" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Numbers come from the child order, so reordering renumbers; the connector becomes a vertical rail below the medium breakpoint.
+    The figures are drawn from the list's own counter, so reordering the children
+    renumbers the band and nobody has to retype "3.". The ordered list already
+    carries that sequence for anything that cannot see the drawing.
 </f:comment>
 
-<section class="astryx-section g-feature-steps" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-steps {data.tone}" data-variant="{data.variant}" data-columns="{data.columns}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-steps__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-steps__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ol class="astryx-grid fixed-{data.columns} g-feature-steps__steps">
+            <f:for each="{data.steps}" as="step">
+                <li class="g-feature-steps__step">
+                    <span class="g-feature-steps__number" aria-hidden="true"></span>
+
+                    <div class="g-feature-steps__body">
+                        <h3 class="astryx-heading level-3">
+                            <f:if condition="{step.link}">
+                                <f:then><f:link.typolink parameter="{step.link}">{step.title}</f:link.typolink></f:then>
+                                <f:else>{step -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </h3>
+
+                        <f:if condition="{step.text}">
+                            <p class="astryx-text body g-feature-steps__text">{step -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </div>
+                </li>
+            </f:for>
+        </ol>
+
     </div>
 </section>
 

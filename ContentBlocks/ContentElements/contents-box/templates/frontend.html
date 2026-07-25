@@ -5,14 +5,35 @@
 <f:asset.css identifier="g-contents-box" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Entries are curated, not scraped: the child's link takes an anchor such as #part-two, so renaming a heading never silently breaks the list.
+    A nav landmark with its own name, so it can be reached and skipped as one
+    thing. The entries are curated rather than scraped from the headings on the
+    page: an editor decides what belongs in the contents, and renaming a section
+    never silently drops a line from it.
 </f:comment>
 
-<section class="astryx-section g-contents-box" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-contents-box {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <nav class="astryx-card flat g-contents-box__box" aria-labelledby="g-contents-title-{data.uid}">
+
+            <h2 class="astryx-heading level-4 g-contents-box__title" id="g-contents-title-{data.uid}">
+                <f:if condition="{data.header}">
+                    <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                    <f:else><f:translate extensionName="desiderio_grande" key="content.contents.label">On this page</f:translate></f:else>
+                </f:if>
+            </h2>
+
+            <ol class="g-contents-box__list">
+                <f:for each="{data.entries}" as="item">
+                    <li class="g-contents-box__entry">
+                        <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-contents-box__link">{item.title}</f:link.typolink>
+                        <f:if condition="{item.description}">
+                            <span class="astryx-text supporting g-contents-box__hint">{item.description}</span>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ol>
+
+        </nav>
     </div>
 </section>
 

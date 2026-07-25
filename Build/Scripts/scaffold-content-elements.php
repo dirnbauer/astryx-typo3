@@ -316,11 +316,34 @@ function collectUsedRecordTypes(array $elements, array $recordTypes): array
                 $lines[] = '    ' . $property . ': ' . formatYamlScalar($value);
             }
             $lines[] = '    label: ' . yamlString(ucfirst(str_replace('_', ' ', $fieldName)));
+            if (($definition['_items'] ?? null) === 'icon-library') {
+                $lines = array_merge($lines, iconItemsProcessor('    '));
+            }
         }
         $definitions[$key] = implode("\n", $lines) . "\n";
     }
 
     return $definitions;
+}
+
+/**
+ * The icon Select's option list.
+ *
+ * A Select with neither `items` nor a processor is an empty dropdown: nothing
+ * to choose, so nothing ever renders. The options come from Desiderio's icon
+ * registry at form-render time, which is what lets a record store a stable
+ * semantic key ("check", "shield") while the active icon library decides what
+ * that key looks like — switching library never rewrites content.
+ *
+ * @return list<string>
+ */
+function iconItemsProcessor(string $indent): array
+{
+    return [
+        $indent . 'itemsProcessors:',
+        $indent . '  10:',
+        $indent . '    class: Webconsulting\\Desiderio\\DataHandling\\IconItemsProcessor',
+    ];
 }
 
 function formatYamlScalar(mixed $value): string
@@ -479,11 +502,8 @@ function elementConfig(array $row, string $group, array $fieldLibrary, array $re
             }
             $lines[] = '    default: ' . yamlString((string)$fieldLibrary['itemSets'][$itemSet][0]['value']);
         } elseif ($itemSet === 'icon-library') {
-            // Resolved at render time from the shared icon registry, so stored
-            // content keeps a stable semantic key.
             $lines[] = '    label: ' . yamlString('Icon');
-            $lines[] = '    itemsProcConfig:';
-            $lines[] = '      itemsProcFunc: Webconsulting\\Desiderio\\DataHandling\\IconItemsProcessor';
+            $lines = array_merge($lines, iconItemsProcessor('    '));
         } elseif (!isset($definition['useExistingField'])) {
             $lines[] = '    label: ' . yamlString(ucfirst(str_replace('_', ' ', $name)));
         }

@@ -5,14 +5,57 @@
 <f:asset.css identifier="g-feature-proof" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): image is the portrait, not a screenshot; quote_text is stored without quotation marks because the template draws them.
+    The quotation marks are drawn by the stylesheet with quotes: auto, so a
+    German page gets its own pair and an English one gets another — which is
+    also why the field is stored without them.
 </f:comment>
 
-<section class="astryx-section g-feature-proof" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-feature-proof {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-feature-proof__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-feature-proof__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-feature-proof__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-feature-proof__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <figure class="astryx-card raised g-feature-proof__proof">
+                <blockquote class="astryx-blockquote g-feature-proof__quote">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
+                </blockquote>
+
+                <figcaption class="g-feature-proof__attribution">
+                    <f:if condition="{data.image}">
+                        <span class="astryx-avatar lg g-feature-proof__portrait">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="{image.alternative}" width="96" height="96" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <span class="g-feature-proof__who">
+                        <span class="astryx-text label">{data -> f:render.text(field: 'author')}</span>
+                        <f:if condition="{data.role}">
+                            <span class="astryx-text supporting">{data -> f:render.text(field: 'role')}</span>
+                        </f:if>
+                    </span>
+                </figcaption>
+            </figure>
+
+        </div>
     </div>
 </section>
 

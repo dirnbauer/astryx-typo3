@@ -5,14 +5,22 @@
 <f:asset.css identifier="g-lead-paragraph" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Renders at about 1.25rem with looser leading; three sentences is the practical ceiling.
+    The lead is a plain paragraph, not a heading at a smaller weight: it is the
+    first sentence of the piece, and a screen reader that hears it announced as
+    a heading loses the boundary between the title and the text.
 </f:comment>
 
-<section class="astryx-section g-lead-paragraph" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-lead-paragraph {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-lead-paragraph__body align-{data.align}">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <p class="astryx-text large g-lead-paragraph__lead">{data -> f:render.text(field: 'lead')}</p>
+
+        </div>
     </div>
 </section>
 

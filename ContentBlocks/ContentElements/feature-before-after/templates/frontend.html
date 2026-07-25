@@ -5,14 +5,54 @@
 <f:asset.css identifier="g-feature-before-after" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Takes the first two files from images; overlay-reveal is a CSS hover and focus wipe, so it degrades to two stacked pictures.
+    At rest the wipe already sits on the halfway line, so both states are on
+    screen before anybody hovers: the reveal moves a boundary rather than
+    uncovering something a keyboard could not reach.
 </f:comment>
 
-<section class="astryx-section g-feature-before-after" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-before-after {data.tone}" data-variant="{data.variant}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-before-after__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-before-after__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="g-feature-before-after__pair">
+            <f:for each="{data.images}" as="image" iteration="position">
+                <f:if condition="{position.isFirst} || {position.index} == 1">
+                    <figure class="g-feature-before-after__state" data-state="{position.cycle}">
+                        <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-before-after__image"/>
+
+                        <f:if condition="{image.title}">
+                            <figcaption class="astryx-text supporting">{image.title}</figcaption>
+                        </f:if>
+                    </figure>
+                </f:if>
+            </f:for>
+        </div>
+
+        <f:if condition="{data.caption}">
+            <p class="astryx-text supporting g-feature-before-after__caption">{data -> f:render.text(field: 'caption')}</p>
         </f:if>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text body g-feature-before-after__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-feature-before-after__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+            </p>
+        </f:if>
+
     </div>
 </section>
 

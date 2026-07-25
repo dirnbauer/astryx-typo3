@@ -27,8 +27,9 @@ fields:
     type: 'Select'
     renderType: 'selectSingle'
     label: 'Icon'
-    itemsProcConfig:
-      itemsProcFunc: Webconsulting\Desiderio\DataHandling\IconItemsProcessor
+    itemsProcessors:
+      10:
+        class: Webconsulting\Desiderio\DataHandling\IconItemsProcessor
   -
     identifier: 'image'
     type: 'File'

@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-feature-showcase" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Editors stack several and flip reverse on every other one; featured raises the tone so one row in a stack can lead.
+    The supporting points drop the child's icon: a tile on every line would
+    out-shout the heading the band exists to carry. The same records keep their
+    icons wherever they are shown as a grid.
 </f:comment>
 
-<section class="astryx-section g-feature-showcase" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-feature-showcase {data.tone} {f:if(condition: data.featured, then: 'featured')}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-feature-showcase__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-feature-showcase__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-feature-showcase__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.points}">
+                    <ul class="astryx-list marker-dot g-feature-showcase__points">
+                        <f:for each="{data.points}" as="point">
+                            <li>
+                                <span class="g-feature-showcase__point">
+                                    <span class="astryx-text label">{point -> f:render.text(field: 'title')}</span>
+                                    <f:if condition="{point.text}">
+                                        <span class="astryx-text supporting">{point -> f:render.text(field: 'text')}</span>
+                                    </f:if>
+                                </span>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-feature-showcase__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <figure class="g-feature-showcase__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="960" loading="lazy" class="g-feature-showcase__image"/>
+                    </f:for>
+                    <f:if condition="{data.caption}">
+                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    </f:if>
+                </figure>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

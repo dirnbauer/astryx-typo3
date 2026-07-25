@@ -5,6 +5,93 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-quote {
-  display: block;
+.g-hero-quote__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  max-inline-size: 46rem;
+}
+
+.g-hero-quote__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-quote__header {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.g-hero-quote__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+/* The quote carries the band, so it is set at heading weight rather than at
+   the blockquote's default reading size. */
+.g-hero-quote__quote {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.g-hero-quote__text {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--text-heading-2-weight);
+  line-height: var(--text-heading-2-leading);
+  text-wrap: pretty;
+}
+
+.g-hero-quote__text::before {
+  content: '\201C';
+}
+
+.g-hero-quote__text::after {
+  content: '\201D';
+}
+
+.g-hero-quote__attribution {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-hero-quote__copy.center .g-hero-quote__attribution {
+  justify-content: center;
+}
+
+.g-hero-quote__portrait {
+  --_avatar-size: var(--spacing-12);
+}
+
+.g-hero-quote__attribution-text {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.g-hero-quote__author {
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-hero-quote.accent .g-hero-quote__header,
+.g-hero-quote.accent .g-hero-quote__role,
+.g-hero-quote.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-quote__copy {
+    max-inline-size: none;
+  }
+
+  .g-hero-quote__text {
+    font-size: var(--text-heading-3-size);
+    line-height: var(--text-heading-3-leading);
+  }
 }

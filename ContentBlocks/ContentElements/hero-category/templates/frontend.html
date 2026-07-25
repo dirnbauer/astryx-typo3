@@ -4,15 +4,36 @@
 
 <f:asset.css identifier="g-hero-category" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): Designed to sit directly above a list plugin, so its bottom spacing is deliberately smaller than every other hero.
-</f:comment>
+<section class="astryx-section g-hero-category {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-category__band {f:if(condition: data.image, then: 'has-media')}">
 
-<section class="astryx-section g-hero-category" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-category__copy {data.align}">
+                <p class="g-hero-category__flags">
+                    <f:if condition="{data.eyebrow}">
+                        <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                    </f:if>
+                    <f:if condition="{data.badge_text}">
+                        <span class="astryx-badge neutral g-hero-category__count">{data.badge_text}</span>
+                    </f:if>
+                </p>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-hero-category__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-hero-category__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="320" height="320" loading="eager" class="g-hero-category__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

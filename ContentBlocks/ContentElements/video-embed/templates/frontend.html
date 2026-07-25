@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-video-embed" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): cta_link takes the video URL (external or a FAL file); the frame is a plain iframe inside AspectRatio, so nothing has to run first.
+    The poster sits behind the iframe rather than in front of it. A click-to-load
+    poster would need a script, and an empty rectangle while the player connects
+    is worse than a still frame that the player simply covers when it arrives.
 </f:comment>
 
-<section class="astryx-section g-video-embed" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-video-embed {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-video-embed__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-video-embed__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <figure class="g-video-embed__figure">
+            <f:if condition="{data.cta_link}">
+                <f:then>
+                    <div class="astryx-aspect-ratio g-video-embed__frame">
+                        <f:for each="{data.image}" as="poster">
+                            <span class="g-video-embed__poster" style="--g-poster: url('{f:uri.image(image: poster, width: 1280)}')"></span>
+                        </f:for>
+                        <iframe class="g-video-embed__player"
+                                src="{f:uri.typolink(parameter: data.cta_link)}"
+                                title="{data.header}"
+                                loading="lazy"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:for each="{data.image}" as="poster">
+                        <f:image image="{poster}" alt="{poster.alternative}" width="1280" loading="lazy" class="g-video-embed__still"/>
+                    </f:for>
+                </f:else>
+            </f:if>
+
+            <f:if condition="{data.caption} || {data.note}">
+                <figcaption class="g-video-embed__caption">
+                    <f:if condition="{data.caption}">
+                        <span class="astryx-text body">{data -> f:render.text(field: 'caption')}</span>
+                    </f:if>
+                    <f:if condition="{data.note}">
+                        <span class="astryx-text supporting">{data -> f:render.text(field: 'note')}</span>
+                    </f:if>
+                </figcaption>
+            </f:if>
+        </figure>
+
     </div>
 </section>
 

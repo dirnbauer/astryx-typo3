@@ -5,14 +5,26 @@
 <f:asset.css identifier="g-pull-quote" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The template draws the quotation marks, so quote_text is stored without them; author and role may both be empty.
+    The quotation marks are drawn by the stylesheet, so the stored text has none
+    of its own — otherwise an editor who types them gets two sets, and a search
+    index gets a phrase that no longer matches the article it was lifted from.
 </f:comment>
 
-<section class="astryx-section g-pull-quote" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pull-quote">
+    <div class="astryx-layout {data.width}">
+        <figure class="g-pull-quote__figure align-{data.align}">
+
+            <blockquote class="astryx-blockquote g-pull-quote__quote">
+                <p>{data -> f:render.text(field: 'quote_text')}</p>
+            </blockquote>
+
+            <f:if condition="{data.author}">
+                <figcaption class="astryx-citation g-pull-quote__credit">
+                    {data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-pull-quote__role">{data -> f:render.text(field: 'role')}</span></f:if>
+                </figcaption>
+            </f:if>
+
+        </figure>
     </div>
 </section>
 

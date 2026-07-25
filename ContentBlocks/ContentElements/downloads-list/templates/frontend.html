@@ -5,14 +5,46 @@
 <f:asset.css identifier="g-downloads-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): A child's link may be a FAL file reference; when it is, the template prints the extension and file size and adds the download attribute.
+    The whole row is the link, not just the title: a download row is one target,
+    and a reader aiming at four words on a phone should not have to hit them
+    exactly. The format and size go in the row's own description, because that
+    is the one place an editor can keep them true — nothing here can read the
+    size of a file that lives on another server.
 </f:comment>
 
-<section class="astryx-section g-downloads-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-downloads-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-downloads-list__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-downloads-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ul class="g-downloads-list__list columns-{data.columns}">
+            <f:for each="{data.files}" as="item">
+                <li class="g-downloads-list__row">
+                    <f:link.typolink parameter="{item.link}" class="astryx-item interactive g-downloads-list__link">
+                        <span class="astryx-item-content">
+                            <span class="astryx-item-label g-downloads-list__name">{item.title}</span>
+                            <f:if condition="{item.description}">
+                                <span class="astryx-item-description">{item.description}</span>
+                            </f:if>
+                        </span>
+                    </f:link.typolink>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-downloads-list__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

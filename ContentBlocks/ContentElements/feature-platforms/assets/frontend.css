@@ -5,6 +5,55 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-platforms {
-  display: block;
+.g-feature-platforms__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-platforms__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-platforms__platforms {
+  --grid-gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-feature-platforms__platforms.compact {
+  --grid-min: 12rem;
+}
+
+.g-feature-platforms__platform {
+  gap: var(--spacing-3);
+}
+
+/* The name is the link, so the underline has to come off or every row would
+   read as a paragraph of links. */
+.g-feature-platforms__name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-feature-platforms__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-platforms.accent .g-feature-platforms__lead,
+.g-feature-platforms.accent .astryx-eyebrow,
+.g-feature-platforms.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-feature-platforms__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

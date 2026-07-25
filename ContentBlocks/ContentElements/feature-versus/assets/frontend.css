@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-versus {
-  display: block;
+.g-feature-versus__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-versus__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-versus__point {
+  inline-size: 30%;
+}
+
+.g-feature-versus__old {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-versus__new {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-accent);
+}
+
+/* The claimed column is tinted rather than merely bolder: on a long table the
+   eye needs a lane to follow, not a weight to compare. */
+.g-feature-versus__new-head,
+.g-feature-versus__new {
+  background-color: var(--color-accent-muted);
+}
+
+.g-feature-versus__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-versus.accent .g-feature-versus__old,
+.g-feature-versus.accent .g-feature-versus__new {
+  color: currentColor;
+}
+
+.g-feature-versus.accent .g-feature-versus__lead,
+.g-feature-versus.accent .astryx-eyebrow,
+.g-feature-versus.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  /* Three columns of prose do not fit a phone; the wrapper takes the scroll so
+     the page never does. */
+  .g-feature-versus__table {
+    min-inline-size: 40rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-feature-versus__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -5,6 +5,62 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-downloads-list {
-  display: block;
+.g-downloads-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-downloads-list__list {
+  display: grid;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.g-downloads-list__list.columns-3 { grid-template-columns: repeat(3, 1fr); }
+.g-downloads-list__list.columns-4 { grid-template-columns: repeat(4, 1fr); }
+
+.g-downloads-list__link {
+  inline-size: 100%;
+  gap: var(--spacing-3);
+  border: var(--border-width) solid var(--color-border);
+  text-decoration: none;
+  color: inherit;
+}
+
+/* The arrow is drawn, so there is no glyph to fall back from and no icon
+   request to make; it points down because that is the direction of the
+   action, not because of what the file is. */
+.g-downloads-list__link::after {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  rotate: 45deg;
+  translate: 0 calc(-1 * var(--spacing-0-5));
+  color: var(--color-icon-secondary);
+}
+
+.g-downloads-list__name {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-downloads-list__note {
+  margin-block-start: var(--spacing-4);
+  max-inline-size: 70ch;
+}
+
+@media (max-width: 767px) {
+  .g-downloads-list__list,
+  .g-downloads-list__list.columns-3,
+  .g-downloads-list__list.columns-4 {
+    grid-template-columns: 1fr;
+  }
 }

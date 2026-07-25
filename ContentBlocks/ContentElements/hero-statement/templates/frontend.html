@@ -4,15 +4,25 @@
 
 <f:asset.css identifier="g-hero-statement" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): The headline scales with the viewport down to a readable floor; subheader stays at body size so the contrast is deliberate.
-</f:comment>
+<section class="astryx-section g-hero-statement {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-hero-statement__copy {data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
 
-<section class="astryx-section g-hero-statement" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <h2 class="astryx-heading level-1 g-hero-statement__claim">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text body g-hero-statement__subheader">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label}">
+                <p class="g-hero-statement__action">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                </p>
+            </f:if>
+        </div>
     </div>
 </section>
 

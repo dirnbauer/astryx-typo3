@@ -5,6 +5,68 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pros-cons {
-  display: block;
+.g-pros-cons__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-pros-cons__grid {
+  display: grid;
+  gap: var(--spacing-8);
+  grid-template-columns: repeat(2, 1fr);
+  align-items: start;
+}
+
+.g-pros-cons__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-pros-cons__columnTitle {
+  padding-block-end: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-pros-cons__list {
+  gap: var(--spacing-3);
+}
+
+.g-pros-cons__point::before {
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--text-body-leading);
+}
+
+.g-pros-cons__column.for .g-pros-cons__point::before {
+  content: '+';
+  color: var(--color-success);
+}
+
+/* A minus sign, not a hyphen: at the body size a hyphen beside a plus reads as
+   a stray dash rather than as the other half of a pair. */
+.g-pros-cons__column.against .g-pros-cons__point::before {
+  content: '\2212';
+  color: var(--color-error);
+}
+
+.g-pros-cons__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+@media (max-width: 767px) {
+  .g-pros-cons__grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+
+  .g-pros-cons__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

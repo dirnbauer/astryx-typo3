@@ -4,15 +4,65 @@
 
 <f:asset.css identifier="g-hero-checklist" href="{cb:assetPath()}/frontend.css"/>
 
-<f:comment>
-    TODO(grande): Child text is optional here: a bullet with only a title renders as a single line, which is what this band is for.
-</f:comment>
+<section class="astryx-section g-hero-checklist {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-hero-checklist__grid {f:if(condition: data.reverse, then: 'media-first')}">
 
-<section class="astryx-section g-hero-checklist" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <div class="g-hero-checklist__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-hero-checklist__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bullets}">
+                    <ul class="astryx-list g-hero-checklist__bullets">
+                        <f:for each="{data.bullets}" as="bullet">
+                            <li class="g-hero-checklist__bullet">
+                                <f:comment>
+                                    One tick for every bullet rather than a per-item
+                                    icon: a benefit list that changes its symbol from
+                                    line to line stops reading as a list.
+                                </f:comment>
+                                <svg class="g-hero-checklist__tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                    <path d="m4 10.5 4 4 8-9"/>
+                                </svg>
+                                <span class="g-hero-checklist__bullet-text">
+                                    <span class="g-hero-checklist__bullet-title">{bullet -> f:render.text(field: 'title')}</span>
+                                    <f:if condition="{bullet.text}">
+                                        <span class="astryx-text supporting">{bullet -> f:render.text(field: 'text')}</span>
+                                    </f:if>
+                                </span>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-hero-checklist__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-hero-checklist__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="eager" class="g-hero-checklist__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

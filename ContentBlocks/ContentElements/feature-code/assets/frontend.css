@@ -5,6 +5,41 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-code {
-  display: block;
+.g-feature-code__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 34rem;
+}
+
+.g-feature-code__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+  display: flex;
+}
+
+/* A snippet longer than the copy beside it would stretch the band; the block
+   scrolls inside its own frame instead. */
+.g-feature-code__block {
+  max-block-size: 28rem;
+  min-inline-size: 0;
+}
+
+.g-feature-code.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-feature-code.accent .astryx-prose :where(p, li) {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-feature-code__copy {
+    max-inline-size: none;
+  }
+
+  .g-feature-code__block {
+    max-block-size: 22rem;
+  }
 }

@@ -5,6 +5,100 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-hero-video {
+.g-hero-video__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-hero-video__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-hero-video__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-hero-video__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-hero-video__frame {
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-hero-video__poster {
   display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/* The play control is round and larger than a normal button: it is the only
+   thing on the poster, so it has to read as a target from across the band. */
+.g-hero-video__play {
+  block-size: var(--spacing-12);
+  inline-size: var(--spacing-12);
+  border-radius: var(--radius-full);
+}
+
+.g-hero-video__play > svg {
+  font-size: 1.5rem;
+}
+
+.g-hero-video__note {
+  margin: 0;
+}
+
+/* The dialog is already a flex column when open; centring the player inside
+   it therefore needs no display of its own. */
+.g-hero-video__dialog {
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  background-color: var(--color-background-inverted);
+}
+
+.g-hero-video__player {
+  inline-size: min(100%, 80rem);
+}
+
+.g-hero-video__player > iframe {
+  border: 0;
+}
+
+/* Fixed to the corner so it stays reachable over a full-screen player. */
+.g-hero-video__close {
+  position: fixed;
+  inset-block-start: var(--spacing-3);
+  inset-inline-end: var(--spacing-3);
+  color: var(--color-on-dark);
+}
+
+.g-hero-video__fallback {
+  margin-block-start: var(--spacing-4);
+}
+
+.g-hero-video.accent .g-hero-video__lead,
+.g-hero-video.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-hero-video__copy {
+    max-inline-size: none;
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-hero-video__play {
+    block-size: var(--spacing-10);
+    inline-size: var(--spacing-10);
+  }
 }

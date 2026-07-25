@@ -5,6 +5,81 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-spec {
+.g-feature-spec__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-spec__lead {
+  color: var(--color-text-secondary);
+}
+
+/* CSS columns rather than a grid: the pairs are one list, and a column flow
+   keeps them reading down each column instead of snaking across two. */
+.g-feature-spec__rows {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+}
+
+.g-feature-spec__row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-4);
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+  break-inside: avoid;
+}
+
+.g-feature-spec__rows.compact .g-feature-spec__row {
+  padding-block: var(--spacing-2);
+}
+
+.g-feature-spec__term {
+  flex: 1 1 10rem;
+}
+
+.g-feature-spec__value {
+  margin-inline-start: auto;
+  text-align: end;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.g-feature-spec__caveat {
+  flex: 1 0 100%;
+}
+
+.g-feature-spec__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-feature-spec.accent .g-feature-spec__lead,
+.g-feature-spec.accent .astryx-eyebrow,
+.g-feature-spec.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-feature-spec[data-columns='2'] .g-feature-spec__rows { columns: 2; }
+  .g-feature-spec[data-columns='3'] .g-feature-spec__rows { columns: 2; }
+  .g-feature-spec[data-columns='4'] .g-feature-spec__rows { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-feature-spec[data-columns='3'] .g-feature-spec__rows { columns: 3; }
+  .g-feature-spec[data-columns='4'] .g-feature-spec__rows { columns: 4; }
+}
+
+@media (max-width: 640px) {
+  .g-feature-spec__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

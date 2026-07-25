@@ -5,14 +5,71 @@
 <f:asset.css identifier="g-quote-carousel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The track is a scroll-snap row that already works as a scroller without JavaScript; the script only adds arrows, dots and the live region.
+    The track is a scroll-snap row, so it already works as a carousel with no
+    script at all — drag, momentum and keyboard scrolling are the browser's.
+    data-g-carousel only adds the two arrows a mouse user has no other way to
+    reach, and the shared runtime disables them at either end.
 </f:comment>
 
-<section class="astryx-section g-quote-carousel" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-quote-carousel {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-quote-carousel__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-quote-carousel__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <div class="astryx-carousel gap-4 g-quote-carousel__carousel" data-g-carousel>
+            <button type="button"
+                    class="astryx-icon-button astryx-carousel-control start g-quote-carousel__control"
+                    data-g-carousel-prev
+                    aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'content.carousel.previous', default: 'Previous quote')}"></button>
+
+            <ul class="astryx-carousel-track g-quote-carousel__track"
+                data-g-carousel-track
+                tabindex="0"
+                aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'content.carousel.region', default: 'Quotes')}">
+                <f:for each="{data.quotes}" as="item">
+                    <li class="astryx-carousel-item g-quote-carousel__item">
+                        <figure class="astryx-card g-quote-carousel__card">
+                            <blockquote class="g-quote-carousel__quote">
+                                <p>{item -> f:render.text(field: 'quote_text')}</p>
+                            </blockquote>
+                            <figcaption class="g-quote-carousel__credit">
+                                <f:if condition="{item.image}">
+                                    <span class="astryx-avatar md">
+                                        <f:for each="{item.image}" as="portrait">
+                                            <f:image image="{portrait}" alt="" width="72c" height="72c" loading="lazy"/>
+                                        </f:for>
+                                    </span>
+                                </f:if>
+                                <span class="g-quote-carousel__who">
+                                    <span class="astryx-text label">{item -> f:render.text(field: 'author')}</span>
+                                    <f:if condition="{item.role}">
+                                        <span class="astryx-text supporting">{item -> f:render.text(field: 'role')}</span>
+                                    </f:if>
+                                </span>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </f:for>
+            </ul>
+
+            <button type="button"
+                    class="astryx-icon-button astryx-carousel-control end g-quote-carousel__control"
+                    data-g-carousel-next
+                    aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'content.carousel.next', default: 'Next quote')}"></button>
+        </div>
+
     </div>
 </section>
 

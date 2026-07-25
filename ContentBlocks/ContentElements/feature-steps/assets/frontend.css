@@ -5,6 +5,133 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-feature-steps {
-  display: block;
+.g-feature-steps__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-feature-steps__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-steps[data-align='center'] .g-feature-steps__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-feature-steps__steps {
+  --grid-gap: var(--spacing-8);
+  counter-reset: g-step;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Narrow first: a step is a row with a rail running down beside it, which is
+   also what the vertical variant is at every width. */
+.g-feature-steps__step {
+  counter-increment: g-step;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.g-feature-steps__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: var(--spacing-10);
+  block-size: var(--spacing-10);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-muted);
+  color: var(--color-icon-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-feature-steps__number::before {
+  content: counter(g-step);
+}
+
+/* The connector runs from one figure to the next across the grid gap, so the
+   order is legible before a single word is read. */
+.g-feature-steps__step::before {
+  content: '';
+  position: absolute;
+  inset-block-start: var(--spacing-10);
+  inset-block-end: calc(-1 * var(--spacing-8));
+  inset-inline-start: calc(var(--spacing-10) / 2);
+  inline-size: var(--border-width);
+  background-color: var(--color-border-emphasized);
+}
+
+.g-feature-steps__step:last-child::before {
+  content: none;
+}
+
+.g-feature-steps__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+.g-feature-steps__text {
+  color: var(--color-text-secondary);
+}
+
+.g-feature-steps.accent .g-feature-steps__text {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* The vertical variant keeps the rail at every width, so it stays one column
+   even where there is room for more. */
+.g-feature-steps[data-variant='vertical'] .g-feature-steps__steps {
+  grid-template-columns: 1fr;
+}
+
+.g-feature-steps.accent .g-feature-steps__lead,
+.g-feature-steps.accent .astryx-eyebrow,
+.g-feature-steps.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 641px) {
+  .g-feature-steps[data-variant='horizontal'] .g-feature-steps__step {
+    flex-direction: column;
+    gap: var(--spacing-3);
+  }
+
+  .g-feature-steps[data-variant='horizontal'] .g-feature-steps__step::before {
+    inset-block: calc(var(--spacing-10) / 2) auto;
+    inset-inline: var(--spacing-10) calc(-1 * var(--spacing-8));
+    inline-size: auto;
+    block-size: var(--border-width);
+  }
+
+  /* The last step of a row would otherwise trail a line into the margin. */
+  .g-feature-steps[data-variant='horizontal'][data-columns='2'] .g-feature-steps__step:nth-child(2n)::before,
+  .g-feature-steps[data-variant='horizontal'][data-columns='3'] .g-feature-steps__step:nth-child(3n)::before,
+  .g-feature-steps[data-variant='horizontal'][data-columns='4'] .g-feature-steps__step:nth-child(4n)::before {
+    content: none;
+  }
+
+  .g-feature-steps[data-align='center'][data-variant='horizontal'] .g-feature-steps__step {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-feature-steps__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

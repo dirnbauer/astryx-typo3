@@ -5,14 +5,43 @@
 <f:asset.css identifier="g-feature-spec" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Renders as a real description list so the pairs survive copy-paste into a document; 'text' is the caveat under a pair.
+    A real description list, so a reader who copies the band into a document
+    still gets pairs rather than two disconnected columns of words. The caveat
+    is a second value on the same term, not a paragraph of its own.
 </f:comment>
 
-<section class="astryx-section g-feature-spec" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-feature-spec {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-feature-spec__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-feature-spec__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-metadata-list g-feature-spec__rows {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.rows}" as="row">
+                <div class="astryx-metadata-list-item g-feature-spec__row">
+                    <dt class="g-feature-spec__term">{row -> f:render.text(field: 'title')}</dt>
+                    <dd class="g-feature-spec__value">{row -> f:render.text(field: 'value')}</dd>
+
+                    <f:if condition="{row.text}">
+                        <dd class="astryx-text supporting g-feature-spec__caveat">{row -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-feature-spec__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -1,1 +1,49 @@
-{}
+{
+    "header": "Continuous sensors or fortnightly hand sampling?",
+    "lead": "Marnau does both, and is regularly asked why it does not simply pick one. The honest answer is that each method fails in a way the other does not.",
+    "tone": "body",
+    "width": "md",
+    "compact": 0,
+    "points": [
+        {
+            "title": "A sensor never misses a night, a storm or a bank holiday.",
+            "value": "Continuous",
+            "included": 1
+        },
+        {
+            "title": "Fifteen-minute values make short events visible that a fortnightly round cannot see at all.",
+            "value": "Continuous",
+            "included": 1
+        },
+        {
+            "title": "Once a mast is standing, a year of readings costs almost nothing to collect.",
+            "value": "Continuous",
+            "included": 1
+        },
+        {
+            "title": "A probe drifts quietly, and a drifting probe produces a plausible series that is simply wrong.",
+            "value": "Continuous",
+            "included": 0
+        },
+        {
+            "title": "Only four properties can be measured this way; everything biological still needs a bottle.",
+            "value": "Continuous",
+            "included": 0
+        },
+        {
+            "title": "A hand sample is checked against a laboratory standard on the same day it is taken.",
+            "value": "Hand sampling",
+            "included": 1
+        },
+        {
+            "title": "Twelve rounds a year cost more in staff time than the whole sensor network costs to run.",
+            "value": "Hand sampling",
+            "included": 0
+        },
+        {
+            "title": "The rounds happen in daylight and in decent weather, which is not when a river is at its most interesting.",
+            "value": "Hand sampling",
+            "included": 0
+        }
+    ]
+}
