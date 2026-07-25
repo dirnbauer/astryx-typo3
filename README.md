@@ -107,6 +107,25 @@ php Build/Scripts/scaffold-content-elements.php --check
 Two files per element are authored by hand and never overwritten:
 `templates/frontend.html` and `assets/frontend.css`.
 
+### Getting the columns into the database
+
+```bash
+ddev exec php packages/desiderio_grande/Build/Scripts/apply-schema.php --apply
+```
+
+`extension:setup` will report success and apply nothing. `tt_content` in a lab
+this size carries hundreds of columns, and InnoDB checks at ALTER time whether a
+row could exceed half a page — counting every variable-length column's worst
+case. Past that line MariaDB refuses to add any column at all, including a
+two-byte integer. The script above runs TYPO3's own migrator with
+`innodb_strict_mode` off for the duration, which is the documented behaviour for
+`ROW_FORMAT=DYNAMIC` rows: variable columns overflow off-page at runtime, so the
+real rows fit. It applies additive statements only.
+
+The same limit is why every single-line text field here is a `Textarea` with one
+row rather than a `Text`: `TEXT` is stored off-page for about twenty bytes,
+while a `VARCHAR(255)` in utf8mb4 costs over a kilobyte of the row budget.
+
 ### Gates
 
 ```bash
