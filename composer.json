@@ -1,0 +1,50 @@
+{
+    "name": "webconsulting/desiderio-grande",
+    "type": "typo3-cms-extension",
+    "description": "Desiderio Grande — the Astryx design system, server-rendered for TYPO3 14: 250 Content Blocks, seven runtime-switchable themes, no JavaScript framework",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "webconsulting studio"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "friendsoftypo3/content-blocks": "^2.2",
+        "typo3/cms-core": "^14.3",
+        "typo3/cms-fluid": "^14.3",
+        "webconsulting/desiderio": "^3.2"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "suggest": {
+        "friendsoftypo3/visual-editor": "Optional. Inline visual editing and the element library plus-button. Thank you to the friends of TYPO3 maintainers."
+    },
+    "autoload": {
+        "psr-4": {
+            "Webconsulting\\DesiderioGrande\\": "Classes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webconsulting\\DesiderioGrande\\Tests\\": "Tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        },
+        "sort-packages": true
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "desiderio_grande",
+            "web-dir": "public"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --configuration=phpunit.xml.dist",
+        "audit-elements": "php scripts/audit-content-elements.php"
+    }
+}

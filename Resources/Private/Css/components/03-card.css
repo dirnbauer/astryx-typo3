@@ -1,0 +1,179 @@
+/*
+ * Card, ClickableCard, SelectableCard.
+ *
+ * A card lifts off the page with a shadow, not with a different background:
+ * in several themes --color-background-card is the same value as the body, and
+ * --shadow-low plus an inset highlight is what separates them. Overriding the
+ * background here would flatten those themes.
+ */
+
+.astryx-card {
+  --card-padding: var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding: var(--card-padding);
+  background-color: var(--color-background-card);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.astryx-card.flat {
+  box-shadow: none;
+  border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+}
+
+.astryx-card.raised {
+  box-shadow: var(--shadow-med);
+}
+
+.astryx-card.tight {
+  --card-padding: var(--spacing-4);
+}
+
+.astryx-card.roomy {
+  --card-padding: var(--spacing-8);
+}
+
+/* A card that is mostly image: the media bleeds to the edges. */
+.astryx-card.media-top {
+  padding-block-start: 0;
+  overflow: hidden;
+}
+
+.astryx-card.media-top > :first-child {
+  margin-inline: calc(var(--card-padding) * -1);
+  margin-block-end: var(--spacing-2);
+}
+
+.astryx-card > img,
+.astryx-card figure > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.astryx-card-title {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--text-heading-4-weight);
+  line-height: var(--text-heading-4-leading);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.astryx-card-body {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Pushes the action row to the bottom so cards in a row end level. */
+.astryx-card-footer {
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------- ClickableCard */
+/* The whole card is the target. The link inside keeps the accessible name and
+   spreads over the card with a pseudo-element, so the markup stays one link
+   rather than a div with a click handler. */
+.astryx-clickable-card {
+  position: relative;
+  transition-property: box-shadow, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-clickable-card:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .astryx-clickable-card:hover {
+    box-shadow: var(--shadow-med);
+  }
+}
+
+.astryx-clickable-card a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.astryx-clickable-card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.astryx-clickable-card a:focus-visible {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-clickable-card {
+    transition: none;
+  }
+}
+
+/* -------------------------------------------------------- SelectableCard */
+.astryx-selectable-card {
+  border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+  cursor: pointer;
+}
+
+.astryx-selectable-card[aria-selected='true'],
+.astryx-selectable-card:has(input:checked) {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+/* -------------------------------------------------------------- Feature */
+/* Icon-led card: the small tinted square above a title and one paragraph.
+   The most repeated shape in the whole catalog. */
+.astryx-feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.astryx-feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--spacing-10);
+  block-size: var(--spacing-10);
+  border-radius: var(--radius-element);
+  background-color: var(--color-accent-muted);
+  color: var(--color-icon-accent);
+}
+
+.astryx-feature-icon > svg {
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+}
+
+/* ----------------------------------------------------------- EmptyState */
+.astryx-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding-block: var(--spacing-12);
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.astryx-empty-state > svg {
+  inline-size: var(--spacing-10);
+  block-size: var(--spacing-10);
+  color: var(--color-icon-disabled);
+}

@@ -1,0 +1,90 @@
+/*
+ * Native TYPO3 content types on an Astryx page.
+ *
+ * An editor can always drop a core "Text & Media", "Header" or menu element
+ * onto a page. Those render fluid_styled_content's markup, which knows nothing
+ * about this theme — without these rules they would land unstyled, with browser
+ * default fonts and no rhythm.
+ *
+ * Kept deliberately small and at low specificity: enough that a core element
+ * does not look broken, not so much that it competes with the elements this
+ * extension ships.
+ */
+
+.ce-headline,
+.frame > :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+  text-wrap: balance;
+}
+
+.frame {
+  padding-block: var(--spacing-8);
+}
+
+.frame > .astryx-layout,
+.frame-inner {
+  max-inline-size: var(--grande-container);
+  margin-inline: auto;
+  padding-inline: var(--spacing-4);
+}
+
+.frame :where(p, ul, ol) {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+  max-inline-size: 70ch;
+}
+
+.frame :where(a):not([class]) {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.frame :where(img) {
+  border-radius: var(--radius-element);
+}
+
+/* Core media elements ship their own grid classes; give them a sane gap
+   rather than restyling the grid itself. */
+.ce-gallery .ce-row + .ce-row,
+.ce-gallery .ce-column + .ce-column {
+  margin-block-start: var(--spacing-4);
+}
+
+.ce-bodytext > * + * {
+  margin-block-start: var(--spacing-4);
+}
+
+/* Core menus render as bare lists. */
+.ce-menu ul,
+.ce-uploads {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.ce-menu a,
+.ce-uploads a {
+  color: var(--color-text-accent);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .ce-menu a:hover,
+  .ce-uploads a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+@media (min-width: 768px) {
+  .frame > .astryx-layout,
+  .frame-inner {
+    padding-inline: var(--spacing-6);
+  }
+}

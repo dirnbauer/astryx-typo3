@@ -1,0 +1,818 @@
+/*
+ * Overlays — Layer, Overlay, Dialog, AlertDialog, Popover, HoverCard,
+ * Tooltip, Toast, Collapsible, Carousel, Lightbox.
+ *
+ * Upstream ships these as React components with a positioning engine, a focus
+ * trap and a dismissal manager behind each one. The platform now does all
+ * three, so this partial is written against the native elements instead:
+ * <details> for disclosure, <dialog> for modals, [popover] for menus and tips,
+ * scroll-snap for the carousel. What is left for script is opening a modal
+ * (dialog.showModal()) and auto-dismissing a toast — everything else, including
+ * Escape, light dismiss, the top layer and focus containment, is the browser's.
+ *
+ * The animations are all @starting-style plus transition-behavior:
+ * allow-discrete, so an element can fade in from display:none without a class
+ * being toggled at the right moment. Every one of them is switched off under
+ * prefers-reduced-motion at the foot of the file.
+ */
+
+/* ----------------------------------------------------------------- Layer */
+/* The UA gives every [popover] a canvas background, a solid border, auto
+   margins and its own inset. All of it has to be cleared before a surface
+   token can show, so the reset is shared rather than repeated per component. */
+.astryx-layer,
+.astryx-popover,
+.astryx-hovercard,
+.astryx-tooltip,
+.astryx-tab-menu-dropdown,
+.astryx-top-nav-menu-panel,
+.astryx-top-nav-mega-menu-panel {
+  margin: 0;
+  border-width: 0;
+  border-style: none;
+  overflow: visible;
+  font-family: var(--font-family-body);
+}
+
+:where(.astryx-layer, .astryx-popover, .astryx-hovercard, .astryx-tooltip)[popover] {
+  inset: auto;
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Anchor positioning is what replaces the measuring script: the trigger names
+   itself with `anchor-name`, the panel points at that name through
+   --popover-anchor, and position-try-fallbacks flips it when it would leave
+   the viewport. Left unset, `auto` picks up the popovertarget invoker, which
+   is the right anchor for every menu opened from its own button. Browsers
+   without anchor positioning keep the UA's centred placement, still usable. */
+@supports (position-anchor: --a) {
+  :where(.astryx-layer, .astryx-popover, .astryx-hovercard, .astryx-tooltip)[popover] {
+    position-anchor: var(--popover-anchor, auto);
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+    margin-block-start: var(--spacing-1);
+  }
+}
+
+/* --------------------------------------------------------------- Popover */
+.astryx-popover {
+  box-sizing: border-box;
+  border-radius: var(--_popover-radius, var(--radius-container));
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-low);
+  color: var(--color-text-primary);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+.astryx-popover-body {
+  padding: var(--spacing-3);
+}
+
+/* Match the trigger's width — the usual want for a select-like menu. */
+.astryx-popover.match-trigger {
+  min-inline-size: anchor-size(width);
+}
+
+.astryx-popover[popover] {
+  opacity: 0;
+  translate: 0 calc(-1 * var(--spacing-1));
+  transition-property: opacity, translate, overlay, display;
+  transition-duration: var(--duration-medium-min);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-popover[popover]:popover-open {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .astryx-popover[popover]:popover-open {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--spacing-1));
+  }
+}
+
+/* Menu panels hung off the top nav are popovers with the same surface. */
+.astryx-tab-menu-dropdown,
+.astryx-top-nav-menu-panel,
+.astryx-top-nav-mega-menu-panel {
+  box-sizing: border-box;
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-low);
+  color: var(--color-text-primary);
+}
+
+/* ------------------------------------------------- HoverCard and Tooltip */
+.astryx-hovercard {
+  box-sizing: border-box;
+  max-inline-size: 20rem;
+  padding: var(--spacing-3);
+  border-radius: var(--_hovercard-radius, var(--radius-container));
+  background-color: var(--color-background-surface);
+  box-shadow: var(--shadow-med);
+  color: var(--color-text-primary);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+/* A tip runs the palette backwards — the page's text colour becomes its
+   background and vice versa. That pairing is guaranteed to contrast in every
+   theme, which a fixed dark chip would not be. */
+.astryx-tooltip {
+  box-sizing: border-box;
+  max-inline-size: 18.75rem;
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-container);
+  background-color: var(--color-text-primary);
+  color: var(--color-background-surface);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  word-break: break-word;
+}
+
+/* The element the tip describes gets a dashed underline so the reader knows
+   there is something to reveal before hovering. */
+.astryx-tooltip-trigger,
+.astryx-hovercard-trigger {
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--color-border-emphasized);
+  text-underline-offset: var(--spacing-0-5);
+}
+
+/* CSS-only reveal, for tips that are not in the top layer. The wrapper owns
+   both :hover and :focus-within, so pointer and keyboard get the tip from the
+   same rule — and a tip that only answered :hover would be unreachable. */
+.astryx-tooltip-anchor,
+.astryx-hovercard-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+.astryx-tooltip-anchor > .astryx-tooltip:not([popover]),
+.astryx-hovercard-anchor > .astryx-hovercard:not([popover]) {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 50%;
+  z-index: 60;
+  translate: -50% var(--spacing-1);
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, visibility;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-tooltip-anchor:focus-within > .astryx-tooltip:not([popover]),
+.astryx-hovercard-anchor:focus-within > .astryx-hovercard:not([popover]) {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (hover: hover) {
+  .astryx-tooltip-anchor:hover > .astryx-tooltip:not([popover]),
+  .astryx-hovercard-anchor:hover > .astryx-hovercard:not([popover]) {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.astryx-tooltip[popover],
+.astryx-hovercard[popover] {
+  opacity: 0;
+  transition-property: opacity, overlay, display;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-tooltip[popover]:popover-open,
+.astryx-hovercard[popover]:popover-open {
+  opacity: 1;
+}
+
+@starting-style {
+  .astryx-tooltip[popover]:popover-open,
+  .astryx-hovercard[popover]:popover-open {
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------- Dialog/AlertDialog */
+/* The native element. showModal() puts it in the top layer, traps focus and
+   binds Escape; ::backdrop is a real pseudo-element the UA paints for us. The
+   only script is the click handler that calls showModal / close. */
+.astryx-dialog,
+.astryx-alert-dialog {
+  --dialog-padding: var(--spacing-6);
+  position: fixed;
+  margin: auto;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  inline-size: 25rem;
+  max-inline-size: 90vw;
+  max-block-size: 75vh;
+  block-size: fit-content;
+  border-radius: var(--_dialog-radius, var(--radius-container));
+  background-color: var(--color-background-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-high);
+  overscroll-behavior: contain;
+  /* Entry needs no state class: @starting-style gives the browser a "before
+     open" snapshot, and allow-discrete lets display and overlay transition
+     with the rest, so the dialog fades out on close instead of vanishing. */
+  opacity: 0;
+  scale: 0.98;
+  transition-property: opacity, scale, overlay, display;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-dialog[open],
+.astryx-alert-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  scale: 1;
+}
+
+.astryx-dialog::backdrop,
+.astryx-alert-dialog::backdrop,
+.astryx-mobile-nav::backdrop,
+.astryx-lightbox::backdrop {
+  background-color: var(--color-overlay);
+  backdrop-filter: blur(2px);
+}
+
+@starting-style {
+  .astryx-dialog[open],
+  .astryx-alert-dialog[open] {
+    opacity: 0;
+    scale: 0.98;
+  }
+}
+
+.astryx-dialog::backdrop,
+.astryx-alert-dialog::backdrop {
+  opacity: 0;
+  transition-property: opacity, overlay, display;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-dialog[open]::backdrop,
+.astryx-alert-dialog[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .astryx-dialog[open]::backdrop,
+  .astryx-alert-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.astryx-dialog.fullscreen {
+  inset: 0;
+  margin: 0;
+  inline-size: 100dvw;
+  block-size: 100dvh;
+  max-inline-size: 100dvw;
+  max-block-size: 100dvh;
+  border-radius: var(--radius-none);
+}
+
+.astryx-dialog:focus-visible,
+.astryx-alert-dialog:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  flex-shrink: 0;
+  padding: var(--dialog-padding);
+  padding-block-end: var(--spacing-3);
+}
+
+.astryx-dialog-title {
+  margin: 0;
+  min-inline-size: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--text-heading-2-weight);
+  line-height: var(--text-heading-2-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-dialog-body {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow-y: auto;
+  padding-inline: var(--dialog-padding);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+}
+
+/* Actions sit apart from the body and stay put while it scrolls, so the
+   confirming button is never the thing the reader has to scroll to find. */
+.astryx-dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  padding: var(--dialog-padding);
+  padding-block-start: var(--spacing-4);
+}
+
+/* An alert dialog has no scrolling body — it asks one question, so the whole
+   thing is a title, a line of copy and the two answers, padded as one block. */
+.astryx-alert-dialog {
+  padding: var(--dialog-padding);
+  gap: var(--spacing-3);
+}
+
+.astryx-alert-dialog .astryx-dialog-header,
+.astryx-alert-dialog .astryx-dialog-body,
+.astryx-alert-dialog .astryx-dialog-footer {
+  padding: 0;
+}
+
+@media (max-width: 480px) {
+  .astryx-dialog,
+  .astryx-alert-dialog {
+    --dialog-padding: var(--spacing-4);
+    inline-size: 100%;
+  }
+}
+
+/* ----------------------------------------------------------------- Toast */
+/* The viewport is itself a manual [popover], which is what lifts toasts above
+   an open dialog: the top layer stacks by open order, not by z-index. */
+.astryx-toast-viewport {
+  position: fixed;
+  inset: auto;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: var(--spacing-4);
+  border: none;
+  background: none;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.astryx-toast-viewport.bottom-end { inset-block-end: 0; inset-inline-end: 0; align-items: flex-end; }
+.astryx-toast-viewport.bottom-start { inset-block-end: 0; inset-inline-start: 0; align-items: flex-start; }
+.astryx-toast-viewport.top-end { inset-block-start: 0; inset-inline-end: 0; align-items: flex-end; flex-direction: column-reverse; }
+.astryx-toast-viewport.top-start { inset-block-start: 0; inset-inline-start: 0; align-items: flex-start; flex-direction: column-reverse; }
+
+.astryx-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  box-sizing: border-box;
+  inline-size: 25rem;
+  max-inline-size: min(100%, calc(100vw - var(--spacing-8)));
+  padding: var(--spacing-4);
+  border-radius: var(--radius-container);
+  box-shadow: var(--shadow-med);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  pointer-events: auto;
+  opacity: 1;
+  translate: 0 0;
+  transition-property: opacity, translate;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+@starting-style {
+  .astryx-toast {
+    opacity: 0;
+    translate: 0 var(--spacing-2);
+  }
+}
+
+/* Inverted surface, inverted text: --color-background-surface is the exact
+   counterpart of --color-background-inverted in every theme, so the pair
+   stays legible without a dedicated on-inverted token. */
+.astryx-toast,
+.astryx-toast.info {
+  background-color: var(--color-background-inverted);
+  color: var(--color-background-surface);
+}
+
+.astryx-toast.error {
+  background-color: var(--color-background-error-inverted);
+  color: var(--color-on-error);
+}
+
+.astryx-toast-content {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.astryx-toast-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+  margin-block: calc(-1 * var(--spacing-1));
+  margin-inline-end: calc(-1 * var(--spacing-1));
+}
+
+/* ----------------------------------------------------------- Collapsible */
+/* A native <details>. The open state, the keyboard behaviour and the
+   accessible name are the element's own; only the marker and the chevron are
+   ours. It works with scripting off, which is the whole point. */
+.astryx-collapsible {
+  inline-size: 100%;
+  interpolate-size: allow-keywords;
+}
+
+.astryx-collapsible > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  inline-size: 100%;
+  padding-block: var(--spacing-2);
+  font-family: var(--font-family-body);
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+  text-align: start;
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Two properties for one marker: `list-style` covers Firefox and Chromium,
+   the pseudo-element covers older WebKit. */
+.astryx-collapsible > summary::-webkit-details-marker {
+  display: none;
+}
+
+.astryx-collapsible > summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* The chevron is two borders on an empty box — it takes the icon colour and
+   costs no asset request. Rotating it is the disclosure's only animation. */
+.astryx-collapsible > summary::after {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  color: var(--color-icon-secondary);
+  translate: 0 calc(-1 * var(--spacing-0-5));
+  rotate: 45deg;
+  transition-property: rotate, translate;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-collapsible[open] > summary::after {
+  translate: 0 var(--spacing-0-5);
+  rotate: 225deg;
+}
+
+.astryx-collapsible.compact > summary { padding-block: var(--spacing-1); }
+.astryx-collapsible.balanced > summary { padding-block: var(--spacing-2); }
+.astryx-collapsible.spacious > summary { padding-block: var(--spacing-3); }
+
+.astryx-collapsible[aria-disabled='true'] > summary {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Revealed text is anchored to the body scale rather than inheriting whatever
+   the surrounding block happens to use, so a collapsible reads the same
+   wherever it is placed. */
+.astryx-collapsible-content {
+  padding-block-start: var(--spacing-1);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-collapsible.compact .astryx-collapsible-content { padding-block-end: var(--spacing-1); }
+.astryx-collapsible.balanced .astryx-collapsible-content { padding-block-end: var(--spacing-2); }
+.astryx-collapsible.spacious .astryx-collapsible-content { padding-block-end: var(--spacing-3); }
+
+/* Where the UA exposes the disclosure's own box, the reveal can be eased.
+   Everywhere else it simply snaps open, which is the correct fallback. */
+@supports selector(::details-content) {
+  .astryx-collapsible::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition-property: block-size, content-visibility;
+    transition-duration: var(--duration-medium);
+    transition-timing-function: var(--ease-standard);
+    transition-behavior: allow-discrete;
+  }
+
+  .astryx-collapsible[open]::details-content {
+    block-size: auto;
+  }
+}
+
+.astryx-collapsible-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hairlines between items only. The group's own edges belong to whatever
+   wraps it — a card border and a first-item border would double up. */
+.astryx-collapsible-group > .astryx-collapsible + .astryx-collapsible {
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* -------------------------------------------------------------- Carousel */
+/* Scroll snap does the whole job: the track is a scroll container, each item
+   is a snap target, and the browser handles the drag, the momentum and the
+   keyboard. The buttons are an enhancement over a control that already works. */
+.astryx-carousel {
+  --carousel-gap: var(--spacing-1);
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.astryx-carousel.gap-2 { --carousel-gap: var(--spacing-2); }
+.astryx-carousel.gap-3 { --carousel-gap: var(--spacing-3); }
+.astryx-carousel.gap-4 { --carousel-gap: var(--spacing-4); }
+.astryx-carousel.gap-6 { --carousel-gap: var(--spacing-6); }
+
+.astryx-carousel-track {
+  display: flex;
+  align-items: stretch;
+  gap: var(--carousel-gap);
+  inline-size: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-inline: var(--spacing-1);
+  padding-block-end: var(--spacing-2);
+  scroll-padding-inline: var(--spacing-1);
+  /* Upstream hides the scrollbar and fades the edges instead. Here it stays:
+     a thin tinted bar is the only affordance that tells a reader there is
+     more to the side before they try to drag it. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-track) transparent;
+}
+
+.astryx-carousel-item {
+  display: flex;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+}
+
+/* Snapping to the start of an item mid-scroll fights a keyboard user tabbing
+   through the items, so focus stops are allowed to settle where they land. */
+.astryx-carousel-item:focus-within {
+  scroll-snap-align: none;
+}
+
+.astryx-carousel-control {
+  position: absolute;
+  inset-block-start: 50%;
+  z-index: 1;
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-med);
+}
+
+.astryx-carousel-control.start { inset-inline-start: 0; }
+.astryx-carousel-control.end { inset-inline-end: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-carousel-track {
+    scroll-behavior: auto;
+  }
+}
+
+/* -------------------------------------------------------------- Lightbox */
+/* A full-bleed <dialog>: the media sits on the backdrop itself rather than on
+   a surface, so the frame carries no background of its own. */
+.astryx-lightbox {
+  position: fixed;
+  inset: 0;
+  inline-size: 100vw;
+  block-size: 100dvh;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.astryx-lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.astryx-lightbox-figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  margin: 0;
+  max-inline-size: 100%;
+  max-block-size: 100%;
+  overflow: hidden;
+}
+
+.astryx-lightbox-figure > :where(img, video) {
+  max-inline-size: 100%;
+  max-block-size: 100%;
+  object-fit: contain;
+}
+
+.astryx-lightbox-caption {
+  max-inline-size: 37.5rem;
+  flex-shrink: 0;
+  padding-inline: var(--spacing-3);
+  color: var(--color-on-dark);
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+  text-align: center;
+}
+
+.astryx-lightbox-counter {
+  position: absolute;
+  inset-block-start: var(--spacing-3);
+  inset-inline-start: var(--spacing-3);
+  z-index: 1;
+  color: var(--color-on-dark);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+.astryx-lightbox-close {
+  position: absolute;
+  inset-block-start: var(--spacing-3);
+  inset-inline-end: var(--spacing-3);
+  z-index: 1;
+  color: var(--color-on-dark);
+}
+
+.astryx-lightbox-prev,
+.astryx-lightbox-next {
+  position: absolute;
+  inset-block-start: 50%;
+  z-index: 1;
+  translate: 0 -50%;
+  color: var(--color-on-dark);
+}
+
+.astryx-lightbox-prev { inset-inline-start: var(--spacing-3); }
+.astryx-lightbox-next { inset-inline-end: var(--spacing-3); }
+
+/* --------------------------------------------------------------- Overlay */
+/* Content laid over media — a caption strip, a play button, a hover scrim.
+   The container clips so a scrim can bleed to the corners of a rounded image. */
+.astryx-overlay {
+  position: relative;
+  overflow: clip;
+}
+
+.astryx-overlay-scrim {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  color: var(--color-on-dark);
+  pointer-events: none;
+  transition-property: opacity, visibility, translate;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-overlay-scrim.fill { inset: 0; }
+.astryx-overlay-scrim.top { inset-inline: 0; inset-block-start: 0; }
+.astryx-overlay-scrim.bottom { inset-inline: 0; inset-block-end: 0; }
+
+.astryx-overlay-scrim.align-start { align-items: flex-start; justify-content: flex-start; }
+.astryx-overlay-scrim.align-center { align-items: center; justify-content: center; }
+.astryx-overlay-scrim.align-end { align-items: flex-end; justify-content: flex-start; }
+
+.astryx-overlay-scrim.dark {
+  background-color: var(--color-overlay);
+}
+
+/* The light scrim has no token of its own: it is the on-dark colour thinned
+   to 60%, which lands on white in every theme without naming one. */
+.astryx-overlay-scrim.light {
+  background-color: color-mix(in srgb, var(--color-on-dark) 60%, transparent);
+  color: var(--color-on-light);
+}
+
+.astryx-overlay-scrim.always {
+  pointer-events: auto;
+}
+
+/* Reveal on hover *or* focus, never hover alone — a control hidden until the
+   pointer arrives is a control a keyboard can never reach. */
+.astryx-overlay-scrim.hover-reveal,
+.astryx-overlay-scrim.focus-reveal {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.astryx-overlay-scrim.hover-reveal.top,
+.astryx-overlay-scrim.focus-reveal.top { translate: 0 -100%; }
+
+.astryx-overlay-scrim.hover-reveal.bottom,
+.astryx-overlay-scrim.focus-reveal.bottom { translate: 0 100%; }
+
+.astryx-overlay:focus-within > :where(.astryx-overlay-scrim.hover-reveal, .astryx-overlay-scrim.focus-reveal) {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  pointer-events: auto;
+}
+
+@media (hover: hover) {
+  .astryx-overlay:hover > .astryx-overlay-scrim.hover-reveal {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+    pointer-events: auto;
+  }
+}
+
+/* ---------------------------------------------------------------- motion */
+/* Every reveal above still happens — only the movement is removed, so nothing
+   becomes unreachable when a reader asks for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-layer,
+  .astryx-popover,
+  .astryx-popover[popover],
+  .astryx-hovercard,
+  .astryx-hovercard[popover],
+  .astryx-tooltip,
+  .astryx-tooltip[popover],
+  .astryx-dialog,
+  .astryx-alert-dialog,
+  .astryx-dialog::backdrop,
+  .astryx-alert-dialog::backdrop,
+  .astryx-toast,
+  .astryx-collapsible > summary::after,
+  .astryx-overlay-scrim {
+    transition-duration: 0s;
+  }
+
+  .astryx-dialog,
+  .astryx-alert-dialog {
+    scale: 1;
+  }
+
+  .astryx-popover[popover] {
+    translate: 0 0;
+  }
+
+  @supports selector(::details-content) {
+    .astryx-collapsible::details-content {
+      transition-duration: 0s;
+    }
+  }
+}

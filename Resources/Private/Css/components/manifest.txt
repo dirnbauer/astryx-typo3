@@ -1,0 +1,14 @@
+# grande-components.css — the Astryx component styles, written against the
+# stable .astryx-* class names the upstream themes target.
+#
+# Order is the cascade. Primitives and typography come first because later
+# components build on their tokens and spacing.
+00-primitives.css
+01-typography.css
+02-button.css
+03-card.css
+04-badge-banner.css
+05-forms.css
+06-data.css
+07-navigation.css
+08-overlay.css

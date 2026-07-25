@@ -1,0 +1,1119 @@
+/*
+ * Data display — Table, List, Item, MetadataList, TreeList, OverflowList,
+ * Divider, Timestamp, Kbd, Code, CodeBlock, Markdown, ProgressBar, Skeleton,
+ * Spinner, Avatar, AvatarGroup, Thumbnail.
+ *
+ * Two things separate this file from the upstream components it transcribes.
+ * The React versions receive their content already wrapped in per-part
+ * elements; server-side these are plain <table>, <ul>, <dl> and <pre>, so the
+ * part styles also reach the bare tags inside the component root. And the
+ * loading states (Skeleton, Spinner, the indeterminate ProgressBar) animate,
+ * which means every one of them has to have an off switch — a page of pulsing
+ * placeholders is exactly what prefers-reduced-motion is asking about.
+ */
+
+/* ----------------------------------------------------------------- Table */
+/* Tables are the one element that cannot be made to fit a narrow column: a
+   five-column table in a 320px viewport either scrolls or breaks the page
+   layout. The wrapper takes the scroll so the page never does. */
+.astryx-table-wrap,
+.astryx-table-scroll-wrapper {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.astryx-table,
+.astryx-base-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: inherit;
+  color: var(--color-text-primary);
+}
+
+/* Auto layout, not upstream's fixed: editors write the cells here and column
+   widths have to follow the content they typed. `.fixed` restores the
+   equal-width behaviour for tables whose columns are known up front. */
+.astryx-table {
+  table-layout: auto;
+}
+
+.astryx-table.fixed {
+  table-layout: fixed;
+}
+
+.astryx-table :where(th, td),
+.astryx-table-cell,
+.astryx-table-header-cell {
+  box-sizing: border-box;
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  text-align: start;
+  vertical-align: middle;
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-table :where(thead th),
+.astryx-table-header-cell {
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+/* The last body row's rule would sit directly on top of whatever follows the
+   table, reading as a stray line rather than a cell edge. */
+.astryx-table :where(tbody tr:last-child) :where(th, td),
+.astryx-table-body .astryx-table-row:last-child .astryx-table-cell {
+  border-block-end: 0;
+}
+
+.astryx-table :where(tfoot),
+.astryx-table-footer {
+  font-weight: var(--font-weight-medium);
+  border-block-start: var(--border-width) solid var(--color-border-emphasized);
+}
+
+.astryx-table.compact :where(th, td),
+.astryx-table.compact .astryx-table-cell,
+.astryx-table.compact .astryx-table-header-cell {
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+}
+
+.astryx-table.spacious :where(th, td),
+.astryx-table.spacious .astryx-table-cell,
+.astryx-table.spacious .astryx-table-header-cell {
+  padding-block: var(--spacing-3);
+  padding-inline: var(--spacing-4);
+}
+
+.astryx-table.striped :where(tbody tr:nth-child(even)),
+.astryx-table-row.striped:nth-child(even) {
+  background-color: var(--color-background-muted);
+}
+
+.astryx-table.bordered :where(th, td):not(:last-child),
+.astryx-table-cell.bordered:not(:last-child) {
+  border-inline-end: var(--border-width) solid var(--color-border);
+}
+
+@media (hover: hover) {
+  .astryx-table.hoverable :where(tbody tr):hover,
+  .astryx-table-row.hoverable:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-table.hoverable :where(tbody tr),
+.astryx-table-row.hoverable {
+  transition-property: background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* Truncating cells keep the table's column widths honest instead of letting one
+   long value stretch the whole grid. */
+.astryx-table-cell.truncate,
+.astryx-table :where(th, td).truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-inline-size: 0;
+}
+
+.astryx-table-cell.wrap,
+.astryx-table :where(th, td).wrap {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* ------------------------------------------------------------------ List */
+.astryx-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  margin: 0;
+  padding-inline-start: 0;
+  list-style-type: none;
+}
+
+/* Dividers replace the gap — a rule with air on both sides reads as two
+   separate groups rather than one list. */
+.astryx-list.with-dividers {
+  gap: 0;
+}
+
+.astryx-list.with-dividers > .astryx-list-item,
+.astryx-list.with-dividers > li {
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-list.with-dividers > :last-child {
+  border-block-end: 0;
+}
+
+.astryx-list-item,
+.astryx-list > li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-list.compact > :where(li, .astryx-list-item) { padding-block: var(--spacing-1); }
+.astryx-list.balanced > :where(li, .astryx-list-item) { padding-block: var(--spacing-2); }
+.astryx-list.spacious > :where(li, .astryx-list-item) { padding-block: var(--spacing-3); }
+
+/* Markers are drawn rather than left to list-style-type, because the native
+   marker cannot be coloured or aligned to a multi-line item's first line. */
+.astryx-list.marker-dot > :where(li, .astryx-list-item)::before,
+.astryx-list.marker-circle > :where(li, .astryx-list-item)::before {
+  content: '';
+  flex-shrink: 0;
+  inline-size: 6px;
+  block-size: 6px;
+  border-radius: var(--radius-full);
+  margin-block-start: calc((1em * var(--text-body-leading) - 6px) / 2);
+}
+
+.astryx-list.marker-dot > :where(li, .astryx-list-item)::before {
+  background-color: var(--color-text-primary);
+}
+
+.astryx-list.marker-circle > :where(li, .astryx-list-item)::before {
+  border: var(--border-width) solid var(--color-text-primary);
+  background-color: transparent;
+}
+
+.astryx-list.marker-decimal {
+  counter-reset: astryx-list;
+}
+
+.astryx-list.marker-decimal > :where(li, .astryx-list-item) {
+  counter-increment: astryx-list;
+}
+
+.astryx-list.marker-decimal > :where(li, .astryx-list-item)::before {
+  content: counter(astryx-list) '.';
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  color: var(--color-text-primary);
+}
+
+/* ------------------------------------------------------------------ Item */
+/* One row of a list, menu or result set: optional leading media, a label with
+   an optional description, optional trailing action. */
+.astryx-item {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  text-align: start;
+}
+
+.astryx-item.align-start { align-items: flex-start; }
+.astryx-item.compact { padding-block: var(--spacing-1); }
+.astryx-item.spacious { padding-block: var(--spacing-3); padding-inline: var(--spacing-3); }
+
+.astryx-item.interactive {
+  cursor: pointer;
+  background-color: transparent;
+  transition-property: background-color;
+  transition-duration: var(--duration-fast-min);
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-item.interactive:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-item.interactive:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+/* The focusable thing is the link or button inside, so the row carries the ring
+   on its behalf — otherwise the highlight would hug the text and not the row. */
+.astryx-item:has(:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-item:has(:focus-visible) :where(a, button):focus-visible {
+  outline: none;
+}
+
+.astryx-item.selected {
+  background-color: var(--color-accent-muted);
+}
+
+.astryx-item.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.astryx-item-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.astryx-item-label {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-item-description {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-item-label.truncate,
+.astryx-item-description.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-item-start,
+.astryx-item-end {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.astryx-item-end {
+  margin-inline-start: auto;
+}
+
+/* ---------------------------------------------------------- MetadataList */
+/* A definition list of label/value pairs. The grid keeps every value aligned on
+   one column however long the labels get, which is the whole point of the
+   component — a flex row would let each pair set its own indent. */
+.astryx-metadata-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-2) var(--spacing-4);
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+}
+
+.astryx-metadata-list.columns-2,
+.astryx-metadata-list.columns-3 {
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--spacing-4);
+}
+
+.astryx-metadata-list.stacked {
+  grid-template-columns: 1fr;
+  gap: var(--spacing-3);
+}
+
+.astryx-metadata-list.horizontal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.astryx-metadata-list :where(dt) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  word-break: break-word;
+}
+
+.astryx-metadata-list :where(dd) {
+  margin: 0;
+  padding: 0;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+  word-break: break-word;
+}
+
+/* A stacked pair is one unit, so it has to become a single grid child. */
+.astryx-metadata-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+/* -------------------------------------------------------------- TreeList */
+.astryx-tree-list {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.astryx-tree-list ul {
+  margin: 0;
+  padding-inline-start: var(--spacing-2);
+  list-style-type: none;
+}
+
+.astryx-tree-list-item {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  cursor: pointer;
+  outline: none;
+  transition-property: background-image;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-tree-list-item.compact { padding-block: var(--spacing-1); }
+.astryx-tree-list-item.spacious { padding-block: var(--spacing-3); }
+
+/* Hover is an overlay gradient, not a background colour, so it layers over the
+   selected tint instead of replacing it. */
+@media (hover: hover) {
+  .astryx-tree-list-item:hover {
+    background-image: linear-gradient(var(--color-overlay-hover), var(--color-overlay-hover));
+  }
+}
+
+.astryx-tree-list-item:active {
+  background-image: linear-gradient(var(--color-overlay-pressed), var(--color-overlay-pressed));
+}
+
+.astryx-tree-list-item[aria-selected='true'],
+.astryx-tree-list-item.selected {
+  background-color: var(--color-accent-muted);
+}
+
+.astryx-tree-list-item:focus-visible,
+.astryx-tree-list-item:has(:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-tree-list-item[aria-disabled='true'],
+.astryx-tree-list-item.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.astryx-tree-list-item-label {
+  flex: 1;
+  min-inline-size: 0;
+  color: var(--color-text-primary);
+}
+
+.astryx-tree-list-item[aria-selected='true'] .astryx-tree-list-item-label {
+  font-weight: var(--font-weight-medium);
+}
+
+.astryx-tree-list-chevron {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  margin-inline-start: var(--spacing-1);
+  margin-inline-end: calc(var(--spacing-1) * -1);
+  border-radius: var(--radius-inner);
+  color: var(--color-icon-secondary);
+  cursor: pointer;
+  transition-property: transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-tree-list-chevron[aria-expanded='true'] {
+  transform: rotate(90deg);
+}
+
+/* The vertical rule that ties a branch to its children. */
+.astryx-tree-list-guide {
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--border-width);
+  background-color: var(--color-border);
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------- OverflowList */
+/* Items on one line, the rest clipped: the count indicator is supplied by the
+   markup, so all this owes is a row that refuses to wrap or grow. */
+.astryx-overflow-list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.astryx-overflow-list.multi-row {
+  flex-wrap: wrap;
+  align-content: flex-start;
+  white-space: normal;
+}
+
+/* --------------------------------------------------------------- Divider */
+.astryx-divider {
+  inline-size: 100%;
+  block-size: var(--border-width);
+  margin: 0;
+  border: 0;
+  background-color: var(--color-border);
+}
+
+.astryx-divider.strong {
+  background-color: var(--color-border-emphasized);
+}
+
+.astryx-divider.vertical {
+  display: inline-block;
+  inline-size: var(--border-width);
+  block-size: 100%;
+  align-self: stretch;
+}
+
+/* With a label the divider stops being a line and becomes a row containing two
+   lines, so the background has to go or it would paint straight through the
+   text. */
+.astryx-divider.with-label {
+  display: flex;
+  align-items: center;
+  block-size: auto;
+  background-color: transparent;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-divider.with-label::before,
+.astryx-divider.with-label::after {
+  content: '';
+  flex: 1 1 auto;
+  block-size: var(--border-width);
+  background-color: var(--color-border);
+}
+
+.astryx-divider-label {
+  flex-shrink: 0;
+  padding-inline: var(--spacing-3);
+}
+
+/* ------------------------------------------------------------- Timestamp */
+/* <time> inherits nothing useful by default, so the reset is the component. */
+.astryx-timestamp {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: normal;
+  line-height: inherit;
+  color: var(--color-text-secondary);
+}
+
+.astryx-timestamp.primary { color: var(--color-text-primary); }
+.astryx-timestamp.inherit { color: inherit; }
+
+/* A timestamp with a tooltip is a tab stop, and a tab stop needs a ring. */
+.astryx-timestamp:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------- Kbd */
+/* The heavier bottom border is the whole illusion — it reads as the side of a
+   physical key, which is why it is 2px and not the hairline border width. */
+.astryx-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  padding-inline: var(--spacing-1);
+  border-radius: var(--radius-inner);
+  border-block-end: 2px solid var(--color-border-emphasized);
+  background-color: var(--color-neutral);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  user-select: none;
+}
+
+.astryx-kbd-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------------ Code */
+.astryx-code {
+  font-family: var(--font-family-code);
+  font-size: var(--text-code-size);
+  line-height: inherit;
+  padding-block: var(--spacing-0);
+  padding-inline: var(--spacing-1);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-primary);
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.astryx-code.secondary { color: var(--color-text-secondary); }
+.astryx-code.inherit { color: inherit; font-size: inherit; line-height: inherit; }
+
+/* -------------------------------------------------------------- CodeBlock */
+.astryx-codeblock {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-element);
+  background-color: var(--color-syntax-background);
+  overflow: hidden;
+}
+
+/* Embedded in a card or a panel the block drops its own frame — two nested
+   muted surfaces compound into a darker rectangle that looks like a mistake. */
+.astryx-codeblock.section {
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.astryx-codeblock-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-4);
+  border-block-end: var(--border-width) solid var(--color-border);
+  font-family: var(--font-family-code);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-syntax-comment);
+}
+
+.astryx-codeblock-scroll {
+  overflow: auto;
+}
+
+.astryx-codeblock :where(pre) {
+  display: block;
+  margin: 0;
+  padding-block: var(--spacing-3);
+  padding-inline: var(--spacing-4);
+  font-family: var(--font-family-code);
+  font-size: var(--text-code-size);
+  line-height: var(--text-code-leading);
+  color: var(--color-syntax-variable);
+  tab-size: 2;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.astryx-codeblock.wrapped :where(pre) {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.astryx-codeblock.sm :where(pre) {
+  font-size: var(--text-supporting-size);
+}
+
+/* Code inside a block already sits on the syntax surface, so it must not bring
+   the inline chip's own background and padding with it. */
+.astryx-codeblock :where(code) {
+  padding: 0;
+  background-color: transparent;
+  font-family: var(--font-family-code);
+  color: inherit;
+}
+
+.astryx-codeblock-line.highlighted {
+  display: block;
+  margin-inline: calc(-1 * var(--spacing-4));
+  padding-inline: var(--spacing-4);
+  background-color: var(--color-accent-muted);
+}
+
+/* The span classes upstream emits when the Custom Highlight API is unavailable;
+   a server-side highlighter can emit exactly the same names. */
+.astryx-token-keyword { color: var(--color-syntax-keyword); }
+.astryx-token-string { color: var(--color-syntax-string); }
+.astryx-token-comment { color: var(--color-syntax-comment); }
+.astryx-token-number { color: var(--color-syntax-number); }
+.astryx-token-function { color: var(--color-syntax-function); }
+.astryx-token-type { color: var(--color-syntax-type); }
+.astryx-token-tag { color: var(--color-syntax-tag); }
+.astryx-token-attribute { color: var(--color-syntax-attribute); }
+.astryx-token-property { color: var(--color-syntax-property); }
+.astryx-token-operator { color: var(--color-syntax-operator); }
+.astryx-token-constant { color: var(--color-syntax-constant); }
+.astryx-token-punctuation { color: var(--color-syntax-punctuation); }
+.astryx-token-variable { color: var(--color-syntax-variable); }
+
+/* -------------------------------------------------------------- Markdown */
+/* Rendered markdown arrives as bare tags, so the block rhythm has to be stated
+   per tag rather than composed from components. */
+.astryx-markdown {
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  overflow-wrap: break-word;
+}
+
+.astryx-markdown :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+  margin-block-start: var(--spacing-6);
+  margin-block-end: var(--spacing-3);
+}
+
+.astryx-markdown :where(h4, h5, h6) {
+  margin-block-start: var(--spacing-4);
+  margin-block-end: var(--spacing-2);
+}
+
+.astryx-markdown :where(h1) { font-size: var(--text-heading-1-size); font-weight: var(--text-heading-1-weight); line-height: var(--text-heading-1-leading); }
+.astryx-markdown :where(h2) { font-size: var(--text-heading-2-size); font-weight: var(--text-heading-2-weight); line-height: var(--text-heading-2-leading); }
+.astryx-markdown :where(h3) { font-size: var(--text-heading-3-size); font-weight: var(--text-heading-3-weight); line-height: var(--text-heading-3-leading); }
+.astryx-markdown :where(h4) { font-size: var(--text-heading-4-size); font-weight: var(--text-heading-4-weight); line-height: var(--text-heading-4-leading); }
+.astryx-markdown :where(h5) { font-size: var(--text-heading-5-size); font-weight: var(--text-heading-5-weight); line-height: var(--text-heading-5-leading); }
+.astryx-markdown :where(h6) { font-size: var(--text-heading-6-size); font-weight: var(--text-heading-6-weight); line-height: var(--text-heading-6-leading); }
+
+.astryx-markdown :where(p, ul, ol) {
+  margin-block: var(--spacing-3);
+}
+
+.astryx-markdown :where(ul, ol) {
+  padding-inline-start: var(--spacing-6);
+}
+
+.astryx-markdown :where(pre, blockquote, table) {
+  margin-block: var(--spacing-4);
+}
+
+.astryx-markdown :where(hr) {
+  margin-block: var(--spacing-6);
+  border: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.astryx-markdown :where(img) {
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-element);
+  margin-block: var(--spacing-3);
+}
+
+.astryx-markdown :where(a) {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.astryx-markdown :where(strong) { font-weight: var(--font-weight-semibold); }
+.astryx-markdown :where(del) { color: var(--color-text-secondary); }
+
+.astryx-markdown > :first-child { margin-block-start: 0; }
+.astryx-markdown > :last-child { margin-block-end: 0; }
+
+/* Compact halves every block gap; used where markdown is a cell or a bubble
+   rather than a document. */
+.astryx-markdown.compact :where(p, ul, ol) { margin-block: var(--spacing-1); }
+.astryx-markdown.compact :where(h1, h2, h3) { margin-block-start: var(--spacing-4); margin-block-end: var(--spacing-2); }
+.astryx-markdown.compact :where(h4, h5, h6) { margin-block-start: var(--spacing-3); margin-block-end: var(--spacing-1); }
+.astryx-markdown.compact :where(pre, blockquote, table) { margin-block: var(--spacing-2); }
+.astryx-markdown.compact :where(hr) { margin-block: var(--spacing-3); }
+
+/* ----------------------------------------------------------- ProgressBar */
+.astryx-progressbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  inline-size: 100%;
+  min-inline-size: 48px;
+}
+
+.astryx-progressbar-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+.astryx-progressbar-label {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.astryx-progressbar-value {
+  color: var(--color-text-secondary);
+}
+
+/* overflow:hidden is load-bearing: the fill keeps the full pill radius so its
+   leading edge stays round, and the track clips the trailing one. */
+.astryx-progressbar-track {
+  inline-size: 100%;
+  block-size: 8px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-muted);
+  overflow: hidden;
+}
+
+.astryx-progressbar-fill {
+  block-size: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  transition-property: width;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-progressbar.success .astryx-progressbar-fill { background-color: var(--color-success); }
+.astryx-progressbar.warning .astryx-progressbar-fill { background-color: var(--color-warning); }
+.astryx-progressbar.error .astryx-progressbar-fill { background-color: var(--color-error); }
+.astryx-progressbar.neutral .astryx-progressbar-fill,
+.astryx-progressbar.disabled .astryx-progressbar-fill { background-color: var(--color-text-disabled); }
+
+.astryx-progressbar.disabled .astryx-progressbar-label,
+.astryx-progressbar.disabled .astryx-progressbar-value { color: var(--color-text-disabled); }
+
+.astryx-progressbar.indeterminate .astryx-progressbar-fill {
+  inline-size: 40%;
+  animation: astryx-progress-slide 1.5s ease-in-out infinite;
+}
+
+@keyframes astryx-progress-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+/* -------------------------------------------------------------- Skeleton */
+/* A placeholder, not a shape: the low opacity is what keeps a page of them from
+   reading as real content that failed to load. */
+.astryx-skeleton {
+  display: block;
+  inline-size: 100%;
+  block-size: 1em;
+  border-radius: var(--radius-inner);
+  background-color: var(--color-skeleton);
+  opacity: 0.25;
+  animation: astryx-skeleton-fade var(--duration-medium-max) var(--ease-standard) infinite alternate;
+}
+
+.astryx-skeleton.rounded { border-radius: var(--radius-full); }
+.astryx-skeleton.container { border-radius: var(--radius-container); }
+.astryx-skeleton.square { border-radius: var(--radius-none); }
+
+.astryx-skeleton.text {
+  block-size: calc(1em * var(--text-body-leading));
+}
+
+@keyframes astryx-skeleton-fade {
+  from { opacity: 0.25; }
+  to { opacity: 0.5; }
+}
+
+/* ---------------------------------------------------------------- Spinner */
+/* One gap in the ring is what makes the rotation visible; a full ring would
+   look static however fast it spun. */
+.astryx-spinner {
+  display: inline-block;
+  box-sizing: border-box;
+  inline-size: 14px;
+  block-size: 14px;
+  border: 3px solid currentColor;
+  border-block-start-color: transparent;
+  border-radius: var(--radius-full);
+  color: var(--color-accent);
+  vertical-align: middle;
+  animation: astryx-spin var(--duration-slow-min) linear infinite;
+}
+
+.astryx-spinner.sm { inline-size: 10px; block-size: 10px; border-width: 2px; }
+.astryx-spinner.md { inline-size: 14px; block-size: 14px; border-width: 3px; }
+.astryx-spinner.lg { inline-size: 18px; block-size: 18px; border-width: 3px; }
+.astryx-spinner.xl { inline-size: 28px; block-size: 28px; border-width: 4px; }
+
+.astryx-spinner.subtle { color: var(--color-text-secondary); }
+.astryx-spinner.on-media { color: var(--color-on-dark); }
+.astryx-spinner.inherit { color: inherit; }
+
+.astryx-spinner-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+@keyframes astryx-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ---------------------------------------------------------------- Avatar */
+/* --_avatar-size is the single dimension everything else derives from: the
+   circle, the initials, the status dot and the group's overlap all read it.
+   The size classes set it but the avatar itself never declares a value, so a
+   size put on the group inherits down to every child instead of being shadowed
+   by a local default. */
+.astryx-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--_avatar-size, 36px);
+  block-size: var(--_avatar-size, 36px);
+  border-radius: var(--radius-full);
+  background-color: var(--color-neutral);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-size: calc(var(--_avatar-size, 36px) * 0.4);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  overflow: hidden;
+  user-select: none;
+}
+
+.astryx-avatar.xsm,
+.astryx-avatar-group.xsm { --_avatar-size: 20px; }
+.astryx-avatar.sm,
+.astryx-avatar-group.sm { --_avatar-size: 24px; }
+.astryx-avatar.md,
+.astryx-avatar-group.md { --_avatar-size: 36px; }
+.astryx-avatar.lg,
+.astryx-avatar-group.lg { --_avatar-size: 48px; }
+.astryx-avatar.xl,
+.astryx-avatar-group.xl { --_avatar-size: 128px; }
+
+.astryx-avatar > img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* The dot sits at 45° on the circle's edge: (1 - 1/√2) / 2 of the diameter in
+   from each side, then nudged out by half its own width. */
+.astryx-avatar-status-dot {
+  position: absolute;
+  inset-block-end: calc(var(--_avatar-size, 36px) * 0.1464);
+  inset-inline-end: calc(var(--_avatar-size, 36px) * 0.1464);
+  transform: translate(50%, 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: calc(var(--_avatar-size, 36px) * 0.3);
+  block-size: calc(var(--_avatar-size, 36px) * 0.3);
+  border: 2px solid var(--color-background-surface);
+  border-radius: var(--radius-full);
+  background-color: var(--color-success);
+  color: var(--color-background-surface);
+}
+
+/* The neutral variant is hollow, so the plate has to be the surface and the
+   colour has to move to the ink — surface on surface would be invisible. */
+.astryx-avatar-status-dot.neutral {
+  background-color: var(--color-background-surface);
+  color: var(--color-text-secondary);
+}
+
+.astryx-avatar-status-dot.error {
+  background-color: var(--color-error);
+  color: var(--color-background-surface);
+}
+
+.astryx-avatar-status-dot-glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 60%;
+  block-size: 60%;
+  line-height: 0;
+}
+
+/* ----------------------------------------------------------- AvatarGroup */
+.astryx-avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The ring is the surface colour on both border and background, so overlapping
+   avatars read as separate discs rather than one blob. */
+.astryx-avatar-group > .astryx-avatar {
+  box-sizing: content-box;
+  border: 2px solid var(--color-background-surface);
+  background-color: var(--color-background-surface);
+}
+
+.astryx-avatar-group > :not(:first-child) {
+  margin-inline-start: var(--_avatar-group-overlap, calc(var(--_avatar-size, 36px) * -0.25));
+}
+
+.astryx-avatar-group-overflow {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: calc(var(--_avatar-size, 36px) + 4px);
+  block-size: calc(var(--_avatar-size, 36px) + 4px);
+  padding-inline: var(--spacing-2);
+  border: 2px solid var(--color-background-surface);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  background-image: linear-gradient(var(--color-neutral), var(--color-neutral));
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-size: calc(var(--_avatar-size, 36px) * 0.35);
+  font-weight: var(--font-weight-medium);
+  user-select: none;
+}
+
+.astryx-avatar-group-overflow:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------- Thumbnail */
+.astryx-thumbnail {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  inline-size: 64px;
+  flex-shrink: 0;
+  isolation: isolate;
+}
+
+.astryx-thumbnail > :where(img, .astryx-thumbnail-image) {
+  inline-size: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--radius-element);
+  background-color: var(--color-neutral);
+  box-shadow: var(--_thumbnail-elevation, none);
+}
+
+.astryx-thumbnail.low { --_thumbnail-elevation: var(--shadow-low); }
+.astryx-thumbnail.med { --_thumbnail-elevation: var(--shadow-med); }
+.astryx-thumbnail.high { --_thumbnail-elevation: var(--shadow-high); }
+
+/* An inset ring instead of a border: a light image against a light surface
+   otherwise has no edge, and a real border would change the box size. */
+.astryx-thumbnail::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-element);
+  box-shadow: inset 0 0 0 1px var(--color-border);
+  pointer-events: none;
+}
+
+.astryx-thumbnail.interactive {
+  cursor: pointer;
+  transition-property: opacity, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-thumbnail.interactive:hover {
+    opacity: 0.85;
+  }
+
+  .astryx-thumbnail.interactive:hover > :where(img, .astryx-thumbnail-image) {
+    box-shadow: var(--shadow-med);
+  }
+}
+
+.astryx-thumbnail.interactive:active {
+  opacity: 0.75;
+}
+
+.astryx-thumbnail:has(:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-thumbnail.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------- reduced motion */
+/* Loading indicators are the reason this query exists: a page can carry a dozen
+   skeletons at once, and a pulsing grid of them is the exact effect the setting
+   asks to be spared. The elements stay visible, they just stop moving. */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-skeleton,
+  .astryx-spinner,
+  .astryx-progressbar.indeterminate .astryx-progressbar-fill {
+    animation: none;
+  }
+
+  .astryx-progressbar.indeterminate .astryx-progressbar-fill {
+    inline-size: 100%;
+    opacity: 0.5;
+  }
+
+  .astryx-progressbar-fill,
+  .astryx-item.interactive,
+  .astryx-tree-list-item,
+  .astryx-tree-list-chevron,
+  .astryx-thumbnail.interactive,
+  .astryx-table.hoverable :where(tbody tr),
+  .astryx-table-row.hoverable {
+    transition-duration: 0s;
+  }
+}

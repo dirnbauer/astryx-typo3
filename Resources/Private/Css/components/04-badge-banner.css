@@ -1,0 +1,182 @@
+/*
+ * Badge, Token, StatusDot, Banner.
+ *
+ * The nine categorical hues are a theme's own palette: each ships a
+ * background / border / icon / text quartet tuned per scheme, and upstream
+ * checks every one against WCAG AA. Badges therefore only reference the
+ * quartet — never a colour of their own — which is why the same badge stays
+ * legible in y2k and in gothic.
+ */
+
+.astryx-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  background-color: var(--color-background-neutral, var(--color-neutral));
+  color: var(--color-text-primary);
+}
+
+.astryx-badge > svg {
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+.astryx-badge.neutral {
+  background-color: var(--color-background-neutral, var(--color-neutral));
+  color: var(--color-text-primary);
+}
+
+.astryx-badge.info {
+  background-color: var(--color-background-blue);
+  color: var(--color-text-blue);
+}
+
+.astryx-badge.success {
+  background-color: var(--color-success-muted);
+  color: var(--color-success);
+}
+
+.astryx-badge.warning {
+  background-color: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+.astryx-badge.error {
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+}
+
+/* Categorical hues, for badges that classify rather than signal state. */
+.astryx-badge.red { background-color: var(--color-background-red); color: var(--color-text-red); }
+.astryx-badge.orange { background-color: var(--color-background-orange); color: var(--color-text-orange); }
+.astryx-badge.yellow { background-color: var(--color-background-yellow); color: var(--color-text-yellow); }
+.astryx-badge.green { background-color: var(--color-background-green); color: var(--color-text-green); }
+.astryx-badge.teal { background-color: var(--color-background-teal); color: var(--color-text-teal); }
+.astryx-badge.cyan { background-color: var(--color-background-cyan); color: var(--color-text-cyan); }
+.astryx-badge.blue { background-color: var(--color-background-blue); color: var(--color-text-blue); }
+.astryx-badge.purple { background-color: var(--color-background-purple); color: var(--color-text-purple); }
+.astryx-badge.pink { background-color: var(--color-background-pink); color: var(--color-text-pink); }
+
+.astryx-badge.accent {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.astryx-badge.outline {
+  background-color: transparent;
+  border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+  color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------------------- Token */
+/* A token is a badge that names a thing (a tag, a filter, a chip) rather than
+   a state, so it uses the element radius and can carry a remove control. */
+.astryx-token {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-primary);
+  font-size: var(--text-supporting-size);
+  line-height: 1.2;
+}
+
+/* ------------------------------------------------------------ StatusDot */
+.astryx-statusdot {
+  display: inline-block;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.astryx-statusdot.success { background-color: var(--color-success); }
+.astryx-statusdot.warning { background-color: var(--color-warning); }
+.astryx-statusdot.error { background-color: var(--color-error); }
+.astryx-statusdot.accent { background-color: var(--color-accent); }
+
+/* --------------------------------------------------------------- Banner */
+/* Page-level message. The tinted background carries the meaning, so a banner
+   never depends on its icon alone. */
+.astryx-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-primary);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+.astryx-banner > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin-block-start: 0.1em;
+}
+
+.astryx-banner.info {
+  background-color: var(--color-background-blue);
+  color: var(--color-text-blue);
+}
+
+.astryx-banner.success {
+  background-color: var(--color-success-muted);
+  color: var(--color-success);
+}
+
+.astryx-banner.warning {
+  background-color: var(--color-warning-muted);
+  color: var(--color-warning);
+}
+
+.astryx-banner.error {
+  background-color: var(--color-error-muted);
+  color: var(--color-error);
+}
+
+.astryx-banner-title {
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-1);
+}
+
+.astryx-banner-body {
+  margin: 0;
+}
+
+.astryx-banner-content {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+/* The dismiss control keeps its own colour so it never competes with the
+   message tone. */
+.astryx-banner-dismiss {
+  flex-shrink: 0;
+  background: none;
+  border: 0;
+  padding: var(--spacing-1);
+  border-radius: var(--radius-none);
+  color: currentColor;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+@media (hover: hover) {
+  .astryx-banner-dismiss:hover {
+    opacity: 1;
+  }
+}

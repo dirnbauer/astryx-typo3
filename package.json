@@ -1,0 +1,25 @@
+{
+  "name": "@webconsulting/desiderio-grande",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Build tooling for the Desiderio Grande TYPO3 extension: Astryx theme tokens, component CSS, self-hosted fonts.",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:theme && npm run build:css && npm run build:fonts",
+    "build:theme": "node Build/Scripts/build-astryx-theme.mjs",
+    "build:css": "node Build/Scripts/build-grande-css.mjs",
+    "build:fonts": "node Build/Scripts/sync-fonts.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/dm-sans": "^5.2.5",
+    "@fontsource-variable/figtree": "^5.2.5",
+    "@fontsource-variable/fraunces": "^5.2.5",
+    "@fontsource-variable/jetbrains-mono": "^5.2.5",
+    "@fontsource-variable/montserrat": "^5.2.5",
+    "@fontsource-variable/outfit": "^5.2.5",
+    "@fontsource/albert-sans": "^5.2.5",
+    "@fontsource/fustat": "^5.2.5",
+    "@fontsource/playwrite-us-trad": "^5.3.0",
+    "@fontsource/poppins": "^5.2.5"
+  }
+}

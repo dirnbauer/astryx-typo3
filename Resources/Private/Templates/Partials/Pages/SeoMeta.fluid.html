@@ -1,0 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>
+    TYPO3's SEO extension already writes title, description, canonical and the
+    Open Graph basics when it is installed. What is added here is only what
+    depends on the theme.
+
+    Declaring both schemes lets the browser paint its own surfaces — form
+    controls, scrollbars, the address bar on mobile — to match the page instead
+    of assuming light. The actual choice is made by the color-scheme property
+    on the root element, so this stays a declaration of support rather than a
+    second source of truth.
+</f:comment>
+
+<f:page.meta property="color-scheme" type="name">light dark</f:page.meta>
+
+</html>

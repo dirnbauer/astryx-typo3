@@ -1,0 +1,28 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>
+    The last item is the current page: rendered as text, not a link, and
+    marked aria-current so assistive technology announces the position
+    instead of offering a link to where the reader already is.
+</f:comment>
+
+<nav class="grande-breadcrumb" aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.breadcrumb', default: 'Breadcrumb')}">
+    <div class="astryx-layout">
+        <ol class="grande-breadcrumb__list">
+            <f:for each="{breadcrumb}" as="item" iteration="i">
+                <li class="grande-breadcrumb__item">
+                    <f:if condition="{i.isLast}">
+                        <f:then>
+                            <span class="grande-breadcrumb__current" aria-current="page">{item.title}</span>
+                        </f:then>
+                        <f:else>
+                            <a href="{item.link}" class="grande-breadcrumb__link">{item.title}</a>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+    </div>
+</nav>
+
+</html>

@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Pages/Default"/>
+
+<f:comment>
+    The sidebar holds the sibling navigation, so it is a nav landmark rather
+    than a second content column. It follows the main content in the source
+    order and is moved beside it by the grid, which keeps the reading order
+    right for anyone not seeing the layout.
+</f:comment>
+
+<f:section name="Main">
+    <f:render partial="Pages/PageTitle" arguments="{_all}"/>
+    <div class="astryx-layout grande-sidebar-layout">
+        <div>
+            <!--TYPO3SEARCH_begin-->
+            <f:if condition="{content.main}">
+                <f:render.contentArea contentArea="{content.main}"/>
+            </f:if>
+            <!--TYPO3SEARCH_end-->
+        </div>
+
+        <f:if condition="{subMenu}">
+            <nav class="grande-sidebar" aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.mainNavigation', default: 'Main navigation')}">
+                <ul class="grande-nav__list">
+                    <f:for each="{subMenu}" as="item">
+                        <li>
+                            <a
+                                href="{item.link}"
+                                class="grande-nav__link"
+                                aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
+                            >{item.title}</a>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

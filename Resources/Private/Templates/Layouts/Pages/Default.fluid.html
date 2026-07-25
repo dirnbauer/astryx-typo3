@@ -1,0 +1,36 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:page.meta property="viewport">width=device-width, initial-scale=1.0</f:page.meta>
+<f:render partial="Pages/SeoMeta" arguments="{_all}"/>
+
+<a href="#main-content" class="grande-skip-link">
+    <f:translate extensionName="desiderio_grande" key="chrome.skipToContent">Skip to main content</f:translate>
+</a>
+
+<f:render partial="Pages/Header" arguments="{_all}"/>
+
+<main id="main-content" tabindex="-1">
+    <f:comment>
+        The trail leads the content so it sits directly above the opening
+        heading. The site root has a one-item rootline and gets none.
+    </f:comment>
+    <f:variable name="rootlineDepth" value="{breadcrumb -> f:count()}"/>
+    <f:if condition="{site.configuration.settings.desiderioGrande.header.breadcrumb} && {rootlineDepth} > 1">
+        <f:render partial="Pages/Breadcrumb" arguments="{_all}"/>
+    </f:if>
+
+    <f:render section="Main" optional="true">
+        <!--TYPO3SEARCH_begin-->
+        <f:if condition="{content.main}">
+            <f:render.contentArea contentArea="{content.main}"/>
+        </f:if>
+        <!--TYPO3SEARCH_end-->
+    </f:render>
+</main>
+
+<f:render partial="Pages/Footer" arguments="{_all}"/>
+
+</html>

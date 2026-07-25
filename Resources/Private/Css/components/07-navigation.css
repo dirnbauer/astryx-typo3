@@ -1,0 +1,1420 @@
+/*
+ * Navigation — Breadcrumbs, Pagination, TabList, SegmentedControl, TopNav,
+ * SideNav, NavItem, NavIcon, NavMenu, MobileNav, Outline, Toolbar.
+ *
+ * Two rules shape all of it. The current item never signals itself with colour
+ * alone: every selected state pairs its tone with a weight bump, an indicator
+ * bar or a tinted row, so it stays findable in a theme whose accent sits close
+ * to its text colour. And the keyboard ring is the same 2px --color-accent
+ * outline everywhere, because navigation is where tabbing actually happens.
+ *
+ * Selection is expressed twice on purpose: the `.selected` / `.active`
+ * modifier upstream themes target, and the ARIA attribute the markup has to
+ * carry anyway. Either one alone styles the item, so server-rendered menus
+ * that only set aria-current are not left plain.
+ *
+ * Upstream pads selected labels with a hidden semibold copy to stop the strip
+ * from reflowing when the weight changes. Nothing here needs it: selection
+ * moves on navigation, not in place, so the reflow happens during a page load.
+ * The one control that does toggle in place — SegmentedControl — holds its
+ * weight steady and leans on the raised surface instead.
+ */
+
+/* --------------------------------------------------------------- NavItem */
+/* The row that SideNav items, TopNav drawer items and mega-menu drawer items
+   are all built from. Its own class so those three stay one rule to change:
+   the element wears it alongside its component class, the way
+   .astryx-icon-button is worn alongside .astryx-button. */
+.astryx-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: var(--size-element-md);
+  padding-inline: var(--spacing-2);
+  padding-block: 0;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-label-leading);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.astryx-nav-item.sm { block-size: var(--size-element-sm); padding-inline: var(--spacing-1); }
+.astryx-nav-item.md { block-size: var(--size-element-md); padding-inline: var(--spacing-2); }
+.astryx-nav-item.lg { block-size: var(--size-element-lg); padding-inline: var(--spacing-2); }
+
+@media (hover: hover) {
+  .astryx-nav-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-nav-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-nav-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-nav-item.selected,
+.astryx-nav-item[aria-current='page'] {
+  background-color: var(--color-neutral);
+  font-weight: var(--font-weight-medium);
+}
+
+/* The selected row keeps its tint under the pointer — hover must not read as
+   a second kind of selection. */
+@media (hover: hover) {
+  .astryx-nav-item.selected:hover,
+  .astryx-nav-item[aria-current='page']:hover {
+    background-color: var(--color-neutral);
+  }
+}
+
+.astryx-nav-item.disabled,
+.astryx-nav-item[aria-disabled='true'] {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* The label is the part that may be cut; icons and end content keep their
+   size so a long entry truncates instead of squashing its own chevron. */
+.astryx-nav-item > .astryx-nav-item-label {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-nav-item > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+}
+
+/* --------------------------------------------------------------- NavIcon */
+.astryx-navicon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.astryx-navicon > svg {
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+}
+
+/* ----------------------------------------------------------- Breadcrumbs */
+.astryx-breadcrumbs {
+  display: block;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+}
+
+.astryx-breadcrumbs.supporting {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.astryx-breadcrumbs :where(ol, ul) {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.astryx-breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* The separator is generated, not marked up: one glyph between items and
+   never before the first. --breadcrumb-separator swaps the glyph. */
+.astryx-breadcrumb-item + .astryx-breadcrumb-item::before {
+  content: var(--breadcrumb-separator, '/');
+  color: var(--color-text-secondary);
+  padding-block: var(--spacing-1);
+  user-select: none;
+}
+
+.astryx-breadcrumb-item :where(a, button) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding-block: var(--spacing-1);
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .astryx-breadcrumb-item :where(a, button):hover {
+    text-decoration: underline;
+  }
+}
+
+.astryx-breadcrumb-item :where(a, button):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-inner);
+}
+
+/* The last crumb is the page you are on: plain text at the primary tone, and
+   the weight so it still separates from its neighbours without colour. */
+.astryx-breadcrumb-item[aria-current='page'] {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.astryx-breadcrumbs.supporting .astryx-breadcrumb-item[aria-current='page'] {
+  color: var(--color-text-secondary);
+}
+
+.astryx-breadcrumb-item > svg {
+  flex-shrink: 0;
+  inline-size: 1em;
+  block-size: 1em;
+}
+
+/* --------------------------------------------------------------- TabList */
+.astryx-tab-list {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-0-5);
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+
+.astryx-tab-list.fill {
+  inline-size: 100%;
+}
+
+.astryx-tab-list.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* The divider rail. The reserved gap keeps the hover pill off the underline;
+   --_tab-indicator-bottom drops the indicator through the gap (plus the
+   border) so it still lands on the rail rather than floating above it. */
+.astryx-tab-list.divided {
+  --_tab-indicator-bottom: calc(-1 * (var(--spacing-1) + var(--border-width)));
+  border-block-end: var(--border-width) solid var(--color-border);
+  padding-block-end: var(--spacing-1);
+}
+
+.astryx-tab,
+.astryx-tab-menu {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  block-size: var(--size-element-md);
+  padding-inline: var(--spacing-3);
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: color, background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-tab-list.sm :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-sm); }
+.astryx-tab-list.lg :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-lg); }
+
+.astryx-tab-list.fill .astryx-tab {
+  flex: 1;
+  justify-content: center;
+}
+
+@media (hover: hover) {
+  .astryx-tab:hover,
+  .astryx-tab-menu:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-tab:focus-visible,
+.astryx-tab-menu:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-tab.selected,
+.astryx-tab[aria-selected='true'],
+.astryx-tab[aria-current='page'],
+.astryx-tab-menu.selected {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-tab > svg,
+.astryx-tab-menu > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.astryx-tab-indicator {
+  position: absolute;
+  inset-block-end: var(--_tab-indicator-bottom, -1px);
+  inset-inline: var(--spacing-3);
+  block-size: 2px;
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition-property: opacity, background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-tab-indicator.selected,
+.astryx-tab.selected > .astryx-tab-indicator,
+.astryx-tab-menu.selected > .astryx-tab-indicator {
+  background-color: var(--color-accent);
+  opacity: 1;
+}
+
+/* Markup that omits the indicator element still gets the bar. The underline
+   is the cue that survives a theme with no colour to spare, so it is not
+   left to whether the template happened to render an extra span. */
+.astryx-tab:not(:has(.astryx-tab-indicator)):is(.selected, [aria-selected='true'], [aria-current='page'])::after {
+  content: '';
+  position: absolute;
+  inset-block-end: var(--_tab-indicator-bottom, -1px);
+  inset-inline: var(--spacing-3);
+  block-size: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-tab-menu-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  padding: var(--spacing-1);
+}
+
+.astryx-tab-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-tab-menu-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-tab-menu-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-tab-menu-item.selected,
+.astryx-tab-menu-item[aria-current='page'] {
+  font-weight: var(--font-weight-medium);
+}
+
+/* ------------------------------------------------------ SegmentedControl */
+/* The one control here that swaps selection without a page load, so it must
+   not reflow: the weight stays put and the raised surface plus shadow do the
+   signalling. The item radius is concentric with the track's — inner radius
+   minus the track padding — so the two curves stay parallel at any radius. */
+.astryx-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-0-5);
+  padding: var(--_segmented-control-padding, var(--spacing-0-5));
+  border-radius: var(--_segmented-control-radius, var(--radius-element));
+  background-color: var(--color-neutral);
+}
+
+.astryx-segmented-control.fill {
+  display: flex;
+  inline-size: 100%;
+}
+
+.astryx-segmented-control.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.astryx-segmented-control-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  block-size: calc(var(--size-element-md) - var(--spacing-1));
+  padding-inline: var(--spacing-3);
+  border-width: 0;
+  border-style: none;
+  border-radius: max(
+    0px,
+    calc(
+      var(--_segmented-control-radius, var(--radius-element)) -
+      var(--_segmented-control-padding, var(--spacing-0-5))
+    )
+  );
+  background-color: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition-property: color, background-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-segmented-control-item.sm {
+  block-size: calc(var(--size-element-sm) - var(--spacing-1));
+  padding-inline: var(--spacing-2);
+  font-size: var(--text-supporting-size);
+}
+
+.astryx-segmented-control-item.lg {
+  block-size: calc(var(--size-element-lg) - var(--spacing-1));
+}
+
+.astryx-segmented-control.fill .astryx-segmented-control-item {
+  flex: 1;
+  justify-content: center;
+}
+
+@media (hover: hover) {
+  .astryx-segmented-control-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-segmented-control-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* :has(input:checked) covers the no-JS build, where the segments are a radio
+   group and the browser owns the state. */
+.astryx-segmented-control-item.selected,
+.astryx-segmented-control-item[aria-checked='true'],
+.astryx-segmented-control-item[aria-selected='true'],
+.astryx-segmented-control-item:has(input:checked) {
+  color: var(--color-text-primary);
+  background-color: var(--color-background-surface);
+  box-shadow: var(--shadow-low);
+}
+
+.astryx-segmented-control-item.disabled,
+.astryx-segmented-control-item[aria-disabled='true'] {
+  color: var(--color-text-disabled);
+  cursor: default;
+}
+
+.astryx-segmented-control-item > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+/* ---------------------------------------------------------------- TopNav */
+.astryx-top-nav {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--spacing-2);
+  gap: var(--spacing-4);
+}
+
+/* Three slots need a grid, not flex: the centre stays optically centred on
+   the bar even when the two sides carry different amounts of content. */
+.astryx-top-nav.centered {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.astryx-top-nav.mobile-bar {
+  gap: var(--spacing-2);
+}
+
+.astryx-top-nav-start,
+.astryx-top-nav-center,
+.astryx-top-nav-end {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.astryx-top-nav-start {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  gap: var(--spacing-4);
+}
+
+.astryx-top-nav-center {
+  justify-content: center;
+}
+
+.astryx-top-nav-end {
+  justify-content: flex-end;
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
+
+.astryx-top-nav-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  min-block-size: var(--spacing-8);
+  padding-inline: var(--spacing-2);
+  padding-block: 0;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: default;
+}
+
+/* A NavIcon already carries its own optical inset, so the heading drops the
+   leading padding when one is present and the logo lines up with the gutter. */
+.astryx-top-nav-heading:has(.astryx-navicon) {
+  padding-inline-start: 0;
+}
+
+.astryx-top-nav-heading.interactive {
+  cursor: pointer;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font: inherit;
+  font-weight: var(--font-weight-normal);
+  text-align: start;
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-heading.interactive:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-top-nav-heading:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-top-nav-heading-text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.astryx-top-nav-heading-title {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-top-nav-heading-super,
+.astryx-top-nav-heading-sub {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-top-nav-item,
+.astryx-top-nav-menu,
+.astryx-top-nav-mega-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-1-5);
+  padding-inline: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-item:hover,
+  .astryx-top-nav-menu:hover,
+  .astryx-top-nav-mega-menu:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-top-nav-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-top-nav-item:focus-visible,
+.astryx-top-nav-menu:focus-visible,
+.astryx-top-nav-mega-menu:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Tinted pill plus semibold: the pill can vanish in a theme where
+   --color-neutral is nearly the bar's own background, the weight cannot. */
+.astryx-top-nav-item.selected,
+.astryx-top-nav-item[aria-current='page'] {
+  background-color: var(--color-neutral);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-item.selected:hover,
+  .astryx-top-nav-item[aria-current='page']:hover {
+    background-color: var(--color-neutral);
+  }
+}
+
+.astryx-top-nav-item.icon-only {
+  padding-inline: var(--spacing-2);
+}
+
+/* A menu trigger reads as pressed while its panel is up. The popover API does
+   not write aria-expanded onto the invoker, so a trigger whose panel is its
+   next sibling asks the panel directly — no script keeping a flag in sync.
+   Markup that does set aria-expanded is honoured too. [popover] itself is
+   styled in the overlay partial. */
+.astryx-top-nav-menu[aria-expanded='true'],
+.astryx-top-nav-mega-menu[aria-expanded='true'],
+.astryx-top-nav-menu:has(+ [popover]:popover-open),
+.astryx-top-nav-mega-menu:has(+ [popover]:popover-open) {
+  background-color: var(--color-overlay-hover);
+  color: var(--color-text-primary);
+}
+
+.astryx-top-nav-menu > svg:last-child,
+.astryx-top-nav-mega-menu > svg:last-child {
+  transition: rotate var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-top-nav-menu[aria-expanded='true'] > svg:last-child,
+.astryx-top-nav-mega-menu[aria-expanded='true'] > svg:last-child,
+.astryx-top-nav-menu:has(+ [popover]:popover-open) > svg:last-child,
+.astryx-top-nav-mega-menu:has(+ [popover]:popover-open) > svg:last-child {
+  rotate: 180deg;
+}
+
+/* Drawer mode reuses the NavItem row shape, so only the indent differs. */
+.astryx-top-nav-item.drawer,
+.astryx-top-nav-mega-menu-item.drawer {
+  inline-size: 100%;
+  padding-inline-start: var(--spacing-6);
+}
+
+.astryx-top-nav-mega-menu-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-6);
+  padding: var(--spacing-3);
+  max-inline-size: 60rem;
+}
+
+.astryx-top-nav-mega-menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-mega-menu-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-top-nav-mega-menu-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-top-nav-mega-menu-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-top-nav-mega-menu-item > svg,
+.astryx-top-nav-menu-item > svg {
+  display: block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: var(--spacing-10);
+  block-size: var(--spacing-10);
+  padding: var(--spacing-2);
+  border-radius: var(--radius-element);
+  background-color: var(--color-neutral);
+  color: var(--color-icon-secondary);
+}
+
+.astryx-top-nav-mega-menu-item-title,
+.astryx-top-nav-menu-item-title {
+  display: block;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-top-nav-mega-menu-item-body,
+.astryx-top-nav-menu-item-body {
+  display: block;
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-top-nav-mega-menu-featured-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 12rem;
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-muted);
+  overflow: hidden;
+}
+
+.astryx-top-nav-mega-menu-featured-card > img {
+  display: block;
+  inline-size: 100%;
+  block-size: var(--spacing-12);
+  object-fit: cover;
+}
+
+.astryx-top-nav-mega-menu-featured-card > :not(img) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+}
+
+/* --------------------------------------------------------------- SideNav */
+.astryx-side-nav {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  block-size: 100%;
+  inline-size: 16rem;
+  background-color: inherit;
+  overflow: hidden;
+}
+
+/* Collapsed rail: icons only, so the width is the icon gutter and nothing
+   more. Labels are hidden rather than removed, keeping the accessible name. */
+.astryx-side-nav.collapsed {
+  inline-size: var(--spacing-12);
+  align-items: center;
+}
+
+.astryx-side-nav.collapsed .astryx-nav-item-label,
+.astryx-side-nav.collapsed .astryx-side-nav-section-title {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.astryx-side-nav.collapsed .astryx-side-nav-item {
+  inline-size: var(--size-element-md);
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.astryx-side-nav.topbar {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  block-size: var(--spacing-12);
+  inline-size: 100%;
+}
+
+.astryx-side-nav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-2);
+}
+
+/* Sticky top and bottom inherit the nav's background so rows scroll under
+   them instead of showing through. */
+.astryx-side-nav-top,
+.astryx-side-nav-bottom {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--spacing-2);
+  position: sticky;
+  padding-inline: var(--spacing-2);
+  background-color: inherit;
+  z-index: 1;
+}
+
+.astryx-side-nav-top {
+  inset-block-start: 0;
+  padding-block: var(--spacing-2);
+}
+
+.astryx-side-nav-bottom {
+  inset-block-end: 0;
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-1);
+  padding-block-end: var(--spacing-2);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.astryx-side-nav-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  min-block-size: var(--spacing-8);
+  padding-inline: var(--spacing-2);
+  padding-block: 0;
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
+
+.astryx-side-nav-heading:has(.astryx-navicon) {
+  padding-inline-start: 0;
+}
+
+.astryx-side-nav-heading.interactive {
+  cursor: pointer;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font: inherit;
+  font-weight: var(--font-weight-normal);
+  text-align: start;
+}
+
+@media (hover: hover) {
+  .astryx-side-nav-heading.interactive:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-side-nav-heading:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-side-nav-heading-title {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-side-nav-heading-super,
+.astryx-side-nav-heading-sub {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-side-nav-section {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--spacing-1);
+}
+
+.astryx-side-nav-section-title {
+  padding-inline: var(--spacing-2);
+  padding-block: var(--spacing-1);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.astryx-side-nav-section > ul,
+.astryx-side-nav-section-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A SideNav item IS a NavItem row: the element wears both classes, the way
+   .astryx-icon-button wears .astryx-button. Everything below is the part the
+   NavItem base has no opinion on — the nesting indent and the group wrapper. */
+.astryx-side-nav-item-group {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+}
+
+.astryx-side-nav-item-group > ul,
+.astryx-side-nav-item-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--spacing-6);
+}
+
+/* A group with children is a native <details>, so expanding a branch costs no
+   JS. The summary is the row itself and wears .astryx-side-nav-item; all this
+   adds is dropping the UA marker and turning the caller's own chevron. */
+.astryx-side-nav-item-group > details > summary {
+  list-style: none;
+}
+
+.astryx-side-nav-item-group > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.astryx-side-nav-item-group > details > summary > svg:last-child {
+  margin-inline-start: auto;
+  transition: rotate var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-side-nav-item-group > details[open] > summary > svg:last-child {
+  rotate: 180deg;
+}
+
+/* --------------------------------------------------------------- NavMenu */
+.astryx-nav-heading-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 12.5rem;
+}
+
+.astryx-nav-heading-menu.sm { min-inline-size: 10rem; }
+.astryx-nav-heading-menu.lg { min-inline-size: 15rem; }
+
+.astryx-nav-heading-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-2);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  color: var(--color-text-primary);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.astryx-nav-heading-menu-item.sm { padding-block: var(--spacing-1); }
+.astryx-nav-heading-menu-item.lg { padding-block: var(--spacing-3); padding-inline: var(--spacing-3); }
+
+/* Upstream tints on :focus as well as :hover — the menu is opened by keyboard
+   as often as by pointer and the row has to follow the caret either way. */
+.astryx-nav-heading-menu-item:focus {
+  background-color: var(--color-overlay-hover);
+}
+
+@media (hover: hover) {
+  .astryx-nav-heading-menu-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-nav-heading-menu-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-nav-heading-menu-item.selected,
+.astryx-nav-heading-menu-item[aria-current='page'] {
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-nav-heading-menu-item.disabled,
+.astryx-nav-heading-menu-item[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ------------------------------------------------------------- MobileNav */
+/* A native <dialog> opened modally: the top layer, the backdrop, focus
+   containment and Escape all come from the browser. The only script is the
+   one line that calls showModal() from the trigger — see data-g-mobile-nav. */
+.astryx-mobile-nav {
+  position: fixed;
+  inset: 0;
+  inline-size: 100vw;
+  block-size: 100dvh;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  /* Blocks pull-to-refresh and background scroll behind the drawer; the
+     content pane below opts vertical panning back in. */
+  touch-action: none;
+}
+
+.astryx-mobile-nav::backdrop {
+  background-color: var(--color-overlay);
+}
+
+.astryx-mobile-nav-drawer {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  inline-size: 100vw;
+  max-inline-size: 20rem;
+  background-color: var(--color-background-surface);
+  overflow: hidden;
+  transform: translateX(-100%);
+  transition: transform var(--duration-medium) var(--ease-standard);
+}
+
+.astryx-mobile-nav.start .astryx-mobile-nav-drawer {
+  inset-inline-start: 0;
+  border-inline-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-mobile-nav.end .astryx-mobile-nav-drawer {
+  inset-inline-end: 0;
+  border-inline-start: var(--border-width) solid var(--color-border);
+  transform: translateX(100%);
+}
+
+.astryx-mobile-nav[open] .astryx-mobile-nav-drawer {
+  transform: translateX(0);
+}
+
+.astryx-mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  block-size: var(--spacing-12);
+  padding-inline: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-mobile-nav-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: var(--spacing-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-mobile-nav-drawer {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------- Outline */
+/* Page-contents rail. The hairline runs the full list; the active entry paints
+   its own segment of it, so the marker needs neither JS nor measurement. */
+.astryx-outline {
+  position: relative;
+  display: flex;
+  inline-size: 100%;
+  padding-inline-start: 2px;
+}
+
+.astryx-outline::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-border);
+  pointer-events: none;
+}
+
+.astryx-outline > ul,
+.astryx-outline-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  flex: 1;
+  min-inline-size: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.astryx-outline-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding-block: var(--spacing-2);
+  padding-inline-start: var(--spacing-3);
+  padding-inline-end: var(--spacing-2);
+  border-radius: var(--radius-element);
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-outline.compact .astryx-outline-item {
+  padding-block: var(--spacing-1);
+}
+
+/* Depth is expressed as indent alone — a heading three levels down is still a
+   link of the same size, only further from the rail. */
+.astryx-outline-item.level-1 { padding-inline-start: var(--spacing-3); }
+.astryx-outline-item.level-2 { padding-inline-start: var(--spacing-7); }
+.astryx-outline-item.level-3 { padding-inline-start: var(--spacing-11); }
+.astryx-outline-item.level-4 { padding-inline-start: var(--spacing-12); }
+
+.astryx-outline-item > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .astryx-outline-item:hover {
+    background-color: var(--color-overlay-hover);
+    color: var(--color-text-primary);
+  }
+}
+
+.astryx-outline-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-outline-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-outline-item.active,
+.astryx-outline-item[aria-current='true'] {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* The active segment of the rail. Skipped when the markup ships a real
+   .astryx-outline-indicator, which slides between entries instead. */
+.astryx-outline:not(:has(.astryx-outline-indicator)) :is(.astryx-outline-item.active, .astryx-outline-item[aria-current='true'])::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: calc(-1 * var(--spacing-0-5));
+  inline-size: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-icon-primary);
+}
+
+/* Anchor positioning lets one indicator travel the rail: the active item
+   names itself as the anchor and the bar takes its top and height. Browsers
+   without it fall back to the per-item segment above. */
+.astryx-outline-indicator {
+  position: absolute;
+  inset-inline-start: 0;
+  inline-size: 2px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-icon-primary);
+  pointer-events: none;
+  z-index: 1;
+  position-anchor: --outline-active;
+  inset-block-start: anchor(--outline-active start, 0px);
+  block-size: anchor-size(--outline-active block, 0px);
+  transition-property: inset-block-start, block-size;
+  transition-duration: var(--duration-fast-min);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-outline-item.active,
+.astryx-outline-item[aria-current='true'] {
+  anchor-name: --outline-active;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-outline-indicator {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------ Pagination */
+.astryx-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+}
+
+.astryx-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+/* Page numbers are ghost buttons, so the current page borrows the button's
+   own resting tint and adds the weight rather than inventing a third look. */
+.astryx-pagination .astryx-button[aria-current='page'] {
+  background-color: var(--color-neutral);
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+  color: var(--color-text-secondary);
+  font-size: var(--text-label-size);
+  user-select: none;
+}
+
+.astryx-pagination.sm .astryx-pagination-ellipsis {
+  min-inline-size: var(--size-element-sm);
+  block-size: var(--size-element-sm);
+  font-size: var(--text-supporting-size);
+}
+
+.astryx-pagination-info {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-pagination-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.astryx-pagination-dot {
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  padding: 0;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-full);
+  background-color: var(--color-neutral);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-pagination-dot.sm {
+  inline-size: var(--spacing-1-5);
+  block-size: var(--spacing-1-5);
+}
+
+.astryx-pagination-dot:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* A dot has no room for a weight or a border, so the active one grows as well
+   as changing colour — size is the cue that survives a flat palette. */
+.astryx-pagination-dot.active,
+.astryx-pagination-dot[aria-current='page'] {
+  background-color: var(--color-accent);
+  transform: scale(1.5);
+}
+
+.astryx-pagination-dot[disabled],
+.astryx-pagination-dot[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+  .astryx-pagination {
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+}
+
+/* --------------------------------------------------------------- Toolbar */
+.astryx-toolbar {
+  --toolbar-gap: var(--spacing-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--toolbar-gap);
+  min-block-size: var(--size-element-sm);
+}
+
+.astryx-toolbar.centered {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.astryx-toolbar.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.astryx-toolbar.sm { --toolbar-gap: var(--spacing-1); }
+.astryx-toolbar.lg { --toolbar-gap: var(--spacing-3); }
+
+.astryx-toolbar-start,
+.astryx-toolbar-center,
+.astryx-toolbar-end {
+  display: flex;
+  align-items: center;
+  gap: var(--toolbar-gap);
+}
+
+/* The centre slot is the one that must be allowed to shrink: it usually holds
+   a title, and the two action groups either side have fixed-width contents. */
+.astryx-toolbar-center {
+  justify-content: center;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
+.astryx-toolbar-end {
+  justify-content: flex-end;
+  margin-inline-start: auto;
+}
+
+.astryx-toolbar.divided {
+  --_tab-indicator-bottom: calc(-1 * (var(--spacing-2) + var(--border-width)));
+  padding-block-end: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+/* ---------------------------------------------------------------- motion */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-nav-item,
+  .astryx-tab,
+  .astryx-tab-menu,
+  .astryx-tab-indicator,
+  .astryx-tab-menu-item,
+  .astryx-segmented-control-item,
+  .astryx-top-nav-item,
+  .astryx-top-nav-menu,
+  .astryx-top-nav-mega-menu,
+  .astryx-top-nav-mega-menu-item,
+  .astryx-outline-item,
+  .astryx-pagination-dot,
+  .astryx-top-nav-menu > svg:last-child,
+  .astryx-top-nav-mega-menu > svg:last-child,
+  .astryx-side-nav-item-group > details > summary > svg:last-child {
+    transition: none;
+  }
+}

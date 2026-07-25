@@ -1,0 +1,1072 @@
+/*
+ * Forms — Field, FieldStatus, TextInput, TextArea, Selector, NumberInput,
+ * DateInput, FileInput, CheckboxInput, RadioList, Switch, Slider, InputGroup,
+ * FormLayout.
+ *
+ * Upstream every input is a wrapper <div> that owns the border and a
+ * borderless <input> inside it. TYPO3 emits the bare control instead — one
+ * <input>, <select> or <textarea> with nothing around it — so the shell recipe
+ * is written once for both: the wrapper classes and the real elements inside a
+ * field share the same selector list, and a second rule strips the border off
+ * an element that turns out to be nested inside a wrapper after all.
+ *
+ * The recipe itself is transcribed from upstream's inputStyles.stylex.ts:
+ * a hairline emphasized border, an inset 2px ring on hover, and on focus the
+ * accent border plus an accent-muted inset ring. --_field-radius is the
+ * documented knob a theme reaches for, so every shell reads it.
+ */
+
+/* ----------------------------------------------------------- FormLayout */
+.astryx-form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* Fields side by side, each taking an equal share. */
+.astryx-form-layout.horizontal {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+}
+
+/* Labels in their own column. Below the phone breakpoint the two columns stop
+   being readable, so the grid collapses back to the stacked default. */
+.astryx-form-layout.labels-inline {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-3) var(--spacing-4);
+  align-items: start;
+}
+
+@media (max-width: 480px) {
+  .astryx-form-layout.labels-inline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+}
+
+/* ---------------------------------------------------------------- Field */
+.astryx-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+/* The label column of a horizontal field. The padding matches the input's top
+   border plus its top padding so the two baselines line up — and it stays a
+   top alignment, not a centring, so a label beside a textarea does not drift
+   into the middle of the box. */
+.astryx-field.horizontal {
+  display: contents;
+}
+
+.astryx-field.horizontal > .astryx-field-label {
+  padding-block-start: calc(var(--border-width) + var(--spacing-1));
+}
+
+.astryx-field-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.astryx-field-label:has(+ :disabled),
+.astryx-field-label.disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+/* "(optional)" / "(required)" sits inside the label but must not compete with
+   it, so it drops to supporting size and normal weight. */
+.astryx-field-label > .optional,
+.astryx-field-label > .required {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-field-description {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* ----------------------------------------------------------- FieldStatus */
+/* Detached is the default: a validation message rendered by TYPO3 lands after
+   the input as its own element, not tucked under its bottom edge. */
+.astryx-field-status {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  margin-block-start: var(--spacing-1);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-secondary);
+}
+
+/* Attached: the message slides up under the input and completes its shape, so
+   the negative margin has to swallow the field gap and the padding has to give
+   it back below the seam. */
+.astryx-field-status.attached {
+  margin-block-start: calc(-1 * var(--spacing-1-5));
+  padding-block-start: calc(var(--spacing-1-5) + var(--spacing-2));
+  padding-block-end: var(--spacing-2);
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+  border-end-start-radius: var(--radius-element);
+  border-end-end-radius: var(--radius-element);
+}
+
+.astryx-field-status.warning {
+  background-color: var(--color-warning-muted);
+  color: var(--color-text-yellow);
+}
+
+.astryx-field-status.error {
+  background-color: var(--color-error-muted);
+  color: var(--color-text-red);
+}
+
+.astryx-field-status.success {
+  background-color: var(--color-success-muted);
+  color: var(--color-text-green);
+}
+
+/* ---------------------------------------------------- the input shell */
+.astryx-text-input,
+.astryx-textarea,
+.astryx-selector,
+.astryx-number-input,
+.astryx-date-input,
+.astryx-field :where(select, textarea),
+.astryx-field :where(input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='submit'], [type='button'], [type='image'], [type='hidden'])) {
+  --_field-radius: var(--radius-element);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  inline-size: 100%;
+  block-size: var(--size-element-md);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--_field-radius);
+  background-color: var(--color-background-surface);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+  box-shadow: none;
+  outline: none;
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* Row layout belongs to the wrapper form only. The :has() guard is what tells
+   the two forms apart: a wrapper contains a control, a bare control does not,
+   and giving an <input> display:flex disturbs how it lays out its own value. */
+.astryx-text-input:has(> :where(input, select, textarea)),
+.astryx-textarea:has(> :where(input, select, textarea)),
+.astryx-selector:has(> :where(input, select, textarea, button)),
+.astryx-number-input:has(> :where(input, select, textarea)),
+.astryx-date-input:has(> :where(input, select, textarea)) {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* iOS zooms the page when a focused control is under 16px, which throws the
+   layout away for the rest of the session. Only raise it on coarse pointers so
+   the desktop type scale is untouched. */
+@media (pointer: coarse) {
+  .astryx-text-input,
+  .astryx-textarea,
+  .astryx-selector,
+  .astryx-number-input,
+  .astryx-date-input,
+  .astryx-field :where(select, textarea),
+  .astryx-field :where(input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='submit'], [type='button'], [type='image'], [type='hidden'])) {
+    font-size: max(1rem, var(--text-body-size));
+  }
+}
+
+@media (hover: hover) {
+  .astryx-text-input:hover:not(:focus-within),
+  .astryx-textarea:hover:not(:focus-within),
+  .astryx-selector:hover:not(:focus-within),
+  .astryx-number-input:hover:not(:focus-within),
+  .astryx-date-input:hover:not(:focus-within),
+  .astryx-field :where(select, textarea):hover:not(:focus),
+  .astryx-field :where(input):hover:not(:focus) {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--color-border-emphasized) 30%, transparent);
+  }
+}
+
+/* The focus treatment is a border colour change plus an inset ring rather than
+   an outline, because these controls sit flush against each other in an
+   InputGroup where an outline would overlap the neighbour. */
+.astryx-text-input:focus-within,
+.astryx-textarea:focus-within,
+.astryx-selector:focus-within,
+.astryx-number-input:focus-within,
+.astryx-date-input:focus-within,
+.astryx-field :where(select, textarea):focus,
+.astryx-field :where(input):focus,
+.astryx-field :where(select, textarea):focus-visible,
+.astryx-field :where(input):focus-visible {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 2px var(--color-accent-muted);
+  outline: none;
+}
+
+/* Nested case: the element is inside a wrapper that already drew the shell, so
+   it becomes the plain text layer again. Must follow the shell rule. */
+:where(.astryx-text-input, .astryx-textarea, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-input-group, .astryx-file-input) :where(input, select, textarea) {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: auto;
+  padding: 0;
+  border-width: 0;
+  border-style: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.astryx-field :where(input, select, textarea)::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 1;
+}
+
+.astryx-field :where(input, select, textarea):disabled,
+.astryx-text-input.disabled,
+.astryx-textarea.disabled,
+.astryx-selector.disabled,
+.astryx-number-input.disabled,
+.astryx-date-input.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: var(--color-border-emphasized);
+}
+
+/* Sizes. A textarea is excluded — its height is its row count. */
+.astryx-text-input.sm,
+.astryx-selector.sm,
+.astryx-number-input.sm,
+.astryx-date-input.sm,
+.astryx-input-group.sm { block-size: var(--size-element-sm); }
+
+.astryx-text-input.md,
+.astryx-selector.md,
+.astryx-number-input.md,
+.astryx-date-input.md,
+.astryx-input-group.md { block-size: var(--size-element-md); }
+
+.astryx-text-input.lg,
+.astryx-selector.lg,
+.astryx-number-input.lg,
+.astryx-date-input.lg,
+.astryx-input-group.lg { block-size: var(--size-element-lg); }
+
+/* ------------------------------------------------------ status variants */
+/* The border carries the status; the hover ring switches to the matching inset
+   shadow token so the two never read as different states. */
+.astryx-text-input.warning,
+.astryx-textarea.warning,
+.astryx-selector.warning,
+.astryx-number-input.warning,
+.astryx-date-input.warning,
+.astryx-file-input.warning {
+  border-color: var(--color-warning);
+}
+
+.astryx-text-input.error,
+.astryx-textarea.error,
+.astryx-selector.error,
+.astryx-number-input.error,
+.astryx-date-input.error,
+.astryx-file-input.error,
+.astryx-field :where(input, select, textarea)[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.astryx-text-input.success,
+.astryx-textarea.success,
+.astryx-selector.success,
+.astryx-number-input.success,
+.astryx-date-input.success,
+.astryx-file-input.success {
+  border-color: var(--color-success);
+}
+
+/* A status border must survive focus, or the field loses its meaning the
+   moment the user clicks into it to fix the problem. */
+.astryx-text-input.warning:focus-within,
+.astryx-textarea.warning:focus-within,
+.astryx-selector.warning:focus-within,
+.astryx-number-input.warning:focus-within,
+.astryx-date-input.warning:focus-within { border-color: var(--color-warning); }
+
+.astryx-text-input.error:focus-within,
+.astryx-textarea.error:focus-within,
+.astryx-selector.error:focus-within,
+.astryx-number-input.error:focus-within,
+.astryx-date-input.error:focus-within,
+.astryx-field :where(input, select, textarea)[aria-invalid='true']:focus { border-color: var(--color-error); }
+
+.astryx-text-input.success:focus-within,
+.astryx-textarea.success:focus-within,
+.astryx-selector.success:focus-within,
+.astryx-number-input.success:focus-within,
+.astryx-date-input.success:focus-within { border-color: var(--color-success); }
+
+@media (hover: hover) {
+  .astryx-text-input.warning:hover:not(:focus-within),
+  .astryx-textarea.warning:hover:not(:focus-within) {
+    box-shadow: var(--shadow-inset-warning);
+  }
+
+  .astryx-text-input.error:hover:not(:focus-within),
+  .astryx-textarea.error:hover:not(:focus-within) {
+    box-shadow: var(--shadow-inset-error);
+  }
+
+  .astryx-text-input.success:hover:not(:focus-within),
+  .astryx-textarea.success:hover:not(:focus-within) {
+    box-shadow: var(--shadow-inset-success);
+  }
+}
+
+/* -------------------------------------------------------------- TextArea */
+.astryx-textarea,
+.astryx-field textarea {
+  align-items: flex-start;
+  block-size: auto;
+  min-block-size: calc(var(--size-element-lg) * 2);
+  padding-block: var(--spacing-1);
+  resize: vertical;
+}
+
+.astryx-textarea.lg,
+.astryx-field textarea.lg {
+  padding-block: var(--spacing-2);
+}
+
+/* Character counter under the box. */
+.astryx-textarea-counter {
+  display: flex;
+  justify-content: flex-end;
+  margin-block-start: var(--spacing-1);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  color: var(--color-text-secondary);
+}
+
+.astryx-textarea-counter.error {
+  color: var(--color-error);
+}
+
+/* -------------------------------------------------------------- Selector */
+/* A native <select> cannot carry a pseudo-element for the chevron, so it is
+   drawn out of two gradients painting in currentColor — no image, no colour
+   value. The inline padding reserves the corner it occupies. */
+.astryx-field select,
+.astryx-selector > select {
+  appearance: none;
+  cursor: pointer;
+  padding-inline-end: var(--spacing-8);
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    right var(--spacing-4) center,
+    right calc(var(--spacing-4) - 5px) center;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.astryx-field select[multiple] {
+  block-size: auto;
+  padding-inline-end: var(--spacing-2);
+  background-image: none;
+}
+
+/* The wrapper form: a button trigger plus a listbox. */
+.astryx-selector {
+  justify-content: space-between;
+  padding-inline: var(--spacing-3);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  cursor: pointer;
+}
+
+.astryx-selector-option {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  inline-size: 100%;
+  padding: var(--spacing-2);
+  border: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  color: var(--color-text-primary);
+  text-align: start;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .astryx-selector-option:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-selector-option[aria-selected='true'] {
+  font-weight: var(--font-weight-medium);
+}
+
+.astryx-selector-option[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ----------------------------------------------------------- NumberInput */
+/* The spinners are dropped: they are a 12px hit target that no theme can
+   restyle, and the field is already keyboard-steppable. */
+.astryx-number-input > input,
+.astryx-field input[type='number'] {
+  appearance: textfield;
+}
+
+.astryx-field input[type='number']::-webkit-outer-spin-button,
+.astryx-field input[type='number']::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.astryx-number-input-units {
+  flex-shrink: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+}
+
+/* ------------------------------------------------------------- DateInput */
+.astryx-date-input,
+.astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'], input[type='month'], input[type='week']) {
+  min-inline-size: 180px;
+}
+
+.astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'])::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+@media (hover: hover) {
+  .astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'])::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+}
+
+/* -------------------------------------------------------- CheckboxInput */
+.astryx-checkbox-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-checkbox-input-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.astryx-checkbox-input-description {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* The native control, styled where it is the only control there is. Painting
+   the tick would need a pseudo-element, which Firefox does not render on an
+   <input>; accent-color reaches the real tick in every engine instead and
+   still answers to the theme. */
+.astryx-field :where(input[type='checkbox'], input[type='radio']),
+.astryx-checkbox-input > :where(input[type='checkbox']),
+.astryx-radio-list-item > :where(input[type='radio']) {
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.astryx-field :where(input[type='checkbox'], input[type='radio']):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-field :where(input[type='checkbox'], input[type='radio']):disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Upstream anatomy: the real input is transparent and stacked over a drawn
+   box, so the native control must give up its own appearance here. It keeps no
+   inset values on purpose — an absolutely positioned flex child falls at its
+   static position, which is exactly where the drawn box sits. */
+.astryx-checkbox-input:has(.astryx-checkbox) > input[type='checkbox'],
+.astryx-radio-list-item:has(.astryx-radio) > input[type='radio'] {
+  position: absolute;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.astryx-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-background-surface);
+  color: var(--color-on-accent);
+  transition-property: background-color, border-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-checkbox.sm {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.astryx-checkbox > svg {
+  inline-size: var(--spacing-3);
+  block-size: var(--spacing-3);
+}
+
+.astryx-checkbox-input:has(input:checked) > .astryx-checkbox,
+.astryx-checkbox[aria-checked='true'] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+}
+
+.astryx-checkbox-input:has(input:focus-visible) > .astryx-checkbox {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-checkbox-input:has(input:disabled) > .astryx-checkbox {
+  opacity: 0.5;
+  border-color: var(--color-border);
+  background-color: var(--color-background-muted);
+}
+
+@media (hover: hover) {
+  .astryx-checkbox-input:hover > .astryx-checkbox {
+    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
+  }
+
+  .astryx-checkbox-input:hover:has(input:checked) > .astryx-checkbox {
+    border-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* ------------------------------------------------------------- RadioList */
+/* A fieldset carries the group's accessible name, so it is reset rather than
+   avoided — the browser border and inline padding would otherwise box the
+   options in a shape nothing else on the page has. */
+.astryx-radio-list,
+.astryx-field fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+
+.astryx-radio-list.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-5);
+}
+
+.astryx-field legend,
+.astryx-radio-list > legend {
+  padding: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.astryx-radio-list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  transition-property: background-color, border-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-radio.sm {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.astryx-radio-dot {
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-on-accent);
+}
+
+.astryx-radio-list-item:has(input:checked) .astryx-radio,
+.astryx-radio[aria-checked='true'] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+}
+
+.astryx-radio-list-item:has(input:focus-visible) .astryx-radio {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-radio-list-item:has(input:disabled) .astryx-radio {
+  opacity: 0.5;
+  border-color: var(--color-border);
+  background-color: var(--color-background-muted);
+}
+
+@media (hover: hover) {
+  .astryx-radio-list-item:hover .astryx-radio {
+    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
+  }
+
+  .astryx-radio-list-item:hover:has(input:checked) .astryx-radio {
+    border-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* ---------------------------------------------------------------- Switch */
+/* Fixed geometry, transcribed: 40x24 track, 4px inset, a 16px thumb that grows
+   to 20px and travels 14px when on. The growth is what reads as a press. */
+.astryx-switch-field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-switch-field.spread {
+  justify-content: space-between;
+  inline-size: 100%;
+}
+
+.astryx-switch-field.label-start > .astryx-switch {
+  order: 2;
+}
+
+.astryx-switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: 40px;
+  block-size: 24px;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-gray);
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-switch-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  transform: translateX(0);
+  transition-property: transform, width, height;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-switch-field:has(input:checked) > .astryx-switch,
+.astryx-switch[aria-checked='true'] {
+  background-color: var(--color-accent);
+}
+
+.astryx-switch-field:has(input:checked) .astryx-switch-thumb,
+.astryx-switch[aria-checked='true'] .astryx-switch-thumb {
+  inline-size: 20px;
+  block-size: 20px;
+  transform: translateX(14px);
+}
+
+.astryx-switch-field:has(input:focus-visible) > .astryx-switch {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-switch-field:has(input:disabled) > .astryx-switch {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* The input stays in the tree for the keyboard and the form payload, but the
+   track is what is seen. It is clipped rather than stacked over the track: the
+   track is not its parent, so there is no box to stack it onto — the wrapping
+   <label> forwards the click and :has() above forwards the focus ring. */
+.astryx-switch-field > input[type='checkbox'] {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (hover: hover) {
+  .astryx-switch-field:hover > .astryx-switch {
+    background-color: color-mix(in srgb, var(--color-background-gray), var(--color-tint-hover) 5%);
+  }
+
+  .astryx-switch-field:hover:has(input:checked) > .astryx-switch {
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* ---------------------------------------------------------------- Slider */
+.astryx-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-slider.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Track and thumb for the drawn form. */
+.astryx-slider-track {
+  position: relative;
+  flex-grow: 1;
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+}
+
+.astryx-slider-thumb {
+  position: absolute;
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-slider-thumb:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Native range. The vendor track/thumb pseudo-elements are the only reachable
+   parts, and they must be declared in separate rules — a browser drops the
+   whole block when it meets a selector it does not know. */
+.astryx-slider > input[type='range'],
+.astryx-field input[type='range'] {
+  appearance: none;
+  flex-grow: 1;
+  inline-size: 100%;
+  block-size: 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.astryx-field input[type='range']::-webkit-slider-runnable-track {
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+}
+
+.astryx-field input[type='range']::-moz-range-track {
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+}
+
+.astryx-field input[type='range']::-moz-range-progress {
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-field input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 20px;
+  block-size: 20px;
+  margin-block-start: -8px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-field input[type='range']::-moz-range-thumb {
+  inline-size: 20px;
+  block-size: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-field input[type='range']:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-field input[type='range']:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.astryx-slider-value {
+  flex-shrink: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------ InputGroup */
+/* Segments share one border: each is pulled back by exactly one border width so
+   the seam is a single line, and only the outer corners keep their radius. */
+.astryx-input-group {
+  display: inline-flex;
+  align-items: stretch;
+  inline-size: 100%;
+  background-color: transparent;
+}
+
+.astryx-input-group.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.astryx-input-group > * {
+  flex: 1;
+  min-inline-size: 0;
+  block-size: 100%;
+  margin-inline-start: calc(-1 * var(--border-width));
+  border-radius: 0;
+}
+
+.astryx-input-group > :first-child {
+  margin-inline-start: 0;
+  border-start-start-radius: var(--radius-element);
+  border-end-start-radius: var(--radius-element);
+}
+
+.astryx-input-group > :last-child {
+  border-start-end-radius: var(--radius-element);
+  border-end-end-radius: var(--radius-element);
+}
+
+/* The focused segment has to come forward or its ring is clipped by whichever
+   neighbour happens to be painted later. */
+.astryx-input-group > :focus-within {
+  z-index: 1;
+}
+
+.astryx-input-group-text {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  padding-inline: var(--spacing-2);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  background-color: var(--color-background-muted);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------------------- FileInput */
+.astryx-file-input {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-6);
+  padding-inline: var(--spacing-4);
+  border: var(--border-width) dashed var(--color-border-emphasized);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-surface);
+  color: var(--color-text-secondary);
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  transition-property: border-color, box-shadow, background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-file-input:focus-within {
+  border-color: var(--color-accent);
+}
+
+/* Drag-over: the tint is what confirms the drop target, the dashed border alone
+   is too quiet to notice mid-drag. */
+.astryx-file-input.active {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+}
+
+.astryx-file-input.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (hover: hover) {
+  .astryx-file-input:hover:not(:focus-within) {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
+}
+
+/* Compact mode is a one-line control, so it drops the dashed dropzone shape and
+   takes the ordinary field shell instead. */
+.astryx-file-input.compact {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-2);
+  block-size: var(--size-element-md);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border-style: solid;
+  text-align: start;
+}
+
+.astryx-file-input-filename {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text-primary);
+}
+
+/* The bare <input type="file">: the browser's own button is the only part that
+   can be reached, so it is restyled to match a secondary button. */
+.astryx-field input[type='file'] {
+  inline-size: 100%;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+.astryx-field input[type='file']::file-selector-button {
+  margin-inline-end: var(--spacing-3);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: var(--color-neutral);
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.astryx-field input[type='file']:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-text-input,
+  .astryx-textarea,
+  .astryx-selector,
+  .astryx-number-input,
+  .astryx-date-input,
+  .astryx-file-input,
+  .astryx-checkbox,
+  .astryx-radio,
+  .astryx-switch,
+  .astryx-switch-thumb,
+  .astryx-slider-thumb,
+  .astryx-field :where(input, select, textarea) {
+    transition-duration: 0s;
+  }
+}

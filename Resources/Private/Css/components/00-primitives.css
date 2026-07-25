@@ -1,0 +1,210 @@
+/*
+ * Layout primitives — Section, Layout, Stack, Grid, Center, AspectRatio.
+ *
+ * These are the pieces every content element composes with, so they own the
+ * page rhythm: a Section is one vertical band, a Layout caps the reading width
+ * inside it, and the stack/cluster/grid helpers arrange what is in between.
+ * Nothing here sets a colour that is not a token.
+ */
+
+/* --------------------------------------------------------------- Section */
+/* One full-width band. --section-gap is the knob an element reaches for when
+   it needs more or less air than the page default. */
+.astryx-section {
+  --section-gap: var(--grande-band);
+  display: block;
+  padding-block: var(--section-gap);
+  background-color: var(--color-background-body);
+  color: var(--color-text-primary);
+}
+
+.astryx-section.surface {
+  background-color: var(--color-background-surface);
+}
+
+.astryx-section.muted {
+  background-color: var(--color-background-muted);
+}
+
+.astryx-section.accent {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.astryx-section.tight {
+  --section-gap: var(--grande-band-tight);
+}
+
+.astryx-section.flush {
+  --section-gap: 0;
+}
+
+/* Consecutive bands of the same tone would read as one; collapse the seam. */
+.astryx-section + .astryx-section.same-tone {
+  padding-block-start: 0;
+}
+
+/* ---------------------------------------------------------------- Layout */
+/* Horizontal container. Width comes from the size tokens so every element on
+   a page lines up on the same gutters. */
+.astryx-layout {
+  --layout-max: var(--grande-container);
+  width: 100%;
+  max-width: var(--layout-max);
+  margin-inline: auto;
+  padding-inline: var(--spacing-4);
+}
+
+.astryx-layout.sm {
+  --layout-max: 40rem;
+}
+
+.astryx-layout.md {
+  --layout-max: 56rem;
+}
+
+.astryx-layout.lg {
+  --layout-max: 72rem;
+}
+
+.astryx-layout.xl {
+  --layout-max: 88rem;
+}
+
+.astryx-layout.full {
+  --layout-max: none;
+}
+
+/* Prose measure: long-form text stops being readable past ~70 characters. */
+.astryx-layout.prose {
+  --layout-max: 70ch;
+}
+
+@media (min-width: 768px) {
+  .astryx-layout {
+    padding-inline: var(--spacing-6);
+  }
+}
+
+/* ----------------------------------------------------------------- Stack */
+.astryx-stack {
+  --stack-gap: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap);
+}
+
+.astryx-stack.horizontal {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.astryx-stack.gap-1 { --stack-gap: var(--spacing-1); }
+.astryx-stack.gap-2 { --stack-gap: var(--spacing-2); }
+.astryx-stack.gap-3 { --stack-gap: var(--spacing-3); }
+.astryx-stack.gap-6 { --stack-gap: var(--spacing-6); }
+.astryx-stack.gap-8 { --stack-gap: var(--spacing-8); }
+.astryx-stack.gap-12 { --stack-gap: var(--spacing-12); }
+
+.astryx-stack.align-start { align-items: flex-start; }
+.astryx-stack.align-center { align-items: center; }
+.astryx-stack.align-end { align-items: flex-end; }
+.astryx-stack.justify-between { justify-content: space-between; }
+.astryx-stack.justify-center { justify-content: center; }
+
+/* ------------------------------------------------------------------ Grid */
+/* auto-fit + minmax rather than breakpoints: a card grid should reflow on the
+   space it has, not on the width of the viewport it happens to sit in. */
+.astryx-grid {
+  --grid-min: 16rem;
+  --grid-gap: var(--spacing-6);
+  display: grid;
+  gap: var(--grid-gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), 1fr));
+}
+
+.astryx-grid.cols-2 { --grid-min: 22rem; }
+.astryx-grid.cols-3 { --grid-min: 16rem; }
+.astryx-grid.cols-4 { --grid-min: 12rem; }
+
+/* Fixed column counts, for layouts whose meaning depends on the count
+   (a three-step process must not reflow into two). */
+.astryx-grid.fixed-2 { grid-template-columns: repeat(2, 1fr); }
+.astryx-grid.fixed-3 { grid-template-columns: repeat(3, 1fr); }
+.astryx-grid.fixed-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 640px) {
+  .astryx-grid.fixed-2,
+  .astryx-grid.fixed-3,
+  .astryx-grid.fixed-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Split: content beside media, the classic two-column band. */
+.astryx-split {
+  display: grid;
+  gap: var(--spacing-8);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .astryx-split {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-12);
+  }
+
+  .astryx-split.media-first > :first-child {
+    order: 2;
+  }
+}
+
+/* ---------------------------------------------------------------- Center */
+.astryx-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.astryx-center.text {
+  display: block;
+  text-align: center;
+  margin-inline: auto;
+}
+
+/* ----------------------------------------------------------- AspectRatio */
+.astryx-aspect-ratio {
+  --aspect: 16 / 9;
+  position: relative;
+  aspect-ratio: var(--aspect);
+  overflow: hidden;
+  border-radius: var(--radius-element);
+}
+
+.astryx-aspect-ratio.square { --aspect: 1 / 1; }
+.astryx-aspect-ratio.portrait { --aspect: 3 / 4; }
+.astryx-aspect-ratio.wide { --aspect: 21 / 9; }
+
+.astryx-aspect-ratio > img,
+.astryx-aspect-ratio > video,
+.astryx-aspect-ratio > iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --------------------------------------------------------- VisuallyHidden */
+.astryx-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}

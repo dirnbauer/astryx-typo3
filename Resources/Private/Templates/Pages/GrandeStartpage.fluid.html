@@ -1,0 +1,20 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Pages/Default"/>
+
+<f:comment>
+    A startpage has no masthead: its first content element carries the visual
+    headline. The page title stays in the document as a screen-reader-only h1
+    so the page still has exactly one, and it is the right one.
+</f:comment>
+
+<f:section name="Main">
+    <h1 class="astryx-visually-hidden">{page.pageRecord.title}</h1>
+    <!--TYPO3SEARCH_begin-->
+    <f:if condition="{content.main}">
+        <f:render.contentArea contentArea="{content.main}"/>
+    </f:if>
+    <!--TYPO3SEARCH_end-->
+</f:section>
+
+</html>

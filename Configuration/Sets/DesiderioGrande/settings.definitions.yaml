@@ -1,0 +1,91 @@
+categories:
+  desiderioGrande:
+    label: 'Desiderio Grande'
+    description: 'The Astryx design system, server-rendered: theme selection, brand and page chrome.'
+
+  desiderioGrande.theme:
+    label: 'Theme'
+    parent: desiderioGrande
+    description: 'Which of the seven Astryx themes a site paints with, and how it treats dark mode.'
+
+  desiderioGrande.brand:
+    label: 'Brand'
+    parent: desiderioGrande
+    description: 'Wordmark and tagline shown in the header and footer.'
+
+  desiderioGrande.chrome:
+    label: 'Page chrome'
+    parent: desiderioGrande
+    description: 'Header, footer and legal navigation.'
+
+settings:
+  # ------------------------------------------------------------------ Theme
+  desiderioGrande.theme.default:
+    label: 'Astryx theme'
+    description: 'Site-wide theme. Individual pages can override it (and pass it down their subtree) through the "Astryx theme" field in the page properties. All seven ship in one stylesheet as custom-property overrides, so switching is a repaint — no rebuild, no content change.'
+    category: desiderioGrande.theme
+    type: string
+    enum:
+      neutral: 'Neutral — grayscale spine'
+      butter: 'Butter — warm cream'
+      chocolate: 'Chocolate — deep brown'
+      matcha: 'Matcha — green'
+      stone: 'Stone — cool grey'
+      gothic: 'Gothic — high contrast'
+      y2k: 'Y2K — saturated retro'
+    default: neutral
+
+  desiderioGrande.theme.colorScheme:
+    label: 'Default colour scheme'
+    description: 'What a first-time visitor sees. "system" follows the operating system setting. Every theme token carries a light and a dark value, so the scheme switch never changes which theme is active.'
+    category: desiderioGrande.theme
+    type: string
+    enum:
+      system: 'Follow the operating system'
+      light: 'Light'
+      dark: 'Dark'
+    default: system
+
+  desiderioGrande.theme.schemeToggle:
+    label: 'Show the colour scheme toggle'
+    description: 'Renders the light/dark switch in the page header.'
+    category: desiderioGrande.theme
+    type: bool
+    default: true
+
+  # ------------------------------------------------------------------ Brand
+  desiderioGrande.brand.wordmark:
+    label: 'Wordmark'
+    description: 'Text next to the brand mark in the header. Falls back to the site title when empty.'
+    category: desiderioGrande.brand
+    type: string
+    default: ''
+
+  desiderioGrande.brand.tagline:
+    label: 'Tagline'
+    description: 'One line under the wordmark in the footer.'
+    category: desiderioGrande.brand
+    type: string
+    default: ''
+
+  # ----------------------------------------------------------------- Chrome
+  desiderioGrande.header.breadcrumb:
+    label: 'Show breadcrumb'
+    description: 'Renders the rootline trail above the page content. Suppressed on the site root and whenever the trail has a single item.'
+    category: desiderioGrande.chrome
+    type: bool
+    default: true
+
+  desiderioGrande.footer.legalPageIds:
+    label: 'Legal page ids'
+    description: 'Comma-separated page uids listed in the footer''s legal row, e.g. imprint, privacy and accessibility.'
+    category: desiderioGrande.chrome
+    type: string
+    default: ''
+
+  desiderioGrande.footer.copyrightText:
+    label: 'Copyright line'
+    description: 'Footer copyright text. The current year is prepended automatically.'
+    category: desiderioGrande.chrome
+    type: string
+    default: ''

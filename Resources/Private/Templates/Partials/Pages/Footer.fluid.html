@@ -1,0 +1,76 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:variable name="wordmark" value="{site.configuration.settings.desiderioGrande.brand.wordmark}"/>
+<f:if condition="!{wordmark}">
+    <f:variable name="wordmark" value="{site.configuration.websiteTitle}"/>
+</f:if>
+
+<footer class="grande-footer">
+    <div class="astryx-layout">
+
+        <div class="grande-footer__top">
+            <div class="grande-footer__brand">
+                <a href="{f:uri.page(pageUid: site.rootPageId)}" class="grande-footer__wordmark">
+                    <svg class="grande-footer__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                        <path d="M12 2 3 20h4l5-10 5 10h4L12 2Z" fill="currentColor"/>
+                        <circle cx="12" cy="15" r="2.5" fill="currentColor" opacity=".45"/>
+                    </svg>
+                    <span>{wordmark}</span>
+                </a>
+                <f:if condition="{site.configuration.settings.desiderioGrande.brand.tagline}">
+                    <p class="grande-footer__tagline">{site.configuration.settings.desiderioGrande.brand.tagline}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{languageNavigation}">
+                <nav aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.languageNavigation', default: 'Language')}">
+                    <ul class="grande-footer__list">
+                        <f:for each="{languageNavigation}" as="language">
+                            <f:if condition="{language.available}">
+                                <li>
+                                    <f:if condition="{language.active}">
+                                        <f:then>
+                                            <span class="grande-language__current" lang="{language.twoLetterIsoCode}">{language.navigationTitle}</span>
+                                        </f:then>
+                                        <f:else>
+                                            <a href="{language.link}" class="grande-footer__link" lang="{language.twoLetterIsoCode}" hreflang="{language.hreflang}">{language.navigationTitle}</a>
+                                        </f:else>
+                                    </f:if>
+                                </li>
+                            </f:if>
+                        </f:for>
+                    </ul>
+                </nav>
+            </f:if>
+        </div>
+
+        <div class="grande-footer__bottom">
+            <p class="grande-footer__copyright">
+                &copy; <f:format.date format="Y">now</f:format.date>
+                <f:if condition="{site.configuration.settings.desiderioGrande.footer.copyrightText}">
+                    <f:then>{site.configuration.settings.desiderioGrande.footer.copyrightText}</f:then>
+                    <f:else>{wordmark}</f:else>
+                </f:if>
+            </p>
+
+            <f:if condition="{legalMenu}">
+                <nav aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.legalNavigation', default: 'Legal')}">
+                    <ul class="grande-footer__list">
+                        <f:for each="{legalMenu}" as="item">
+                            <li>
+                                <a
+                                    href="{item.link}"
+                                    class="grande-footer__link"
+                                    aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
+                                >{item.title}</a>
+                            </li>
+                        </f:for>
+                    </ul>
+                </nav>
+            </f:if>
+        </div>
+
+    </div>
+</footer>
+
+</html>

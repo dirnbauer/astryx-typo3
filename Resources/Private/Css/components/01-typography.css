@@ -1,0 +1,189 @@
+/*
+ * Text and Heading.
+ *
+ * The type scale itself is a theme decision — every size, weight and leading
+ * below reads a --text-* token that the active theme sets (neutral computes
+ * them from base 14 / ratio 1.2, the others differ). Nothing here hard-codes a
+ * pixel size or a font family.
+ */
+
+/* -------------------------------------------------------------- Heading */
+.astryx-heading {
+  font-family: var(--font-family-heading);
+  color: var(--color-text-primary);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.astryx-heading.level-1 {
+  font-size: var(--text-heading-1-size);
+  font-weight: var(--text-heading-1-weight);
+  line-height: var(--text-heading-1-leading);
+}
+
+.astryx-heading.level-2 {
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--text-heading-2-weight);
+  line-height: var(--text-heading-2-leading);
+}
+
+.astryx-heading.level-3 {
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--text-heading-3-weight);
+  line-height: var(--text-heading-3-leading);
+}
+
+.astryx-heading.level-4 {
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--text-heading-4-weight);
+  line-height: var(--text-heading-4-leading);
+}
+
+.astryx-heading.level-5 {
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--text-heading-5-weight);
+  line-height: var(--text-heading-5-leading);
+}
+
+.astryx-heading.level-6 {
+  font-size: var(--text-heading-6-size);
+  font-weight: var(--text-heading-6-weight);
+  line-height: var(--text-heading-6-leading);
+}
+
+/* ----------------------------------------------------------------- Text */
+.astryx-text {
+  font-family: var(--font-family-body);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.astryx-text.body {
+  font-size: var(--text-body-size);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-leading);
+}
+
+.astryx-text.large {
+  font-size: var(--text-large-size);
+  font-weight: var(--text-large-weight);
+  line-height: var(--text-large-leading);
+}
+
+.astryx-text.label {
+  font-size: var(--text-label-size);
+  font-weight: var(--text-label-weight);
+  line-height: var(--text-label-leading);
+}
+
+.astryx-text.supporting {
+  font-size: var(--text-supporting-size);
+  font-weight: var(--text-supporting-weight);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-text.code {
+  font-family: var(--font-family-code);
+  font-size: var(--text-code-size);
+  font-weight: var(--text-code-weight);
+  line-height: var(--text-code-leading);
+}
+
+/* Display sizes carry the message on their own — a price, a metric, a count —
+   so they inherit the heading family and get the tightest leading. */
+.astryx-text.display-1 {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-1-size);
+  font-weight: var(--text-display-1-weight);
+  line-height: var(--text-display-1-leading);
+}
+
+.astryx-text.display-2 {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-2-size);
+  font-weight: var(--text-display-2-weight);
+  line-height: var(--text-display-2-leading);
+}
+
+.astryx-text.display-3 {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-3-size);
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+}
+
+/* Tone modifiers */
+.astryx-text.secondary { color: var(--color-text-secondary); }
+.astryx-text.disabled { color: var(--color-text-disabled); }
+.astryx-text.accent { color: var(--color-text-accent); }
+.astryx-text.success { color: var(--color-success); }
+.astryx-text.warning { color: var(--color-warning); }
+.astryx-text.error { color: var(--color-error); }
+
+/* An eyebrow labels the band it sits above; uppercase needs the extra
+   tracking to stay readable. */
+.astryx-eyebrow {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-supporting-leading);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-accent);
+  margin: 0;
+}
+
+/* --------------------------------------------------------- prose blocks */
+/* Rich text coming out of the editor: the element wraps it, and these rules
+   give it rhythm without the element having to style every tag. */
+.astryx-prose > * + * {
+  margin-block-start: var(--spacing-4);
+}
+
+.astryx-prose :where(p, ul, ol) {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-prose :where(ul, ol) {
+  padding-inline-start: var(--spacing-6);
+}
+
+.astryx-prose :where(li) + :where(li) {
+  margin-block-start: var(--spacing-2);
+}
+
+.astryx-prose :where(a) {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.astryx-prose :where(strong) {
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-prose :where(h2, h3, h4) {
+  margin-block-start: var(--spacing-8);
+}
+
+/* Blockquote */
+.astryx-blockquote {
+  margin: 0;
+  padding-inline-start: var(--spacing-5);
+  border-inline-start: var(--border-width) solid var(--color-border-accent, var(--color-accent));
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-blockquote > footer,
+.astryx-citation {
+  margin-block-start: var(--spacing-3);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  font-style: normal;
+}

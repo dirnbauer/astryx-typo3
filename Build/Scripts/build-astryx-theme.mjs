@@ -1,0 +1,167 @@
+#!/usr/bin/env node
+// Build Resources/Public/Css/astryx-theme.css from the vendored Astryx token
+// payload (Build/astryx/tokens.json).
+//
+// The payload is not hand-written: it is what Astryx's own theme compiler
+// (generateThemeRulesSplit) produced for each of the seven shipped themes,
+// plus the base token defaults from packages/core/src/theme/tokens.stylex.ts.
+// See Build/astryx/README.md for how to regenerate it against a newer upstream.
+//
+// Two things this script does that the upstream CLI does not:
+//
+//   1. It rewrites `:scope` / bare component selectors to explicit
+//      `[data-astryx-theme="…"]` prefixes instead of wrapping them in @scope.
+//      TYPO3 pages have no nested-theme regions, so the boundary @scope
+//      provides buys nothing, and plain attribute selectors work everywhere.
+//   2. It emits the base token defaults, which upstream ships inside the
+//      StyleX-compiled component CSS we do not use.
+//
+// Cascade is controlled by layers, not specificity, so a theme override always
+// beats the component base style no matter how the selectors compare.
+
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {fileURLToPath} from 'node:url';
+
+const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+const PAYLOAD = path.join(EXT_ROOT, 'Build/astryx/tokens.json');
+const OUTPUT = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
+
+/** Order matters: the first theme is the one a page falls back to. */
+const THEMES = ['neutral', 'butter', 'chocolate', 'matcha', 'stone', 'gothic', 'y2k'];
+
+/** Re-indent a generated rule block to the given depth. */
+function reindent(rule, indent) {
+  return rule
+    .split('\n')
+    .map(line => (line.trim() === '' ? '' : indent + line.replace(/^\s{0,4}/, '')))
+    .join('\n');
+}
+
+/**
+ * Split a selector list on its top-level commas only.
+ *
+ * `:where(h1, h2, h3)` is ONE selector; splitting on every comma would tear the
+ * parentheses apart and produce invalid CSS.
+ */
+function splitSelectorList(selector) {
+  const parts = [];
+  let depth = 0;
+  let start = 0;
+
+  for (let i = 0; i < selector.length; i++) {
+    const char = selector[i];
+    if (char === '(' || char === '[') depth++;
+    else if (char === ')' || char === ']') depth = Math.max(0, depth - 1);
+    else if (char === ',' && depth === 0) {
+      parts.push(selector.slice(start, i).trim());
+      start = i + 1;
+    }
+  }
+  parts.push(selector.slice(start).trim());
+
+  return parts.filter(part => part !== '');
+}
+
+/**
+ * Replace the theme-scope placeholder with an explicit attribute selector.
+ *
+ * `:scope` addresses the themed element itself (the <body> carrying the
+ * attribute); every other selector addresses a descendant of it.
+ */
+function scopeRule(rule, theme) {
+  const attr = `[data-astryx-theme="${theme}"]`;
+  return rule.replace(/^(\s*)([^{]+)\{/, (_match, space, selector) => {
+    const scoped = splitSelectorList(selector)
+      .map(part => (part === ':scope' ? attr : `${attr} ${part}`))
+      .join(',\n' + space);
+    return `${space}${scoped} {`;
+  });
+}
+
+function buildTokenBlock(defaults) {
+  const lines = [];
+  for (const [group, tokens] of Object.entries(defaults)) {
+    const entries = Object.entries(tokens);
+    if (entries.length === 0) continue;
+    lines.push(`    /* ${group} */`);
+    for (const [name, value] of entries) {
+      lines.push(`    ${name}: ${value};`);
+    }
+    lines.push('');
+  }
+  return lines.join('\n').trimEnd();
+}
+
+const payload = JSON.parse(fs.readFileSync(PAYLOAD, 'utf8'));
+const missing = THEMES.filter(name => !payload.themes[name]);
+if (missing.length > 0) {
+  console.error(`Missing themes in the payload: ${missing.join(', ')}`);
+  process.exit(1);
+}
+
+const out = [];
+
+out.push(`/*
+ * Astryx theme tokens — GENERATED, do not edit.
+ *
+ * Source:  ${payload.source}
+ * Commit:  ${payload.commit}
+ * License: ${payload.license}
+ *
+ * Rebuild: node Build/Scripts/build-astryx-theme.mjs
+ *
+ * Every colour token is a light-dark() pair, so a theme is one set of values
+ * that answers to the used color-scheme. Switching light/dark therefore never
+ * changes which theme is active, and the reverse holds too.
+ */`);
+
+// The layer order is declared once, here, because this file loads first. Later
+// stylesheets (grande-components.css, grande.css) only append to these layers.
+out.push(`
+@layer astryx-reset, astryx-base, astryx-components, astryx-chrome, astryx-theme;`);
+
+out.push(`
+@layer astryx-base {
+  /*
+   * How light and dark are chosen:
+   *   - no class      -> :root's "light dark" follows the operating system
+   *   - html.light    -> pinned light
+   *   - html.dark     -> pinned dark
+   * The class is set before first paint by the inline script in the site set's
+   * TypoScript, and toggled at runtime by grande.js.
+   */
+  :root { color-scheme: light dark; }
+  :root.light { color-scheme: light; }
+  :root.dark { color-scheme: dark; }
+
+  /* Base token defaults. Each theme below overrides only what it changes. */
+  :root {
+${buildTokenBlock(payload.defaults)}
+  }
+}`);
+
+for (const theme of THEMES) {
+  const {prose, component} = payload.themes[theme];
+
+  out.push(`\n/* ============================== ${theme} ============================== */`);
+
+  if (prose.length > 0) {
+    out.push(`@layer astryx-reset {
+${prose.map(rule => reindent(scopeRule(rule, theme), '  ')).join('\n')}
+}`);
+  }
+
+  if (component.length > 0) {
+    out.push(`@layer astryx-theme {
+${component.map(rule => reindent(scopeRule(rule, theme), '  ')).join('\n')}
+}`);
+  }
+}
+
+const css = out.join('\n') + '\n';
+fs.mkdirSync(path.dirname(OUTPUT), {recursive: true});
+fs.writeFileSync(OUTPUT, css);
+
+const kb = (css.length / 1024).toFixed(1);
+console.log(`astryx-theme.css  ${kb} kB  (${THEMES.length} themes, ${Object.values(payload.defaults).reduce((a, o) => a + Object.keys(o).length, 0)} base tokens)`);

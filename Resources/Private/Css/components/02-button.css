@@ -1,0 +1,225 @@
+/*
+ * Button, IconButton, ButtonGroup, Link.
+ *
+ * Transcribed from the upstream component: the hover and pressed states are a
+ * translucent overlay layered over the variant colour with a linear-gradient,
+ * not a second colour value. That is what lets a theme restyle a button by
+ * changing one background token and keeps every variant's interaction
+ * consistent.
+ *
+ * The documented per-component knobs (--button-press-scale,
+ * --button-disabled-opacity, --button-focus-offset, --_button-radius) are
+ * honoured so theme overrides reach them.
+ */
+
+.astryx-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  height: var(--size-element-md);
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--_button-radius, var(--radius-element));
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: background-image, background-color, color, opacity, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-button:active {
+  transform: var(--button-press-scale, scale(0.98));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-button {
+    transition-duration: 0s;
+  }
+
+  .astryx-button:active {
+    transform: none;
+  }
+}
+
+.astryx-button.sm { height: var(--size-element-sm); }
+.astryx-button.md { height: var(--size-element-md); }
+.astryx-button.lg { height: var(--size-element-lg); padding-inline: var(--spacing-4); }
+
+.astryx-button.full-width {
+  width: 100%;
+}
+
+.astryx-button[disabled],
+.astryx-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: var(--button-disabled-opacity, 0.5);
+  background-image: none;
+  transform: none;
+}
+
+.astryx-button:focus-visible {
+  outline-offset: var(--button-focus-offset, 3px);
+}
+
+/* ------------------------------------------------------------- variants */
+.astryx-button.primary {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.astryx-button.primary:focus-visible {
+  outline: 2px solid var(--color-accent);
+}
+
+.astryx-button.secondary {
+  background-color: var(--color-neutral);
+  color: var(--color-text-primary);
+}
+
+.astryx-button.secondary:focus-visible {
+  outline: 2px solid var(--color-accent);
+}
+
+.astryx-button.ghost {
+  background-color: transparent;
+  color: var(--color-text-primary);
+}
+
+.astryx-button.ghost:focus-visible {
+  outline: 2px solid var(--color-accent);
+}
+
+.astryx-button.destructive {
+  background-color: var(--color-error);
+  color: var(--color-on-error, var(--color-on-accent));
+}
+
+.astryx-button.destructive:focus-visible {
+  outline: 2px solid var(--color-error);
+}
+
+/* Hover and press are one overlay recipe for every variant. */
+@media (hover: hover) {
+  .astryx-button:hover:not([disabled]):not([aria-disabled='true']) {
+    background-image: linear-gradient(var(--color-overlay-hover), var(--color-overlay-hover));
+  }
+}
+
+.astryx-button:active:not([disabled]):not([aria-disabled='true']) {
+  background-image: linear-gradient(var(--color-overlay-pressed), var(--color-overlay-pressed));
+}
+
+/* ----------------------------------------------------------- IconButton */
+.astryx-icon-button {
+  aspect-ratio: var(--button-icon-only-aspect, 1 / 1);
+  padding-inline: 0;
+  padding-block: 0;
+}
+
+.astryx-button > svg,
+.astryx-icon-button > svg {
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  font-size: 1rem;
+}
+
+.astryx-button.lg > svg {
+  font-size: 1.25rem;
+}
+
+/* ---------------------------------------------------------- ButtonGroup */
+.astryx-button-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+.astryx-button-group.attached {
+  gap: 0;
+}
+
+.astryx-button-group.attached > .astryx-button {
+  border-radius: 0;
+}
+
+.astryx-button-group.attached > .astryx-button:first-child {
+  border-start-start-radius: var(--radius-element);
+  border-end-start-radius: var(--radius-element);
+}
+
+.astryx-button-group.attached > .astryx-button:last-child {
+  border-start-end-radius: var(--radius-element);
+  border-end-end-radius: var(--radius-element);
+}
+
+.astryx-button-group.attached > .astryx-button + .astryx-button {
+  border-inline-start: var(--border-width) solid var(--color-overlay-pressed);
+}
+
+/* ----------------------------------------------------------------- Link */
+.astryx-link {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  border-radius: var(--radius-none);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-link:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+.astryx-link.quiet {
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .astryx-link.quiet:hover {
+    color: var(--color-text-accent);
+  }
+}
+
+/* A link that reads as an action but is not a button. */
+.astryx-link.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+.astryx-link.cta::after {
+  content: '→';
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-link.cta:hover::after {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-link.cta::after {
+    transition: none;
+  }
+
+  .astryx-link.cta:hover::after {
+    transform: none;
+  }
+}
