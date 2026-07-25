@@ -38,7 +38,7 @@
                         <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-demo__image"/>
                     </f:for>
 
-                    <f:if condition="{data.cta_label}">
+                    <f:if condition="{data.cta_label} && {data.cta_link}">
                         <span class="astryx-overlay-scrim fill align-center always g-feature-demo__scrim">
                             <button type="button" class="astryx-button primary lg g-feature-demo__play" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</button>
                         </span>
