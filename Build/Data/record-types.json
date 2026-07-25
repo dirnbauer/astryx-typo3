@@ -1,0 +1,84 @@
+{
+  "_comment": [
+    "Shared collection child types.",
+    "",
+    "A Content Blocks Collection creates its own table. Left alone, 250 elements",
+    "with repeatable children would create well over a hundred near-identical",
+    "tables — Desiderio learned this and merged 29 of them into 12. These eight",
+    "cover what an Astryx-shaped catalog repeats, and every element that needs a",
+    "list of that shape points at the same table with shareAcrossTables.",
+    "",
+    "Mergeability is decided by what a child MEANS, not by which columns happen",
+    "to line up: a testimonial and a feature both have a title and a text, and",
+    "they still stay apart, because an editor filling one expects different",
+    "things from an editor filling the other."
+  ],
+
+  "recordTypes": {
+    "nav-item": {
+      "table": "desiderio_grande_nav_item",
+      "labelField": "title",
+      "purpose": "A link in a list: menus, footers, tabs, tables of contents, link cards.",
+      "fields": ["title", "description", "link", "icon"]
+    },
+    "icon-lead": {
+      "table": "desiderio_grande_icon_lead",
+      "labelField": "title",
+      "purpose": "Icon, title and a sentence — the repeated unit of every feature and benefit grid.",
+      "fields": ["icon", "title", "text", "link"]
+    },
+    "metric-item": {
+      "table": "desiderio_grande_metric_item",
+      "labelField": "value",
+      "purpose": "One number with its label, and optionally what it is compared against.",
+      "fields": ["value", "unit", "title", "text", "icon"]
+    },
+    "quote-item": {
+      "table": "desiderio_grande_quote_item",
+      "labelField": "author",
+      "purpose": "A testimonial or review: what was said, by whom, and their standing.",
+      "fields": ["quote_text", "author", "role", "image", "rating"]
+    },
+    "person-item": {
+      "table": "desiderio_grande_person_item",
+      "labelField": "title",
+      "purpose": "A person: portrait, name, role, a line about them, and where to reach them.",
+      "fields": ["image", "title", "role", "text", "link"]
+    },
+    "logo-item": {
+      "table": "desiderio_grande_logo_item",
+      "labelField": "title",
+      "purpose": "A client or partner mark, optionally linked.",
+      "fields": ["image", "title", "link"]
+    },
+    "qa-item": {
+      "table": "desiderio_grande_qa_item",
+      "labelField": "title",
+      "purpose": "A question and its answer — accordions, FAQs, glossaries.",
+      "fields": ["title", "bodytext"]
+    },
+    "label-value": {
+      "table": "desiderio_grande_label_value",
+      "labelField": "title",
+      "purpose": "A row of a specification, comparison or plan-feature table.",
+      "fields": ["title", "value", "text", "included"]
+    }
+  },
+
+  "childFields": {
+    "title": {"type": "Text", "_note": "Never call this 'label' — Content Blocks reserves that identifier."},
+    "text": {"type": "Textarea", "rows": 3},
+    "description": {"type": "Text"},
+    "bodytext": {"type": "Textarea", "rows": 5, "enableRichtext": true},
+    "quote_text": {"type": "Textarea", "rows": 4},
+    "author": {"type": "Text"},
+    "role": {"type": "Text"},
+    "value": {"type": "Text", "max": 24},
+    "unit": {"type": "Text", "max": 24},
+    "link": {"type": "Link"},
+    "image": {"type": "File", "maxitems": 1, "allowed": "common-image-types"},
+    "icon": {"type": "Select", "renderType": "selectSingle", "_items": "icon-library"},
+    "rating": {"type": "Number", "_note": "Whole stars, 1–5."},
+    "included": {"type": "Checkbox", "renderType": "checkboxToggle", "_note": "Whether this row's feature is part of the plan."}
+  }
+}

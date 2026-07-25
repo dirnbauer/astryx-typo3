@@ -1,0 +1,243 @@
+{
+  "_comment": [
+    "Canonical field definitions for every content element in this extension.",
+    "",
+    "All blocks declare prefixFields: false, so a field identifier becomes a",
+    "tt_content column SHARED by every element that uses it. That is the point:",
+    "250 elements built from this vocabulary add a few dozen columns, while 250",
+    "elements each inventing their own field names would add well over a",
+    "thousand. It also means an editor who switches an element's type keeps the",
+    "text they already wrote.",
+    "",
+    "The rule that follows: a field identifier here has ONE meaning and ONE type",
+    "across the whole catalog. If a new element needs a subtly different flavour",
+    "of an existing field, it reuses the field and varies the label — it does not",
+    "fork the column.",
+    "",
+    "Never name a field 'label': Content Blocks reserves it and the generated",
+    "table breaks."
+  ],
+
+  "fields": {
+    "header": {
+      "identifier": "header",
+      "useExistingField": true,
+      "_note": "The core header column. Every element that shows a title uses it, so the page module and search see a real title."
+    },
+    "subheader": {
+      "identifier": "subheader",
+      "useExistingField": true,
+      "_note": "Core subheader column — the line under the title."
+    },
+    "bodytext": {
+      "identifier": "bodytext",
+      "useExistingField": true,
+      "enableRichtext": true,
+      "richtextConfiguration": "default",
+      "_note": "Core rich text. For editorial prose."
+    },
+    "header_link": {
+      "identifier": "header_link",
+      "useExistingField": true,
+      "_note": "Core header_link column."
+    },
+
+    "eyebrow": {
+      "identifier": "eyebrow",
+      "type": "Text",
+      "max": 60,
+      "_note": "The small label above a heading that says which section this is."
+    },
+    "lead": {
+      "identifier": "lead",
+      "type": "Textarea",
+      "rows": 3,
+      "_note": "One or two plain sentences introducing a band. Not rich text: a lead that carries formatting stops being a lead."
+    },
+    "text": {
+      "identifier": "text",
+      "type": "Textarea",
+      "rows": 4,
+      "_note": "Plain body copy for elements whose text is short enough not to need the editor."
+    },
+    "note": {
+      "identifier": "note",
+      "type": "Textarea",
+      "rows": 2,
+      "_note": "The small print under a band — a footnote, a caveat, a delivery condition."
+    },
+    "caption": {
+      "identifier": "caption",
+      "type": "Text",
+      "_note": "Media caption."
+    },
+    "quote_text": {
+      "identifier": "quote_text",
+      "type": "Textarea",
+      "rows": 4,
+      "_note": "The quotation itself, without quotation marks — the template draws those."
+    },
+    "author": {
+      "identifier": "author",
+      "type": "Text",
+      "_note": "Person being quoted or credited."
+    },
+    "role": {
+      "identifier": "role",
+      "type": "Text",
+      "_note": "Job title and company of the person in 'author'."
+    },
+    "value": {
+      "identifier": "value",
+      "type": "Text",
+      "max": 24,
+      "_note": "The number a metric shows, as text — '99.98%', '1.2M', '4.9'. Text rather than a number field because the unit and the formatting are part of the claim."
+    },
+    "unit": {
+      "identifier": "unit",
+      "type": "Text",
+      "max": 24,
+      "_note": "What the value is measured in, when it is not part of the value itself."
+    },
+    "price": {
+      "identifier": "price",
+      "type": "Text",
+      "max": 24,
+      "_note": "Displayed price. Text, because '€49', 'Free' and 'Let's talk' all belong in the same slot."
+    },
+    "period": {
+      "identifier": "period",
+      "type": "Text",
+      "max": 32,
+      "_note": "Billing period shown after the price."
+    },
+    "badge_text": {
+      "identifier": "badge_text",
+      "type": "Text",
+      "max": 32,
+      "_note": "Short marker on a card: 'Most popular', 'New', 'Beta'."
+    },
+
+    "cta_label": {
+      "identifier": "cta_label",
+      "type": "Text",
+      "_note": "Text of the primary action."
+    },
+    "cta_link": {
+      "identifier": "cta_link",
+      "type": "Link",
+      "_note": "Target of the primary action."
+    },
+    "secondary_label": {
+      "identifier": "secondary_label",
+      "type": "Text",
+      "_note": "Text of the second, quieter action."
+    },
+    "secondary_link": {
+      "identifier": "secondary_link",
+      "type": "Link",
+      "_note": "Target of the secondary action."
+    },
+
+    "image": {
+      "identifier": "image",
+      "type": "File",
+      "maxitems": 1,
+      "allowed": "common-image-types",
+      "_note": "One image. Elements that show several use a collection instead."
+    },
+    "images": {
+      "identifier": "images",
+      "type": "File",
+      "maxitems": 12,
+      "allowed": "common-image-types",
+      "_note": "Gallery images."
+    },
+    "icon": {
+      "identifier": "icon",
+      "type": "Select",
+      "renderType": "selectSingle",
+      "_items": "icon-library",
+      "_note": "Semantic icon key, resolved by the shared icon registry at render time so switching icon library never rewrites a record."
+    },
+
+    "variant": {
+      "identifier": "variant",
+      "type": "Select",
+      "renderType": "selectSingle",
+      "prefixField": true,
+      "_note": "The element's own visual variants. Prefixed, because 'variant' means something different in every element."
+    },
+    "tone": {
+      "identifier": "tone",
+      "type": "Select",
+      "renderType": "selectSingle",
+      "_items": "tone",
+      "_note": "Which surface tone the band sits on. Shared vocabulary across the catalog."
+    },
+    "align": {
+      "identifier": "align",
+      "type": "Select",
+      "renderType": "selectSingle",
+      "_items": "align",
+      "_note": "Horizontal alignment of the band's text."
+    },
+    "columns": {
+      "identifier": "columns",
+      "type": "Select",
+      "renderType": "selectSingle",
+      "_items": "columns",
+      "_note": "How many columns a grid aims for. A hint, not a promise: the grid still reflows on the space it has."
+    },
+    "width": {
+      "identifier": "width",
+      "type": "Select",
+      "renderType": "selectSingle",
+      "_items": "width",
+      "_note": "Container width for this band."
+    },
+
+    "featured": {
+      "identifier": "featured",
+      "type": "Checkbox",
+      "renderType": "checkboxToggle",
+      "_note": "Marks this element as the emphasised one in a row of siblings."
+    },
+    "reverse": {
+      "identifier": "reverse",
+      "type": "Checkbox",
+      "renderType": "checkboxToggle",
+      "_note": "Swaps the two halves of a split layout."
+    },
+    "compact": {
+      "identifier": "compact",
+      "type": "Checkbox",
+      "renderType": "checkboxToggle",
+      "_note": "Tightens the band's vertical rhythm."
+    }
+  },
+
+  "itemSets": {
+    "tone": [
+      {"value": "body", "label": "Page background"},
+      {"value": "surface", "label": "Raised surface"},
+      {"value": "muted", "label": "Muted"},
+      {"value": "accent", "label": "Accent"}
+    ],
+    "align": [
+      {"value": "start", "label": "Left"},
+      {"value": "center", "label": "Centred"}
+    ],
+    "columns": [
+      {"value": "2", "label": "Two"},
+      {"value": "3", "label": "Three"},
+      {"value": "4", "label": "Four"}
+    ],
+    "width": [
+      {"value": "md", "label": "Narrow"},
+      {"value": "lg", "label": "Default"},
+      {"value": "xl", "label": "Wide"},
+      {"value": "full", "label": "Full bleed"}
+    ]
+  }
+}
