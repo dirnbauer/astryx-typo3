@@ -187,8 +187,17 @@ foreach ($directories as $name) {
         if (str_contains($withoutComments, 'prefers-color-scheme')) {
             $add($name, 'color_scheme_query', 'the scheme is carried by color-scheme on :root');
         }
-        if (preg_match('/font-family:\s*(?!var\()(?!inherit)/', $withoutComments) === 1) {
-            $add($name, 'raw_font_family', 'use var(--font-family-*)');
+        // Match on the VALUE, not with a lookahead after \s*: the engine
+        // happily backtracks \s* to zero characters and then finds itself
+        // looking at a space rather than at "var(", so every correct
+        // declaration reported itself as a violation.
+        if (preg_match_all('/font-family:\s*([^;}]+)/', $withoutComments, $fontMatches) > 0) {
+            foreach ($fontMatches[1] as $value) {
+                $value = trim($value);
+                if (!str_starts_with($value, 'var(') && $value !== 'inherit') {
+                    $add($name, 'raw_font_family', 'use var(--font-family-*), got: ' . $value);
+                }
+            }
         }
         if (str_contains($withoutComments, '!important')) {
             $add($name, 'important', 'the cascade layers make !important unnecessary');
