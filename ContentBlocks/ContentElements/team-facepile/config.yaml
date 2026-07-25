@@ -11,8 +11,8 @@ basics:
 fields:
   -
     identifier: 'value'
-    type: 'Text'
-    max: 24
+    type: 'Textarea'
+    rows: 1
     label: 'Value'
   -
     identifier: 'unit'
@@ -26,7 +26,8 @@ fields:
     label: 'Text'
   -
     identifier: 'cta_label'
-    type: 'Text'
+    type: 'Textarea'
+    rows: 1
     label: 'Cta label'
   -
     identifier: 'cta_link'

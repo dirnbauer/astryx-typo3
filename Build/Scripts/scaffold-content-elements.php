@@ -14,6 +14,13 @@ declare(strict_types=1);
  *       Create the per-element file set for rows that have no directory yet.
  *       Existing files are left alone, so re-running after adding rows is safe.
  *
+ *   --configs [--group=<id>] [--only=<element-id>]
+ *       Rewrite config.yaml for every element from the matrix and the field
+ *       library, leaving the authored template, stylesheet and demo content
+ *       untouched. This is what to reach for after changing a field type —
+ *       deleting the directories and re-scaffolding would take a day's writing
+ *       with it.
+ *
  *   --derive
  *       Regenerate everything that is a projection of the matrix: the wizard
  *       allow-list set, the keyword and short-description catalogs in both
@@ -58,8 +65,8 @@ if ($matrix === []) {
 }
 
 $mode = $options['mode'];
-if ($mode === 'scaffold') {
-    scaffold($root, $matrix, $fieldLibrary, $recordTypes, $options);
+if ($mode === 'scaffold' || $mode === 'configs') {
+    scaffold($root, $matrix, $fieldLibrary, $recordTypes, $options, $mode === 'configs');
     exit(0);
 }
 
@@ -97,6 +104,8 @@ function parseOptions(array $argv): array
     foreach (array_slice($argv, 1) as $argument) {
         if ($argument === '--scaffold') {
             $mode = 'scaffold';
+        } elseif ($argument === '--configs') {
+            $mode = 'configs';
         } elseif ($argument === '--derive') {
             $mode = 'derive';
         } elseif ($argument === '--check') {
@@ -108,7 +117,7 @@ function parseOptions(array $argv): array
         }
     }
     if ($mode === null) {
-        fwrite(STDERR, "Usage: scaffold-content-elements.php --scaffold [--group=<id>] [--only=<id>] | --derive | --check\n");
+        fwrite(STDERR, "Usage: scaffold-content-elements.php --scaffold|--configs [--group=<id>] [--only=<id>] | --derive | --check\n");
         exit(1);
     }
     return ['mode' => $mode, 'group' => $group, 'only' => $only];
@@ -352,10 +361,11 @@ function xliff(string $fileId, array $units, bool $translated): string
 
 // -------------------------------------------------------------- scaffold
 
-function scaffold(string $root, array $matrix, array $fieldLibrary, array $recordTypes, array $options): void
+function scaffold(string $root, array $matrix, array $fieldLibrary, array $recordTypes, array $options, bool $configsOnly = false): void
 {
     $created = 0;
     $skipped = 0;
+    $rewritten = 0;
 
     foreach ($matrix as $group => $rows) {
         if ($options['group'] !== null && $options['group'] !== $group) {
@@ -367,13 +377,28 @@ function scaffold(string $root, array $matrix, array $fieldLibrary, array $recor
             }
             $directory = $root . '/ContentBlocks/ContentElements/' . $row['id'];
             if (is_dir($directory)) {
-                $skipped++;
+                if ($configsOnly) {
+                    // The definition is a projection of the matrix; the
+                    // template, stylesheet and demo content are not.
+                    writeFile($directory . '/config.yaml', elementConfig($row, $group, $fieldLibrary, $recordTypes));
+                    $rewritten++;
+                } else {
+                    $skipped++;
+                }
+                continue;
+            }
+            if ($configsOnly) {
                 continue;
             }
             writeElement($directory, $row, $group, $fieldLibrary, $recordTypes);
             $created++;
             echo "  + {$row['id']}\n";
         }
+    }
+
+    if ($configsOnly) {
+        printf("Rewrote %d config.yaml file(s) from the matrix.\n", $rewritten);
+        return;
     }
 
     printf("\nScaffolded %d element(s), %d already present.\n", $created, $skipped);

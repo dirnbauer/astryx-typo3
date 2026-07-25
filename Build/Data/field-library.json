@@ -90,15 +90,15 @@
     },
     "value": {
       "identifier": "value",
-      "type": "Text",
-      "max": 24,
-      "_note": "The number a metric shows, as text — '99.98%', '1.2M', '4.9'. Text rather than a number field because the unit and the formatting are part of the claim."
+      "type": "Textarea",
+      "_note": "The number a metric shows, as text — '99.98%', '1.2M', '4.9'. Text rather than a number field because the unit and the formatting are part of the claim. Textarea with one row rather than Text: TEXT is stored off-page, and tt_content has no room left for another VARCHAR.",
+      "rows": 1
     },
     "unit": {
       "identifier": "unit",
       "type": "Text",
-      "max": 24,
-      "_note": "What the value is measured in, when it is not part of the value itself."
+      "_note": "What the value is measured in, when it is not part of the value itself. Stays Text: Desiderio declares this column, and a shared identifier must keep one type.",
+      "max": 24
     },
     "price": {
       "identifier": "price",
@@ -108,9 +108,9 @@
     },
     "period": {
       "identifier": "period",
-      "type": "Text",
-      "max": 32,
-      "_note": "Billing period shown after the price."
+      "type": "Textarea",
+      "_note": "Billing period shown after the price. Textarea with one row rather than Text: TEXT is stored off-page, and tt_content has no room left for another VARCHAR.",
+      "rows": 1
     },
     "badge_text": {
       "identifier": "badge_text",
@@ -120,8 +120,9 @@
     },
     "cta_label": {
       "identifier": "cta_label",
-      "type": "Text",
-      "_note": "Text of the primary action."
+      "type": "Textarea",
+      "_note": "Text of the primary action. Textarea with one row rather than Text: TEXT is stored off-page, and tt_content has no room left for another VARCHAR.",
+      "rows": 1
     },
     "cta_link": {
       "identifier": "cta_link",
@@ -130,8 +131,9 @@
     },
     "secondary_label": {
       "identifier": "secondary_label",
-      "type": "Text",
-      "_note": "Text of the second, quieter action."
+      "type": "Textarea",
+      "_note": "Text of the second, quieter action. Textarea with one row rather than Text: TEXT is stored off-page, and tt_content has no room left for another VARCHAR.",
+      "rows": 1
     },
     "secondary_link": {
       "identifier": "secondary_link",

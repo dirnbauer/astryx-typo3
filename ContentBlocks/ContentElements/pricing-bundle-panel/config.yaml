@@ -29,13 +29,13 @@ fields:
     label: 'Price'
   -
     identifier: 'period'
-    type: 'Text'
-    max: 32
+    type: 'Textarea'
+    rows: 1
     label: 'Period'
   -
     identifier: 'value'
-    type: 'Text'
-    max: 24
+    type: 'Textarea'
+    rows: 1
     label: 'Value'
   -
     identifier: 'unit'
@@ -54,7 +54,8 @@ fields:
     label: 'Note'
   -
     identifier: 'cta_label'
-    type: 'Text'
+    type: 'Textarea'
+    rows: 1
     label: 'Cta label'
   -
     identifier: 'cta_link'

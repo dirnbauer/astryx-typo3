@@ -24,8 +24,8 @@ fields:
     label: 'Lead'
   -
     identifier: 'value'
-    type: 'Text'
-    max: 24
+    type: 'Textarea'
+    rows: 1
     label: 'Value'
   -
     identifier: 'price'
@@ -34,8 +34,8 @@ fields:
     label: 'Price'
   -
     identifier: 'period'
-    type: 'Text'
-    max: 32
+    type: 'Textarea'
+    rows: 1
     label: 'Period'
   -
     identifier: 'badge_text'
@@ -49,7 +49,8 @@ fields:
     label: 'Note'
   -
     identifier: 'cta_label'
-    type: 'Text'
+    type: 'Textarea'
+    rows: 1
     label: 'Cta label'
   -
     identifier: 'cta_link'

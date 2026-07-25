@@ -33,7 +33,8 @@ fields:
     label: 'Note'
   -
     identifier: 'cta_label'
-    type: 'Text'
+    type: 'Textarea'
+    rows: 1
     label: 'Cta label'
   -
     identifier: 'cta_link'
@@ -41,7 +42,8 @@ fields:
     label: 'Cta link'
   -
     identifier: 'secondary_label'
-    type: 'Text'
+    type: 'Textarea'
+    rows: 1
     label: 'Secondary label'
   -
     identifier: 'secondary_link'
