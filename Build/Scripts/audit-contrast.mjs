@@ -55,6 +55,11 @@ function pairs(scheme) {
     ['link text', '--color-text-accent', '--color-background-body', 4.5],
     ['link text on surface', '--color-text-accent', '--color-background-surface', 4.5],
     ['primary button label', '--color-on-accent', '--color-accent', 4.5],
+    // A section with tone=accent redefines the text tokens to
+    // --color-on-accent (00-primitives.css), so all of its copy — heading
+    // included — resolves to this pair. The heading used to keep
+    // --color-text-primary and vanish into the band.
+    ['text on an accent band', '--color-on-accent', '--color-accent', 4.5],
     ['popover text', '--color-text-primary', '--color-background-popover', 4.5],
 
     // Every pair below is one a stylesheet actually declares. The toast paints

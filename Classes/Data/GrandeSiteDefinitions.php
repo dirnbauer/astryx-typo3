@@ -237,6 +237,7 @@ final class GrandeSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'What you get',
                     'header' => 'The numbers, and they are checkable',
+                    'lead' => 'Counted from the repository on the day this page was written, not rounded for a slide.',
                     'columns' => '4',
                     'tone' => 'surface',
                     'align' => 'center',
@@ -274,6 +275,7 @@ final class GrandeSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'Getting started',
                     'header' => 'Three steps to a themed site',
+                    'lead' => 'No build step, no asset pipeline to learn, and nothing to compile before an editor can start writing.',
                     'columns' => '3',
                     'tone' => 'surface',
                     'width' => 'lg',
@@ -324,6 +326,7 @@ final class GrandeSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'Before you ask',
                     'header' => 'The questions worth answering honestly',
+                    'lead' => 'Including the ones with an awkward answer.',
                     'width' => 'md',
                     'tone' => 'body',
                     'questions' => [
@@ -340,6 +343,7 @@ final class GrandeSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'Have a look first',
                     'header' => 'Every element, on a page you can read',
+                    'subheader' => 'Not a gallery of screenshots — the running site',
                     'lead' => 'The whole catalog is seeded on this site, one chapter per editor category, each chapter wearing a different theme. Nothing is a screenshot.',
                     'cta_label' => 'Browse the catalog',
                     'cta_link' => 't3://page?uid=__HUB__',

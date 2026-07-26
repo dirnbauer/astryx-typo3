@@ -29,6 +29,23 @@
 .astryx-section.accent {
   background-color: var(--color-accent);
   color: var(--color-on-accent);
+
+  /* The band redefines the text tokens rather than setting `color` and hoping
+     everything inherits it. Most things do — but .astryx-heading and
+     .astryx-text pin their colour to --color-text-primary, which is tuned for
+     the page background. On a dark accent band that is dark text on dark, and
+     the heading simply disappeared.
+     Fixing it per element does not hold: each one has to remember every text
+     part it contains, and the closing CTA proved the point by patching its
+     eyebrow, subheader, lead and note and forgetting its h2. Redefining the
+     tokens fixes every element at once, including ones written later, and it
+     is contrast-safe by construction because --color-on-accent on
+     --color-accent is a pair the contrast audit already checks. */
+  --color-text-primary: var(--color-on-accent);
+  --color-text-secondary: var(--color-on-accent);
+  --color-text-accent: var(--color-on-accent);
+  --color-icon-primary: var(--color-on-accent);
+  --color-icon-secondary: var(--color-on-accent);
 }
 
 .astryx-section.tight {
