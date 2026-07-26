@@ -27,7 +27,7 @@ settings:
   # ------------------------------------------------------------------ Theme
   desiderioGrande.theme.default:
     label: 'Astryx theme'
-    description: 'Site-wide theme. Individual pages can override it (and pass it down their subtree) through the "Astryx theme" field in the page properties. All seven ship in one stylesheet as custom-property overrides, so switching is a repaint — no rebuild, no content change.'
+    description: 'Site-wide theme. Individual pages can override it (and pass it down their subtree) through the "Astryx theme" field in the page properties. All twenty-five ship in one stylesheet as custom-property overrides, so switching is a repaint — no rebuild, no content change.'
     category: desiderioGrande.theme
     type: string
     enum:
@@ -51,6 +51,11 @@ settings:
       lagoon: 'Lagoon — blue-green water on pale sand'
       rose: 'Rose — dusty rose, deliberately desaturated so'
       graphite: 'Graphite — cool monochrome with no hue'
+      frost: 'Frost — arctic blue-grey, desaturated to the'
+      latte: 'Latte — pastel mauve on a cool'
+      solar: 'Solar — cream paper and dark cyan'
+      retro: 'Retro — warm amber on aged cream'
+      midnight: 'Midnight — indigo on a faintly blue'
     default: neutral
 
   desiderioGrande.theme.colorScheme:

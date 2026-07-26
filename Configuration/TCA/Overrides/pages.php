@@ -30,7 +30,7 @@ foreach ([
     'stone' => 'Stone — cool grey with montserrat headings',
     'gothic' => 'Gothic — dark even in light mode',
     'y2k' => 'Y2K — lavender canvas and square corners',
-    // This extension's thirteen, built on the same token contract.
+    // This extension's eighteen, built on the same token contract.
     'harbour' => 'Harbour — deep maritime navy with a',
     'ember' => 'Ember — warm charcoal lit by a',
     'linen' => 'Linen — a soft warm neutral built',
@@ -44,6 +44,12 @@ foreach ([
     'lagoon' => 'Lagoon — blue-green water on pale sand',
     'rose' => 'Rose — dusty rose, deliberately desaturated so',
     'graphite' => 'Graphite — cool monochrome with no hue',
+    // Five adapted from well-known open-source palettes; see Build/Data/grande-themes.json.
+    'frost' => 'Frost — arctic blue-grey, desaturated to the',
+    'latte' => 'Latte — pastel mauve on a cool',
+    'solar' => 'Solar — cream paper and dark cyan',
+    'retro' => 'Retro — warm amber on aged cream',
+    'midnight' => 'Midnight — indigo on a faintly blue',
 ] as $value => $label) {
     $themeItems[] = ['label' => $label, 'value' => $value];
 }

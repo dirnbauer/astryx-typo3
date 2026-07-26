@@ -4,7 +4,7 @@
     "",
     "Astryx has exactly seven themes — butter, chocolate, gothic, matcha,",
     "neutral, stone, y2k — verified against packages/themes/ in the upstream",
-    "repository. These thirteen are OURS. They are built on Astryx's token",
+    "repository. These eighteen are OURS. They are built on Astryx's token",
     "contract, carry the same token names and go through the same generator, so",
     "a component cannot tell them apart; but they are not Meta's work and the",
     "theme overview labels them accordingly.",
@@ -21,6 +21,19 @@
     "core.paper   page background in light mode",
     "dark.*       the three dark-mode surfaces",
     "",
+    "Five of these are adapted from well-known open-source palettes rather than",
+    "designed here: frost (Nord), latte (Catppuccin Latte), solar (Solarized),",
+    "retro (Gruvbox) and midnight (Tokyo Night) — all MIT. Only the four core and",
+    "three dark values are taken; everything else inherits from neutral as usual,",
+    "so they are adaptations and not ports, and the upstream projects are credited",
+    "in each description.",
+    "",
+    "Where an upstream secondary colour already cleared 4.5:1 it was kept as-is",
+    "(Solarized base01, Gruvbox dark3, Catppuccin subtext1). Three did not:",
+    "Catppuccin subtext0 (4.37), Solarized base00 (4.13) and Gruvbox dark4 (4.29)",
+    "are tuned for code editors, not for body text on a web page, and were",
+    "darkened until they passed.",
+    "",
     "Fonts must come from the ten families sync-fonts.mjs already self-hosts;",
     "a theme that needs an eleventh would add a download to every page."
   ],
@@ -29,118 +42,379 @@
       "name": "harbour",
       "label": "Harbour",
       "description": "Deep maritime navy with a cool grey page. The most conservative of the set — the one to reach for when a site has to look institutional.",
-      "core": {"ink": "#0F2A3D", "mid": "#4A6B80", "soft": "#A9C4D4", "paper": "#EEF3F6"},
-      "dark": {"body": "#0A1219", "surface": "#101C25", "card": "#14222C"},
-      "fonts": {"heading": "Figtree", "body": "DM Sans"},
+      "core": {
+        "ink": "#0F2A3D",
+        "mid": "#4A6B80",
+        "soft": "#A9C4D4",
+        "paper": "#EEF3F6"
+      },
+      "dark": {
+        "body": "#0A1219",
+        "surface": "#101C25",
+        "card": "#14222C"
+      },
+      "fonts": {
+        "heading": "Figtree",
+        "body": "DM Sans"
+      },
       "radius": "0.5rem"
     },
     {
       "name": "ember",
       "label": "Ember",
       "description": "Warm charcoal lit by a single ember orange. Reads as evening rather than alarm, and keeps the orange for the one thing that matters on the page.",
-      "core": {"ink": "#7A2E0E", "mid": "#8A5637", "soft": "#E2B79B", "paper": "#F7F0EA"},
-      "dark": {"body": "#140C08", "surface": "#1E120C", "card": "#241710"},
-      "fonts": {"heading": "Outfit", "body": "Albert Sans"},
+      "core": {
+        "ink": "#7A2E0E",
+        "mid": "#8A5637",
+        "soft": "#E2B79B",
+        "paper": "#F7F0EA"
+      },
+      "dark": {
+        "body": "#140C08",
+        "surface": "#1E120C",
+        "card": "#241710"
+      },
+      "fonts": {
+        "heading": "Outfit",
+        "body": "Albert Sans"
+      },
       "radius": "0.625rem"
     },
     {
       "name": "linen",
       "label": "Linen",
       "description": "A soft warm neutral built for long-form reading: low contrast between paper and surface, generous type, nothing competing with the text.",
-      "core": {"ink": "#3A342C", "mid": "#6E6455", "soft": "#CFC5B4", "paper": "#F6F2EA"},
-      "dark": {"body": "#12100D", "surface": "#1B1813", "card": "#211D18"},
-      "fonts": {"heading": "Fraunces", "body": "DM Sans"},
+      "core": {
+        "ink": "#3A342C",
+        "mid": "#6E6455",
+        "soft": "#CFC5B4",
+        "paper": "#F6F2EA"
+      },
+      "dark": {
+        "body": "#12100D",
+        "surface": "#1B1813",
+        "card": "#211D18"
+      },
+      "fonts": {
+        "heading": "Fraunces",
+        "body": "DM Sans"
+      },
       "radius": "0.375rem"
     },
     {
       "name": "orchid",
       "label": "Orchid",
       "description": "Muted purple with a cool paper. Distinctive without shouting, and the only theme in the set whose accent reads as decorative rather than corporate.",
-      "core": {"ink": "#4A2B63", "mid": "#6E5385", "soft": "#CBB4DC", "paper": "#F4F0F7"},
-      "dark": {"body": "#100B15", "surface": "#1A121F", "card": "#201727"},
-      "fonts": {"heading": "Poppins", "body": "Figtree"},
+      "core": {
+        "ink": "#4A2B63",
+        "mid": "#6E5385",
+        "soft": "#CBB4DC",
+        "paper": "#F4F0F7"
+      },
+      "dark": {
+        "body": "#100B15",
+        "surface": "#1A121F",
+        "card": "#201727"
+      },
+      "fonts": {
+        "heading": "Poppins",
+        "body": "Figtree"
+      },
       "radius": "0.75rem"
     },
     {
       "name": "cobalt",
       "label": "Cobalt",
       "description": "A saturated engineering blue on near-white. Built for dashboards and documentation, where a strong accent has to survive being repeated fifty times.",
-      "core": {"ink": "#12377A", "mid": "#4763A0", "soft": "#AFC2E4", "paper": "#F1F4FA"},
-      "dark": {"body": "#080D18", "surface": "#101728", "card": "#141D33"},
-      "fonts": {"heading": "Montserrat", "body": "Albert Sans"},
+      "core": {
+        "ink": "#12377A",
+        "mid": "#4763A0",
+        "soft": "#AFC2E4",
+        "paper": "#F1F4FA"
+      },
+      "dark": {
+        "body": "#080D18",
+        "surface": "#101728",
+        "card": "#141D33"
+      },
+      "fonts": {
+        "heading": "Montserrat",
+        "body": "Albert Sans"
+      },
       "radius": "0.375rem"
     },
     {
       "name": "moss",
       "label": "Moss",
       "description": "Deep forest green, quieter and colder than Astryx's own matcha. For organisations that want green without looking like a wellness brand.",
-      "core": {"ink": "#1F3D2B", "mid": "#4C6B57", "soft": "#B4CCBE", "paper": "#EFF4F0"},
-      "dark": {"body": "#0A100C", "surface": "#111A14", "card": "#152019"},
-      "fonts": {"heading": "Fustat", "body": "DM Sans"},
+      "core": {
+        "ink": "#1F3D2B",
+        "mid": "#4C6B57",
+        "soft": "#B4CCBE",
+        "paper": "#EFF4F0"
+      },
+      "dark": {
+        "body": "#0A100C",
+        "surface": "#111A14",
+        "card": "#152019"
+      },
+      "fonts": {
+        "heading": "Fustat",
+        "body": "DM Sans"
+      },
       "radius": "0.5rem"
     },
     {
       "name": "clay",
       "label": "Clay",
       "description": "Terracotta and warm stone. Earthy without being rustic, and the softest radius in the set so nothing has a hard corner.",
-      "core": {"ink": "#7A3B26", "mid": "#96604B", "soft": "#E0BCAA", "paper": "#F8F1EC"},
-      "dark": {"body": "#140D09", "surface": "#1F150F", "card": "#261A14"},
-      "fonts": {"heading": "Outfit", "body": "Figtree"},
+      "core": {
+        "ink": "#7A3B26",
+        "mid": "#96604B",
+        "soft": "#E0BCAA",
+        "paper": "#F8F1EC"
+      },
+      "dark": {
+        "body": "#140D09",
+        "surface": "#1F150F",
+        "card": "#261A14"
+      },
+      "fonts": {
+        "heading": "Outfit",
+        "body": "Figtree"
+      },
       "radius": "1rem"
     },
     {
       "name": "plum",
       "label": "Plum",
       "description": "Deep aubergine on a faintly warm page. Dark, adult and a little editorial — the theme for a publication rather than a product.",
-      "core": {"ink": "#4A1F3D", "mid": "#764767", "soft": "#D6B3CA", "paper": "#F6F0F4"},
-      "dark": {"body": "#120A10", "surface": "#1C1119", "card": "#22161F"},
-      "fonts": {"heading": "Fraunces", "body": "Albert Sans"},
+      "core": {
+        "ink": "#4A1F3D",
+        "mid": "#764767",
+        "soft": "#D6B3CA",
+        "paper": "#F6F0F4"
+      },
+      "dark": {
+        "body": "#120A10",
+        "surface": "#1C1119",
+        "card": "#22161F"
+      },
+      "fonts": {
+        "heading": "Fraunces",
+        "body": "Albert Sans"
+      },
       "radius": "0.25rem"
     },
     {
       "name": "sand",
       "label": "Sand",
       "description": "Desert warmth: pale ochre paper, dark umber ink. Bright without being white, which suits sites read outdoors or on cheap screens.",
-      "core": {"ink": "#5C4318", "mid": "#8A6D3C", "soft": "#DCC79A", "paper": "#FAF4E6"},
-      "dark": {"body": "#13100A", "surface": "#1D1810", "card": "#241E15"},
-      "fonts": {"heading": "Poppins", "body": "DM Sans"},
+      "core": {
+        "ink": "#5C4318",
+        "mid": "#8A6D3C",
+        "soft": "#DCC79A",
+        "paper": "#FAF4E6"
+      },
+      "dark": {
+        "body": "#13100A",
+        "surface": "#1D1810",
+        "card": "#241E15"
+      },
+      "fonts": {
+        "heading": "Poppins",
+        "body": "DM Sans"
+      },
       "radius": "0.625rem"
     },
     {
       "name": "ink",
       "label": "Ink",
       "description": "Near-black on white at the highest contrast the set offers. The one to pick when an accessibility statement has to survive scrutiny.",
-      "core": {"ink": "#111111", "mid": "#585858", "soft": "#BFBFBF", "paper": "#FFFFFF"},
-      "dark": {"body": "#000000", "surface": "#0D0D0D", "card": "#141414"},
-      "fonts": {"heading": "Albert Sans", "body": "Albert Sans"},
+      "core": {
+        "ink": "#111111",
+        "mid": "#585858",
+        "soft": "#BFBFBF",
+        "paper": "#FFFFFF"
+      },
+      "dark": {
+        "body": "#000000",
+        "surface": "#0D0D0D",
+        "card": "#141414"
+      },
+      "fonts": {
+        "heading": "Albert Sans",
+        "body": "Albert Sans"
+      },
       "radius": "0rem"
     },
     {
       "name": "lagoon",
       "label": "Lagoon",
       "description": "Blue-green water on pale sand. Fresher than Cobalt and warmer than Harbour, without tipping into turquoise.",
-      "core": {"ink": "#0E4A4A", "mid": "#3F7576", "soft": "#A6CFCF", "paper": "#EDF5F4"},
-      "dark": {"body": "#07110F", "surface": "#0E1B1A", "card": "#122120"},
-      "fonts": {"heading": "Figtree", "body": "Figtree"},
+      "core": {
+        "ink": "#0E4A4A",
+        "mid": "#3F7576",
+        "soft": "#A6CFCF",
+        "paper": "#EDF5F4"
+      },
+      "dark": {
+        "body": "#07110F",
+        "surface": "#0E1B1A",
+        "card": "#122120"
+      },
+      "fonts": {
+        "heading": "Figtree",
+        "body": "Figtree"
+      },
       "radius": "0.75rem"
     },
     {
       "name": "rose",
       "label": "Rose",
       "description": "Dusty rose, deliberately desaturated so it reads as considered rather than sweet. Pairs a serif heading with a plain body.",
-      "core": {"ink": "#7A2740", "mid": "#9C5A6E", "soft": "#E3B6C2", "paper": "#FAF0F2"},
-      "dark": {"body": "#140A0D", "surface": "#1E1014", "card": "#251419"},
-      "fonts": {"heading": "Fraunces", "body": "Figtree"},
+      "core": {
+        "ink": "#7A2740",
+        "mid": "#9C5A6E",
+        "soft": "#E3B6C2",
+        "paper": "#FAF0F2"
+      },
+      "dark": {
+        "body": "#140A0D",
+        "surface": "#1E1014",
+        "card": "#251419"
+      },
+      "fonts": {
+        "heading": "Fraunces",
+        "body": "Figtree"
+      },
       "radius": "0.5rem"
     },
     {
       "name": "graphite",
       "label": "Graphite",
       "description": "Cool monochrome with no hue at all in the brand colours. The neutral of last resort, for sites whose imagery has to supply every bit of colour.",
-      "core": {"ink": "#24282B", "mid": "#5A6166", "soft": "#BCC3C8", "paper": "#F2F4F5"},
-      "dark": {"body": "#0B0D0E", "surface": "#151819", "card": "#1A1E20"},
-      "fonts": {"heading": "Montserrat", "body": "DM Sans"},
+      "core": {
+        "ink": "#24282B",
+        "mid": "#5A6166",
+        "soft": "#BCC3C8",
+        "paper": "#F2F4F5"
+      },
+      "dark": {
+        "body": "#0B0D0E",
+        "surface": "#151819",
+        "card": "#1A1E20"
+      },
+      "fonts": {
+        "heading": "Montserrat",
+        "body": "DM Sans"
+      },
       "radius": "0.375rem"
+    },
+    {
+      "name": "frost",
+      "label": "Frost",
+      "description": "Arctic blue-grey, desaturated to the point of calm. Adapted from the Nord palette (MIT); the coldest theme in the set and the one that stays legible under bright office light.",
+      "core": {
+        "ink": "#2E3440",
+        "mid": "#4C566A",
+        "soft": "#8FBCBB",
+        "paper": "#ECEFF4"
+      },
+      "dark": {
+        "body": "#242933",
+        "surface": "#2E3440",
+        "card": "#3B4252"
+      },
+      "fonts": {
+        "heading": "Figtree",
+        "body": "DM Sans"
+      },
+      "radius": "0.375rem"
+    },
+    {
+      "name": "latte",
+      "label": "Latte",
+      "description": "Pastel mauve on a cool white page. Adapted from Catppuccin Latte (MIT) — softer than Orchid and the friendliest theme here, for products that would rather be liked than admired.",
+      "core": {
+        "ink": "#6D28C4",
+        "mid": "#5C5F77",
+        "soft": "#CDD6F4",
+        "paper": "#EFF1F5"
+      },
+      "dark": {
+        "body": "#181825",
+        "surface": "#1E1E2E",
+        "card": "#313244"
+      },
+      "fonts": {
+        "heading": "Poppins",
+        "body": "Figtree"
+      },
+      "radius": "0.75rem"
+    },
+    {
+      "name": "solar",
+      "label": "Solar",
+      "description": "Cream paper and dark cyan, on the CIELAB-balanced relationships Ethan Schoonover published as Solarized (MIT). Low contrast by design, for interfaces read for hours rather than glanced at.",
+      "core": {
+        "ink": "#075E68",
+        "mid": "#586E75",
+        "soft": "#EEE8D5",
+        "paper": "#FDF6E3"
+      },
+      "dark": {
+        "body": "#002B36",
+        "surface": "#073642",
+        "card": "#0A4450"
+      },
+      "fonts": {
+        "heading": "Fraunces",
+        "body": "DM Sans"
+      },
+      "radius": "0.25rem"
+    },
+    {
+      "name": "retro",
+      "label": "Retro",
+      "description": "Warm amber on aged cream, adapted from Gruvbox (MIT). The only theme whose paper is properly yellow rather than merely off-white, and the one that reads as a printed manual.",
+      "core": {
+        "ink": "#9A3303",
+        "mid": "#665C54",
+        "soft": "#EBDBB2",
+        "paper": "#FBF1C7"
+      },
+      "dark": {
+        "body": "#1D2021",
+        "surface": "#282828",
+        "card": "#3C3836"
+      },
+      "fonts": {
+        "heading": "Outfit",
+        "body": "Albert Sans"
+      },
+      "radius": "0.25rem"
+    },
+    {
+      "name": "midnight",
+      "label": "Midnight",
+      "description": "Indigo on a faintly blue page, adapted from Tokyo Night (MIT). Built dark-first upstream, so it is the theme whose dark mode looks intentional rather than inverted.",
+      "core": {
+        "ink": "#2C4778",
+        "mid": "#565F89",
+        "soft": "#C0CAF5",
+        "paper": "#E1E2E7"
+      },
+      "dark": {
+        "body": "#16161E",
+        "surface": "#1A1B26",
+        "card": "#292E42"
+      },
+      "fonts": {
+        "heading": "Montserrat",
+        "body": "Albert Sans"
+      },
+      "radius": "0.5rem"
     }
   ]
 }
