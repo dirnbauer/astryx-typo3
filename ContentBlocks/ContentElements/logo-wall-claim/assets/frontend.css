@@ -75,7 +75,10 @@
   inline-size: auto;
   block-size: auto;
   object-fit: contain;
-  filter: grayscale(1);
+  /* The marks are dark ink on transparency, so a dark theme would swallow them.
+     --g-ink-filter is defined once in the chrome stylesheet, which is allowed to
+     ask what colour scheme is on screen; this file is not. */
+  filter: var(--g-ink-filter, none) grayscale(1);
   opacity: 0.65;
 }
 

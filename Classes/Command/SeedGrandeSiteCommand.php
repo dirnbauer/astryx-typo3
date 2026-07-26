@@ -251,6 +251,7 @@ final class SeedGrandeSiteCommand extends Command
             $this->seedSupportContent($io, $supportUids, $now);
             $this->seedThemePages($io, $themePages, $now);
             $this->seedSearchContent($io, $searchUid, $now);
+            $this->seedHubContent($io, $hubUid, $created, $chapters, $now);
         }
 
         // Outside the --content branch on purpose: a German page record is part
@@ -743,6 +744,92 @@ final class SeedGrandeSiteCommand extends Command
         }
 
         $io->writeln(sprintf('  %-28s %d created, %d updated', 'German page records', $created, $updated));
+    }
+
+    /**
+     * Fill the Components hub with a card per chapter.
+     *
+     * The hub had a title and nothing else — the page every "Browse the
+     * catalog" button on the site points at was blank. Cards are built from the
+     * chapter definitions and the uids this run created, so a chapter added to
+     * GrandeSiteDefinitions::chapters() appears here without anyone editing a
+     * fixture.
+     *
+     * @param array<string, int> $pages page uid keyed by chapter title
+     * @param list<array{group: string, title: string, slug: string, theme: string, abstract: string}> $chapters
+     */
+    private function seedHubContent(SymfonyStyle $io, int $hubUid, array $pages, array $chapters, int $now): void
+    {
+        if ($hubUid === 0) {
+            return;
+        }
+
+        $items = [];
+        foreach ($chapters as $chapter) {
+            $pageUid = $pages[$chapter['title']] ?? 0;
+            if ($pageUid === 0) {
+                continue;
+            }
+            $items[] = [
+                'title' => $chapter['title'],
+                'description' => $chapter['abstract'],
+                'link' => 't3://page?uid=' . $pageUid,
+            ];
+        }
+
+        if ($items === []) {
+            return;
+        }
+
+        $resolver = new StyleguideFixtureResolver(
+            $this->databaseSchema,
+            new StyleguideDemoValueGenerator(),
+            new StyleguideCollectionAliasPolicy($this->databaseSchema),
+        );
+        $seeder = new ContentElementSeeder(
+            $this->connectionPool,
+            $this->storageRepository,
+            $this->databaseSchema,
+            self::FAL_FOLDER,
+            1777300005,
+        );
+        $columns = $this->databaseSchema->getColumnNames('tt_content');
+
+        $catalog = [];
+        foreach ($this->elementCatalog->getElements() as $element) {
+            $catalog[$element['cType']] = $element;
+        }
+
+        $cType = 'desiderio_grande_menucardgrid';
+        $record = $catalog[$cType] ?? null;
+        if ($record === null) {
+            $io->warning(sprintf('The hub needs %s, which is not in the catalog.', $cType));
+            return;
+        }
+
+        $this->getContentCleaner()->softDeleteSeededContent($hubUid, $now);
+
+        $seeder->insert($hubUid, $now, $resolver->buildContentInsert(
+            $hubUid,
+            $cType,
+            $record['name'],
+            [
+                'eyebrow' => 'The catalog',
+                'header' => 'Two hundred and fifty elements, in ten editor categories',
+                'lead' => 'The same ten groups the element picker uses. Every chapter wears a '
+                    . 'different theme, so walking the catalog is also a walk through the themes.',
+                'columns' => '2',
+                'tone' => 'body',
+                'width' => 'lg',
+                'items' => $items,
+            ],
+            self::SORTING_STEP,
+            $now,
+            $columns,
+            ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
+        ));
+
+        $io->writeln(sprintf('  %-28s %d chapter cards', 'Components hub', count($items)));
     }
 
     private function getContentCleaner(): DesiderioContentCleaner

@@ -259,7 +259,7 @@
       "provider": "openai",
       "size": "1024x1024",
       "styleKey": "logo",
-      "purpose": "Wordmarks for the invented companies the demo copy names. Generated with the same model as the photography: Gemini renders lettering more reliably, but a second provider is a second key, a second bill and a second failure mode for twelve pictures. Check the spelling on every one — see the note in the README.",
+      "purpose": "Wordmarks for the invented companies the demo copy names. Generated with the same model as the photography: Gemini renders lettering more reliably, but a second provider is a second key, a second bill and a second failure mode for twelve pictures. Check the spelling on every one — see the note in the README. Trimmed to the ink and lifted off its white background: the model returns a wordmark centred in a square with generous margins, and rendered at a fixed height that margin is most of the picture — the mark came out about a seventh of its cell.",
       "images": [
         {
           "id": "brenner",
@@ -310,7 +310,8 @@
           "prompt": "Wordmark reading exactly \"Presswerk\" in an industrial condensed sans, charcoal, with a thin frame."
         }
       ],
-      "format": "png"
+      "format": "png",
+      "alphaFromWhite": true
     },
     "pair": {
       "provider": "openai",
