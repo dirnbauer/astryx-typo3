@@ -149,10 +149,12 @@ final class SeedGrandeSiteCommand extends Command
         }
 
         $created = [];
+        $supportUids = [];
         $sorting = self::SORTING_STEP;
         $hubUid = 0;
         $legalUids = [];
         $errorUid = 0;
+        $searchUid = 0;
 
         // -------------------------------------------------- support pages
         foreach ($supportPages as $page) {
@@ -175,6 +177,7 @@ final class SeedGrandeSiteCommand extends Command
                 ],
             );
             $created[$page['title']] = $uid;
+            $supportUids[$page['slug']] = $uid;
 
             if ($page['role'] === 'hub') {
                 $hubUid = $uid;
@@ -182,6 +185,8 @@ final class SeedGrandeSiteCommand extends Command
                 $legalUids[] = $uid;
             } elseif ($page['role'] === 'error') {
                 $errorUid = $uid;
+            } elseif ($page['role'] === 'search') {
+                $searchUid = $uid;
             }
         }
 
@@ -212,6 +217,8 @@ final class SeedGrandeSiteCommand extends Command
         if ((bool)$input->getOption('content')) {
             $this->seedChapterContent($io, $created, $chapters, $now);
             $this->seedHomeContent($io, $rootUid, $hubUid, $created['Themes'] ?? 0, $now);
+            $this->seedSupportContent($io, $supportUids, $now);
+            $this->seedSearchContent($io, $searchUid, $now);
         }
 
         $io->success(sprintf('Astryx site tree seeded — root page uid %d.', $rootUid));
@@ -221,6 +228,9 @@ final class SeedGrandeSiteCommand extends Command
             sprintf('rootPageId: %d', $rootUid),
             sprintf('errorHandling 404 target: t3://page?uid=%d', $errorUid),
             sprintf('desiderioGrande.footer.legalPageIds: \'%s\'', implode(',', $legalUids)),
+            sprintf('desiderioGrande.search.targetPageId: \'%d\' (and search.enabled: true)', $searchUid),
+            'The search page needs the webconsulting/desiderio-grande-search set '
+                . 'and a Solr connection — see the Search section of the README.',
         ]);
 
         $rows = [];
@@ -376,6 +386,171 @@ final class SeedGrandeSiteCommand extends Command
         }
 
         $io->writeln(sprintf('  %-28s %d elements', 'Home', $placed));
+    }
+
+    /**
+     * Fill the legal and error pages with their prose.
+     *
+     * One Rich Text element per page, from GrandeSiteDefinitions::supportContent().
+     * Without this pass the imprint, privacy, accessibility and 404 pages render
+     * their title over an empty band.
+     *
+     * @param array<string, int> $supportUids page uid keyed by slug
+     */
+    private function seedSupportContent(SymfonyStyle $io, array $supportUids, int $now): void
+    {
+        $resolver = new StyleguideFixtureResolver(
+            $this->databaseSchema,
+            new StyleguideDemoValueGenerator(),
+            new StyleguideCollectionAliasPolicy($this->databaseSchema),
+        );
+        $seeder = new ContentElementSeeder(
+            $this->connectionPool,
+            $this->storageRepository,
+            $this->databaseSchema,
+            self::FAL_FOLDER,
+            1777300003,
+        );
+        $columns = $this->databaseSchema->getColumnNames('tt_content');
+
+        $catalog = [];
+        foreach ($this->elementCatalog->getElements() as $element) {
+            $catalog[$element['cType']] = $element;
+        }
+
+        $cType = 'desiderio_grande_richtext';
+        $record = $catalog[$cType] ?? null;
+        if ($record === null) {
+            $io->warning(sprintf('Support pages need %s, which is not in the catalog.', $cType));
+            return;
+        }
+        $definition = ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']);
+
+        $placed = 0;
+        foreach (GrandeSiteDefinitions::supportContent() as $slug => $copy) {
+            $pageUid = $supportUids[$slug] ?? 0;
+            if ($pageUid === 0) {
+                $io->warning(sprintf('No page for support content "%s".', $slug));
+                continue;
+            }
+
+            $this->getContentCleaner()->softDeleteSeededContent($pageUid, $now);
+
+            $seeder->insert($pageUid, $now, $resolver->buildContentInsert(
+                $pageUid,
+                $cType,
+                $record['name'],
+                [
+                    // The page title is already the one visible h1, so these
+                    // headings are written to add something rather than repeat
+                    // it. An empty value is not an option: the fixture resolver
+                    // treats empty as unspecified and invents a demo heading.
+                    'header' => $copy['header'],
+                    'bodytext' => $copy['bodytext'],
+                    'width' => 'md',
+                    'align' => 'start',
+                    'tone' => 'body',
+                ],
+                self::SORTING_STEP,
+                $now,
+                $columns,
+                $definition,
+            ));
+            $placed++;
+        }
+
+        $io->writeln(sprintf('  %-28s %d pages', 'Legal and error pages', $placed));
+    }
+
+    /**
+     * The search page: one lead paragraph, then EXT:solr's results plugin.
+     *
+     * The plugin is not a Content Block, so it cannot go through the fixture
+     * resolver the rest of the seeder uses — it is a plain tt_content row. It
+     * is still cleaned up on re-seed, because the cleaner is told about its
+     * CType explicitly; without that the page would gain a second plugin on
+     * every run.
+     *
+     * The page is seeded whether or not Solr is configured. An unconfigured
+     * plugin renders EXT:solr's own "search unavailable" notice, which this
+     * theme skins — and a page that exists is what makes the site setting
+     * `desiderioGrande.search.targetPageId` something an editor can point at.
+     */
+    private function seedSearchContent(SymfonyStyle $io, int $searchUid, int $now): void
+    {
+        if ($searchUid === 0) {
+            $io->warning('No search page was created, so its content was skipped.');
+            return;
+        }
+
+        $resolver = new StyleguideFixtureResolver(
+            $this->databaseSchema,
+            new StyleguideDemoValueGenerator(),
+            new StyleguideCollectionAliasPolicy($this->databaseSchema),
+        );
+        $seeder = new ContentElementSeeder(
+            $this->connectionPool,
+            $this->storageRepository,
+            $this->databaseSchema,
+            self::FAL_FOLDER,
+            1777300004,
+        );
+        $columns = $this->databaseSchema->getColumnNames('tt_content');
+
+        $this->getContentCleaner()->softDeleteSeededContent(
+            $searchUid,
+            $now,
+            [GrandeSiteDefinitions::SEARCH_PLUGIN_CTYPE],
+        );
+
+        $cType = 'desiderio_grande_leadparagraph';
+        $record = null;
+        foreach ($this->elementCatalog->getElements() as $element) {
+            if ($element['cType'] === $cType) {
+                $record = $element;
+                break;
+            }
+        }
+
+        if ($record === null) {
+            $io->warning(sprintf('The search page needs %s, which is not in the catalog.', $cType));
+        } else {
+            $seeder->insert($searchUid, $now, $resolver->buildContentInsert(
+                $searchUid,
+                $cType,
+                $record['name'],
+                [
+                    // No header: the page title is already the visible h1, and
+                    // a second "Search" above the field would only repeat it.
+                    'lead' => GrandeSiteDefinitions::SEARCH_LEAD,
+                    'width' => 'lg',
+                    'align' => 'start',
+                ],
+                self::SORTING_STEP,
+                $now,
+                $columns,
+                ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
+            ));
+        }
+
+        $connection = $this->connectionPool->getConnectionForTable('tt_content');
+        $row = [
+            'pid' => $searchUid,
+            'CType' => GrandeSiteDefinitions::SEARCH_PLUGIN_CTYPE,
+            'colPos' => 0,
+            'sorting' => self::SORTING_STEP * 2,
+            'header' => 'Search results',
+            // Layout 100 is "hidden" in core's header layouts: the plugin
+            // carries its own visually hidden heading.
+            'header_layout' => '100',
+            'tstamp' => $now,
+            'crdate' => $now,
+        ];
+        // getColumnNames() returns name => true, so the column list is already
+        // in the shape array_intersect_key wants.
+        $connection->insert('tt_content', array_intersect_key($row, $columns));
+
+        $io->writeln(sprintf('  %-28s page %d', 'Search page', $searchUid));
     }
 
     private function getContentCleaner(): DesiderioContentCleaner

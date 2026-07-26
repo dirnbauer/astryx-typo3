@@ -1,9 +1,20 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
 <f:variable name="wordmark" value="{site.configuration.settings.desiderioGrande.brand.wordmark}"/>
 <f:if condition="!{wordmark}">
     <f:variable name="wordmark" value="{site.configuration.websiteTitle}"/>
 </f:if>
+
+<f:comment>
+    The field posts to the page carrying the search plugin. With no page named,
+    the site root is the honest fallback: a query still lands somewhere real
+    rather than reloading whatever page the visitor happened to be on.
+</f:comment>
+<f:variable name="searchTarget" value="{site.configuration.settings.desiderioGrande.search.targetPageId}"/>
+<f:variable name="searchAction" value="{f:uri.page(pageUid: '{searchTarget ?: site.rootPageId}')}"/>
+<f:variable name="searchParam" value="{site.configuration.settings.desiderioGrande.search.queryParameter ?: 'q'}"/>
 
 <header class="grande-header">
     <div class="astryx-layout grande-header__inner">
@@ -45,6 +56,90 @@
         </nav>
 
         <div class="grande-header__actions">
+            <f:if condition="{site.configuration.settings.desiderioGrande.search.enabled}">
+                <f:comment>
+                    A real form, not a button that reveals one: with the script
+                    absent the field is simply visible and submits to the results
+                    page. The loupe is the collapse control, and grande.js is
+                    what turns "always visible" into "opens on click" — so the
+                    degraded state is a working search, never a dead icon.
+
+                    data-suggest carries the tx_solr_suggest endpoint (page type
+                    7384) and is the single attribute the dropdown binds to, the
+                    same one EXT:solr's own search form emits.
+                </f:comment>
+                <form
+                    class="grande-search"
+                    role="search"
+                    method="get"
+                    action="{searchAction}"
+                    data-g-search
+                    data-g-suggest="1"
+                    data-suggest="{f:uri.page(pageType: 7384)}"
+                    data-g-suggest-min-chars="2"
+                    data-g-suggest-max-items="6"
+                    data-g-suggest-header="{f:translate(key: '{labels}:search.suggest.topResults', default: 'Top results')}"
+                    data-g-suggest-label-pages="{f:translate(key: '{labels}:search.type.pages', default: 'Page')}"
+                    data-g-suggest-label-news="{f:translate(key: '{labels}:search.type.news', default: 'News')}"
+                    data-g-suggest-label-addresses="{f:translate(key: '{labels}:search.type.addresses', default: 'Address')}"
+                    data-g-suggest-empty="{f:translate(key: '{labels}:search.suggest.empty', default: 'No suggestions')}"
+                >
+                    <f:comment>
+                        The dropdown is positioned against this wrapper rather
+                        than against the input group, so it never becomes a flex
+                        item of the group and never inherits the seam rules that
+                        weld the group's segments together.
+                    </f:comment>
+                    <div class="grande-search__field" data-g-suggest-anchor>
+                        <div class="astryx-input-group sm">
+                            <label class="astryx-visually-hidden" for="grande-header-search">
+                                <f:translate key="{labels}:search.label" default="Search this site"/>
+                            </label>
+                            <input
+                                id="grande-header-search"
+                                class="astryx-text-input sm grande-search__input"
+                                type="search"
+                                name="{searchParam}"
+                                placeholder="{f:translate(key: '{labels}:search.placeholder', default: 'Search this site')}"
+                                autocomplete="off"
+                                data-g-suggest-input
+                            />
+                            <button class="astryx-button ghost sm astryx-icon-button grande-search__submit" type="submit">
+                                <span class="astryx-visually-hidden"><f:translate key="{labels}:search.submit" default="Search"/></span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                                    <circle cx="11" cy="11" r="7"/>
+                                    <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <f:comment>
+                        Last in the row on purpose. Collapsed, this is the only
+                        thing visible, so it has to sit where the loupe belongs —
+                        the end of the header. Open, it turns into the ✕ that
+                        closes the field it follows, rather than a stray control
+                        floating to the left of it.
+                    </f:comment>
+                    <button
+                        type="button"
+                        class="grande-search__trigger"
+                        data-g-search-toggle
+                        aria-expanded="false"
+                        aria-controls="grande-header-search"
+                        aria-label="{f:translate(key: '{labels}:search.label', default: 'Search this site')}"
+                    >
+                        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                            <circle cx="11" cy="11" r="7"/>
+                            <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+                        </svg>
+                        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                            <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </form>
+            </f:if>
+
             <f:if condition="{site.configuration.settings.desiderioGrande.theme.schemeToggle}">
                 <button
                     type="button"

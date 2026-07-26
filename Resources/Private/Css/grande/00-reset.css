@@ -1,0 +1,29 @@
+/*
+ * Element reset.
+ *
+ * Split out of 01-base.css and emitted into the `astryx-reset` layer rather
+ * than `astryx-chrome`, because a layer beats specificity outright: while these
+ * three element selectors sat in the chrome layer they overrode every component
+ * rule they touched, however specific it was.
+ *
+ * What that cost, until it was found: `button { background: none }` silently
+ * erased the fill of every `.astryx-button.primary` and `.secondary` on the
+ * site — the accent submit button on the search page and in the Search Hero
+ * rendered as bare text — and `font: inherit` pulled every button and input off
+ * the component type scale onto the body's.
+ *
+ * The rule of thumb this file exists to keep: an element-level reset belongs in
+ * the first layer, never in a layer that components have to outrank.
+ */
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+}

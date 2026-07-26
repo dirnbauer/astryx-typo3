@@ -13,6 +13,11 @@ It is a sibling of [Desiderio](https://github.com/dirnbauer/desiderio), not a
 fork: Desiderio remains the engine underneath (page rendering, the element
 library, the seeding services), and a site chooses one theme or the other.
 
+**New here?** [Documentation/Astryx.md](Documentation/Astryx.md) explains what
+Astryx is, how to use the themes as an editor or integrator, and how this
+extension uses it internally — the token pipeline, the class-name contract, and
+the contrast gate.
+
 ## What it gives you
 
 - **250 content elements** in the ten wizard groups Desiderio already uses, so
@@ -62,6 +67,61 @@ elementLibrary.hosts: 'desiderio_grande,core'
 
 A page can override the theme for itself and everything below it through the
 **Astryx theme** field in its page properties.
+
+### Search
+
+Search is a third set, kept separate because it needs Apache Solr and most
+sites will not want the loupe in the header until they have a results page for
+it to point at.
+
+```yaml
+dependencies:
+  - webconsulting/desiderio-grande
+  - webconsulting/desiderio-grande-content-elements
+  - webconsulting/desiderio-grande-search
+solr_enabled_read: true
+solr_host_read: typo3-solr
+solr_port_read: '8983'
+solr_scheme_read: http
+solr_path_read: /
+solr_use_write_connection: false
+languages:
+  - languageId: 0
+    # …
+    solr_core_read: core_en          # one core per language, not one per site
+```
+
+Then in `settings.yaml`:
+
+```yaml
+desiderioGrande.search.enabled: true
+desiderioGrande.search.targetPageId: '1308'   # the page carrying the Solr results plugin
+```
+
+`desiderio-grande:site:seed --content` creates that page — a hidden-from-navigation,
+no-indexed `/search` carrying a lead paragraph and EXT:solr's results plugin — and
+prints its uid with the rest of the site YAML. The page is seeded whether or not
+Solr is configured; without a connection the plugin renders the "search
+unavailable" notice, which this theme skins.
+
+The set brings in `webconsulting/solr-defaults` — Desiderio's EXT:solr stack,
+including the `tx_solr_suggest` page type (typeNum 7384) the dropdown fetches
+from — and replaces only the templates, under
+`Resources/Private/Solr/{Templates,Partials,Layouts}`.
+
+Two surfaces come out of it, and they share one implementation:
+
+- **The header field.** A loupe in the top-right corner that opens a real
+  `<form>` submitting `?q=…` to the results page. It is markup that works on
+  its own: `grande.js` adds the collapse, so with the script absent the field is
+  simply visible rather than an icon that does nothing.
+- **The results page.** Drop the *Apache Solr — Search: Results* plugin on a
+  page. Filters sit beside the results on a wide screen and above them on a
+  narrow one; each result is an Astryx `Item` with the matched words marked, and
+  the suggest dropdown is the same Astryx `Typeahead` the header uses.
+
+Set `desiderioGrande.search.queryParameter` only for a non-Solr backend —
+EXT:solr reads a plain `q` on any page, which is why that is the default.
 
 ### The showcase site
 

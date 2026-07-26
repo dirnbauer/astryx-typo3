@@ -18,6 +18,11 @@ categories:
     parent: desiderioGrande
     description: 'Header, footer and legal navigation.'
 
+  desiderioGrande.search:
+    label: 'Search'
+    parent: desiderioGrande
+    description: 'The field behind the loupe in the header, and where it sends a query.'
+
 settings:
   # ------------------------------------------------------------------ Theme
   desiderioGrande.theme.default:
@@ -89,3 +94,25 @@ settings:
     category: desiderioGrande.chrome
     type: string
     default: ''
+
+  # ----------------------------------------------------------------- Search
+  desiderioGrande.search.enabled:
+    label: 'Show the search field'
+    description: 'Renders the loupe in the page header. The field it opens submits to the page named below. Off by default, because a search field that leads nowhere is worse than none.'
+    category: desiderioGrande.search
+    type: bool
+    default: false
+
+  desiderioGrande.search.targetPageId:
+    label: 'Results page'
+    description: 'Uid of the page carrying the search plugin. Empty sends queries to the site root, which is only useful if the plugin sits there.'
+    category: desiderioGrande.search
+    type: string
+    default: ''
+
+  desiderioGrande.search.queryParameter:
+    label: 'Query parameter'
+    description: 'Name of the URL parameter the field submits under. EXT:solr reads a plain "q" on any page, which is why that is the default; change it only for a different search backend.'
+    category: desiderioGrande.search
+    type: string
+    default: 'q'

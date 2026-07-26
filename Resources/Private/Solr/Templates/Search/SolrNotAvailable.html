@@ -1,0 +1,31 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    Shown when the search server cannot be reached. It says so in the visitor's
+    own words and stays a Banner rather than an error page: the rest of the site
+    still works, and the navigation above is still the way on.
+</f:comment>
+
+<f:layout name="Fullwidth"/>
+
+<f:section name="content">
+    <f:comment>
+        Declared inside the section, not above it: a template or partial that is
+        rendered through a layout or by section name never evaluates its root
+        content, so a variable set out there is simply absent by the time the
+        section runs — and every key built from it silently loses its path.
+    </f:comment>
+    <f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+    <div class="astryx-banner warning g-search__banner" role="status">
+        <div class="astryx-banner-body">
+            <p class="astryx-banner-title"><f:translate key="{labels}:search.unavailable" default="Search is unavailable right now"/></p>
+            <p class="astryx-banner-content"><f:translate key="{labels}:search.unavailableHint" default="The search service is not responding. Please try again in a moment."/></p>
+        </div>
+    </div>
+</f:section>
+
+</html>

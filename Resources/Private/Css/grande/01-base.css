@@ -86,17 +86,9 @@ video {
   block-size: auto;
 }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-}
-
-button {
-  background: none;
-}
+/* The form-element reset that used to live here now sits in 00-reset.css, in
+   the astryx-reset layer — from this layer it outranked every component rule
+   it touched. */
 
 /* One focus treatment for the whole document, so a keyboard user never has to
    guess where they are. Components that need a different offset set

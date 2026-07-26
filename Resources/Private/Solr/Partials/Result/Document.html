@@ -10,9 +10,15 @@
 <f:argument name="settings" type="array" optional="true"/>
 <f:argument name="logging" type="array" optional="true"/>
 
-<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
-
 <f:section name="Document">
+    <f:comment>
+        Declared inside the section, not above it: a template or partial that is
+        rendered through a layout or by section name never evaluates its root
+        content, so a variable set out there is simply absent by the time the
+        section runs — and every key built from it silently loses its path.
+    </f:comment>
+    <f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
     <f:comment>
         One result is an Astryx Item: label, description, trailing badge. The
         title's link covers the whole row (see .g-search__result-title a::after),

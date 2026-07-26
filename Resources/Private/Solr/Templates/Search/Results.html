@@ -6,9 +6,15 @@
 
 <f:layout name="Split"/>
 
-<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
-
 <f:section name="content">
+    <f:comment>
+        Declared inside the section, not above it: a template or partial that is
+        rendered through a layout or by section name never evaluates its root
+        content, so a variable set out there is simply absent by the time the
+        section runs — and every key built from it silently loses its path.
+    </f:comment>
+    <f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
     <div id="tx-solr-search" class="g-search__results">
 
         <f:render partial="Debug/Query" section="Query" arguments="{resultSet: resultSet}"/>
@@ -37,13 +43,17 @@
         </f:if>
 
         <s:debug.query>
+            <f:comment>
+                Only a logged-in backend user ever reaches this — EXT:solr's
+                view helper checks that itself. It is still folded into a
+                disclosure rather than left open: an editor checking a page's
+                results should see the page, not a screenful of Lucene above it.
+            </f:comment>
             <f:if condition="{parsedQuery}">
-                <div class="astryx-banner info g-search__banner" role="status">
-                    <div class="astryx-banner-body">
-                        <p class="astryx-banner-title"><f:translate key="{labels}:search.debug.parsedQuery" default="Parsed query"/></p>
-                        <p class="astryx-banner-content">{parsedQuery}</p>
-                    </div>
-                </div>
+                <details class="g-search__debug">
+                    <summary><f:translate key="{labels}:search.debug.parsedQuery" default="Parsed query"/></summary>
+                    <code class="astryx-text code">{parsedQuery}</code>
+                </details>
             </f:if>
         </s:debug.query>
 
@@ -58,17 +68,17 @@
                 <f:if condition="{resultSet.isAutoCorrected}">
                     <f:then>
                         <p class="astryx-text supporting">
-                            <f:translate key="{labels}:search.nothingFound" arguments="{0: resultSet.initialQueryString}">Nothing found for “{0}”.</f:translate>
-                            <f:translate key="{labels}:search.showingInstead" arguments="{0: resultSet.correctedQueryString}">Showing results for “{0}” instead.</f:translate>
+                            <f:translate key="{labels}:search.nothingFound" arguments="{query: resultSet.initialQueryString}">Nothing found for “{query}”.</f:translate>
+                            <f:translate key="{labels}:search.showingInstead" arguments="{query: resultSet.correctedQueryString}">Showing results for “{query}” instead.</f:translate>
                         </p>
                     </f:then>
                     <f:else>
                         <f:if condition="{resultSet.allResultCount}">
                             <p class="astryx-text supporting">
-                                <f:translate key="{labels}:search.resultsFound" arguments="{0: resultSet.allResultCount}">{0} results.</f:translate>
+                                <f:translate key="{labels}:search.resultsFound" arguments="{count: resultSet.allResultCount}">{count} results.</f:translate>
                                 <f:if condition="{pagination.lastPageNumber} > 1">
                                     <s:pageBrowserRange>
-                                        <f:translate key="{labels}:search.resultsRange" arguments="{0: from, 1: to, 2: total}">Showing {0}–{1} of {2}.</f:translate>
+                                        <f:translate key="{labels}:search.resultsRange" arguments="{from: from, to: to, total: total}">Showing {from}–{to} of {total}.</f:translate>
                                     </s:pageBrowserRange>
                                 </f:if>
                             </p>
@@ -146,7 +156,7 @@
                             <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
                         </svg>
                         <p class="astryx-heading level-4">
-                            <f:translate key="{labels}:search.nothingFound" arguments="{0: resultSet.usedQuery.rawSearchTerm}">Nothing found for “{0}”.</f:translate>
+                            <f:translate key="{labels}:search.nothingFound" arguments="{query: resultSet.usedQuery.rawSearchTerm}">Nothing found for “{query}”.</f:translate>
                         </p>
                         <p class="astryx-text supporting">
                             <f:translate key="{labels}:search.nothingFoundHint" default="Try fewer words, or a more general term."/>

@@ -7,9 +7,15 @@
 <f:argument name="pagination" type="object"/>
 <f:argument name="currentPage" type="integer"/>
 
-<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
-
 <f:section name="Pagination">
+    <f:comment>
+        Declared inside the section, not above it: a template or partial that is
+        rendered through a layout or by section name never evaluates its root
+        content, so a variable set out there is simply absent by the time the
+        section runs — and every key built from it silently loses its path.
+    </f:comment>
+    <f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
     <f:comment>
         Astryx Pagination: ghost buttons in a row, the current page marked with
         aria-current so the stylesheet's [aria-current='page'] rule paints it —
@@ -53,7 +59,7 @@
                         <a
                             class="astryx-button ghost sm solr-ajaxified"
                             href="{pageUri}"
-                            aria-label="{f:translate(key: '{labels}:search.paginationPage', arguments: {0: page}, default: 'Page {0}')}"
+                            aria-label="{f:translate(key: '{labels}:search.paginationPage', arguments: {page: page}, default: 'Page {page}')}"
                         >{page}</a>
                     </f:else>
                 </f:if>
@@ -79,7 +85,7 @@
         </div>
 
         <p class="astryx-pagination-info">
-            <f:translate key="{labels}:search.paginationInfo" arguments="{0: currentPage, 1: pagination.lastPageNumber}">Page {0} of {1}</f:translate>
+            <f:translate key="{labels}:search.paginationInfo" arguments="{page: currentPage, total: pagination.lastPageNumber}">Page {page} of {total}</f:translate>
         </p>
     </nav>
 </f:section>

@@ -119,6 +119,216 @@
       </segment>
     </unit>
 
+    <!-- Search. Two surfaces speak these: the field in the header and the
+         Solr results page. They share one vocabulary on purpose — the word for
+         a page type in the suggest dropdown has to be the word on the badge in
+         the result list, or the two read as different features. -->
+    <unit id="search.label">
+      <segment>
+        <source>Search this site</source>
+      </segment>
+    </unit>
+    <unit id="search.placeholder">
+      <segment>
+        <source>Search this site</source>
+      </segment>
+    </unit>
+    <unit id="search.submit">
+      <segment>
+        <source>Search</source>
+      </segment>
+    </unit>
+    <unit id="search.suggest.topResults">
+      <segment>
+        <source>Top results</source>
+      </segment>
+    </unit>
+    <unit id="search.suggest.empty">
+      <segment>
+        <source>Nothing matches yet</source>
+      </segment>
+    </unit>
+    <unit id="search.resultsHeading">
+      <segment>
+        <source>Search results</source>
+      </segment>
+    </unit>
+    <unit id="search.resultsFound">
+      <segment>
+        <source>{count} results.</source>
+      </segment>
+    </unit>
+    <unit id="search.resultsRange">
+      <segment>
+        <source>Showing {from}–{to} of {total}.</source>
+      </segment>
+    </unit>
+    <unit id="search.nothingFound">
+      <segment>
+        <source>Nothing found for “{query}”.</source>
+      </segment>
+    </unit>
+    <unit id="search.nothingFoundHint">
+      <segment>
+        <source>Try fewer words, or a more general term.</source>
+      </segment>
+    </unit>
+    <unit id="search.showingInstead">
+      <segment>
+        <source>Showing results for “{query}” instead.</source>
+      </segment>
+    </unit>
+    <unit id="search.didYouMean">
+      <segment>
+        <source>Did you mean</source>
+      </segment>
+    </unit>
+    <unit id="search.promoted">
+      <segment>
+        <source>Promoted</source>
+      </segment>
+    </unit>
+    <unit id="search.filters">
+      <segment>
+        <source>Filter the results</source>
+      </segment>
+    </unit>
+    <unit id="search.filteredBy">
+      <segment>
+        <source>Filtered by</source>
+      </segment>
+    </unit>
+    <unit id="search.filterRemove">
+      <segment>
+        <source>Remove filter</source>
+      </segment>
+    </unit>
+    <unit id="search.filterRemoveAll">
+      <segment>
+        <source>Clear all</source>
+      </segment>
+    </unit>
+    <unit id="search.facet.type">
+      <segment>
+        <source>Content type</source>
+      </segment>
+    </unit>
+    <unit id="search.facet.count">
+      <segment>
+        <source>{count} results</source>
+      </segment>
+    </unit>
+    <unit id="search.facet.showMore">
+      <segment>
+        <source>Show all</source>
+      </segment>
+    </unit>
+    <unit id="search.facet.showFewer">
+      <segment>
+        <source>Show fewer</source>
+      </segment>
+    </unit>
+    <unit id="search.frequentSearches">
+      <segment>
+        <source>Popular searches</source>
+      </segment>
+    </unit>
+    <unit id="search.lastSearches">
+      <segment>
+        <source>Recent searches</source>
+      </segment>
+    </unit>
+    <unit id="search.sortBy">
+      <segment>
+        <source>Sort</source>
+      </segment>
+    </unit>
+    <unit id="search.sortAscending">
+      <segment>
+        <source>ascending</source>
+      </segment>
+    </unit>
+    <unit id="search.sortDescending">
+      <segment>
+        <source>descending</source>
+      </segment>
+    </unit>
+    <unit id="search.perPage">
+      <segment>
+        <source>Per page</source>
+      </segment>
+    </unit>
+    <unit id="search.perPageApply">
+      <segment>
+        <source>Apply</source>
+      </segment>
+    </unit>
+    <unit id="search.pagination">
+      <segment>
+        <source>Search result pages</source>
+      </segment>
+    </unit>
+    <unit id="search.paginationPage">
+      <segment>
+        <source>Page {page}</source>
+      </segment>
+    </unit>
+    <unit id="search.paginationCurrent">
+      <segment>
+        <source>Current page</source>
+      </segment>
+    </unit>
+    <unit id="search.paginationPrevious">
+      <segment>
+        <source>Previous page</source>
+      </segment>
+    </unit>
+    <unit id="search.paginationNext">
+      <segment>
+        <source>Next page</source>
+      </segment>
+    </unit>
+    <unit id="search.paginationInfo">
+      <segment>
+        <source>Page {page} of {total}</source>
+      </segment>
+    </unit>
+    <unit id="search.type.pages">
+      <segment>
+        <source>Page</source>
+      </segment>
+    </unit>
+    <unit id="search.type.news">
+      <segment>
+        <source>News</source>
+      </segment>
+    </unit>
+    <unit id="search.type.addresses">
+      <segment>
+        <source>Address</source>
+      </segment>
+    </unit>
+    <unit id="search.type.files">
+      <segment>
+        <source>File</source>
+      </segment>
+    </unit>
+    <unit id="search.debug.parsedQuery">
+      <segment>
+        <source>Parsed query</source>
+      </segment>
+    </unit>
+    <unit id="search.unavailable">
+      <segment>
+        <source>Search is unavailable right now</source>
+      </segment>
+    </unit>
+    <unit id="search.unavailableHint">
+      <segment>
+        <source>The search service is not responding. Please try again in a moment.</source>
+      </segment>
+    </unit>
+
     <!-- Content group. The few strings a content element has to speak itself,
          because no editor field carries them: carousel controls, the two
          column headings of a pros-and-cons list, a gallery link's purpose. -->

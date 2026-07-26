@@ -480,5 +480,255 @@
         <target>Schließen</target>
       </segment>
     </unit>
+
+    <!-- Suche. Das Feld im Kopfbereich und die Ergebnisseite sprechen dieselbe
+         Sprache: Was im Vorschlagsmenü „Seite“ heißt, muss auf dem Abzeichen
+         in der Trefferliste ebenfalls „Seite“ heißen. -->
+    <unit id="search.label">
+      <segment state="final">
+        <source>Search this site</source>
+        <target>Diese Website durchsuchen</target>
+      </segment>
+    </unit>
+    <unit id="search.placeholder">
+      <segment state="final">
+        <source>Search this site</source>
+        <target>Website durchsuchen</target>
+      </segment>
+    </unit>
+    <unit id="search.submit">
+      <segment state="final">
+        <source>Search</source>
+        <target>Suchen</target>
+      </segment>
+    </unit>
+    <unit id="search.suggest.topResults">
+      <segment state="final">
+        <source>Top results</source>
+        <target>Beste Treffer</target>
+      </segment>
+    </unit>
+    <unit id="search.suggest.empty">
+      <segment state="final">
+        <source>Nothing matches yet</source>
+        <target>Noch keine Treffer</target>
+      </segment>
+    </unit>
+    <unit id="search.resultsHeading">
+      <segment state="final">
+        <source>Search results</source>
+        <target>Suchergebnisse</target>
+      </segment>
+    </unit>
+    <unit id="search.resultsFound">
+      <segment state="final">
+        <source>{count} results.</source>
+        <target>{count} Treffer.</target>
+      </segment>
+    </unit>
+    <unit id="search.resultsRange">
+      <segment state="final">
+        <source>Showing {from}–{to} of {total}.</source>
+        <target>Angezeigt werden {from}–{to} von {total}.</target>
+      </segment>
+    </unit>
+    <unit id="search.nothingFound">
+      <segment state="final">
+        <source>Nothing found for “{query}”.</source>
+        <target>Nichts gefunden für „{query}“.</target>
+      </segment>
+    </unit>
+    <unit id="search.nothingFoundHint">
+      <segment state="final">
+        <source>Try fewer words, or a more general term.</source>
+        <target>Versuchen Sie es mit weniger Wörtern oder einem allgemeineren Begriff.</target>
+      </segment>
+    </unit>
+    <unit id="search.showingInstead">
+      <segment state="final">
+        <source>Showing results for “{query}” instead.</source>
+        <target>Stattdessen werden Treffer für „{query}“ angezeigt.</target>
+      </segment>
+    </unit>
+    <unit id="search.didYouMean">
+      <segment state="final">
+        <source>Did you mean</source>
+        <target>Meinten Sie</target>
+      </segment>
+    </unit>
+    <unit id="search.promoted">
+      <segment state="final">
+        <source>Promoted</source>
+        <target>Hervorgehoben</target>
+      </segment>
+    </unit>
+    <unit id="search.filters">
+      <segment state="final">
+        <source>Filter the results</source>
+        <target>Treffer filtern</target>
+      </segment>
+    </unit>
+    <unit id="search.filteredBy">
+      <segment state="final">
+        <source>Filtered by</source>
+        <target>Gefiltert nach</target>
+      </segment>
+    </unit>
+    <unit id="search.filterRemove">
+      <segment state="final">
+        <source>Remove filter</source>
+        <target>Filter entfernen</target>
+      </segment>
+    </unit>
+    <unit id="search.filterRemoveAll">
+      <segment state="final">
+        <source>Clear all</source>
+        <target>Alle zurücksetzen</target>
+      </segment>
+    </unit>
+    <unit id="search.facet.type">
+      <segment state="final">
+        <source>Content type</source>
+        <target>Inhaltstyp</target>
+      </segment>
+    </unit>
+    <unit id="search.facet.count">
+      <segment state="final">
+        <source>{count} results</source>
+        <target>{count} Treffer</target>
+      </segment>
+    </unit>
+    <unit id="search.facet.showMore">
+      <segment state="final">
+        <source>Show all</source>
+        <target>Alle anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="search.facet.showFewer">
+      <segment state="final">
+        <source>Show fewer</source>
+        <target>Weniger anzeigen</target>
+      </segment>
+    </unit>
+    <unit id="search.frequentSearches">
+      <segment state="final">
+        <source>Popular searches</source>
+        <target>Häufige Suchanfragen</target>
+      </segment>
+    </unit>
+    <unit id="search.lastSearches">
+      <segment state="final">
+        <source>Recent searches</source>
+        <target>Zuletzt gesucht</target>
+      </segment>
+    </unit>
+    <unit id="search.sortBy">
+      <segment state="final">
+        <source>Sort</source>
+        <target>Sortieren</target>
+      </segment>
+    </unit>
+    <unit id="search.sortAscending">
+      <segment state="final">
+        <source>ascending</source>
+        <target>aufsteigend</target>
+      </segment>
+    </unit>
+    <unit id="search.sortDescending">
+      <segment state="final">
+        <source>descending</source>
+        <target>absteigend</target>
+      </segment>
+    </unit>
+    <unit id="search.perPage">
+      <segment state="final">
+        <source>Per page</source>
+        <target>Pro Seite</target>
+      </segment>
+    </unit>
+    <unit id="search.perPageApply">
+      <segment state="final">
+        <source>Apply</source>
+        <target>Übernehmen</target>
+      </segment>
+    </unit>
+    <unit id="search.pagination">
+      <segment state="final">
+        <source>Search result pages</source>
+        <target>Seiten der Trefferliste</target>
+      </segment>
+    </unit>
+    <unit id="search.paginationPage">
+      <segment state="final">
+        <source>Page {page}</source>
+        <target>Seite {page}</target>
+      </segment>
+    </unit>
+    <unit id="search.paginationCurrent">
+      <segment state="final">
+        <source>Current page</source>
+        <target>Aktuelle Seite</target>
+      </segment>
+    </unit>
+    <unit id="search.paginationPrevious">
+      <segment state="final">
+        <source>Previous page</source>
+        <target>Vorherige Seite</target>
+      </segment>
+    </unit>
+    <unit id="search.paginationNext">
+      <segment state="final">
+        <source>Next page</source>
+        <target>Nächste Seite</target>
+      </segment>
+    </unit>
+    <unit id="search.paginationInfo">
+      <segment state="final">
+        <source>Page {page} of {total}</source>
+        <target>Seite {page} von {total}</target>
+      </segment>
+    </unit>
+    <unit id="search.type.pages">
+      <segment state="final">
+        <source>Page</source>
+        <target>Seite</target>
+      </segment>
+    </unit>
+    <unit id="search.type.news">
+      <segment state="final">
+        <source>News</source>
+        <target>News</target>
+      </segment>
+    </unit>
+    <unit id="search.type.addresses">
+      <segment state="final">
+        <source>Address</source>
+        <target>Adresse</target>
+      </segment>
+    </unit>
+    <unit id="search.type.files">
+      <segment state="final">
+        <source>File</source>
+        <target>Datei</target>
+      </segment>
+    </unit>
+    <unit id="search.debug.parsedQuery">
+      <segment state="final">
+        <source>Parsed query</source>
+        <target>Ausgewertete Abfrage</target>
+      </segment>
+    </unit>
+    <unit id="search.unavailable">
+      <segment state="final">
+        <source>Search is unavailable right now</source>
+        <target>Die Suche ist gerade nicht verfügbar</target>
+      </segment>
+    </unit>
+    <unit id="search.unavailableHint">
+      <segment state="final">
+        <source>The search service is not responding. Please try again in a moment.</source>
+        <target>Der Suchdienst antwortet nicht. Bitte versuchen Sie es gleich noch einmal.</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

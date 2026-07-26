@@ -24,6 +24,22 @@ final class GrandeSiteDefinitions
     public const LAYOUT_THEMES = 'pagets__GrandeThemes';
 
     /**
+     * EXT:solr's results plugin. Not a Content Block, so the search page is
+     * seeded with a plain tt_content row rather than through the fixture
+     * resolver the catalog elements use.
+     */
+    public const SEARCH_PLUGIN_CTYPE = 'solr_pi_results';
+
+    /**
+     * The one line above the search field.
+     *
+     * It says what is searched and how the results are ordered, because a bare
+     * field over an empty page tells a visitor neither.
+     */
+    public const SEARCH_LEAD = 'Everything on this site, in one field. '
+        . 'Results are ranked by relevance and can be narrowed by content type.';
+
+    /**
      * The ten component chapters, in wizard-group order.
      *
      * Each chapter pins a different theme so that walking the hub is also a
@@ -135,6 +151,18 @@ final class GrandeSiteDefinitions
                 'role' => 'themes',
             ],
             [
+                // Hidden from the navigation because the loupe in the header is
+                // how a visitor gets here, and no-indexed because a search
+                // results page in a search index is a page about nothing.
+                'title' => 'Search',
+                'slug' => 'search',
+                'layout' => self::LAYOUT_CONTENTPAGE,
+                'navHide' => true,
+                'noIndex' => true,
+                'abstract' => 'Full-text search across this site.',
+                'role' => 'search',
+            ],
+            [
                 'title' => 'Imprint',
                 'slug' => 'imprint',
                 'layout' => self::LAYOUT_CONTENTPAGE,
@@ -217,7 +245,7 @@ final class GrandeSiteDefinitions
                     'metrics' => [
                         ['value' => '250', 'unit' => 'elements', 'title' => 'Across ten editor categories', 'text' => 'Hero, features, content, pricing, social proof, team, data, conversion, navigation and footer.'],
                         ['value' => '7', 'unit' => 'themes', 'title' => 'Switchable per site or per page', 'text' => 'Changing one repaints the site and never touches a word of content.'],
-                        ['value' => '0', 'unit' => 'frameworks', 'title' => 'No React, no build step', 'text' => 'Fluid templates and plain CSS. 244 of the 250 elements need no JavaScript at all.'],
+                        ['value' => '0', 'unit' => 'frameworks', 'title' => 'No React, no build step', 'text' => 'Fluid templates and plain CSS. 243 of the 250 elements need no JavaScript at all.'],
                         ['value' => '13', 'unit' => 'new columns', 'title' => 'For all 250 elements', 'text' => 'A shared field vocabulary, so the elements do not each invent their own database columns.'],
                     ],
                 ],
@@ -235,7 +263,7 @@ final class GrandeSiteDefinitions
                         ['title' => 'Upstream tokens, not a lookalike', 'text' => 'Colours, spacing, radii and the type scale come from Astryx\'s own compiler output, with the upstream commit recorded in the repository.'],
                         ['title' => 'One switch, whole site', 'text' => 'Every element speaks only in tokens — an audit fails the build on a raw colour — which is why one theme change reaches all 250 at once.'],
                         ['title' => 'Light and dark from one palette', 'text' => 'Each colour is a light-dark() pair resolved against the colour scheme, so the scheme switch and the theme switch stay independent.'],
-                        ['title' => 'Accessibility measured, not asserted', 'text' => 'A script checks 392 colour pairs across all fourteen palettes against WCAG 2.2 AA, and the shortfalls that remain are documented rather than hidden.'],
+                        ['title' => 'Accessibility measured, not asserted', 'text' => 'The build measures all 406 colour pairs the stylesheets declare, across fourteen palettes, against WCAG 2.2 AA — and refuses to finish if one of them fails.'],
                         ['title' => 'Editors keep the page module', 'text' => 'Content Blocks elements with real backend previews, keyword search and a live picker preview for every one of the 250.'],
                         ['title' => 'Self-hosted, no third parties', 'text' => 'Ten font families served from your own domain. A visitor\'s browser makes no request to anyone else.'],
                     ],
@@ -257,6 +285,41 @@ final class GrandeSiteDefinitions
                 ],
             ],
             [
+                'ctype' => 'desiderio_grande_pricinglicencetiers',
+                'fixture' => [
+                    'eyebrow' => 'What it costs',
+                    'header' => 'The package is free. The guarantees are what you pay for.',
+                    'lead' => 'Desiderio Grande is GPL-2.0-or-later, like TYPO3 itself: all 250 elements, all seven themes, the seeding commands and the audit scripts, complete and at no cost. The paid tiers buy response times and the people who built it — never a feature that was withheld.',
+                    'note' => 'Prices are net, excluding VAT. Support tiers are billed yearly or monthly and can be cancelled to the end of the term. Astryx itself is MIT-licensed and © Meta Platforms, Inc. and affiliates.',
+                    'cta_label' => 'See what you would be installing',
+                    'cta_link' => 't3://page?uid=__HUB__',
+                    'tone' => 'surface',
+                    'width' => 'lg',
+                    'tiers' => [
+                        [
+                            'title' => 'Community',
+                            'value' => '€0',
+                            'text' => 'The complete extension under GPL-2.0-or-later — every element, every theme, the contrast audit and the demo seeding. Unlimited sites, no registration, no feature held back. Questions go to the public issue tracker.',
+                        ],
+                        [
+                            'title' => 'Pro',
+                            'value' => '€49',
+                            'text' => 'Per month, or €490 a year. Priority email support answered within two working days, guaranteed compatibility updates for TYPO3 LTS releases, and early access to new element drops.',
+                        ],
+                        [
+                            'title' => 'Agency',
+                            'value' => '€149',
+                            'text' => 'Per month, or €1,490 a year. Everything in Pro across unlimited client projects, answers within four business hours (CET), and a yearly review of your own theme overrides by the people who wrote the token pipeline.',
+                        ],
+                        [
+                            'title' => 'Installation',
+                            'value' => '€890',
+                            'text' => 'One-off. We install and configure the extension on your TYPO3, wire the site sets, pick the theme with you and seed a working demo tree. Brand adaptation — your palette rendered as an eighth theme — from €1,990.',
+                        ],
+                    ],
+                ],
+            ],
+            [
                 'ctype' => 'desiderio_grande_accordionfaq',
                 'fixture' => [
                     'eyebrow' => 'Before you ask',
@@ -267,7 +330,7 @@ final class GrandeSiteDefinitions
                         ['title' => 'Is this an official Meta product?', 'bodytext' => '<p>No. Astryx is released by Meta under the MIT licence and this extension builds on it. There is no affiliation with or endorsement by Meta, and no Astryx source code is redistributed — only its design tokens and component documentation.</p>'],
                         ['title' => 'Does it run React on the frontend?', 'bodytext' => '<p>No. Astryx upstream is React and StyleX; this is Fluid and CSS. The visual language is the same, the runtime is not. One small vanilla script handles the four behaviours the platform has no element for.</p>'],
                         ['title' => 'Can I use it alongside Desiderio?', 'bodytext' => '<p>Yes, and that is the design. Both are installed in the same TYPO3, and each site declares which theme it uses. The element picker on each site offers only that theme\'s elements.</p>'],
-                        ['title' => 'Is every theme WCAG 2.2 AA clean?', 'bodytext' => '<p>Not every pair in every theme. Body text, links, buttons and focus rings pass everywhere. Secondary text falls below 4.5:1 in five of the seven themes at Astryx\'s own palette values, and a handful of badge hues are marginal in chocolate and matcha. The audit script ships with the extension so you can see exactly where, and overriding those tokens is a two-line change.</p>'],
+                        ['title' => 'Is every theme WCAG 2.2 AA clean?', 'bodytext' => '<p>Yes, and the proof runs on every build. A script measures all 406 colour pairs the stylesheets actually declare — seven themes in light and dark — and exits non-zero if any of them misses the threshold, so a palette change cannot quietly regress.</p><p>Astryx\'s own values do fall short in a few places: secondary text in five themes, badge hues in chocolate, matcha and gothic, and the error-toast label in all seven. A generated corrections file moves only the failing foreground token, and only by the smallest step that reaches 4.5:1, so the hue survives the fix — matcha\'s red goes from #cc0000 to #b10000, not to black. Twenty-three token declarations are corrected in all; everything already passing is left exactly as Meta shipped it.</p>'],
                         ['title' => 'What happens when Astryx changes?', 'bodytext' => '<p>The token payload is vendored with the upstream commit recorded next to it. Regenerating is one command; nothing silently follows upstream behind your back.</p>'],
                     ],
                 ],
@@ -304,26 +367,27 @@ final class GrandeSiteDefinitions
     {
         return [
             'imprint' => [
-                'header' => 'Imprint',
+                'header' => 'A placeholder, not a legal notice',
                 'bodytext' => '<p>This is a demonstration site for the Astryx design system running on TYPO3. It is not a business, and this page is a placeholder where a real imprint would go.</p>'
                     . '<p>A production site replaces this text with the disclosures its jurisdiction requires — operator, address, contact, registration and supervisory details.</p>',
             ],
             'privacy' => [
-                'header' => 'Privacy',
+                'header' => 'What this site stores, and what it does not',
                 'bodytext' => '<p>This demonstration site sets no tracking cookies and embeds no third-party services. Fonts are served from this domain, so visiting a page makes no request to anyone else.</p>'
                     . '<p>The one thing stored in your browser is the light/dark preference you pick with the toggle in the header. It never leaves your device, and clearing your site data removes it.</p>'
                     . '<p>A production site replaces this page with a privacy notice describing what it actually processes.</p>',
             ],
             'accessibility' => [
-                'header' => 'Accessibility',
+                'header' => 'How this theme is built',
                 'bodytext' => '<p>The theme is built to work without a mouse and without sight of the layout. Every page has one h1 that says what the page is; content elements head their own band with an h2, so the outline reads as a table of contents.</p>'
                     . '<p>Focus is always visible, and the accent-coloured ring is drawn from the same token as the rest of the theme, so it stays visible in every one of the seven themes and in both colour schemes.</p>'
+                    . '<p>Contrast is measured rather than assumed. A script checks all 406 colour pairs the stylesheets declare — seven themes in light and dark — against the WCAG 2.2 AA thresholds of 4.5:1 for body text and 3:1 for boundaries, focus rings and meaningful graphics, and the build fails if a single pair misses. Where Astryx\'s own palette values fall short, a generated corrections file lifts only the failing colour, and only as far as the threshold.</p>'
                     . '<p>State is never carried by colour alone: a current navigation item is also heavier, a status also carries text.</p>'
                     . '<p>Animation is opt-out at the source. Anything that moves is wrapped in a reduced-motion query, so a visitor who asks their system for less motion gets a still page rather than a slower one.</p>'
                     . '<p>Menus are native disclosures, dialogs are the native dialog element and the colour-scheme switch is a real button, so keyboard behaviour comes from the browser instead of being reimplemented.</p>',
             ],
             'not-found' => [
-                'header' => 'Page not found',
+                'header' => 'The address did not lead anywhere',
                 'bodytext' => '<p>The address you followed does not lead anywhere on this site. It may have been renamed, or the link that brought you here may be out of date.</p>',
             ],
         ];

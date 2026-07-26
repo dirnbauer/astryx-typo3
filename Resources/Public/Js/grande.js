@@ -247,6 +247,403 @@
     });
   }
 
+  /* -------------------------------------------------------- header search */
+  /*
+   * The field is markup that works on its own: a form that submits to the
+   * results page. What is added here is the collapse — the loupe — and that is
+   * why the form is only marked ready once this runs. Before that the
+   * stylesheet keeps the field visible and the trigger hidden, so a visitor
+   * without this script gets a search box rather than a dead icon.
+   */
+  function initHeaderSearch() {
+    each('[data-g-search]', function (form) {
+      bind(form, 'Search', function (element) {
+        var trigger = element.querySelector('[data-g-search-toggle]');
+        var input = element.querySelector('input[type="search"]');
+        if (!trigger || !input) return;
+
+        element.setAttribute('data-g-search-ready', '');
+
+        function open(state) {
+          if (state) element.setAttribute('data-g-search-open', '');
+          else element.removeAttribute('data-g-search-open');
+
+          trigger.setAttribute('aria-expanded', state ? 'true' : 'false');
+          if (state) input.focus();
+        }
+
+        trigger.addEventListener('click', function () {
+          open(!element.hasAttribute('data-g-search-open'));
+        });
+
+        // Escape closes and hands focus back to the trigger, so the keyboard
+        // does not end up parked inside a field that is no longer on screen.
+        element.addEventListener('keydown', function (event) {
+          if (event.key !== 'Escape') return;
+          if (!element.hasAttribute('data-g-search-open')) return;
+          event.stopPropagation();
+          open(false);
+          trigger.focus();
+        });
+
+        document.addEventListener('click', function (event) {
+          if (!element.hasAttribute('data-g-search-open')) return;
+          if (element.contains(event.target)) return;
+          if (input.value.trim() !== '') return; // a typed query is not abandoned by a stray click
+          open(false);
+        });
+
+        // An empty submit would send the visitor to an empty results page.
+        element.addEventListener('submit', function (event) {
+          if (input.value.trim() !== '') return;
+          event.preventDefault();
+          input.focus();
+        });
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------- suggest */
+  /*
+   * The dropdown under a search field.
+   *
+   * It reads one attribute — data-suggest, the URL of the tx_solr_suggest page
+   * type — which EXT:solr's own search form already emits, so the header field
+   * and the results-page field share this implementation without either knowing
+   * about the other.
+   *
+   * The rows are Astryx Items, built from the same class names a Fluid template
+   * would write. Keyboard traversal moves an is-active class rather than focus:
+   * focus stays in the input so the visitor can keep typing, and
+   * aria-activedescendant is what tells a screen reader where they are.
+   */
+  var SUGGEST_TYPE_LABELS = {
+    pages: 'labelPages',
+    tx_news_domain_model_news: 'labelNews',
+    tt_address: 'labelAddresses',
+  };
+
+  function suggestNumber(form, name, fallback) {
+    var value = parseInt(form.getAttribute('data-g-suggest-' + name), 10);
+    return isNaN(value) ? fallback : value;
+  }
+
+  /** Split text on the query and wrap each hit in <mark>, escaping by construction. */
+  function appendHighlighted(target, text, query) {
+    var source = String(text == null ? '' : text);
+    var needle = String(query || '').trim();
+
+    if (needle === '') {
+      target.textContent = source;
+      return;
+    }
+
+    var haystack = source.toLowerCase();
+    var lower = needle.toLowerCase();
+    var offset = 0;
+
+    while (offset < source.length) {
+      var at = haystack.indexOf(lower, offset);
+      if (at === -1) {
+        target.appendChild(document.createTextNode(source.slice(offset)));
+        return;
+      }
+      if (at > offset) target.appendChild(document.createTextNode(source.slice(offset, at)));
+
+      var mark = document.createElement('mark');
+      mark.className = 'astryx-typeahead-mark';
+      mark.textContent = source.slice(at, at + needle.length);
+      target.appendChild(mark);
+      offset = at + needle.length;
+    }
+  }
+
+  function Suggest(form) {
+    this.form = form;
+    this.input = form.querySelector('[data-g-suggest-input]');
+    this.anchor = form.querySelector('[data-g-suggest-anchor]');
+    this.endpoint = form.getAttribute('data-suggest');
+    if (!this.input || !this.anchor || !this.endpoint) return;
+
+    this.minChars = suggestNumber(form, 'min-chars', 2);
+    this.maxItems = suggestNumber(form, 'max-items', 8);
+    this.debounceMs = suggestNumber(form, 'debounce', 180);
+    this.groupHeading = form.getAttribute('data-g-suggest-header') || 'Top results';
+    this.emptyText = form.getAttribute('data-g-suggest-empty') || '';
+    this.labels = {
+      labelPages: form.getAttribute('data-g-suggest-label-pages') || 'Page',
+      labelNews: form.getAttribute('data-g-suggest-label-news') || 'News',
+      labelAddresses: form.getAttribute('data-g-suggest-label-addresses') || 'Address',
+    };
+
+    this.timer = null;
+    this.controller = null;
+    this.rows = [];
+    this.active = -1;
+
+    this.anchor.classList.add('astryx-typeahead-anchor');
+
+    this.list = document.createElement('ul');
+    this.list.className = 'astryx-typeahead';
+    this.list.id = 'g-typeahead-' + (this.input.id || String(this.rows.length)) + '-' + Suggest.counter++;
+    this.list.setAttribute('role', 'listbox');
+    this.list.hidden = true;
+    this.anchor.appendChild(this.list);
+
+    this.input.setAttribute('role', 'combobox');
+    this.input.setAttribute('aria-autocomplete', 'list');
+    this.input.setAttribute('aria-expanded', 'false');
+    this.input.setAttribute('aria-controls', this.list.id);
+    this.input.setAttribute('autocomplete', 'off');
+
+    var self = this;
+    this.input.addEventListener('input', function () { self.schedule(); });
+    this.input.addEventListener('focus', function () { self.schedule(); });
+    this.input.addEventListener('keydown', function (event) { self.onKeydown(event); });
+    document.addEventListener('click', function (event) {
+      if (!self.form.contains(event.target)) self.close();
+    });
+  }
+
+  Suggest.counter = 0;
+
+  Suggest.prototype.schedule = function () {
+    window.clearTimeout(this.timer);
+
+    var query = this.input.value.trim();
+    if (query.length < this.minChars) {
+      this.close();
+      return;
+    }
+
+    var self = this;
+    this.timer = window.setTimeout(function () { self.fetch(query); }, this.debounceMs);
+  };
+
+  Suggest.prototype.fetch = function (query) {
+    // Every keystroke supersedes the one before it: the older request is
+    // aborted, so a slow response can never overwrite a newer one.
+    if (this.controller) this.controller.abort();
+    this.controller = new AbortController();
+
+    var self = this;
+    var url = new URL(this.endpoint, window.location.href);
+    url.searchParams.set('tx_solr[queryString]', query);
+
+    window
+      .fetch(url.toString(), {headers: {Accept: 'application/json'}, signal: this.controller.signal})
+      .then(function (response) {
+        if (!response.ok) throw new Error('suggest ' + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        if (query !== self.input.value.trim()) return;
+        self.render(data, query);
+      })
+      .catch(function (error) {
+        if (error && error.name === 'AbortError') return;
+        self.close();
+      });
+  };
+
+  Suggest.prototype.typeLabel = function (type) {
+    var key = SUGGEST_TYPE_LABELS[String(type || '')];
+    return key ? this.labels[key] : String(type || '');
+  };
+
+  Suggest.prototype.render = function (data, query) {
+    this.list.replaceChildren();
+    this.rows = [];
+    this.active = -1;
+
+    var self = this;
+    var terms = Object.keys((data && data.suggestions) || {}).slice(0, this.maxItems);
+    terms.forEach(function (label) {
+      self.addTerm(label, data.suggestions[label], query);
+    });
+
+    // EXT:solr answers with an object keyed by document id, not an array.
+    var documents = (data && data.documents) || [];
+    if (!Array.isArray(documents)) documents = Object.keys(documents).map(function (key) { return documents[key]; });
+    documents = documents.filter(function (document) { return document && document.title && document.link; });
+
+    if (documents.length > 0) {
+      var heading = document.createElement('li');
+      heading.className = 'astryx-typeahead-group';
+      heading.setAttribute('role', 'presentation');
+      heading.textContent = this.groupHeading;
+      this.list.appendChild(heading);
+
+      documents.forEach(function (item) { self.addDocument(item, query); });
+    }
+
+    // The header field is about fourteen characters wide; a page title in a
+    // column that narrow wraps to four lines. Measured rather than guessed,
+    // because the same menu hangs from the full-width field on the results page.
+    this.list.classList.toggle('wider-than-field', this.anchor.getBoundingClientRect().width < 288);
+
+    if (this.rows.length === 0) {
+      if (this.emptyText === '') {
+        this.close();
+        return;
+      }
+      var empty = document.createElement('li');
+      empty.className = 'astryx-typeahead-empty';
+      empty.setAttribute('role', 'presentation');
+      empty.textContent = this.emptyText;
+      this.list.appendChild(empty);
+    }
+
+    this.list.hidden = false;
+    this.input.setAttribute('aria-expanded', 'true');
+  };
+
+  /** One option shell, shared by both row kinds. */
+  Suggest.prototype.addRow = function (payload) {
+    var option = document.createElement('li');
+    option.className = 'astryx-item compact interactive astryx-typeahead-option';
+    option.id = this.list.id + '-option-' + this.rows.length;
+    option.setAttribute('role', 'option');
+    option.setAttribute('aria-selected', 'false');
+
+    // pointerdown, not click: mousedown would blur the input first and the
+    // blur handler would close the menu out from under the pointer.
+    var self = this;
+    option.addEventListener('pointerdown', function (event) {
+      event.preventDefault();
+      self.choose(payload);
+    });
+
+    this.rows.push({payload: payload, element: option});
+    this.list.appendChild(option);
+    return option;
+  };
+
+  Suggest.prototype.addTerm = function (label, count, query) {
+    var option = this.addRow({kind: 'term', label: label});
+
+    var content = document.createElement('span');
+    content.className = 'astryx-item-content';
+    var text = document.createElement('span');
+    text.className = 'astryx-item-label truncate';
+    appendHighlighted(text, label, query);
+    content.appendChild(text);
+    option.appendChild(content);
+
+    if (count !== undefined && count !== null) {
+      var end = document.createElement('span');
+      end.className = 'astryx-item-end astryx-typeahead-count';
+      var badge = document.createElement('span');
+      badge.className = 'astryx-badge neutral';
+      badge.textContent = String(count);
+      end.appendChild(badge);
+      option.appendChild(end);
+    }
+  };
+
+  Suggest.prototype.addDocument = function (item, query) {
+    var option = this.addRow({kind: 'document', label: item.title, link: item.link});
+    option.classList.add('align-start');
+
+    var content = document.createElement('span');
+    content.className = 'astryx-item-content';
+
+    var label = document.createElement('span');
+    label.className = 'astryx-item-label truncate';
+    appendHighlighted(label, item.title, query);
+    content.appendChild(label);
+
+    if (item.content) {
+      var description = document.createElement('span');
+      description.className = 'astryx-item-description truncate';
+      description.textContent = item.content;
+      content.appendChild(description);
+    }
+
+    option.appendChild(content);
+
+    var typeLabel = this.typeLabel(item.type);
+    if (typeLabel) {
+      var end = document.createElement('span');
+      end.className = 'astryx-item-end';
+      var badge = document.createElement('span');
+      badge.className = 'astryx-badge neutral';
+      badge.textContent = typeLabel;
+      end.appendChild(badge);
+      option.appendChild(end);
+    }
+  };
+
+  Suggest.prototype.onKeydown = function (event) {
+    if (this.list.hidden) return;
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.move(1);
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.move(-1);
+    } else if (event.key === 'Enter' && this.active >= 0) {
+      event.preventDefault();
+      this.choose(this.rows[this.active].payload);
+    } else if (event.key === 'Escape') {
+      // Swallowed here so the header's own Escape handler does not also close
+      // the field: one key press, one thing closed.
+      event.stopPropagation();
+      this.close();
+    }
+  };
+
+  Suggest.prototype.move = function (direction) {
+    if (this.rows.length === 0) return;
+
+    this.active = (this.active + direction + this.rows.length) % this.rows.length;
+
+    var activeIndex = this.active;
+    this.rows.forEach(function (row, index) {
+      var on = index === activeIndex;
+      row.element.classList.toggle('is-active', on);
+      row.element.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+
+    var element = this.rows[this.active].element;
+    this.input.setAttribute('aria-activedescendant', element.id);
+    element.scrollIntoView({block: 'nearest'});
+  };
+
+  Suggest.prototype.choose = function (payload) {
+    if (payload.kind === 'document' && payload.link) {
+      window.location.href = payload.link;
+      return;
+    }
+
+    // A term is not a destination — it is what the visitor meant to type, so
+    // it goes into the field and runs as a full search.
+    this.input.value = payload.label;
+    this.close();
+
+    if (typeof this.form.requestSubmit === 'function') this.form.requestSubmit();
+    else this.form.submit();
+  };
+
+  Suggest.prototype.close = function () {
+    this.list.hidden = true;
+    this.list.replaceChildren();
+    this.rows = [];
+    this.active = -1;
+    this.input.setAttribute('aria-expanded', 'false');
+    this.input.removeAttribute('aria-activedescendant');
+  };
+
+  function initSuggest() {
+    each('form[data-suggest]', function (form) {
+      bind(form, 'Suggest', function (element) {
+        if (!element.querySelector('[data-g-suggest-input]')) return;
+        new Suggest(element);
+      });
+    });
+  }
+
   function init() {
     initSchemeToggles();
     initMenus();
@@ -254,6 +651,8 @@
     initTabs();
     initCarousels();
     initDialogs();
+    initHeaderSearch();
+    initSuggest();
   }
 
   if (document.readyState === 'loading') {

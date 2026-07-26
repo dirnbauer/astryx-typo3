@@ -19,6 +19,14 @@ plugin.tx_solr.view {
 # The "Content type" facet is the one facet every site gets, and Desiderio
 # labels it in English from its own file. Re-point it at this theme's labels so
 # the German column of the sidebar is not half-translated.
+plugin.tx_solr.search.faceting {
+  # Desiderio's defaults keep zero-count options visible, which on a site with
+  # one indexed record type lists "News 0" and "Skills 0" under every search —
+  # three filters, two of which can only ever narrow the list to nothing.
+  minimumCount = 1
+  facets.type.minimumCount = 1
+}
+
 plugin.tx_solr.search.faceting.facets.type {
   label = TEXT
   label.data = LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:search.facet.type

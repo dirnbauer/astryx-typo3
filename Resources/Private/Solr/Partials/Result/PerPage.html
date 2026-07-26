@@ -6,15 +6,26 @@
 
 <f:argument name="resultSet" type="object"/>
 
-<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
-
 <f:section name="PerPage">
+    <f:comment>
+        Declared inside the section, not above it: a template or partial that is
+        rendered through a layout or by section name never evaluates its root
+        content, so a variable set out there is simply absent by the time the
+        section runs — and every key built from it silently loses its path.
+    </f:comment>
+    <f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
     <f:comment>
         The select submits its form on change, which is the whole control — so
         the submit button is there for anyone whose JavaScript never arrives,
         and hidden from everyone else by the stylesheet.
     </f:comment>
-    <form id="results-per-page" method="post" action="{s:uri.search.currentSearch()}" class="astryx-field horizontal g-search__per-page">
+    <f:comment>
+        Not .astryx-field.horizontal: that variant is display:contents, which
+        would dissolve the form's box and drop the label and the select straight
+        into the footer row beside the pagination.
+    </f:comment>
+    <form id="results-per-page" method="post" action="{s:uri.search.currentSearch()}" class="g-search__per-page">
         <label class="astryx-field-label" for="results-per-page-select">
             <f:translate key="{labels}:search.perPage" default="Per page"/>
         </label>

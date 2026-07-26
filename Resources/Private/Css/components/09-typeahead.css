@@ -1,0 +1,118 @@
+/*
+ * Typeahead — the suggestion menu that opens under a search field.
+ *
+ * Upstream this is a React component with a portal and a positioning engine.
+ * Here it is a <ul role="listbox"> that grande.js appends to the element the
+ * template marked as the anchor, so the only thing this file owns is the
+ * popover shell, the group heading, the active row and the highlight.
+ *
+ * Everything inside a row is an Astryx Item — .astryx-item, -content, -label,
+ * -description, -end — painted by 06-data.css. That is deliberate: a suggestion
+ * row and a result row are the same object at different sizes, and giving the
+ * menu its own row recipe is how the two drift apart.
+ */
+
+/* The anchor is whatever the template wrapped around the field. grande.js adds
+   this class, so a template only has to mark the element, never style it. */
+.astryx-typeahead-anchor {
+  position: relative;
+}
+
+.astryx-typeahead {
+  position: absolute;
+  inset-block-start: calc(100% + var(--spacing-1));
+  inset-inline: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--spacing-1);
+  list-style: none;
+  max-block-size: min(60vh, 24rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-med);
+  color: var(--color-text-primary);
+}
+
+.astryx-typeahead[hidden] {
+  display: none;
+}
+
+/* A menu narrower than about fifteen characters cannot show a page title, so
+   it is allowed to grow past the field it hangs from — but only rightwards,
+   and never past the viewport edge. */
+/* The min is itself clamped to the viewport: a min-inline-size beats a
+   max-inline-size, so a bare 22rem would push the menu off the side of a
+   320px phone rather than being capped by the max below it. */
+.astryx-typeahead.wider-than-field {
+  min-inline-size: min(22rem, calc(100vw - 2 * var(--spacing-4)));
+  max-inline-size: min(30rem, calc(100vw - 2 * var(--spacing-4)));
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+}
+
+/* Group heading — "Top results". Presentational, not an option: it carries
+   role="presentation" so arrow keys skip straight past it. */
+.astryx-typeahead-group {
+  padding-block: var(--spacing-2) var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* A group heading that is not the first thing in the menu is a divider too. */
+.astryx-typeahead-group:not(:first-child) {
+  margin-block-start: var(--spacing-1);
+  border-block-start: var(--border-width) solid var(--color-neutral);
+  padding-block-start: var(--spacing-2);
+}
+
+/*
+ * The active row.
+ *
+ * Keyboard traversal moves this class, not focus — focus has to stay in the
+ * input so the visitor can keep typing. So the row cannot rely on :focus-
+ * visible for its highlight and states it outright, and aria-activedescendant
+ * on the input is what tells a screen reader which row that is.
+ */
+.astryx-typeahead-option.is-active {
+  background-color: var(--color-overlay-hover);
+}
+
+.astryx-typeahead-option.is-active .astryx-item-label {
+  color: var(--color-text-primary);
+}
+
+/* The matched substring inside a suggestion. Painting it with the accent alone
+   would make it disappear for anyone who cannot separate the two hues, so it
+   carries weight as well and drops the browser's default yellow block. */
+.astryx-typeahead-mark {
+  background-color: transparent;
+  color: var(--color-text-accent);
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-typeahead-empty {
+  padding-block: var(--spacing-3);
+  padding-inline: var(--spacing-2);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* A term suggestion is one line and a count; the count must not push the term
+   into wrapping, so it never shrinks and the term truncates instead. */
+.astryx-typeahead-count {
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-typeahead-option {
+    transition: none;
+  }
+}

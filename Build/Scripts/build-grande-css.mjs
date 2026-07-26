@@ -51,6 +51,10 @@ const UNLAYERED = new Set(['00-fonts.css']);
  */
 const LAYER_OVERRIDES = new Map([
   ['07-contrast-overrides.css', 'astryx-theme'],
+  // An element-level reset must not outrank the components it resets, and a
+  // layer beats specificity outright — so this partial is emitted into the
+  // first layer rather than into the chrome layer the rest of grande.css uses.
+  ['00-reset.css', 'astryx-reset'],
 ]);
 
 function minifyCss(css) {
