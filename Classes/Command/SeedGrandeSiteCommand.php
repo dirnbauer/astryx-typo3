@@ -14,6 +14,17 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Resource\StorageRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Webconsulting\Desiderio\Data\ContentBlockDefinitionRegistry;
+use Webconsulting\Desiderio\Library\ElementCatalog;
+use Webconsulting\Desiderio\Seeding\CollectionCleanupService;
+use Webconsulting\Desiderio\Seeding\ContentBlockCollectionMap;
+use Webconsulting\Desiderio\Seeding\ContentElementSeeder;
+use Webconsulting\Desiderio\Seeding\DesiderioContentCleaner;
+use Webconsulting\Desiderio\Seeding\StyleguideCollectionAliasPolicy;
+use Webconsulting\Desiderio\Seeding\StyleguideDemoValueGenerator;
+use Webconsulting\Desiderio\Seeding\StyleguideFixtureResolver;
 use Webconsulting\Desiderio\Seeding\DatabaseSchemaHelper;
 use Webconsulting\Desiderio\Seeding\LiveWorkspaceQueryHelper;
 use Webconsulting\Desiderio\Seeding\SeedPageUpserter;
@@ -39,11 +50,18 @@ final class SeedGrandeSiteCommand extends Command
     /** Space between sorting values, so a page can be moved between two others. */
     private const SORTING_STEP = 256;
 
+    /** fileadmin subfolder the chapter pages' demo images land in. */
+    private const FAL_FOLDER = 'desiderio-grande-site';
+
+    private ?DesiderioContentCleaner $contentCleaner = null;
+
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly Context $context,
         private readonly DatabaseSchemaHelper $databaseSchema,
         private readonly LiveWorkspaceQueryHelper $liveWorkspaceQueryHelper,
+        private readonly StorageRepository $storageRepository,
+        private readonly ElementCatalog $elementCatalog,
     ) {
         parent::__construct();
     }
@@ -52,6 +70,7 @@ final class SeedGrandeSiteCommand extends Command
     {
         $this
             ->addOption('parent', null, InputOption::VALUE_REQUIRED, 'Page uid the site root is created below. Use 0 for the page tree root.', '0')
+            ->addOption('content', null, InputOption::VALUE_NONE, 'Also fill each chapter page with its group\'s elements, from their fixture.json. Replaces the content this command seeded before; anything an editor added by hand stays.')
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'Print what would be created or updated and change nothing.')
             ->addOption('allow-production', null, InputOption::VALUE_NONE, 'Run even when the application context is Production.');
     }
@@ -190,6 +209,10 @@ final class SeedGrandeSiteCommand extends Command
             $created[$chapter['title']] = $uid;
         }
 
+        if ((bool)$input->getOption('content')) {
+            $this->seedChapterContent($io, $created, $chapters, $now);
+        }
+
         $io->success(sprintf('Astryx site tree seeded — root page uid %d.', $rootUid));
 
         $io->section('Next: write config/sites/desiderio-grande/');
@@ -206,6 +229,102 @@ final class SeedGrandeSiteCommand extends Command
         $io->table(['uid', 'page'], $rows);
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Put every element of a group onto its chapter page, in matrix order.
+     *
+     * The copy comes from each element's own fixture.json, which describes what
+     * the element is — that is what makes the chapter a catalog rather than a
+     * demo of one fictional company.
+     *
+     * @param array<string, int> $pages title => uid
+     * @param list<array{group: string, title: string}> $chapters
+     */
+    private function seedChapterContent(SymfonyStyle $io, array $pages, array $chapters, int $now): void
+    {
+        $manifestPath = GeneralUtility::getFileAbsFileName(
+            'EXT:desiderio_grande/Resources/Private/Data/grande-content-groups.json',
+        );
+        $manifest = json_decode((string)file_get_contents($manifestPath), true);
+        if (!is_array($manifest['groups'] ?? null)) {
+            $io->warning('No group manifest — run Build/Scripts/scaffold-content-elements.php --derive.');
+            return;
+        }
+
+        $byGroup = [];
+        foreach ($manifest['groups'] as $entry) {
+            $byGroup[$entry['group']] = $entry['elements'] ?? [];
+        }
+
+        $catalog = [];
+        foreach ($this->elementCatalog->getElements() as $element) {
+            $catalog[$element['cType']] = $element;
+        }
+
+        $resolver = new StyleguideFixtureResolver(
+            $this->databaseSchema,
+            new StyleguideDemoValueGenerator(),
+            new StyleguideCollectionAliasPolicy($this->databaseSchema),
+        );
+        $seeder = new ContentElementSeeder(
+            $this->connectionPool,
+            $this->storageRepository,
+            $this->databaseSchema,
+            self::FAL_FOLDER,
+            1777300001,
+        );
+        $cleaner = $this->getContentCleaner();
+        $columns = $this->databaseSchema->getColumnNames('tt_content');
+
+        $seeded = 0;
+        foreach ($chapters as $chapter) {
+            $pageUid = $pages[$chapter['title']] ?? 0;
+            $elements = $byGroup[$chapter['group']] ?? [];
+            if ($pageUid === 0 || $elements === []) {
+                continue;
+            }
+
+            // Only what a previous run put here: an editor's own additions on a
+            // chapter page survive a reseed.
+            $cleaner->softDeleteSeededContent($pageUid, $now);
+
+            $sorting = 0;
+            foreach ($elements as $element) {
+                $cType = $element['ctype'];
+                $record = $catalog[$cType] ?? null;
+                if ($record === null) {
+                    continue;
+                }
+                $sorting += self::SORTING_STEP;
+                $contentData = $resolver->buildContentInsert(
+                    $pageUid,
+                    $cType,
+                    $record['name'],
+                    $record['fixture'],
+                    $sorting,
+                    $now,
+                    $columns,
+                    ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
+                );
+                $seeder->insert($pageUid, $now, $contentData);
+                $seeded++;
+            }
+
+            $io->writeln(sprintf('  %-28s %d elements', $chapter['title'], count($elements)));
+        }
+
+        $io->writeln(sprintf("\n%d elements placed across %d chapter pages.", $seeded, count($chapters)));
+    }
+
+    private function getContentCleaner(): DesiderioContentCleaner
+    {
+        return $this->contentCleaner ??= new DesiderioContentCleaner(
+            $this->connectionPool,
+            $this->liveWorkspaceQueryHelper,
+            new CollectionCleanupService($this->connectionPool, $this->databaseSchema, $this->liveWorkspaceQueryHelper),
+            new ContentBlockCollectionMap(),
+        );
     }
 
     /**

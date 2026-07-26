@@ -31,8 +31,14 @@
                     <f:if condition="{item.description}">
                         <span class="astryx-text supporting g-footnotes__source">{item -> f:render.text(field: 'description')}</span>
                     </f:if>
+                    <f:comment>
+                        A source note prints the address it points at, because a
+                        footnote is often read on paper. That has to be the URL
+                        string — the field itself is a TypolinkParameter object,
+                        and rendering it as text throws.
+                    </f:comment>
                     <f:if condition="{item.link.url}">
-                        <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footnotes__link">{item.link}</f:link.typolink>
+                        <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footnotes__link">{item.link.url}</f:link.typolink>
                     </f:if>
                 </li>
             </f:for>
