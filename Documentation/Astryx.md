@@ -65,11 +65,11 @@ editor, this is the whole chapter.
 ### Choosing a theme
 
 The theme is a setting, and changing it repaints the site. No rebuild, no
-re-save of content — the tokens for all seven themes are already on the page,
+re-save of content — the tokens for all twenty themes are already on the page,
 and the site just declares which one applies.
 
 - **Per site:** `desiderioGrande.theme.default` in the site's `settings.yaml`,
-  one of the seven names above.
+  one of the twenty names below.
 - **Per page and everything below it:** the *Astryx theme* field in the page
   properties (Appearance tab). It inherits down the page tree, so one setting on
   a campaign folder themes the whole campaign.
@@ -125,9 +125,52 @@ time upstream nudged a value; generated output cannot, and regenerating is one
 command.
 
 Themes are scoped to `[data-astryx-theme="<name>"]` rather than to `<body>`.
-That is why the *Themes* overview page can render all seven side by side on one
+That is why the *Themes* overview page can render all twenty side by side on one
 page, each card genuinely wearing its own theme rather than showing a
 screenshot.
+
+### 3.1a Seven themes are Astryx's. Thirteen are ours.
+
+Astryx ships **seven** themes and no more — `neutral`, `butter`, `chocolate`,
+`matcha`, `stone`, `gothic`, `y2k` — which you can verify yourself:
+
+```bash
+gh api repos/facebook/astryx/contents/packages/themes --jq '.[].name'
+```
+
+This extension adds **thirteen**: `harbour`, `ember`, `linen`, `orchid`,
+`cobalt`, `moss`, `clay`, `plum`, `sand`, `ink`, `lagoon`, `rose`, `graphite`.
+They are ours, not Meta's, and the theme overview badges every card so nobody
+has to guess which is which.
+
+They are not a second mechanism. Each is expanded by
+`Build/Scripts/build-grande-themes.mjs` from a small seed in
+`Build/Data/grande-themes.json` into exactly the structure Astryx's own
+generator emits, with the same token names — no component can tell them apart.
+A seed names only what is genuinely a brand decision:
+
+```json
+{
+  "core": {"ink": "…", "mid": "…", "soft": "…", "paper": "…"},
+  "dark": {"body": "…", "surface": "…", "card": "…"},
+  "fonts": {"heading": "Figtree", "body": "DM Sans"},
+  "radius": "0.5rem"
+}
+```
+
+Everything else is **inherited from neutral**: the nine categorical hue ramps,
+the status colours and the syntax palette are semantic categories rather than
+brand decisions, and inheriting them means they keep the contrast behaviour the
+audit already verified instead of giving us thirteen fresh chances to make a
+badge unreadable.
+
+Fonts must come from the ten families `sync-fonts.mjs` already self-hosts. A
+theme wanting an eleventh would add a download to every page on the site.
+
+`Build/Data/theme-registry.json` is generated from both sets and is the single
+source of truth for which themes exist — the build scripts, the contrast audit,
+the TCA field, the site settings, the overview partial and the seeder all read
+it. That list used to be repeated in nine files.
 
 ### 3.2 The markup speaks Astryx's class-name contract
 
@@ -180,11 +223,11 @@ php scripts/audit-content-elements.php     # 250 elements, 0 findings
 
 This is what makes the theme switch total rather than approximate. An element
 that hardcoded `#333` would survive every review and then quietly stay dark grey
-in all seven themes.
+in all twenty themes.
 
 ### 3.4 Accessibility is measured, and the build refuses to finish without it
 
-`Build/Scripts/audit-contrast.mjs` measures **406 colour pairs** — seven themes
+`Build/Scripts/audit-contrast.mjs` measures **1,200 colour pairs** — twenty themes
 × light and dark — against WCAG 2.2 AA: 4.5:1 for body text, 3:1 for
 boundaries, focus rings and meaningful graphics.
 

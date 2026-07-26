@@ -253,6 +253,11 @@ final class SeedGrandeSiteCommand extends Command
             $this->seedSearchContent($io, $searchUid, $now);
         }
 
+        // Outside the --content branch on purpose: a German page record is part
+        // of the tree, not of the demo content, and the language switch in the
+        // footer stays half-dead without one.
+        $this->seedPageTranslations($io, $rootUid, $now);
+
         $io->success(sprintf('Astryx site tree seeded — root page uid %d.', $rootUid));
 
         $io->section('Next: write config/sites/desiderio-grande/');
@@ -656,6 +661,88 @@ final class SeedGrandeSiteCommand extends Command
         }
 
         $io->writeln(sprintf('  %-28s %d pages, %d elements', 'Theme detail pages', $pages, $placed));
+    }
+
+    /**
+     * Give every managed page a German record, so the language switch has
+     * somewhere to go.
+     *
+     * The switch was already in the footer and already worked — from /de/ it
+     * offered English. From English it offered nothing, because TYPO3 marks a
+     * language "available" on a page only when a record exists for it, and the
+     * German tree was empty. The asymmetry looked like a broken switch and was
+     * really a missing translation.
+     *
+     * These are page records, not translated content: the site's German is a
+     * fallback (fallbackType: fallback), so an untranslated element still
+     * renders its English text. What the record buys is the switch, the
+     * hreflang alternate, and somewhere for an editor to put a German title.
+     *
+     * Titles the map does not name — the theme pages — keep the English one,
+     * because Harbour and Matcha are proper nouns in either language.
+     */
+    private function seedPageTranslations(SymfonyStyle $io, int $rootUid, int $now): void
+    {
+        $columns = $this->databaseSchema->getColumnNames('pages');
+        foreach (['sys_language_uid', 'l10n_parent'] as $required) {
+            if (!isset($columns[$required])) {
+                $io->warning(sprintf('pages has no %s column — skipping translations.', $required));
+                return;
+            }
+        }
+
+        $titles = GrandeSiteDefinitions::germanPageTitles();
+        $connection = $this->connectionPool->getConnectionForTable('pages');
+
+        $originals = $connection->fetchAllAssociative(
+            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, no_index FROM pages'
+            . ' WHERE deleted = 0 AND sys_language_uid = 0'
+            . ' AND (uid = ? OR pid = ? OR pid IN (SELECT p.uid FROM (SELECT uid FROM pages WHERE pid = ? AND deleted = 0) p))',
+            [$rootUid, $rootUid, $rootUid],
+        );
+
+        $created = 0;
+        $updated = 0;
+        foreach ($originals as $page) {
+            $uid = (int)$page['uid'];
+            $title = (string)$page['title'];
+            $german = $titles[$title] ?? $title;
+
+            $existing = $connection->fetchOne(
+                'SELECT uid FROM pages WHERE deleted = 0 AND sys_language_uid = 1 AND l10n_parent = ?',
+                [$uid],
+            );
+
+            $values = [
+                'title' => $german,
+                'tstamp' => $now,
+            ];
+
+            if ($existing !== false && $existing !== null) {
+                $connection->update('pages', $values, ['uid' => (int)$existing]);
+                $updated++;
+                continue;
+            }
+
+            $connection->insert('pages', array_merge($values, [
+                'pid' => (int)$page['pid'],
+                'sys_language_uid' => 1,
+                'l10n_parent' => $uid,
+                // The slug is per language and TYPO3 prefixes it with the
+                // language base, so the English one is what belongs here.
+                'slug' => (string)$page['slug'],
+                'doktype' => (int)$page['doktype'],
+                'sorting' => (int)$page['sorting'],
+                'nav_hide' => (int)$page['nav_hide'],
+                'no_index' => (int)$page['no_index'],
+                'crdate' => $now,
+                'hidden' => 0,
+                'deleted' => 0,
+            ]));
+            $created++;
+        }
+
+        $io->writeln(sprintf('  %-28s %d created, %d updated', 'German page records', $created, $updated));
     }
 
     private function getContentCleaner(): DesiderioContentCleaner

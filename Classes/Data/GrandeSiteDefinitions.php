@@ -125,6 +125,44 @@ final class GrandeSiteDefinitions
     }
 
     /**
+     * German page titles, keyed by the English one.
+     *
+     * The page tree itself stays English — the German language is a fallback
+     * that translates the chrome and the demo content, not a second tree an
+     * editor has to maintain. But a language switch that offers German while
+     * every page in the menu is still called "Features & Benefits" looks
+     * broken, so the titles are translated even though the content is not.
+     *
+     * Theme names are proper nouns and deliberately absent: Harbour stays
+     * Harbour, the way Matcha does.
+     *
+     * @return array<string, string>
+     */
+    public static function germanPageTitles(): array
+    {
+        return [
+            'Components' => 'Komponenten',
+            'Themes' => 'Themes',
+            'Search' => 'Suche',
+            'Imprint' => 'Impressum',
+            'Privacy' => 'Datenschutz',
+            'Accessibility' => 'Barrierefreiheit',
+            'Page not found' => 'Seite nicht gefunden',
+            'Element Library' => 'Elementbibliothek',
+            'Hero & Landing Intros' => 'Hero & Einstiegsbereiche',
+            'Features & Benefits' => 'Funktionen & Nutzen',
+            'Content & Editorial' => 'Inhalt & Redaktion',
+            'Plans & Pricing' => 'Tarife & Preise',
+            'Trust & Social Proof' => 'Vertrauen & Referenzen',
+            'People & Team' => 'Menschen & Team',
+            'Data & Dashboards' => 'Daten & Dashboards',
+            'Leads & Conversion' => 'Leads & Conversion',
+            'Navigation & Wayfinding' => 'Navigation & Orientierung',
+            'Footers & Utility Areas' => 'Footer & Servicebereiche',
+        ];
+    }
+
+    /**
      * Every theme, from the generated registry.
      *
      * Build/Data/theme-registry.json is written by build-grande-themes.mjs and
@@ -286,10 +324,10 @@ final class GrandeSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'Astryx for TYPO3',
                     'header' => 'Meta\'s design system, rendered by TYPO3',
-                    'lead' => 'Two hundred and fifty content elements built on Astryx — the open-source design system Meta released under MIT. Seven themes, light and dark, and not one line of React on the page your visitor loads.',
+                    'lead' => 'Two hundred and fifty content elements built on Astryx — the open-source design system Meta released under MIT. Twenty themes, light and dark, and not one line of React on the page your visitor loads.',
                     'cta_label' => 'See all 250 elements',
                     'cta_link' => 't3://page?uid=__HUB__',
-                    'secondary_label' => 'Compare the seven themes',
+                    'secondary_label' => 'Compare all twenty themes',
                     'secondary_link' => 't3://page?uid=__THEMES__',
                     'image' => [['file' => 'EXT:desiderio_grande/Resources/Public/Images/scene/office-standup.jpg', 'alternative' => 'An editorial team reviewing a page layout together', 'title' => '']],
                     'caption' => 'Editors work in the page module; nothing about the theme changes that.',
@@ -356,7 +394,7 @@ final class GrandeSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'What it costs',
                     'header' => 'The package is free. The guarantees are what you pay for.',
-                    'lead' => 'Desiderio Grande is GPL-2.0-or-later, like TYPO3 itself: all 250 elements, all seven themes, the seeding commands and the audit scripts, complete and at no cost. The paid tiers buy response times and the people who built it — never a feature that was withheld.',
+                    'lead' => 'Desiderio Grande is GPL-2.0-or-later, like TYPO3 itself: all 250 elements, all twenty themes, the seeding commands and the audit scripts, complete and at no cost. The paid tiers buy response times and the people who built it — never a feature that was withheld.',
                     'note' => 'Prices are net, excluding VAT. Support tiers are billed yearly or monthly and can be cancelled to the end of the term. Astryx itself is MIT-licensed and © Meta Platforms, Inc. and affiliates.',
                     'cta_label' => 'See what you would be installing',
                     'cta_link' => 't3://page?uid=__HUB__',
@@ -398,7 +436,7 @@ final class GrandeSiteDefinitions
                         ['title' => 'Is this an official Meta product?', 'bodytext' => '<p>No. Astryx is released by Meta under the MIT licence and this extension builds on it. There is no affiliation with or endorsement by Meta, and no Astryx source code is redistributed — only its design tokens and component documentation.</p>'],
                         ['title' => 'Does it run React on the frontend?', 'bodytext' => '<p>No. Astryx upstream is React and StyleX; this is Fluid and CSS. The visual language is the same, the runtime is not. One small vanilla script handles the four behaviours the platform has no element for.</p>'],
                         ['title' => 'Can I use it alongside Desiderio?', 'bodytext' => '<p>Yes, and that is the design. Both are installed in the same TYPO3, and each site declares which theme it uses. The element picker on each site offers only that theme\'s elements.</p>'],
-                        ['title' => 'Is every theme WCAG 2.2 AA clean?', 'bodytext' => '<p>Yes, and the proof runs on every build. A script measures all 406 colour pairs the stylesheets actually declare — seven themes in light and dark — and exits non-zero if any of them misses the threshold, so a palette change cannot quietly regress.</p><p>Astryx\'s own values do fall short in a few places: secondary text in five themes, badge hues in chocolate, matcha and gothic, and the error-toast label in all seven. A generated corrections file moves only the failing foreground token, and only by the smallest step that reaches 4.5:1, so the hue survives the fix — matcha\'s red goes from #cc0000 to #b10000, not to black. Twenty-three token declarations are corrected in all; everything already passing is left exactly as Meta shipped it.</p>'],
+                        ['title' => 'Is every theme WCAG 2.2 AA clean?', 'bodytext' => '<p>Yes, and the proof runs on every build. A script measures all 1,200 colour pairs the stylesheets actually declare — twenty themes in light and dark — and exits non-zero if any of them misses the threshold, so a palette change cannot quietly regress.</p><p>Astryx\'s own values do fall short in a few places: secondary text in five themes, badge hues in chocolate, matcha and gothic, and the error-toast label in all seven. A generated corrections file moves only the failing foreground token, and only by the smallest step that reaches 4.5:1, so the hue survives the fix — matcha\'s red goes from #cc0000 to #b10000, not to black. Twenty-three token declarations are corrected in all; everything already passing is left exactly as Meta shipped it.</p>'],
                         ['title' => 'What happens when Astryx changes?', 'bodytext' => '<p>The token payload is vendored with the upstream commit recorded next to it. Regenerating is one command; nothing silently follows upstream behind your back.</p>'],
                     ],
                 ],
@@ -450,8 +488,8 @@ final class GrandeSiteDefinitions
             'accessibility' => [
                 'header' => 'How this theme is built',
                 'bodytext' => '<p>The theme is built to work without a mouse and without sight of the layout. Every page has one h1 that says what the page is; content elements head their own band with an h2, so the outline reads as a table of contents.</p>'
-                    . '<p>Focus is always visible, and the accent-coloured ring is drawn from the same token as the rest of the theme, so it stays visible in every one of the seven themes and in both colour schemes.</p>'
-                    . '<p>Contrast is measured rather than assumed. A script checks all 406 colour pairs the stylesheets declare — seven themes in light and dark — against the WCAG 2.2 AA thresholds of 4.5:1 for body text and 3:1 for boundaries, focus rings and meaningful graphics, and the build fails if a single pair misses. Where Astryx\'s own palette values fall short, a generated corrections file lifts only the failing colour, and only as far as the threshold.</p>'
+                    . '<p>Focus is always visible, and the accent-coloured ring is drawn from the same token as the rest of the theme, so it stays visible in every one of the twenty themes and in both colour schemes.</p>'
+                    . '<p>Contrast is measured rather than assumed. A script checks all 1,200 colour pairs the stylesheets declare — twenty themes in light and dark — against the WCAG 2.2 AA thresholds of 4.5:1 for body text and 3:1 for boundaries, focus rings and meaningful graphics, and the build fails if a single pair misses. Where Astryx\'s own palette values fall short, a generated corrections file lifts only the failing colour, and only as far as the threshold.</p>'
                     . '<p>State is never carried by colour alone: a current navigation item is also heavier, a status also carries text.</p>'
                     . '<p>Animation is opt-out at the source. Anything that moves is wrapped in a reduced-motion query, so a visitor who asks their system for less motion gets a still page rather than a slower one.</p>'
                     . '<p>Menus are native disclosures, dialogs are the native dialog element and the colour-scheme switch is a real button, so keyboard behaviour comes from the browser instead of being reimplemented.</p>',
