@@ -63,7 +63,7 @@
                 <f:for each="{data.benefits}" as="benefit">
                     <li class="astryx-feature g-conversion-partner-enquiry__benefit">
                         <f:if condition="{benefit.icon}">
-                            <span class="astryx-feature-icon" data-icon="{benefit.icon}" aria-hidden="true"></span>
+                            <span class="astryx-feature-icon" data-icon="{benefit.icon}" aria-hidden="true"><g:icon name="{benefit.icon}"/></span>
                         </f:if>
                         <h3 class="astryx-card-title">{benefit -> f:render.text(field: 'title')}</h3>
                         <f:if condition="{benefit.text}">

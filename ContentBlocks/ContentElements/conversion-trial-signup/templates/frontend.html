@@ -53,7 +53,7 @@
                 <f:for each="{data.reassurances}" as="reassurance">
                     <li class="astryx-feature g-conversion-trial-signup__reassurance">
                         <f:if condition="{reassurance.icon}">
-                            <span class="astryx-feature-icon" data-icon="{reassurance.icon}" aria-hidden="true"></span>
+                            <span class="astryx-feature-icon" data-icon="{reassurance.icon}" aria-hidden="true"><g:icon name="{reassurance.icon}"/></span>
                         </f:if>
                         <h3 class="astryx-card-title">{reassurance -> f:render.text(field: 'title')}</h3>
                         <f:if condition="{reassurance.text}">

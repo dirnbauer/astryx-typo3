@@ -31,7 +31,7 @@
                         <f:for each="{data.takeaways}" as="takeaway">
                             <li class="astryx-feature g-conversion-lead-magnet__takeaway">
                                 <f:if condition="{takeaway.icon}">
-                                    <span class="astryx-feature-icon" data-icon="{takeaway.icon}" aria-hidden="true"></span>
+                                    <span class="astryx-feature-icon" data-icon="{takeaway.icon}" aria-hidden="true"><g:icon name="{takeaway.icon}"/></span>
                                 </f:if>
                                 <h3 class="astryx-card-title">{takeaway -> f:render.text(field: 'title')}</h3>
                                 <f:if condition="{takeaway.text}">

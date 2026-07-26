@@ -13,3 +13,7 @@ $hosts = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['libraryHostExte
 $hosts = is_array($hosts) ? $hosts : [];
 $hosts[] = 'desiderio_grande';
 $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['libraryHostExtensions'] = array_values(array_unique($hosts));
+
+// The g: namespace, so element templates can call <g:icon name="…"/> without
+// each of them declaring an xmlns.
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['g'][] = 'Webconsulting\\DesiderioGrande\\ViewHelpers';

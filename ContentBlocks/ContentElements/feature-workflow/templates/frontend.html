@@ -29,7 +29,7 @@
             <f:for each="{data.stages}" as="stage">
                 <li class="g-feature-workflow__stage">
                     <f:if condition="{stage.icon}">
-                        <span class="astryx-feature-icon" data-icon="{stage.icon}" aria-hidden="true"></span>
+                        <span class="astryx-feature-icon" data-icon="{stage.icon}" aria-hidden="true"><g:icon name="{stage.icon}"/></span>
                     </f:if>
 
                     <h3 class="astryx-heading level-4">{stage -> f:render.text(field: 'title')}</h3>

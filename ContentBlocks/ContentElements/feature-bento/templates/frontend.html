@@ -29,7 +29,7 @@
             <f:for each="{data.tiles}" as="tile">
                 <li class="astryx-card astryx-feature g-feature-bento__tile {f:if(condition: tile.link, then: 'astryx-clickable-card')}">
                     <f:if condition="{tile.icon}">
-                        <span class="astryx-feature-icon" data-icon="{tile.icon}" aria-hidden="true"></span>
+                        <span class="astryx-feature-icon" data-icon="{tile.icon}" aria-hidden="true"><g:icon name="{tile.icon}"/></span>
                     </f:if>
 
                     <h3 class="astryx-card-title">

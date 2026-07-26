@@ -33,7 +33,7 @@
             <f:for each="{data.items}" as="office">
                 <li class="astryx-card g-footer-office-list__office">
                     <f:if condition="{office.icon}">
-                        <span class="astryx-feature-icon g-footer-office-list__pin" data-icon="{office.icon}" aria-hidden="true"></span>
+                        <span class="astryx-feature-icon g-footer-office-list__pin" data-icon="{office.icon}" aria-hidden="true"><g:icon name="{office.icon}"/></span>
                     </f:if>
 
                     <h3 class="astryx-card-title">{office -> f:render.text(field: 'title')}</h3>

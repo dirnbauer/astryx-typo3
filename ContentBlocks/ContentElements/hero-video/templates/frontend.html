@@ -4,6 +4,8 @@
 
 <f:asset.css identifier="g-hero-video" href="{cb:assetPath()}/frontend.css"/>
 
+<f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
+
 <section class="astryx-section g-hero-video {data.tone}">
     <div class="astryx-layout {data.width}">
         <div class="g-hero-video__copy {data.align}">
@@ -58,7 +60,7 @@
                 recording costs nothing until somebody asks for it — which is
                 the whole reason this element exists rather than an embed.
             </f:comment>
-            <iframe src="{f:uri.typolink(parameter: data.cta_link)}" title="{data.header}" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
+            <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
         </div>
     </dialog>
 

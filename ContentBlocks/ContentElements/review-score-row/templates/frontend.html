@@ -30,7 +30,7 @@
             <f:for each="{data.scores}" as="score">
                 <li class="astryx-card g-review-score-row__score">
                     <f:if condition="{score.icon}">
-                        <span class="astryx-feature-icon" data-icon="{score.icon}" aria-hidden="true"></span>
+                        <span class="astryx-feature-icon" data-icon="{score.icon}" aria-hidden="true"><g:icon name="{score.icon}"/></span>
                     </f:if>
 
                     <h3 class="astryx-text label g-review-score-row__platform">{score -> f:render.text(field: 'title')}</h3>

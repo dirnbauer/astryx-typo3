@@ -16,7 +16,7 @@
         <div class="astryx-card g-conversion-callback__card">
 
             <f:if condition="{data.icon}">
-                <span class="astryx-feature-icon" data-icon="{data.icon}" aria-hidden="true"></span>
+                <span class="astryx-feature-icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
             </f:if>
 
             <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>

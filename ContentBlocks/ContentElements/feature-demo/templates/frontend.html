@@ -10,7 +10,7 @@
     rendered, and a lazy frame in an unrendered box never starts loading.
 </f:comment>
 
-<f:variable name="videoUri"><f:uri.typolink parameter="{data.cta_link}"/></f:variable>
+<f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
 
 <section class="astryx-section g-feature-demo {data.tone}">
     <div class="astryx-layout {data.width}">

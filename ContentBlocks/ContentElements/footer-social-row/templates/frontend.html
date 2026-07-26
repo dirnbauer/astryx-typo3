@@ -37,7 +37,7 @@
                 <f:for each="{data.links}" as="profile">
                     <li class="g-footer-social-row__item">
                         <f:link.typolink parameter="{profile.link}" class="astryx-item interactive g-footer-social-row__link">
-                            <span class="astryx-item-start astryx-feature-icon g-footer-social-row__icon" data-icon="{profile.icon}" aria-hidden="true"></span>
+                            <span class="astryx-item-start astryx-feature-icon g-footer-social-row__icon" data-icon="{profile.icon}" aria-hidden="true"><g:icon name="{profile.icon}"/></span>
                             <span class="astryx-item-content">
                                 <span class="astryx-item-label g-footer-social-row__name">{profile.title}</span>
                                 <f:if condition="{profile.description}">

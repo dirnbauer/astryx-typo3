@@ -34,7 +34,9 @@
                     <f:for each="{data.links}" as="store">
                         <li>
                             <f:link.typolink parameter="{store.link}" class="g-footer-app-badges__badge">
-                                <span class="g-footer-app-badges__glyph" data-icon="{store.icon}" aria-hidden="true"></span>
+                                <f:if condition="{store.icon}">
+                                    <span class="g-footer-app-badges__glyph" data-icon="{store.icon}" aria-hidden="true"><g:icon name="{store.icon}"/></span>
+                                </f:if>
                                 <span class="g-footer-app-badges__labels">
                                     <f:if condition="{store.description}">
                                         <span class="g-footer-app-badges__kicker">{store.description}</span>

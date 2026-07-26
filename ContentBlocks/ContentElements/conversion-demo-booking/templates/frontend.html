@@ -31,7 +31,7 @@
                         <f:for each="{data.agenda}" as="point">
                             <li class="astryx-feature g-conversion-demo-booking__point">
                                 <f:if condition="{point.icon}">
-                                    <span class="astryx-feature-icon" data-icon="{point.icon}" aria-hidden="true"></span>
+                                    <span class="astryx-feature-icon" data-icon="{point.icon}" aria-hidden="true"><g:icon name="{point.icon}"/></span>
                                 </f:if>
                                 <h3 class="astryx-card-title">{point -> f:render.text(field: 'title')}</h3>
                                 <f:if condition="{point.text}">

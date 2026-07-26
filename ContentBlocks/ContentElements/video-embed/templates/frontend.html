@@ -10,6 +10,8 @@
     is worse than a still frame that the player simply covers when it arrives.
 </f:comment>
 
+<f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
+
 <section class="astryx-section g-video-embed {data.tone}">
     <div class="astryx-layout {data.width}">
 
@@ -32,7 +34,7 @@
                             <span class="g-video-embed__poster" style="--g-poster: url('{f:uri.image(image: poster, width: 1280)}')"></span>
                         </f:for>
                         <iframe class="g-video-embed__player"
-                                src="{f:uri.typolink(parameter: data.cta_link)}"
+                                src="{videoUri}"
                                 title="{data.header}"
                                 loading="lazy"
                                 referrerpolicy="strict-origin-when-cross-origin"

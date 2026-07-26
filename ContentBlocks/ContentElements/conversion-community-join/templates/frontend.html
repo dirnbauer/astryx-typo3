@@ -37,7 +37,7 @@
             <f:for each="{data.places}" as="place">
                 <li class="astryx-card g-conversion-community-join__place {f:if(condition: place.link, then: 'astryx-clickable-card')}">
                     <f:if condition="{place.icon}">
-                        <span class="astryx-feature-icon" data-icon="{place.icon}" aria-hidden="true"></span>
+                        <span class="astryx-feature-icon" data-icon="{place.icon}" aria-hidden="true"><g:icon name="{place.icon}"/></span>
                     </f:if>
 
                     <h3 class="astryx-card-title">

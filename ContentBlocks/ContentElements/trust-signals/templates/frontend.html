@@ -19,7 +19,7 @@
             <f:for each="{data.signals}" as="signal">
                 <li class="g-trust-signals__signal">
                     <f:if condition="{signal.icon}">
-                        <span class="astryx-feature-icon g-trust-signals__icon" data-icon="{signal.icon}" aria-hidden="true"></span>
+                        <span class="astryx-feature-icon g-trust-signals__icon" data-icon="{signal.icon}" aria-hidden="true"><g:icon name="{signal.icon}"/></span>
                     </f:if>
 
                     <span class="g-trust-signals__copy">
