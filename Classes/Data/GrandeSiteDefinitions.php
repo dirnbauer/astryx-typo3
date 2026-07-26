@@ -125,6 +125,71 @@ final class GrandeSiteDefinitions
     }
 
     /**
+     * Every theme, from the generated registry.
+     *
+     * Build/Data/theme-registry.json is written by build-grande-themes.mjs and
+     * is the one place that knows which themes exist — the build scripts, the
+     * contrast audit, the TCA field and the site settings all read it, so a new
+     * theme cannot be half-added.
+     *
+     * @return list<array{id: string, name: string, character: string, use: string, family: string}>
+     */
+    public static function themes(): array
+    {
+        $path = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName(
+            'EXT:desiderio_grande/Build/Data/theme-registry.json'
+        );
+        if ($path === '' || !is_readable($path)) {
+            return [];
+        }
+
+        $decoded = json_decode((string)file_get_contents($path), true);
+        $themes = is_array($decoded) ? ($decoded['themes'] ?? []) : [];
+
+        return is_array($themes) ? array_values(array_filter($themes, 'is_array')) : [];
+    }
+
+    /**
+     * The elements every theme detail page is built from.
+     *
+     * The SAME cross-section on all twenty pages, deliberately: a theme page is
+     * only useful if it can be compared with another one, and that stops being
+     * possible the moment each page picks the elements that flatter it. It runs
+     * top to bottom the way a real page does — hero, argument, evidence, price,
+     * people, close — and covers the parts a theme actually changes: headings
+     * and body type, cards and their radius, form controls, badges and status
+     * colours, tables, quotes and an accent band.
+     *
+     * @return list<string>
+     */
+    public static function themeShowcaseElements(): array
+    {
+        return [
+            'desiderio_grande_herosplitmedia',
+            'desiderio_grande_statementband',
+            'desiderio_grande_featuregrid',
+            'desiderio_grande_featuresteps',
+            'desiderio_grande_richtext',
+            'desiderio_grande_calloutnote',
+            'desiderio_grande_pullquote',
+            'desiderio_grande_codeblock',
+            'desiderio_grande_datakpirow',
+            'desiderio_grande_datakeyfigures',
+            'desiderio_grande_imagegallery',
+            'desiderio_grande_pricinglicencetiers',
+            'desiderio_grande_pricingplancard',
+            'desiderio_grande_testimonialportrait',
+            'desiderio_grande_logowallclaim',
+            'desiderio_grande_teamgrid',
+            'desiderio_grande_accordionfaq',
+            'desiderio_grande_menucardgrid',
+            'desiderio_grande_conversioncontactband',
+            'desiderio_grande_conversionctainline',
+            'desiderio_grande_footercontactblock',
+        ];
+    }
+
+    /**
      * Pages that are not chapters: the hub, the legal set, the error page.
      *
      * @return list<array{title: string, slug: string, layout: string, navHide: bool, noIndex: bool, abstract: string, role: string}>

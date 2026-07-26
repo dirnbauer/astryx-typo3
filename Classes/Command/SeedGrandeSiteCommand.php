@@ -214,10 +214,42 @@ final class SeedGrandeSiteCommand extends Command
             $created[$chapter['title']] = $uid;
         }
 
+        // ---------------------------------------------- theme detail pages
+        $themesUid = $created['Themes'] ?? 0;
+        $themePages = [];
+        if ($themesUid > 0) {
+            $themeSorting = self::SORTING_STEP;
+            foreach (GrandeSiteDefinitions::themes() as $theme) {
+                $id = is_string($theme['id'] ?? null) ? $theme['id'] : '';
+                if ($id === '') {
+                    continue;
+                }
+                $themeSorting += self::SORTING_STEP;
+                $themePages[$id] = $this->upsertPage(
+                    $upserter,
+                    $themesUid,
+                    (string)($theme['name'] ?? $id),
+                    '/themes/' . $id,
+                    $themeSorting,
+                    $now,
+                    $pageColumns,
+                    [
+                        'backend_layout' => GrandeSiteDefinitions::LAYOUT_CONTENTPAGE,
+                        'abstract' => (string)($theme['character'] ?? ''),
+                        'description' => (string)($theme['character'] ?? ''),
+                        'nav_hide' => 1,
+                        // The whole point of the page: it wears the theme it is about.
+                        'tx_desideriogrande_theme' => $id,
+                    ],
+                );
+            }
+        }
+
         if ((bool)$input->getOption('content')) {
             $this->seedChapterContent($io, $created, $chapters, $now);
             $this->seedHomeContent($io, $rootUid, $hubUid, $created['Themes'] ?? 0, $now);
             $this->seedSupportContent($io, $supportUids, $now);
+            $this->seedThemePages($io, $themePages, $now);
             $this->seedSearchContent($io, $searchUid, $now);
         }
 
@@ -551,6 +583,79 @@ final class SeedGrandeSiteCommand extends Command
         $connection->insert('tt_content', array_intersect_key($row, $columns));
 
         $io->writeln(sprintf('  %-28s page %d', 'Search page', $searchUid));
+    }
+
+    /**
+     * Fill each theme's detail page with the shared showcase cross-section.
+     *
+     * Every page gets the SAME elements in the same order. That is what makes
+     * them worth having: a reader can open two themes side by side and the only
+     * thing that differs is the theme. Picking flattering elements per theme
+     * would produce twenty prettier pages that cannot be compared with each
+     * other.
+     *
+     * @param array<string, int> $themePages page uid keyed by theme id
+     */
+    private function seedThemePages(SymfonyStyle $io, array $themePages, int $now): void
+    {
+        if ($themePages === []) {
+            return;
+        }
+
+        $resolver = new StyleguideFixtureResolver(
+            $this->databaseSchema,
+            new StyleguideDemoValueGenerator(),
+            new StyleguideCollectionAliasPolicy($this->databaseSchema),
+        );
+        $seeder = new ContentElementSeeder(
+            $this->connectionPool,
+            $this->storageRepository,
+            $this->databaseSchema,
+            self::FAL_FOLDER,
+            1777300004,
+        );
+        $columns = $this->databaseSchema->getColumnNames('tt_content');
+
+        $catalog = [];
+        foreach ($this->elementCatalog->getElements() as $element) {
+            $catalog[$element['cType']] = $element;
+        }
+
+        $showcase = GrandeSiteDefinitions::themeShowcaseElements();
+        $missing = array_values(array_filter($showcase, static fn (string $cType): bool => !isset($catalog[$cType])));
+        if ($missing !== []) {
+            $io->warning(sprintf('Showcase elements not in the catalog: %s', implode(', ', $missing)));
+        }
+
+        $pages = 0;
+        $placed = 0;
+        foreach ($themePages as $pageUid) {
+            $this->getContentCleaner()->softDeleteSeededContent($pageUid, $now);
+
+            $sorting = 0;
+            foreach ($showcase as $cType) {
+                $record = $catalog[$cType] ?? null;
+                if ($record === null) {
+                    continue;
+                }
+
+                $sorting += self::SORTING_STEP;
+                $seeder->insert($pageUid, $now, $resolver->buildContentInsert(
+                    $pageUid,
+                    $cType,
+                    $record['name'],
+                    $record['fixture'],
+                    $sorting,
+                    $now,
+                    $columns,
+                    ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
+                ));
+                $placed++;
+            }
+            $pages++;
+        }
+
+        $io->writeln(sprintf('  %-28s %d pages, %d elements', 'Theme detail pages', $pages, $placed));
     }
 
     private function getContentCleaner(): DesiderioContentCleaner

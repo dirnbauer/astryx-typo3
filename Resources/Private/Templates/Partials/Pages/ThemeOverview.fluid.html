@@ -26,8 +26,15 @@
         <div class="g-themes__grid">
         <article class="g-themes__card" data-astryx-theme="neutral">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Neutral</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'neutral'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Neutral</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">neutral</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">A pure grayscale spine. The accent is ink, not a colour, so nothing on the page competes with the content.</p>
@@ -53,8 +60,15 @@
         </article>
         <article class="g-themes__card" data-astryx-theme="butter">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Butter</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'butter'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Butter</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">butter</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">Cream paper with one vivid blue. The only theme whose accent really shouts.</p>
@@ -80,8 +94,15 @@
         </article>
         <article class="g-themes__card" data-astryx-theme="chocolate">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Chocolate</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'chocolate'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Chocolate</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">chocolate</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">Warm browns with a serif for headings — the only theme that mixes two type families of different species.</p>
@@ -107,8 +128,15 @@
         </article>
         <article class="g-themes__card" data-astryx-theme="matcha">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Matcha</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'matcha'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Matcha</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">matcha</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">Deep green on paper, headings set in a handwriting face, and the softest corners in the set.</p>
@@ -134,8 +162,15 @@
         </article>
         <article class="g-themes__card" data-astryx-theme="stone">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Stone</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'stone'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Stone</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">stone</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">Cool grey with Montserrat headings over a Figtree body. Quiet and architectural.</p>
@@ -161,8 +196,15 @@
         </article>
         <article class="g-themes__card" data-astryx-theme="gothic">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Gothic</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'gothic'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Gothic</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">gothic</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">Dark even in light mode — the one theme that does not flip. Near-white on near-black at every hour.</p>
@@ -188,8 +230,15 @@
         </article>
         <article class="g-themes__card" data-astryx-theme="y2k">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">Y2K</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'y2k'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Y2K</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">y2k</code>
+                <span class="astryx-badge blue g-themes__family">Astryx</span>
             </header>
 
             <p class="astryx-text body g-themes__character">Lavender canvas and square corners: radius zero, the only theme with no rounding at all.</p>
@@ -211,6 +260,448 @@
                 <dt>Body</dt><dd style="font-family: var(--font-family-body)">Poppins</dd>
                 <dt>Corners</dt><dd>0px</dd>
                 <dt>Best for</dt><dd>Playful, retro-leaning brands that want to look deliberately unsoftened.</dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="harbour">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'harbour'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Harbour</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">harbour</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Deep maritime navy with a cool grey page. The most conservative of the set — the one to reach for when a site has to look institutional.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Harbour theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>Corners</dt><dd>0.5rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="ember">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'ember'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Ember</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">ember</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Warm charcoal lit by a single ember orange. Reads as evening rather than alarm, and keeps the orange for the one thing that matters on the page.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Ember theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>Corners</dt><dd>0.625rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="linen">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'linen'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Linen</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">linen</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">A soft warm neutral built for long-form reading: low contrast between paper and surface, generous type, nothing competing with the text.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Linen theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>Corners</dt><dd>0.375rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="orchid">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'orchid'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Orchid</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">orchid</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Muted purple with a cool paper. Distinctive without shouting, and the only theme in the set whose accent reads as decorative rather than corporate.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Orchid theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>Corners</dt><dd>0.75rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="cobalt">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'cobalt'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Cobalt</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">cobalt</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">A saturated engineering blue on near-white. Built for dashboards and documentation, where a strong accent has to survive being repeated fifty times.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Cobalt theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>Corners</dt><dd>0.375rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="moss">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'moss'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Moss</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">moss</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Deep forest green, quieter and colder than Astryx's own matcha. For organisations that want green without looking like a wellness brand.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Moss theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fustat</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>Corners</dt><dd>0.5rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="clay">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'clay'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Clay</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">clay</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Terracotta and warm stone. Earthy without being rustic, and the softest radius in the set so nothing has a hard corner.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Clay theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>Corners</dt><dd>1rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="plum">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'plum'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Plum</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">plum</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Deep aubergine on a faintly warm page. Dark, adult and a little editorial — the theme for a publication rather than a product.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Plum theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>Corners</dt><dd>0.25rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="sand">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'sand'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Sand</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">sand</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Desert warmth: pale ochre paper, dark umber ink. Bright without being white, which suits sites read outdoors or on cheap screens.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Sand theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>Corners</dt><dd>0.625rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="ink">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'ink'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Ink</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">ink</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Near-black on white at the highest contrast the set offers. The one to pick when an accessibility statement has to survive scrutiny.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Ink theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Albert Sans</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>Corners</dt><dd>0rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="lagoon">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'lagoon'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Lagoon</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">lagoon</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Blue-green water on pale sand. Fresher than Cobalt and warmer than Harbour, without tipping into turquoise.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Lagoon theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>Corners</dt><dd>0.75rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="rose">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'rose'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Rose</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">rose</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Dusty rose, deliberately desaturated so it reads as considered rather than sweet. Pairs a serif heading with a plain body.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Rose theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>Corners</dt><dd>0.5rem</dd>
+                <dt>Best for</dt><dd></dd>
+            </dl>
+        </article>
+        <article class="g-themes__card" data-astryx-theme="graphite">
+            <header class="g-themes__card-head">
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == 'graphite'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">Graphite</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
+                <code class="g-themes__id">graphite</code>
+                <span class="astryx-badge green g-themes__family">webconsulting</span>
+            </header>
+
+            <p class="astryx-text body g-themes__character">Cool monochrome with no hue at all in the brand colours. The neutral of last resort, for sites whose imagery has to supply every bit of colour.</p>
+
+            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Graphite theme">
+                <span class="g-themes__swatch g-themes__swatch--accent"></span>
+                <span class="g-themes__swatch g-themes__swatch--body"></span>
+                <span class="g-themes__swatch g-themes__swatch--surface"></span>
+            </div>
+
+            <div class="g-themes__sample">
+                <button type="button" class="astryx-button primary" tabindex="-1" aria-hidden="true">Primary</button>
+                <span class="astryx-badge success">Success</span>
+                <span class="astryx-badge outline">Outline</span>
+            </div>
+
+            <dl class="g-themes__facts">
+                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
+                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>Corners</dt><dd>0.375rem</dd>
+                <dt>Best for</dt><dd></dd>
             </dl>
         </article>
         </div>
@@ -333,6 +824,175 @@
                         <td>JetBrains Mono</td>
                         <td>0px</td>
                         <td>1rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="harbour"></span>
+                            Harbour
+                        </th>
+                        <td><code>harbour</code></td>
+                        <td>Figtree</td>
+                        <td>DM Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.5rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="ember"></span>
+                            Ember
+                        </th>
+                        <td><code>ember</code></td>
+                        <td>Outfit</td>
+                        <td>Albert Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.625rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="linen"></span>
+                            Linen
+                        </th>
+                        <td><code>linen</code></td>
+                        <td>Fraunces</td>
+                        <td>DM Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.375rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="orchid"></span>
+                            Orchid
+                        </th>
+                        <td><code>orchid</code></td>
+                        <td>Poppins</td>
+                        <td>Figtree</td>
+                        <td>ui-monospace</td>
+                        <td>0.75rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="cobalt"></span>
+                            Cobalt
+                        </th>
+                        <td><code>cobalt</code></td>
+                        <td>Montserrat</td>
+                        <td>Albert Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.375rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="moss"></span>
+                            Moss
+                        </th>
+                        <td><code>moss</code></td>
+                        <td>Fustat</td>
+                        <td>DM Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.5rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="clay"></span>
+                            Clay
+                        </th>
+                        <td><code>clay</code></td>
+                        <td>Outfit</td>
+                        <td>Figtree</td>
+                        <td>ui-monospace</td>
+                        <td>1rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="plum"></span>
+                            Plum
+                        </th>
+                        <td><code>plum</code></td>
+                        <td>Fraunces</td>
+                        <td>Albert Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.25rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="sand"></span>
+                            Sand
+                        </th>
+                        <td><code>sand</code></td>
+                        <td>Poppins</td>
+                        <td>DM Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.625rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="ink"></span>
+                            Ink
+                        </th>
+                        <td><code>ink</code></td>
+                        <td>Albert Sans</td>
+                        <td>Albert Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="lagoon"></span>
+                            Lagoon
+                        </th>
+                        <td><code>lagoon</code></td>
+                        <td>Figtree</td>
+                        <td>Figtree</td>
+                        <td>ui-monospace</td>
+                        <td>0.75rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="rose"></span>
+                            Rose
+                        </th>
+                        <td><code>rose</code></td>
+                        <td>Fraunces</td>
+                        <td>Figtree</td>
+                        <td>ui-monospace</td>
+                        <td>0.5rem</td>
+                        <td>0.875rem</td>
+                        <td>Follows the scheme</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            <span class="g-themes__dot" data-astryx-theme="graphite"></span>
+                            Graphite
+                        </th>
+                        <td><code>graphite</code></td>
+                        <td>Montserrat</td>
+                        <td>DM Sans</td>
+                        <td>ui-monospace</td>
+                        <td>0.375rem</td>
+                        <td>0.875rem</td>
                         <td>Follows the scheme</td>
                     </tr>
                 </tbody>

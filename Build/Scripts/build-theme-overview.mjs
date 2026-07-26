@@ -23,15 +23,15 @@ const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../
 const CSS = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
 const OUT = path.join(EXT_ROOT, 'Resources/Private/Templates/Partials/Pages/ThemeOverview.fluid.html');
 
-const THEMES = [
-  {id: 'neutral', name: 'Neutral', character: 'A pure grayscale spine. The accent is ink, not a colour, so nothing on the page competes with the content.', use: 'Documentation, dashboards, anything where the interface should disappear.'},
-  {id: 'butter', name: 'Butter', character: 'Cream paper with one vivid blue. The only theme whose accent really shouts.', use: 'Marketing pages and product launches that want a single confident colour.'},
-  {id: 'chocolate', name: 'Chocolate', character: 'Warm browns with a serif for headings — the only theme that mixes two type families of different species.', use: 'Editorial writing, long reads, anything with a printed feel.'},
-  {id: 'matcha', name: 'Matcha', character: 'Deep green on paper, headings set in a handwriting face, and the softest corners in the set.', use: 'Craft, food, wellbeing — places where a human hand should show.'},
-  {id: 'stone', name: 'Stone', character: 'Cool grey with Montserrat headings over a Figtree body. Quiet and architectural.', use: 'Corporate and professional-services sites that want restraint.'},
-  {id: 'gothic', name: 'Gothic', character: 'Dark even in light mode — the one theme that does not flip. Near-white on near-black at every hour.', use: 'Developer tools, music, night-first products.'},
-  {id: 'y2k', name: 'Y2K', character: 'Lavender canvas and square corners: radius zero, the only theme with no rounding at all.', use: 'Playful, retro-leaning brands that want to look deliberately unsoftened.'},
-];
+/**
+ * Every theme, from the generated registry — the same list the build scripts,
+ * the contrast audit, the TCA field and the seeder read. `family` separates
+ * Astryx's own seven from the thirteen this extension adds, because a reader
+ * deciding what to build on needs to know which is which.
+ */
+const THEMES = JSON.parse(
+  fs.readFileSync(path.join(EXT_ROOT, 'Build/Data/theme-registry.json'), 'utf8')
+).themes;
 
 const css = fs.readFileSync(CSS, 'utf8');
 
@@ -68,8 +68,15 @@ const rows = THEMES.map(theme => {
 const cards = rows.map(r => `
         <article class="g-themes__card" data-astryx-theme="${r.id}">
             <header class="g-themes__card-head">
-                <h3 class="astryx-heading level-3">${escape(r.name)}</h3>
+                <h3 class="astryx-heading level-3">
+                    <f:for each="{themePages}" as="themePage">
+                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == '${r.id}'">
+                            <f:link.typolink parameter="{themePage.link}" class="g-themes__link">${escape(r.name)}</f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </h3>
                 <code class="g-themes__id">${escape(r.id)}</code>
+                <span class="astryx-badge ${r.family === 'astryx' ? 'blue' : 'green'} g-themes__family">${r.family === 'astryx' ? 'Astryx' : 'webconsulting'}</span>
             </header>
 
             <p class="astryx-text body g-themes__character">${escape(r.character)}</p>

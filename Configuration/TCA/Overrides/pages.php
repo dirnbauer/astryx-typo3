@@ -22,13 +22,28 @@ $themeItems = [
 ];
 
 foreach ([
-    'neutral' => 'Neutral — grayscale spine',
-    'butter' => 'Butter — warm cream',
-    'chocolate' => 'Chocolate — deep brown',
-    'matcha' => 'Matcha — green',
-    'stone' => 'Stone — cool grey',
-    'gothic' => 'Gothic — high contrast',
-    'y2k' => 'Y2K — saturated retro',
+    // Astryx's own seven.
+    'neutral' => 'Neutral — a pure grayscale spine',
+    'butter' => 'Butter — cream paper with one vivid',
+    'chocolate' => 'Chocolate — warm browns with a serif',
+    'matcha' => 'Matcha — deep green on paper, headings',
+    'stone' => 'Stone — cool grey with montserrat headings',
+    'gothic' => 'Gothic — dark even in light mode',
+    'y2k' => 'Y2K — lavender canvas and square corners',
+    // This extension's thirteen, built on the same token contract.
+    'harbour' => 'Harbour — deep maritime navy with a',
+    'ember' => 'Ember — warm charcoal lit by a',
+    'linen' => 'Linen — a soft warm neutral built',
+    'orchid' => 'Orchid — muted purple with a cool',
+    'cobalt' => 'Cobalt — a saturated engineering blue on',
+    'moss' => 'Moss — deep forest green, quieter and',
+    'clay' => 'Clay — terracotta and warm stone',
+    'plum' => 'Plum — deep aubergine on a faintly',
+    'sand' => 'Sand — desert warmth',
+    'ink' => 'Ink — near-black on white at the',
+    'lagoon' => 'Lagoon — blue-green water on pale sand',
+    'rose' => 'Rose — dusty rose, deliberately desaturated so',
+    'graphite' => 'Graphite — cool monochrome with no hue',
 ] as $value => $label) {
     $themeItems[] = ['label' => $label, 'value' => $value];
 }

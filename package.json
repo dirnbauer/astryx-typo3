@@ -5,12 +5,14 @@
   "description": "Build tooling for the Desiderio Grande TYPO3 extension: Astryx theme tokens, component CSS, self-hosted fonts.",
   "type": "module",
   "scripts": {
-    "build": "npm run build:theme && npm run build:contrast && npm run build:css && npm run build:fonts && npm run audit:contrast",
+    "build": "npm run build:themes && npm run build:theme && npm run build:contrast && npm run build:css && npm run build:fonts && npm run build:overview && npm run audit:contrast",
     "build:theme": "node Build/Scripts/build-astryx-theme.mjs",
     "build:contrast": "node Build/Scripts/build-contrast-overrides.mjs",
     "build:css": "node Build/Scripts/build-grande-css.mjs",
     "build:fonts": "node Build/Scripts/sync-fonts.mjs",
-    "audit:contrast": "node Build/Scripts/audit-contrast.mjs"
+    "audit:contrast": "node Build/Scripts/audit-contrast.mjs",
+    "build:themes": "node Build/Scripts/build-grande-themes.mjs",
+    "build:overview": "node Build/Scripts/build-theme-overview.mjs"
   },
   "devDependencies": {
     "@fontsource-variable/dm-sans": "^5.2.5",

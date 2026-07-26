@@ -19,7 +19,10 @@ export const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)
 export const THEME_CSS = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
 export const OVERRIDE_CSS = path.join(EXT_ROOT, 'Resources/Private/Css/grande/07-contrast-overrides.css');
 
-export const THEMES = ['neutral', 'butter', 'chocolate', 'matcha', 'stone', 'gothic', 'y2k'];
+/** All 20 themes, from the generated registry — never a second hardcoded list. */
+export const THEMES = JSON.parse(
+  fs.readFileSync(path.join(EXT_ROOT, 'Build/Data/theme-registry.json'), 'utf8')
+).themes.map(theme => theme.id);
 export const HUES = ['red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'blue', 'purple', 'pink'];
 
 // ------------------------------------------------------------------ colour

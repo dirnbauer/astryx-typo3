@@ -145,3 +145,21 @@ tt_content.desiderio_grande_backtoparent.dataProcessing.20 {
   includeNotInMenu = 1
   titleField = nav_title // title
 }
+
+# The theme overview links to one detail page per theme. Those pages are the
+# children of the Themes page, and they are nav_hide (twenty entries would
+# swamp the main navigation), so the menu has to ask for hidden ones too.
+#
+# Real page records rather than paths built by hand: the overview partial is
+# generated at build time, when no page uid exists yet, and a hardcoded
+# /desiderio-grande/themes/<id>/ would break the moment the site moves.
+[page["backend_layout"] == "pagets__GrandeThemes"]
+  page.10.dataProcessing.910 = menu
+  page.10.dataProcessing.910 {
+    special = directory
+    special.value.data = page:uid
+    includeNotInMenu = 1
+    as = themePages
+    titleField = nav_title // title
+  }
+[END]
