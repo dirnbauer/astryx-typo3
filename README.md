@@ -67,12 +67,17 @@ A page can override the theme for itself and everything below it through the
 
 ```bash
 ddev exec vendor/bin/typo3 desiderio-grande:site:seed --dry-run
-ddev exec vendor/bin/typo3 desiderio-grande:site:seed
+ddev exec vendor/bin/typo3 desiderio-grande:site:seed --content
 ```
 
 Creates the site root, a `/components` hub, one chapter page per group and the
-legal and error pages, then prints the uids to put into the site YAML. It is
-idempotent — run it again after adding elements.
+legal and error pages, then prints the uids to put into the site YAML.
+`--content` additionally places every element on its chapter page from its own
+`fixture.json`. Both are idempotent, and the content pass replaces only what a
+previous run seeded — anything an editor added by hand stays.
+
+Each chapter wears a different one of the seven themes, so walking the hub is
+also the fastest way to see that switching a theme changes nothing but paint.
 
 ### The element library
 
