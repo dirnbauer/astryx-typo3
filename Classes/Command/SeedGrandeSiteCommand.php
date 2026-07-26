@@ -211,6 +211,7 @@ final class SeedGrandeSiteCommand extends Command
 
         if ((bool)$input->getOption('content')) {
             $this->seedChapterContent($io, $created, $chapters, $now);
+            $this->seedHomeContent($io, $rootUid, $hubUid, $created['Themes'] ?? 0, $now);
         }
 
         $io->success(sprintf('Astryx site tree seeded — root page uid %d.', $rootUid));
@@ -315,6 +316,66 @@ final class SeedGrandeSiteCommand extends Command
         }
 
         $io->writeln(sprintf("\n%d elements placed across %d chapter pages.", $seeded, count($chapters)));
+    }
+
+    /**
+     * The home page: a marketing page assembled from the catalog's own elements,
+     * which is the only honest way to sell them.
+     */
+    private function seedHomeContent(SymfonyStyle $io, int $rootUid, int $hubUid, int $themesUid, int $now): void
+    {
+        $resolver = new StyleguideFixtureResolver(
+            $this->databaseSchema,
+            new StyleguideDemoValueGenerator(),
+            new StyleguideCollectionAliasPolicy($this->databaseSchema),
+        );
+        $seeder = new ContentElementSeeder(
+            $this->connectionPool,
+            $this->storageRepository,
+            $this->databaseSchema,
+            self::FAL_FOLDER,
+            1777300002,
+        );
+        $columns = $this->databaseSchema->getColumnNames('tt_content');
+
+        $catalog = [];
+        foreach ($this->elementCatalog->getElements() as $element) {
+            $catalog[$element['cType']] = $element;
+        }
+
+        $this->getContentCleaner()->softDeleteSeededContent($rootUid, $now);
+
+        $sorting = 0;
+        $placed = 0;
+        foreach (GrandeSiteDefinitions::homeContent() as $block) {
+            $record = $catalog[$block['ctype']] ?? null;
+            if ($record === null) {
+                $io->warning(sprintf('Home page references %s, which is not in the catalog.', $block['ctype']));
+                continue;
+            }
+
+            // The links are written against page roles, not uids, because the
+            // uids only exist once this run has created the pages.
+            $fixture = json_decode(strtr(json_encode($block['fixture']), [
+                '__HUB__' => (string)$hubUid,
+                '__THEMES__' => (string)($themesUid ?: $hubUid),
+            ]), true);
+
+            $sorting += self::SORTING_STEP;
+            $seeder->insert($rootUid, $now, $resolver->buildContentInsert(
+                $rootUid,
+                $block['ctype'],
+                $record['name'],
+                $fixture,
+                $sorting,
+                $now,
+                $columns,
+                ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
+            ));
+            $placed++;
+        }
+
+        $io->writeln(sprintf('  %-28s %d elements', 'Home', $placed));
     }
 
     private function getContentCleaner(): DesiderioContentCleaner

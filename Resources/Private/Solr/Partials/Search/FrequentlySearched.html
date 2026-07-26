@@ -1,0 +1,38 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="frequentSearches" type="iterable" optional="true"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="FrequentlySearched">
+    <s:frequentlySearched>
+        <f:if condition="{frequentSearches}">
+            <f:comment>
+                Queries other people ran, as ordinary links: each one is a real
+                URL, so it works with the network slow, is crawlable, and gives
+                a visitor who does not know what to type somewhere to start.
+            </f:comment>
+            <section class="astryx-card flat g-search__facet" aria-labelledby="tx-solr-frequent-searches-label">
+                <h2 class="astryx-card-title g-search__facet-title" id="tx-solr-frequent-searches-label">
+                    <f:translate key="{labels}:search.frequentSearches" default="Popular searches"/>
+                </h2>
+
+                <ul class="g-search__chips" id="tx-solr-frequent-searches">
+                    <f:for each="{frequentSearches}" as="searchedForInfo">
+                        <li>
+                            <a href="{s:uri.search.startNewSearch(queryString: searchedForInfo.q)}" class="astryx-token g-search__chip solr-ajaxified">
+                                <f:format.htmlentities>{searchedForInfo.q}</f:format.htmlentities>
+                            </a>
+                        </li>
+                    </f:for>
+                </ul>
+            </section>
+        </f:if>
+    </s:frequentlySearched>
+</f:section>
+
+</html>

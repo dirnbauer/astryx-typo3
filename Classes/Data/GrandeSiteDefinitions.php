@@ -173,6 +173,124 @@ final class GrandeSiteDefinitions
         ];
     }
 
+
+    /**
+     * The home page, assembled from the catalog's own elements.
+     *
+     * Every claim here is checkable against the repository — the counts come
+     * from the matrix, the theme list from the compiled stylesheet — because a
+     * page selling a design system is itself the first thing a buyer inspects.
+     * Nothing is attributed to a customer who does not exist: this page argues
+     * from what the extension is, not from invented praise.
+     *
+     * @return list<array{ctype: string, fixture: array<string, mixed>}>
+     */
+    public static function homeContent(): array
+    {
+        return [
+            [
+                'ctype' => 'desiderio_grande_herosplitmedia',
+                'fixture' => [
+                    'eyebrow' => 'Astryx for TYPO3',
+                    'header' => 'Meta\'s design system, rendered by TYPO3',
+                    'lead' => 'Two hundred and fifty content elements built on Astryx — the open-source design system Meta released under MIT. Seven themes, light and dark, and not one line of React on the page your visitor loads.',
+                    'cta_label' => 'See all 250 elements',
+                    'cta_link' => 't3://page?uid=__HUB__',
+                    'secondary_label' => 'Compare the seven themes',
+                    'secondary_link' => 't3://page?uid=__THEMES__',
+                    'image' => [['file' => 'EXT:desiderio_grande/Resources/Public/Images/scene/office-standup.jpg', 'alternative' => 'An editorial team reviewing a page layout together', 'title' => '']],
+                    'caption' => 'Editors work in the page module; nothing about the theme changes that.',
+                    'tone' => 'body',
+                    'width' => 'lg',
+                ],
+            ],
+            [
+                'ctype' => 'desiderio_grande_datakpirow',
+                'fixture' => [
+                    'eyebrow' => 'What you get',
+                    'header' => 'The numbers, and they are checkable',
+                    'columns' => '4',
+                    'tone' => 'surface',
+                    'align' => 'center',
+                    'width' => 'lg',
+                    'note' => 'Counted from the repository, not rounded for a slide: 250 element directories, 7 theme blocks in the compiled stylesheet, 13 columns added to tt_content, and one JavaScript file of roughly 9 kB.',
+                    'metrics' => [
+                        ['value' => '250', 'unit' => 'elements', 'title' => 'Across ten editor categories', 'text' => 'Hero, features, content, pricing, social proof, team, data, conversion, navigation and footer.'],
+                        ['value' => '7', 'unit' => 'themes', 'title' => 'Switchable per site or per page', 'text' => 'Changing one repaints the site and never touches a word of content.'],
+                        ['value' => '0', 'unit' => 'frameworks', 'title' => 'No React, no build step', 'text' => 'Fluid templates and plain CSS. 244 of the 250 elements need no JavaScript at all.'],
+                        ['value' => '13', 'unit' => 'new columns', 'title' => 'For all 250 elements', 'text' => 'A shared field vocabulary, so the elements do not each invent their own database columns.'],
+                    ],
+                ],
+            ],
+            [
+                'ctype' => 'desiderio_grande_featuregrid',
+                'fixture' => [
+                    'eyebrow' => 'Why this one',
+                    'header' => 'Built the way a design system is supposed to work',
+                    'lead' => 'The tokens are not an interpretation of Astryx. They are Astryx: produced by running its own theme compiler over the seven shipped themes, then scoped so a page can carry any of them.',
+                    'columns' => '3',
+                    'tone' => 'body',
+                    'width' => 'lg',
+                    'items' => [
+                        ['title' => 'Upstream tokens, not a lookalike', 'text' => 'Colours, spacing, radii and the type scale come from Astryx\'s own compiler output, with the upstream commit recorded in the repository.'],
+                        ['title' => 'One switch, whole site', 'text' => 'Every element speaks only in tokens — an audit fails the build on a raw colour — which is why one theme change reaches all 250 at once.'],
+                        ['title' => 'Light and dark from one palette', 'text' => 'Each colour is a light-dark() pair resolved against the colour scheme, so the scheme switch and the theme switch stay independent.'],
+                        ['title' => 'Accessibility measured, not asserted', 'text' => 'A script checks 392 colour pairs across all fourteen palettes against WCAG 2.2 AA, and the shortfalls that remain are documented rather than hidden.'],
+                        ['title' => 'Editors keep the page module', 'text' => 'Content Blocks elements with real backend previews, keyword search and a live picker preview for every one of the 250.'],
+                        ['title' => 'Self-hosted, no third parties', 'text' => 'Ten font families served from your own domain. A visitor\'s browser makes no request to anyone else.'],
+                    ],
+                ],
+            ],
+            [
+                'ctype' => 'desiderio_grande_featuresteps',
+                'fixture' => [
+                    'eyebrow' => 'Getting started',
+                    'header' => 'Three steps to a themed site',
+                    'columns' => '3',
+                    'tone' => 'surface',
+                    'width' => 'lg',
+                    'steps' => [
+                        ['title' => 'Install the extension', 'text' => 'Require webconsulting/desiderio-grande. It sits alongside Desiderio rather than replacing it, so a site can run either.'],
+                        ['title' => 'Add two site sets', 'text' => 'The base set and the content-element set. The wizard then offers exactly this catalog and nothing from the other theme.'],
+                        ['title' => 'Pick a theme', 'text' => 'One setting for the site, one page field to override it anywhere below. There is no rebuild — the tokens are already on the page.'],
+                    ],
+                ],
+            ],
+            [
+                'ctype' => 'desiderio_grande_accordionfaq',
+                'fixture' => [
+                    'eyebrow' => 'Before you ask',
+                    'header' => 'The questions worth answering honestly',
+                    'width' => 'md',
+                    'tone' => 'body',
+                    'questions' => [
+                        ['title' => 'Is this an official Meta product?', 'bodytext' => '<p>No. Astryx is released by Meta under the MIT licence and this extension builds on it. There is no affiliation with or endorsement by Meta, and no Astryx source code is redistributed — only its design tokens and component documentation.</p>'],
+                        ['title' => 'Does it run React on the frontend?', 'bodytext' => '<p>No. Astryx upstream is React and StyleX; this is Fluid and CSS. The visual language is the same, the runtime is not. One small vanilla script handles the four behaviours the platform has no element for.</p>'],
+                        ['title' => 'Can I use it alongside Desiderio?', 'bodytext' => '<p>Yes, and that is the design. Both are installed in the same TYPO3, and each site declares which theme it uses. The element picker on each site offers only that theme\'s elements.</p>'],
+                        ['title' => 'Is every theme WCAG 2.2 AA clean?', 'bodytext' => '<p>Not every pair in every theme. Body text, links, buttons and focus rings pass everywhere. Secondary text falls below 4.5:1 in five of the seven themes at Astryx\'s own palette values, and a handful of badge hues are marginal in chocolate and matcha. The audit script ships with the extension so you can see exactly where, and overriding those tokens is a two-line change.</p>'],
+                        ['title' => 'What happens when Astryx changes?', 'bodytext' => '<p>The token payload is vendored with the upstream commit recorded next to it. Regenerating is one command; nothing silently follows upstream behind your back.</p>'],
+                    ],
+                ],
+            ],
+            [
+                'ctype' => 'desiderio_grande_conversionclosingcta',
+                'fixture' => [
+                    'eyebrow' => 'Have a look first',
+                    'header' => 'Every element, on a page you can read',
+                    'lead' => 'The whole catalog is seeded on this site, one chapter per editor category, each chapter wearing a different theme. Nothing is a screenshot.',
+                    'cta_label' => 'Browse the catalog',
+                    'cta_link' => 't3://page?uid=__HUB__',
+                    'secondary_label' => 'Astryx on GitHub',
+                    'secondary_link' => 'https://github.com/facebook/astryx',
+                    'note' => 'Astryx is MIT-licensed and © Meta Platforms, Inc. and affiliates. This extension is GPL-2.0-or-later, like TYPO3.',
+                    'align' => 'center',
+                    'tone' => 'accent',
+                    'width' => 'md',
+                ],
+            ],
+        ];
+    }
+
     /**
      * Copy for the legal and error pages, keyed by slug.
      *

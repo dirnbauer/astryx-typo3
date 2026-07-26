@@ -1,0 +1,48 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="resultSet" type="object"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="FacetsActive">
+    <f:if condition="{resultSet.facets.used -> f:count()}">
+        <f:comment>
+            Active filters as removable Tokens. Each one is a link that removes
+            itself, and its accessible name says so — "Remove Content type:
+            Page" rather than a bare "×" that tells a screen-reader user
+            nothing about what is about to happen.
+        </f:comment>
+        <div id="tx-solr-facets-in-use" class="g-search__active">
+            <span class="astryx-text supporting g-search__active-label">
+                <f:translate key="{labels}:search.filteredBy" default="Filtered by"/>
+            </span>
+
+            <f:for each="{resultSet.facets.used}" as="facet">
+                <f:for each="{facet.allFacetItems.selected}" as="item">
+                    <a
+                        href="{s:uri.facet.removeFacetItem(facet: facet, facetItem: item)}"
+                        class="astryx-token g-search__active-token facet remove-facet-option solr-ajaxified"
+                    >
+                        <span class="astryx-visually-hidden">
+                            <f:translate key="{labels}:search.filterRemove" default="Remove filter"/>:
+                        </span>
+                        <span>{facet.label}: {item.label}</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                            <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </f:for>
+            </f:for>
+
+            <a href="{s:uri.facet.removeAllFacets()}" class="astryx-link quiet g-search__active-clear solr-ajaxified">
+                <f:translate key="{labels}:search.filterRemoveAll" default="Clear all"/>
+            </a>
+        </div>
+    </f:if>
+</f:section>
+
+</html>

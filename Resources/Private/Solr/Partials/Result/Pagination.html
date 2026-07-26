@@ -1,0 +1,87 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="pagination" type="object"/>
+<f:argument name="currentPage" type="integer"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="Pagination">
+    <f:comment>
+        Astryx Pagination: ghost buttons in a row, the current page marked with
+        aria-current so the stylesheet's [aria-current='page'] rule paints it —
+        weight and tint together, never colour alone.
+    </f:comment>
+    <nav class="astryx-pagination sm g-search__pagination" aria-label="{f:translate(key: '{labels}:search.pagination', default: 'Search result pages')}">
+        <div class="astryx-pagination-controls">
+
+            <f:if condition="{pagination.previousPageNumber}">
+                <a
+                    class="astryx-button ghost sm astryx-icon-button solr-ajaxified"
+                    href="{s:uri.paginate.resultPage(page: pagination.previousPageNumber)}"
+                    rel="prev"
+                    aria-label="{f:translate(key: '{labels}:search.paginationPrevious', default: 'Previous page')}"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                        <path d="m14 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </f:if>
+
+            <f:if condition="{pagination.hasLessPages}">
+                <span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span>
+            </f:if>
+
+            <f:for each="{pagination.allPageNumbers}" as="page">
+                <f:if condition="{page} == {currentPage}">
+                    <f:then>
+                        <span class="astryx-button ghost sm" aria-current="page">
+                            <span class="astryx-visually-hidden"><f:translate key="{labels}:search.paginationCurrent" default="Current page"/>,</span>
+                            {page}
+                        </span>
+                    </f:then>
+                    <f:else>
+                        <f:comment>
+                            Page 1 is addressed by the bare result URL, not by
+                            page=1 — EXT:solr treats the two as different URLs
+                            and only the bare one is the canonical first page.
+                        </f:comment>
+                        <f:variable name="pageUri"><f:if condition="{page} > 1"><f:then>{s:uri.paginate.resultPage(page: page)}</f:then><f:else>{s:uri.paginate.resultPage()}</f:else></f:if></f:variable>
+                        <a
+                            class="astryx-button ghost sm solr-ajaxified"
+                            href="{pageUri}"
+                            aria-label="{f:translate(key: '{labels}:search.paginationPage', arguments: {0: page}, default: 'Page {0}')}"
+                        >{page}</a>
+                    </f:else>
+                </f:if>
+            </f:for>
+
+            <f:if condition="{pagination.hasMorePages}">
+                <span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span>
+            </f:if>
+
+            <f:if condition="{pagination.nextPageNumber}">
+                <a
+                    class="astryx-button ghost sm astryx-icon-button solr-ajaxified"
+                    href="{s:uri.paginate.resultPage(page: pagination.nextPageNumber)}"
+                    rel="next"
+                    aria-label="{f:translate(key: '{labels}:search.paginationNext', default: 'Next page')}"
+                >
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                        <path d="m10 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+            </f:if>
+
+        </div>
+
+        <p class="astryx-pagination-info">
+            <f:translate key="{labels}:search.paginationInfo" arguments="{0: currentPage, 1: pagination.lastPageNumber}">Page {0} of {1}</f:translate>
+        </p>
+    </nav>
+</f:section>
+
+</html>

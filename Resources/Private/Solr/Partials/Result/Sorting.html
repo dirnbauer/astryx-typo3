@@ -1,0 +1,76 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="resultSet" type="object"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="Sorting">
+    <f:comment>
+        A native <details> disclosure, like every other menu in this theme:
+        open state, Escape and keyboard traversal come from the browser, and
+        grande.js only adds the click-outside close that the platform lacks.
+    </f:comment>
+    <details id="tx-solr-sorting" class="g-search__sorting" data-g-menu>
+        <summary class="astryx-button secondary md g-search__sorting-toggle">
+            <f:translate key="{labels}:search.sortBy" default="Sort"/>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </summary>
+
+        <div class="astryx-popover g-search__sorting-menu">
+            <div class="astryx-popover-body">
+                <f:for each="{resultSet.sortings}" as="sorting">
+                    <f:if condition="{sorting.isResetOption}">
+                        <f:then>
+                            <a
+                                class="astryx-item compact interactive{f:if(condition: sorting.selected, then: ' selected')} solr-ajaxified"
+                                href="{s:uri.sorting.removeSorting()}"
+                            >
+                                <span class="astryx-item-content"><span class="astryx-item-label">{sorting.label}</span></span>
+                            </a>
+                        </f:then>
+                        <f:else>
+                            <f:if condition="{sorting.selected}">
+                                <f:then>
+                                    <a
+                                        class="astryx-item compact interactive selected solr-ajaxified"
+                                        href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}"
+                                        aria-current="true"
+                                    >
+                                        <span class="astryx-item-content"><span class="astryx-item-label">{sorting.label}</span></span>
+                                        <span class="astryx-item-end">
+                                            <svg class="g-search__sorting-arrow {f:if(condition: sorting.isAscDirection, then: 'asc', else: 'desc')}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                                                <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                            <span class="astryx-visually-hidden">
+                                                <f:if condition="{sorting.isAscDirection}">
+                                                    <f:then><f:translate key="{labels}:search.sortAscending" default="ascending"/></f:then>
+                                                    <f:else><f:translate key="{labels}:search.sortDescending" default="descending"/></f:else>
+                                                </f:if>
+                                            </span>
+                                        </span>
+                                    </a>
+                                </f:then>
+                                <f:else>
+                                    <a
+                                        class="astryx-item compact interactive solr-ajaxified"
+                                        href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.direction)}"
+                                    >
+                                        <span class="astryx-item-content"><span class="astryx-item-label">{sorting.label}</span></span>
+                                    </a>
+                                </f:else>
+                            </f:if>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </div>
+        </div>
+    </details>
+</f:section>
+
+</html>
