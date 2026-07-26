@@ -29,7 +29,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-feature-grid__items">
             <f:for each="{data.items}" as="item">
-                <li class="astryx-feature g-feature-grid__item {cardSurface} {f:if(condition: item.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-feature g-feature-grid__item {cardSurface} {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{item.icon}">
                         <f:comment>
                             The tile carries the semantic key rather than a glyph, so swapping

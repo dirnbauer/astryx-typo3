@@ -27,7 +27,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-feature-platforms__platforms {f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.platforms}" as="platform">
-                <li class="astryx-item align-start {f:if(condition: platform.link, then: 'interactive')} g-feature-platforms__platform">
+                <li class="astryx-item align-start {f:if(condition: platform.link.url, then: 'interactive')} g-feature-platforms__platform">
                     <f:if condition="{platform.icon}">
                         <span class="astryx-item-start astryx-feature-icon" data-icon="{platform.icon}" aria-hidden="true"><g:icon name="{platform.icon}"/></span>
                     </f:if>

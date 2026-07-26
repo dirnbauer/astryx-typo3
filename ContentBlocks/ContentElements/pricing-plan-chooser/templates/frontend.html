@@ -30,7 +30,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-pricing-plan-chooser__routes">
             <f:for each="{data.routes}" as="route">
-                <li class="astryx-feature astryx-card g-pricing-plan-chooser__route {f:if(condition: route.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-feature astryx-card g-pricing-plan-chooser__route {f:if(condition: route.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{route.icon}">
                         <f:comment>
                             The tile carries the semantic key rather than a glyph, so swapping

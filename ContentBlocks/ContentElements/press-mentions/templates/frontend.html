@@ -30,7 +30,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-press-mentions__items">
             <f:for each="{data.mentions}" as="mention">
-                <li class="astryx-card flat g-press-mentions__item {f:if(condition: mention.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-card flat g-press-mentions__item {f:if(condition: mention.link.url, then: 'astryx-clickable-card')}">
                     <h3 class="astryx-card-title g-press-mentions__headline">
                         <f:if condition="{mention.link.url}">
                             <f:then><f:link.typolink parameter="{mention.link}">{mention.title}</f:link.typolink></f:then>

@@ -34,7 +34,7 @@
 
             <ul class="astryx-list with-dividers spacious g-feature-sticky-list__items">
                 <f:for each="{data.items}" as="item">
-                    <li class="g-feature-sticky-list__item {f:if(condition: item.link, then: 'astryx-clickable-card')}">
+                    <li class="g-feature-sticky-list__item {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
                         <f:if condition="{item.icon}">
                             <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
                         </f:if>

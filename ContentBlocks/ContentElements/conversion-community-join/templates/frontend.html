@@ -35,7 +35,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-conversion-community-join__places">
             <f:for each="{data.places}" as="place">
-                <li class="astryx-card g-conversion-community-join__place {f:if(condition: place.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-card g-conversion-community-join__place {f:if(condition: place.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{place.icon}">
                         <span class="astryx-feature-icon" data-icon="{place.icon}" aria-hidden="true"><g:icon name="{place.icon}"/></span>
                     </f:if>

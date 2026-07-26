@@ -27,7 +27,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-pricing-discount-note__programmes">
             <f:for each="{data.programmes}" as="programme">
-                <li class="astryx-feature astryx-card g-pricing-discount-note__programme {f:if(condition: programme.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-feature astryx-card g-pricing-discount-note__programme {f:if(condition: programme.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{programme.icon}">
                         <f:comment>
                             The tile carries the semantic key rather than a glyph, so swapping

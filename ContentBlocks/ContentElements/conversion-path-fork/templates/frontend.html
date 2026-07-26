@@ -31,7 +31,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-conversion-path-fork__paths">
             <f:for each="{data.paths}" as="path">
-                <li class="astryx-card g-conversion-path-fork__path {f:if(condition: path.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-card g-conversion-path-fork__path {f:if(condition: path.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{path.icon}">
                         <span class="astryx-feature-icon" data-icon="{path.icon}" aria-hidden="true"><g:icon name="{path.icon}"/></span>
                     </f:if>

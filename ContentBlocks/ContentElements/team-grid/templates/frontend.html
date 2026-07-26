@@ -37,7 +37,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-team-grid__people">
             <f:for each="{data.people}" as="person">
-                <li class="astryx-card {f:if(condition: person.image, then: 'media-top')} {f:if(condition: person.link, then: 'astryx-clickable-card')} g-team-grid__person">
+                <li class="astryx-card {f:if(condition: person.image, then: 'media-top')} {f:if(condition: person.link.url, then: 'astryx-clickable-card')} g-team-grid__person">
 
                     <f:if condition="{person.image}">
                         <div class="g-team-grid__portrait">

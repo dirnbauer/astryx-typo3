@@ -27,7 +27,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-partner-grid__partners">
             <f:for each="{data.partners}" as="partner">
-                <li class="astryx-card g-partner-grid__card {f:if(condition: partner.link, then: 'astryx-clickable-card')}">
+                <li class="astryx-card g-partner-grid__card {f:if(condition: partner.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{partner.image}">
                         <span class="g-partner-grid__mark">
                             <f:for each="{partner.image}" as="image">

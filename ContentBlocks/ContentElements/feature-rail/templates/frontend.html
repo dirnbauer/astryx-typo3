@@ -29,7 +29,7 @@
             <ul class="astryx-carousel-track g-feature-rail__track {f:if(condition: data.compact, then: 'compact')}" tabindex="0" aria-labelledby="g-feature-rail-{data.uid}-heading">
                 <f:for each="{data.items}" as="item">
                     <li class="astryx-carousel-item g-feature-rail__item">
-                        <article class="astryx-card astryx-feature g-feature-rail__card {f:if(condition: item.link, then: 'astryx-clickable-card')}">
+                        <article class="astryx-card astryx-feature g-feature-rail__card {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
                             <f:if condition="{item.icon}">
                                 <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
                             </f:if>

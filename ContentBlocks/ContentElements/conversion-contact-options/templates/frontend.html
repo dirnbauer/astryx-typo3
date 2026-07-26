@@ -33,7 +33,7 @@
 
         <ul class="{listClass} g-conversion-contact-options__channels">
             <f:for each="{data.channels}" as="channel">
-                <li class="{rowClass} g-conversion-contact-options__channel {f:if(condition: channel.link, then: linkedClass)}">
+                <li class="{rowClass} g-conversion-contact-options__channel {f:if(condition: channel.link.url, then: linkedClass)}">
                     <f:if condition="{channel.icon}">
                         <span class="astryx-feature-icon g-conversion-contact-options__icon" data-icon="{channel.icon}" aria-hidden="true"><g:icon name="{channel.icon}"/></span>
                     </f:if>

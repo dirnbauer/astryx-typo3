@@ -31,7 +31,7 @@
 
         <ul class="astryx-grid cols-{data.columns} g-speaker-lineup__speakers">
             <f:for each="{data.speakers}" as="speaker">
-                <li class="astryx-card {f:if(condition: speaker.link, then: 'astryx-clickable-card')} g-speaker-lineup__speaker">
+                <li class="astryx-card {f:if(condition: speaker.link.url, then: 'astryx-clickable-card')} g-speaker-lineup__speaker">
 
                     <f:if condition="{speaker.image}">
                         <span class="astryx-avatar lg g-speaker-lineup__portrait">
