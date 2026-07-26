@@ -34,7 +34,7 @@
                         </f:for>
 
                         <span class="astryx-text label g-feature-integrations__name">
-                            <f:if condition="{logo.link}">
+                            <f:if condition="{logo.link.url}">
                                 <f:then><f:link.typolink parameter="{logo.link}">{logo.title}</f:link.typolink></f:then>
                                 <f:else>{logo -> f:render.text(field: 'title')}</f:else>
                             </f:if>

@@ -5,6 +5,73 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-testimonial-portrait {
+.g-testimonial-portrait__figure {
+  margin: 0;
+  align-items: center;
+}
+
+.g-testimonial-portrait__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  /* Beside a tall picture the column would otherwise stretch to the height of
+     the frame and take the line length with it. */
+  max-inline-size: 45ch;
+}
+
+.g-testimonial-portrait__quote {
+  font-size: var(--text-heading-2-size);
+  line-height: var(--text-heading-2-leading);
+}
+
+.g-testimonial-portrait__quote > p {
+  margin: 0;
+  quotes: auto;
+}
+
+.g-testimonial-portrait__quote > p::before {
+  content: open-quote;
+}
+
+.g-testimonial-portrait__quote > p::after {
+  content: close-quote;
+}
+
+.g-testimonial-portrait__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-testimonial-portrait__role::before {
+  content: ', ';
+}
+
+/* No crop: the frame the photographer chose survives, which is the only way to
+   be sure the face is never cut off below the eyes at some viewport width. */
+.g-testimonial-portrait__image {
   display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-testimonial-portrait.accent .astryx-citation {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-testimonial-portrait.accent .g-testimonial-portrait__name {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-testimonial-portrait__body {
+    max-inline-size: none;
+  }
+
+  .g-testimonial-portrait__quote {
+    font-size: var(--text-heading-3-size);
+    line-height: var(--text-heading-3-leading);
+  }
 }

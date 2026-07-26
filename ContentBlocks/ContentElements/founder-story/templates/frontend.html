@@ -5,14 +5,66 @@
 <f:asset.css identifier="g-founder-story" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The prose column caps at 65ch even in the wide variant; a founder story that runs the full page width does not get read.
+    The prose column caps at 65 characters a line even in the wide variant. A
+    founder story that runs the full page width does not get read, and the
+    width field here decides how much room the picture gets rather than how
+    long the lines are.
+
+    The name closes the story rather than opening it: the reader is meant to
+    arrive at the person, not to be introduced to them before there is any
+    reason to care.
+
+    The alt names the founder — this is a portrait, and it is the only picture
+    on the band.
 </f:comment>
 
-<section class="astryx-section g-founder-story" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-founder-story {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-founder-story__grid {f:if(condition: data.reverse, then: 'portrait-start')}">
+
+            <div class="g-founder-story__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-founder-story__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-founder-story__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.author}">
+                    <p class="g-founder-story__signature">
+                        <span class="astryx-text label g-founder-story__name">{data -> f:render.text(field: 'author')}</span>
+                        <f:if condition="{data.role}">
+                            <span class="astryx-text supporting g-founder-story__role">{data -> f:render.text(field: 'role')}</span>
+                        </f:if>
+                    </p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-founder-story__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <figure class="g-founder-story__figure">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{data.author}" width="640c" height="800c" loading="lazy" class="g-founder-story__portrait"/>
+                    </f:for>
+                    <f:if condition="{data.caption}">
+                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    </f:if>
+                </figure>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

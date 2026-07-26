@@ -5,6 +5,60 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-office-people {
-  display: block;
+.g-office-people__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-office-people__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-office-people__offices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-office-people__office {
+  block-size: 100%;
+  gap: var(--spacing-3);
+}
+
+/* <address> arrives italic from the user agent, which is not how a postal
+   address is set anywhere else in this catalog. */
+.g-office-people__address {
+  font-style: normal;
+  color: var(--color-text-secondary);
+}
+
+/* The contact row is pushed to the foot, so a card whose address runs to four
+   lines still ends level with the one beside it. */
+.g-office-people__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-office-people__person {
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.g-office-people.accent .g-office-people__lead,
+.g-office-people.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-office-people__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

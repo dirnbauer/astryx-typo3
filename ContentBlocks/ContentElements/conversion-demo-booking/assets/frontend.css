@@ -5,6 +5,80 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-demo-booking {
-  display: block;
+.g-conversion-demo-booking__grid {
+  align-items: center;
+}
+
+.g-conversion-demo-booking__grid:not(:has(.g-conversion-demo-booking__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-conversion-demo-booking__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-conversion-demo-booking__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The agenda is a specification of the half hour, so it gets a rule above and
+   below rather than drifting into the lead. */
+.g-conversion-demo-booking__agenda {
+  margin-block: var(--spacing-2);
+  padding-block: var(--spacing-5);
+  padding-inline: 0;
+  list-style: none;
+  border-block: var(--border-width) solid var(--color-border);
+  --grid-gap: var(--spacing-5);
+}
+
+.g-conversion-demo-booking__point {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-conversion-demo-booking__actions {
+  gap: var(--spacing-5);
+}
+
+.g-conversion-demo-booking__note {
+  margin: 0;
+}
+
+.g-conversion-demo-booking__media {
+  display: flex;
+}
+
+.g-conversion-demo-booking__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-demo-booking.accent .g-conversion-demo-booking__lead,
+.g-conversion-demo-booking.accent .g-conversion-demo-booking__note,
+.g-conversion-demo-booking.accent .g-conversion-demo-booking__secondary,
+.g-conversion-demo-booking.accent .astryx-card-body,
+.g-conversion-demo-booking.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-demo-booking.accent .g-conversion-demo-booking__agenda {
+  border-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-demo-booking__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-4);
+  }
+
+  .g-conversion-demo-booking__secondary {
+    justify-content: center;
+  }
 }

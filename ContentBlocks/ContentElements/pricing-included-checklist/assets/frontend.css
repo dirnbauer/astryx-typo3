@@ -5,6 +5,105 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-included-checklist {
+.g-pricing-included-checklist__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-included-checklist__scope,
+.g-pricing-included-checklist__lead {
+  color: var(--color-text-secondary);
+}
+
+/* CSS columns rather than a grid: the list is one enumeration, so it should
+   read down the first column and then down the second instead of snaking. */
+.g-pricing-included-checklist__items {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+}
+
+.g-pricing-included-checklist__item {
+  gap: var(--spacing-3);
+  break-inside: avoid;
+}
+
+.g-pricing-included-checklist__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-pricing-included-checklist__mark {
+  flex: 0 0 auto;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  /* Optical, not geometric: the glyph sits on the text's x-height rather than
+     on the top of its line box. */
+  margin-block-start: 0.2em;
+}
+
+.g-pricing-included-checklist__item[data-included='yes'] .g-pricing-included-checklist__mark {
+  color: var(--color-success);
+}
+
+.g-pricing-included-checklist__item[data-included='no'] .g-pricing-included-checklist__mark,
+.g-pricing-included-checklist__item[data-included='no'] .g-pricing-included-checklist__label {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-included-checklist__qualifier {
+  flex: 0 0 auto;
+}
+
+.g-pricing-included-checklist__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-included-checklist__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-included-checklist[data-align='center'] .g-pricing-included-checklist__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-pricing-included-checklist[data-align='center'] .g-pricing-included-checklist__foot {
+  justify-content: center;
+  text-align: center;
+}
+
+.g-pricing-included-checklist.accent .g-pricing-included-checklist__scope,
+.g-pricing-included-checklist.accent .g-pricing-included-checklist__lead,
+.g-pricing-included-checklist.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 641px) {
+  .g-pricing-included-checklist[data-columns='2'] .g-pricing-included-checklist__items { columns: 2; }
+  .g-pricing-included-checklist[data-columns='3'] .g-pricing-included-checklist__items { columns: 2; }
+  .g-pricing-included-checklist[data-columns='4'] .g-pricing-included-checklist__items { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-pricing-included-checklist[data-columns='3'] .g-pricing-included-checklist__items { columns: 3; }
+  .g-pricing-included-checklist[data-columns='4'] .g-pricing-included-checklist__items { columns: 4; }
+}
+
+@media (max-width: 640px) {
+  .g-pricing-included-checklist__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

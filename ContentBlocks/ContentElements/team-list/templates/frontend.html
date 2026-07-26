@@ -5,14 +5,61 @@
 <f:asset.css identifier="g-team-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Rows stay one line tall at desktop widths; the avatar is decorative here, so a missing portrait leaves no gap in the rhythm.
+    Rows stay one line tall at desktop widths. The avatar is decoration here
+    and carries an empty alt: two hundred names read twice is exactly the noise
+    a dense directory must not make, and a person whose portrait is missing
+    simply gets no picture rather than a gap in the rhythm.
+
+    'Team Grid' is the element for portraits that mean something; this one is
+    for finding a name.
 </f:comment>
 
-<section class="astryx-section g-team-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-team-list {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-team-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-team-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-team-list__people {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.people}" as="person">
+                <li class="g-team-list__row">
+
+                    <f:if condition="{person.image}">
+                        <span class="astryx-avatar sm g-team-list__portrait" aria-hidden="true">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="" width="64c" height="64c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <span class="g-team-list__name">
+                        <f:if condition="{person.link.url}">
+                            <f:then><f:link.typolink parameter="{person.link}" class="astryx-link quiet">{person.title}</f:link.typolink></f:then>
+                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </span>
+
+                    <f:if condition="{person.role}">
+                        <span class="astryx-text supporting g-team-list__role">{person -> f:render.text(field: 'role')}</span>
+                    </f:if>
+
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-team-list__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

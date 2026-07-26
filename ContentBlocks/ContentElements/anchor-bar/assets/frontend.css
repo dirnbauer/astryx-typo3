@@ -3,8 +3,74 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The pills are .astryx-segmented-control-item and keep the component's own
+ * sizing, weight and focus ring; only the track's scrolling is added here.
  */
 
+/* Under the site header, which is itself sticky at the top of the viewport
+   and one stacking level above this. */
 .g-anchor-bar {
-  display: block;
+  position: sticky;
+  inset-block-start: var(--grande-header-height);
+  z-index: 5;
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-anchor-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.g-anchor-bar[data-align='center'] .g-anchor-bar__inner {
+  justify-content: center;
+}
+
+.g-anchor-bar__title {
+  flex-shrink: 0;
+  margin: 0;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* The bar never wraps: a second row of jumps would push the page content down
+   every time the reader scrolled. It scrolls sideways instead. */
+.g-anchor-bar__scroller {
+  min-inline-size: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-track) transparent;
+}
+
+.g-anchor-bar__track {
+  margin: 0;
+  padding: var(--spacing-0-5);
+  list-style: none;
+}
+
+.g-anchor-bar__item {
+  display: flex;
+}
+
+.g-anchor-bar__link {
+  text-decoration: none;
+}
+
+.g-anchor-bar.accent .g-anchor-bar__title {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* The label takes a whole line on a phone, where the pills need every
+     pixel of the width for themselves. */
+  .g-anchor-bar__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-2);
+  }
 }

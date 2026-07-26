@@ -5,14 +5,70 @@
 <f:asset.css identifier="g-footer-language-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Plain links, not a switcher: nothing opens or folds out, and the current version is marked with aria-current rather than by removing it from the list.
+    Plain links, not a switcher: nothing opens, nothing folds out, and the
+    version you are already reading stays in the list rather than disappearing
+    from it — a list that removes the current entry leaves a reader unsure
+    whether they are on the right one.
+
+    The entry with no link is the current version. It carries aria-current and
+    says so in words as well, because a reader who cannot see the emphasis still
+    has to know which one they are on.
 </f:comment>
 
-<section class="astryx-section g-footer-language-note" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navLabel" value="{data.header}"/>
+<f:if condition="!{data.header}">
+    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:nav.label', default: 'Language and region')}"/>
+</f:if>
+
+<section class="astryx-section g-footer-language-note {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-footer-language-note__inner">
+
+            <f:if condition="{data.icon}">
+                <span class="astryx-feature-icon g-footer-language-note__icon" data-icon="{data.icon}" aria-hidden="true"></span>
+            </f:if>
+
+            <div class="g-footer-language-note__body">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-language-note__statement">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <nav aria-label="{navLabel}">
+                    <ul class="g-footer-language-note__versions">
+                        <f:for each="{data.links}" as="version">
+                            <li class="g-footer-language-note__version">
+                                <f:if condition="{version.link.url}">
+                                    <f:then>
+                                        <f:link.typolink parameter="{version.link}" class="astryx-link quiet">{version.title}</f:link.typolink>
+                                        <f:if condition="{version.description}">
+                                            <span class="astryx-text supporting g-footer-language-note__hint">{version.description}</span>
+                                        </f:if>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="g-footer-language-note__current" aria-current="true">
+                                            {version.title}
+                                            <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:version.current" default="— the version you are reading"/></span>
+                                        </span>
+                                        <f:if condition="{version.description}">
+                                            <span class="astryx-text supporting g-footer-language-note__hint">{version.description}</span>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </nav>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-footer-language-note__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

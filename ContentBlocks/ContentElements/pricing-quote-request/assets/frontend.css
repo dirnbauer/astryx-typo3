@@ -5,6 +5,91 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-quote-request {
-  display: block;
+.g-pricing-quote-request__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.g-pricing-quote-request__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+}
+
+.g-pricing-quote-request__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-quote-request__note {
+  margin: 0;
+}
+
+/* Numbered, because the order is the reassurance: a reader wants to know what
+   happens after they press the button, not only before. */
+.g-pricing-quote-request__steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-6);
+  margin: 0;
+  padding-inline-start: 0;
+  list-style: none;
+  counter-reset: g-quote-step;
+}
+
+.g-pricing-quote-request__step {
+  counter-increment: g-quote-step;
+}
+
+.g-pricing-quote-request__step > .astryx-card-title::before {
+  content: counter(g-quote-step) '. ';
+  color: var(--color-text-accent);
+}
+
+.g-pricing-quote-request__media {
+  margin: 0;
+}
+
+.g-pricing-quote-request__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-pricing-quote-request[data-align='center'] .g-pricing-quote-request__copy {
+  align-items: center;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.g-pricing-quote-request[data-align='center'] .g-pricing-quote-request__step {
+  align-items: center;
+  text-align: center;
+}
+
+.g-pricing-quote-request.accent .g-pricing-quote-request__lead,
+.g-pricing-quote-request.accent .astryx-card-body,
+.g-pricing-quote-request.accent .astryx-eyebrow,
+.g-pricing-quote-request.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-quote-request.accent .g-pricing-quote-request__step > .astryx-card-title::before {
+  color: currentColor;
+}
+
+@media (min-width: 641px) {
+  .g-pricing-quote-request__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .g-pricing-quote-request__steps {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

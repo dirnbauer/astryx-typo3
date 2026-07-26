@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-footer-accessibility-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): A summary that points at the real statement: `badge_text` carries the level, and the feedback link should reach a person, not a form nobody reads.
+    A summary that points at the real statement, never a replacement for it: the
+    conformance level is a word in the badge rather than a colour or a symbol,
+    and the feedback link is the part that matters most — an accessibility
+    statement with no way to report a barrier is a statement written for an
+    auditor rather than for a reader.
 </f:comment>
 
-<section class="astryx-section g-footer-accessibility-note" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-footer-accessibility-note {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <aside class="astryx-banner g-footer-accessibility-note__box" aria-labelledby="g-footer-accessibility-note-{data.uid}">
+
+            <f:if condition="{data.icon}">
+                <span class="astryx-feature-icon g-footer-accessibility-note__icon" data-icon="{data.icon}" aria-hidden="true"></span>
+            </f:if>
+
+            <div class="astryx-banner-content">
+                <div class="g-footer-accessibility-note__head">
+                    <h2 class="astryx-banner-title g-footer-accessibility-note__title" id="g-footer-accessibility-note-{data.uid}">{data -> f:render.text(field: 'header')}</h2>
+
+                    <f:if condition="{data.badge_text}">
+                        <span class="astryx-badge outline g-footer-accessibility-note__level">{data -> f:render.text(field: 'badge_text')}</span>
+                    </f:if>
+                </div>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-banner-body g-footer-accessibility-note__body">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <p class="g-footer-accessibility-note__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-link">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-link">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </p>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-footer-accessibility-note__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+        </aside>
     </div>
 </section>
 

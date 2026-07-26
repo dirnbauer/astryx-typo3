@@ -5,14 +5,48 @@
 <f:asset.css identifier="g-related-links" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Deliberately capped at eight: a related list longer than that is a section index wearing the wrong element.
+    Capped at eight by the field itself: a list of related reading longer than
+    that has stopped being a suggestion and become a section index. Each card
+    holds one link, carried by its title, so the card is the target and the
+    title is its accessible name.
 </f:comment>
 
-<section class="astryx-section g-related-links" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.related" default="Related pages"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-related-links {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-related-links__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-related-links__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-related-links__nav" aria-label="{navLabel}">
+            <ul class="astryx-grid cols-{data.columns} g-related-links__items">
+                <f:for each="{data.links}" as="link">
+                    <li class="astryx-card flat astryx-clickable-card g-related-links__item">
+                        <h3 class="astryx-card-title g-related-links__title">
+                            <f:if condition="{link.link.url}">
+                                <f:then><f:link.typolink parameter="{link.link}">{link.title}</f:link.typolink></f:then>
+                                <f:else>{link -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </h3>
+
+                        <f:if condition="{link.description}">
+                            <p class="astryx-card-body">{link -> f:render.text(field: 'description')}</p>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

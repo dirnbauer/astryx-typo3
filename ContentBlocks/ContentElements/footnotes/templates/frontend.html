@@ -31,7 +31,7 @@
                     <f:if condition="{item.description}">
                         <span class="astryx-text supporting g-footnotes__source">{item -> f:render.text(field: 'description')}</span>
                     </f:if>
-                    <f:if condition="{item.link}">
+                    <f:if condition="{item.link.url}">
                         <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footnotes__link">{item.link}</f:link.typolink>
                     </f:if>
                 </li>

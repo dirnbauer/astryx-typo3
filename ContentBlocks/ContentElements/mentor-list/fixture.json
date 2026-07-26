@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "team",
+    "eyebrow": "Mentor List",
+    "header": "Mentors, their subjects and a way to book them",
+    "lead": "Portrait, name, role and the subjects each one covers, typed as one line and split on the semicolon. The child's link is the booking target.",
+    "note": "A mentor with no link renders without a button rather than with a dead one — which is the state most of a term is spent in.",
+    "columns": "3",
+    "cta_label": "How the scheme works",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "people": [
+        {
+            "title": "The name and the role",
+            "role": "sit beside the portrait",
+            "text": "One subject; another subject; a third",
+            "link": "#"
+        },
+        {
+            "title": "Subjects are tokens",
+            "role": "split on the semicolon you type",
+            "text": "No second record type; just punctuation",
+            "link": "#"
+        },
+        {
+            "title": "Fully booked, no button",
+            "role": "the card still renders",
+            "text": "Because a dead booking link is worse than none"
+        }
+    ]
+}

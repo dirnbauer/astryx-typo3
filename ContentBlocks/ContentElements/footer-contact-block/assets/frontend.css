@@ -5,6 +5,99 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-contact-block {
-  display: block;
+.g-footer-contact-block__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 60ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-footer-contact-block__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The browser default italicises address; these are names and numbers, not an
+   aside. */
+.g-footer-contact-block__address {
+  font-style: normal;
+}
+
+.g-footer-contact-block__channels {
+  display: grid;
+  gap: var(--spacing-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-contact-block__channels.is-compact {
+  gap: var(--spacing-3);
+}
+
+.g-footer-contact-block__channel {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.g-footer-contact-block__icon {
+  flex-shrink: 0;
+}
+
+.g-footer-contact-block__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+/* A phone number, an IBAN or a long address must be able to break rather than
+   push the column wider than the band. */
+.g-footer-contact-block__value {
+  font-weight: var(--font-weight-medium);
+  overflow-wrap: anywhere;
+}
+
+.g-footer-contact-block__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-footer-contact-block[data-align='center'] .g-footer-contact-block__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-contact-block[data-align='center'] .g-footer-contact-block__channel {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.g-footer-contact-block[data-align='center'] .g-footer-contact-block__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-contact-block.accent .g-footer-contact-block__lead,
+.g-footer-contact-block.accent .astryx-eyebrow,
+.g-footer-contact-block.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-footer-contact-block.accent .g-footer-contact-block__value a {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-footer-contact-block__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-footer-contact-block__channels {
+    gap: var(--spacing-4);
+  }
 }

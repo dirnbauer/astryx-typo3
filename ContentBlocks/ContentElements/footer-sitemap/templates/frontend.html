@@ -5,14 +5,63 @@
 <f:asset.css identifier="g-footer-sitemap" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The list is maintained by hand, not generated from the page tree: an entry with an empty link becomes a section heading, everything under it a page link.
+    The list is maintained by hand, not generated from the page tree: a footer
+    sitemap that scrapes the tree grows every hidden branch somebody forgot to
+    exclude, and shrinks whenever an editor renames a section. An entry with an
+    empty link opens a section, everything under it is a page in it, and the
+    section headings are real h3 elements so that structure reaches a screen
+    reader as headings rather than as a change of type size.
+
+    Sections flow through the columns instead of each claiming one — with fifty
+    entries a forced break leaves half the band empty. A heading may not be the
+    last thing in a column, which is what break-after handles.
 </f:comment>
 
-<section class="astryx-section g-footer-sitemap" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navLabel" value="{data.header}"/>
+<f:if condition="!{data.header}">
+    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-sitemap/language/labels.xlf:nav.label', default: 'Site index')}"/>
+</f:if>
+
+<section class="astryx-section g-footer-sitemap {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-footer-sitemap__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-footer-sitemap__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav aria-label="{navLabel}">
+            <ul class="g-footer-sitemap__list {f:if(condition: data.compact, then: 'is-compact')}">
+                <f:for each="{data.links}" as="entry">
+                    <f:if condition="{entry.link.url}">
+                        <f:then>
+                            <li class="g-footer-sitemap__entry is-page">
+                                <f:link.typolink parameter="{entry.link}" class="astryx-link quiet g-footer-sitemap__link">{entry.title}</f:link.typolink>
+                            </li>
+                        </f:then>
+                        <f:else>
+                            <li class="g-footer-sitemap__entry is-section">
+                                <h3 class="astryx-text label g-footer-sitemap__section">{entry -> f:render.text(field: 'title')}</h3>
+                                <f:if condition="{entry.description}">
+                                    <span class="astryx-text supporting g-footer-sitemap__hint">{entry.description}</span>
+                                </f:if>
+                            </li>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </ul>
+        </nav>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-sitemap__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

@@ -5,14 +5,67 @@
 <f:asset.css identifier="g-conversion-community-join" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Member counts belong in each item's description and go stale fast; round them, or leave them out.
+    How busy a place is belongs to that place, so the count sits in each
+    entry's description rather than in a shared line. Counts go stale faster
+    than anything else on a page like this — round them, or leave them out.
 </f:comment>
 
-<section class="astryx-section g-conversion-community-join" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-community-join {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-conversion-community-join__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-conversion-community-join__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.image}">
+            <div class="g-conversion-community-join__media">
+                <f:for each="{data.image}" as="image">
+                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1120" loading="lazy" class="g-conversion-community-join__image"/>
+                </f:for>
+            </div>
         </f:if>
+
+        <ul class="astryx-grid cols-{data.columns} g-conversion-community-join__places">
+            <f:for each="{data.places}" as="place">
+                <li class="astryx-card g-conversion-community-join__place {f:if(condition: place.link, then: 'astryx-clickable-card')}">
+                    <f:if condition="{place.icon}">
+                        <span class="astryx-feature-icon" data-icon="{place.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title">
+                        <f:if condition="{place.link.url}">
+                            <f:then><f:link.typolink parameter="{place.link}">{place.title}</f:link.typolink></f:then>
+                            <f:else>{place -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{place.description}">
+                        <p class="astryx-card-body">{place -> f:render.text(field: 'description')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <div class="g-conversion-community-join__foot">
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-conversion-community-join__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-community-join__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+        </div>
+
     </div>
 </section>
 

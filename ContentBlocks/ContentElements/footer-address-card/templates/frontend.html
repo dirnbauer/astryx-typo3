@@ -5,14 +5,54 @@
 <f:asset.css identifier="g-footer-address-card" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The map is an editor-supplied still image with a link out — no map provider is embedded, so nothing loads from a third party.
+    The map is a picture an editor uploaded and the directions link goes out to
+    whichever service they use, so this element embeds no map provider and
+    fetches nothing from a third party when the page is opened.
+
+    The address is a real address element and keeps the line breaks the editor
+    typed — a postal address read as one run-on line is a postal address nobody
+    can copy.
 </f:comment>
 
-<section class="astryx-section g-footer-address-card" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-footer-address-card {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-footer-address-card__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="astryx-card g-footer-address-card__card">
+                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.text}">
+                    <address class="astryx-text body g-footer-address-card__address">{data -> f:render.text(field: 'text')}</address>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-card-footer astryx-button-group">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button secondary">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-footer-address-card__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <figure class="g-footer-address-card__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="900" loading="lazy" class="g-footer-address-card__image"/>
+                    </f:for>
+                    <f:if condition="{data.caption}">
+                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    </f:if>
+                </figure>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -5,6 +5,51 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-address-card {
-  display: block;
+.g-footer-address-card__grid {
+  align-items: stretch;
+}
+
+.g-footer-address-card__card {
+  gap: var(--spacing-4);
+}
+
+/* The browser default italicises address; a postal address is not an aside. */
+.g-footer-address-card__address {
+  font-style: normal;
+  color: var(--color-text-secondary);
+}
+
+.g-footer-address-card__note {
+  max-inline-size: 60ch;
+}
+
+.g-footer-address-card__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* A map crop is chosen for what it shows, so it keeps the proportions it was
+   exported at rather than being squared off to match the card. */
+.g-footer-address-card__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-footer-address-card__media figcaption {
+  margin: 0;
+}
+
+.g-footer-address-card.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-footer-address-card__card {
+    gap: var(--spacing-3);
+  }
 }

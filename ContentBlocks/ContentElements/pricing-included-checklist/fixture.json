@@ -1,1 +1,42 @@
-{}
+{
+    "_type": "pricing",
+    "header": "Ticks and crosses for one price",
+    "subheader": "What is in it, and what is not",
+    "lead": "One to four columns of a single list. Nothing is compared here — the band answers only what this one price covers.",
+    "columns": "2",
+    "align": "start",
+    "note": "The note is where the qualifications go, so the rows stay short enough to scan.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "items": [
+        {
+            "title": "Every row carries a named mark",
+            "included": true,
+            "text": "Colour alone would not survive being read aloud."
+        },
+        {
+            "title": "A row may add a short qualifier",
+            "included": true,
+            "value": "like this"
+        },
+        {
+            "title": "A row may add one line of caveat",
+            "included": true,
+            "text": "It sits under the label rather than beside it."
+        },
+        {
+            "title": "Rows read down a column, then across",
+            "included": true
+        },
+        {
+            "title": "Excluded rows stay in place",
+            "included": false,
+            "text": "Removing them would remove the information."
+        },
+        {
+            "title": "Anything the element would have to add up",
+            "included": false
+        }
+    ]
+}

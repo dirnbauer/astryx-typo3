@@ -5,6 +5,68 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-team-function-columns {
-  display: block;
+.g-team-function-columns__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-team-function-columns__lead {
+  color: var(--color-text-secondary);
+}
+
+/* Columns start level with each other rather than centring on their own
+   height: a column of three names beside one of twelve would otherwise float
+   in the middle of the band. */
+.g-team-function-columns__columns {
+  align-items: start;
+}
+
+.g-team-function-columns__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* The rule under a function heading is what makes the column read as a column
+   rather than as an indented paragraph. */
+.g-team-function-columns__function {
+  padding-block-end: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.g-team-function-columns__names {
+  gap: var(--spacing-1);
+}
+
+.g-team-function-columns__columns.compact .g-team-function-columns__column {
+  gap: var(--spacing-2);
+}
+
+.g-team-function-columns__columns.compact .g-team-function-columns__names {
+  gap: 0;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-team-function-columns.accent .g-team-function-columns__function {
+  color: currentColor;
+  border-block-end-color: currentColor;
+}
+
+.g-team-function-columns.accent .g-team-function-columns__lead,
+.g-team-function-columns.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-team-function-columns__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

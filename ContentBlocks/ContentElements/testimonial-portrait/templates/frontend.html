@@ -5,14 +5,40 @@
 <f:asset.css identifier="g-testimonial-portrait" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The portrait keeps its aspect ratio and never crops below the eyes; the quote column caps at 45ch so it stays readable next to a tall image.
+    The words come before the picture in the source order whichever side the
+    editor puts the portrait on, and the portrait carries an empty alt: the
+    name is printed directly underneath, so "photograph of …" would read the
+    person out twice for no added information.
 </f:comment>
 
-<section class="astryx-section g-testimonial-portrait" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-testimonial-portrait {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <figure class="astryx-split g-testimonial-portrait__figure {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-testimonial-portrait__body">
+                <blockquote class="astryx-blockquote g-testimonial-portrait__quote">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
+                </blockquote>
+
+                <f:if condition="{data.author}">
+                    <figcaption class="astryx-citation g-testimonial-portrait__credit">
+                        <span class="g-testimonial-portrait__name">{data -> f:render.text(field: 'author')}</span>
+                        <f:if condition="{data.role}">
+                            <span class="g-testimonial-portrait__role">{data -> f:render.text(field: 'role')}</span>
+                        </f:if>
+                    </figcaption>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-testimonial-portrait__portrait">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="" width="800" loading="lazy" class="g-testimonial-portrait__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </figure>
     </div>
 </section>
 

@@ -5,6 +5,76 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-person-interview {
-  display: block;
+.g-person-interview__standfirst {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 62ch;
+  padding-block-end: var(--spacing-6);
+  border-block-end: var(--border-width) solid var(--color-border);
+  margin-block-end: var(--spacing-8);
+}
+
+.g-person-interview__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-person-interview__who {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-person-interview__credit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  margin: 0;
+}
+
+.g-person-interview__conversation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  /* The conversation keeps a reading measure whatever width the band was
+     given: an answer set across a full page stops being a conversation. */
+  max-inline-size: 65ch;
+}
+
+.g-person-interview__pair {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* The question is set in the accent so it can be found by eye when skimming,
+   without needing a quotation mark or a "Q:" that a screen reader would then
+   have to read out as a letter. */
+.g-person-interview__question {
+  color: var(--color-text-accent);
+}
+
+.g-person-interview.accent .g-person-interview__question {
+  color: currentColor;
+}
+
+.g-person-interview.accent .g-person-interview__standfirst {
+  border-block-end-color: currentColor;
+}
+
+.g-person-interview.accent .g-person-interview__lead,
+.g-person-interview.accent .g-person-interview__role,
+.g-person-interview.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-person-interview__standfirst {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-person-interview__conversation {
+    gap: var(--spacing-6);
+  }
 }

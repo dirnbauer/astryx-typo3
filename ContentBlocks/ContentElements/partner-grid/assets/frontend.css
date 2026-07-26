@@ -5,6 +5,71 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-partner-grid {
+.g-partner-grid__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-partner-grid__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-partner-grid__partners {
+  --grid-gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-partner-grid__card {
+  block-size: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  text-align: center;
+}
+
+/* A fixed box the mark is contained inside, so every card's name starts on the
+   same line whatever proportions the supplied artwork has. */
+.g-partner-grid__mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--spacing-10);
+  inline-size: 100%;
+}
+
+.g-partner-grid__image {
   display: block;
+  max-block-size: 100%;
+  max-inline-size: 100%;
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+}
+
+/* A partner mark keeps its colours: unlike a customer wall, this grid is a
+   directory, and the reader is looking for one particular entry in it. */
+.g-partner-grid__name {
+  font-size: var(--text-heading-5-size);
+  line-height: var(--text-heading-5-leading);
+}
+
+.g-partner-grid.accent .g-partner-grid__lead,
+.g-partner-grid.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-partner-grid__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-partner-grid__partners {
+    --grid-min: 9rem;
+  }
 }

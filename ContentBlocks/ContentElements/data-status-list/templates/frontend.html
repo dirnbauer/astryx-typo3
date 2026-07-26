@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-data-status-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The dot's colour comes from the child's icon key, so an editor never types a colour; write the 'as of' date into `note`, because the list says what someone published, not what is happening now.
+    The dot takes its colour from the semantic key the editor picked, so no one
+    ever types a colour — and because the same key also sets the badge, the
+    state is said in a word beside every dot. Colour alone would leave the list
+    unreadable to a good share of the people reading it.
 </f:comment>
 
-<section class="astryx-section g-data-status-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-status-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-status-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-status-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list with-dividers g-data-status-list__rows">
+            <f:for each="{data.metrics}" as="metric">
+                <li class="astryx-item align-start {f:if(condition: data.compact, then: 'compact', else: 'spacious')} g-data-status-list__row">
+                    <span class="astryx-item-start">
+                        <span class="astryx-statusdot {metric.icon} g-data-status-list__dot" aria-hidden="true"></span>
+                    </span>
+
+                    <span class="astryx-item-content">
+                        <span class="astryx-item-label g-data-status-list__service">{metric -> f:render.text(field: 'title')}</span>
+                        <f:if condition="{metric.text}">
+                            <span class="astryx-item-description">{metric -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </span>
+
+                    <f:if condition="{metric.value}">
+                        <span class="astryx-item-end">
+                            <span class="astryx-badge {metric.icon} g-data-status-list__state">{metric -> f:render.text(field: 'value')}</span>
+                        </span>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-status-list__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-data-status-list__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
+        </f:if>
+
     </div>
 </section>
 

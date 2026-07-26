@@ -5,14 +5,52 @@
 <f:asset.css identifier="g-conversion-newsletter" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Point cta_link at the page holding the form plugin. Keep the consent wording in note where the form's own privacy text can be repeated verbatim.
+    There is no input here on purpose. The band makes the case and links to
+    the page holding the form; collecting an address, storing it and telling
+    the reader what happened to it are the form framework's job, and splitting
+    that across two places is how consent text drifts apart from the form it
+    describes.
 </f:comment>
 
-<section class="astryx-section g-conversion-newsletter" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-newsletter {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-conversion-newsletter__grid">
+
+            <div class="g-conversion-newsletter__copy {data.align}">
+                <f:if condition="{data.icon}">
+                    <span class="astryx-feature-icon" data-icon="{data.icon}" aria-hidden="true"></span>
+                </f:if>
+
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-conversion-newsletter__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <div class="astryx-button-group g-conversion-newsletter__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-newsletter__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-newsletter__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy" class="g-conversion-newsletter__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

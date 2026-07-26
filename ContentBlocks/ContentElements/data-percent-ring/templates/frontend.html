@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-data-percent-ring" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The ring angle is read from the digits in `value`, so type '72%' rather than 'roughly three quarters'; a conic-gradient does the drawing, no script and no SVG.
+    The ring is a conic-gradient with the middle masked out — one background
+    image, no SVG and nothing to compute. It is hidden from assistive
+    technology because the percentage it draws is already written inside it.
 </f:comment>
 
-<section class="astryx-section g-data-percent-ring" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-percent-ring {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-percent-ring__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-percent-ring__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-grid cols-{data.columns} g-data-percent-ring__rings">
+            <f:for each="{data.metrics}" as="metric">
+                <figure class="g-data-percent-ring__ring">
+                    <div class="g-data-percent-ring__dial" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                        <span class="g-data-percent-ring__arc" aria-hidden="true"></span>
+                        <p class="g-data-percent-ring__reading">
+                            <span class="astryx-text display-3 g-data-percent-ring__value">{metric -> f:render.text(field: 'value')}</span><f:if condition="{metric.unit}"><span class="g-data-percent-ring__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
+                        </p>
+                    </div>
+
+                    <figcaption class="g-data-percent-ring__caption">
+                        <h3 class="astryx-heading level-4">{metric -> f:render.text(field: 'title')}</h3>
+
+                        <f:if condition="{metric.text}">
+                            <p class="astryx-text supporting">{metric -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </figcaption>
+                </figure>
+            </f:for>
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-percent-ring__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -1,1 +1,35 @@
-{}
+{
+    "_type": "pricing",
+    "eyebrow": "Single Price Panel",
+    "header": "One number and one button",
+    "lead": "No tiers to compare and no columns to align. The band exists to state a price and take the click.",
+    "price": "€00",
+    "period": "per period",
+    "note": "The note holds the terms that qualify the number — tax, deposit, minimum term.",
+    "cta_label": "Primary action",
+    "cta_link": "#",
+    "secondary_label": "Secondary action",
+    "secondary_link": "#",
+    "align": "start",
+    "tone": "surface",
+    "width": "md",
+    "included": [
+        {
+            "title": "The list sits under the button, not above it",
+            "included": true
+        },
+        {
+            "title": "Every row says whether it is in the price",
+            "included": true
+        },
+        {
+            "title": "A row may carry a short qualifier",
+            "included": true,
+            "value": "like this"
+        },
+        {
+            "title": "Rows outside the price keep their place",
+            "included": false
+        }
+    ]
+}

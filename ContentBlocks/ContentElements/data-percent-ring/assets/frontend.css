@@ -5,6 +5,115 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-percent-ring {
-  display: block;
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-percent-ring__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-data-percent-ring__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-percent-ring[data-align='center'] .g-data-percent-ring__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-data-percent-ring__ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin: 0;
+  text-align: center;
+}
+
+.g-data-percent-ring__dial {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  max-inline-size: 11rem;
+  aspect-ratio: 1;
+}
+
+/* The whole drawing: one conic sweep for the filled part, the track for the
+   rest, and a radial mask that punches out the middle so the disc reads as a
+   ring. No SVG, no script, nothing measured. */
+.g-data-percent-ring__arc {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background-image: conic-gradient(var(--color-accent) 0 clamp(0%, calc(var(--value) * 1%), 100%), var(--color-track) 0);
+  mask-image: radial-gradient(closest-side, transparent 68%, currentColor 69%);
+}
+
+.g-data-percent-ring__reading {
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-0-5);
+}
+
+.g-data-percent-ring__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-percent-ring__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-percent-ring__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 20rem;
+}
+
+.g-data-percent-ring__note {
+  margin-block-start: var(--spacing-8);
+}
+
+/* On an accent band the ring would draw itself in the same colour as the band
+   it sits on, so both halves move to the ink the band already carries. */
+.g-data-percent-ring.accent .g-data-percent-ring__arc {
+  background-image: conic-gradient(currentColor 0 clamp(0%, calc(var(--value) * 1%), 100%), var(--color-overlay-hover) 0);
+}
+
+.g-data-percent-ring.accent .g-data-percent-ring__lead,
+.g-data-percent-ring.accent .g-data-percent-ring__unit,
+.g-data-percent-ring.accent .astryx-eyebrow,
+.g-data-percent-ring.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-percent-ring__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-data-percent-ring__dial {
+    max-inline-size: 9rem;
+  }
 }

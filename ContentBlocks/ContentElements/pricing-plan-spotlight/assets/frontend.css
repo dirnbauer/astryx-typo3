@@ -5,6 +5,127 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-plan-spotlight {
+.g-pricing-plan-spotlight__grid {
+  align-items: start;
+}
+
+.g-pricing-plan-spotlight__copy,
+.g-pricing-plan-spotlight__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-pricing-plan-spotlight__copy {
+  max-inline-size: 34rem;
+}
+
+.g-pricing-plan-spotlight__scope {
+  color: var(--color-text-secondary);
+}
+
+/* The price and the action are one block: anything set between the number and
+   the button becomes a decision the reader has to make twice. */
+.g-pricing-plan-spotlight__anchor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding-block-start: var(--spacing-5);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-pricing-plan-spotlight__flag,
+.g-pricing-plan-spotlight__note {
+  margin: 0;
+}
+
+.g-pricing-plan-spotlight__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-pricing-plan-spotlight__amount {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-plan-spotlight__period {
+  color: var(--color-text-secondary);
+}
+
+/* CSS columns, not a grid: the entitlements are one continuous list and should
+   read down the first column before starting the second. */
+.g-pricing-plan-spotlight__features {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-8);
+}
+
+.g-pricing-plan-spotlight__feature {
+  gap: var(--spacing-2);
+  break-inside: avoid;
+}
+
+.g-pricing-plan-spotlight__mark {
+  flex: 0 0 auto;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  margin-block-start: 0.2em;
+}
+
+.g-pricing-plan-spotlight__feature[data-included='yes'] .g-pricing-plan-spotlight__mark {
+  color: var(--color-success);
+}
+
+.g-pricing-plan-spotlight__feature[data-included='no'] .g-pricing-plan-spotlight__mark,
+.g-pricing-plan-spotlight__feature[data-included='no'] .g-pricing-plan-spotlight__feature-label {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-plan-spotlight__feature-label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-pricing-plan-spotlight__media {
+  margin: 0;
+}
+
+.g-pricing-plan-spotlight__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-pricing-plan-spotlight.accent .g-pricing-plan-spotlight__scope,
+.g-pricing-plan-spotlight.accent .g-pricing-plan-spotlight__period,
+.g-pricing-plan-spotlight.accent .astryx-eyebrow,
+.g-pricing-plan-spotlight.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-plan-spotlight.accent .g-pricing-plan-spotlight__anchor {
+  border-color: currentColor;
+}
+
+@media (min-width: 768px) {
+  .g-pricing-plan-spotlight[data-columns='2'] .g-pricing-plan-spotlight__features { columns: 2; }
+  .g-pricing-plan-spotlight[data-columns='3'] .g-pricing-plan-spotlight__features { columns: 2; }
+  .g-pricing-plan-spotlight[data-columns='4'] .g-pricing-plan-spotlight__features { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-pricing-plan-spotlight[data-columns='3'] .g-pricing-plan-spotlight__features { columns: 3; }
+  .g-pricing-plan-spotlight[data-columns='4'] .g-pricing-plan-spotlight__features { columns: 4; }
+}
+
+@media (max-width: 767px) {
+  .g-pricing-plan-spotlight__copy {
+    max-inline-size: none;
+  }
 }

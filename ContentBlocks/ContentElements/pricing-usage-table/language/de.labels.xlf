@@ -13,5 +13,23 @@
         <target>Rendert eine verbrauchsabhängige Preistafel: je Zeile eine abrechenbare Einheit, daneben ihr Preis und ein Hinweis, wie die Einheit gezählt wird. Es wird nichts summiert — die Tabelle nennt Sätze und überlässt das Rechnen der Rechnung. Einsetzen für: nutzungsabhängige API-Preise, Speicher je Gigabyte, Gebühren je Transaktion, Druck-, Liefer- oder Botendienstsätze. Sinkt der Satz mit der Menge, gehört die &apos;Preisstaffel je Platz&apos; hierher; soll jemand eine Summe bilden, das &apos;Kostenrechner-Blatt&apos;.</target>
       </segment>
     </unit>
+    <unit id="column.unit">
+      <segment state="final">
+        <source>Unit</source>
+        <target>Einheit</target>
+      </segment>
+    </unit>
+    <unit id="column.rate">
+      <segment state="final">
+        <source>Rate</source>
+        <target>Preis</target>
+      </segment>
+    </unit>
+    <unit id="column.counted">
+      <segment state="final">
+        <source>How it is counted</source>
+        <target>Wie gezählt wird</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

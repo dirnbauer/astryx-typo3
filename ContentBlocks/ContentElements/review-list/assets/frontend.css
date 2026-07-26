@@ -5,6 +5,107 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-review-list {
-  display: block;
+.g-review-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-review-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-review-list__reviews {
+  max-inline-size: 70ch;
+}
+
+.g-review-list__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-review-list__rating {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.g-review-list__stars {
+  --g-star-on: var(--color-accent);
+  --g-star-off: var(--color-track);
+  display: inline-flex;
+  gap: var(--spacing-0-5);
+}
+
+/* One star, filled from the left by a hard gradient stop and then clipped to
+   the star outline. The stop is computed per star from the shared rating, so a
+   half point renders as half a star rather than as a whole one. clamp() keeps
+   a rating outside the scale from spilling into its neighbour. */
+.g-review-list__star {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  background-image: linear-gradient(
+    to right,
+    var(--g-star-on) calc(clamp(0, var(--g-rating, 0) - var(--g-star-index) + 1, 1) * 100%),
+    var(--g-star-off) 0
+  );
+  clip-path: polygon(
+    50% 0%, 61.8% 34.5%, 98% 34.5%, 69% 56%, 79.4% 90.5%,
+    50% 69%, 20.6% 90.5%, 31% 56%, 2% 34.5%, 38.2% 34.5%
+  );
+}
+
+.g-review-list__star:nth-child(1) { --g-star-index: 1; }
+.g-review-list__star:nth-child(2) { --g-star-index: 2; }
+.g-review-list__star:nth-child(3) { --g-star-index: 3; }
+.g-review-list__star:nth-child(4) { --g-star-index: 4; }
+.g-review-list__star:nth-child(5) { --g-star-index: 5; }
+
+.g-review-list__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-review-list__text > p {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.g-review-list__credit {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-review-list__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-review-list__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-review-list.accent .g-review-list__stars {
+  --g-star-on: currentColor;
+  --g-star-off: transparent;
+}
+
+.g-review-list.accent .g-review-list__lead,
+.g-review-list.accent .astryx-eyebrow,
+.g-review-list.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-review-list__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

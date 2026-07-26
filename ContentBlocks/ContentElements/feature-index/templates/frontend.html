@@ -29,7 +29,7 @@
             <f:for each="{data.entries}" as="entry">
                 <li class="g-feature-index__entry">
                     <span class="g-feature-index__name">
-                        <f:if condition="{entry.link}">
+                        <f:if condition="{entry.link.url}">
                             <f:then><f:link.typolink parameter="{entry.link}" class="astryx-link quiet">{entry.title}</f:link.typolink></f:then>
                             <f:else>{entry -> f:render.text(field: 'title')}</f:else>
                         </f:if>

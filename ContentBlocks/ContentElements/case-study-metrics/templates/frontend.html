@@ -5,14 +5,56 @@
 <f:asset.css identifier="g-case-study-metrics" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The note field carries the measurement period; figures without a period invite the reader to distrust all of them.
+    A description list, because that is what this band is: a set of measures and
+    the values they took. The value is printed above its label, which a
+    definition list cannot express in source order, so the visual order is set
+    in the stylesheet instead of by reversing the markup.
+
+    The note carries the measurement period. Figures without a period invite
+    the reader to distrust all of them, including the ones that are true.
 </f:comment>
 
-<section class="astryx-section g-case-study-metrics" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-case-study-metrics {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-case-study-metrics__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-case-study-metrics__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-grid cols-{data.columns} g-case-study-metrics__metrics">
+            <f:for each="{data.metrics}" as="metric">
+                <div class="g-case-study-metrics__metric">
+                    <dt class="astryx-text label g-case-study-metrics__label">{metric -> f:render.text(field: 'title')}</dt>
+
+                    <dd class="g-case-study-metrics__value">
+                        <span class="g-case-study-metrics__number">{metric -> f:render.text(field: 'value')}</span><f:if condition="{metric.unit}"><span class="g-case-study-metrics__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
+                    </dd>
+
+                    <f:if condition="{metric.text}">
+                        <dd class="astryx-text supporting g-case-study-metrics__method">{metric -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-case-study-metrics__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-case-study-metrics__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
+        </f:if>
+
     </div>
 </section>
 

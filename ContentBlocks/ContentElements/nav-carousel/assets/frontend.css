@@ -3,8 +3,59 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The scrolling, the snap points and the scrollbar are .astryx-carousel's; the
+ * card width is what this file decides, because it is what decides how many
+ * destinations a reader sees before they have to scroll.
  */
 
-.g-nav-carousel {
-  display: block;
+.g-nav-carousel__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-nav-carousel__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-nav-carousel__track {
+  margin: 0;
+  padding-inline-start: var(--spacing-1);
+  list-style: none;
+}
+
+/* Wide enough for a title and a line under it, narrow enough that the next
+   card is always half in view — which is what says "this row scrolls". */
+.g-nav-carousel__item {
+  inline-size: min(80%, 16rem);
+}
+
+.g-nav-carousel__card {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.g-nav-carousel__title {
+  font-size: var(--text-heading-5-size);
+  line-height: var(--text-heading-5-leading);
+}
+
+.g-nav-carousel__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-nav-carousel.accent .g-nav-carousel__lead,
+.g-nav-carousel.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-nav-carousel__item {
+    inline-size: 18rem;
+  }
 }

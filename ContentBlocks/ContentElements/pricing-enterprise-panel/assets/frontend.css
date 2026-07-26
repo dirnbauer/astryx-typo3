@@ -5,6 +5,78 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-enterprise-panel {
-  display: block;
+.g-pricing-enterprise-panel__grid {
+  align-items: start;
+}
+
+.g-pricing-enterprise-panel__copy,
+.g-pricing-enterprise-panel__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-pricing-enterprise-panel__copy {
+  max-inline-size: 34rem;
+}
+
+.g-pricing-enterprise-panel__scope,
+.g-pricing-enterprise-panel__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-enterprise-panel__anchor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding-block-start: var(--spacing-5);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-pricing-enterprise-panel__figure,
+.g-pricing-enterprise-panel__note {
+  margin: 0;
+}
+
+.g-pricing-enterprise-panel__capabilities {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grid children stretch, so every cell is as tall as the tallest of its row and
+   the icon tiles land on one optical line whatever the copy does below them. */
+.g-pricing-enterprise-panel__capability {
+  block-size: 100%;
+}
+
+.g-pricing-enterprise-panel__media {
+  margin: 0;
+}
+
+.g-pricing-enterprise-panel__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-pricing-enterprise-panel.accent .g-pricing-enterprise-panel__scope,
+.g-pricing-enterprise-panel.accent .g-pricing-enterprise-panel__lead,
+.g-pricing-enterprise-panel.accent .astryx-card-body,
+.g-pricing-enterprise-panel.accent .astryx-eyebrow,
+.g-pricing-enterprise-panel.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-enterprise-panel.accent .g-pricing-enterprise-panel__anchor {
+  border-color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-pricing-enterprise-panel__copy {
+    max-inline-size: none;
+  }
 }

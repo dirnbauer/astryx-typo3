@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-link-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Descriptions and icons on the children are ignored on purpose — if they matter, the element is the wrong one.
+    Only the title and the link of each child are rendered. A description or an
+    icon typed onto one of them is ignored on purpose: sixty labels that each
+    grew a second line would be a Page List Menu, and this element exists for
+    the case where the label is the whole message.
+
+    CSS columns rather than a grid, so a list of sixty still reads top to
+    bottom in each column and stays alphabetical at every width.
 </f:comment>
 
-<section class="astryx-section g-link-grid" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.linkList" default="Link list"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-link-grid {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-link-grid__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-link-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-link-grid__nav" aria-label="{navLabel}">
+            <ul class="g-link-grid__links {f:if(condition: data.compact, then: 'tight')}">
+                <f:for each="{data.links}" as="link">
+                    <li class="g-link-grid__item">
+                        <f:if condition="{link.link.url}">
+                            <f:then><f:link.typolink parameter="{link.link}" class="astryx-link quiet g-link-grid__link">{link.title}</f:link.typolink></f:then>
+                            <f:else><span class="g-link-grid__link">{link -> f:render.text(field: 'title')}</span></f:else>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

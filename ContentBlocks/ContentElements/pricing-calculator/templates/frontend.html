@@ -5,14 +5,65 @@
 <f:asset.css identifier="g-pricing-calculator" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Deliberately static: no fields, no totals, no script. If a real calculator exists, link it through the CTA.
+    A sheet, not a calculator: there is no field to type into and no total. The
+    band teaches a reader how the figure is arrived at, which is what survives
+    being printed, handed across a desk and read back three months later. A
+    number this element produced would be a quotation nobody at the company had
+    seen.
 </f:comment>
 
-<section class="astryx-section g-pricing-calculator" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-calculator {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-pricing-calculator__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-pricing-calculator__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-table-wrap g-pricing-calculator__wrap">
+            <table class="astryx-table g-pricing-calculator__table">
+                <caption class="astryx-visually-hidden">{data -> f:render.text(field: 'header')}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="g-pricing-calculator__col-input"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-calculator/language/labels.xlf:column.input" default="What is counted"/></th>
+                        <th scope="col" class="g-pricing-calculator__col-rate"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-calculator/language/labels.xlf:column.rate" default="Rate"/></th>
+                        <th scope="col" class="g-pricing-calculator__col-how"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-calculator/language/labels.xlf:column.how" default="How to count it"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{data.inputs}" as="input">
+                        <tr>
+                            <th scope="row" class="g-pricing-calculator__input">{input -> f:render.text(field: 'title')}</th>
+                            <td class="g-pricing-calculator__rate">{input -> f:render.text(field: 'value')}</td>
+                            <td class="g-pricing-calculator__how">{input -> f:render.text(field: 'text')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+        </div>
+
+        <f:if condition="{data.bodytext}">
+            <div class="astryx-prose g-pricing-calculator__formula"><f:format.html>{data.bodytext}</f:format.html></div>
         </f:if>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-calculator__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-calculator__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
+        </f:if>
+
     </div>
 </section>
 

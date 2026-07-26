@@ -1,1 +1,36 @@
-{}
+{
+    "_type": "conversion",
+    "eyebrow": "Demo Booking Band",
+    "header": "How long it lasts, who runs it, what gets shown",
+    "lead": "The pitch for a live demonstration, with the agenda as icon points between a rule above and a rule below.",
+    "columns": "2",
+    "cta_label": "Open the calendar",
+    "cta_link": "#",
+    "secondary_label": "Ask first",
+    "secondary_link": "#",
+    "note": "The band links to a scheduling page and never embeds a calendar: a third-party booking script would load into every page carrying this element.",
+    "reverse": 1,
+    "tone": "body",
+    "agenda": [
+        {
+            "icon": "clock",
+            "title": "Up to six points",
+            "text": "Each an icon, a title and one sentence. Leave the collection empty and the rules disappear with it."
+        },
+        {
+            "icon": "settings",
+            "title": "Two to four columns",
+            "text": "The agenda reflows on the room it has rather than on the width of the viewport."
+        },
+        {
+            "icon": "file-image",
+            "title": "Media on either side",
+            "text": "Reverse swaps the halves; without an image the copy takes the whole band."
+        },
+        {
+            "icon": "message-circle",
+            "title": "One button, one link",
+            "text": "The primary action opens the calendar and the quieter one is for a reader not ready to pick a time."
+        }
+    ]
+}

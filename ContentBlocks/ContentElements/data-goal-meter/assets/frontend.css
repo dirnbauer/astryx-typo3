@@ -5,6 +5,72 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-goal-meter {
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-goal-meter__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+}
+
+.g-data-goal-meter__block.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-data-goal-meter__reading {
+  color: var(--color-text-accent);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* One goal deserves a heavier track than a list of parallel ones: the size is
+   set here rather than on the shared component, which every other element in
+   the group still gets at its own scale. */
+.g-data-goal-meter__track {
+  block-size: var(--spacing-3);
+}
+
+.g-data-goal-meter__block.center .g-data-goal-meter__track {
+  inline-size: 100%;
+}
+
+.g-data-goal-meter__fill {
   display: block;
+  inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
+}
+
+.g-data-goal-meter__figures,
+.g-data-goal-meter__note,
+.g-data-goal-meter__actions {
+  margin: 0;
+}
+
+.g-data-goal-meter__actions {
+  margin-block-start: var(--spacing-3);
+}
+
+.g-data-goal-meter.accent .g-data-goal-meter__reading {
+  color: currentColor;
+}
+
+.g-data-goal-meter.accent .astryx-eyebrow,
+.g-data-goal-meter.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-goal-meter__block {
+    max-inline-size: none;
+  }
 }

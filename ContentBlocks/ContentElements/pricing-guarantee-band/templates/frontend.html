@@ -5,14 +5,62 @@
 <f:asset.css identifier="g-pricing-guarantee-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): One guarantee per band. Three stacked guarantees read as none, and the legal conditions belong on a linked page.
+    A promise is only worth a band if its conditions are in the same band. The
+    supporting points are where the limits go — how long, on what, who decides —
+    because a guarantee whose conditions live on another page is a guarantee a
+    reader has to take on trust twice.
 </f:comment>
 
-<section class="astryx-section g-pricing-guarantee-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pricing-guarantee-band {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+        <div class="g-pricing-guarantee-band__panel">
+
+            <div class="g-pricing-guarantee-band__promise">
+                <f:if condition="{data.icon}">
+                    <f:comment>
+                        The tile carries the semantic key rather than a glyph, so swapping
+                        icon library never reaches into a template.
+                    </f:comment>
+                    <span class="astryx-feature-icon g-pricing-guarantee-band__icon" data-icon="{data.icon}" aria-hidden="true"></span>
+                </f:if>
+
+                <div class="g-pricing-guarantee-band__copy">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                    <f:if condition="{data.subheader}">
+                        <p class="astryx-text large g-pricing-guarantee-band__scope">{data -> f:render.text(field: 'subheader')}</p>
+                    </f:if>
+
+                    <f:if condition="{data.lead}">
+                        <p class="astryx-text body g-pricing-guarantee-band__lead">{data -> f:render.text(field: 'lead')}</p>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <p class="g-pricing-guarantee-band__actions">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        </p>
+                    </f:if>
+                </div>
+            </div>
+
+            <f:if condition="{data.points}">
+                <ul class="g-pricing-guarantee-band__points">
+                    <f:for each="{data.points}" as="point">
+                        <li class="g-pricing-guarantee-band__point">
+                            <h3 class="astryx-text label g-pricing-guarantee-band__point-title">{point -> f:render.text(field: 'title')}</h3>
+                            <f:if condition="{point.text}">
+                                <p class="astryx-text supporting g-pricing-guarantee-band__point-text">{point -> f:render.text(field: 'text')}</p>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-pricing-guarantee-band__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

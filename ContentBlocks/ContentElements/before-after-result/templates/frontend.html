@@ -5,14 +5,55 @@
 <f:asset.css identifier="g-before-after-result" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child text field holds the starting value; the delta variant computes nothing, it only styles the arrow, so the editor stays in control of the claim.
+    Nothing is computed here. The child's text field holds the starting value in
+    the editor's own words — "was 2.4 %", "vorher 2,4 %" — and the value field
+    holds where it ended up. The arrow between them is drawn by the stylesheet
+    and hidden from assistive technology, because the two labels already say
+    which way round the pair reads.
+
+    That also keeps the claim with the person making it: an element that
+    subtracted one figure from the other would be publishing arithmetic nobody
+    approved.
 </f:comment>
 
-<section class="astryx-section g-before-after-result" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-before-after-result {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-before-after-result__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-before-after-result__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-before-after-result__measures">
+            <f:for each="{data.measures}" as="measure">
+                <li class="astryx-card g-before-after-result__measure">
+                    <h3 class="astryx-card-title g-before-after-result__name">{measure -> f:render.text(field: 'title')}</h3>
+
+                    <p class="g-before-after-result__change">
+                        <f:if condition="{measure.text}">
+                            <span class="g-before-after-result__from">{measure -> f:render.text(field: 'text')}</span>
+                            <span class="g-before-after-result__arrow" aria-hidden="true"></span>
+                        </f:if>
+
+                        <span class="g-before-after-result__to">
+                            <span class="g-before-after-result__value">{measure -> f:render.text(field: 'value')}</span><f:if condition="{measure.unit}"><span class="g-before-after-result__unit">{measure -> f:render.text(field: 'unit')}</span></f:if>
+                        </span>
+                    </p>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-before-after-result__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -5,6 +5,84 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-founder-story {
+/* A narrative column and a picture beside it, rather than two equal halves:
+   the story is the element and the portrait accompanies it. */
+.g-founder-story__grid {
+  display: grid;
+  gap: var(--spacing-8);
+  grid-template-columns: 1fr;
+}
+
+.g-founder-story__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-founder-story__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The measure is fixed at the reading width whatever the band was given: a
+   founder story set across a full page is a founder story nobody finishes. */
+.g-founder-story__body {
+  max-inline-size: 65ch;
+}
+
+.g-founder-story__signature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  margin: 0;
+  padding-block-start: var(--spacing-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+  max-inline-size: 65ch;
+}
+
+.g-founder-story__actions {
+  margin: 0;
+}
+
+.g-founder-story__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-founder-story__portrait {
+  inline-size: 100%;
+  block-size: auto;
   display: block;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-founder-story.accent .g-founder-story__lead,
+.g-founder-story.accent .g-founder-story__role,
+.g-founder-story.accent .astryx-eyebrow,
+.g-founder-story.accent .g-founder-story__figure figcaption {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-founder-story.accent .g-founder-story__signature {
+  border-block-start-color: currentColor;
+}
+
+@media (min-width: 768px) {
+  .g-founder-story__grid {
+    grid-template-columns: minmax(0, 1fr) 18rem;
+    gap: var(--spacing-12);
+    align-items: start;
+  }
+
+  /* Reverse puts the picture first without changing the source order, so the
+     story is still read before the face. */
+  .g-founder-story__grid.portrait-start {
+    grid-template-columns: 18rem minmax(0, 1fr);
+  }
+
+  .g-founder-story__grid.portrait-start > .g-founder-story__copy {
+    order: 2;
+  }
 }

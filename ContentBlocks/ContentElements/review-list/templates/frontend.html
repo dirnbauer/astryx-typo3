@@ -5,14 +5,80 @@
 <f:asset.css identifier="g-review-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child rating field drives the stars; rows without a rating still render, with the star row simply omitted.
+    The rating is printed as a number beside its stars rather than hidden
+    behind them: five graphics are unreadable to anyone who cannot see them,
+    and "4/5" is the same claim in every language this catalog ships.
+
+    A review with no rating still renders — the star row is simply left out
+    rather than filled with a value nobody gave.
 </f:comment>
 
-<section class="astryx-section g-review-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-review-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-review-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-review-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list with-dividers spacious g-review-list__reviews">
+            <f:for each="{data.reviews}" as="review">
+                <li class="g-review-list__review">
+                    <figure class="g-review-list__figure">
+                        <f:if condition="{review.rating}">
+                            <p class="g-review-list__rating">
+                                <span class="g-review-list__stars" style="--g-rating: {review.rating};" aria-hidden="true">
+                                    <span class="g-review-list__star"></span>
+                                    <span class="g-review-list__star"></span>
+                                    <span class="g-review-list__star"></span>
+                                    <span class="g-review-list__star"></span>
+                                    <span class="g-review-list__star"></span>
+                                </span>
+                                <span class="astryx-text supporting g-review-list__value">{review.rating}/5</span>
+                            </p>
+                        </f:if>
+
+                        <blockquote class="g-review-list__text">
+                            <p>{review -> f:render.text(field: 'quote_text')}</p>
+                        </blockquote>
+
+                        <figcaption class="g-review-list__credit">
+                            <f:if condition="{review.image}">
+                                <span class="astryx-avatar sm">
+                                    <f:for each="{review.image}" as="portrait">
+                                        <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
+                                    </f:for>
+                                </span>
+                            </f:if>
+
+                            <span class="astryx-text label">{review -> f:render.text(field: 'author')}</span>
+
+                            <f:if condition="{review.role}">
+                                <span class="astryx-text supporting">{review -> f:render.text(field: 'role')}</span>
+                            </f:if>
+                        </figcaption>
+                    </figure>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-review-list__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-review-list__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
+        </f:if>
+
     </div>
 </section>
 

@@ -1,1 +1,30 @@
-{}
+{
+    "_type": "navigation",
+    "header": "Stages of a process spread over pages",
+    "lead": "The step with no link — or the one whose link resolves to this page — is the current one. Everything before it is marked complete, everything after it stays a plain link.",
+    "width": "md",
+    "tone": "surface",
+    "compact": 0,
+    "steps": [
+        {
+            "title": "Behind you",
+            "description": "Filled marker, still a link",
+            "link": "#step-1"
+        },
+        {
+            "title": "Where you are",
+            "description": "Outlined marker, no link",
+            "link": ""
+        },
+        {
+            "title": "Still to come",
+            "description": "Plain marker, plain link",
+            "link": "#step-3"
+        },
+        {
+            "title": "Two to ten stages",
+            "description": "Side by side, or stacked on a phone",
+            "link": "#step-4"
+        }
+    ]
+}

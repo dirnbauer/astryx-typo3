@@ -5,6 +5,51 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-cta-inline {
-  display: block;
+.g-conversion-cta-inline__strip {
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.g-conversion-cta-inline.tight .g-conversion-cta-inline__strip {
+  padding: var(--spacing-3);
+}
+
+.g-conversion-cta-inline__icon {
+  /* The tile must not stretch to the height of a wrapped strip. */
+  flex: 0 0 auto;
+  align-self: flex-start;
+}
+
+.g-conversion-cta-inline__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.g-conversion-cta-inline__text {
+  margin: 0;
+}
+
+/* The button keeps its full size when the row runs out of room: shrinking it
+   is what would take it below a comfortable tap target. */
+.g-conversion-cta-inline__action {
+  flex: 0 0 auto;
+}
+
+.g-conversion-cta-inline.accent .astryx-banner {
+  background-color: transparent;
+  color: currentColor;
+}
+
+.g-conversion-cta-inline.accent .g-conversion-cta-inline__text {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* Two rows rather than a squeezed one: the strip wraps, and the action
+     takes the second row across the full width. */
+  .g-conversion-cta-inline__action {
+    flex: 1 0 100%;
+  }
 }

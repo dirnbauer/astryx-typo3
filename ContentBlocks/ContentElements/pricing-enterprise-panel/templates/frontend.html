@@ -5,14 +5,91 @@
 <f:asset.css identifier="g-pricing-enterprise-panel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): price is text, so 'On request' or 'Let us talk' sits in the same slot as a figure and stays aligned with the priced siblings.
+    The price slot is free text and usually not a number at all. It still gets
+    the display size the priced tiers get, because a row of plans in which one
+    box has no figure at its price line reads as a box that is missing something
+    rather than as a tier that is priced differently.
 </f:comment>
 
-<section class="astryx-section g-pricing-enterprise-panel" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pricing-enterprise-panel {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout xl">
+        <div class="astryx-split g-pricing-enterprise-panel__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-pricing-enterprise-panel__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text large g-pricing-enterprise-panel__scope">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-pricing-enterprise-panel__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <div class="g-pricing-enterprise-panel__anchor">
+                    <f:if condition="{data.price}">
+                        <p class="g-pricing-enterprise-panel__figure">
+                            <span class="astryx-text display-3 g-pricing-enterprise-panel__amount">{data -> f:render.text(field: 'price')}</span>
+                        </p>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <div class="astryx-button-group g-pricing-enterprise-panel__actions">
+                            <f:if condition="{data.cta_label}">
+                                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                            </f:if>
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{data.note}">
+                        <p class="astryx-text supporting g-pricing-enterprise-panel__note">{data -> f:render.text(field: 'note')}</p>
+                    </f:if>
+                </div>
+            </div>
+
+            <div class="g-pricing-enterprise-panel__detail">
+                <f:if condition="{data.image}">
+                    <figure class="g-pricing-enterprise-panel__media">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy" class="g-pricing-enterprise-panel__image"/>
+                        </f:for>
+                    </figure>
+                </f:if>
+
+                <ul class="astryx-grid cols-{data.columns} g-pricing-enterprise-panel__capabilities">
+                    <f:for each="{data.capabilities}" as="capability">
+                        <li class="astryx-feature g-pricing-enterprise-panel__capability">
+                            <f:if condition="{capability.icon}">
+                                <f:comment>
+                                    The tile carries the semantic key rather than a glyph, so swapping
+                                    icon library never reaches into a template.
+                                </f:comment>
+                                <span class="astryx-feature-icon" data-icon="{capability.icon}" aria-hidden="true"></span>
+                            </f:if>
+
+                            <h3 class="astryx-card-title">
+                                <f:if condition="{capability.link.url}">
+                                    <f:then><f:link.typolink parameter="{capability.link}" class="astryx-link quiet">{capability.title}</f:link.typolink></f:then>
+                                    <f:else>{capability -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </h3>
+
+                            <f:if condition="{capability.text}">
+                                <p class="astryx-card-body">{capability -> f:render.text(field: 'text')}</p>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
+
+        </div>
     </div>
 </section>
 

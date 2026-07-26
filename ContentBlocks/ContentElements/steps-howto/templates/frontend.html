@@ -36,7 +36,7 @@
                         <p class="astryx-text body g-steps-howto__text">{item -> f:render.text(field: 'text')}</p>
                     </f:if>
 
-                    <f:if condition="{item.link}">
+                    <f:if condition="{item.link.url}">
                         <f:link.typolink parameter="{item.link}" class="astryx-link cta g-steps-howto__link">{item.title}</f:link.typolink>
                     </f:if>
                 </li>

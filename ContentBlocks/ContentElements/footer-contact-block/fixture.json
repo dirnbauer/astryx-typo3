@@ -1,1 +1,37 @@
-{}
+{
+    "_type": "footer",
+    "eyebrow": "Contact Block",
+    "header": "One row per channel, the value on the link",
+    "lead": "The whole list is an address element. The channel word comes before the value in the source order, so a screen reader announces what is being dialled before it reads the digits.",
+    "note": "The icon is decoration on top of that word and carries aria-hidden — nothing in this element depends on a reader recognising a glyph.",
+    "tone": "surface",
+    "align": "start",
+    "width": "lg",
+    "compact": false,
+    "links": [
+        {
+            "title": "+43 1 4090 200-0",
+            "description": "The description names the channel",
+            "icon": "phone",
+            "link": "tel:+43140902000"
+        },
+        {
+            "title": "office@example.org",
+            "description": "The title holds the value itself",
+            "icon": "mail",
+            "link": "mailto:office@example.org"
+        },
+        {
+            "title": "An entry without a link stays text",
+            "description": "A postal address has nothing to dial",
+            "icon": "map-pin",
+            "link": ""
+        },
+        {
+            "title": "One to eight channels",
+            "description": "The grid reflows on the room it has",
+            "icon": "clock",
+            "link": ""
+        }
+    ]
+}

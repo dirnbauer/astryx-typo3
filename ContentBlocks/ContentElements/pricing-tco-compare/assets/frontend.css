@@ -5,6 +5,103 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-tco-compare {
-  display: block;
+.g-pricing-tco-compare__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-tco-compare__scope,
+.g-pricing-tco-compare__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-tco-compare__figures {
+  margin: 0;
+}
+
+.g-pricing-tco-compare__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  padding-inline-start: var(--spacing-4);
+  border-inline-start: var(--border-width) solid var(--color-border);
+}
+
+.g-pricing-tco-compare__label {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-tco-compare__value {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+/* Figures in a row are read against each other, so the digits have to occupy
+   the same width whichever they are. */
+.g-pricing-tco-compare__number {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-tco-compare__unit {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-tco-compare__basis {
+  margin: 0;
+}
+
+.g-pricing-tco-compare__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-tco-compare__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-tco-compare[data-align='center'] .g-pricing-tco-compare__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Centred, the rule on the start edge would sit off to one side of a block that
+   is no longer aligned to it. */
+.g-pricing-tco-compare[data-align='center'] .g-pricing-tco-compare__figure {
+  align-items: center;
+  text-align: center;
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.g-pricing-tco-compare[data-align='center'] .g-pricing-tco-compare__foot {
+  justify-content: center;
+}
+
+.g-pricing-tco-compare.accent .g-pricing-tco-compare__scope,
+.g-pricing-tco-compare.accent .g-pricing-tco-compare__lead,
+.g-pricing-tco-compare.accent .g-pricing-tco-compare__label,
+.g-pricing-tco-compare.accent .g-pricing-tco-compare__unit,
+.g-pricing-tco-compare.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-tco-compare.accent .g-pricing-tco-compare__figure {
+  border-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-tco-compare__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -5,6 +5,94 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-single-price {
-  display: block;
+.g-pricing-single-price__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  max-inline-size: 40rem;
+}
+
+.g-pricing-single-price__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-single-price__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-pricing-single-price__amount {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-single-price__period {
+  color: var(--color-text-secondary);
+}
+
+/* The list is what the price covers, so it sits below the button rather than
+   between the number and it: nothing should have to be read before deciding. */
+.g-pricing-single-price__included {
+  inline-size: 100%;
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-pricing-single-price__entry {
+  gap: var(--spacing-3);
+}
+
+.g-pricing-single-price__mark {
+  flex: 0 0 auto;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  margin-block-start: 0.2em;
+}
+
+.g-pricing-single-price__entry[data-included='yes'] .g-pricing-single-price__mark {
+  color: var(--color-success);
+}
+
+.g-pricing-single-price__entry[data-included='no'] .g-pricing-single-price__mark,
+.g-pricing-single-price__entry[data-included='no'] .g-pricing-single-price__entry-label {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-single-price__entry-label {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-pricing-single-price[data-align='center'] .g-pricing-single-price__panel {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+/* Centred, a left-aligned tick column would read as an accidental indent, so
+   the list centres as a block and keeps its rows left-aligned inside it. */
+.g-pricing-single-price[data-align='center'] .g-pricing-single-price__included {
+  inline-size: auto;
+  text-align: start;
+}
+
+.g-pricing-single-price.accent .g-pricing-single-price__lead,
+.g-pricing-single-price.accent .g-pricing-single-price__period,
+.g-pricing-single-price.accent .astryx-eyebrow,
+.g-pricing-single-price.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-single-price.accent .g-pricing-single-price__included {
+  border-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-single-price__panel {
+    max-inline-size: none;
+  }
 }

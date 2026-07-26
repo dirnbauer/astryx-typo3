@@ -5,14 +5,62 @@
 <f:asset.css identifier="g-conversion-app-badges" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Store badges are supplied artwork with mandatory clear space and fixed wording; keep them as images in the collection instead of redrawing them as buttons.
+    A store badge is supplied artwork with mandatory wording and clear space,
+    so it is uploaded as an image and never redrawn as a styled button. Where
+    no artwork has been uploaded the entry falls back to a plain link rather
+    than to something shaped like a badge but not one.
 </f:comment>
 
-<section class="astryx-section g-conversion-app-badges" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-app-badges {data.tone}">
+    <div class="astryx-layout lg">
+        <div class="astryx-split g-conversion-app-badges__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-app-badges__copy {data.align}">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-conversion-app-badges__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.stores}">
+                    <ul class="g-conversion-app-badges__stores">
+                        <f:for each="{data.stores}" as="store">
+                            <li class="g-conversion-app-badges__store">
+                                <f:link.typolink parameter="{store.link}" class="g-conversion-app-badges__link">
+                                    <f:if condition="{store.image}">
+                                        <f:then>
+                                            <f:for each="{store.image}" as="image">
+                                                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: store.title)}" height="48" loading="lazy" class="g-conversion-app-badges__image"/>
+                                            </f:for>
+                                        </f:then>
+                                        <f:else>
+                                            <span class="astryx-link cta">{store.title}</span>
+                                        </f:else>
+                                    </f:if>
+                                </f:link.typolink>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-app-badges__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-app-badges__device">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="600" loading="lazy" class="g-conversion-app-badges__device-image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -5,6 +5,104 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-link-columns {
+.g-footer-link-columns__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-footer-link-columns__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-link-columns__list {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-link-columns__entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  padding-block: var(--spacing-1-5);
+  break-inside: avoid;
+}
+
+.g-footer-link-columns__list.is-compact .g-footer-link-columns__entry {
+  padding-block: var(--spacing-0-5);
+}
+
+/* An unlinked entry opens the next column, which is the whole grouping rule of
+   this element; the first one has no column to leave. */
+.g-footer-link-columns__entry.is-heading {
+  break-before: column;
+  break-after: avoid;
+  padding-block-start: 0;
+  padding-block-end: var(--spacing-2);
+}
+
+.g-footer-link-columns__entry.is-heading:first-child {
+  break-before: auto;
+}
+
+.g-footer-link-columns__group {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.g-footer-link-columns__link {
+  display: inline-block;
+}
+
+.g-footer-link-columns__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 70ch;
+}
+
+/* On the accent band the secondary text colour is tuned for the page
+   background and would drop out of contrast. */
+.g-footer-link-columns.accent .g-footer-link-columns__lead,
+.g-footer-link-columns.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-footer-link-columns.accent .g-footer-link-columns__link {
+  color: currentColor;
+}
+
+@media (min-width: 641px) {
+  .g-footer-link-columns[data-columns='2'] .g-footer-link-columns__list,
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list,
+  .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list { columns: 3; }
+  .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list { columns: 4; }
+}
+
+/* In one column a forced column break does nothing, so the heading takes air
+   above it instead — otherwise every group would run into the one before. */
+@media (max-width: 640px) {
+  .g-footer-link-columns__entry.is-heading + .g-footer-link-columns__entry.is-link {
+    padding-block-start: 0;
+  }
+
+  .g-footer-link-columns__entry.is-heading:not(:first-child) {
+    padding-block-start: var(--spacing-6);
+  }
+
+  .g-footer-link-columns__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

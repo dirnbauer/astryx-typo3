@@ -5,6 +5,89 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-alumni-list {
-  display: block;
+.g-alumni-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-alumni-list__lead {
+  color: var(--color-text-secondary);
+}
+
+/* No row gap: the rules under the rows do the separating, and a gap as well
+   would break one column into a stack of unrelated pairs. */
+.g-alumni-list__people {
+  --grid-gap: 0 var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-alumni-list__row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-alumni-list__people.compact .g-alumni-list__row {
+  padding-block: var(--spacing-2);
+}
+
+.g-alumni-list__people.compact .g-alumni-list__portrait {
+  --_avatar-size: 24px;
+}
+
+.g-alumni-list__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+.g-alumni-list__headline {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  flex-wrap: wrap;
+}
+
+/* The years sit in the reading order they belong to — after the name, before
+   the destination — rather than being pushed to the far edge where a long
+   name would collide with them. */
+.g-alumni-list__years {
+  font-size: var(--text-supporting-size);
+  white-space: nowrap;
+}
+
+.g-alumni-list__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 44rem;
+}
+
+.g-alumni-list.accent .g-alumni-list__row {
+  border-block-end-color: currentColor;
+}
+
+.g-alumni-list.accent .g-alumni-list__lead,
+.g-alumni-list.accent .g-alumni-list__where,
+.g-alumni-list.accent .g-alumni-list__years,
+.g-alumni-list.accent .g-alumni-list__note,
+.g-alumni-list.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-alumni-list__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-alumni-list__note {
+    margin-block-start: var(--spacing-6);
+  }
 }

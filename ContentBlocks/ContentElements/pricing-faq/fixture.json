@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "pricing",
+    "eyebrow": "Pricing FAQ",
+    "header": "Money questions answered",
+    "lead": "Tax, invoices, currencies, contract length, what counts as a user. As an accordion or as an open list in up to three columns.",
+    "variant": "accordion",
+    "columns": "2",
+    "note": "The note is where the date of the answers goes, and what overrides them.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "md",
+    "questions": [
+        {
+            "title": "The accordion is native disclosure markup",
+            "bodytext": "<p>A details element per row. The open state, the keyboard behaviour and the print rendering are the browser's own, and the band works with scripting switched off.</p>"
+        },
+        {
+            "title": "Opening one row closes the rest",
+            "bodytext": "<p>Through the shared name attribute rather than through a line of script. The name is keyed to the record so two FAQs on one page do not close each other's answers.</p>"
+        },
+        {
+            "title": "The open-list variant has nothing to click",
+            "bodytext": "<p>The same questions and answers, flowed into up to three columns. For a page where the questions are the point rather than the tidiness.</p>"
+        },
+        {
+            "title": "Answers are rich text",
+            "bodytext": "<p>So an editor can set a paragraph, a list or a link without the template growing a field for every case.</p>"
+        }
+    ]
+}

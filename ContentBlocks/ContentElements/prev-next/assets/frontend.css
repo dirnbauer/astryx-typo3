@@ -5,6 +5,93 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-prev-next {
-  display: block;
+.g-prev-next__nav {
+  display: grid;
+  gap: var(--spacing-4);
+  grid-template-columns: 1fr 1fr;
+}
+
+/* At either end of a series one half is missing, and the other takes the
+   whole band rather than leaving a hole where it was. */
+.g-prev-next__half:only-child {
+  grid-column: 1 / -1;
+}
+
+.g-prev-next__half {
+  gap: var(--spacing-1);
+}
+
+.g-prev-next__half.next {
+  text-align: end;
+  align-items: flex-end;
+}
+
+.g-prev-next__direction {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.g-prev-next__title {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-5-leading);
+}
+
+.g-prev-next__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The arrow points the way the link goes, and sits on the outer edge of its
+   own half so the pair reads outwards from the middle. */
+.g-prev-next__direction::before,
+.g-prev-next__direction::after {
+  content: '';
+  display: inline-block;
+  inline-size: var(--spacing-1-5);
+  block-size: var(--spacing-1-5);
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  vertical-align: baseline;
+}
+
+.g-prev-next__half.previous .g-prev-next__direction::before {
+  rotate: 135deg;
+  margin-inline-end: var(--spacing-2);
+}
+
+.g-prev-next__half.next .g-prev-next__direction::after {
+  rotate: -45deg;
+  margin-inline-start: var(--spacing-2);
+}
+
+/* Plain: the surface goes, the pair stays. A hairline between the halves is
+   all that is left holding them apart. */
+.g-prev-next__nav.plain .g-prev-next__half {
+  padding: var(--spacing-2) 0;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-prev-next.accent .g-prev-next__direction {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-prev-next__nav {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked, both halves read from the same edge — an end-aligned card on a
+     phone looks like a mistake rather than like a direction. */
+  .g-prev-next__half.next {
+    text-align: start;
+    align-items: flex-start;
+  }
 }

@@ -5,14 +5,67 @@
 <f:asset.css identifier="g-speaker-lineup" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child text field carries the talk title and the link points at the session, so the lineup doubles as a programme index.
+    The child's text carries the talk title and the child's link points at the
+    session, so the same records make the lineup double as a programme index.
+    The speaker's name still heads the card, because a reader looking for a
+    person scans names and a reader looking for a subject reads on.
+
+    The alt names the speaker, as everywhere in this group where a portrait
+    heads a card of its own.
 </f:comment>
 
-<section class="astryx-section g-speaker-lineup" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-speaker-lineup {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-speaker-lineup__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-speaker-lineup__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-speaker-lineup__speakers">
+            <f:for each="{data.speakers}" as="speaker">
+                <li class="astryx-card {f:if(condition: speaker.link, then: 'astryx-clickable-card')} g-speaker-lineup__speaker">
+
+                    <f:if condition="{speaker.image}">
+                        <span class="astryx-avatar lg g-speaker-lineup__portrait">
+                            <f:for each="{speaker.image}" as="image">
+                                <f:image image="{image}" alt="{speaker.title}" width="128c" height="128c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title g-speaker-lineup__name">{speaker -> f:render.text(field: 'title')}</h3>
+
+                    <f:if condition="{speaker.role}">
+                        <p class="astryx-text supporting g-speaker-lineup__affiliation">{speaker -> f:render.text(field: 'role')}</p>
+                    </f:if>
+
+                    <f:if condition="{speaker.text}">
+                        <p class="astryx-card-body g-speaker-lineup__talk">
+                            <f:if condition="{speaker.link.url}">
+                                <f:then><f:link.typolink parameter="{speaker.link}">{speaker.text}</f:link.typolink></f:then>
+                                <f:else>{speaker -> f:render.text(field: 'text')}</f:else>
+                            </f:if>
+                        </p>
+                    </f:if>
+
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-speaker-lineup__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+            </p>
         </f:if>
+
     </div>
 </section>
 

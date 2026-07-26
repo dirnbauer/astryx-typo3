@@ -5,14 +5,62 @@
 <f:asset.css identifier="g-footer-brand-newsletter" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): This is the prompt, not the form: the button points at the sign-up page, and the consent sentence belongs in `note`.
+    The prompt, not the form. The button leads to the sign-up page, so nothing
+    here collects an address and no consent is being obtained on this band —
+    which is why the frequency and unsubscribe sentence is a plain note rather
+    than the small print of a field nobody filled in.
+
+    The logo's alt stays empty: the organisation's name is the heading directly
+    beside it, and announcing it twice only slows a screen reader down.
 </f:comment>
 
-<section class="astryx-section g-footer-brand-newsletter" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-brand-newsletter/language/labels.xlf:nav.label', default: 'Footer links')}"/>
+
+<section class="astryx-section g-footer-brand-newsletter {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="astryx-split g-footer-brand-newsletter__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-footer-brand-newsletter__brand">
+                <f:if condition="{data.image}">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="" height="40" loading="lazy" class="g-footer-brand-newsletter__logo"/>
+                    </f:for>
+                </f:if>
+
+                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+            </div>
+
+            <div class="g-footer-brand-newsletter__signup">
+                <f:if condition="{data.text}">
+                    <p class="astryx-text large g-footer-brand-newsletter__prompt">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <div class="astryx-button-group">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-footer-brand-newsletter__small-print">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+        </div>
+
+        <f:if condition="{data.links}">
+            <nav class="g-footer-brand-newsletter__nav" aria-label="{navLabel}">
+                <ul class="g-footer-brand-newsletter__links">
+                    <f:for each="{data.links}" as="item">
+                        <li class="g-footer-brand-newsletter__link">
+                            <f:link.typolink parameter="{item.link}" class="astryx-link quiet">{item.title}</f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
         </f:if>
+
     </div>
 </section>
 

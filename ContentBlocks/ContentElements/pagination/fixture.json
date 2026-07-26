@@ -1,1 +1,30 @@
-{}
+{
+    "_type": "navigation",
+    "header": "A numbered pager for a hand-built series",
+    "note": "The note is the editor's own line: “Part 3 of 6”, a total, a date",
+    "align": "start",
+    "width": "md",
+    "compact": 0,
+    "pages": [
+        {
+            "title": "The number is what you see",
+            "link": "#part-1"
+        },
+        {
+            "title": "The title is what is read out",
+            "link": "#part-2"
+        },
+        {
+            "title": "The part with no link is the current one",
+            "link": ""
+        },
+        {
+            "title": "The arrows come from its position",
+            "link": "#part-4"
+        },
+        {
+            "title": "No match means numbers alone",
+            "link": "#part-5"
+        }
+    ]
+}

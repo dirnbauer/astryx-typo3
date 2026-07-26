@@ -5,14 +5,41 @@
 <f:asset.css identifier="g-outline-rail" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Uses position: sticky inside a grid column; on small screens it collapses to a plain list above the first section rather than a floating layer.
+    The rail is position: sticky, which means it travels as far as the column
+    that contains it and no further. Dropped into a page's main column that is
+    the height of this band; put in a sidebar column it follows the reader down
+    the whole article. Neither case needs a line of script, and no entry is
+    marked active because that would need a scroll spy, which does.
+
+    A description typed onto an entry is ignored: the rail is one line per
+    heading, and a heading that needs explaining is a section, not an entry.
 </f:comment>
 
-<section class="astryx-section g-outline-rail" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.outline" default="Page contents"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section tight g-outline-rail {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <nav class="g-outline-rail__rail" aria-label="{navLabel}">
+
+            <h2 class="astryx-heading level-6 g-outline-rail__title">
+                <f:if condition="{data.header}">
+                    <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                    <f:else>{navFallback}</f:else>
+                </f:if>
+            </h2>
+
+            <div class="astryx-outline g-outline-rail__outline">
+                <ul class="astryx-outline-list">
+                    <f:for each="{data.entries}" as="entry">
+                        <li class="g-outline-rail__entry">
+                            <f:link.typolink parameter="{entry.link}" class="astryx-outline-item g-outline-rail__link"><span>{entry.title}</span></f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
+
+        </nav>
     </div>
 </section>
 

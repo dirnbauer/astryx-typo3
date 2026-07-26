@@ -5,14 +5,59 @@
 <f:asset.css identifier="g-social-mentions" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Posts are stored as text, not embedded: no third-party script runs and the wall survives the source platform disappearing.
+    Posts are stored as text rather than embedded: no third-party script runs,
+    nothing is loaded before consent, and the wall survives the source platform
+    disappearing. It is still somebody else's words, so each card is a figure
+    with the post in a blockquote and the handle in the caption.
 </f:comment>
 
-<section class="astryx-section g-social-mentions" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-social-mentions {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-social-mentions__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-social-mentions__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-social-mentions__posts">
+            <f:for each="{data.posts}" as="post">
+                <li class="g-social-mentions__cell">
+                    <figure class="astryx-card tight g-social-mentions__card">
+                        <figcaption class="g-social-mentions__who">
+                            <f:if condition="{post.image}">
+                                <span class="astryx-avatar sm">
+                                    <f:for each="{post.image}" as="portrait">
+                                        <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
+                                    </f:for>
+                                </span>
+                            </f:if>
+
+                            <span class="astryx-text label g-social-mentions__handle">{post -> f:render.text(field: 'author')}</span>
+
+                            <f:if condition="{post.role}">
+                                <span class="astryx-token g-social-mentions__origin">{post -> f:render.text(field: 'role')}</span>
+                            </f:if>
+                        </figcaption>
+
+                        <blockquote class="g-social-mentions__post">
+                            <p>{post -> f:render.text(field: 'quote_text')}</p>
+                        </blockquote>
+                    </figure>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-social-mentions__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

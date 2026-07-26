@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-usage-counter-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The count does not animate. A number that counts up is read twice and believed once.
+    The count does not animate, and there is no hook here to make it. A number
+    that counts up is read twice and believed once, and on a band whose only
+    job is to be believed that is a bad trade.
+
+    The marks underneath are a footnote to the figure, so they are set small
+    and quiet — the moment they compete, this is the logo wall instead.
 </f:comment>
 
-<section class="astryx-section g-usage-counter-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-usage-counter-band {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-usage-counter-band__inner">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <p class="g-usage-counter-band__count">
+                <span class="g-usage-counter-band__number">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-usage-counter-band__unit">{data.unit}</span></f:if>
+            </p>
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-3 g-usage-counter-band__claim">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-usage-counter-band__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.logos}">
+                <ul class="g-usage-counter-band__marks">
+                    <f:for each="{data.logos}" as="logo">
+                        <li class="g-usage-counter-band__mark">
+                            <f:if condition="{logo.image}">
+                                <f:then>
+                                    <f:for each="{logo.image}" as="image">
+                                        <f:image image="{image}"
+                                                 alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
+                                                 height="64"
+                                                 loading="lazy"
+                                                 class="g-usage-counter-band__image"/>
+                                    </f:for>
+                                </f:then>
+                                <f:else>
+                                    <span class="g-usage-counter-band__wordmark">{logo.title}</span>
+                                </f:else>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

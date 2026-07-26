@@ -5,6 +5,104 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-logo-cloud {
+.g-logo-cloud__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-logo-cloud__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-logo-cloud__marks {
+  --grid-min: 10rem;
+  --grid-gap: var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-items: center;
+}
+
+/* Every mark is fitted into one box and contained inside it, so a wide
+   wordmark and a square emblem end up at the same optical area rather than at
+   the same width — which is what makes a wall look level. */
+.g-logo-cloud__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--spacing-12);
+}
+
+.g-logo-cloud__image {
   display: block;
+  max-block-size: 100%;
+  max-inline-size: 100%;
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+  /* Desaturated by default: one brand with a loud red in it would otherwise
+     pull the whole wall towards itself and stop being one of many. */
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.g-logo-cloud__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-5-leading);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.g-logo-cloud__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* A mark a reader is pointing at is a mark they are trying to read, so the
+   colour comes back for that one. */
+@media (hover: hover) {
+  .g-logo-cloud__link:hover .g-logo-cloud__image {
+    filter: none;
+    opacity: 1;
+  }
+}
+
+.g-logo-cloud__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.g-logo-cloud__link:focus-visible .g-logo-cloud__image {
+  filter: none;
+  opacity: 1;
+}
+
+.g-logo-cloud.accent .g-logo-cloud__lead,
+.g-logo-cloud.accent .g-logo-cloud__wordmark,
+.g-logo-cloud.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-logo-cloud__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-logo-cloud__marks {
+    --grid-min: 7rem;
+    --grid-gap: var(--spacing-6);
+  }
+
+  .g-logo-cloud__cell {
+    block-size: var(--spacing-10);
+  }
 }

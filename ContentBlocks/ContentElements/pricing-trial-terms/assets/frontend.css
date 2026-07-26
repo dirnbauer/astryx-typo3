@@ -5,6 +5,73 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-trial-terms {
-  display: block;
+.g-pricing-trial-terms__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-pricing-trial-terms__lead {
+  color: var(--color-text-secondary);
+}
+
+/* Each pair is one grid child, so the term and its answer cannot be pulled into
+   different columns — which is exactly what a two-column definition list does
+   to a reader trying to match them up. */
+.g-pricing-trial-terms__terms.astryx-metadata-list {
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+}
+
+.g-pricing-trial-terms__term {
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-pricing-trial-terms__value {
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-pricing-trial-terms__detail {
+  margin-block-start: var(--spacing-1);
+}
+
+.g-pricing-trial-terms__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-trial-terms__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-trial-terms.accent .g-pricing-trial-terms__lead,
+.g-pricing-trial-terms.accent .g-pricing-trial-terms__label,
+.g-pricing-trial-terms.accent .astryx-eyebrow,
+.g-pricing-trial-terms.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-trial-terms.accent .g-pricing-trial-terms__term {
+  border-color: currentColor;
+}
+
+@media (min-width: 641px) {
+  .g-pricing-trial-terms__terms.astryx-metadata-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-4) var(--spacing-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .g-pricing-trial-terms__terms.astryx-metadata-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

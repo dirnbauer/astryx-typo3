@@ -5,6 +5,93 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-awards-row {
+.g-awards-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-awards-row__lead {
+  color: var(--color-text-secondary);
+}
+
+/* A wrapping row rather than a grid: two prizes should sit together at the
+   start of the line, not stretch to fill half the page each. */
+.g-awards-row__awards {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  row-gap: var(--spacing-6);
+}
+
+.g-awards-row__award {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  inline-size: 11rem;
+}
+
+.g-awards-row__emblem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--spacing-12);
+}
+
+/* No filter and no opacity: the seal was designed to be recognised, and this
+   is the one wall in the group where the artwork is the evidence. */
+.g-awards-row__image {
   display: block;
+  max-block-size: 100%;
+  max-inline-size: 100%;
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+}
+
+.g-awards-row__name {
+  margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--color-text-primary);
+}
+
+.g-awards-row[data-align='center'] .g-awards-row__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-awards-row[data-align='center'] .g-awards-row__awards {
+  justify-content: center;
+}
+
+.g-awards-row.accent .g-awards-row__lead,
+.g-awards-row.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-awards-row.accent .g-awards-row__name {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-awards-row__awards {
+    gap: var(--spacing-6);
+    row-gap: var(--spacing-5);
+  }
+
+  .g-awards-row__award {
+    inline-size: 8rem;
+  }
+
+  .g-awards-row__emblem {
+    block-size: var(--spacing-10);
+  }
 }

@@ -5,6 +5,69 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-contributor-wall {
-  display: block;
+.g-contributor-wall__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-contributor-wall__lead {
+  color: var(--color-text-secondary);
+}
+
+/* auto-fill rather than auto-fit: with two hundred people the last row should
+   keep the column rhythm instead of stretching four faces across the band. */
+.g-contributor-wall__people {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  gap: var(--spacing-5) var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-contributor-wall__people.compact {
+  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  gap: var(--spacing-4) var(--spacing-2);
+}
+
+.g-contributor-wall__person,
+.g-contributor-wall__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  text-align: center;
+}
+
+.g-contributor-wall__name {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  /* Names break where they can rather than pushing the column wider: a wall
+     whose widest name sets the grid wastes a third of the band. */
+  overflow-wrap: anywhere;
+}
+
+.g-contributor-wall__people.compact .g-contributor-wall__portrait {
+  --_avatar-size: 36px;
+}
+
+.g-contributor-wall__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 44rem;
+}
+
+.g-contributor-wall.accent .g-contributor-wall__lead,
+.g-contributor-wall.accent .g-contributor-wall__note,
+.g-contributor-wall.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .g-contributor-wall__people {
+    grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+  }
 }

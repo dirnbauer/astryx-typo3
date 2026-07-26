@@ -5,6 +5,65 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-method-note {
-  display: block;
+/* A bordered box rather than a band tint: this is small print, and small print
+   that changes the background colour of the page reads as a callout. */
+.g-data-method-note__box {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-container);
+}
+
+.g-data-method-note__summary {
+  color: var(--color-text-secondary);
+  max-inline-size: 44rem;
+}
+
+.g-data-method-note__pairs {
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-data-method-note__pair {
+  gap: var(--spacing-0-5);
+}
+
+.g-data-method-note__term {
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.g-data-method-note__value {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-method-note__detail,
+.g-data-method-note__note,
+.g-data-method-note__actions {
+  margin: 0;
+}
+
+.g-data-method-note.accent .g-data-method-note__box,
+.g-data-method-note.accent .g-data-method-note__pairs {
+  border-color: currentColor;
+}
+
+.g-data-method-note.accent .g-data-method-note__summary,
+.g-data-method-note.accent .g-data-method-note__term,
+.g-data-method-note.accent .astryx-eyebrow,
+.g-data-method-note.accent .astryx-link,
+.g-data-method-note.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-method-note__box {
+    padding: var(--spacing-4);
+  }
 }

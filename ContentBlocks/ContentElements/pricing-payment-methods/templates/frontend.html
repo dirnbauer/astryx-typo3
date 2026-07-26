@@ -5,15 +5,66 @@
 <f:asset.css identifier="g-pricing-payment-methods" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Card-scheme artwork has fixed clear space and may not be recoloured; keep the marks as supplied images and give each one a title for its alt text.
+    A row of marks and nothing else: no field, no button, no redirect. The band
+    states which arrangements are accepted; taking a payment happens somewhere
+    else entirely, and this element never stands between a visitor and their bank.
+
+    The list is given its accessible name by the heading above it, so the marks
+    are read as a set rather than as a run of unrelated names.
 </f:comment>
 
-<section class="astryx-section g-pricing-payment-methods" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pricing-payment-methods {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+        <div class="g-pricing-payment-methods__panel">
+
+            <div class="g-pricing-payment-methods__copy">
+                <h2 class="astryx-heading level-3" id="g-pricing-payment-methods-{data.uid}">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-pricing-payment-methods__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
+
+            <ul class="g-pricing-payment-methods__row" aria-labelledby="g-pricing-payment-methods-{data.uid}">
+                <f:for each="{data.methods}" as="method">
+                    <li class="g-pricing-payment-methods__method">
+                        <f:if condition="{method.link.url}">
+                            <f:then>
+                                <f:link.typolink parameter="{method.link}" class="astryx-link quiet g-pricing-payment-methods__link">
+                                    <f:render section="mark" arguments="{method: method}"/>
+                                </f:link.typolink>
+                            </f:then>
+                            <f:else>
+                                <f:render section="mark" arguments="{method: method}"/>
+                            </f:else>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-pricing-payment-methods__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
+
+<f:comment>
+    A mark is either artwork or, when nobody has uploaded any, the method's name
+    set as type — which is still the information, and better than an empty slot.
+</f:comment>
+<f:section name="mark">
+    <f:if condition="{method.image}">
+        <f:then>
+            <f:for each="{method.image}" as="image">
+                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: method.title)}" height="32" loading="lazy" class="g-pricing-payment-methods__image"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <span class="g-pricing-payment-methods__wordmark">{method.title}</span>
+        </f:else>
+    </f:if>
+</f:section>
 
 </html>

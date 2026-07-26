@@ -5,14 +5,65 @@
 <f:asset.css identifier="g-footer-link-columns" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): A content element inside the content area, not the site's own template footer: an entry with an empty link starts a new column and renders as its heading.
+    One flat list in a CSS column flow rather than a list per column: the
+    editor's order stays the reading order either way, and a flow fills the last
+    column instead of leaving it short. The group headings are real h3 elements,
+    so the grouping a sighted reader takes from the column break also reaches a
+    screen reader; the break itself carries nothing.
+
+    This is a content element an editor drops into the page, not the site's own
+    template footer — that one is rendered by Partials/Pages/Footer.fluid.html
+    and keeps its brand, language and legal rows to itself.
 </f:comment>
 
-<section class="astryx-section g-footer-link-columns" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navLabel" value="{data.header}"/>
+<f:if condition="!{data.header}">
+    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-link-columns/language/labels.xlf:nav.label', default: 'Footer links')}"/>
+</f:if>
+
+<section class="astryx-section g-footer-link-columns {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-footer-link-columns__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-footer-link-columns__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-footer-link-columns__nav" aria-label="{navLabel}">
+            <ul class="g-footer-link-columns__list {f:if(condition: data.compact, then: 'is-compact')}">
+                <f:for each="{data.links}" as="item">
+                    <f:if condition="{item.link.url}">
+                        <f:then>
+                            <li class="g-footer-link-columns__entry is-link">
+                                <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footer-link-columns__link">{item.title}</f:link.typolink>
+                                <f:if condition="{item.description}">
+                                    <span class="astryx-text supporting g-footer-link-columns__hint">{item.description}</span>
+                                </f:if>
+                            </li>
+                        </f:then>
+                        <f:else>
+                            <li class="g-footer-link-columns__entry is-heading">
+                                <h3 class="astryx-text label g-footer-link-columns__group">{item -> f:render.text(field: 'title')}</h3>
+                                <f:if condition="{item.description}">
+                                    <span class="astryx-text supporting g-footer-link-columns__hint">{item.description}</span>
+                                </f:if>
+                            </li>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </ul>
+        </nav>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-link-columns__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

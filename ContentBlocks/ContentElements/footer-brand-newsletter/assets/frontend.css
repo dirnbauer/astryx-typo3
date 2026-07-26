@@ -5,6 +5,73 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-brand-newsletter {
+.g-footer-brand-newsletter__grid {
+  align-items: start;
+}
+
+.g-footer-brand-newsletter__brand,
+.g-footer-brand-newsletter__signup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-footer-brand-newsletter__brand {
+  max-inline-size: 32rem;
+}
+
+/* A logo is normalised on height, not width: a wide wordmark and a square
+   emblem set to the same width read as two different sizes. */
+.g-footer-brand-newsletter__logo {
   display: block;
+  block-size: var(--spacing-10);
+  inline-size: auto;
+  max-inline-size: 14rem;
+}
+
+.g-footer-brand-newsletter__prompt {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-brand-newsletter__small-print {
+  max-inline-size: 60ch;
+}
+
+/* The link row closes the band, so it reads as a footnote to both columns
+   rather than as a third one. */
+.g-footer-brand-newsletter__nav {
+  margin-block-start: var(--spacing-10);
+  padding-block-start: var(--spacing-5);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-footer-brand-newsletter__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2) var(--spacing-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-footer-brand-newsletter.accent .g-footer-brand-newsletter__prompt,
+.g-footer-brand-newsletter.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-footer-brand-newsletter.accent .g-footer-brand-newsletter__links a {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-footer-brand-newsletter__brand {
+    max-inline-size: none;
+  }
+
+  .g-footer-brand-newsletter__nav {
+    margin-block-start: var(--spacing-8);
+  }
 }

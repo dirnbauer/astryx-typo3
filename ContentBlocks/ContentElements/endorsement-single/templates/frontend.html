@@ -5,14 +5,47 @@
 <f:asset.css identifier="g-endorsement-single" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The role line is set at the same weight as the name, because the credentials are what make the statement worth printing.
+    An endorsement leans on who is speaking, so the credentials are set at the
+    same weight as the name rather than being demoted to a caption whisper.
+    The portrait carries an empty alt: the name is printed right beside it.
 </f:comment>
 
-<section class="astryx-section g-endorsement-single" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-endorsement-single {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <figure class="g-endorsement-single__figure">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <f:if condition="{data.badge_text}">
+                <p class="g-endorsement-single__badge-row">
+                    <span class="astryx-badge outline">{data -> f:render.text(field: 'badge_text')}</span>
+                </p>
+            </f:if>
+
+            <blockquote class="astryx-blockquote g-endorsement-single__quote">
+                <p>{data -> f:render.text(field: 'quote_text')}</p>
+            </blockquote>
+
+            <figcaption class="astryx-citation g-endorsement-single__credit">
+                <f:if condition="{data.image}">
+                    <span class="astryx-avatar lg g-endorsement-single__portrait">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
+                        </f:for>
+                    </span>
+                </f:if>
+
+                <span class="g-endorsement-single__who">
+                    <span class="g-endorsement-single__name">{data -> f:render.text(field: 'author')}</span>
+                    <f:if condition="{data.role}">
+                        <span class="g-endorsement-single__role">{data -> f:render.text(field: 'role')}</span>
+                    </f:if>
+                </span>
+            </figcaption>
+
+        </figure>
     </div>
 </section>
 

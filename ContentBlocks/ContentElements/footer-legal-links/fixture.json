@@ -1,1 +1,32 @@
-{}
+{
+    "_type": "footer",
+    "header": "Legal links as one separated line",
+    "text": "Leave the heading empty and the bar reads as a single line; the nav then takes its accessible name from a translated default instead of from a heading that is not there.",
+    "note": "The rules between the links are drawn by the stylesheet. Typed into the labels they would end up in a copied line and in what a screen reader reads out.",
+    "align": "start",
+    "tone": "muted",
+    "width": "lg",
+    "compact": true,
+    "links": [
+        {
+            "title": "Two to ten links",
+            "description": "The description becomes the link's title attribute",
+            "link": "#"
+        },
+        {
+            "title": "They wrap on narrow screens",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "Below 480px the rules go",
+            "description": "A leading rule would mark a line start, not a boundary",
+            "link": "#"
+        },
+        {
+            "title": "Compact tightens the spacing",
+            "description": "",
+            "link": "#"
+        }
+    ]
+}

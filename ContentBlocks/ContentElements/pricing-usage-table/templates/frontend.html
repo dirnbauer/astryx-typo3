@@ -5,14 +5,62 @@
 <f:asset.css identifier="g-pricing-usage-table" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Long rate tables scroll horizontally inside their own container; the page body must never scroll sideways because of them.
+    A rate card states rates. There is no total row and no running sum: what a
+    month costs depends on what was used, and an element that guessed at it
+    would be quoting a price nobody agreed to.
+
+    The caption is hidden rather than absent — the table needs a name, and a
+    visible one here would only repeat the heading above it.
 </f:comment>
 
-<section class="astryx-section g-pricing-usage-table" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-usage-table {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-pricing-usage-table__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-pricing-usage-table__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-table-wrap g-pricing-usage-table__wrap">
+            <table class="astryx-table {f:if(condition: data.compact, then: 'compact')} g-pricing-usage-table__table">
+                <caption class="astryx-visually-hidden">{data -> f:render.text(field: 'header')}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="g-pricing-usage-table__col-unit"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.unit" default="Unit"/></th>
+                        <th scope="col" class="g-pricing-usage-table__col-rate"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.rate" default="Rate"/></th>
+                        <th scope="col" class="g-pricing-usage-table__col-counted"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.counted" default="How it is counted"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{data.rates}" as="rate">
+                        <tr>
+                            <th scope="row" class="g-pricing-usage-table__unit">{rate -> f:render.text(field: 'title')}</th>
+                            <td class="g-pricing-usage-table__rate">{rate -> f:render.text(field: 'value')}</td>
+                            <td class="g-pricing-usage-table__counted">{rate -> f:render.text(field: 'text')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+        </div>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-usage-table__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-usage-table__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

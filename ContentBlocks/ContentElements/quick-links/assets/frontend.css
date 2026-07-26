@@ -5,6 +5,72 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-quick-links {
+/* The toolbar's default is a start/end split, which would push the last
+   shortcut to the far edge of the band; here the row is one group. */
+.g-quick-links__bar {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.g-quick-links[data-align='center'] .g-quick-links__bar {
+  justify-content: center;
+}
+
+.g-quick-links__title {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.g-quick-links__items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One line, always: a shortcut that wrapped would break the bar's rhythm and
+   stop it being readable at a glance, which is the only reason it exists. */
+.g-quick-links__label {
   display: block;
+  max-inline-size: 18rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The tile carries the semantic key rather than a glyph; until a renderer
+   lands it is a small tinted square that keeps the row's optical rhythm. */
+.g-quick-links__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-accent-muted);
+}
+
+.g-quick-links.accent .g-quick-links__title {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* Full-width buttons on a phone: a wrapped bar of half-width pills is
+     harder to hit than a stack of rows. */
+  .g-quick-links__items {
+    inline-size: 100%;
+  }
+
+  .g-quick-links__item {
+    inline-size: 100%;
+  }
+
+  .g-quick-links__link {
+    inline-size: 100%;
+    justify-content: flex-start;
+  }
 }

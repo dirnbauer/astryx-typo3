@@ -5,14 +5,62 @@
 <f:asset.css identifier="g-pricing-discount-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Each programme's link should reach the proof or application step; the element never checks anything itself.
+    Each programme says how eligibility is proved as well as what it is worth.
+    A reduction whose conditions are left vague is one a reader has to write in
+    and ask about, which costs both sides more than the reduction is worth.
 </f:comment>
 
-<section class="astryx-section g-pricing-discount-note" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-discount-note {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-pricing-discount-note__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-pricing-discount-note__scope">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-discount-note__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-pricing-discount-note__programmes">
+            <f:for each="{data.programmes}" as="programme">
+                <li class="astryx-feature astryx-card g-pricing-discount-note__programme {f:if(condition: programme.link, then: 'astryx-clickable-card')}">
+                    <f:if condition="{programme.icon}">
+                        <f:comment>
+                            The tile carries the semantic key rather than a glyph, so swapping
+                            icon library never reaches into a template.
+                        </f:comment>
+                        <span class="astryx-feature-icon" data-icon="{programme.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title">
+                        <f:if condition="{programme.link.url}">
+                            <f:then><f:link.typolink parameter="{programme.link}">{programme.title}</f:link.typolink></f:then>
+                            <f:else>{programme -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{programme.text}">
+                        <p class="astryx-card-body">{programme -> f:render.text(field: 'text')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-discount-note__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-discount-note__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

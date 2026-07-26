@@ -5,14 +5,47 @@
 <f:asset.css identifier="g-section-index" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Entries flow down each column before moving to the next, so alphabetical order still reads correctly at every breakpoint.
+    CSS columns rather than a grid: entries flow down one column and then into
+    the next, so a list kept in alphabetical or programme order still reads in
+    that order at two, three and four columns. A grid would put the second
+    entry beside the first and scramble it at every breakpoint.
 </f:comment>
 
-<section class="astryx-section g-section-index" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.index" default="Index"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-section-index {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-section-index__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-section-index__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <nav class="g-section-index__nav" aria-label="{navLabel}">
+            <ul class="g-section-index__entries">
+                <f:for each="{data.entries}" as="entry">
+                    <li class="g-section-index__entry">
+                        <f:if condition="{entry.link.url}">
+                            <f:then><f:link.typolink parameter="{entry.link}" class="astryx-link quiet g-section-index__title">{entry.title}</f:link.typolink></f:then>
+                            <f:else><span class="g-section-index__title">{entry -> f:render.text(field: 'title')}</span></f:else>
+                        </f:if>
+
+                        <f:if condition="{entry.description}">
+                            <span class="astryx-text supporting g-section-index__note">{entry -> f:render.text(field: 'description')}</span>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

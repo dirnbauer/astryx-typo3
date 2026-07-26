@@ -5,14 +5,49 @@
 <f:asset.css identifier="g-chapter-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Numbers come from the position in the list, so inserting a chapter renumbers the rest; the icon slot is ignored.
+    The numbers come from the position in the list, not from a field, so
+    inserting a chapter in the middle renumbers everything under it and no
+    editor is left maintaining a column of digits by hand. An icon typed onto a
+    chapter is ignored: the number is the marker this list has.
 </f:comment>
 
-<section class="astryx-section g-chapter-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.chapters" default="Chapters"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-chapter-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-chapter-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-chapter-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <nav class="g-chapter-list__nav" aria-label="{navLabel}">
+            <ol class="g-chapter-list__chapters">
+                <f:for each="{data.chapters}" as="chapter">
+                    <li class="g-chapter-list__chapter">
+                        <span class="g-chapter-list__body">
+                            <f:if condition="{chapter.link.url}">
+                                <f:then><f:link.typolink parameter="{chapter.link}" class="astryx-link quiet g-chapter-list__title">{chapter.title}</f:link.typolink></f:then>
+                                <f:else><span class="g-chapter-list__title">{chapter -> f:render.text(field: 'title')}</span></f:else>
+                            </f:if>
+
+                            <f:if condition="{chapter.description}">
+                                <span class="astryx-text supporting g-chapter-list__note">{chapter -> f:render.text(field: 'description')}</span>
+                            </f:if>
+                        </span>
+                    </li>
+                </f:for>
+            </ol>
+        </nav>
+
     </div>
 </section>
 

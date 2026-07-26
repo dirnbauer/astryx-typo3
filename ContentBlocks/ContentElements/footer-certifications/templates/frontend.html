@@ -5,15 +5,64 @@
 <f:asset.css identifier="g-footer-certifications" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Seal, name and a link to the certificate; validity dates and certificate numbers go in `note` so an expired seal is easy to spot and remove.
+    A seal names itself in writing under the artwork, which is what makes the
+    strip readable to somebody who has never seen the mark before — and it is
+    what turns each link into a distinguishable one. The artwork's alt is
+    therefore empty: the name is already the next thing announced.
+
+    Validity dates and certificate numbers go in the note, where an expired
+    seal is easy to spot and remove; a seal that has quietly lapsed is worse
+    than no seal at all.
 </f:comment>
 
-<section class="astryx-section g-footer-certifications" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-certifications {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-certifications__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text body g-footer-certifications__lead">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+        </div>
+
+        <ul class="g-footer-certifications__seals {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.logos}" as="seal">
+                <li class="g-footer-certifications__seal">
+                    <f:if condition="{seal.link.url}">
+                        <f:then>
+                            <f:link.typolink parameter="{seal.link}" class="g-footer-certifications__link">
+                                <f:render section="seal" arguments="{seal: seal}"/>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <span class="g-footer-certifications__link">
+                                <f:render section="seal" arguments="{seal: seal}"/>
+                            </span>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-certifications__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
+
+<f:section name="seal">
+    <f:if condition="{seal.image}">
+        <f:for each="{seal.image}" as="image">
+            <f:image image="{image}" alt="" height="72" loading="lazy" class="g-footer-certifications__image"/>
+        </f:for>
+    </f:if>
+    <span class="astryx-text label g-footer-certifications__name">{seal.title}</span>
+</f:section>
 
 </html>

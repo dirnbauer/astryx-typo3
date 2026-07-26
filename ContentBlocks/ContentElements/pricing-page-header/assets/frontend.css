@@ -5,6 +5,41 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-page-header {
-  display: block;
+.g-pricing-page-header__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A page opener that runs the full container width stops being an opener and
+     starts being body copy. */
+  max-inline-size: 44rem;
+}
+
+.g-pricing-page-header__standfirst,
+.g-pricing-page-header__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The small print is pushed away from the argument above it: read together they
+   look like one paragraph, and the tax line is not part of the pitch. */
+.g-pricing-page-header__note {
+  margin-block-start: var(--spacing-3);
+}
+
+.g-pricing-page-header[data-align='center'] .g-pricing-page-header__copy {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-pricing-page-header.accent .g-pricing-page-header__standfirst,
+.g-pricing-page-header.accent .g-pricing-page-header__lead,
+.g-pricing-page-header.accent .astryx-eyebrow,
+.g-pricing-page-header.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-page-header__copy {
+    max-inline-size: none;
+  }
 }

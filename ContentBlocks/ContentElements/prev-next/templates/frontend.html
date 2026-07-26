@@ -5,13 +5,45 @@
 <f:asset.css identifier="g-prev-next" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): cta_* is the next page and gets the emphasis, secondary_* is the previous one; either half may be empty at the ends of a series and the other then spans the band.
+    Previous comes first in the source and on the page, because that is the
+    order the two directions are read in. Either half may be empty — the ends
+    of a series are exactly where this element earns its keep — and the half
+    that is left then spans the band on its own.
+
+    Each half is one link, and the page title is its accessible name; the word
+    "Previous" or "Next" is a label above it rather than part of the link, so
+    nobody hears "next" twice in a row.
 </f:comment>
 
-<section class="astryx-section g-prev-next" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section tight g-prev-next {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <f:if condition="{data.cta_label} || {data.secondary_label}">
+            <nav class="g-prev-next__nav {f:if(condition: data.compact, then: 'plain')}"
+                 aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.pageMoves', default: 'Previous and next page')}">
+
+                <f:if condition="{data.secondary_label}">
+                    <div class="astryx-card astryx-clickable-card g-prev-next__half previous">
+                        <p class="astryx-text supporting g-prev-next__direction">
+                            <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>
+                        </p>
+                        <p class="g-prev-next__title">
+                            <f:link.typolink parameter="{data.secondary_link}">{data.secondary_label}</f:link.typolink>
+                        </p>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <div class="astryx-card astryx-clickable-card g-prev-next__half next">
+                        <p class="astryx-text supporting g-prev-next__direction">
+                            <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>
+                        </p>
+                        <p class="g-prev-next__title">
+                            <f:link.typolink parameter="{data.cta_link}">{data.cta_label}</f:link.typolink>
+                        </p>
+                    </div>
+                </f:if>
+
+            </nav>
         </f:if>
     </div>
 </section>

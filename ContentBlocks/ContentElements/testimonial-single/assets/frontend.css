@@ -5,6 +5,81 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-testimonial-single {
-  display: block;
+.g-testimonial-single__eyebrow {
+  margin-block-end: var(--spacing-5);
+}
+
+.g-testimonial-single__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+}
+
+/* Display type, because the sentence is the whole band. The measure is tighter
+   than the reading measure for the same reason a headline's is: at this size a
+   line that runs the full column gets scanned instead of read. */
+.g-testimonial-single__quote {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-3-size);
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+  max-inline-size: 26ch;
+  text-wrap: balance;
+}
+
+.g-testimonial-single__quote > p {
+  margin: 0;
+  /* Locale-aware marks, which is why the field is stored without them. */
+  quotes: auto;
+}
+
+.g-testimonial-single__quote > p::before {
+  content: open-quote;
+}
+
+.g-testimonial-single__quote > p::after {
+  content: close-quote;
+}
+
+.g-testimonial-single__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-testimonial-single__role::before {
+  content: ', ';
+}
+
+/* Centred, the accent rail has to go: a rule down one side of a centred column
+   points at an edge the reader is not reading from. */
+.g-testimonial-single[data-align='center'] .g-testimonial-single__figure {
+  align-items: center;
+  text-align: center;
+}
+
+.g-testimonial-single[data-align='center'] .g-testimonial-single__quote {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+  margin-inline: auto;
+}
+
+.g-testimonial-single[data-align='center'] .g-testimonial-single__eyebrow {
+  text-align: center;
+}
+
+.g-testimonial-single.accent .astryx-eyebrow,
+.g-testimonial-single.accent .astryx-citation {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-testimonial-single.accent .g-testimonial-single__name {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-testimonial-single__quote {
+    max-inline-size: none;
+  }
 }

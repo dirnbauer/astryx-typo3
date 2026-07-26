@@ -5,14 +5,55 @@
 <f:asset.css identifier="g-data-roadmap-progress" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): State comes from the child's icon, progress from the percentage typed in its value; both are editorial statements, so date the band in `note`.
+    An ordered list, because the stages happen in an order and that order is
+    content. The state marker is coloured from the semantic key on the child,
+    but it never carries the state on its own: the percentage beside it says
+    the same thing in figures, which is what a reader gets with the colour
+    stripped out.
 </f:comment>
 
-<section class="astryx-section g-data-roadmap-progress" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-roadmap-progress {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-roadmap-progress__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-roadmap-progress__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ol class="g-data-roadmap-progress__stages {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.metrics}" as="metric">
+                <li class="g-data-roadmap-progress__stage" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                    <span class="g-data-roadmap-progress__marker {metric.icon}" aria-hidden="true"></span>
+
+                    <div class="astryx-progressbar g-data-roadmap-progress__body">
+                        <div class="astryx-progressbar-header">
+                            <h3 class="astryx-progressbar-label g-data-roadmap-progress__name">{metric -> f:render.text(field: 'title')}</h3>
+                            <span class="astryx-progressbar-value g-data-roadmap-progress__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
+                        </div>
+
+                        <div class="astryx-progressbar-track" aria-hidden="true">
+                            <span class="astryx-progressbar-fill g-data-roadmap-progress__fill"></span>
+                        </div>
+
+                        <f:if condition="{metric.text}">
+                            <p class="astryx-text supporting g-data-roadmap-progress__detail">{metric -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </div>
+                </li>
+            </f:for>
+        </ol>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-roadmap-progress__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -5,6 +5,59 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-path-fork {
-  display: block;
+.g-conversion-path-fork__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-conversion-path-fork[data-align='center'] .g-conversion-path-fork__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-conversion-path-fork__subheader,
+.g-conversion-path-fork__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-path-fork__paths {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Every panel is as tall as the tallest of the row, so no route looks like
+   the short and therefore easy one. */
+.g-conversion-path-fork__path {
+  block-size: 100%;
+}
+
+.g-conversion-path-fork[data-align='center'] .g-conversion-path-fork__path {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-path-fork__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-conversion-path-fork[data-align='center'] .g-conversion-path-fork__note {
+  text-align: center;
+}
+
+.g-conversion-path-fork.accent .g-conversion-path-fork__subheader,
+.g-conversion-path-fork.accent .g-conversion-path-fork__lead,
+.g-conversion-path-fork.accent .g-conversion-path-fork__note,
+.g-conversion-path-fork.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-path-fork__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -5,14 +5,66 @@
 <f:asset.css identifier="g-speaker-featured" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The heading is the session title, not the speaker's name; the name lives in author so a programme page reads as a list of talks.
+    The heading is the session title, not the speaker's name: a programme page
+    made of these should read as a list of talks. The name lives in the author
+    field and is announced under the abstract, where a reader has already been
+    given a reason to care who is saying it.
+
+    The badge is the slot or the stage — a marker, not a link. It is set before
+    the heading in the source because "Keynote, 09:30" is what a reader
+    skimming a programme is looking for.
+
+    The alt names the speaker: this is the one portrait on the band and it
+    stands away from the name rather than beside it.
 </f:comment>
 
-<section class="astryx-section g-speaker-featured" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-speaker-featured {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-speaker-featured__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-speaker-featured__copy">
+                <f:if condition="{data.eyebrow} || {data.badge_text}">
+                    <p class="g-speaker-featured__markers">
+                        <f:if condition="{data.badge_text}">
+                            <span class="astryx-badge accent g-speaker-featured__slot">{data -> f:render.text(field: 'badge_text')}</span>
+                        </f:if>
+                        <f:if condition="{data.eyebrow}">
+                            <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                        </f:if>
+                    </p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1 g-speaker-featured__session">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-speaker-featured__abstract">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.author}">
+                    <p class="g-speaker-featured__credit">
+                        <span class="astryx-text label g-speaker-featured__name">{data -> f:render.text(field: 'author')}</span>
+                        <f:if condition="{data.role}">
+                            <span class="astryx-text supporting g-speaker-featured__affiliation">{data -> f:render.text(field: 'role')}</span>
+                        </f:if>
+                    </p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-speaker-featured__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-speaker-featured__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{data.author}" width="640c" height="640c" loading="lazy" class="g-speaker-featured__portrait"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

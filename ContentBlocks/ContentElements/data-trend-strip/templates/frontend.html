@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-data-trend-strip" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Each column's height is the percentage typed on its child, so the shape is drawn by the editor, not calculated; label only the first and last period once the strip gets crowded.
+    An ordered list, because the sequence of the periods is the content. Every
+    column carries its period and its figure as text; once there are more than
+    eight the middle labels are taken out of the visual layer only, so a
+    crowded strip still reads value by value to anything that is not looking.
 </f:comment>
 
-<section class="astryx-section g-data-trend-strip" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-trend-strip {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-trend-strip__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <p class="g-data-trend-strip__headline">
+                <span class="astryx-text display-3 g-data-trend-strip__total">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-data-trend-strip__unit">{data -> f:render.text(field: 'unit')}</span></f:if><f:if condition="{data.badge_text}"><span class="astryx-badge outline g-data-trend-strip__change">{data -> f:render.text(field: 'badge_text')}</span></f:if>
+            </p>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-trend-strip__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ol class="g-data-trend-strip__strip">
+            <f:for each="{data.metrics}" as="metric" iteration="period">
+                <li class="g-data-trend-strip__col {f:if(condition: '{period.isFirst} || {period.isLast}', then: 'is-edge', else: 'is-mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                    <span class="g-data-trend-strip__bar" aria-hidden="true"></span>
+                    <span class="g-data-trend-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
+                    <span class="g-data-trend-strip__period">{metric -> f:render.text(field: 'title')}</span>
+                </li>
+            </f:for>
+        </ol>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-trend-strip__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

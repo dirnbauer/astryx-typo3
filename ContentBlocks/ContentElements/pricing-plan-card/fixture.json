@@ -1,1 +1,45 @@
-{}
+{
+    "_type": "pricing",
+    "header": "Plan Card",
+    "subheader": "One tier, one card, one button",
+    "badge_text": "Featured",
+    "price": "€00",
+    "period": "per period",
+    "lead": "Each plan is its own content element, so a tier can be reordered, hidden or translated without touching the two beside it.",
+    "note": "The note carries whatever qualifies the price — tax, term, minimum quantity.",
+    "cta_label": "Primary action",
+    "cta_link": "#",
+    "secondary_label": "Secondary action",
+    "secondary_link": "#",
+    "featured": 1,
+    "tone": "body",
+    "features": [
+        {
+            "title": "Every row states whether it is included",
+            "included": true,
+            "text": "The mark carries its own name, so the state survives being read aloud."
+        },
+        {
+            "title": "A row may add a short qualifier",
+            "included": true,
+            "value": "like this"
+        },
+        {
+            "title": "A row that is not included keeps its place",
+            "included": false,
+            "text": "Removing it would hide the difference between this tier and the next."
+        },
+        {
+            "title": "The price is a paragraph, not a heading",
+            "included": true
+        },
+        {
+            "title": "The card fills the row it is placed in",
+            "included": true
+        },
+        {
+            "title": "Anything the element would have to calculate",
+            "included": false
+        }
+    ]
+}

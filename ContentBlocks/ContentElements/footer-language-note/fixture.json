@@ -1,1 +1,28 @@
-{}
+{
+    "_type": "footer",
+    "header": "Which version this is, with links to the others",
+    "text": "Plain links, not a switcher: nothing opens and nothing folds out. One to eight versions.",
+    "icon": "globe",
+    "note": "The entry with no link is the current one. It stays in the list rather than disappearing from it, carries aria-current, and says so in a visually hidden phrase as well.",
+    "align": "start",
+    "tone": "muted",
+    "width": "md",
+    "compact": true,
+    "links": [
+        {
+            "title": "An entry with no link",
+            "description": "is the current version",
+            "link": ""
+        },
+        {
+            "title": "Every other entry",
+            "description": "is an ordinary link",
+            "link": "#"
+        },
+        {
+            "title": "The description is the qualifier",
+            "description": "Translation, shortened, partial",
+            "link": "#"
+        }
+    ]
+}

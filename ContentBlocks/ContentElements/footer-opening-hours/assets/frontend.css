@@ -5,6 +5,102 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-opening-hours {
+.g-footer-opening-hours__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 60ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-footer-opening-hours__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-opening-hours__rows {
   display: block;
+  max-inline-size: 34rem;
+}
+
+/* Day on the left, hours on the right, the qualifier on its own line beneath:
+   a schedule is read by running down one column, so the pair has to be a row
+   even though the shared metadata list stacks its items. */
+.g-footer-opening-hours__row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-4);
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-footer-opening-hours__rows.is-compact .g-footer-opening-hours__row {
+  padding-block: var(--spacing-1-5);
+}
+
+.g-footer-opening-hours__day {
+  flex: 1 1 8rem;
+}
+
+.g-footer-opening-hours__hours {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  margin-inline-start: auto;
+  text-align: end;
+  font-weight: var(--font-weight-medium);
+  /* Times line up on the colon when the figures are tabular. */
+  font-variant-numeric: tabular-nums;
+}
+
+.g-footer-opening-hours__qualifier {
+  flex: 1 0 100%;
+}
+
+.g-footer-opening-hours__state {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-normal);
+}
+
+.g-footer-opening-hours__struck {
+  color: var(--color-text-disabled);
+  font-weight: var(--font-weight-normal);
+}
+
+.g-footer-opening-hours__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__intro,
+.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__rows,
+.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__note {
+  margin-inline: auto;
+}
+
+.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__intro {
+  text-align: center;
+}
+
+.g-footer-opening-hours.accent .g-footer-opening-hours__lead,
+.g-footer-opening-hours.accent .astryx-eyebrow,
+.g-footer-opening-hours.accent .g-footer-opening-hours__state,
+.g-footer-opening-hours.accent .g-footer-opening-hours__struck,
+.g-footer-opening-hours.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* Under a phone's width the hours would be pushed onto their own line by the
+     day anyway; giving them one keeps the pair from breaking mid-range. */
+  .g-footer-opening-hours__hours {
+    margin-inline-start: 0;
+    text-align: start;
+    flex-basis: 100%;
+  }
+
+  .g-footer-opening-hours__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-category-chips" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child whose link resolves to the current page is rendered as selected with aria-current=page; the row wraps rather than scrolling.
+    A chip is the current one when its link resolves to the page this element
+    is rendering on, or when the editor left the link empty — which is the same
+    statement made by hand, and the one that survives being copied onto a page
+    whose address is not known yet. The current chip loses its link, because a
+    link to here does nothing, and says so with aria-current rather than with
+    the tint alone.
+
+    The row wraps instead of scrolling: a taxonomy the reader is choosing from
+    has to be readable in full, and a chip hidden past the right edge is a
+    category nobody will ever click.
 </f:comment>
 
-<section class="astryx-section g-category-chips" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.categories" default="Categories"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="selfUri"><f:uri.page/></f:variable>
+
+<section class="astryx-section tight g-category-chips" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <nav class="g-category-chips__nav" aria-label="{navLabel}">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-6 g-category-chips__title">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <ul class="g-category-chips__list {f:if(condition: data.compact, then: 'tight')}">
+                <f:for each="{data.chips}" as="chip">
+                    <f:variable name="chipCurrent" value="0"/>
+                    <f:if condition="!{chip.link.url}"><f:variable name="chipCurrent" value="1"/></f:if>
+                    <f:if condition="{chip.link.url}">
+                        <f:variable name="chipUri"><f:uri.typolink parameter="{chip.link}"/></f:variable>
+                        <f:if condition="{chipUri} == {selfUri}"><f:variable name="chipCurrent" value="1"/></f:if>
+                    </f:if>
+
+                    <li class="g-category-chips__item">
+                        <f:if condition="{chipCurrent}">
+                            <f:then>
+                                <span class="astryx-token g-category-chips__chip current" aria-current="page">
+                                    <span class="g-category-chips__label">{chip.title}</span>
+                                    <span class="astryx-visually-hidden"> — <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                                </span>
+                            </f:then>
+                            <f:else>
+                                <f:link.typolink parameter="{chip.link}" class="astryx-token g-category-chips__chip">
+                                    <span class="g-category-chips__label">{chip.title}</span>
+                                </f:link.typolink>
+                            </f:else>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+
+        </nav>
     </div>
 </section>
 

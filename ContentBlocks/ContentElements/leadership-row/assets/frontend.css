@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-leadership-row {
-  display: block;
+.g-leadership-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-leadership-row__intro.align-center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-leadership-row__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-leadership-row__people {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-leadership-row__person {
+  block-size: 100%;
+  align-items: flex-start;
+}
+
+.g-leadership-row__people.align-center .g-leadership-row__person {
+  align-items: center;
+  text-align: center;
+}
+
+/* The shared avatar already crops to a circle and clips the image; the only
+   thing this element owes it is the extra air below a 128px disc. */
+.g-leadership-row__portrait {
+  margin-block-end: var(--spacing-2);
+}
+
+.g-leadership-row__role {
+  color: var(--color-text-accent);
+}
+
+.g-leadership-row__bio {
+  color: var(--color-text-secondary);
+  /* Two or three lines about a person; past this the row is really a profile
+     and the biography wants a page of its own. */
+  max-inline-size: 34rem;
+}
+
+.g-leadership-row.accent .g-leadership-row__lead,
+.g-leadership-row.accent .g-leadership-row__bio,
+.g-leadership-row.accent .g-leadership-row__role,
+.g-leadership-row.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-leadership-row__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

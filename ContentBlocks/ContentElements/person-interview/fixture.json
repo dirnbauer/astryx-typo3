@@ -1,1 +1,28 @@
-{}
+{
+    "_type": "team",
+    "eyebrow": "Interview",
+    "header": "Question and answer pairs, with one named person",
+    "lead": "A standfirst carrying the portrait, the name and the role, then the conversation as headings and prose.",
+    "author": "The interviewee",
+    "role": "Their role",
+    "tone": "body",
+    "width": "md",
+    "questions": [
+        {
+            "title": "Why is this not an accordion?",
+            "bodytext": "<p>Because a conversation folded into a dozen closed drawers cannot be read straight through, cannot be printed, and cannot be found by the browser's own find-in-page — which is most of the reason anybody publishes an interview in the first place.</p>"
+        },
+        {
+            "title": "How is a pair marked up?",
+            "bodytext": "<p>Each question and its answer are one article: the question is a heading at level three and the answer is rich text. The question therefore heads its own answer rather than floating above an undifferentiated run of paragraphs.</p>"
+        },
+        {
+            "title": "Why is the question set in the accent colour?",
+            "bodytext": "<p>So it can be found by eye when skimming, without a quotation mark or a \"Q:\" that a screen reader would then have to read out as a letter. The heading level already carries the structure; the colour only helps the eye.</p>"
+        },
+        {
+            "title": "What about the width field?",
+            "bodytext": "<p>It sets the band, not the measure. The conversation stays at a reading width whatever room it is given, because an answer set across a full page stops reading as speech.</p>"
+        }
+    ]
+}

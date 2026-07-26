@@ -5,14 +5,54 @@
 <f:asset.css identifier="g-leader-letter" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The image slot takes either a signature scan or a small portrait; whichever it is, it renders at the foot of the text, never at the head.
+    The image slot takes either a signature scan or a small portrait, and
+    whichever it is, it renders at the foot of the text and never at the head.
+    A letter that opens with the sender's face is a profile; a letter is
+    something you read and then find out who wrote it.
+
+    That also settles the alt: the picture is announced with the name, because
+    for a signature the name is the only sensible description and for a
+    portrait it is the right one anyway.
 </f:comment>
 
-<section class="astryx-section g-leader-letter" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-leader-letter {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-leader-letter__sheet align-{data.align}">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-2 g-leader-letter__subject">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.bodytext}">
+                <div class="astryx-prose g-leader-letter__body"><f:format.html>{data.bodytext}</f:format.html></div>
+            </f:if>
+
+            <div class="g-leader-letter__sign-off">
+                <f:if condition="{data.image}">
+                    <span class="g-leader-letter__mark">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{data.author}" height="72" loading="lazy" class="g-leader-letter__mark-image"/>
+                        </f:for>
+                    </span>
+                </f:if>
+
+                <f:if condition="{data.author}">
+                    <p class="g-leader-letter__credit">
+                        <span class="astryx-text label g-leader-letter__name">{data -> f:render.text(field: 'author')}</span>
+                        <f:if condition="{data.role}">
+                            <span class="astryx-text supporting g-leader-letter__role">{data -> f:render.text(field: 'role')}</span>
+                        </f:if>
+                    </p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-leader-letter__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

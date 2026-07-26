@@ -1,1 +1,38 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Share Bar",
+    "header": "One bar, several segments, a whole read as its parts",
+    "value": "100",
+    "unit": "% of a whole",
+    "lead": "Segment widths are flex ratios taken from the shares typed on the children. Make them add up to a hundred yourself — the bar does not normalise anything, it only shares out the room.",
+    "note": "Use Distribution Bars when each part deserves its own row and figure, and Percentage Rings when a single share is the whole message.",
+    "tone": "body",
+    "width": "lg",
+    "compact": 0,
+    "metrics": [
+        {
+            "value": "42",
+            "unit": "%",
+            "title": "First segment",
+            "text": "The colour comes from the position, never from a field"
+        },
+        {
+            "value": "27",
+            "unit": "%",
+            "title": "Second segment",
+            "text": ""
+        },
+        {
+            "value": "19",
+            "unit": "%",
+            "title": "Third segment",
+            "text": ""
+        },
+        {
+            "value": "12",
+            "unit": "%",
+            "title": "Fourth segment",
+            "text": "Six segments at most"
+        }
+    ]
+}

@@ -5,14 +5,64 @@
 <f:asset.css identifier="g-team-group-photo" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The note field holds the left-to-right name key; it is set small and is the first thing dropped on narrow screens.
+    The alt comes from the file rather than from a field on this element. A
+    group portrait is not one person, so there is nothing here that could name
+    it — the editor who uploaded the picture is the only one who knows who is
+    in the frame and where they are standing.
+
+    The name key is set small but it is never hidden, on any width. It is the
+    only place the people in the photograph are named, and dropping it on a
+    phone would take that away from exactly the readers most likely to be
+    looking for themselves in it.
+
+    Full bleed is not a field on this element: it is the 'Full bleed' width,
+    which every band in the catalog already answers to.
 </f:comment>
 
-<section class="astryx-section g-team-group-photo" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-team-group-photo {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-team-group-photo__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-team-group-photo__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <f:if condition="{data.image}">
+            <figure class="g-team-group-photo__figure">
+                <f:for each="{data.image}" as="image">
+                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1600" loading="lazy" class="g-team-group-photo__image"/>
+                </f:for>
+
+                <f:if condition="{data.caption} || {data.note}">
+                    <figcaption class="g-team-group-photo__caption">
+                        <f:if condition="{data.caption}">
+                            <span class="astryx-text body g-team-group-photo__caption-text">{data -> f:render.text(field: 'caption')}</span>
+                        </f:if>
+                        <f:if condition="{data.note}">
+                            <span class="astryx-text supporting g-team-group-photo__key">{data -> f:render.text(field: 'note')}</span>
+                        </f:if>
+                    </figcaption>
+                </f:if>
+            </figure>
+        </f:if>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-team-group-photo__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+            </p>
+        </f:if>
+
     </div>
 </section>
 

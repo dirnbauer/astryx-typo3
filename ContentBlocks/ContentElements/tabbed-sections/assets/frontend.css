@@ -3,8 +3,62 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The strip itself is .astryx-tab-list: the underline, the selected weight and
+ * the focus ring all come from the component and are not touched here.
  */
 
-.g-tabbed-sections {
-  display: block;
+.g-tabbed-sections__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-tabbed-sections__lead {
+  color: var(--color-text-secondary);
+}
+
+/* A tab strip must never wrap: eight tabs on a phone scroll sideways, because
+   a second row of tabs reads as a second, unrelated group. */
+.g-tabbed-sections__list {
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-track) transparent;
+}
+
+.g-tabbed-sections__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  padding-block-start: var(--spacing-6);
+  max-inline-size: 56rem;
+}
+
+/* Only visible before the script runs, when every panel is still in the flow:
+   the rule between two of them is what keeps a stack of sections readable. */
+.g-tabbed-sections__panel + .g-tabbed-sections__panel {
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-tabbed-sections__body {
+  color: var(--color-text-secondary);
+}
+
+.g-tabbed-sections.accent .g-tabbed-sections__lead,
+.g-tabbed-sections.accent .g-tabbed-sections__body,
+.g-tabbed-sections.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-tabbed-sections__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-tabbed-sections__panel {
+    padding-block-start: var(--spacing-5);
+  }
 }

@@ -5,13 +5,46 @@
 <f:asset.css identifier="g-breadcrumb-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Built from the rootline; emits BreadcrumbList structured data and marks the last item with aria-current=page.
+    {trail} is the rootline. A content element renders through
+    lib.contentBlock, which hands the template its own record and nothing
+    else, so the rootline menu the page templates get from
+    lib.desiderioPageDataProcessing is put on this CType in the theme's
+    setup.typoscript instead.
+
+    The microdata is on the list rather than in a JSON-LD block, so the trail
+    that search engines read and the trail a visitor reads can never drift
+    apart. The last crumb is the page itself: no link, and aria-current says
+    which one it is.
+
+    A long trail wraps onto a second line rather than collapsing behind an
+    ellipsis: knowing when it "no longer fits" is a measurement, and this
+    catalog buys no element a script for that.
 </f:comment>
 
-<section class="astryx-section g-breadcrumb-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section tight g-breadcrumb-band {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <f:if condition="{trail}">
+            <nav class="astryx-breadcrumbs {f:if(condition: data.compact, then: 'supporting')} g-breadcrumb-band__nav"
+                 aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.path', default: 'You are here')}">
+                <ol class="g-breadcrumb-band__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+                    <f:for each="{trail}" as="crumb" iteration="step">
+                        <f:if condition="{step.isLast}">
+                            <f:then>
+                                <li class="astryx-breadcrumb-item" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                    <span itemprop="name">{crumb.title}</span>
+                                    <meta itemprop="position" content="{step.cycle}"/>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <li class="astryx-breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                    <a href="{crumb.link}" itemprop="item"><span itemprop="name">{crumb.title}</span></a>
+                                    <meta itemprop="position" content="{step.cycle}"/>
+                                </li>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </ol>
+            </nav>
         </f:if>
     </div>
 </section>

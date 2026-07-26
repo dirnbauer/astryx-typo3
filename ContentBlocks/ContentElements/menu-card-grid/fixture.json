@@ -1,1 +1,47 @@
-{}
+{
+    "_type": "navigation",
+    "eyebrow": "Page Card Menu",
+    "header": "Destinations as cards, one line each",
+    "lead": "The grid menu: an icon tile, a title and a sentence saying what is behind it, in two to four columns. The whole card is the link, and the title is what a screen reader announces as its name.",
+    "columns": "3",
+    "width": "lg",
+    "tone": "body",
+    "items": [
+        {
+            "icon": "arrow-right",
+            "title": "The whole card is the target",
+            "description": "One link per card, spread over the card by the clickable-card rule — no second link to the same page.",
+            "link": "#"
+        },
+        {
+            "icon": "menu",
+            "title": "A named nav landmark",
+            "description": "Several menus can sit on one page, so this one is announced by its own heading rather than as “navigation”.",
+            "link": "#"
+        },
+        {
+            "icon": "sparkles",
+            "title": "The icon is decoration",
+            "description": "A tinted tile carrying the semantic key, hidden from assistive technology because the title already says it.",
+            "link": "#"
+        },
+        {
+            "icon": "layout-sidebar-right",
+            "title": "Two to four columns",
+            "description": "The count is the editor's choice and the grid still reflows on the room it has, not on the width of the window.",
+            "link": "#"
+        },
+        {
+            "icon": "file-text",
+            "title": "The line is what earns the card",
+            "description": "Destinations whose titles say everything belong in a Link Grid, where no card gets in the way.",
+            "link": "#"
+        },
+        {
+            "icon": "check",
+            "title": "Cells of equal height",
+            "description": "Every card stretches to the tallest of its row, which keeps the icon tiles on one optical line.",
+            "link": "#"
+        }
+    ]
+}

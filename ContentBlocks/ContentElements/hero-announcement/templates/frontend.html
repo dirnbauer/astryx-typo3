@@ -19,7 +19,7 @@
                         <span class="astryx-badge accent g-hero-announcement__badge">{data.badge_text}</span>
                     </f:if>
                     <span class="astryx-banner-content">
-                        <f:if condition="{data.header_link}">
+                        <f:if condition="{data.header_link.url}">
                             <f:then>
                                 <f:link.typolink parameter="{data.header_link}" class="astryx-link g-hero-announcement__link">{data -> f:render.text(field: 'note')}</f:link.typolink>
                             </f:then>

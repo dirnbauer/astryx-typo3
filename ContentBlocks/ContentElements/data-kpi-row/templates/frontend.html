@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-data-kpi-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Every figure is typed by the editor and stays until someone edits it; the grid reflows to one column below 640px whatever `columns` says.
+    A description list, because a figure and its label are one pair: pulled
+    apart they are a number nobody can name and a name with no number. The card
+    is only the surface around the pair, never what ties it together, and the
+    source order stays term-then-value however the CSS reorders them.
 </f:comment>
 
-<section class="astryx-section g-data-kpi-row" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-kpi-row {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-kpi-row__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-kpi-row__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-grid cols-{data.columns} g-data-kpi-row__cards">
+            <f:for each="{data.metrics}" as="metric">
+                <dl class="astryx-card g-data-kpi-row__card">
+                    <dt class="astryx-text label g-data-kpi-row__label">{metric -> f:render.text(field: 'title')}</dt>
+                    <dd class="g-data-kpi-row__figure">
+                        <span class="astryx-text display-2 g-data-kpi-row__value">{metric -> f:render.text(field: 'value')}</span><f:if condition="{metric.unit}"><span class="g-data-kpi-row__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
+                    </dd>
+                    <f:if condition="{metric.text}">
+                        <dd class="astryx-text supporting g-data-kpi-row__context">{metric -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </dl>
+            </f:for>
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-kpi-row__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

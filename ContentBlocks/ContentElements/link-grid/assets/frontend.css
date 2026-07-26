@@ -5,6 +5,61 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-link-grid {
+.g-link-grid__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-link-grid__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-link-grid__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 1;
+  column-gap: var(--spacing-8);
+}
+
+.g-link-grid__item {
+  break-inside: avoid;
+}
+
+/* The row is the target, not the four characters of the label: a link this
+   short needs the padding to be reachable on a touch screen at all. */
+.g-link-grid__link {
   display: block;
+  padding-block: var(--spacing-2);
+  padding-inline-end: var(--spacing-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.g-link-grid__links.tight .g-link-grid__link {
+  padding-block: var(--spacing-1);
+}
+
+.g-link-grid.accent .g-link-grid__lead {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-link-grid.accent .g-link-grid__link {
+  color: currentColor;
+}
+
+@media (min-width: 641px) {
+  .g-link-grid[data-columns='2'] .g-link-grid__links { columns: 2; }
+  .g-link-grid[data-columns='3'] .g-link-grid__links { columns: 2; }
+  .g-link-grid[data-columns='4'] .g-link-grid__links { columns: 3; }
+}
+
+@media (min-width: 1024px) {
+  .g-link-grid[data-columns='3'] .g-link-grid__links { columns: 3; }
+  .g-link-grid[data-columns='4'] .g-link-grid__links { columns: 4; }
 }

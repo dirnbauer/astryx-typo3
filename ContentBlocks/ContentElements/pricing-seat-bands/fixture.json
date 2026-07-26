@@ -1,1 +1,35 @@
-{}
+{
+    "_type": "pricing",
+    "header": "A volume ladder, band by band",
+    "subheader": "The entry price above, the ladder below",
+    "lead": "Each row is a quantity range and the rate that applies inside it. The reader sees where the price starts before they see where it falls.",
+    "price": "from €00",
+    "period": "per seat per period",
+    "note": "The note says when the count is taken and what happens to a seat added mid-period.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "surface",
+    "compact": false,
+    "bands": [
+        {
+            "title": "1 – 5",
+            "value": "€00",
+            "text": "The range is the row header, so a rate always knows its band."
+        },
+        {
+            "title": "6 – 15",
+            "value": "€00",
+            "text": "Figures are tabular, so the column reads as one falling line."
+        },
+        {
+            "title": "16 – 40",
+            "value": "€00",
+            "text": "A band may carry whatever else changes with volume."
+        },
+        {
+            "title": "41 and above",
+            "value": "€00",
+            "text": "The last band usually points at a conversation."
+        }
+    ]
+}

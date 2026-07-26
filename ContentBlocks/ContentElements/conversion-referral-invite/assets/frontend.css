@@ -5,6 +5,86 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-referral-invite {
-  display: block;
+.g-conversion-referral-invite__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-conversion-referral-invite[data-align='center'] .g-conversion-referral-invite__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-conversion-referral-invite__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-referral-invite__media {
+  margin-block-end: var(--spacing-8);
+}
+
+.g-conversion-referral-invite__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-referral-invite__steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-conversion-referral-invite__step {
+  block-size: 100%;
+}
+
+/* The tile carries the step number as type. The icon key travels with it in
+   the data attribute, so a glyph renderer can take the tile over later
+   without the number moving anywhere. */
+.g-conversion-referral-invite__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-conversion-referral-invite__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-conversion-referral-invite[data-align='center'] .g-conversion-referral-invite__foot {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-referral-invite__note {
+  margin: 0;
+  max-inline-size: 40rem;
+}
+
+.g-conversion-referral-invite.accent .g-conversion-referral-invite__lead,
+.g-conversion-referral-invite.accent .g-conversion-referral-invite__note,
+.g-conversion-referral-invite.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-referral-invite__intro,
+  .g-conversion-referral-invite__media {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-conversion-referral-invite__foot {
+    margin-block-start: var(--spacing-6);
+  }
 }

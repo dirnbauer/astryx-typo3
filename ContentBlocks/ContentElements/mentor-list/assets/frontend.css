@@ -5,6 +5,81 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-mentor-list {
-  display: block;
+.g-mentor-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-mentor-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-mentor-list__mentors {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-mentor-list__mentor {
+  block-size: 100%;
+}
+
+.g-mentor-list__head {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-mentor-list__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+.g-mentor-list__subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-mentor-list__actions {
+  margin: 0;
+}
+
+.g-mentor-list__closing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 44rem;
+}
+
+.g-mentor-list__note,
+.g-mentor-list__band-action {
+  margin: 0;
+}
+
+.g-mentor-list.accent .g-mentor-list__lead,
+.g-mentor-list.accent .g-mentor-list__note,
+.g-mentor-list.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-mentor-list__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-mentor-list__closing {
+    margin-block-start: var(--spacing-6);
+  }
 }

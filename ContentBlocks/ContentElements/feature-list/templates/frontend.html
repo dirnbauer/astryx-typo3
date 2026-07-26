@@ -33,7 +33,7 @@
 
                     <div class="g-feature-list__body">
                         <h3 class="astryx-heading level-3">
-                            <f:if condition="{item.link}">
+                            <f:if condition="{item.link.url}">
                                 <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
                                 <f:else>{item -> f:render.text(field: 'title')}</f:else>
                             </f:if>

@@ -5,14 +5,71 @@
 <f:asset.css identifier="g-advisory-board" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The affiliation is set at the same weight as the name, because an advisory board earns its credibility from where its members come from.
+    The affiliation is set at the same weight as the name rather than as a
+    quiet subtitle: an advisory board earns its credibility from where its
+    members come from, and half-hiding that is the one thing this element must
+    not do.
+
+    The subject is a token rather than a badge, because a badge refuses to wrap
+    and "Municipal procurement and tendering" would then run out of its card.
+
+    The alt names the person, as everywhere in this group where a portrait
+    heads a card; the picture is the first thing in the cell and an empty alt
+    would leave the card starting with nothing at all.
 </f:comment>
 
-<section class="astryx-section g-advisory-board" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-advisory-board {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-advisory-board__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-advisory-board__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-advisory-board__people">
+            <f:for each="{data.people}" as="person">
+                <li class="astryx-card g-advisory-board__person">
+
+                    <f:if condition="{person.image}">
+                        <span class="astryx-avatar lg g-advisory-board__portrait">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="{person.title}" width="128c" height="128c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title g-advisory-board__name">
+                        <f:if condition="{person.link.url}">
+                            <f:then><f:link.typolink parameter="{person.link}" class="astryx-link quiet">{person.title}</f:link.typolink></f:then>
+                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{person.role}">
+                        <p class="astryx-card-title g-advisory-board__affiliation">{person -> f:render.text(field: 'role')}</p>
+                    </f:if>
+
+                    <f:if condition="{person.text}">
+                        <p class="g-advisory-board__subject">
+                            <span class="astryx-token">{person -> f:render.text(field: 'text')}</span>
+                        </p>
+                    </f:if>
+
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-advisory-board__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

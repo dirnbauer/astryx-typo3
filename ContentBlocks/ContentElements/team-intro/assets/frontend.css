@@ -5,6 +5,46 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* Half a band below, a full band above: the people element that follows
+   supplies its own top padding, and two full bands between a heading and the
+   faces it introduces reads as two unrelated sections. */
 .g-team-intro {
-  display: block;
+  padding-block-end: var(--grande-band-tight);
+}
+
+.g-team-intro__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 44rem;
+}
+
+.g-team-intro__copy.align-center {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+}
+
+.g-team-intro__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-team-intro__body {
+  max-inline-size: 62ch;
+}
+
+.g-team-intro__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-team-intro.accent .g-team-intro__lead,
+.g-team-intro.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-team-intro__actions {
+    inline-size: 100%;
+  }
 }

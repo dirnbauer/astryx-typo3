@@ -5,14 +5,56 @@
 <f:asset.css identifier="g-person-quote" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The framing line sits above the quote, never below, so the reader knows why this person is speaking before reading what they said.
+    The framing line sits above the quotation, never below: the reader has to
+    know why this person is speaking before reading what they said, or the
+    sentence arrives without a subject.
+
+    Quotation, portrait and attribution are one figure, so the name is the
+    caption of the quote rather than a paragraph that happens to follow it.
+
+    The alt names the person. This is a colleague being introduced, not a
+    decorative face beside a row of names, and the portrait is the only picture
+    on the card.
 </f:comment>
 
-<section class="astryx-section g-person-quote" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-person-quote {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <figure class="astryx-card roomy g-person-quote__card {f:if(condition: data.reverse, then: 'portrait-end')}">
+
+            <f:if condition="{data.image}">
+                <span class="astryx-avatar xl g-person-quote__portrait">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{data.author}" width="256c" height="256c" loading="lazy"/>
+                    </f:for>
+                </span>
+            </f:if>
+
+            <div class="g-person-quote__body">
+                <f:if condition="{data.text}">
+                    <p class="astryx-text supporting g-person-quote__framing">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <blockquote class="astryx-blockquote g-person-quote__quote">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
+                </blockquote>
+
+                <f:if condition="{data.author}">
+                    <figcaption class="astryx-citation g-person-quote__credit">
+                        <span class="g-person-quote__name">{data -> f:render.text(field: 'author')}</span>
+                        <f:if condition="{data.role}">
+                            <span class="g-person-quote__role">{data -> f:render.text(field: 'role')}</span>
+                        </f:if>
+                    </figcaption>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-person-quote__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+        </figure>
     </div>
 </section>
 

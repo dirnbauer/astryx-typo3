@@ -1,1 +1,33 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Milestone Progress",
+    "header": "Ordered stages, each with a state and a percentage",
+    "lead": "State comes from the semantic key on the child record, progress from the percentage typed in its value. Both are editorial statements, so date the band in the note.",
+    "note": "A stage at 0 % reads as not started and a stage at 100 % as finished, in figures — the marker colour only repeats what the percentage already says.",
+    "tone": "body",
+    "width": "md",
+    "compact": 0,
+    "metrics": [
+        {
+            "icon": "check-circle",
+            "value": "100",
+            "unit": "%",
+            "title": "A finished stage",
+            "text": "Marked done, and the bar is full."
+        },
+        {
+            "icon": "clock",
+            "value": "45",
+            "unit": "%",
+            "title": "A running stage",
+            "text": "The detail line is where the next date belongs."
+        },
+        {
+            "icon": "calendar",
+            "value": "0",
+            "unit": "%",
+            "title": "A stage that has not started",
+            "text": "An empty bar and a hollow marker."
+        }
+    ]
+}

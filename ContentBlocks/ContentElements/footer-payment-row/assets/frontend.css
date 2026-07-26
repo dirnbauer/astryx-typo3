@@ -6,5 +6,97 @@
  */
 
 .g-footer-payment-row {
+  --section-gap: var(--grande-band-tight);
+}
+
+.g-footer-payment-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-4);
+}
+
+.g-footer-payment-row__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-payment-row__marks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: var(--spacing-4);
+  row-gap: var(--spacing-3);
+}
+
+.g-footer-payment-row__marks.is-compact {
+  gap: var(--spacing-3);
+  row-gap: var(--spacing-2);
+}
+
+.g-footer-payment-row__mark {
+  display: flex;
+  align-items: center;
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-3);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-background-card);
+  min-block-size: var(--size-element-lg);
+}
+
+.g-footer-payment-row__link {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-footer-payment-row__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Marks are normalised on height, not width. */
+.g-footer-payment-row__image {
   display: block;
+  block-size: var(--spacing-6);
+  inline-size: auto;
+  max-inline-size: 8rem;
+}
+
+.g-footer-payment-row__wordmark {
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.g-footer-payment-row__note {
+  margin-block-start: var(--spacing-4);
+  max-inline-size: 70ch;
+}
+
+.g-footer-payment-row[data-align='center'] .g-footer-payment-row__intro,
+.g-footer-payment-row[data-align='center'] .g-footer-payment-row__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-payment-row[data-align='center'] .g-footer-payment-row__marks {
+  justify-content: center;
+}
+
+.g-footer-payment-row.accent .g-footer-payment-row__lead,
+.g-footer-payment-row.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* The marks are the content of this band, so they keep their size and the
+     row wraps to as many lines as it needs. */
+  .g-footer-payment-row__marks {
+    gap: var(--spacing-2);
+  }
 }

@@ -5,6 +5,150 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-scorecard {
-  display: block;
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-scorecard__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-scorecard__overall {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  color: var(--color-text-accent);
+}
+
+.g-data-scorecard__score {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-scorecard__scale {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-heading-3-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-scorecard__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-scorecard__criteria {
+  margin: 0;
+  padding: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-data-scorecard__criterion {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(6rem, 12rem) auto;
+  align-items: center;
+  gap: var(--spacing-1) var(--spacing-4);
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-data-scorecard__name {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-scorecard__segments {
+  margin: 0;
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+/* Five equal pips, and the fill is an overlay whose opacity is the distance
+   between the score and that pip's index — clamped to nothing below and to
+   solid above. A 4.5 therefore renders as four solid pips and one at half,
+   with no counting and no script. */
+.g-data-scorecard__pip {
+  position: relative;
+  flex: 1;
+  block-size: var(--spacing-2);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-track);
+}
+
+.g-data-scorecard__pip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-color: var(--color-accent);
+  opacity: clamp(0, calc(var(--value) - var(--pip) + 1), 1);
+}
+
+.g-data-scorecard__pip:nth-child(1) { --pip: 1; }
+.g-data-scorecard__pip:nth-child(2) { --pip: 2; }
+.g-data-scorecard__pip:nth-child(3) { --pip: 3; }
+.g-data-scorecard__pip:nth-child(4) { --pip: 4; }
+.g-data-scorecard__pip:nth-child(5) { --pip: 5; }
+
+.g-data-scorecard__rating {
+  margin: 0;
+  min-inline-size: 2.5rem;
+  text-align: end;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-scorecard__remark {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.g-data-scorecard__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-scorecard.accent .g-data-scorecard__overall {
+  color: currentColor;
+}
+
+.g-data-scorecard.accent .g-data-scorecard__pip {
+  background-color: var(--color-overlay-hover);
+}
+
+.g-data-scorecard.accent .g-data-scorecard__pip::after {
+  background-color: currentColor;
+}
+
+.g-data-scorecard.accent .g-data-scorecard__criteria,
+.g-data-scorecard.accent .g-data-scorecard__criterion {
+  border-color: currentColor;
+}
+
+.g-data-scorecard.accent .g-data-scorecard__lead,
+.g-data-scorecard.accent .g-data-scorecard__scale,
+.g-data-scorecard.accent .astryx-eyebrow,
+.g-data-scorecard.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-scorecard__criterion {
+    grid-template-columns: 1fr auto;
+  }
+
+  .g-data-scorecard__segments {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }

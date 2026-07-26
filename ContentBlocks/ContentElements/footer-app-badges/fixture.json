@@ -1,1 +1,24 @@
-{}
+{
+    "_type": "footer",
+    "eyebrow": "App Store Badges",
+    "header": "Store links beside an optional QR image",
+    "text": "One to four badges, each naming its store in text rather than in artwork. The badge is drawn from tokens, so it never goes out of date and it can be read aloud.",
+    "align": "start",
+    "tone": "muted",
+    "width": "lg",
+    "compact": false,
+    "links": [
+        {
+            "title": "The title is the store",
+            "description": "The description is the small line above it",
+            "icon": "phone",
+            "link": "#"
+        },
+        {
+            "title": "The QR code is an upload",
+            "description": "Nothing is fetched from a store",
+            "icon": "download",
+            "link": "#"
+        }
+    ]
+}

@@ -5,14 +5,42 @@
 <f:asset.css identifier="g-data-goal-meter" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The meter fill is the percentage typed in `value`; the absolute figures live in `text` so the editor decides how they are written.
+    The percentage sits above the meter as text and the absolute figures are
+    spelled out under it, so the band still says what it means with the bar
+    removed. The meter itself carries nothing an assistive reader needs.
 </f:comment>
 
-<section class="astryx-section g-data-goal-meter" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-goal-meter {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-goal-meter__block {data.align}" style="--value: {data.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <p class="astryx-text display-2 g-data-goal-meter__reading">{data -> f:render.text(field: 'value')}</p>
+
+            <div class="astryx-progressbar-track g-data-goal-meter__track" aria-hidden="true">
+                <span class="astryx-progressbar-fill g-data-goal-meter__fill"></span>
+            </div>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text large g-data-goal-meter__figures">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-data-goal-meter__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label}">
+                <p class="g-data-goal-meter__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                </p>
+            </f:if>
+        </div>
+
     </div>
 </section>
 

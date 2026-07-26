@@ -13,5 +13,23 @@
         <target>Rendert die Beträge, die einmal anfallen statt monatlich: Einrichtung, Umzug, Schulung, Sonderentwicklung, Entsorgung. Jede Zeile nennt die Leistung, den Betrag und was damit abgedeckt ist. Einsetzen für: Einrichtungskosten unter einer Abotabelle, Umsetzungsbeträge in einem Angebot, eine Montagepreisliste, die Fixposten eines Projekts. Für verbrauchsabhängig wiederkehrende Beträge ist die &apos;Verbrauchspreis-Tabelle&apos; richtig, für mitlaufende Extras sind es die &apos;Zusatzleistungen&apos;.</target>
       </segment>
     </unit>
+    <unit id="column.service">
+      <segment state="final">
+        <source>Service</source>
+        <target>Leistung</target>
+      </segment>
+    </unit>
+    <unit id="column.fee">
+      <segment state="final">
+        <source>Fee</source>
+        <target>Betrag</target>
+      </segment>
+    </unit>
+    <unit id="column.covers">
+      <segment state="final">
+        <source>What the fee covers</source>
+        <target>Was der Betrag abdeckt</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

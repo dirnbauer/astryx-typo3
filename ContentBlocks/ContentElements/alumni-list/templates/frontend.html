@@ -5,14 +5,73 @@
 <f:asset.css identifier="g-alumni-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child role carries the years and the text carries the current position, so a row reads as a sentence from left to right.
+    A row reads as a sentence from left to right: the face, the name, the years
+    they were here, then where they went. The child's role carries the years
+    and its text carries the current position, and the source order is that
+    order — which is the only arrangement that survives being read aloud.
+
+    The years stay plain text rather than becoming a <time> element. "2011–2019"
+    is not a machine-readable datetime, and dressing it up as one would put a
+    promise into the markup that nothing can keep.
+
+    The alt names the person: an alumni list is a page somebody searches for a
+    former colleague on, and a face that answers to nothing helps nobody.
 </f:comment>
 
-<section class="astryx-section g-alumni-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-alumni-list {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-alumni-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-alumni-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-alumni-list__people {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.people}" as="person">
+                <li class="g-alumni-list__row">
+
+                    <f:if condition="{person.image}">
+                        <span class="astryx-avatar md g-alumni-list__portrait">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="{person.title}" width="72c" height="72c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <span class="g-alumni-list__detail">
+                        <span class="g-alumni-list__headline">
+                            <span class="astryx-text label g-alumni-list__name">
+                                <f:if condition="{person.link.url}">
+                                    <f:then><f:link.typolink parameter="{person.link}" class="astryx-link quiet">{person.title}</f:link.typolink></f:then>
+                                    <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </span>
+
+                            <f:if condition="{person.role}">
+                                <span class="astryx-timestamp g-alumni-list__years">{person -> f:render.text(field: 'role')}</span>
+                            </f:if>
+                        </span>
+
+                        <f:if condition="{person.text}">
+                            <span class="astryx-text supporting g-alumni-list__where">{person -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </span>
+
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-alumni-list__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

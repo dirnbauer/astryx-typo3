@@ -5,6 +5,67 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-status-list {
-  display: block;
+.g-data-status-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-data-status-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-status-list__rows {
+  border-block: var(--border-width) solid var(--color-border);
+}
+
+/* The dot has to sit on the first line of the label rather than on the middle
+   of a two-line row, which is what the margin buys. */
+.g-data-status-list__dot {
+  margin-block-start: calc((1em * var(--text-body-leading) - var(--spacing-2)) / 2);
+}
+
+.g-data-status-list__service {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-status-list__state {
+  white-space: nowrap;
+}
+
+.g-data-status-list__note {
+  margin-block-start: var(--spacing-5);
+}
+
+.g-data-status-list__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-5);
+}
+
+.g-data-status-list.accent .g-data-status-list__rows {
+  border-color: currentColor;
+}
+
+.g-data-status-list.accent .astryx-item-description,
+.g-data-status-list.accent .g-data-status-list__lead,
+.g-data-status-list.accent .astryx-eyebrow,
+.g-data-status-list.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* The state word set beside a long service name leaves the name two words a
+     line; on its own line both read normally. */
+  .g-data-status-list__row {
+    flex-wrap: wrap;
+  }
+
+  .g-data-status-list__row .astryx-item-end {
+    margin-inline-start: var(--spacing-4);
+  }
 }

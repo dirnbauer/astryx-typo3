@@ -5,6 +5,152 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-benchmark-compare {
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-benchmark-compare__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-benchmark-compare__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-benchmark-compare__chart {
+  margin: 0;
+}
+
+.g-data-benchmark-compare__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2) var(--spacing-6);
+  margin-block-end: var(--spacing-6);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-data-benchmark-compare__key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.g-data-benchmark-compare__swatch {
+  inline-size: var(--spacing-3);
+  block-size: var(--spacing-3);
+  border-radius: var(--radius-inner);
+}
+
+.g-data-benchmark-compare__swatch.is-ours,
+.g-data-benchmark-compare__series.is-ours .g-data-benchmark-compare__bar {
+  background-color: var(--color-accent);
+}
+
+/* The reference series is deliberately quieter: it is the thing being measured
+   against, not a second claim competing with the first. */
+.g-data-benchmark-compare__swatch.is-reference,
+.g-data-benchmark-compare__series.is-reference .g-data-benchmark-compare__bar {
+  background-color: var(--color-text-disabled);
+}
+
+.g-data-benchmark-compare__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  margin: 0;
+  padding: 0;
+}
+
+.g-data-benchmark-compare__row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 16rem) 1fr;
+  align-items: center;
+  gap: var(--spacing-1) var(--spacing-4);
+}
+
+.g-data-benchmark-compare__criterion {
+  margin: 0;
+  grid-row: span 2;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-benchmark-compare__series {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-data-benchmark-compare__track {
+  block-size: var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+  overflow: hidden;
+}
+
+/* The whole visualisation: two widths on one 0 to 100 scale, taken from the
+   digits typed into the row's value and its text. */
+.g-data-benchmark-compare__bar {
   display: block;
+  block-size: 100%;
+  inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
+  border-radius: var(--radius-full);
+}
+
+.g-data-benchmark-compare__figure {
+  min-inline-size: 3rem;
+  text-align: end;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-benchmark-compare__series.is-reference .g-data-benchmark-compare__figure {
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+}
+
+.g-data-benchmark-compare__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-benchmark-compare.accent .g-data-benchmark-compare__track {
+  background-color: var(--color-overlay-hover);
+}
+
+.g-data-benchmark-compare.accent .g-data-benchmark-compare__swatch.is-ours,
+.g-data-benchmark-compare.accent .g-data-benchmark-compare__series.is-ours .g-data-benchmark-compare__bar {
+  background-color: currentColor;
+}
+
+.g-data-benchmark-compare.accent .g-data-benchmark-compare__lead,
+.g-data-benchmark-compare.accent .g-data-benchmark-compare__legend,
+.g-data-benchmark-compare.accent .astryx-eyebrow,
+.g-data-benchmark-compare.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-benchmark-compare__row {
+    grid-template-columns: 1fr;
+  }
+
+  .g-data-benchmark-compare__criterion {
+    grid-row: auto;
+  }
 }

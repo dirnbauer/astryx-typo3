@@ -5,6 +5,94 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-case-study-metrics {
-  display: block;
+.g-case-study-metrics__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-case-study-metrics__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-case-study-metrics__metrics {
+  margin: 0;
+}
+
+/* A definition list fixes the source order as term-then-value; the figure has
+   to read the other way round, so the visual order is set here. */
+.g-case-study-metrics__metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-case-study-metrics__value {
+  order: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-case-study-metrics__label {
+  order: 2;
+  color: var(--color-text-primary);
+}
+
+.g-case-study-metrics__method {
+  order: 3;
+  margin: 0;
+}
+
+.g-case-study-metrics__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-2-size);
+  font-weight: var(--text-display-2-weight);
+  line-height: var(--text-display-2-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-case-study-metrics__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-case-study-metrics__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 60ch;
+}
+
+.g-case-study-metrics__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-case-study-metrics.accent .g-case-study-metrics__value {
+  color: currentColor;
+}
+
+.g-case-study-metrics.accent .g-case-study-metrics__lead,
+.g-case-study-metrics.accent .g-case-study-metrics__unit,
+.g-case-study-metrics.accent .astryx-eyebrow,
+.g-case-study-metrics.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-case-study-metrics__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-case-study-metrics__number {
+    font-size: var(--text-display-3-size);
+    line-height: var(--text-display-3-leading);
+  }
 }

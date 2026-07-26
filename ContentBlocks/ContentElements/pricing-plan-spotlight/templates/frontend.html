@@ -5,14 +5,84 @@
 <f:asset.css identifier="g-pricing-plan-spotlight" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Only one spotlight per page; two of them cancel each other out. The image is optional and drops out first on narrow screens.
+    The entitlements are one list flowed into columns rather than several lists
+    side by side: split into real columns they would read across the band, and a
+    plan's contents are one enumeration however wide the room is.
 </f:comment>
 
-<section class="astryx-section g-pricing-plan-spotlight" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pricing-plan-spotlight {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout xl">
+        <div class="astryx-split g-pricing-plan-spotlight__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-pricing-plan-spotlight__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text large g-pricing-plan-spotlight__scope">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+
+                <div class="g-pricing-plan-spotlight__anchor">
+                    <f:if condition="{data.badge_text}">
+                        <p class="g-pricing-plan-spotlight__flag"><span class="astryx-badge accent">{data -> f:render.text(field: 'badge_text')}</span></p>
+                    </f:if>
+
+                    <p class="g-pricing-plan-spotlight__figure">
+                        <span class="astryx-text display-2 g-pricing-plan-spotlight__amount">{data -> f:render.text(field: 'price')}</span><f:if condition="{data.period}"><span class="astryx-text large g-pricing-plan-spotlight__period">{data -> f:render.text(field: 'period')}</span></f:if>
+                    </p>
+
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <div class="astryx-button-group g-pricing-plan-spotlight__actions">
+                            <f:if condition="{data.cta_label}">
+                                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                            </f:if>
+                        </div>
+                    </f:if>
+
+                    <f:if condition="{data.note}">
+                        <p class="astryx-text supporting g-pricing-plan-spotlight__note">{data -> f:render.text(field: 'note')}</p>
+                    </f:if>
+                </div>
+            </div>
+
+            <div class="g-pricing-plan-spotlight__detail">
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-pricing-plan-spotlight__argument"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <ul class="astryx-list compact g-pricing-plan-spotlight__features">
+                    <f:for each="{data.features}" as="feature">
+                        <li class="g-pricing-plan-spotlight__feature" data-included="{f:if(condition: feature.included, then: 'yes', else: 'no')}">
+                            <f:if condition="{feature.included}">
+                                <f:then><svg class="g-pricing-plan-spotlight__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-plan-spotlight/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
+                                <f:else><svg class="g-pricing-plan-spotlight__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-plan-spotlight/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+                            </f:if>
+
+                            <span class="g-pricing-plan-spotlight__feature-label">{feature -> f:render.text(field: 'title')}</span>
+
+                            <f:if condition="{feature.value}">
+                                <span class="astryx-badge outline g-pricing-plan-spotlight__qualifier">{feature.value}</span>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+
+                <f:if condition="{data.image}">
+                    <figure class="g-pricing-plan-spotlight__media">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy" class="g-pricing-plan-spotlight__image"/>
+                        </f:for>
+                    </figure>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

@@ -5,6 +5,88 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-deadline-cta {
-  display: block;
+.g-conversion-deadline-cta__card {
+  gap: var(--spacing-4);
+  align-items: flex-start;
+}
+
+.g-conversion-deadline-cta[data-align='center'] .g-conversion-deadline-cta__card {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-deadline-cta__flags {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+/* The figure and its unit share a baseline: a number set large beside a word
+   set small only reads as one statement if they sit on the same line. */
+.g-conversion-deadline-cta__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-conversion-deadline-cta__value {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-2-size);
+  font-weight: var(--text-display-2-weight);
+  line-height: var(--text-display-2-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--color-text-accent);
+}
+
+.g-conversion-deadline-cta__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-deadline-cta__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-deadline-cta__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+/* The deadline itself lives in the note, so it must not be the quietest
+   thing on the card. */
+.g-conversion-deadline-cta__note {
+  margin: 0;
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+  inline-size: 100%;
+}
+
+.g-conversion-deadline-cta.accent .astryx-card {
+  background-color: transparent;
+  box-shadow: none;
+  color: currentColor;
+}
+
+.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__value,
+.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__unit,
+.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__lead,
+.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__note,
+.g-conversion-deadline-cta.accent .astryx-eyebrow {
+  color: currentColor;
+}
+
+.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__note {
+  border-color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-deadline-cta__card {
+    --card-padding: var(--spacing-5);
+  }
 }

@@ -1,1 +1,28 @@
-{}
+{
+    "_type": "team",
+    "eyebrow": "Leadership Row",
+    "header": "A handful of people, larger, with a line each",
+    "lead": "Two to six people at the avatar's largest size, each with a role, a short biography and a link on the name. Past six the row stops reading as leadership and starts reading as a small team grid, which is what the maximum is for.",
+    "columns": "3",
+    "align": "start",
+    "tone": "surface",
+    "width": "lg",
+    "people": [
+        {
+            "title": "The portrait is a circle",
+            "role": "the shared avatar at its largest size",
+            "text": "Which is what tells this band apart from the framed rectangles of Team Grid when both sit on one page.",
+            "link": "#"
+        },
+        {
+            "title": "The name is the link",
+            "role": "and the heading is the accessible name",
+            "text": "Rather than a second, vaguer target underneath repeating the same destination in weaker words."
+        },
+        {
+            "title": "Centred moves the whole cell",
+            "role": "portrait, name, role and biography together",
+            "text": "The align field centres the intro as well, so nothing is left hanging off the start edge of a centred column."
+        }
+    ]
+}

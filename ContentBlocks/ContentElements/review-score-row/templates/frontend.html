@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-review-score-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The unit holds the scale, so a 4.7 out of 5 and a 92 out of 100 can sit in the same row without either looking wrong.
+    No stars in this band. Each platform reports on its own scale, and a row of
+    five-star graphics would quietly convert 92 out of 100 into something it is
+    not. The unit carries the scale in words instead, so the figures stay
+    comparable without pretending to be the same measure.
 </f:comment>
 
-<section class="astryx-section g-review-score-row" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-review-score-row {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-review-score-row__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-review-score-row__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-review-score-row__scores">
+            <f:for each="{data.scores}" as="score">
+                <li class="astryx-card g-review-score-row__score">
+                    <f:if condition="{score.icon}">
+                        <span class="astryx-feature-icon" data-icon="{score.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-text label g-review-score-row__platform">{score -> f:render.text(field: 'title')}</h3>
+
+                    <p class="g-review-score-row__figure">
+                        <span class="g-review-score-row__value">{score -> f:render.text(field: 'value')}</span><f:if condition="{score.unit}"><span class="g-review-score-row__scale">{score -> f:render.text(field: 'unit')}</span></f:if>
+                    </p>
+
+                    <f:if condition="{score.text}">
+                        <p class="astryx-text supporting g-review-score-row__count">{score -> f:render.text(field: 'text')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-review-score-row__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -1,1 +1,38 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Allocation Breakdown",
+    "header": "Where a total goes, line by line",
+    "value": "100",
+    "unit": "% of a total",
+    "lead": "The percentage on each row draws its bar; the amount beside it is typed exactly as it should be printed, currency symbol and all. Nothing is converted, summed or reformatted.",
+    "note": "Use Distribution Bars when the rows are counts rather than money, and Share Bar when a single stacked bar tells the story faster.",
+    "tone": "body",
+    "width": "md",
+    "compact": 0,
+    "metrics": [
+        {
+            "value": "45",
+            "unit": "%",
+            "title": "The largest line",
+            "text": "€ 45,000"
+        },
+        {
+            "value": "30",
+            "unit": "%",
+            "title": "A second line",
+            "text": "€ 30,000"
+        },
+        {
+            "value": "18",
+            "unit": "%",
+            "title": "A third line",
+            "text": "€ 18,000"
+        },
+        {
+            "value": "7",
+            "unit": "%",
+            "title": "Everything else",
+            "text": "€ 7,000"
+        }
+    ]
+}

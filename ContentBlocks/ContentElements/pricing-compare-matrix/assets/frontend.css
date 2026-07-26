@@ -5,6 +5,91 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-compare-matrix {
+.g-pricing-compare-matrix__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-compare-matrix__lead {
+  color: var(--color-text-secondary);
+}
+
+/* A caption is centred and dropped below the table by default; here it is the
+   table's title and belongs above it, on the reading edge. */
+.g-pricing-compare-matrix__caption {
+  caption-side: top;
+  text-align: start;
+  padding-block-end: var(--spacing-3);
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-compare-matrix__feature {
+  inline-size: 38%;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-pricing-compare-matrix__value {
+  display: table-cell;
+}
+
+.g-pricing-compare-matrix__caveat {
   display: block;
+  margin-block-start: var(--spacing-0-5);
+}
+
+.g-pricing-compare-matrix__col-state,
+.g-pricing-compare-matrix__state {
+  inline-size: 1%;
+  white-space: nowrap;
+}
+
+.g-pricing-compare-matrix__mark {
+  display: inline-block;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  vertical-align: middle;
+}
+
+.g-pricing-compare-matrix__table tr[data-included='yes'] .g-pricing-compare-matrix__mark {
+  color: var(--color-success);
+}
+
+.g-pricing-compare-matrix__table tr[data-included='no'] .g-pricing-compare-matrix__mark,
+.g-pricing-compare-matrix__table tr[data-included='no'] .g-pricing-compare-matrix__feature,
+.g-pricing-compare-matrix__table tr[data-included='no'] .g-pricing-compare-matrix__value-text {
+  color: var(--color-text-secondary);
+}
+
+/* One plan's column, meant to stand beside its siblings: the table stops
+   filling the band and takes only the width a single column needs. */
+.g-pricing-compare-matrix[data-variant='plan-column'] .g-pricing-compare-matrix__wrap {
+  max-inline-size: 32rem;
+}
+
+.g-pricing-compare-matrix__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-pricing-compare-matrix.accent .g-pricing-compare-matrix__lead,
+.g-pricing-compare-matrix.accent .g-pricing-compare-matrix__caption,
+.g-pricing-compare-matrix.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  /* Three columns of prose do not fit a phone; the wrapper takes the scroll so
+     the page never does. */
+  .g-pricing-compare-matrix__table {
+    min-inline-size: 34rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-pricing-compare-matrix__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

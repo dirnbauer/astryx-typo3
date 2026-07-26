@@ -5,14 +5,52 @@
 <f:asset.css identifier="g-footer-newsletter-strip" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The prompt, not the form: the button leads to the sign-up page, and the frequency and unsubscribe sentence belongs in `note`.
+    The prompt, not the form: the button leads to the sign-up page, so this
+    strip never collects an address and never has to obtain consent for one. The
+    frequency and unsubscribe sentence still belongs here, because that is what
+    somebody weighs up before they click — telling them after the fact is how a
+    newsletter earns its unsubscribes.
+
+    The picture is decoration beside a heading that already says what this is,
+    so it takes an empty alt.
 </f:comment>
 
-<section class="astryx-section g-footer-newsletter-strip" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-newsletter-strip {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-footer-newsletter-strip__strip">
+
+            <f:if condition="{data.image}">
+                <div class="g-footer-newsletter-strip__mark">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy" class="g-footer-newsletter-strip__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+            <div class="g-footer-newsletter-strip__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-newsletter-strip__lead">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.cta_label}">
+                <div class="g-footer-newsletter-strip__action">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-newsletter-strip__small-print">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

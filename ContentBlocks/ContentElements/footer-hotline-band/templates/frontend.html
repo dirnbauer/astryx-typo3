@@ -5,14 +5,56 @@
 <f:asset.css identifier="g-footer-hotline-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): `value` holds the number as it should be read, `cta_link` the tel: URL and `text` the staffed hours; a dedicated phone field would suit this better than `value`.
+    The number itself is the link, and the number as a human reads it is the
+    link's text: on a phone that is one tap, on paper it is still a number, and
+    a screen reader announces the digits rather than "call now" with no idea
+    what it dials. The call-to-action label rides inside the same anchor as its
+    second line, so the band has one telephone link instead of two that lead to
+    the same place.
+
+    Nothing here checks the time — the staffed hours are a sentence an editor
+    keeps true, not a state this band works out for itself.
 </f:comment>
 
-<section class="astryx-section g-footer-hotline-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-hotline-band {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-footer-hotline-band__panel">
+
+            <div class="g-footer-hotline-band__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-hotline-band__hours">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
+
+            <div class="g-footer-hotline-band__call">
+                <f:if condition="{data.icon}">
+                    <span class="astryx-feature-icon g-footer-hotline-band__icon" data-icon="{data.icon}" aria-hidden="true"></span>
+                </f:if>
+
+                <f:link.typolink parameter="{data.cta_link}" class="g-footer-hotline-band__number-link">
+                    <span class="astryx-text display-3 g-footer-hotline-band__number">{data.value}</span>
+                    <f:if condition="{data.cta_label}">
+                        <span class="astryx-text label g-footer-hotline-band__action">{data.cta_label}</span>
+                    </f:if>
+                </f:link.typolink>
+
+                <f:if condition="{data.secondary_label}">
+                    <f:link.typolink parameter="{data.secondary_link}" class="astryx-button secondary g-footer-hotline-band__second">{data.secondary_label}</f:link.typolink>
+                </f:if>
+            </div>
+
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-hotline-band__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

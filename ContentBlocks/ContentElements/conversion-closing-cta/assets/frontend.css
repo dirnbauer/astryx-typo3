@@ -5,6 +5,60 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-closing-cta {
-  display: block;
+.g-conversion-closing-cta__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  /* A closing ask that runs the full container width reads as one more
+     paragraph rather than as the end of the page. */
+  max-inline-size: 40rem;
+}
+
+.g-conversion-closing-cta[data-align='center'] .g-conversion-closing-cta__inner {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-closing-cta__subheader,
+.g-conversion-closing-cta__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-closing-cta__actions {
+  margin-block-start: var(--spacing-2);
+  gap: var(--spacing-5);
+}
+
+.g-conversion-closing-cta__note {
+  margin: 0;
+}
+
+/* On the accent band the secondary text colour is tuned for the page
+   background and would fall out of contrast. */
+.g-conversion-closing-cta.accent .g-conversion-closing-cta__subheader,
+.g-conversion-closing-cta.accent .g-conversion-closing-cta__lead,
+.g-conversion-closing-cta.accent .g-conversion-closing-cta__note,
+.g-conversion-closing-cta.accent .g-conversion-closing-cta__secondary,
+.g-conversion-closing-cta.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-closing-cta__inner {
+    max-inline-size: none;
+  }
+
+  /* Stacked, the link needs a line of its own or it sits half under the
+     button and stops looking like the quieter option. */
+  .g-conversion-closing-cta__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-4);
+  }
+
+  .g-conversion-closing-cta__secondary {
+    justify-content: center;
+  }
 }

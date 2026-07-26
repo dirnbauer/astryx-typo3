@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-metric-trend {
-  display: block;
+.g-data-metric-trend__tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 34rem;
+}
+
+.g-data-metric-trend__tile.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-data-metric-trend__name {
+  color: var(--color-text-secondary);
+}
+
+.g-data-metric-trend__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-data-metric-trend__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-metric-trend__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-metric-trend__change,
+.g-data-metric-trend__context,
+.g-data-metric-trend__note {
+  margin: 0;
+}
+
+.g-data-metric-trend__note {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-data-metric-trend.accent .g-data-metric-trend__figure,
+.g-data-metric-trend.accent .g-data-metric-trend__name {
+  color: currentColor;
+}
+
+.g-data-metric-trend.accent .g-data-metric-trend__unit,
+.g-data-metric-trend.accent .astryx-eyebrow,
+.g-data-metric-trend.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-metric-trend__tile {
+    max-inline-size: none;
+  }
 }

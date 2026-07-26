@@ -1,1 +1,30 @@
-{}
+{
+    "_type": "team",
+    "eyebrow": "Speaker Lineup",
+    "header": "Who is speaking, and about what",
+    "lead": "Portrait, name, affiliation and talk title per card. The child's link points at the session rather than at the person, which is what lets the same records serve as a programme index.",
+    "columns": "3",
+    "cta_label": "Register",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "speakers": [
+        {
+            "title": "The name heads the card",
+            "role": "The affiliation sits under it",
+            "text": "And the talk title closes the card, linked to the session",
+            "link": "#"
+        },
+        {
+            "title": "Talks end level",
+            "role": "whatever the affiliations did",
+            "text": "The talk is pushed to the foot of the card, so a row lines up"
+        },
+        {
+            "title": "A link makes the card the target",
+            "role": "with the talk carrying the name",
+            "text": "One link per card, aimed at the session it announces",
+            "link": "#"
+        }
+    ]
+}

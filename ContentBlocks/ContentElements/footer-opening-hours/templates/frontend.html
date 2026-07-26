@@ -5,14 +5,59 @@
 <f:asset.css identifier="g-footer-opening-hours" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Nothing here knows the time: no day is marked as today and no 'open now' state is shown — it is the published schedule, and exceptions go in `note`.
+    Nothing here reads the clock. No day is marked as today and no "open now"
+    badge is drawn, because this page is cached: a badge rendered at three in
+    the afternoon would still claim to be open at midnight, and a schedule that
+    lies once is a schedule nobody trusts again. Exceptions belong in the note,
+    where a human keeps them true.
+
+    A closed day says the word as well as striking the hours through, so the
+    state survives being read aloud.
 </f:comment>
 
-<section class="astryx-section g-footer-opening-hours" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-footer-opening-hours {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-opening-hours__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text body g-footer-opening-hours__lead">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-metadata-list g-footer-opening-hours__rows {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.rows}" as="row">
+                <div class="astryx-metadata-list-item g-footer-opening-hours__row {f:if(condition: row.included, then: 'is-open', else: 'is-closed')}">
+                    <dt class="g-footer-opening-hours__day">{row -> f:render.text(field: 'title')}</dt>
+
+                    <dd class="g-footer-opening-hours__hours">
+                        <f:if condition="{row.included}">
+                            <f:then>{row -> f:render.text(field: 'value')}</f:then>
+                            <f:else>
+                                <span class="g-footer-opening-hours__state"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-opening-hours/language/labels.xlf:row.closed" default="Closed"/></span>
+                                <f:if condition="{row.value}">
+                                    <s class="g-footer-opening-hours__struck">{row.value}</s>
+                                </f:if>
+                            </f:else>
+                        </f:if>
+                    </dd>
+
+                    <f:if condition="{row.text}">
+                        <dd class="astryx-text supporting g-footer-opening-hours__qualifier">{row -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-opening-hours__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

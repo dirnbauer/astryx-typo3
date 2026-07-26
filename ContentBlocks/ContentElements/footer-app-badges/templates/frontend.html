@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-footer-app-badges" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Badges are icon links from the shared library and the QR code is an editor-supplied image, so nothing is fetched from a store at render time.
+    The badges are icon links from the shared library and the QR code is an
+    image an editor uploaded, so opening the page fetches nothing from a store
+    and no request tells anybody which app this visitor was shown.
+
+    Each badge names its store in text: a badge that is only artwork is a link
+    with no accessible name, and on a desktop the QR code is the only part of
+    the band a reader cannot use at all.
 </f:comment>
 
-<section class="astryx-section g-footer-app-badges" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-footer-app-badges {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-app-badges__inner">
+
+            <div class="g-footer-app-badges__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-app-badges__lead">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <ul class="g-footer-app-badges__stores">
+                    <f:for each="{data.links}" as="store">
+                        <li>
+                            <f:link.typolink parameter="{store.link}" class="g-footer-app-badges__badge">
+                                <span class="g-footer-app-badges__glyph" data-icon="{store.icon}" aria-hidden="true"></span>
+                                <span class="g-footer-app-badges__labels">
+                                    <f:if condition="{store.description}">
+                                        <span class="g-footer-app-badges__kicker">{store.description}</span>
+                                    </f:if>
+                                    <span class="g-footer-app-badges__store">{store.title}</span>
+                                </span>
+                            </f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-footer-app-badges__qr">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" width="160" height="160" loading="lazy" class="g-footer-app-badges__qr-image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
+
     </div>
 </section>
 

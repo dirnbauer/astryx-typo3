@@ -1,1 +1,27 @@
-{}
+{
+    "_type": "social-proof",
+    "eyebrow": "Social Mentions Wall",
+    "header": "Short public posts, stored as text",
+    "lead": "Three to eighteen cards, each a figure: the post in a blockquote, the handle and the origin in the caption. Cards keep their natural height, because a wall of unsolicited posts that all end level looks edited.",
+    "note": "Nothing is embedded, so no third-party script runs and no consent prompt appears.",
+    "columns": "3",
+    "tone": "muted",
+    "width": "lg",
+    "posts": [
+        {
+            "quote_text": "The post text goes in the quote field and is reproduced without quotation marks — an editor did not choose where it started.",
+            "author": "@the_first_card",
+            "role": "Where and when"
+        },
+        {
+            "quote_text": "The handle goes in the author field, the platform and date in the role field, and both sit above the words.",
+            "author": "@the_second_card",
+            "role": "Forum, a date"
+        },
+        {
+            "quote_text": "Three to eighteen posts across two, three or four columns.",
+            "author": "@the_third_card",
+            "role": "User group, another date"
+        }
+    ]
+}

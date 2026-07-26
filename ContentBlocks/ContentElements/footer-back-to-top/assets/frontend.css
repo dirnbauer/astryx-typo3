@@ -5,6 +5,53 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-back-to-top {
-  display: block;
+.g-footer-back-to-top__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3) var(--spacing-6);
+  padding-block: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-footer-back-to-top__text {
+  margin: 0;
+  max-inline-size: 70ch;
+}
+
+/* The arrow is drawn rather than fetched, so there is no icon request and
+   nothing to fall back from; it is a pseudo-element, so it never reaches the
+   accessible name of the link. */
+.g-footer-back-to-top__link::after {
+  content: '';
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-block-start: 2px solid currentColor;
+  border-inline-end: 2px solid currentColor;
+  rotate: -45deg;
+  translate: 0 var(--spacing-0-5);
+}
+
+.g-footer-back-to-top[data-align='center'] .g-footer-back-to-top__bar {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.g-footer-back-to-top.accent .g-footer-back-to-top__bar {
+  border-block-start-color: currentColor;
+}
+
+.g-footer-back-to-top.accent .g-footer-back-to-top__text {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* The band is one line of two things; on a phone the link takes the whole
+     width rather than sitting as a stub beside a wrapped sentence. */
+  .g-footer-back-to-top__link {
+    inline-size: 100%;
+  }
 }

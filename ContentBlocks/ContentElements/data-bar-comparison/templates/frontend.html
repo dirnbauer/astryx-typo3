@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-data-bar-comparison" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): No chart library ships with this theme: each bar is a grid cell whose width is the percentage typed on the row, so scale the values yourself before entering them.
+    A figure with its caption, because the caption is what names the scale the
+    bars are drawn against; without it the lengths compare nothing. The label
+    and the number are a description-list pair, and the bar between them is the
+    only part that is decoration.
 </f:comment>
 
-<section class="astryx-section g-data-bar-comparison" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-bar-comparison {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-bar-comparison__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-bar-comparison__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <figure class="g-data-bar-comparison__chart">
+            <f:if condition="{data.caption}">
+                <figcaption class="astryx-text label g-data-bar-comparison__caption">{data -> f:render.text(field: 'caption')}</figcaption>
+            </f:if>
+
+            <dl class="g-data-bar-comparison__rows {f:if(condition: data.compact, then: 'compact')}">
+                <f:for each="{data.metrics}" as="metric">
+                    <div class="g-data-bar-comparison__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                        <dt class="g-data-bar-comparison__label">{metric -> f:render.text(field: 'title')}</dt>
+                        <dd class="g-data-bar-comparison__plot" aria-hidden="true"><span class="g-data-bar-comparison__bar"></span></dd>
+                        <dd class="g-data-bar-comparison__value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
+                        <f:if condition="{metric.text}">
+                            <dd class="astryx-text supporting g-data-bar-comparison__detail">{metric -> f:render.text(field: 'text')}</dd>
+                        </f:if>
+                    </div>
+                </f:for>
+            </dl>
+        </figure>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-bar-comparison__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -5,14 +5,49 @@
 <f:asset.css identifier="g-community-stats" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Figures are stored as text so an editor can write 12k or 12,400 and keep the register the page needs.
+    Figures are stored as text, not as numbers, so an editor can write 12k or
+    12,400 and keep whichever register the page needs. Formatting a stored
+    integer would take that decision away and get the thousands separator wrong
+    in at least one of the languages this catalog ships.
 </f:comment>
 
-<section class="astryx-section g-community-stats" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-community-stats {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-community-stats__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-community-stats__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-grid cols-{data.columns} g-community-stats__stats">
+            <f:for each="{data.stats}" as="stat">
+                <div class="g-community-stats__stat">
+                    <dt class="astryx-text label g-community-stats__label">{stat -> f:render.text(field: 'title')}</dt>
+
+                    <dd class="g-community-stats__value">
+                        <span class="g-community-stats__number">{stat -> f:render.text(field: 'value')}</span><f:if condition="{stat.unit}"><span class="g-community-stats__unit">{stat -> f:render.text(field: 'unit')}</span></f:if>
+                    </dd>
+
+                    <f:if condition="{stat.text}">
+                        <dd class="astryx-text supporting g-community-stats__note">{stat -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-community-stats__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+            </p>
         </f:if>
+
     </div>
 </section>
 

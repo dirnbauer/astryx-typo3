@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-conversion-waitlist" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): value/unit hold the social-proof count ('2,400' / 'already waiting'); it is typed by an editor, never counted, so keep it plausible and update it.
+    The count is a figure an editor types, not one the element queries. It is
+    therefore only ever as true as the last time somebody looked, which is why
+    the note is the right place to say when that was.
 </f:comment>
 
-<section class="astryx-section g-conversion-waitlist" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-waitlist {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout md">
+        <div class="astryx-card roomy g-conversion-waitlist__card {f:if(condition: data.image, then: 'media-top')}">
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-waitlist__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="lazy" class="g-conversion-waitlist__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-conversion-waitlist__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.value}">
+                <p class="g-conversion-waitlist__figure">
+                    <span class="g-conversion-waitlist__value">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-conversion-waitlist__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
+                </p>
+            </f:if>
+
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-conversion-waitlist__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-waitlist__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

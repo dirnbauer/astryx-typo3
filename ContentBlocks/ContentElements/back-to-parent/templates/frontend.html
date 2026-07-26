@@ -5,14 +5,49 @@
 <f:asset.css identifier="g-back-to-parent" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Falls back to the parent page from the rootline when cta_link is left empty, so the element still works on a page that gets moved.
+    With the link left empty the band falls back to the page above this one,
+    taken from {trail} — the rootline, put on this CType by the theme's
+    setup.typoscript, because lib.contentBlock hands a content element its own
+    record and nothing else. The parent is the last crumb that is not the
+    current page, which is why the loop keeps the one before the end.
+
+    That fallback is the point of the element: a detail page that gets moved
+    to a different section still points home afterwards, and nobody has to
+    remember to repoint it.
 </f:comment>
 
-<section class="astryx-section g-back-to-parent" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="parentTitle" value=""/>
+<f:variable name="parentLink" value=""/>
+<f:for each="{trail}" as="crumb" iteration="step">
+    <f:if condition="!{step.isLast}">
+        <f:variable name="parentTitle" value="{crumb.title}"/>
+        <f:variable name="parentLink" value="{crumb.link}"/>
+    </f:if>
+</f:for>
+
+<f:variable name="backLabel">{f:if(condition: data.cta_label, then: data.cta_label, else: parentTitle)}</f:variable>
+
+<section class="astryx-section tight g-back-to-parent {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <nav class="g-back-to-parent__nav {f:if(condition: data.compact, then: 'tight', else: 'boxed')}"
+             aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.backToSection', default: 'Back to the section')}">
+
+            <f:if condition="{data.cta_link.url}">
+                <f:then>
+                    <f:link.typolink parameter="{data.cta_link}" class="g-back-to-parent__link">
+                        <span class="g-back-to-parent__label">{backLabel}</span>
+                    </f:link.typolink>
+                </f:then>
+                <f:else>
+                    <f:if condition="{parentLink}">
+                        <a class="g-back-to-parent__link" href="{parentLink}">
+                            <span class="g-back-to-parent__label">{backLabel}</span>
+                        </a>
+                    </f:if>
+                </f:else>
+            </f:if>
+
+        </nav>
     </div>
 </section>
 

@@ -5,6 +5,141 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-trend-strip {
-  display: block;
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-trend-strip__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-trend-strip__headline {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-1) var(--spacing-3);
+  color: var(--color-text-accent);
+}
+
+.g-data-trend-strip__total {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-trend-strip__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-trend-strip__change {
+  color: var(--color-text-primary);
+}
+
+.g-data-trend-strip__lead {
+  color: var(--color-text-secondary);
+}
+
+/* One grid for the whole strip with the columns as subgrids, so every column's
+   bar starts at the same baseline and the label rows keep one height even
+   where a label has been taken out of the visual layer. */
+.g-data-trend-strip__strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  grid-template-rows: 1fr auto auto;
+  gap: var(--spacing-1);
+  block-size: 15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-data-trend-strip__col {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  justify-items: center;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+/* The whole visualisation: a height taken from the percentage typed on the
+   period. The minimum keeps a zero month visible as a zero rather than as a
+   gap in the strip. */
+.g-data-trend-strip__bar {
+  align-self: end;
+  inline-size: 100%;
+  block-size: clamp(2px, calc(var(--value) * 1%), 100%);
+  border-radius: var(--radius-inner) var(--radius-inner) var(--radius-none) var(--radius-none);
+  background-color: var(--color-accent);
+}
+
+.g-data-trend-strip__reading {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-trend-strip__period {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Nine periods is where the labels start colliding. Past that the middle ones
+   leave the visual layer and nothing else — they are still read, still copied
+   and still found by a page search. */
+.g-data-trend-strip__strip:has(> :nth-child(9)) .g-data-trend-strip__col.is-mid > :where(.g-data-trend-strip__reading, .g-data-trend-strip__period) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.g-data-trend-strip__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-trend-strip.accent .g-data-trend-strip__bar {
+  background-color: currentColor;
+}
+
+.g-data-trend-strip.accent .g-data-trend-strip__headline,
+.g-data-trend-strip.accent .g-data-trend-strip__change {
+  color: currentColor;
+}
+
+.g-data-trend-strip.accent .g-data-trend-strip__lead,
+.g-data-trend-strip.accent .g-data-trend-strip__unit,
+.g-data-trend-strip.accent .g-data-trend-strip__period,
+.g-data-trend-strip.accent .astryx-eyebrow,
+.g-data-trend-strip.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-trend-strip__strip {
+    block-size: 11rem;
+    gap: 2px;
+  }
 }

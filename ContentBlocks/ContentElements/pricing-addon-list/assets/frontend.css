@@ -5,6 +5,104 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-addon-list {
-  display: block;
+.g-pricing-addon-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-addon-list__scope,
+.g-pricing-addon-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-addon-list__addons {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-pricing-addon-list__price {
+  margin: 0;
+}
+
+.g-pricing-addon-list__amount {
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-pricing-addon-list__what {
+  color: var(--color-text-secondary);
+}
+
+/* ------------------------------------------------------------ list variant */
+.g-pricing-addon-list[data-variant='list'] .g-pricing-addon-list__addon {
+  align-items: baseline;
+  gap: var(--spacing-6);
+}
+
+.g-pricing-addon-list[data-variant='list'] .g-pricing-addon-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-pricing-addon-list[data-variant='list'] .g-pricing-addon-list__what {
+  max-inline-size: 52ch;
+}
+
+/* The prices form the column a reader scans down, so they are pinned to the
+   end edge rather than following the length of the name beside them. */
+.g-pricing-addon-list[data-variant='list'] .g-pricing-addon-list__price {
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+/* ----------------------------------------------------------- cards variant */
+/* Grid children stretch, so every card is as tall as the tallest of its row and
+   the prices land on one optical line whatever the copy does below them. */
+.g-pricing-addon-list[data-variant='cards'] .g-pricing-addon-list__addon {
+  block-size: 100%;
+}
+
+.g-pricing-addon-list__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-addon-list__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-addon-list.accent .g-pricing-addon-list__scope,
+.g-pricing-addon-list.accent .g-pricing-addon-list__lead,
+.g-pricing-addon-list.accent[data-variant='list'] .g-pricing-addon-list__what,
+.g-pricing-addon-list.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-addon-list[data-variant='list'] .g-pricing-addon-list__addon {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .g-pricing-addon-list[data-variant='list'] .g-pricing-addon-list__price {
+    margin-inline-start: 0;
+    text-align: start;
+  }
+
+  .g-pricing-addon-list__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

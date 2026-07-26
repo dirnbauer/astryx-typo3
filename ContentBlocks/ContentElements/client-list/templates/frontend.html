@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-client-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The inline variant runs the names as a wrapped comma-separated sentence; the columns variant balances them across CSS columns without reordering.
+    CSS columns rather than a grid, so sixty names flow evenly and still read
+    top-to-bottom in each column: a grid would put the second name beside the
+    first and make an alphabetical list impossible to scan.
 </f:comment>
 
-<section class="astryx-section g-client-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-client-list {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-client-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-client-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list compact g-client-list__names">
+            <f:for each="{data.clients}" as="client">
+                <li class="g-client-list__name">
+                    <f:if condition="{client.link.url}">
+                        <f:then><f:link.typolink parameter="{client.link}" class="astryx-link quiet">{client.title}</f:link.typolink></f:then>
+                        <f:else>{client -> f:render.text(field: 'title')}</f:else>
+                    </f:if>
+
+                    <f:if condition="{client.description}">
+                        <span class="astryx-text supporting g-client-list__sector">{client -> f:render.text(field: 'description')}</span>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-client-list__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

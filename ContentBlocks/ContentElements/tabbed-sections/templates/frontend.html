@@ -5,14 +5,57 @@
 <f:asset.css identifier="g-tabbed-sections" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Panels are all rendered into the page, so the text is in the source before anything binds; without JavaScript the panels simply stack with their titles as headings.
+    Every panel is written into the page and none of them starts hidden, so the
+    text is indexed, printed and searched in full. The shared runtime is what
+    takes the inactive ones out of the flow and adds the arrow keys the tab
+    pattern owes a keyboard; without it the band is a stack of headed sections,
+    longer but never broken.
 </f:comment>
 
-<section class="astryx-section g-tabbed-sections" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-tabbed-sections {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-tabbed-sections__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-tabbed-sections__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="g-tabbed-sections__tabs" data-g-tabs>
+            <div class="astryx-tab-list divided g-tabbed-sections__list" role="tablist"
+                 aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.tabs', default: 'Sections')}">
+                <f:for each="{data.panels}" as="panel" iteration="position">
+                    <button type="button"
+                            class="astryx-tab"
+                            role="tab"
+                            data-g-tab
+                            id="g-tabbed-sections-{data.uid}-tab-{position.index}"
+                            aria-controls="g-tabbed-sections-{data.uid}-panel-{position.index}"
+                            aria-selected="{f:if(condition: position.isFirst, then: 'true', else: 'false')}">{panel.title}</button>
+                </f:for>
+            </div>
+
+            <f:for each="{data.panels}" as="panel" iteration="position">
+                <section class="g-tabbed-sections__panel"
+                         role="tabpanel"
+                         id="g-tabbed-sections-{data.uid}-panel-{position.index}"
+                         aria-labelledby="g-tabbed-sections-{data.uid}-tab-{position.index}"
+                         tabindex="0">
+                    <h3 class="astryx-heading level-4 g-tabbed-sections__title">{panel -> f:render.text(field: 'title')}</h3>
+
+                    <f:if condition="{panel.bodytext}">
+                        <div class="astryx-prose g-tabbed-sections__body"><f:format.html>{panel.bodytext}</f:format.html></div>
+                    </f:if>
+                </section>
+            </f:for>
+        </div>
+
     </div>
 </section>
 

@@ -1,1 +1,35 @@
-{}
+{
+    "_type": "footer",
+    "header": "Icon links to the profiles you keep",
+    "text": "Every entry carries the network's name as text beside its icon, so the row survives an icon set that fails to load and reads correctly aloud. One to ten profiles.",
+    "align": "start",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "links": [
+        {
+            "title": "The title is the network",
+            "description": "The description is what you post there",
+            "icon": "brand-linkedin",
+            "link": "#"
+        },
+        {
+            "title": "The icon is a tile",
+            "description": "aria-hidden, decoration only",
+            "icon": "brand-instagram",
+            "link": "#"
+        },
+        {
+            "title": "Compact tightens the row",
+            "description": "and shrinks the tiles with it",
+            "icon": "brand-youtube",
+            "link": "#"
+        },
+        {
+            "title": "Below 480px",
+            "description": "one profile per line",
+            "icon": "rss",
+            "link": "#"
+        }
+    ]
+}

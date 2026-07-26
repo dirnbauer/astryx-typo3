@@ -5,14 +5,64 @@
 <f:asset.css identifier="g-conversion-event-signup" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Dates are editorial strings in the fact rows, not date fields; write the year out so an old band is obviously old.
+    The facts are a definition list, because that is what date-and-place is:
+    a term with a value. A grid of styled paragraphs would look the same and
+    tell a screen reader nothing about which half is which.
 </f:comment>
 
-<section class="astryx-section g-conversion-event-signup" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-event-signup {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-conversion-event-signup__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-event-signup__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text large g-conversion-event-signup__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-conversion-event-signup__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.facts}">
+                    <dl class="astryx-metadata-list g-conversion-event-signup__facts">
+                        <f:for each="{data.facts}" as="fact">
+                            <dt>{fact -> f:render.text(field: 'title')}</dt>
+                            <dd>{fact -> f:render.text(field: 'value')}<f:if condition="{fact.text}"> <span class="astryx-text supporting g-conversion-event-signup__fact-note">{fact -> f:render.text(field: 'text')}</span></f:if></dd>
+                        </f:for>
+                    </dl>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-conversion-event-signup__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-event-signup__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-event-signup__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="lazy" class="g-conversion-event-signup__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

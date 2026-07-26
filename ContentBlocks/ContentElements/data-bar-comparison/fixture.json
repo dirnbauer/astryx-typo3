@@ -1,1 +1,37 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Bar Comparison",
+    "header": "One bar per item, on one shared scale",
+    "lead": "No chart library ships with this theme: each bar is a grid cell whose width is the number typed on its row, read as a percentage of the plot. Scale the values yourself before entering them, and say in the caption what scale you used.",
+    "caption": "The caption names the scale — without it the lengths compare nothing",
+    "note": "Below 640px the bar drops to its own line, because three columns in a phone width leave a plot about a centimetre wide.",
+    "tone": "body",
+    "width": "lg",
+    "compact": 0,
+    "metrics": [
+        {
+            "value": "100",
+            "unit": "",
+            "title": "The top of the scale",
+            "text": "Clamped, so a row entered above a hundred stops at the full width."
+        },
+        {
+            "value": "64",
+            "unit": "",
+            "title": "A middling row",
+            "text": ""
+        },
+        {
+            "value": "31",
+            "unit": "",
+            "title": "A short row",
+            "text": ""
+        },
+        {
+            "value": "0",
+            "unit": "",
+            "title": "Nothing typed",
+            "text": "Reads as zero, never as full."
+        }
+    ]
+}

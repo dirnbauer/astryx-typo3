@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-newsletter {
-  display: block;
+.g-conversion-newsletter__grid {
+  align-items: center;
+}
+
+/* Without a picture the split has a single child and would leave half the
+   band empty. */
+.g-conversion-newsletter__grid:not(:has(.g-conversion-newsletter__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-conversion-newsletter__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  max-inline-size: 38rem;
+}
+
+.g-conversion-newsletter__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-newsletter__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-newsletter__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+/* The consent line is the small print an editor is expected to keep word for
+   word identical to the form's own, so it is given its own measure rather
+   than running the width of the lead. */
+.g-conversion-newsletter__note {
+  margin: 0;
+  max-inline-size: 32rem;
+}
+
+.g-conversion-newsletter__media {
+  display: flex;
+}
+
+.g-conversion-newsletter__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-newsletter.accent .g-conversion-newsletter__lead,
+.g-conversion-newsletter.accent .g-conversion-newsletter__note,
+.g-conversion-newsletter.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-conversion-newsletter__copy {
+    max-inline-size: none;
+  }
 }

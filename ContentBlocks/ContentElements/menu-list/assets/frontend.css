@@ -5,6 +5,77 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-menu-list {
-  display: block;
+.g-menu-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-menu-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-menu-list__rows {
+  max-inline-size: 56rem;
+}
+
+/* The row is the link, so it takes the full width and drops the underline the
+   quiet link style would otherwise put under a whole paragraph. */
+.g-menu-list__link {
+  inline-size: 100%;
+  gap: var(--spacing-4);
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-menu-list__title {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Drawn rather than fetched: two borders on an empty box need no icon set and
+   take the row's own colour in every theme. */
+.g-menu-list__link::after {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-start: 2px solid currentColor;
+  rotate: 45deg;
+  color: var(--color-icon-secondary);
+  transition: translate var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .g-menu-list__link:hover::after {
+    translate: var(--spacing-0-5) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g-menu-list__link::after {
+    transition: none;
+  }
+
+  .g-menu-list__link:hover::after {
+    translate: 0;
+  }
+}
+
+.g-menu-list.accent .g-menu-list__lead {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-menu-list.accent .astryx-item-description {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-menu-list__intro {
+    margin-block-end: var(--spacing-5);
+  }
 }

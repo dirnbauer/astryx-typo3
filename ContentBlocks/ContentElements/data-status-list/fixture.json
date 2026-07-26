@@ -1,1 +1,38 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Status List",
+    "header": "One row per service, with a state word and a dot",
+    "lead": "The dot's colour comes from the semantic key on the child record, so an editor never types a colour. The same key sets the badge, which means the state is always said in a word as well as shown in a hue.",
+    "note": "Write the date into the note. A status list says what somebody published, not what is happening now, and a page that hides that difference is worse than no page.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "md",
+    "compact": 0,
+    "metrics": [
+        {
+            "icon": "success",
+            "title": "A service that is fine",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "warning",
+            "title": "A service that is degraded",
+            "value": "Reduced",
+            "text": "The detail line is where the reason and the expected end date belong."
+        },
+        {
+            "icon": "error",
+            "title": "A service that is down",
+            "value": "Outage",
+            "text": ""
+        },
+        {
+            "icon": "",
+            "title": "A service with no key chosen",
+            "value": "Unknown",
+            "text": "No key means a neutral dot, never a green one."
+        }
+    ]
+}

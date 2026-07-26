@@ -5,6 +5,99 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-plan-card {
-  display: block;
+/* Nothing here sets a height. The card fills whatever row the page puts it in,
+   so three placed side by side end level, and one placed alone keeps its own
+   size — matching heights by padding would only work for one feature count. */
+.g-pricing-plan-card__card {
+  block-size: 100%;
+}
+
+/* Featured lifts the card off the page; it must not widen it, or the row of
+   plans stops being a row of equals and starts being a layout accident. */
+.g-pricing-plan-card__card[data-featured='yes'] {
+  box-shadow: var(--shadow-inset-selected), var(--shadow-med);
+}
+
+.g-pricing-plan-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-pricing-plan-card__flag {
+  margin: 0;
+}
+
+.g-pricing-plan-card__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  padding-block-end: var(--spacing-4);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-pricing-plan-card__amount {
+  /* Prices are compared down a column, so the digits have to occupy the same
+     width whichever they are. */
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-plan-card__period {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-plan-card__feature {
+  gap: var(--spacing-3);
+}
+
+.g-pricing-plan-card__feature-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-pricing-plan-card__mark {
+  flex: 0 0 auto;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  /* Optical, not geometric: the glyph sits on the text's x-height rather than
+     on the top of its line box. */
+  margin-block-start: 0.2em;
+}
+
+.g-pricing-plan-card__feature[data-included='yes'] .g-pricing-plan-card__mark {
+  color: var(--color-success);
+}
+
+.g-pricing-plan-card__feature[data-included='no'] .g-pricing-plan-card__mark,
+.g-pricing-plan-card__feature[data-included='no'] .g-pricing-plan-card__feature-label {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-plan-card__qualifier {
+  flex: 0 0 auto;
+}
+
+.g-pricing-plan-card__actions > .astryx-button {
+  flex: 1 1 auto;
+}
+
+.g-pricing-plan-card__note {
+  margin-block-start: calc(var(--spacing-2) * -1);
+}
+
+.g-pricing-plan-card.accent .g-pricing-plan-card__card {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 640px) {
+  /* Two buttons side by side in a narrow card leave neither of them a label
+     that fits, so they stack. */
+  .g-pricing-plan-card__actions > .astryx-button {
+    inline-size: 100%;
+  }
 }

@@ -5,6 +5,44 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-plan-change {
-  display: block;
+.g-pricing-plan-change__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-pricing-plan-change__scope,
+.g-pricing-plan-change__lead {
+  color: var(--color-text-secondary);
+}
+
+/* Each rule is a question and its answer stacked, so the row has to stop being
+   the shared list's icon-beside-label flex line. */
+.g-pricing-plan-change__rule {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-2);
+}
+
+.g-pricing-plan-change__answer {
+  max-inline-size: 70ch;
+}
+
+.g-pricing-plan-change__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-plan-change.accent .g-pricing-plan-change__scope,
+.g-pricing-plan-change.accent .g-pricing-plan-change__lead,
+.g-pricing-plan-change.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-plan-change__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

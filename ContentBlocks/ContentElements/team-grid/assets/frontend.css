@@ -5,6 +5,58 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-team-grid {
+.g-team-grid__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-team-grid__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-team-grid__people {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grid children stretch, so a card whose role runs to two lines does not leave
+   its neighbours short — every portrait in a row starts on the same line. */
+.g-team-grid__person {
+  block-size: 100%;
+}
+
+.g-team-grid__portrait > img {
   display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.g-team-grid__role {
+  margin: 0;
+}
+
+/* The name is a link inside a clickable card, so it must not also underline
+   itself — the whole card is already the affordance. */
+.g-team-grid__name a {
+  text-decoration: none;
+}
+
+/* On an accent band the role would otherwise reach for the secondary text
+   colour, which is tuned for the page background. */
+.g-team-grid.accent .g-team-grid__lead,
+.g-team-grid.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-team-grid__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

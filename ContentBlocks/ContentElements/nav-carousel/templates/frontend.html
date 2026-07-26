@@ -5,14 +5,61 @@
 <f:asset.css identifier="g-nav-carousel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The track is a scroll-snap row that already works with keyboard and touch alone; the script only adds the arrow buttons and hides them when there is nothing left to scroll.
+    The track is a scroll-snap row and nothing else: dragging, momentum,
+    keyboard scrolling and the snap points are all the browser's, so this
+    element ships no script at all. The scrollbar stays visible on purpose —
+    it is the only thing that tells a mouse user there is more to the side
+    before they try.
+
+    The row is a focus stop of its own with a name, because a scroll container
+    a keyboard can reach has to say what it holds.
 </f:comment>
 
-<section class="astryx-section g-nav-carousel" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.destinations" default="Destinations"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-nav-carousel {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-nav-carousel__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-nav-carousel__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="astryx-carousel gap-4 g-nav-carousel__carousel" aria-label="{navLabel}">
+            <ul class="astryx-carousel-track g-nav-carousel__track" tabindex="0">
+                <f:for each="{data.items}" as="item">
+                    <li class="astryx-carousel-item g-nav-carousel__item">
+                        <div class="astryx-card astryx-clickable-card g-nav-carousel__card">
+                            <f:if condition="{item.icon}">
+                                <span class="astryx-feature-icon g-nav-carousel__icon" data-icon="{item.icon}" aria-hidden="true"></span>
+                            </f:if>
+
+                            <h3 class="astryx-card-title g-nav-carousel__title">
+                                <f:if condition="{item.link.url}">
+                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </h3>
+
+                            <f:if condition="{item.description}">
+                                <p class="astryx-card-body g-nav-carousel__text">{item -> f:render.text(field: 'description')}</p>
+                            </f:if>
+                        </div>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

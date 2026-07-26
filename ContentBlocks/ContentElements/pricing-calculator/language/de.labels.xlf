@@ -13,5 +13,23 @@
         <target>Rendert die Bestandteile einer Preisrechnung als lesbares Blatt: je Zeile eine zählbare Größe, der zugehörige Satz und ein Hinweis zur Zählweise, darunter die Formel in Worten. Gerechnet wird nichts — das Blatt bringt jemandem bei, selbst zu rechnen. Einsetzen für: eine Preisaufstellung, die im Gespräch durchgegangen wird, ein gedrucktes Angebot, ein Kalkulationsblatt, eine Budgetseite. Zählen nur die Sätze, ist die &apos;Verbrauchspreis-Tabelle&apos; richtig; soll niemand selbst rechnen, das &apos;Angebots-Panel&apos;.</target>
       </segment>
     </unit>
+    <unit id="column.input">
+      <segment state="final">
+        <source>What is counted</source>
+        <target>Was gezählt wird</target>
+      </segment>
+    </unit>
+    <unit id="column.rate">
+      <segment state="final">
+        <source>Rate</source>
+        <target>Ansatz</target>
+      </segment>
+    </unit>
+    <unit id="column.how">
+      <segment state="final">
+        <source>How to count it</source>
+        <target>Wie gezählt wird</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

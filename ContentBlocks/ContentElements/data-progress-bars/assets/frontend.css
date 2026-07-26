@@ -5,6 +5,82 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-progress-bars {
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-progress-bars__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-data-progress-bars__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-progress-bars__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-data-progress-bars__rows.compact {
+  gap: var(--spacing-4);
+}
+
+/* The whole visualisation: a width, taken from the number the editor typed.
+   Clamped, because a row entered as 140 would otherwise run past its track. */
+.g-data-progress-bars__fill {
   display: block;
+  inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
+}
+
+.g-data-progress-bars__reading {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-progress-bars__detail {
+  margin: 0;
+}
+
+.g-data-progress-bars__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-data-progress-bars.accent .astryx-progressbar-label,
+.g-data-progress-bars.accent .astryx-progressbar-value,
+.g-data-progress-bars.accent .g-data-progress-bars__lead,
+.g-data-progress-bars.accent .astryx-eyebrow,
+.g-data-progress-bars.accent .astryx-text.supporting {
+  color: currentColor;
+}
+
+.g-data-progress-bars.accent .astryx-progressbar-value,
+.g-data-progress-bars.accent .g-data-progress-bars__lead,
+.g-data-progress-bars.accent .astryx-text.supporting {
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-progress-bars__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-data-progress-bars__rows {
+    gap: var(--spacing-5);
+  }
 }

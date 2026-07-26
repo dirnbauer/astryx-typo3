@@ -13,5 +13,23 @@
         <target>Zeigt Zeilen als echte Tabelle mit Beschriftung darüber und Quellenhinweis darunter, damit die Werte zitierbar bleiben. Verwenden für: Messergebnisse in einem Bericht, eine Preis- und Mengenliste, aus einer amtlichen Quelle übernommene Statistiken, Anhangdaten. Für Produktmerkmale ohne Quellenapparat besser &apos;Datenblatt&apos;; kommt es auf die Reihung an, besser &apos;Rangliste&apos;.</target>
       </segment>
     </unit>
+    <unit id="column.item">
+      <segment state="final">
+        <source>Item</source>
+        <target>Position</target>
+      </segment>
+    </unit>
+    <unit id="column.value">
+      <segment state="final">
+        <source>Figure</source>
+        <target>Wert</target>
+      </segment>
+    </unit>
+    <unit id="column.note">
+      <segment state="final">
+        <source>Note</source>
+        <target>Anmerkung</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

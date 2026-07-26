@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-conversion-cta-split" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Media keeps its aspect ratio and drops below the copy on narrow screens; 'reverse' swaps the halves without changing the reading order in the markup.
+    The copy always comes first in the source, so a reader who never sees the
+    layout gets the ask before the picture. "Reverse" is a grid order, not a
+    reordering of the markup.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-split" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-cta-split {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-conversion-cta-split__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-cta-split__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-conversion-cta-split__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-conversion-cta-split__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-conversion-cta-split__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-cta-split__secondary">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-cta-split__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <figure class="g-conversion-cta-split__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="lazy" class="g-conversion-cta-split__image"/>
+                    </f:for>
+                    <f:if condition="{data.caption}">
+                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    </f:if>
+                </figure>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

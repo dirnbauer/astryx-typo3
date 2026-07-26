@@ -32,7 +32,7 @@
 
                     <div class="g-feature-steps__body">
                         <h3 class="astryx-heading level-3">
-                            <f:if condition="{step.link}">
+                            <f:if condition="{step.link.url}">
                                 <f:then><f:link.typolink parameter="{step.link}">{step.title}</f:link.typolink></f:then>
                                 <f:else>{step -> f:render.text(field: 'title')}</f:else>
                             </f:if>

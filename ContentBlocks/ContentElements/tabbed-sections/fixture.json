@@ -1,1 +1,22 @@
-{}
+{
+    "_type": "navigation",
+    "eyebrow": "Tabbed Sections",
+    "header": "One passage visible, the rest a click away",
+    "lead": "Two to eight panels of rich text behind a strip of tabs. Every panel is in the source before anything binds, so the band degrades into a stack of headed sections rather than into nothing.",
+    "width": "md",
+    "tone": "body",
+    "panels": [
+        {
+            "title": "Without JavaScript",
+            "bodytext": "<p>All the panels are rendered and none of them starts hidden. The page is longer, the tab strip is a row of buttons that do nothing, and every word is still there to be read, printed, searched and indexed.</p>"
+        },
+        {
+            "title": "With JavaScript",
+            "bodytext": "<p>The shared runtime binds the strip: one panel stays in the flow, the arrow keys move between the tabs, Home and End jump to the ends, and the roving tab index keeps the strip a single stop on the way through the page.</p>"
+        },
+        {
+            "title": "When to reach for it",
+            "bodytext": "<p>Instructions that differ by operating system, one product described for two audiences, prices per region, the same answer for private and business customers. Panels a reader works through in order belong in an accordion instead.</p>"
+        }
+    ]
+}

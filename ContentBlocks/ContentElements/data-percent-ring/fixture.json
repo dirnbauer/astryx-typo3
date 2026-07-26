@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Percentage Rings",
+    "header": "One to four rings, each drawn by a conic-gradient",
+    "lead": "The angle is read from the digits in the value, so type 72% rather than roughly three quarters. The ring is a background image with a radial mask over it — no chart library, no SVG and nothing computed at render time.",
+    "columns": "3",
+    "align": "start",
+    "note": "The percentage stands in the middle of its own ring as text, so the drawing can be ignored entirely and the band still says the same thing.",
+    "tone": "body",
+    "width": "lg",
+    "metrics": [
+        {
+            "value": "100",
+            "unit": "%",
+            "title": "A full ring",
+            "text": "Clamped, so a value above a hundred stops at a closed circle."
+        },
+        {
+            "value": "72",
+            "unit": "%",
+            "title": "A partial ring",
+            "text": "The sweep starts at twelve o'clock and runs clockwise."
+        },
+        {
+            "value": "0",
+            "unit": "%",
+            "title": "An empty ring",
+            "text": "Nothing typed reads as nothing reached, never as complete."
+        }
+    ]
+}

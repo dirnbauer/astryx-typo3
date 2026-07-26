@@ -5,14 +5,39 @@
 <f:asset.css identifier="g-footer-back-to-top" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): A plain anchor to the page top: no scroll listener, no appearing-on-scroll behaviour, and `cta_link` only if the band should jump somewhere other than the top.
+    A plain anchor and nothing else: no scroll listener, no button that fades in
+    after eight hundred pixels, no smooth-scroll hijack. The link moves the
+    reading position as well as the viewport, which a scripted scroll does not,
+    and #main-content is the same target the skip link at the top of every page
+    already uses.
+
+    An editor who needs the band to jump somewhere else fills in the link; left
+    empty it goes to the top of this page.
 </f:comment>
 
-<section class="astryx-section g-footer-back-to-top" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="label" value="{data.cta_label}"/>
+<f:if condition="!{data.cta_label}">
+    <f:variable name="label" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-back-to-top/language/labels.xlf:link.label', default: 'Back to top')}"/>
+</f:if>
+
+<section class="astryx-section g-footer-back-to-top {data.tone} {f:if(condition: data.compact, then: 'flush', else: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-footer-back-to-top__bar">
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text supporting g-footer-back-to-top__text">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_link.url}">
+                <f:then>
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button ghost g-footer-back-to-top__link">{label}</f:link.typolink>
+                </f:then>
+                <f:else>
+                    <a href="#main-content" class="astryx-button ghost g-footer-back-to-top__link">{label}</a>
+                </f:else>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -1,1 +1,37 @@
-{}
+{
+    "_type": "conversion",
+    "header": "Every route to you, as cards or as rows",
+    "subheader": "Chat, phone, email, the help centre, the status page, the counter.",
+    "lead": "One variant gives each channel a card, the other a row with a rule under it. Nothing else about an entry changes between the two.",
+    "variant": "cards",
+    "columns": "3",
+    "align": "start",
+    "note": "Use real protocol links so a phone opens the dialler, and keep hours in each entry rather than in this shared note.",
+    "tone": "body",
+    "channels": [
+        {
+            "icon": "phone",
+            "title": "A tel: entry",
+            "description": "The number in the description, the protocol link on the title.",
+            "link": "#"
+        },
+        {
+            "icon": "mail",
+            "title": "A mailto: entry",
+            "description": "With the response time an editor is willing to be held to.",
+            "link": "#"
+        },
+        {
+            "icon": "book-open",
+            "title": "An always-open entry",
+            "description": "Which is why availability belongs to the row and not to the band.",
+            "link": "#"
+        },
+        {
+            "icon": "map-pin",
+            "title": "A place you can walk into",
+            "description": "Address and opening hours, in the same shape as everything else.",
+            "link": "#"
+        }
+    ]
+}

@@ -5,6 +5,57 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-up-next {
-  display: block;
+.g-up-next__card {
+  gap: var(--spacing-4);
+}
+
+.g-up-next__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+.g-up-next__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-up-next__text {
+  margin: 0;
+}
+
+.g-up-next__cue {
+  margin: 0;
+  color: var(--color-text-accent);
+}
+
+.g-up-next__media {
+  min-inline-size: 0;
+}
+
+.g-up-next__image {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius-inner);
+}
+
+.g-up-next.accent .g-up-next__text,
+.g-up-next.accent .g-up-next__cue,
+.g-up-next.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* The picture is the second column and never the wider one: this card is a
+   sentence about what comes next, with an illustration. */
+@media (min-width: 768px) {
+  .g-up-next__card.with-image {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: var(--spacing-6);
+  }
 }

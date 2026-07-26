@@ -1,1 +1,56 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Uptime Strip",
+    "header": "One tick per period, each typed by an editor",
+    "value": "31",
+    "unit": "ticks, maximum",
+    "lead": "A published record rather than a monitor. Each tick is filled to the figure typed on its period and coloured by the semantic key beside it, because at the availabilities anyone actually reports every tick looks full.",
+    "note": "State the period and the reporting date in the note, and keep the strip under about 31 ticks. Any period an editor wrote a sentence about is repeated underneath, so an incident is never hidden by the strip that contains it.",
+    "tone": "body",
+    "width": "lg",
+    "compact": 0,
+    "metrics": [
+        {
+            "icon": "success",
+            "value": "100",
+            "unit": "%",
+            "title": "Period 1",
+            "text": ""
+        },
+        {
+            "icon": "success",
+            "value": "100",
+            "unit": "%",
+            "title": "Period 2",
+            "text": ""
+        },
+        {
+            "icon": "warning",
+            "value": "99.4",
+            "unit": "%",
+            "title": "Period 3",
+            "text": "A period with a sentence on it appears again below the strip, with the sentence."
+        },
+        {
+            "icon": "success",
+            "value": "100",
+            "unit": "%",
+            "title": "Period 4",
+            "text": ""
+        },
+        {
+            "icon": "error",
+            "value": "97.1",
+            "unit": "%",
+            "title": "Period 5",
+            "text": "Three keys are honoured: normal, degraded and down."
+        },
+        {
+            "icon": "success",
+            "value": "100",
+            "unit": "%",
+            "title": "Period 6",
+            "text": ""
+        }
+    ]
+}

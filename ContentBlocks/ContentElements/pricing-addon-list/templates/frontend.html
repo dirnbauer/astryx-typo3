@@ -5,14 +5,72 @@
 <f:asset.css identifier="g-pricing-addon-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The add-on price goes in the row value, including its period ('+€9 / month'); there is no separate period per row.
+    Both variants render the same list in the same order; only the surface
+    changes. Cards give each extra its own edge, which suits a handful of them —
+    rows keep twenty readable, which a grid of twenty cards never is.
 </f:comment>
 
-<section class="astryx-section g-pricing-addon-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-addon-list {data.tone}" data-variant="{data.variant}" data-columns="{data.columns}">
+    <div class="astryx-layout lg">
+
+        <div class="g-pricing-addon-list__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-pricing-addon-list__scope">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-addon-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.variant} == 'cards'">
+            <f:then>
+                <ul class="astryx-grid cols-{data.columns} g-pricing-addon-list__addons">
+                    <f:for each="{data.addons}" as="addon">
+                        <li class="astryx-card g-pricing-addon-list__addon">
+                            <h3 class="astryx-card-title g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</h3>
+                            <p class="g-pricing-addon-list__price">
+                                <span class="astryx-text display-3 g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</span>
+                            </p>
+                            <f:if condition="{addon.text}">
+                                <p class="astryx-card-body g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</p>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:then>
+            <f:else>
+                <ul class="astryx-list with-dividers spacious g-pricing-addon-list__addons">
+                    <f:for each="{data.addons}" as="addon">
+                        <li class="g-pricing-addon-list__addon">
+                            <div class="g-pricing-addon-list__body">
+                                <h3 class="astryx-heading level-4 g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</h3>
+                                <f:if condition="{addon.text}">
+                                    <p class="astryx-text body g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</p>
+                                </f:if>
+                            </div>
+                            <p class="g-pricing-addon-list__price">
+                                <span class="astryx-text label g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</span>
+                            </p>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:else>
         </f:if>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-addon-list__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-addon-list__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
+        </f:if>
+
     </div>
 </section>
 

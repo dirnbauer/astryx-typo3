@@ -1,1 +1,49 @@
-{}
+{
+    "eyebrow": "Service status",
+    "header": "What was working when this page was written",
+    "lead": "A page somebody writes, not a monitor. During an incident the outage map is the faster source, and the recorded announcement on the service line is faster still.",
+    "note": "Written 12 January 2027, 09:00, and updated by hand. If an entry below contradicts the outage map, the map is right.",
+    "cta_label": "Open the outage map",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "md",
+    "compact": 0,
+    "metrics": [
+        {
+            "icon": "success",
+            "title": "Electricity supply",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "success",
+            "title": "Gas supply",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "warning",
+            "title": "District heat, Ashcombe network",
+            "value": "Reduced",
+            "text": "Flow temperature held 8 °C lower while the Marrowfield pumping station is rebuilt. Expected back to normal in May 2027."
+        },
+        {
+            "icon": "success",
+            "title": "Customer portal",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "success",
+            "title": "Meter reading by phone",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "error",
+            "title": "Charging network, Old Harbour",
+            "value": "Partial outage",
+            "text": "Fourteen of 340 points offline since the harbour car park works began. No date yet."
+        }
+    ]
+}

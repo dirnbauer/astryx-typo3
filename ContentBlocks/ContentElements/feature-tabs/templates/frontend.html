@@ -50,7 +50,7 @@
                         <p class="astryx-text body g-feature-tabs__text">{panel -> f:render.text(field: 'text')}</p>
                     </f:if>
 
-                    <f:if condition="{panel.link}">
+                    <f:if condition="{panel.link.url}">
                         <p class="g-feature-tabs__action">
                             <f:link.typolink parameter="{panel.link}" class="astryx-link cta">{panel.title}</f:link.typolink>
                         </p>

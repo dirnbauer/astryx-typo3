@@ -5,6 +5,126 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-sitemap-tree {
+.g-sitemap-tree__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-sitemap-tree__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-sitemap-tree__branches {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 1;
+  column-gap: var(--spacing-10);
+}
+
+/* A branch and its children are one unit; splitting them across a column
+   would leave a heading stranded at the foot of the page. */
+.g-sitemap-tree__branch {
+  break-inside: avoid;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-sitemap-tree__top {
   display: block;
+  padding-block: var(--spacing-1);
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-5-leading);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .g-sitemap-tree__top:hover,
+  .g-sitemap-tree__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+/* The connector: one hairline down the whole branch, and a short arm reaching
+   out to each child. Drawn rather than marked up, so the list stays a list. */
+.g-sitemap-tree__children {
+  position: relative;
+  margin: var(--spacing-1) 0 0;
+  padding: 0 0 0 var(--spacing-5);
+  list-style: none;
+}
+
+.g-sitemap-tree__children::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--spacing-1);
+  inline-size: var(--border-width);
+  background-color: var(--color-border);
+}
+
+.g-sitemap-tree__child {
+  position: relative;
+}
+
+.g-sitemap-tree__child::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: calc(-1 * var(--spacing-4));
+  inline-size: var(--spacing-3);
+  block-size: var(--border-width);
+  background-color: var(--color-border);
+}
+
+.g-sitemap-tree__link {
+  display: block;
+  padding-block: var(--spacing-1);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+/* The page you are on: weight and a marker, never colour alone. */
+.g-sitemap-tree__top[aria-current='page'],
+.g-sitemap-tree__link[aria-current='page'] {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-sitemap-tree__link[aria-current='page']::after {
+  content: '';
+  display: inline-block;
+  inline-size: var(--spacing-1-5);
+  block-size: var(--spacing-1-5);
+  margin-inline-start: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  vertical-align: middle;
+}
+
+.g-sitemap-tree.accent .g-sitemap-tree__lead,
+.g-sitemap-tree.accent .g-sitemap-tree__link {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-sitemap-tree.accent .g-sitemap-tree__top {
+  color: currentColor;
+}
+
+@media (min-width: 641px) {
+  .g-sitemap-tree[data-columns='2'] .g-sitemap-tree__branches { columns: 2; }
+  .g-sitemap-tree[data-columns='3'] .g-sitemap-tree__branches { columns: 2; }
+  .g-sitemap-tree[data-columns='4'] .g-sitemap-tree__branches { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-sitemap-tree[data-columns='3'] .g-sitemap-tree__branches { columns: 3; }
+  .g-sitemap-tree[data-columns='4'] .g-sitemap-tree__branches { columns: 4; }
 }

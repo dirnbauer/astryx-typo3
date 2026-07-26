@@ -5,6 +5,78 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-team-stats {
-  display: block;
+.g-team-stats__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-team-stats__intro.align-center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-team-stats__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-team-stats__figures {
+  margin: 0;
+}
+
+.g-team-stats__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  /* A rule at the start of each figure rather than between them: with two
+     columns a separator between figures lands in the middle of the band and
+     stops reading as a separator at all. */
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-team-stats__figures.align-center .g-team-stats__figure {
+  align-items: center;
+  text-align: center;
+}
+
+.g-team-stats__value {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.g-team-stats__unit {
+  font-size: var(--text-large-size);
+  color: var(--color-text-secondary);
+}
+
+.g-team-stats__unit::before {
+  content: ' ';
+}
+
+.g-team-stats__label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  margin: 0;
+}
+
+.g-team-stats.accent .g-team-stats__figure {
+  border-block-start-color: currentColor;
+}
+
+.g-team-stats.accent .g-team-stats__lead,
+.g-team-stats.accent .g-team-stats__unit,
+.g-team-stats.accent .g-team-stats__note,
+.g-team-stats.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-team-stats__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

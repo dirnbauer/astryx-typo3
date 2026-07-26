@@ -1,1 +1,72 @@
-{}
+{
+    "_type": "footer",
+    "header": "Links grouped into two to four columns",
+    "lead": "One flat list of entries in a CSS column flow. An entry without a link becomes the heading of the next column, so the grouping is edited in the same list as the links themselves.",
+    "note": "The headings are real h3 elements — the column break is presentation, and nothing about it reaches a screen reader.",
+    "columns": "3",
+    "tone": "muted",
+    "width": "lg",
+    "compact": false,
+    "links": [
+        {
+            "title": "An entry without a link",
+            "description": "becomes a column heading",
+            "link": ""
+        },
+        {
+            "title": "Every entry after it",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "belongs to that column",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "until the next heading",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "The next heading",
+            "description": "starts column two",
+            "link": ""
+        },
+        {
+            "title": "A description is optional",
+            "description": "and sits under the link",
+            "link": "#"
+        },
+        {
+            "title": "Two, three or four columns",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "Below 641px",
+            "description": "everything is one column",
+            "link": "#"
+        },
+        {
+            "title": "The third heading",
+            "description": "starts column three",
+            "link": ""
+        },
+        {
+            "title": "Compact tightens the rows",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "and the band around them",
+            "description": "",
+            "link": "#"
+        },
+        {
+            "title": "The note closes the block",
+            "description": "",
+            "link": "#"
+        }
+    ]
+}

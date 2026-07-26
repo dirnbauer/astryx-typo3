@@ -5,14 +5,54 @@
 <f:asset.css identifier="g-conversion-offer-dismissible" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The only scripted element in the group: data-g-dismiss hides the bar and remembers it locally. Never re-open it on the next page load, and keep the close control at least as tappable as the button.
+    The only behaviour in the group, and it is two attributes: the runtime in
+    grande.js removes whatever carries data-g-dismissible when a
+    data-g-dismiss control inside it is pressed. The close control gets its
+    accessible name from real text rather than an aria-label, so it is
+    translated with the rest of the page.
 </f:comment>
 
-<section class="astryx-section g-conversion-offer-dismissible" data-variant="{data.variant}">
+<section class="astryx-section g-conversion-offer-dismissible {data.tone}" data-variant="{data.variant}" data-g-dismissible="1">
     <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+        <div class="astryx-banner g-conversion-offer-dismissible__offer">
+
+            <f:if condition="{data.icon}">
+                <span class="astryx-feature-icon g-conversion-offer-dismissible__icon" data-icon="{data.icon}" aria-hidden="true"></span>
+            </f:if>
+
+            <div class="astryx-banner-content g-conversion-offer-dismissible__copy">
+                <f:if condition="{data.badge_text} || {data.eyebrow}">
+                    <p class="g-conversion-offer-dismissible__flags">
+                        <f:if condition="{data.badge_text}">
+                            <span class="astryx-badge accent">{data.badge_text}</span>
+                        </f:if>
+                        <f:if condition="{data.eyebrow}">
+                            <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                        </f:if>
+                    </p>
+                </f:if>
+
+                <h2 class="astryx-heading level-5">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text supporting g-conversion-offer-dismissible__text">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-offer-dismissible__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.cta_label}">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary g-conversion-offer-dismissible__action">{data.cta_label}</f:link.typolink>
+            </f:if>
+
+            <button type="button" class="astryx-banner-dismiss g-conversion-offer-dismissible__close" data-g-dismiss="1">
+                <span class="astryx-visually-hidden"><f:translate extensionName="desiderio_grande" key="conversion.dismiss" default="Close"/></span>
+                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+
+        </div>
     </div>
 </section>
 

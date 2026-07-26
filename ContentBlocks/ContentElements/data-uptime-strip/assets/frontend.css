@@ -5,6 +5,175 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-uptime-strip {
-  display: block;
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-uptime-strip__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-uptime-strip__headline {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-data-uptime-strip__total {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-uptime-strip__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-uptime-strip__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-uptime-strip__strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  gap: var(--spacing-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-data-uptime-strip__period {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+  justify-items: center;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+/* The tick is a track filled from the bottom to the figure typed on the
+   period. At the availabilities a service page actually reports the ticks all
+   look full, which is the honest picture — the colour key is what separates a
+   month with an incident from a month without one. */
+.g-data-uptime-strip__tick {
+  display: flex;
+  align-items: flex-end;
+  inline-size: 100%;
+  block-size: var(--spacing-11);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-track);
+  overflow: hidden;
+}
+
+.g-data-uptime-strip__fill {
+  inline-size: 100%;
+  block-size: clamp(2px, calc(var(--value) * 1%), 100%);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-text-secondary);
+}
+
+.g-data-uptime-strip__tick.success .g-data-uptime-strip__fill { background-color: var(--color-success); }
+.g-data-uptime-strip__tick.warning .g-data-uptime-strip__fill { background-color: var(--color-warning); }
+.g-data-uptime-strip__tick.error .g-data-uptime-strip__fill { background-color: var(--color-error); }
+
+.g-data-uptime-strip__reading {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-uptime-strip__label {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* Nine ticks is where the labels start colliding. Past that the middle ones
+   leave the visual layer only: they are still read, still copied and still
+   found by a page search. */
+.g-data-uptime-strip__strip:has(> :nth-child(9)) .g-data-uptime-strip__period.is-mid > :where(.g-data-uptime-strip__reading, .g-data-uptime-strip__label) {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.g-data-uptime-strip__incidents {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-uptime-strip__incidents:empty {
+  margin-block-start: 0;
+}
+
+.g-data-uptime-strip__incident {
+  display: grid;
+  grid-template-columns: minmax(4rem, 8rem) 1fr;
+  gap: var(--spacing-1) var(--spacing-4);
+}
+
+.g-data-uptime-strip__when {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-uptime-strip__what {
+  margin: 0;
+}
+
+.g-data-uptime-strip__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-uptime-strip.accent .g-data-uptime-strip__headline {
+  color: currentColor;
+}
+
+.g-data-uptime-strip.accent .g-data-uptime-strip__lead,
+.g-data-uptime-strip.accent .g-data-uptime-strip__unit,
+.g-data-uptime-strip.accent .g-data-uptime-strip__label,
+.g-data-uptime-strip.accent .astryx-eyebrow,
+.g-data-uptime-strip.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-uptime-strip__strip {
+    gap: 2px;
+  }
+
+  .g-data-uptime-strip__tick {
+    block-size: var(--spacing-9);
+  }
+
+  .g-data-uptime-strip__incident {
+    grid-template-columns: 1fr;
+  }
 }

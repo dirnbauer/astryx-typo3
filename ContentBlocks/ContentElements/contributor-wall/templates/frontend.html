@@ -5,14 +5,66 @@
 <f:asset.css identifier="g-contributor-wall" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Only image and title are rendered; roles and biographies are ignored here on purpose, because the point of a wall is the number of faces.
+    Only the portrait and the name are rendered. Roles, biographies and the
+    child's own text are ignored on purpose: the point of a wall is the number
+    of faces, and two hundred people each carrying a job title is a directory,
+    not an acknowledgement.
+
+    The portraits carry an empty alt. Every name is printed directly under its
+    own picture, so a meaningful alt would read two hundred names twice — the
+    one place in this group where naming the face costs more than it gives.
 </f:comment>
 
-<section class="astryx-section g-contributor-wall" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-contributor-wall {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-contributor-wall__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-contributor-wall__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="g-contributor-wall__people {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.people}" as="person">
+                <li class="g-contributor-wall__person">
+                    <f:if condition="{person.link.url}">
+                        <f:then>
+                            <f:link.typolink parameter="{person.link}" class="astryx-link quiet g-contributor-wall__link">
+                                <f:if condition="{person.image}">
+                                    <span class="astryx-avatar lg g-contributor-wall__portrait">
+                                        <f:for each="{person.image}" as="image">
+                                            <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
+                                        </f:for>
+                                    </span>
+                                </f:if>
+                                <span class="g-contributor-wall__name">{person.title}</span>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <f:if condition="{person.image}">
+                                <span class="astryx-avatar lg g-contributor-wall__portrait">
+                                    <f:for each="{person.image}" as="image">
+                                        <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
+                                    </f:for>
+                                </span>
+                            </f:if>
+                            <span class="g-contributor-wall__name">{person -> f:render.text(field: 'title')}</span>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-contributor-wall__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

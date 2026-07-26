@@ -5,6 +5,76 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-team-list {
-  display: block;
+.g-team-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-team-list__lead {
+  color: var(--color-text-secondary);
+}
+
+/* Column gap only: the rules under the rows do the vertical separating, and a
+   row gap as well would break a column into unrelated pairs. */
+.g-team-list__people {
+  --grid-gap: 0 var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-team-list__row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding-block: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-team-list__people.compact .g-team-list__row {
+  padding-block: var(--spacing-1);
+  font-size: var(--text-supporting-size);
+}
+
+/* The role is pushed to the trailing edge and the name takes the slack, so a
+   column of rows has its two facts on two invisible verticals. */
+.g-team-list__role {
+  margin-inline-start: auto;
+  text-align: end;
+  padding-inline-start: var(--spacing-3);
+}
+
+.g-team-list__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 44rem;
+}
+
+.g-team-list.accent .g-team-list__row {
+  border-block-end-color: currentColor;
+}
+
+.g-team-list.accent .g-team-list__lead,
+.g-team-list.accent .g-team-list__role,
+.g-team-list.accent .g-team-list__note,
+.g-team-list.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* Below this the two facts stop fitting on one line together, so the role
+   drops under the name rather than each of them wrapping into a paragraph. */
+@media (max-width: 480px) {
+  .g-team-list__row {
+    flex-wrap: wrap;
+  }
+
+  .g-team-list__role {
+    margin-inline-start: 0;
+    text-align: start;
+    padding-inline-start: 0;
+    flex-basis: 100%;
+  }
 }

@@ -5,6 +5,87 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-seat-bands {
-  display: block;
+.g-pricing-seat-bands__intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-pricing-seat-bands__scope,
+.g-pricing-seat-bands__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-seat-bands__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin-block-start: var(--spacing-2);
+}
+
+.g-pricing-seat-bands__amount {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-seat-bands__period {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-seat-bands__band {
+  inline-size: 28%;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+/* The whole point of the ladder is that the rate falls, which only reads if the
+   figures sit on the same decimal column all the way down. */
+.g-pricing-seat-bands__col-rate,
+.g-pricing-seat-bands__rate {
+  inline-size: 1%;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-pricing-seat-bands__band-note {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-seat-bands__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-6);
+}
+
+.g-pricing-seat-bands__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-seat-bands.accent .g-pricing-seat-bands__scope,
+.g-pricing-seat-bands.accent .g-pricing-seat-bands__lead,
+.g-pricing-seat-bands.accent .g-pricing-seat-bands__period,
+.g-pricing-seat-bands.accent .g-pricing-seat-bands__band-note,
+.g-pricing-seat-bands.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-pricing-seat-bands__table {
+    min-inline-size: 34rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-pricing-seat-bands__intro {
+    max-inline-size: none;
+  }
 }

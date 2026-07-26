@@ -5,14 +5,75 @@
 <f:asset.css identifier="g-pricing-plan-card" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Sibling cards match height through the grid row, not through padding; 'featured' lifts one card without widening it.
+    The price is a paragraph, not a heading: an outline built from this page
+    should list the plan names, not a column of currency amounts. The period is
+    a second span of real text beside the figure, so "89 euros" is followed by
+    "per month" rather than by a font size.
+
+    A tick alone says nothing to a reader who cannot see it, so each mark
+    carries its own name and the row states its state as well as showing it.
 </f:comment>
 
-<section class="astryx-section g-pricing-plan-card" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pricing-plan-card {data.tone}">
+    <div class="astryx-layout md">
+        <article class="astryx-card g-pricing-plan-card__card {f:if(condition: data.featured, then: 'raised')}" data-featured="{f:if(condition: data.featured, then: 'yes', else: 'no')}">
+
+            <header class="g-pricing-plan-card__head">
+                <f:if condition="{data.badge_text}">
+                    <p class="g-pricing-plan-card__flag"><span class="astryx-badge accent">{data -> f:render.text(field: 'badge_text')}</span></p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2 g-pricing-plan-card__name">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text supporting g-pricing-plan-card__scope">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+            </header>
+
+            <p class="g-pricing-plan-card__figure">
+                <span class="astryx-text display-3 g-pricing-plan-card__amount">{data -> f:render.text(field: 'price')}</span><f:if condition="{data.period}"><span class="astryx-text label g-pricing-plan-card__period">{data -> f:render.text(field: 'period')}</span></f:if>
+            </p>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-card-body g-pricing-plan-card__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <ul class="astryx-list balanced g-pricing-plan-card__features">
+                <f:for each="{data.features}" as="feature">
+                    <li class="g-pricing-plan-card__feature" data-included="{f:if(condition: feature.included, then: 'yes', else: 'no')}">
+                        <f:if condition="{feature.included}">
+                            <f:then><svg class="g-pricing-plan-card__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-plan-card/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
+                            <f:else><svg class="g-pricing-plan-card__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-plan-card/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+                        </f:if>
+
+                        <span class="g-pricing-plan-card__feature-text">
+                            <span class="g-pricing-plan-card__feature-label">{feature -> f:render.text(field: 'title')}</span>
+                            <f:if condition="{feature.text}">
+                                <span class="astryx-text supporting g-pricing-plan-card__feature-note">{feature -> f:render.text(field: 'text')}</span>
+                            </f:if>
+                        </span>
+
+                        <f:if condition="{feature.value}">
+                            <span class="astryx-badge outline g-pricing-plan-card__qualifier">{feature.value}</span>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+
+            <footer class="astryx-card-footer g-pricing-plan-card__actions">
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </f:if>
+                <f:if condition="{data.secondary_label}">
+                    <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                </f:if>
+            </footer>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-pricing-plan-card__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </article>
     </div>
 </section>
 

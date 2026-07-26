@@ -5,6 +5,81 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-review-score-row {
-  display: block;
+.g-review-score-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-review-score-row__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-review-score-row__scores {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-review-score-row__score {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-review-score-row__platform {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.g-review-score-row__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1-5);
+}
+
+/* Every score at one optical size with lining, equal-width digits, so 4.7 and
+   92 read as two figures of the same standing rather than two type sizes. */
+.g-review-score-row__value {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-3-size);
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--color-text-primary);
+}
+
+.g-review-score-row__scale {
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-review-score-row__count {
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-1);
+}
+
+.g-review-score-row__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 60ch;
+}
+
+.g-review-score-row.accent .g-review-score-row__lead,
+.g-review-score-row.accent .astryx-eyebrow,
+.g-review-score-row.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-review-score-row__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-review-score-row__note {
+    max-inline-size: none;
+  }
 }

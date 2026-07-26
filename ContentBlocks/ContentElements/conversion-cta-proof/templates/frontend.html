@@ -5,15 +5,82 @@
 <f:asset.css identifier="g-conversion-cta-proof" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Marks render at one optical weight, greyed back so the button keeps the contrast; each needs a title for its alt text.
+    The note is the row's own label, so the list points at it with
+    aria-labelledby: without that, a screen reader meets a run of company
+    names and no reason for them being there.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-proof" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-cta-proof {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-conversion-cta-proof__ask">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-conversion-cta-proof__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-conversion-cta-proof__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-cta-proof__secondary">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.logos}">
+            <div class="g-conversion-cta-proof__proof">
+                <hr class="astryx-divider g-conversion-cta-proof__rule"/>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-cta-proof__note" id="g-conversion-cta-proof-note-{data.uid}">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+
+                <ul class="astryx-overflow-list multi-row g-conversion-cta-proof__row" aria-labelledby="g-conversion-cta-proof-note-{data.uid}">
+                    <f:for each="{data.logos}" as="logo">
+                        <li class="g-conversion-cta-proof__mark">
+                            <f:if condition="{logo.link.url}">
+                                <f:then>
+                                    <f:link.typolink parameter="{logo.link}" class="g-conversion-cta-proof__link">
+                                        <f:render section="mark" arguments="{logo: logo}"/>
+                                    </f:link.typolink>
+                                </f:then>
+                                <f:else>
+                                    <f:render section="mark" arguments="{logo: logo}"/>
+                                </f:else>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
         </f:if>
+
     </div>
 </section>
+
+<f:comment>
+    A mark is artwork when there is artwork and the customer's name set as
+    type when there is not — which is still proof, and better than a gap.
+</f:comment>
+<f:section name="mark">
+    <f:if condition="{logo.image}">
+        <f:then>
+            <f:for each="{logo.image}" as="image">
+                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}" height="40" loading="lazy" class="g-conversion-cta-proof__image"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <span class="g-conversion-cta-proof__wordmark">{logo.title}</span>
+        </f:else>
+    </f:if>
+</f:section>
 
 </html>

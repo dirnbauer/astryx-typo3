@@ -5,14 +5,65 @@
 <f:asset.css identifier="g-conversion-trial-signup" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Signup itself happens on the target page; this band never renders a field. Three reassurances is the ceiling — a fourth reads as anxiety.
+    The reassurances sit beside the button rather than under the fold,
+    because an objection answered after the decision has already been taken
+    is not an answer. Signing up happens on the target page; this band never
+    renders a field.
 </f:comment>
 
-<section class="astryx-section g-conversion-trial-signup" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-trial-signup {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-conversion-trial-signup__ask">
+            <f:if condition="{data.badge_text} || {data.eyebrow}">
+                <p class="g-conversion-trial-signup__flags">
+                    <f:if condition="{data.badge_text}">
+                        <span class="astryx-badge accent">{data.badge_text}</span>
+                    </f:if>
+                    <f:if condition="{data.eyebrow}">
+                        <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                    </f:if>
+                </p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-conversion-trial-signup__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-conversion-trial-signup__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-trial-signup__secondary">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-trial-signup__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.reassurances}">
+            <ul class="astryx-grid cols-{data.columns} g-conversion-trial-signup__reassurances">
+                <f:for each="{data.reassurances}" as="reassurance">
+                    <li class="astryx-feature g-conversion-trial-signup__reassurance">
+                        <f:if condition="{reassurance.icon}">
+                            <span class="astryx-feature-icon" data-icon="{reassurance.icon}" aria-hidden="true"></span>
+                        </f:if>
+                        <h3 class="astryx-card-title">{reassurance -> f:render.text(field: 'title')}</h3>
+                        <f:if condition="{reassurance.text}">
+                            <p class="astryx-card-body">{reassurance -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
         </f:if>
+
     </div>
 </section>
 

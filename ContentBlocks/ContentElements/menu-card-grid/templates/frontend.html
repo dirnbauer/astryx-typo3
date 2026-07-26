@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-menu-card-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The whole card is the link target; the icon is decorative and the description line is what makes this worth a card rather than a row.
+    A menu inside the content area is a landmark of its own and a page may
+    carry several of them, so the nav is named — by the band's own heading
+    wherever there is one. Each card holds exactly one link and the title
+    carries it: that is what lets the whole card become the target without the
+    list growing a second link to the same place.
 </f:comment>
 
-<section class="astryx-section g-menu-card-grid" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-menu-card-grid {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-menu-card-grid__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-menu-card-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-menu-card-grid__nav" aria-label="{navLabel}">
+            <ul class="astryx-grid cols-{data.columns} g-menu-card-grid__items">
+                <f:for each="{data.items}" as="item">
+                    <li class="astryx-card astryx-clickable-card g-menu-card-grid__item">
+                        <f:if condition="{item.icon}">
+                            <f:comment>
+                                The tile carries the semantic key rather than a glyph, so the
+                                day a renderer lands no template has to change.
+                            </f:comment>
+                            <span class="astryx-feature-icon g-menu-card-grid__icon" data-icon="{item.icon}" aria-hidden="true"></span>
+                        </f:if>
+
+                        <h3 class="astryx-card-title">
+                            <f:if condition="{item.link.url}">
+                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </h3>
+
+                        <f:if condition="{item.description}">
+                            <p class="astryx-card-body">{item -> f:render.text(field: 'description')}</p>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

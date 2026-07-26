@@ -5,6 +5,117 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* The fade has to end in whatever the band is standing on, so each tone
+   hands its own background down to the gradient. */
 .g-conversion-gated-teaser {
+  --gate-fade: var(--color-background-body);
+}
+
+.g-conversion-gated-teaser.surface { --gate-fade: var(--color-background-surface); }
+.g-conversion-gated-teaser.muted { --gate-fade: var(--color-background-muted); }
+.g-conversion-gated-teaser.accent { --gate-fade: var(--color-accent); }
+
+.g-conversion-gated-teaser__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-conversion-gated-teaser__subheader {
+  color: var(--color-text-secondary);
+}
+
+/* The excerpt is capped in height and faded at its foot. Both are decoration
+   over text that is fully present in the document. */
+.g-conversion-gated-teaser__excerpt {
+  position: relative;
+  max-block-size: 22rem;
+  overflow: hidden;
+  max-inline-size: 44rem;
+}
+
+.g-conversion-gated-teaser__excerpt::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 9rem;
+  background-image: linear-gradient(to bottom, transparent, var(--gate-fade));
+  pointer-events: none;
+}
+
+.g-conversion-gated-teaser__ask {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-6);
+  margin-block-start: var(--spacing-6);
+}
+
+.g-conversion-gated-teaser__cover {
+  flex: 0 0 auto;
+}
+
+.g-conversion-gated-teaser__image {
   display: block;
+  inline-size: 100%;
+  max-inline-size: 9rem;
+  block-size: auto;
+  border-radius: var(--radius-element);
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-gated-teaser__ask-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-inline-size: 0;
+}
+
+.g-conversion-gated-teaser__note {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-gated-teaser__actions {
+  gap: var(--spacing-5);
+}
+
+.g-conversion-gated-teaser.accent .astryx-card {
+  background-color: transparent;
+  box-shadow: none;
+  color: currentColor;
+  border: var(--border-width) solid currentColor;
+}
+
+.g-conversion-gated-teaser.accent .g-conversion-gated-teaser__subheader,
+.g-conversion-gated-teaser.accent .g-conversion-gated-teaser__note,
+.g-conversion-gated-teaser.accent .g-conversion-gated-teaser__secondary,
+.g-conversion-gated-teaser.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-gated-teaser.accent .astryx-prose :where(a) {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-gated-teaser__excerpt {
+    max-block-size: 17rem;
+  }
+
+  .g-conversion-gated-teaser__ask {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+
+  .g-conversion-gated-teaser__actions {
+    flex-direction: column;
+    align-items: stretch;
+    inline-size: 100%;
+    gap: var(--spacing-4);
+  }
 }

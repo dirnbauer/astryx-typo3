@@ -5,14 +5,63 @@
 <f:asset.css identifier="g-person-interview" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Questions render as headings and answers as prose — not as an accordion, so the whole conversation stays readable, printable and findable.
+    Questions are headings and answers are prose — not an accordion. A
+    conversation folded into a dozen closed drawers cannot be read straight
+    through, cannot be printed, and cannot be found by the browser's own
+    find-in-page, which is the whole reason somebody publishes an interview.
+
+    Each pair is an <article> so the question heads its own answer rather than
+    floating above an undifferentiated run of paragraphs.
+
+    The alt names the person: one portrait, one interviewee, and the picture
+    sits in the standfirst rather than beside a printed name.
 </f:comment>
 
-<section class="astryx-section g-person-interview" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-person-interview {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-person-interview__standfirst">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-person-interview__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.image} || {data.author}">
+                <div class="g-person-interview__who">
+                    <f:if condition="{data.image}">
+                        <span class="astryx-avatar lg g-person-interview__portrait">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <f:if condition="{data.author}">
+                        <p class="g-person-interview__credit">
+                            <span class="astryx-text label g-person-interview__name">{data -> f:render.text(field: 'author')}</span>
+                            <f:if condition="{data.role}">
+                                <span class="astryx-text supporting g-person-interview__role">{data -> f:render.text(field: 'role')}</span>
+                            </f:if>
+                        </p>
+                    </f:if>
+                </div>
+            </f:if>
+        </div>
+
+        <div class="g-person-interview__conversation">
+            <f:for each="{data.questions}" as="pair">
+                <article class="g-person-interview__pair">
+                    <h3 class="astryx-heading level-3 g-person-interview__question">{pair -> f:render.text(field: 'title')}</h3>
+                    <div class="astryx-prose g-person-interview__answer"><f:format.html>{pair.bodytext}</f:format.html></div>
+                </article>
+            </f:for>
+        </div>
+
     </div>
 </section>
 

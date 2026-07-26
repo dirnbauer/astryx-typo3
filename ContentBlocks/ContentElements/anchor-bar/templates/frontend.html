@@ -5,14 +5,38 @@
 <f:asset.css identifier="g-anchor-bar" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Sticks with position: sticky and scrolls sideways when it overflows; there is no scroll spy, so no entry is highlighted as active.
+    The whole band is the sticky element, not the bar inside it: a sticky child
+    can only travel as far as its own parent's box, and this band is barely
+    taller than the bar. Pinning the band gives it the length of the page to
+    travel instead.
+
+    No entry is marked as active. Knowing which section a reader is looking at
+    is a scroll spy, a scroll spy is a script, and this bar is worth neither —
+    it is a set of jumps, not a report on where you are.
 </f:comment>
 
-<section class="astryx-section g-anchor-bar" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.anchors" default="Sections of this page"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section flush g-anchor-bar {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <nav class="g-anchor-bar__inner" aria-label="{navLabel}">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-6 g-anchor-bar__title">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <div class="g-anchor-bar__scroller">
+                <ul class="astryx-segmented-control g-anchor-bar__track">
+                    <f:for each="{data.anchors}" as="anchor">
+                        <li class="g-anchor-bar__item">
+                            <f:link.typolink parameter="{anchor.link}" class="astryx-segmented-control-item sm g-anchor-bar__link">{anchor.title}</f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </div>
+
+        </nav>
     </div>
 </section>
 

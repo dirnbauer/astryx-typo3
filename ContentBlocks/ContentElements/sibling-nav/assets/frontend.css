@@ -5,6 +5,70 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-sibling-nav {
+.g-sibling-nav__nav {
+  max-inline-size: 44rem;
+}
+
+.g-sibling-nav__title {
+  margin-block-end: var(--spacing-3);
+  color: var(--color-text-secondary);
+}
+
+.g-sibling-nav__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-sibling-nav__item + .g-sibling-nav__item {
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-sibling-nav__link {
   display: block;
+  padding-block: var(--spacing-2);
+  padding-inline-start: var(--spacing-3);
+  border-inline-start: 2px solid transparent;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.g-sibling-nav__list.tight .g-sibling-nav__link {
+  padding-block: var(--spacing-1);
+}
+
+@media (hover: hover) {
+  .g-sibling-nav__link:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+/* Weight and a bar on the inline edge: on a page where the accent sits close
+   to the text colour, the bar is what still says "you are here". */
+.g-sibling-nav__link.current {
+  border-inline-start-color: var(--color-accent);
+  font-weight: var(--font-weight-semibold);
+  cursor: default;
+}
+
+.g-sibling-nav.accent .g-sibling-nav__title {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-sibling-nav.accent .g-sibling-nav__link {
+  color: currentColor;
+}
+
+.g-sibling-nav.accent .g-sibling-nav__link.current {
+  border-inline-start-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-sibling-nav__title {
+    margin-block-end: var(--spacing-2);
+  }
 }

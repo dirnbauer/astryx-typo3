@@ -5,14 +5,68 @@
 <f:asset.css identifier="g-conversion-demo-booking" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): cta_link points at the scheduling page; the band does not embed a calendar and must not load a third-party booking script.
+    The button leads to the scheduling page rather than embedding a calendar.
+    A third-party booking widget would load a script into every page carrying
+    this band, and the band would then be tracking readers who never intended
+    to book anything.
 </f:comment>
 
-<section class="astryx-section g-conversion-demo-booking" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-demo-booking {data.tone}">
+    <div class="astryx-layout lg">
+        <div class="astryx-split g-conversion-demo-booking__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-demo-booking__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-conversion-demo-booking__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.agenda}">
+                    <ul class="astryx-grid cols-{data.columns} g-conversion-demo-booking__agenda">
+                        <f:for each="{data.agenda}" as="point">
+                            <li class="astryx-feature g-conversion-demo-booking__point">
+                                <f:if condition="{point.icon}">
+                                    <span class="astryx-feature-icon" data-icon="{point.icon}" aria-hidden="true"></span>
+                                </f:if>
+                                <h3 class="astryx-card-title">{point -> f:render.text(field: 'title')}</h3>
+                                <f:if condition="{point.text}">
+                                    <p class="astryx-card-body">{point -> f:render.text(field: 'text')}</p>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-conversion-demo-booking__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-demo-booking__secondary">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-demo-booking__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-demo-booking__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="820" loading="lazy" class="g-conversion-demo-booking__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

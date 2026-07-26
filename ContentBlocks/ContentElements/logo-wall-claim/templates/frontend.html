@@ -5,14 +5,66 @@
 <f:asset.css identifier="g-logo-wall-claim" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): In the claim-inset variant the claim occupies two grid cells, so the wall needs at least eight marks before it looks intentional.
+    The claim sits inside the wall rather than above it, occupying two cells of
+    the same grid. That is why the element asks for at least six marks: with
+    fewer, the hole the claim leaves reads as a missing logo rather than as a
+    deliberate part of the pattern.
+
+    The list is a list even though the claim shares its grid — the claim is a
+    sibling of the list, not an item in it, or a screen reader would count it
+    as one of the customers.
 </f:comment>
 
-<section class="astryx-section g-logo-wall-claim" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-logo-wall-claim {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-logo-wall-claim__wall">
+
+            <div class="g-logo-wall-claim__claim">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.value}">
+                    <p class="g-logo-wall-claim__figure">
+                        <span class="g-logo-wall-claim__number">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-logo-wall-claim__unit">{data.unit}</span></f:if>
+                    </p>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-logo-wall-claim__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-logo-wall-claim__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <ul class="g-logo-wall-claim__marks">
+                <f:for each="{data.logos}" as="logo">
+                    <li class="g-logo-wall-claim__cell">
+                        <f:if condition="{logo.image}">
+                            <f:then>
+                                <f:for each="{logo.image}" as="image">
+                                    <f:image image="{image}"
+                                             alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
+                                             height="72"
+                                             loading="lazy"
+                                             class="g-logo-wall-claim__image"/>
+                                </f:for>
+                            </f:then>
+                            <f:else>
+                                <span class="g-logo-wall-claim__wordmark">{logo.title}</span>
+                            </f:else>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+
+        </div>
     </div>
 </section>
 

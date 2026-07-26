@@ -5,6 +5,68 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-author-box {
-  display: block;
+.g-author-box__box {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  /* Never wider than the article it follows: a byline that outruns the prose
+     above it stops reading as a footnote and starts reading as a new band. */
+  max-inline-size: 46rem;
+}
+
+/* Boxed draws the rule and the padding; compact takes both away and leaves the
+   portrait and the two lines to sit straight under the last paragraph. */
+.g-author-box__box.boxed {
+  padding-block-start: var(--spacing-6);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-author-box__box.compact {
+  gap: var(--spacing-3);
+}
+
+.g-author-box__box.compact .g-author-box__portrait {
+  --_avatar-size: 36px;
+}
+
+.g-author-box__portrait {
+  flex-shrink: 0;
+}
+
+.g-author-box__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+}
+
+.g-author-box__text {
+  color: var(--color-text-secondary);
+  margin-block-start: var(--spacing-1);
+}
+
+.g-author-box__box.compact .g-author-box__text {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-author-box__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+}
+
+.g-author-box.accent .g-author-box__box.boxed {
+  border-block-start-color: currentColor;
+}
+
+.g-author-box.accent .g-author-box__role,
+.g-author-box.accent .g-author-box__text {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  .g-author-box__box {
+    flex-direction: column;
+  }
 }

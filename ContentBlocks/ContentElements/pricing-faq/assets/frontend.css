@@ -5,6 +5,94 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-faq {
-  display: block;
+.g-pricing-faq__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-pricing-faq__lead {
+  color: var(--color-text-secondary);
+}
+
+/* A heading inside a summary is valid and gives the questions an outline; what
+   it must not bring with it is heading typography, because the summary already
+   sets the row's own scale and weight. */
+.g-pricing-faq__summary-question {
+  font: inherit;
+  margin: 0;
+}
+
+.g-pricing-faq__answer {
+  max-inline-size: 70ch;
+  padding-inline-end: var(--spacing-6);
+}
+
+.g-pricing-faq__group {
+  border-block-start: var(--border-width) solid var(--color-border);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+/* CSS columns rather than a grid: the questions are one sequence, so they read
+   down the first column before starting the second. A details element cannot be
+   broken across a column, which is why the columns belong to the open variant. */
+.g-pricing-faq__open {
+  columns: 1;
+  column-gap: var(--spacing-10);
+}
+
+.g-pricing-faq__entry {
+  break-inside: avoid;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-pricing-faq__entry > .g-pricing-faq__question {
+  margin-block-end: var(--spacing-2);
+}
+
+.g-pricing-faq__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-faq__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-faq.accent .g-pricing-faq__lead,
+.g-pricing-faq.accent .astryx-eyebrow,
+.g-pricing-faq.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-pricing-faq.accent .g-pricing-faq__group {
+  border-color: currentColor;
+}
+
+@media (min-width: 768px) {
+  .g-pricing-faq[data-variant='open-list'][data-columns='2'] .g-pricing-faq__open { columns: 2; }
+  .g-pricing-faq[data-variant='open-list'][data-columns='3'] .g-pricing-faq__open { columns: 2; }
+  .g-pricing-faq[data-variant='open-list'][data-columns='4'] .g-pricing-faq__open { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-pricing-faq[data-variant='open-list'][data-columns='3'] .g-pricing-faq__open { columns: 3; }
+  .g-pricing-faq[data-variant='open-list'][data-columns='4'] .g-pricing-faq__open { columns: 3; }
+}
+
+@media (max-width: 639px) {
+  .g-pricing-faq__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-pricing-faq__answer {
+    padding-inline-end: 0;
+  }
 }

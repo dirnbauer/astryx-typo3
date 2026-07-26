@@ -5,14 +5,46 @@
 <f:asset.css identifier="g-footer-credits" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): One pair per credit — what is being credited on the left, the rights holder and licence on the right; long lists read better in two columns.
+    One pair per credit: what is being credited on the left, who holds the right
+    to it on the right. A licence short name is a second description on the same
+    term rather than a line of its own, because "CC BY 4.0" is a property of
+    that credit and not a separate fact.
+
+    The licence chip is text in a badge, so a reader who cannot see the tint
+    still gets the licence read out with the credit it belongs to.
 </f:comment>
 
-<section class="astryx-section g-footer-credits" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-credits {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-credits__intro">
+            <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text body g-footer-credits__lead">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-metadata-list g-footer-credits__rows {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.rows}" as="credit">
+                <div class="astryx-metadata-list-item g-footer-credits__row">
+                    <dt class="g-footer-credits__subject">{credit -> f:render.text(field: 'title')}</dt>
+
+                    <f:if condition="{credit.text}">
+                        <dd class="g-footer-credits__holder">{credit -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+
+                    <f:if condition="{credit.value}">
+                        <dd class="g-footer-credits__licence"><span class="astryx-badge outline">{credit -> f:render.text(field: 'value')}</span></dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-credits__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

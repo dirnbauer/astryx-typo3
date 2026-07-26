@@ -235,5 +235,181 @@
         <source>Show image</source>
       </segment>
     </unit>
+
+    <!-- Navigation group. Every menu inside the content area is a nav landmark,
+         and several of them can sit on one page, so each needs a name. These are
+         the fallbacks used when the element carries no heading of its own, plus
+         the words a state is spelled out with: a colour or a tick alone never
+         tells a screen-reader user which item is the current one. -->
+    <unit id="nav.sectionMenu">
+      <segment>
+        <source>Section menu</source>
+      </segment>
+    </unit>
+    <unit id="nav.destinations">
+      <segment>
+        <source>Destinations</source>
+      </segment>
+    </unit>
+    <unit id="nav.linkList">
+      <segment>
+        <source>Link list</source>
+      </segment>
+    </unit>
+    <unit id="nav.quickLinks">
+      <segment>
+        <source>Quick links</source>
+      </segment>
+    </unit>
+    <unit id="nav.index">
+      <segment>
+        <source>Index</source>
+      </segment>
+    </unit>
+    <unit id="nav.letters">
+      <segment>
+        <source>Jump to a letter</source>
+      </segment>
+    </unit>
+    <unit id="nav.sitemap">
+      <segment>
+        <source>Sitemap</source>
+      </segment>
+    </unit>
+    <unit id="nav.siblings">
+      <segment>
+        <source>More in this section</source>
+      </segment>
+    </unit>
+    <unit id="nav.path">
+      <segment>
+        <source>You are here</source>
+      </segment>
+    </unit>
+    <unit id="nav.anchors">
+      <segment>
+        <source>Sections of this page</source>
+      </segment>
+    </unit>
+    <unit id="nav.outline">
+      <segment>
+        <source>Page contents</source>
+      </segment>
+    </unit>
+    <unit id="nav.jump">
+      <segment>
+        <source>Jump to</source>
+      </segment>
+    </unit>
+    <unit id="nav.categories">
+      <segment>
+        <source>Categories</source>
+      </segment>
+    </unit>
+    <unit id="nav.pagination">
+      <segment>
+        <source>Parts of this series</source>
+      </segment>
+    </unit>
+    <unit id="nav.part">
+      <segment>
+        <source>Part</source>
+      </segment>
+    </unit>
+    <unit id="nav.steps">
+      <segment>
+        <source>Steps</source>
+      </segment>
+    </unit>
+    <unit id="nav.chapters">
+      <segment>
+        <source>Chapters</source>
+      </segment>
+    </unit>
+    <unit id="nav.related">
+      <segment>
+        <source>Related pages</source>
+      </segment>
+    </unit>
+    <unit id="nav.resources">
+      <segment>
+        <source>External sources</source>
+      </segment>
+    </unit>
+    <unit id="nav.pageMoves">
+      <segment>
+        <source>Previous and next page</source>
+      </segment>
+    </unit>
+    <unit id="nav.upNext">
+      <segment>
+        <source>Read next</source>
+      </segment>
+    </unit>
+    <unit id="nav.backToSection">
+      <segment>
+        <source>Back to the section</source>
+      </segment>
+    </unit>
+    <unit id="nav.tabs">
+      <segment>
+        <source>Sections</source>
+      </segment>
+    </unit>
+    <unit id="nav.current">
+      <segment>
+        <source>Current page</source>
+      </segment>
+    </unit>
+    <unit id="nav.currentStep">
+      <segment>
+        <source>Current step</source>
+      </segment>
+    </unit>
+    <unit id="nav.stepDone">
+      <segment>
+        <source>Completed</source>
+      </segment>
+    </unit>
+    <unit id="nav.stepOpen">
+      <segment>
+        <source>Still to come</source>
+      </segment>
+    </unit>
+    <unit id="nav.previous">
+      <segment>
+        <source>Previous</source>
+      </segment>
+    </unit>
+    <unit id="nav.next">
+      <segment>
+        <source>Next</source>
+      </segment>
+    </unit>
+    <unit id="nav.externalLink">
+      <segment>
+        <source>opens on another site</source>
+      </segment>
+    </unit>
+
+    <!-- Team group. A band of people produces rows of identical links — six
+         buttons all saying the same three words — so the repeated label is
+         here and the name that distinguishes them is added per row as text
+         only a screen reader hears. -->
+    <unit id="team.requestSession">
+      <segment>
+        <source>Request a session</source>
+      </segment>
+    </unit>
+
+    <!-- Conversion group. The one control in the group that has no editor
+         field behind it: the close button on the dismissible offer. Its name
+         is real text rather than an aria-label so it is translated with
+         everything else on the page. -->
+    <unit id="conversion.dismiss">
+      <segment>
+        <source>Close</source>
+      </segment>
+    </unit>
   </file>
 </xliff>

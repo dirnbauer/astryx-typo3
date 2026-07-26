@@ -5,14 +5,54 @@
 <f:asset.css identifier="g-footer-imprint-summary" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): A summary, not a substitute: keep the full imprint page and point `cta_link` at it, since which details are required depends on the operator.
+    A summary, not a substitute. Which details an operator has to publish
+    depends on the operator — legal form, trade, whether there is a periodical
+    behind the site — so this element renders whatever pairs the editor typed
+    and points at the full imprint page rather than pretending to be it.
+
+    A real description list, so the pairs survive being copied into a document
+    and a screen reader gets a term with its value instead of two columns of
+    unrelated words.
 </f:comment>
 
-<section class="astryx-section g-footer-imprint-summary" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-imprint-summary {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-imprint-summary__intro">
+            <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text body g-footer-imprint-summary__lead">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-metadata-list g-footer-imprint-summary__rows {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.rows}" as="row">
+                <div class="astryx-metadata-list-item g-footer-imprint-summary__row">
+                    <dt class="g-footer-imprint-summary__term">{row -> f:render.text(field: 'title')}</dt>
+                    <dd class="g-footer-imprint-summary__value">
+                        <f:if condition="{row.value}">
+                            <span class="g-footer-imprint-summary__short">{row -> f:render.text(field: 'value')}</span>
+                        </f:if>
+                        <f:if condition="{row.text}">
+                            <span class="g-footer-imprint-summary__long">{row -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </dd>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.cta_label} || {data.note}">
+            <div class="g-footer-imprint-summary__footer">
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                </f:if>
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-footer-imprint-summary__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

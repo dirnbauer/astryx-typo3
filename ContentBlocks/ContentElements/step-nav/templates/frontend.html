@@ -5,14 +5,84 @@
 <f:asset.css identifier="g-step-nav" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The current step is the child whose link resolves to this page; everything before it is marked complete, everything after it is still a plain link.
+    The current step is the child whose link resolves to this page, or the one
+    whose link the editor left empty. Everything before it is complete,
+    everything after it is a plain link, and each of the three states is
+    written out for a screen reader as well as drawn: a tick and a tint are
+    not information anybody can hear.
+
+    An ordered list, because the order is the whole message — these are stages
+    of one process and not a set of choices.
 </f:comment>
 
-<section class="astryx-section g-step-nav" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.steps" default="Steps"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="selfUri"><f:uri.page/></f:variable>
+
+<f:variable name="currentIndex" value="-1"/>
+<f:for each="{data.steps}" as="step" iteration="position">
+    <f:if condition="{step.link.url}">
+        <f:variable name="stepUri"><f:uri.typolink parameter="{step.link}"/></f:variable>
+        <f:if condition="{stepUri} == {selfUri}"><f:variable name="currentIndex" value="{position.index}"/></f:if>
+    </f:if>
+</f:for>
+<f:comment>
+    Second pass, so that a step the editor deliberately left unlinked wins over
+    a link that merely happens to resolve here.
+</f:comment>
+<f:for each="{data.steps}" as="step" iteration="position">
+    <f:if condition="!{step.link.url}"><f:variable name="currentIndex" value="{position.index}"/></f:if>
+</f:for>
+
+<section class="astryx-section tight g-step-nav {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-step-nav__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-step-nav__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-step-nav__nav" aria-label="{navLabel}">
+            <ol class="g-step-nav__steps {f:if(condition: data.compact, then: 'tight')}">
+                <f:for each="{data.steps}" as="step" iteration="position">
+                    <f:variable name="state">upcoming</f:variable>
+                    <f:if condition="{position.index} < {currentIndex}"><f:variable name="state">done</f:variable></f:if>
+                    <f:if condition="{position.index} == {currentIndex} || !{step.link.url}"><f:variable name="state">current</f:variable></f:if>
+
+                    <li class="g-step-nav__step {state}">
+                        <span class="g-step-nav__marker" aria-hidden="true">{position.cycle}</span>
+
+                        <span class="g-step-nav__body">
+                            <f:if condition="{state} == 'current'">
+                                <f:then>
+                                    <span class="g-step-nav__title" aria-current="step">{step.title}</span>
+                                </f:then>
+                                <f:else>
+                                    <f:link.typolink parameter="{step.link}" class="astryx-link quiet g-step-nav__title">{step.title}</f:link.typolink>
+                                </f:else>
+                            </f:if>
+
+                            <span class="astryx-visually-hidden">
+                                <f:if condition="{state} == 'done'"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.stepDone" default="Completed"/></f:if>
+                                <f:if condition="{state} == 'current'"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.currentStep" default="Current step"/></f:if>
+                                <f:if condition="{state} == 'upcoming'"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.stepOpen" default="Still to come"/></f:if>
+                            </span>
+
+                            <f:if condition="{step.description}">
+                                <span class="astryx-text supporting g-step-nav__note">{step.description}</span>
+                            </f:if>
+                        </span>
+                    </li>
+                </f:for>
+            </ol>
+        </nav>
+
     </div>
 </section>
 

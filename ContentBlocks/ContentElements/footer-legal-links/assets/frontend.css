@@ -6,5 +6,80 @@
  */
 
 .g-footer-legal-links {
-  display: block;
+  --section-gap: var(--grande-band-tight);
+}
+
+.g-footer-legal-links__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  margin-block-end: var(--spacing-4);
+}
+
+.g-footer-legal-links__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-footer-legal-links__list.is-compact {
+  gap: var(--spacing-1) var(--spacing-3);
+}
+
+/* The rule is drawn between items rather than typed into them, so it never
+   lands in a copied line or in what a screen reader reads out. */
+.g-footer-legal-links__item + .g-footer-legal-links__item::before {
+  content: '';
+  display: inline-block;
+  inline-size: var(--border-width);
+  block-size: 0.9em;
+  margin-inline-end: var(--spacing-4);
+  translate: 0 var(--spacing-0-5);
+  background-color: var(--color-border-emphasized);
+}
+
+.g-footer-legal-links__list.is-compact .g-footer-legal-links__item + .g-footer-legal-links__item::before {
+  margin-inline-end: var(--spacing-3);
+}
+
+.g-footer-legal-links__note {
+  margin-block-start: var(--spacing-3);
+  max-inline-size: 70ch;
+}
+
+.g-footer-legal-links[data-align='center'] .g-footer-legal-links__intro,
+.g-footer-legal-links[data-align='center'] .g-footer-legal-links__note {
+  text-align: center;
+}
+
+.g-footer-legal-links[data-align='center'] .g-footer-legal-links__list {
+  justify-content: center;
+}
+
+.g-footer-legal-links.accent .g-footer-legal-links__link,
+.g-footer-legal-links.accent .astryx-text.supporting {
+  color: currentColor;
+}
+
+.g-footer-legal-links.accent .g-footer-legal-links__item + .g-footer-legal-links__item::before {
+  background-color: currentColor;
+  opacity: 0.5;
+}
+
+@media (max-width: 480px) {
+  /* Wrapped onto four lines a leading rule marks the start of a line rather
+     than a boundary between two links, so it goes. */
+  .g-footer-legal-links__item + .g-footer-legal-links__item::before {
+    content: none;
+  }
+
+  .g-footer-legal-links__list {
+    gap: var(--spacing-2) var(--spacing-4);
+  }
 }

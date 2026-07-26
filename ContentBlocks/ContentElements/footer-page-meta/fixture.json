@@ -1,1 +1,30 @@
-{}
+{
+    "_type": "footer",
+    "header": "The page's housekeeping line",
+    "text": "One to six label and value pairs in a description list laid out across the line: when the page was last reviewed, which version it is, who is responsible.",
+    "note": "The dates are typed rather than read from the record's timestamp — a timestamp changes when a typo is corrected, whereas this line says when a human last checked the page.",
+    "align": "start",
+    "tone": "body",
+    "width": "md",
+    "compact": false,
+    "rows": [
+        {
+            "title": "The title is the label",
+            "value": "The value",
+            "text": "",
+            "included": false
+        },
+        {
+            "title": "Values are capped at 24 characters",
+            "value": "14 April 2026",
+            "text": "",
+            "included": false
+        },
+        {
+            "title": "A row with no value",
+            "value": "",
+            "text": "falls back to its longer text",
+            "included": false
+        }
+    ]
+}

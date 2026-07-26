@@ -5,6 +5,77 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-credits {
+.g-footer-credits__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-footer-credits__lead {
+  color: var(--color-text-secondary);
+}
+
+/* CSS columns rather than a grid: thirty credits are one list, and a column
+   flow keeps them reading down each column instead of snaking across two. */
+.g-footer-credits__rows {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-footer-credits__row {
+  gap: var(--spacing-0-5);
+  padding-block: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+  break-inside: avoid;
+}
+
+.g-footer-credits__rows.is-compact .g-footer-credits__row {
+  padding-block: var(--spacing-1);
+}
+
+.g-footer-credits__subject {
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.g-footer-credits__holder {
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--color-text-secondary);
+}
+
+.g-footer-credits__licence {
+  margin-block-start: var(--spacing-1);
+}
+
+.g-footer-credits__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-footer-credits.accent .g-footer-credits__lead,
+.g-footer-credits.accent .g-footer-credits__holder,
+.g-footer-credits.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 641px) {
+  .g-footer-credits[data-columns='2'] .g-footer-credits__rows,
+  .g-footer-credits[data-columns='3'] .g-footer-credits__rows,
+  .g-footer-credits[data-columns='4'] .g-footer-credits__rows {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .g-footer-credits[data-columns='3'] .g-footer-credits__rows { columns: 3; }
+  .g-footer-credits[data-columns='4'] .g-footer-credits__rows { columns: 4; }
 }

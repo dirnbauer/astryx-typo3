@@ -5,14 +5,33 @@
 <f:asset.css identifier="g-testimonial-single" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Quotation marks are drawn by the template; the field holds bare text. The typographic variant sets the quote at display size, the card variant boxes it.
+    The quotation marks are drawn by the stylesheet with quotes: auto, so a
+    German page gets its own pair and an English one another. That is why the
+    field is stored bare — an editor who types the marks in gets four.
 </f:comment>
 
-<section class="astryx-section g-testimonial-single" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-testimonial-single {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow}">
+            <p class="astryx-eyebrow g-testimonial-single__eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
         </f:if>
+
+        <figure class="g-testimonial-single__figure">
+            <blockquote class="astryx-blockquote g-testimonial-single__quote">
+                <p>{data -> f:render.text(field: 'quote_text')}</p>
+            </blockquote>
+
+            <f:if condition="{data.author}">
+                <figcaption class="astryx-citation g-testimonial-single__credit">
+                    <span class="g-testimonial-single__name">{data -> f:render.text(field: 'author')}</span>
+                    <f:if condition="{data.role}">
+                        <span class="g-testimonial-single__role">{data -> f:render.text(field: 'role')}</span>
+                    </f:if>
+                </figcaption>
+            </f:if>
+        </figure>
+
     </div>
 </section>
 

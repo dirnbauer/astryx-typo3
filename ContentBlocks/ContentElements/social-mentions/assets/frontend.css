@@ -5,6 +5,79 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-social-mentions {
-  display: block;
+.g-social-mentions__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-social-mentions__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-social-mentions__posts {
+  --grid-gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cards keep their natural height rather than stretching: a wall of unsolicited
+   posts that all end on the same line looks edited, which is the one thing this
+   band must not look. */
+.g-social-mentions__card {
+  margin: 0;
+  gap: var(--spacing-3);
+}
+
+.g-social-mentions__who {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-social-mentions__handle {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.g-social-mentions__origin {
+  margin-inline-start: auto;
+}
+
+.g-social-mentions__post {
+  margin: 0;
+}
+
+/* No quotation marks here: the post is reproduced verbatim, and a pair of marks
+   around it would suggest an editor chose where it started and stopped. */
+.g-social-mentions__post > p {
+  margin: 0;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.g-social-mentions__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 60ch;
+}
+
+.g-social-mentions.accent .g-social-mentions__lead,
+.g-social-mentions.accent .astryx-eyebrow,
+.g-social-mentions.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-social-mentions__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-social-mentions__origin {
+    margin-inline-start: 0;
+  }
 }

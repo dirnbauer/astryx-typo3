@@ -5,14 +5,63 @@
 <f:asset.css identifier="g-conversion-lead-magnet" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): cta_link may point straight at the file or at a form page; the element never gates the file itself, so an ungated link really is ungated.
+    Nothing here gates the file. The button goes wherever the editor pointed
+    it — straight at a PDF or at a page holding a form — so a link that looks
+    ungated really is ungated, and the note is the only place the exchange is
+    described.
 </f:comment>
 
-<section class="astryx-section g-conversion-lead-magnet" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-lead-magnet {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-conversion-lead-magnet__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-lead-magnet__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-conversion-lead-magnet__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.takeaways}">
+                    <ul class="astryx-grid cols-{data.columns} g-conversion-lead-magnet__takeaways">
+                        <f:for each="{data.takeaways}" as="takeaway">
+                            <li class="astryx-feature g-conversion-lead-magnet__takeaway">
+                                <f:if condition="{takeaway.icon}">
+                                    <span class="astryx-feature-icon" data-icon="{takeaway.icon}" aria-hidden="true"></span>
+                                </f:if>
+                                <h3 class="astryx-card-title">{takeaway -> f:render.text(field: 'title')}</h3>
+                                <f:if condition="{takeaway.text}">
+                                    <p class="astryx-card-body">{takeaway -> f:render.text(field: 'text')}</p>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <div class="astryx-button-group g-conversion-lead-magnet__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-lead-magnet__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-lead-magnet__cover">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="640" loading="lazy" class="g-conversion-lead-magnet__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

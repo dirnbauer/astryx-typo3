@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-pricing-included-checklist" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The 'included' toggle drives the mark and the strike-through; never signal exclusion with colour alone.
+    A tick and a struck-through dash are the same shape to a reader who cannot
+    see them and, for a good many readers, the same colour too. Each mark
+    therefore carries its own name and the row states its state rather than
+    merely showing it.
 </f:comment>
 
-<section class="astryx-section g-pricing-included-checklist" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-included-checklist {data.tone}" data-columns="{data.columns}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-pricing-included-checklist__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-pricing-included-checklist__scope">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-included-checklist__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list compact g-pricing-included-checklist__items">
+            <f:for each="{data.items}" as="item">
+                <li class="g-pricing-included-checklist__item" data-included="{f:if(condition: item.included, then: 'yes', else: 'no')}">
+                    <f:if condition="{item.included}">
+                        <f:then><svg class="g-pricing-included-checklist__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-included-checklist/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
+                        <f:else><svg class="g-pricing-included-checklist__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-included-checklist/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+                    </f:if>
+
+                    <span class="g-pricing-included-checklist__text">
+                        <span class="g-pricing-included-checklist__label">{item -> f:render.text(field: 'title')}</span>
+                        <f:if condition="{item.text}">
+                            <span class="astryx-text supporting g-pricing-included-checklist__caveat">{item -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </span>
+
+                    <f:if condition="{item.value}">
+                        <span class="astryx-badge outline g-pricing-included-checklist__qualifier">{item.value}</span>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-included-checklist__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-included-checklist__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

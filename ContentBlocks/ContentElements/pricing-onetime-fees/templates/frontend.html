@@ -5,14 +5,52 @@
 <f:asset.css identifier="g-pricing-onetime-fees" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Say in the note whether these figures are net or gross; readers assume the opposite of whatever you meant.
+    Every fee brings the sentence that says what it buys. Left to a bare figure
+    a setup charge becomes the line a reader argues about six weeks later, and
+    the sentence is cheaper to write than the argument is to have.
 </f:comment>
 
-<section class="astryx-section g-pricing-onetime-fees" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-onetime-fees {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-pricing-onetime-fees__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-pricing-onetime-fees__scope">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-onetime-fees__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-table-wrap g-pricing-onetime-fees__wrap">
+            <table class="astryx-table {f:if(condition: data.compact, then: 'compact')} g-pricing-onetime-fees__table">
+                <caption class="astryx-visually-hidden">{data -> f:render.text(field: 'header')}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="g-pricing-onetime-fees__col-service"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.service" default="Service"/></th>
+                        <th scope="col" class="g-pricing-onetime-fees__col-fee"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.fee" default="Fee"/></th>
+                        <th scope="col" class="g-pricing-onetime-fees__col-covers"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.covers" default="What the fee covers"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{data.fees}" as="fee">
+                        <tr>
+                            <th scope="row" class="g-pricing-onetime-fees__service">{fee -> f:render.text(field: 'title')}</th>
+                            <td class="g-pricing-onetime-fees__fee">{fee -> f:render.text(field: 'value')}</td>
+                            <td class="g-pricing-onetime-fees__covers">{fee -> f:render.text(field: 'text')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-pricing-onetime-fees__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

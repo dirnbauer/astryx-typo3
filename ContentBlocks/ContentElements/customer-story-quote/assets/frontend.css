@@ -5,6 +5,73 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-customer-story-quote {
+.g-customer-story-quote__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-5);
+}
+
+/* The mark is a credential, not a picture: it is normalised to one small
+   height and desaturated so it never competes with the sentence below it. */
+.g-customer-story-quote__mark {
   display: block;
+  block-size: var(--spacing-8);
+  inline-size: auto;
+  max-inline-size: 12rem;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.g-customer-story-quote__quote {
+  font-size: var(--text-heading-3-size);
+  line-height: var(--text-heading-3-leading);
+  max-inline-size: 40ch;
+}
+
+.g-customer-story-quote__quote > p {
+  margin: 0;
+  quotes: auto;
+}
+
+.g-customer-story-quote__quote > p::before {
+  content: open-quote;
+}
+
+.g-customer-story-quote__quote > p::after {
+  content: close-quote;
+}
+
+.g-customer-story-quote__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-customer-story-quote__role::before {
+  content: ', ';
+}
+
+.g-customer-story-quote__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-customer-story-quote.accent .astryx-eyebrow,
+.g-customer-story-quote.accent .astryx-citation {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-customer-story-quote.accent .g-customer-story-quote__name {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-customer-story-quote__quote {
+    max-inline-size: none;
+    font-size: var(--text-heading-4-size);
+    line-height: var(--text-heading-4-leading);
+  }
 }

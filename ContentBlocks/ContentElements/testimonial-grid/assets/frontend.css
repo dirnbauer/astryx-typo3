@@ -5,6 +5,78 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-testimonial-grid {
-  display: block;
+.g-testimonial-grid__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-testimonial-grid__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-testimonial-grid__items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cards stretch to the tallest of their row, and the attribution is pushed to
+   the bottom, so the faces land on one optical line however long the quotes
+   above them run. */
+.g-testimonial-grid__item {
+  block-size: 100%;
+}
+
+.g-testimonial-grid__card {
+  margin: 0;
+  block-size: 100%;
+  gap: var(--spacing-5);
+}
+
+.g-testimonial-grid__quote {
+  margin: 0;
+  quotes: auto;
+}
+
+.g-testimonial-grid__quote > p {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.g-testimonial-grid__quote > p::before {
+  content: open-quote;
+}
+
+.g-testimonial-grid__quote > p::after {
+  content: close-quote;
+}
+
+.g-testimonial-grid__credit {
+  margin-block-start: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-testimonial-grid__who {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.g-testimonial-grid.accent .g-testimonial-grid__lead,
+.g-testimonial-grid.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-testimonial-grid__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

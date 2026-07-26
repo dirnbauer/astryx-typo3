@@ -5,6 +5,111 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-step-nav {
-  display: block;
+.g-step-nav__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-5);
+}
+
+.g-step-nav__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-step-nav__steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: none;
+}
+
+.g-step-nav__steps.tight {
+  gap: var(--spacing-2);
+}
+
+.g-step-nav__step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  min-inline-size: 0;
+}
+
+/* Filled, outlined or plain — three states a reader can tell apart with the
+   page in greyscale, which colour alone would not survive. */
+.g-step-nav__marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--size-element-sm);
+  block-size: var(--size-element-sm);
+  border: 2px solid var(--color-border-emphasized);
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.g-step-nav__step.done .g-step-nav__marker {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.g-step-nav__step.current .g-step-nav__marker {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+  color: var(--color-text-accent);
+}
+
+.g-step-nav__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+.g-step-nav__title {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-step-nav__step.current .g-step-nav__title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-accent);
+}
+
+.g-step-nav__step.upcoming .g-step-nav__title {
+  color: var(--color-text-secondary);
+}
+
+.g-step-nav.accent .g-step-nav__lead,
+.g-step-nav.accent .astryx-text.supporting,
+.g-step-nav.accent .g-step-nav__title {
+  color: currentColor;
+}
+
+/* Horizontal once the stages fit side by side, with the rule between them
+   drawn on the gap rather than on either step. */
+@media (min-width: 768px) {
+  .g-step-nav__steps {
+    flex-direction: row;
+    align-items: stretch;
+    gap: var(--spacing-4);
+  }
+
+  .g-step-nav__step {
+    flex: 1;
+    align-items: flex-start;
+  }
+
+  .g-step-nav__step + .g-step-nav__step {
+    padding-inline-start: var(--spacing-4);
+    border-inline-start: var(--border-width) solid var(--color-border);
+  }
 }

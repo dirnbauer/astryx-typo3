@@ -5,14 +5,65 @@
 <f:asset.css identifier="g-pricing-seat-bands" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Write the band in the row title ('11–50 seats') and the rate in its value; the template does not parse ranges.
+    The entry price sits above the ladder rather than inside it: a reader has to
+    see where the price starts before a falling column of numbers means anything.
+    The ladder itself is a table, because each row is a range read against a rate.
 </f:comment>
 
-<section class="astryx-section g-pricing-seat-bands" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-seat-bands {data.tone}">
+    <div class="astryx-layout lg">
+
+        <div class="g-pricing-seat-bands__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-pricing-seat-bands__scope">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-seat-bands__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.price}">
+                <p class="g-pricing-seat-bands__figure">
+                    <span class="astryx-text display-3 g-pricing-seat-bands__amount">{data -> f:render.text(field: 'price')}</span><f:if condition="{data.period}"><span class="astryx-text label g-pricing-seat-bands__period">{data -> f:render.text(field: 'period')}</span></f:if>
+                </p>
+            </f:if>
+        </div>
+
+        <div class="astryx-table-wrap g-pricing-seat-bands__wrap">
+            <table class="astryx-table {f:if(condition: data.compact, then: 'compact')} g-pricing-seat-bands__table">
+                <caption class="astryx-visually-hidden">{data -> f:render.text(field: 'header')}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="g-pricing-seat-bands__col-band"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.band" default="Seats"/></th>
+                        <th scope="col" class="g-pricing-seat-bands__col-rate"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.rate" default="Price per seat"/></th>
+                        <th scope="col" class="g-pricing-seat-bands__col-note"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.note" default="Note"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <f:for each="{data.bands}" as="band">
+                        <tr>
+                            <th scope="row" class="g-pricing-seat-bands__band">{band -> f:render.text(field: 'title')}</th>
+                            <td class="g-pricing-seat-bands__rate">{band -> f:render.text(field: 'value')}</td>
+                            <td class="g-pricing-seat-bands__band-note">{band -> f:render.text(field: 'text')}</td>
+                        </tr>
+                    </f:for>
+                </tbody>
+            </table>
+        </div>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-seat-bands__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-seat-bands__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

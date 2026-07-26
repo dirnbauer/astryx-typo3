@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-data-distribution-bars" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Bar widths are the percentages typed on the rows; the band-level `value` holds the total the shares refer to, and nothing checks that they add up.
+    The total sits above the buckets rather than beside them, because every
+    share below is a share of it and a reader who missed it reads five
+    unrelated percentages. Nothing checks that the shares add up: that is the
+    editor's arithmetic, and the note is where they own it.
 </f:comment>
 
-<section class="astryx-section g-data-distribution-bars" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-distribution-bars {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-distribution-bars__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.value}">
+                <p class="g-data-distribution-bars__total">
+                    <span class="astryx-text display-3 g-data-distribution-bars__sum">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-data-distribution-bars__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
+                </p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-distribution-bars__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="g-data-distribution-bars__buckets {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.metrics}" as="metric">
+                <div class="g-data-distribution-bars__bucket" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                    <dt class="g-data-distribution-bars__name">{metric -> f:render.text(field: 'title')}</dt>
+                    <dd class="g-data-distribution-bars__plot" aria-hidden="true"><span class="g-data-distribution-bars__bar"></span></dd>
+                    <dd class="g-data-distribution-bars__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
+                    <f:if condition="{metric.text}">
+                        <dd class="astryx-text supporting g-data-distribution-bars__count">{metric -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-distribution-bars__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

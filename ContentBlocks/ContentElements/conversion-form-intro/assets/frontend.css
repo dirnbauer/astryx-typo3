@@ -5,6 +5,112 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-form-intro {
-  display: block;
+.g-conversion-form-intro__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-conversion-form-intro[data-align='center'] .g-conversion-form-intro__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-conversion-form-intro__subheader,
+.g-conversion-form-intro__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-form-intro__steps {
+  margin: 0;
+  padding-inline-start: 0;
+}
+
+.g-conversion-form-intro__step {
+  gap: var(--spacing-4);
+}
+
+/* The number is a marker, not a heading: it stays on the first line of the
+   title however long that title runs. */
+.g-conversion-form-intro__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent-muted);
+  color: var(--color-text-accent);
+  font-family: var(--font-family-heading);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-conversion-form-intro__step-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+}
+
+/* How long a step takes is the first thing anybody looks for, so it sits
+   directly under its title rather than at the end of the sentence. */
+.g-conversion-form-intro__duration {
+  margin: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-conversion-form-intro__step-text {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-form-intro__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-conversion-form-intro[data-align='center'] .g-conversion-form-intro__foot {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-form-intro__note {
+  margin: 0;
+  max-inline-size: 40rem;
+}
+
+.g-conversion-form-intro.accent .g-conversion-form-intro__subheader,
+.g-conversion-form-intro.accent .g-conversion-form-intro__lead,
+.g-conversion-form-intro.accent .g-conversion-form-intro__step-text,
+.g-conversion-form-intro.accent .g-conversion-form-intro__duration,
+.g-conversion-form-intro.accent .g-conversion-form-intro__note,
+.g-conversion-form-intro.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-form-intro.accent .astryx-list.with-dividers > li {
+  border-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-form-intro__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-conversion-form-intro__step {
+    gap: var(--spacing-3);
+  }
+
+  .g-conversion-form-intro__foot {
+    margin-block-start: var(--spacing-6);
+  }
 }

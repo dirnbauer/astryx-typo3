@@ -5,6 +5,69 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-questions-band {
-  display: block;
+.g-footer-questions-band__grid {
+  display: grid;
+  gap: var(--spacing-8);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.g-footer-questions-band__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  /* A closing question that runs the full band width stops being a question
+     and starts being a paragraph. */
+  max-inline-size: 40rem;
+}
+
+.g-footer-questions-band__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-questions-band__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-footer-questions-band__note {
+  max-inline-size: 60ch;
+}
+
+.g-footer-questions-band__media {
+  display: flex;
+}
+
+.g-footer-questions-band__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+/* Centring only makes sense without a picture: a centred column beside a photo
+   reads as a column that failed to fill its half. */
+.g-footer-questions-band[data-align='center'][data-media='no'] .g-footer-questions-band__copy {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-footer-questions-band.accent .g-footer-questions-band__lead,
+.g-footer-questions-band.accent .astryx-eyebrow,
+.g-footer-questions-band.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-footer-questions-band[data-media='yes'] .g-footer-questions-band__grid {
+    grid-template-columns: 3fr 2fr;
+    gap: var(--spacing-12);
+  }
+}
+
+@media (max-width: 767px) {
+  .g-footer-questions-band__copy {
+    max-inline-size: none;
+  }
 }

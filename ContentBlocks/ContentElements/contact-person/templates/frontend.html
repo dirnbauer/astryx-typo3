@@ -5,14 +5,59 @@
 <f:asset.css identifier="g-contact-person" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Two actions at most, and the primary one should be the channel you actually answer fastest on.
+    Two actions at most, and the primary one should be the channel that is
+    actually answered fastest. A panel offering four ways to make contact is a
+    panel that answers none of them quickly.
+
+    The note is the hours, and it sits under the buttons rather than above
+    them: a reader who has already decided to write does not need to be told
+    when the phone is picked up, and a reader who has not is going to read the
+    whole panel anyway.
+
+    The alt names the person, as everywhere in this group where the portrait
+    stands on its own beside the text.
 </f:comment>
 
-<section class="astryx-section g-contact-person" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-contact-person {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-card roomy g-contact-person__panel {f:if(condition: data.reverse, then: 'portrait-end')}">
+
+            <f:if condition="{data.image}">
+                <span class="astryx-avatar xl g-contact-person__portrait">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{data.header}" width="256c" height="256c" loading="lazy"/>
+                    </f:for>
+                </span>
+            </f:if>
+
+            <div class="g-contact-person__body">
+                <h2 class="astryx-heading level-3 g-contact-person__name">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text label g-contact-person__role">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-contact-person__text">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-contact-person__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-contact-person__hours">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

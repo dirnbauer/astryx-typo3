@@ -5,14 +5,35 @@
 <f:asset.css identifier="g-conversion-cta-inline" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Wraps to two rows on narrow screens rather than shrinking the button below its tap target.
+    The strip sits inside running text, so it keeps a heading rather than a
+    styled paragraph: a reader skimming by headings has to be able to tell
+    that the article was interrupted and by what.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-inline" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-cta-inline {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-banner g-conversion-cta-inline__strip">
+
+            <f:if condition="{data.icon}">
+                <f:comment>
+                    The tile carries the semantic key rather than a glyph, so
+                    swapping icon library never reaches into a template.
+                </f:comment>
+                <span class="astryx-feature-icon g-conversion-cta-inline__icon" data-icon="{data.icon}" aria-hidden="true"></span>
+            </f:if>
+
+            <div class="astryx-banner-content g-conversion-cta-inline__copy">
+                <h2 class="astryx-heading level-5">{data -> f:render.text(field: 'header')}</h2>
+                <f:if condition="{data.text}">
+                    <p class="astryx-text supporting g-conversion-cta-inline__text">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.cta_label}">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary g-conversion-cta-inline__action">{data.cta_label}</f:link.typolink>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

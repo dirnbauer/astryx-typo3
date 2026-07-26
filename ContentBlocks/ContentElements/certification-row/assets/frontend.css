@@ -5,6 +5,102 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-certification-row {
+.g-certification-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-certification-row__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-certification-row__certificates {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  row-gap: var(--spacing-6);
+}
+
+.g-certification-row__certificate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+  inline-size: 12rem;
+}
+
+.g-certification-row__seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--spacing-12);
+}
+
+.g-certification-row__image {
   display: block;
+  max-block-size: 100%;
+  max-inline-size: 100%;
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+}
+
+/* The scope, not the standard's number, is what a reader is actually checking,
+   so it gets the full width of the cell and wraps rather than truncating. */
+.g-certification-row__scope {
+  margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--color-text-primary);
+}
+
+.g-certification-row__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 60ch;
+}
+
+.g-certification-row[data-align='center'] .g-certification-row__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-certification-row[data-align='center'] .g-certification-row__certificates {
+  justify-content: center;
+}
+
+.g-certification-row[data-align='center'] .g-certification-row__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-certification-row.accent .g-certification-row__lead,
+.g-certification-row.accent .astryx-eyebrow,
+.g-certification-row.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-certification-row.accent .g-certification-row__scope {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-certification-row__certificates {
+    gap: var(--spacing-6);
+    row-gap: var(--spacing-5);
+  }
+
+  .g-certification-row__certificate {
+    inline-size: 9rem;
+  }
+
+  .g-certification-row__seal {
+    block-size: var(--spacing-10);
+  }
 }

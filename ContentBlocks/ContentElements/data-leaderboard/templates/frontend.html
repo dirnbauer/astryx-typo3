@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-data-leaderboard" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The order is the order of the child records — drag to re-rank; the position numbers are drawn by the template, everything else is typed.
+    An ordered list drawn with the shared decimal marker, so the position is
+    both a real list index and a visible number. The order is the order of the
+    child records: to re-rank, drag them.
 </f:comment>
 
-<section class="astryx-section g-data-leaderboard" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-leaderboard {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-leaderboard__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-leaderboard__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ol class="astryx-list marker-decimal with-dividers {f:if(condition: data.compact, then: 'compact', else: 'balanced')} g-data-leaderboard__rows">
+            <f:for each="{data.metrics}" as="metric">
+                <li class="g-data-leaderboard__row">
+                    <span class="g-data-leaderboard__entry">
+                        <span class="g-data-leaderboard__name">{metric -> f:render.text(field: 'title')}</span>
+                        <f:if condition="{metric.text}">
+                            <span class="astryx-text supporting g-data-leaderboard__detail">{metric -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </span>
+
+                    <span class="g-data-leaderboard__figure">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
+                </li>
+            </f:for>
+        </ol>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-leaderboard__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-data-leaderboard__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
+        </f:if>
+
     </div>
 </section>
 

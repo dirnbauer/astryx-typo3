@@ -5,14 +5,55 @@
 <f:asset.css identifier="g-conversion-path-fork" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Both panels get equal visual weight; the moment one is styled as primary the fork stops being a fork.
+    Every panel gets the same surface, the same tile and the same weight of
+    title. The moment one of them is styled as the recommended route the fork
+    has stopped being a fork and become a call to action with distractions.
 </f:comment>
 
-<section class="astryx-section g-conversion-path-fork" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-path-fork {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-conversion-path-fork__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-conversion-path-fork__subheader">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-conversion-path-fork__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-conversion-path-fork__paths">
+            <f:for each="{data.paths}" as="path">
+                <li class="astryx-card g-conversion-path-fork__path {f:if(condition: path.link, then: 'astryx-clickable-card')}">
+                    <f:if condition="{path.icon}">
+                        <span class="astryx-feature-icon" data-icon="{path.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title">
+                        <f:if condition="{path.link.url}">
+                            <f:then><f:link.typolink parameter="{path.link}">{path.title}</f:link.typolink></f:then>
+                            <f:else>{path -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{path.description}">
+                        <p class="astryx-card-body">{path -> f:render.text(field: 'description')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-conversion-path-fork__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

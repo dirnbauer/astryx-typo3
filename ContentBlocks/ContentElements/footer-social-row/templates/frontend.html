@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-footer-social-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Icons come from the shared icon library so switching library never rewrites a record; every icon link keeps an accessible name from its title.
+    Every profile link carries the network's name as text, so the row survives a
+    reader who does not recognise a logo, an icon set that fails to load and a
+    screen reader — the icon is a tile beside the name, never the name itself.
+
+    The icon key comes from the shared library, so switching library never
+    rewrites a record.
 </f:comment>
 
-<section class="astryx-section g-footer-social-row" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navLabel" value="{data.header}"/>
+<f:if condition="!{data.header}">
+    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-social-row/language/labels.xlf:nav.label', default: 'Our profiles')}"/>
+</f:if>
+
+<section class="astryx-section g-footer-social-row {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.text}">
+            <div class="g-footer-social-row__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-social-row__lead">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav aria-label="{navLabel}">
+            <ul class="g-footer-social-row__list {f:if(condition: data.compact, then: 'is-compact')}">
+                <f:for each="{data.links}" as="profile">
+                    <li class="g-footer-social-row__item">
+                        <f:link.typolink parameter="{profile.link}" class="astryx-item interactive g-footer-social-row__link">
+                            <span class="astryx-item-start astryx-feature-icon g-footer-social-row__icon" data-icon="{profile.icon}" aria-hidden="true"></span>
+                            <span class="astryx-item-content">
+                                <span class="astryx-item-label g-footer-social-row__name">{profile.title}</span>
+                                <f:if condition="{profile.description}">
+                                    <span class="astryx-item-description">{profile.description}</span>
+                                </f:if>
+                            </span>
+                        </f:link.typolink>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

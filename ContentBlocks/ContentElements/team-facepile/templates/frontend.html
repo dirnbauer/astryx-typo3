@@ -5,14 +5,56 @@
 <f:asset.css identifier="g-team-facepile" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Only the portraits are rendered; names surface as accessible text on each avatar so the cluster stays readable without a script.
+    The cluster is decoration and is marked as such. Twenty overlapping
+    portraits read to a screen reader as twenty graphics in front of the one
+    sentence the band exists to deliver — and the fact they carry is the count,
+    which the value and unit beside them already write out in words. This is
+    the same rule as a progress bar drawn over a number: the picture is hidden,
+    the number is not.
+
+    Only the portraits are rendered. Names, roles and links on the child
+    records are ignored here; 'Contributor Wall' is the element for a cluster
+    where every name should be legible.
 </f:comment>
 
-<section class="astryx-section g-team-facepile" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-team-facepile {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-team-facepile__band align-{data.align} {f:if(condition: data.compact, then: 'compact')}">
+
+            <span class="astryx-avatar-group {f:if(condition: data.compact, then: 'md', else: 'lg')} g-team-facepile__pile" aria-hidden="true">
+                <f:for each="{data.people}" as="person">
+                    <f:if condition="{person.image}">
+                        <span class="astryx-avatar">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+                </f:for>
+            </span>
+
+            <div class="g-team-facepile__copy">
+                <f:if condition="{data.value}">
+                    <p class="astryx-text large g-team-facepile__count">
+                        <span class="g-team-facepile__value">{data -> f:render.text(field: 'value')}</span>
+                        <f:if condition="{data.unit}">
+                            <span class="g-team-facepile__unit">{data.unit}</span>
+                        </f:if>
+                    </p>
+                </f:if>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-team-facepile__text">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-team-facepile__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

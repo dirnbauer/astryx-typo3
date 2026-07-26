@@ -5,6 +5,86 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-spec-table {
+.g-data-spec-table__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-spec-table__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-spec-table__caption {
+  color: var(--color-text-secondary);
+  margin-block-end: var(--spacing-4);
+}
+
+.g-data-spec-table__rows {
   display: block;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* Term left, value right, caveat under both: the caveat is a second value on
+   the same term, which is why it stays inside the pair rather than becoming a
+   paragraph after it. */
+.g-data-spec-table__row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) auto;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-6);
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-data-spec-table__rows.compact .g-data-spec-table__row {
+  padding-block: var(--spacing-2);
+}
+
+.g-data-spec-table__term {
+  color: var(--color-text-secondary);
+}
+
+.g-data-spec-table__value {
+  text-align: end;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-spec-table__caveat {
+  grid-column: 1 / -1;
+}
+
+.g-data-spec-table__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-spec-table.accent .g-data-spec-table__rows,
+.g-data-spec-table.accent .g-data-spec-table__row {
+  border-color: currentColor;
+}
+
+.g-data-spec-table.accent .g-data-spec-table__term,
+.g-data-spec-table.accent .g-data-spec-table__lead,
+.g-data-spec-table.accent .g-data-spec-table__caption,
+.g-data-spec-table.accent .astryx-eyebrow,
+.g-data-spec-table.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* A value set right against a long term in a phone width leaves two words a
+     line; stacked, both read normally. */
+  .g-data-spec-table__row {
+    grid-template-columns: 1fr;
+  }
+
+  .g-data-spec-table__value {
+    text-align: start;
+  }
 }

@@ -5,14 +5,53 @@
 <f:asset.css identifier="g-culture-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The collage variant needs at least three images to look deliberate; with fewer, the strip variant reads better.
+    The photographs take their alt from the file itself. These are pictures of
+    a workplace rather than portraits of named people, so the only person who
+    can describe one is the editor who uploaded it — there is no field on this
+    element that would know what is in the frame.
+
+    The collage reflows on the number of pictures rather than on a variant
+    switch: one photograph fills the column, two sit side by side, three or
+    more tile. Nothing has to be re-chosen when a picture is added.
 </f:comment>
 
-<section class="astryx-section g-culture-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-culture-band {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-culture-band__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-culture-band__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-culture-band__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-culture-band__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-culture-band__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.images}">
+                <ul class="g-culture-band__collage">
+                    <f:for each="{data.images}" as="image">
+                        <li class="g-culture-band__frame">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="640c" height="480c" loading="lazy" class="g-culture-band__image"/>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

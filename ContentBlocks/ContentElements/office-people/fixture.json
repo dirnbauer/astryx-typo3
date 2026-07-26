@@ -1,1 +1,22 @@
-{}
+{
+    "_type": "team",
+    "eyebrow": "Offices with Contacts",
+    "header": "Each location, its address and its contact",
+    "lead": "The card is headed by the place, because a reader on this band is looking for a location first and a name second. The child's role holds the office name and its text holds the address; the person's own name stays the record title, so the backend list is still scannable.",
+    "columns": "3",
+    "tone": "body",
+    "width": "lg",
+    "contacts": [
+        {
+            "title": "The contact's name",
+            "role": "The office is the heading",
+            "text": "The address is a real address element\nSet upright rather than italic\nand it keeps the line breaks it was typed with",
+            "link": "#"
+        },
+        {
+            "title": "Linked when there is a link",
+            "role": "A second location",
+            "text": "The contact row is pushed to the foot of the card\nso a four-line address still ends level with a two-line one"
+        }
+    ]
+}

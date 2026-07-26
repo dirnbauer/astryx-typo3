@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-culture-band {
+.g-culture-band__grid {
+  align-items: center;
+}
+
+.g-culture-band__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 34rem;
+}
+
+.g-culture-band__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-culture-band__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+}
+
+/* Two columns whatever the count, so an odd number of pictures ends with one
+   frame spanning the row rather than with a hole beside it. */
+.g-culture-band__collage {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-culture-band__image {
   display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-element);
+}
+
+/* Every frame carries its own ratio, so the collage keeps its shape whatever
+   proportions were uploaded. */
+.g-culture-band__frame {
+  aspect-ratio: 4 / 3;
+}
+
+/* An odd last picture spans the row rather than leaving a hole beside it — and
+   takes a wider ratio, or it would be twice as tall as its neighbours and
+   swamp the copy. */
+.g-culture-band__collage > :last-child:nth-child(odd) {
+  grid-column: span 2;
+  aspect-ratio: 16 / 9;
+}
+
+.g-culture-band.accent .g-culture-band__lead {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-culture-band__copy {
+    max-inline-size: none;
+  }
 }

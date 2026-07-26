@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-pricing-plan-chooser" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Whole card is the link target; keep the qualification line short enough that all cards stay the same height.
+    No prices in this band at all. Its whole job is to send a reader to the right
+    list before any figure appears, and a number shown here would be the one they
+    remember whichever route they then took.
+
+    One link per card, wrapping the title: the title is already the accessible
+    name, so it is what lets the whole card become the target.
 </f:comment>
 
-<section class="astryx-section g-pricing-plan-chooser" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-plan-chooser {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-pricing-plan-chooser__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-pricing-plan-chooser__scope">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-plan-chooser__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-pricing-plan-chooser__routes">
+            <f:for each="{data.routes}" as="route">
+                <li class="astryx-feature astryx-card g-pricing-plan-chooser__route {f:if(condition: route.link, then: 'astryx-clickable-card')}">
+                    <f:if condition="{route.icon}">
+                        <f:comment>
+                            The tile carries the semantic key rather than a glyph, so swapping
+                            icon library never reaches into a template.
+                        </f:comment>
+                        <span class="astryx-feature-icon" data-icon="{route.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title">
+                        <f:if condition="{route.link.url}">
+                            <f:then><f:link.typolink parameter="{route.link}">{route.title}</f:link.typolink></f:then>
+                            <f:else>{route -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{route.description}">
+                        <p class="astryx-card-body">{route -> f:render.text(field: 'description')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-pricing-plan-chooser__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-contact-person {
-  display: block;
+.g-contact-person__panel {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-6);
+}
+
+/* Reverse moves the portrait to the end without touching the source order, so
+   the name is still read before the face in both arrangements. */
+.g-contact-person__panel.portrait-end {
+  flex-direction: row-reverse;
+}
+
+.g-contact-person__portrait {
+  flex-shrink: 0;
+}
+
+.g-contact-person__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+.g-contact-person__role {
+  color: var(--color-text-accent);
+}
+
+.g-contact-person__text {
+  color: var(--color-text-secondary);
+  max-inline-size: 52ch;
+}
+
+.g-contact-person__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-contact-person__hours {
+  margin-block-start: var(--spacing-1);
+}
+
+.g-contact-person.accent .g-contact-person__role,
+.g-contact-person.accent .g-contact-person__text,
+.g-contact-person.accent .g-contact-person__hours {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 639px) {
+  .g-contact-person__panel,
+  .g-contact-person__panel.portrait-end {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-4);
+  }
+
+  /* Two full-width buttons stacked, rather than two half-width ones that both
+     end up with the label on two lines. */
+  .g-contact-person__actions {
+    flex-direction: column;
+    align-items: stretch;
+    inline-size: 100%;
+  }
 }

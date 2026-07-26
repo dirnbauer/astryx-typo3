@@ -5,14 +5,64 @@
 <f:asset.css identifier="g-pricing-single-price" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): price accepts 'Free' and 'On request' as readily as a figure; keep the period empty when nothing recurs.
+    With nothing to compare, the figure carries the band on its own — which is
+    why it is display type and not a heading. An outline of the page should read
+    "What the single practice pays", not "39 euros".
 </f:comment>
 
-<section class="astryx-section g-pricing-single-price" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-pricing-single-price {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-pricing-single-price__panel">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-pricing-single-price__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <p class="g-pricing-single-price__figure">
+                <span class="astryx-text display-2 g-pricing-single-price__amount">{data -> f:render.text(field: 'price')}</span><f:if condition="{data.period}"><span class="astryx-text large g-pricing-single-price__period">{data -> f:render.text(field: 'period')}</span></f:if>
+            </p>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-pricing-single-price__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.included}">
+                <ul class="astryx-list compact g-pricing-single-price__included">
+                    <f:for each="{data.included}" as="entry">
+                        <li class="g-pricing-single-price__entry" data-included="{f:if(condition: entry.included, then: 'yes', else: 'no')}">
+                            <f:if condition="{entry.included}">
+                                <f:then><svg class="g-pricing-single-price__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-single-price/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
+                                <f:else><svg class="g-pricing-single-price__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/pricing-single-price/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+                            </f:if>
+
+                            <span class="g-pricing-single-price__entry-label">{entry -> f:render.text(field: 'title')}</span>
+
+                            <f:if condition="{entry.value}">
+                                <span class="astryx-badge outline g-pricing-single-price__qualifier">{entry.value}</span>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-pricing-single-price__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -5,6 +5,63 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-person-quote {
-  display: block;
+.g-person-quote__card {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--spacing-6);
+  margin: 0;
+}
+
+/* Reverse moves the portrait to the end without touching the source order, so
+   the quotation is still read before the face in every case. */
+.g-person-quote__card.portrait-end {
+  flex-direction: row-reverse;
+}
+
+.g-person-quote__portrait {
+  /* The shared avatar already crops and clips; the quote beside it would take
+     every pixel it is offered, so the shrink guard is all this element owes. */
+  flex-shrink: 0;
+}
+
+.g-person-quote__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  min-inline-size: 0;
+}
+
+.g-person-quote__framing {
+  margin: 0;
+}
+
+.g-person-quote__quote > p {
+  margin: 0;
+}
+
+.g-person-quote__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-person-quote__role::before {
+  content: ', ';
+}
+
+.g-person-quote__actions {
+  margin: 0;
+}
+
+.g-person-quote.accent .g-person-quote__framing,
+.g-person-quote.accent .g-person-quote__name,
+.g-person-quote.accent .g-person-quote__credit {
+  color: currentColor;
+}
+
+@media (max-width: 639px) {
+  .g-person-quote__card,
+  .g-person-quote__card.portrait-end {
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
 }

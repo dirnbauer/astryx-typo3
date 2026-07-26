@@ -5,14 +5,55 @@
 <f:asset.css identifier="g-pricing-licence-tiers" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Link the full legal text through the CTA rather than pasting clauses into the rows.
+    A list rather than a table, because the scope of a licence is a sentence and
+    not a value: it says who may install it, where, and what they may do with the
+    result. Squeezed into a cell it would be truncated, and a truncated licence
+    scope is worse than none.
 </f:comment>
 
-<section class="astryx-section g-pricing-licence-tiers" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-licence-tiers {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-pricing-licence-tiers__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-pricing-licence-tiers__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list with-dividers spacious g-pricing-licence-tiers__tiers">
+            <f:for each="{data.tiers}" as="tier">
+                <li class="g-pricing-licence-tiers__tier">
+                    <div class="g-pricing-licence-tiers__body">
+                        <h3 class="astryx-heading level-3 g-pricing-licence-tiers__name">{tier -> f:render.text(field: 'title')}</h3>
+                        <f:if condition="{tier.text}">
+                            <p class="astryx-text body g-pricing-licence-tiers__scope">{tier -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </div>
+
+                    <p class="g-pricing-licence-tiers__price">
+                        <span class="astryx-text display-3 g-pricing-licence-tiers__amount">{tier -> f:render.text(field: 'value')}</span>
+                    </p>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-licence-tiers__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-licence-tiers__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-up-next" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The whole card is one link; eyebrow carries the label that names the relationship, such as 'Next in this series'.
+    One card, one link, and the heading carries it — so the accessible name of
+    the whole card is the title of what comes next rather than the words "read
+    on". The eyebrow names the relationship ("Next in this series"), and the
+    line under the text is written text, not a second link to the same page.
+
+    Without a picture the copy simply takes the whole card: the image is the
+    only thing the second column holds.
 </f:comment>
 
-<section class="astryx-section g-up-next" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section tight g-up-next {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <nav class="g-up-next__nav" aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.upNext', default: 'Read next')}">
+            <div class="astryx-card astryx-clickable-card g-up-next__card {f:if(condition: data.image, then: 'with-image')}">
+
+                <div class="g-up-next__copy">
+                    <f:if condition="{data.eyebrow}">
+                        <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    </f:if>
+
+                    <h2 class="astryx-heading level-3 g-up-next__title">
+                        <f:if condition="{data.cta_link.url}">
+                            <f:then><f:link.typolink parameter="{data.cta_link}">{data.header}</f:link.typolink></f:then>
+                            <f:else>{data -> f:render.text(field: 'header')}</f:else>
+                        </f:if>
+                    </h2>
+
+                    <f:if condition="{data.text}">
+                        <p class="astryx-card-body g-up-next__text">{data -> f:render.text(field: 'text')}</p>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <p class="astryx-link cta g-up-next__cue">{data -> f:render.text(field: 'cta_label')}</p>
+                    </f:if>
+                </div>
+
+                <f:if condition="{data.image}">
+                    <div class="g-up-next__media">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="640" loading="lazy" class="g-up-next__image"/>
+                        </f:for>
+                    </div>
+                </f:if>
+
+            </div>
+        </nav>
     </div>
 </section>
 

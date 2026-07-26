@@ -5,6 +5,93 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-key-figures {
-  display: block;
+.g-data-key-figures__grid {
+  align-items: start;
+}
+
+.g-data-key-figures__argument {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-data-key-figures__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-key-figures__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+}
+
+.g-data-key-figures__figures {
+  margin: 0;
+  --grid-gap: var(--spacing-8);
+}
+
+/* Term first in the source so the pair survives being read out of order,
+   figure first on the page so the column scans as figures. */
+.g-data-key-figures__figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  padding-block-start: var(--spacing-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-data-key-figures__reading {
+  order: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-data-key-figures__label {
+  order: 2;
+  color: var(--color-text-secondary);
+}
+
+.g-data-key-figures__detail {
+  order: 3;
+  margin: 0;
+}
+
+.g-data-key-figures__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-key-figures__unit {
+  font-size: var(--text-body-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-key-figures__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-data-key-figures.accent .g-data-key-figures__figure {
+  border-block-start-color: currentColor;
+}
+
+.g-data-key-figures.accent .g-data-key-figures__reading {
+  color: currentColor;
+}
+
+.g-data-key-figures.accent .g-data-key-figures__lead,
+.g-data-key-figures.accent .g-data-key-figures__label,
+.g-data-key-figures.accent .g-data-key-figures__unit,
+.g-data-key-figures.accent .astryx-eyebrow,
+.g-data-key-figures.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-data-key-figures__figures {
+    --grid-gap: var(--spacing-6);
+  }
 }

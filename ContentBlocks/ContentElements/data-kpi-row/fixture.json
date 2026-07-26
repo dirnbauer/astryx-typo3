@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "KPI Card Row",
+    "header": "Two to four figures, each on its own card",
+    "lead": "The default results strip. Every figure is typed by an editor and stays until someone edits it again; nothing here is measured, fetched or counted at render time.",
+    "columns": "3",
+    "align": "start",
+    "note": "The note line is where the reporting date belongs, because a figure without a date is a claim without a period.",
+    "tone": "body",
+    "width": "lg",
+    "metrics": [
+        {
+            "value": "2",
+            "unit": "",
+            "title": "Cards, minimum",
+            "text": "One card is a Big Number, not a row."
+        },
+        {
+            "value": "4",
+            "unit": "",
+            "title": "Cards, maximum",
+            "text": "Past four, the grid reflows and the row stops reading as one thought."
+        },
+        {
+            "value": "1",
+            "unit": "",
+            "title": "Column below 640px",
+            "text": "Whatever the column setting says, a phone gets one."
+        }
+    ]
+}

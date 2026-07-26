@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-author-box" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Sized to sit inside an article column, so it never sets its own width larger than the prose it follows.
+    The band is sized to sit inside an article column: it never sets its own
+    width wider than the prose it follows, which is why the layout is capped
+    here rather than left to the width field alone.
+
+    The name is the block's own heading at level three. An author box is a
+    subsection of the article above it, not a band of the page, so it must not
+    reach for level two and break the article's outline.
+
+    The alt names the author: the picture is small and sits before the name, and
+    an unnamed face at the foot of an article is the definition of a broken
+    byline.
 </f:comment>
 
-<section class="astryx-section g-author-box" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-author-box {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-author-box__box {f:if(condition: data.compact, then: 'compact', else: 'boxed')}">
+
+            <f:if condition="{data.image}">
+                <span class="astryx-avatar lg g-author-box__portrait">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
+                    </f:for>
+                </span>
+            </f:if>
+
+            <div class="g-author-box__body">
+                <h3 class="astryx-heading level-4 g-author-box__name">{data -> f:render.text(field: 'author')}</h3>
+
+                <f:if condition="{data.role}">
+                    <p class="astryx-text supporting g-author-box__role">{data -> f:render.text(field: 'role')}</p>
+                </f:if>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-author-box__text">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-author-box__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

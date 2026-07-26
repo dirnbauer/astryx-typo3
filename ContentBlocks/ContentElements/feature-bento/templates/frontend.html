@@ -33,7 +33,7 @@
                     </f:if>
 
                     <h3 class="astryx-card-title">
-                        <f:if condition="{tile.link}">
+                        <f:if condition="{tile.link.url}">
                             <f:then><f:link.typolink parameter="{tile.link}">{tile.title}</f:link.typolink></f:then>
                             <f:else>{tile -> f:render.text(field: 'title')}</f:else>
                         </f:if>

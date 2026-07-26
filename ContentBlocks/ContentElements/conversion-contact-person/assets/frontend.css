@@ -5,6 +5,83 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-contact-person {
-  display: block;
+.g-conversion-contact-person__grid {
+  align-items: center;
+}
+
+.g-conversion-contact-person__grid:not(:has(.g-conversion-contact-person__portrait)) {
+  grid-template-columns: 1fr;
+}
+
+.g-conversion-contact-person__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-conversion-contact-person__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-contact-person__figure {
+  margin: 0;
+}
+
+.g-conversion-contact-person__attribution {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  padding-inline-start: var(--spacing-5);
+}
+
+.g-conversion-contact-person__name {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.g-conversion-contact-person__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-conversion-contact-person__number {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-conversion-contact-person__note {
+  margin: 0;
+}
+
+/* A portrait is looked at, not read: it keeps a standing proportion and is
+   capped so it never becomes the largest thing on the page. */
+.g-conversion-contact-person__portrait {
+  display: flex;
+  justify-content: center;
+}
+
+.g-conversion-contact-person__image {
+  inline-size: 100%;
+  max-inline-size: 20rem;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-contact-person.accent .g-conversion-contact-person__lead,
+.g-conversion-contact-person.accent .g-conversion-contact-person__note,
+.g-conversion-contact-person.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-contact-person.accent .astryx-blockquote,
+.g-conversion-contact-person.accent .g-conversion-contact-person__name,
+.g-conversion-contact-person.accent .astryx-citation {
+  color: currentColor;
+  border-color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-conversion-contact-person__image {
+    max-inline-size: 14rem;
+  }
 }

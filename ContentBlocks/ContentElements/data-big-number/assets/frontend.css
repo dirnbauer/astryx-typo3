@@ -5,6 +5,91 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-big-number {
-  display: block;
+.g-data-big-number__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin: 0;
+  max-inline-size: 44rem;
+}
+
+.g-data-big-number__block.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-data-big-number__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  color: var(--color-text-accent);
+}
+
+/* At display size the digits carry the whole band, so they get lining figures
+   of equal width — a proportional "1" would visibly shorten a year. */
+.g-data-big-number__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* The unit is read with the figure but is not part of it, so it drops to the
+   heading scale rather than shouting alongside. */
+.g-data-big-number__unit {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-heading-2-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-big-number__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-data-big-number__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-big-number__after {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  max-inline-size: 44rem;
+  margin-block-start: var(--spacing-8);
+}
+
+.g-data-big-number__after:empty {
+  margin-block-start: 0;
+}
+
+.g-data-big-number__after.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-data-big-number__note,
+.g-data-big-number__actions {
+  margin: 0;
+}
+
+.g-data-big-number.accent .g-data-big-number__figure {
+  color: currentColor;
+}
+
+.g-data-big-number.accent .g-data-big-number__lead,
+.g-data-big-number.accent .g-data-big-number__unit,
+.g-data-big-number.accent .astryx-eyebrow,
+.g-data-big-number.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-big-number__block {
+    max-inline-size: none;
+  }
 }

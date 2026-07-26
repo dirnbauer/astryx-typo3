@@ -1,1 +1,38 @@
-{}
+{
+    "_type": "conversion",
+    "eyebrow": "Community Join Band",
+    "header": "The places a reader can join, and how busy each one is",
+    "lead": "Forum, chat, user group, mailing list, code repository — one card per place, with what it is for and roughly how many people are there.",
+    "columns": "2",
+    "cta_label": "The main one",
+    "cta_link": "#",
+    "note": "Member counts belong in each entry's description and go stale faster than anything else on the page: round them, or leave them out.",
+    "align": "start",
+    "tone": "muted",
+    "places": [
+        {
+            "icon": "messages",
+            "title": "Two to six places",
+            "description": "A card with a link becomes a link target as a whole, with the title carrying the accessible name.",
+            "link": "#"
+        },
+        {
+            "icon": "users",
+            "title": "Equal weight",
+            "description": "A forum of a thousand and a meeting of nine are both simply somewhere to turn up, so neither is styled larger.",
+            "link": "#"
+        },
+        {
+            "icon": "mail",
+            "title": "The size goes in the description",
+            "description": "Not in the shared note, where it would claim to describe every place at once.",
+            "link": "#"
+        },
+        {
+            "icon": "file-code",
+            "title": "Two to four columns",
+            "description": "And an optional image between the intro and the grid when the group has a photograph worth showing.",
+            "link": "#"
+        }
+    ]
+}

@@ -13,5 +13,23 @@
         <target>Rendert eine Mengenstaffel: je Zeile eine Platzspanne, der Preis je Platz innerhalb dieser Spanne und ein Hinweis. Einstiegspreis und Zeitraum stehen über der Staffel, damit man zuerst den Startpunkt sieht und dann den Rabatt. Einsetzen für: Preise je Nutzerin, Lizenzpakete mit Mengenrabatt, Teamtarife mit Mindestplatzzahl, Klassenraumlizenzen. Für benannte Ausgaben statt Stückzahlen sind die &apos;Lizenzstufen&apos; richtig; zählt Verbrauch statt Personen, die &apos;Verbrauchspreis-Tabelle&apos;.</target>
       </segment>
     </unit>
+    <unit id="column.band">
+      <segment state="final">
+        <source>Seats</source>
+        <target>Anzahl</target>
+      </segment>
+    </unit>
+    <unit id="column.rate">
+      <segment state="final">
+        <source>Price per seat</source>
+        <target>Preis je Platz</target>
+      </segment>
+    </unit>
+    <unit id="column.note">
+      <segment state="final">
+        <source>Note</source>
+        <target>Anmerkung</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

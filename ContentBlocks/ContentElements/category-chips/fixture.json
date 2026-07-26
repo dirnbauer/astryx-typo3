@@ -1,1 +1,33 @@
-{}
+{
+    "_type": "navigation",
+    "header": "A taxonomy as a wrapping row",
+    "align": "start",
+    "width": "md",
+    "compact": 0,
+    "chips": [
+        {
+            "title": "The chip with no link is the current one",
+            "link": ""
+        },
+        {
+            "title": "So is one that resolves to this page",
+            "link": "#so-is-one"
+        },
+        {
+            "title": "Tint, border and weight",
+            "link": "#tint-border-and"
+        },
+        {
+            "title": "aria-current says it out loud",
+            "link": "#aria-current-says"
+        },
+        {
+            "title": "The row wraps, never scrolls",
+            "link": "#the-row-wraps"
+        },
+        {
+            "title": "Two to thirty categories",
+            "link": "#two-to-thirty"
+        }
+    ]
+}

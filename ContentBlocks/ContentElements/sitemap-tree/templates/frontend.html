@@ -5,14 +5,59 @@
 <f:asset.css identifier="g-sitemap-tree" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Built from the page tree under the current page rather than a curated list, so it can never fall out of date; hidden and no-search pages are skipped.
+    {sitemap} is the page tree below this page, two levels deep. A content
+    element renders through lib.contentBlock, which hands the template its own
+    record and nothing else, so the menu the page templates get from
+    lib.desiderioPageDataProcessing never arrives here: the processor is put on
+    this CType in the theme's setup.typoscript instead.
+
+    Pages hidden from the menu are skipped by the processor itself, which is
+    the point of deriving the tree rather than curating it — nothing here can
+    fall out of date, and nothing has to be maintained twice.
+
+    A page with nothing below it renders the intro and no list: an empty tree
+    is a fact about the page, not an error.
 </f:comment>
 
-<section class="astryx-section g-sitemap-tree" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.sitemap" default="Sitemap"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-sitemap-tree {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-sitemap-tree__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-sitemap-tree__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <f:if condition="{sitemap}">
+            <nav class="g-sitemap-tree__nav" aria-label="{navLabel}">
+                <ul class="g-sitemap-tree__branches">
+                    <f:for each="{sitemap}" as="branch">
+                        <li class="g-sitemap-tree__branch">
+                            <a class="g-sitemap-tree__top" href="{branch.link}" aria-current="{f:if(condition: branch.current, then: 'page', else: 'false')}">{branch.title}</a>
+
+                            <f:if condition="{branch.children}">
+                                <ul class="g-sitemap-tree__children">
+                                    <f:for each="{branch.children}" as="child">
+                                        <li class="g-sitemap-tree__child">
+                                            <a class="g-sitemap-tree__link" href="{child.link}" aria-current="{f:if(condition: child.current, then: 'page', else: 'false')}">{child.title}</a>
+                                        </li>
+                                    </f:for>
+                                </ul>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
+        </f:if>
+
     </div>
 </section>
 

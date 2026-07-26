@@ -5,6 +5,87 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-payment-methods {
-  display: block;
+.g-pricing-payment-methods__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-pricing-payment-methods__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 52rem;
+}
+
+.g-pricing-payment-methods__lead {
+  color: var(--color-text-secondary);
+}
+
+/* Quiet by design: this row reassures, it does not sell. Marks wrap onto as
+   many lines as they need rather than shrinking to fit one. */
+.g-pricing-payment-methods__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-3) var(--spacing-6);
+  margin: 0;
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.g-pricing-payment-methods__method {
+  display: flex;
+  align-items: center;
+}
+
+.g-pricing-payment-methods__image {
+  block-size: var(--spacing-8);
+  inline-size: auto;
+  /* A wall of brand colours would out-shout the page it is reassuring about. */
+  opacity: 0.75;
+}
+
+.g-pricing-payment-methods__wordmark {
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-payment-methods__note {
+  margin: 0;
+  max-inline-size: 70ch;
+}
+
+.g-pricing-payment-methods[data-align='center'] .g-pricing-payment-methods__copy {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-pricing-payment-methods[data-align='center'] .g-pricing-payment-methods__row {
+  justify-content: center;
+}
+
+.g-pricing-payment-methods[data-align='center'] .g-pricing-payment-methods__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-pricing-payment-methods.accent .g-pricing-payment-methods__lead,
+.g-pricing-payment-methods.accent .g-pricing-payment-methods__wordmark,
+.g-pricing-payment-methods.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-payment-methods__row {
+    gap: var(--spacing-2) var(--spacing-4);
+  }
+
+  .g-pricing-payment-methods__image {
+    block-size: var(--spacing-6);
+  }
 }

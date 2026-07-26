@@ -5,14 +5,69 @@
 <f:asset.css identifier="g-directory-index" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Grouping is derived from the first character of each child's title, so the editor never maintains the letters by hand.
+    The grouping is derived from the first character of each entry, so the
+    editor keeps the list in order and never maintains the letters by hand: a
+    letter is printed whenever it differs from the one before it, which also
+    makes it the anchor for the bar at the top.
+
+    The bar therefore lists the letters that ARE used rather than the whole
+    alphabet with the unused ones greyed out — the element has no way of
+    knowing what alphabet its language uses, and a hard-coded A to Z would be
+    wrong the first time somebody indexes something in Greek.
 </f:comment>
 
-<section class="astryx-section g-directory-index" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.index" default="Index"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="barLetter" value=""/>
+<f:variable name="listLetter" value=""/>
+
+<section class="astryx-section g-directory-index {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-directory-index__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-directory-index__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <nav class="g-directory-index__nav" aria-label="{navLabel}">
+
+            <ul class="g-directory-index__letters" aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.letters', default: 'Jump to a letter')}">
+                <f:for each="{data.entries}" as="entry">
+                    <f:variable name="letter">{entry.title -> f:format.crop(maxCharacters: 1, append: '') -> f:format.case(mode: 'upper')}</f:variable>
+                    <f:if condition="{letter} != {barLetter}">
+                        <li class="g-directory-index__letter-item">
+                            <a class="g-directory-index__letter-link" href="#g-directory-{data.uid}-{letter}">{letter}</a>
+                        </li>
+                        <f:variable name="barLetter" value="{letter}"/>
+                    </f:if>
+                </f:for>
+            </ul>
+
+            <ul class="g-directory-index__entries">
+                <f:for each="{data.entries}" as="entry">
+                    <f:variable name="letter">{entry.title -> f:format.crop(maxCharacters: 1, append: '') -> f:format.case(mode: 'upper')}</f:variable>
+                    <li class="g-directory-index__entry">
+                        <f:if condition="{letter} != {listLetter}">
+                            <f:comment>
+                                Decoration: the entries under it already start with this
+                                letter, so reading it out would only repeat them.
+                            </f:comment>
+                            <span class="g-directory-index__letter" id="g-directory-{data.uid}-{letter}" aria-hidden="true">{letter}</span>
+                            <f:variable name="listLetter" value="{letter}"/>
+                        </f:if>
+
+                        <f:if condition="{entry.link.url}">
+                            <f:then><f:link.typolink parameter="{entry.link}" class="astryx-link quiet g-directory-index__link">{entry.title}</f:link.typolink></f:then>
+                            <f:else><span class="g-directory-index__link">{entry -> f:render.text(field: 'title')}</span></f:else>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+
+        </nav>
+
     </div>
 </section>
 

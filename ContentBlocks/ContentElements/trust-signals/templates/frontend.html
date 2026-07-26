@@ -5,14 +5,38 @@
 <f:asset.css identifier="g-trust-signals" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Each promise is one line at most; the strip has no heading on purpose, so it can be dropped between any two bands without breaking the outline.
+    The strip carries no heading on purpose. It is meant to be dropped between
+    any two bands, directly above or below a call to action, and a heading here
+    would put "Free returns" into the page outline as if it were a section.
+
+    The tile carries the semantic icon key rather than a glyph, so swapping
+    icon library never reaches into a template.
 </f:comment>
 
-<section class="astryx-section g-trust-signals" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-trust-signals {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <ul class="astryx-grid cols-{data.columns} g-trust-signals__signals">
+            <f:for each="{data.signals}" as="signal">
+                <li class="g-trust-signals__signal">
+                    <f:if condition="{signal.icon}">
+                        <span class="astryx-feature-icon g-trust-signals__icon" data-icon="{signal.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <span class="g-trust-signals__copy">
+                        <span class="astryx-text label g-trust-signals__promise">
+                            <f:if condition="{signal.link.url}">
+                                <f:then><f:link.typolink parameter="{signal.link}" class="astryx-link quiet">{signal.title}</f:link.typolink></f:then>
+                                <f:else>{signal -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </span>
+
+                        <f:if condition="{signal.text}">
+                            <span class="astryx-text supporting g-trust-signals__detail">{signal -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </span>
+                </li>
+            </f:for>
+        </ul>
     </div>
 </section>
 

@@ -11,5 +11,20 @@
         <source>Renders a metered rate card: one row per billable unit, the price for that unit beside it, and a note on how the unit is counted. Nothing is added up — the table states rates and leaves the arithmetic to the invoice. Use it for: pay-as-you-go API pricing, per-gigabyte storage, per-transaction fees, printing, delivery or courier rates. Prefer &apos;Seat Price Bands&apos; when the rate falls with volume, and &apos;Cost Calculator Sheet&apos; when the reader is meant to work out a total.</source>
       </segment>
     </unit>
+    <unit id="column.unit">
+      <segment>
+        <source>Unit</source>
+      </segment>
+    </unit>
+    <unit id="column.rate">
+      <segment>
+        <source>Rate</source>
+      </segment>
+    </unit>
+    <unit id="column.counted">
+      <segment>
+        <source>How it is counted</source>
+      </segment>
+    </unit>
   </file>
 </xliff>

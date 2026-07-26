@@ -3,8 +3,40 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The crumbs, their separator and the current-page weight all come from
+ * .astryx-breadcrumbs; this file only places the trail in the band.
  */
 
 .g-breadcrumb-band {
-  display: block;
+  --section-gap: var(--spacing-4);
+}
+
+.g-breadcrumb-band__list {
+  min-inline-size: 0;
+}
+
+.g-breadcrumb-band[data-align='center'] .g-breadcrumb-band__list {
+  justify-content: center;
+}
+
+/* On an accent band the crumbs would otherwise reach for the secondary text
+   colour, which is tuned for the page background. */
+.g-breadcrumb-band.accent .astryx-breadcrumb-item,
+.g-breadcrumb-band.accent .astryx-breadcrumb-item a {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-breadcrumb-band.accent .astryx-breadcrumb-item[aria-current='page'] {
+  color: currentColor;
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  /* The trail is the one thing on the band, so it gets the full width back
+     and wraps into as many lines as the depth of the page needs. */
+  .g-breadcrumb-band {
+    --section-gap: var(--spacing-3);
+  }
 }

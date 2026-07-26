@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-conversion-closing-cta" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): One primary button only; the secondary action is a text link, never a second filled button competing for the same eye.
+    Only the first action is a button. A second filled button beside it turns
+    one decision into two, which is the single thing a closing band must not
+    do — so the alternative reads as a link and stays an aside.
 </f:comment>
 
-<section class="astryx-section g-conversion-closing-cta" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-closing-cta {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-conversion-closing-cta__inner">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-conversion-closing-cta__subheader">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-conversion-closing-cta__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-conversion-closing-cta__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-closing-cta__secondary">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-closing-cta__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -5,14 +5,45 @@
 <f:asset.css identifier="g-team-intro" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Deliberately without people: it pairs with whichever people element follows, and keeping them separate lets the grid be swapped without rewriting the copy.
+    Deliberately without people. It pairs with whichever team element follows,
+    and keeping the two apart is what lets a grid be swapped for a directory
+    without anybody rewriting the copy above it.
+
+    The band therefore ends flush against what comes next: an introduction that
+    keeps a full band of air under it stops introducing and starts standing on
+    its own.
 </f:comment>
 
-<section class="astryx-section g-team-intro" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-team-intro {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-team-intro__copy align-{data.align}">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-team-intro__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.bodytext}">
+                <div class="astryx-prose g-team-intro__body"><f:format.html>{data.bodytext}</f:format.html></div>
+            </f:if>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-button-group g-team-intro__actions">
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

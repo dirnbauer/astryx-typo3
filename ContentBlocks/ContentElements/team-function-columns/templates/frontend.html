@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-team-function-columns" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The template groups by the child role field and orders the columns by first appearance, so editors control the order by sorting the records.
+    The columns are not a field: they come out of the child records themselves,
+    grouped on the role and ordered by first appearance. An editor therefore
+    controls both the headings and their order by sorting the people, and
+    adding a function means typing it on a person rather than editing this
+    element.
+
+    No portraits at all. Credits panels and discipline lists are read by
+    scanning names, and a face beside every one of eighty names turns a list
+    into a wall.
 </f:comment>
 
-<section class="astryx-section g-team-function-columns" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-team-function-columns {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-team-function-columns__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-team-function-columns__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <div class="astryx-grid cols-{data.columns} g-team-function-columns__columns {f:if(condition: data.compact, then: 'compact')}">
+            <f:groupedFor each="{data.people}" as="members" groupBy="role" groupKey="function">
+                <section class="g-team-function-columns__column">
+                    <f:comment>
+                        A person with no function typed on them still belongs on
+                        the page, so the group renders — it just has no heading
+                        rather than an empty one.
+                    </f:comment>
+                    <f:if condition="{function}">
+                        <h3 class="astryx-heading level-5 g-team-function-columns__function">{function}</h3>
+                    </f:if>
+
+                    <ul class="astryx-list g-team-function-columns__names">
+                        <f:for each="{members}" as="person">
+                            <li class="g-team-function-columns__name">
+                                <f:if condition="{person.link.url}">
+                                    <f:then><f:link.typolink parameter="{person.link}" class="astryx-link quiet">{person.title}</f:link.typolink></f:then>
+                                    <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </section>
+            </f:groupedFor>
+        </div>
+
     </div>
 </section>
 

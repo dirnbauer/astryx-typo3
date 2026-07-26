@@ -5,14 +5,55 @@
 <f:asset.css identifier="g-rating-summary" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Stars are drawn from the value, so a half star renders correctly; the source line is required because an unattributed average is not proof.
+    The stars are drawn from the score, so 4.6 renders as four and a bit rather
+    than being rounded to a number nobody claimed. They are hidden from
+    assistive technology because the score is already printed beside them as
+    text: five graphics announcing themselves would say less, not more.
+
+    The score is handed to the stylesheet as a custom property, with a decimal
+    comma normalised to a point — a German editor writes 4,6 and CSS cannot
+    read it.
 </f:comment>
 
-<section class="astryx-section g-rating-summary" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-rating-summary {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-rating-summary__inner">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <p class="g-rating-summary__score">
+                <span class="g-rating-summary__number">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-rating-summary__unit">{data.unit}</span></f:if>
+            </p>
+
+            <p class="g-rating-summary__stars" style="--g-rating: {data.value -> f:replace(search: ',', replace: '.')};" aria-hidden="true">
+                <span class="g-rating-summary__star"></span>
+                <span class="g-rating-summary__star"></span>
+                <span class="g-rating-summary__star"></span>
+                <span class="g-rating-summary__star"></span>
+                <span class="g-rating-summary__star"></span>
+            </p>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text large g-rating-summary__count">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-rating-summary__source">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label}">
+                <p class="g-rating-summary__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

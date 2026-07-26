@@ -5,14 +5,37 @@
 <f:asset.css identifier="g-quick-links" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Labels are truncated hard at one line; the icon is required here because the bar is read at a glance, not word by word.
+    A bar read at a glance rather than word by word, so the label is held to
+    one line and cut with an ellipsis if an editor types a sentence into it.
+    The icon tile is decoration and hidden from assistive technology: the
+    label is the name of the shortcut, and it is always there.
 </f:comment>
 
-<section class="astryx-section g-quick-links" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.quickLinks" default="Quick links"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section tight g-quick-links {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <nav class="astryx-toolbar g-quick-links__bar" aria-label="{navLabel}">
+
+            <f:if condition="{data.header}">
+                <h2 class="astryx-heading level-5 g-quick-links__title">{data -> f:render.text(field: 'header')}</h2>
+            </f:if>
+
+            <ul class="g-quick-links__items">
+                <f:for each="{data.links}" as="link">
+                    <li class="g-quick-links__item">
+                        <f:link.typolink parameter="{link.link}" class="astryx-button secondary g-quick-links__link">
+                            <f:if condition="{link.icon}">
+                                <span class="g-quick-links__icon" data-icon="{link.icon}" aria-hidden="true"></span>
+                            </f:if>
+                            <span class="g-quick-links__label">{link.title}</span>
+                        </f:link.typolink>
+                    </li>
+                </f:for>
+            </ul>
+
+        </nav>
     </div>
 </section>
 

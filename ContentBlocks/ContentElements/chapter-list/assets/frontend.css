@@ -5,6 +5,80 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-chapter-list {
-  display: block;
+.g-chapter-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-chapter-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-chapter-list__chapters {
+  counter-reset: g-chapter;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-inline-size: 48rem;
+}
+
+/* The number is drawn from a counter rather than left to the ordered list,
+   because the note under a chapter has to sit in the same column as its
+   title, and a native marker cannot be made to leave that column alone. */
+.g-chapter-list__chapter {
+  counter-increment: g-chapter;
+  display: grid;
+  grid-template-columns: var(--spacing-10) 1fr;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-4);
+}
+
+.g-chapter-list__chapter + .g-chapter-list__chapter {
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-chapter-list__chapter::before {
+  content: counter(g-chapter, decimal-leading-zero);
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+  color: var(--color-text-accent);
+}
+
+.g-chapter-list__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+}
+
+.g-chapter-list__title {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-heading-5-leading);
+}
+
+.g-chapter-list.accent .g-chapter-list__lead,
+.g-chapter-list.accent .astryx-eyebrow,
+.g-chapter-list.accent .astryx-text.supporting,
+.g-chapter-list.accent .g-chapter-list__title,
+.g-chapter-list.accent .g-chapter-list__chapter::before {
+  color: currentColor;
+}
+
+@media (max-width: 480px) {
+  .g-chapter-list__chapter {
+    grid-template-columns: var(--spacing-8) 1fr;
+    padding-block: var(--spacing-3);
+  }
+
+  .g-chapter-list__chapter::before {
+    font-size: var(--text-heading-6-size);
+  }
 }

@@ -5,6 +5,118 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-logo-wall-claim {
+/* One grid for the claim and the marks together. The list is subgrid-free on
+   purpose: it spans every remaining column and lays its own cells out inside
+   that span, which keeps the marks a list without making the claim an item. */
+.g-logo-wall-claim__wall {
+  display: grid;
+  gap: var(--spacing-8);
+  grid-template-columns: 1fr;
+}
+
+.g-logo-wall-claim__claim {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  align-self: center;
+}
+
+.g-logo-wall-claim__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-logo-wall-claim__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-2-size);
+  font-weight: var(--text-display-2-weight);
+  line-height: var(--text-display-2-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-logo-wall-claim__unit {
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-logo-wall-claim__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-logo-wall-claim__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-2);
+}
+
+.g-logo-wall-claim__marks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--spacing-6);
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.g-logo-wall-claim__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--spacing-10);
+}
+
+.g-logo-wall-claim__image {
   display: block;
+  max-block-size: 100%;
+  max-inline-size: 100%;
+  inline-size: auto;
+  block-size: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.65;
+}
+
+.g-logo-wall-claim__wordmark {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.g-logo-wall-claim.accent .g-logo-wall-claim__figure,
+.g-logo-wall-claim.accent .g-logo-wall-claim__unit,
+.g-logo-wall-claim.accent .g-logo-wall-claim__lead,
+.g-logo-wall-claim.accent .g-logo-wall-claim__wordmark,
+.g-logo-wall-claim.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .g-logo-wall-claim__wall {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-10);
+  }
+
+  /* Two cells for the claim, the rest for the wall — the inset the whole
+     element is named after. */
+  .g-logo-wall-claim__claim {
+    grid-column: span 2;
+  }
+
+  .g-logo-wall-claim__marks {
+    grid-column: span 2;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .g-logo-wall-claim__marks {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }

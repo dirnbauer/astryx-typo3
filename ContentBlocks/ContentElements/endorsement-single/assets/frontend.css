@@ -5,6 +5,93 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-endorsement-single {
-  display: block;
+.g-endorsement-single__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-5);
+}
+
+.g-endorsement-single__badge-row {
+  margin: 0;
+}
+
+.g-endorsement-single__quote {
+  font-size: var(--text-heading-3-size);
+  line-height: var(--text-heading-3-leading);
+  max-inline-size: 42ch;
+}
+
+.g-endorsement-single__quote > p {
+  margin: 0;
+  quotes: auto;
+}
+
+.g-endorsement-single__quote > p::before {
+  content: open-quote;
+}
+
+.g-endorsement-single__quote > p::after {
+  content: close-quote;
+}
+
+.g-endorsement-single__credit {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.g-endorsement-single__portrait {
+  flex-shrink: 0;
+}
+
+.g-endorsement-single__who {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.g-endorsement-single__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* The standing is the argument, so the role keeps the name's weight and only
+   gives up the primary ink — demoting it would undercut the whole band. */
+.g-endorsement-single__role {
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-endorsement-single[data-align='center'] .g-endorsement-single__figure {
+  align-items: center;
+  text-align: center;
+}
+
+.g-endorsement-single[data-align='center'] .g-endorsement-single__quote {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+.g-endorsement-single[data-align='center'] .g-endorsement-single__credit {
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-endorsement-single.accent .astryx-eyebrow,
+.g-endorsement-single.accent .astryx-citation {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-endorsement-single.accent .g-endorsement-single__name {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-endorsement-single__quote {
+    max-inline-size: none;
+    font-size: var(--text-heading-4-size);
+    line-height: var(--text-heading-4-leading);
+  }
 }

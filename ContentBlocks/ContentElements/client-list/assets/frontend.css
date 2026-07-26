@@ -5,6 +5,58 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-client-list {
+.g-client-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-client-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-client-list__names {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+}
+
+/* A name and its sector must never be split across a column break: half an
+   entry at the foot of one column is read as a different customer. */
+.g-client-list__name {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  break-inside: avoid;
+}
+
+.g-client-list__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 60ch;
+}
+
+.g-client-list.accent .g-client-list__lead,
+.g-client-list.accent .astryx-eyebrow,
+.g-client-list.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 641px) {
+  .g-client-list[data-columns='2'] .g-client-list__names { columns: 2; }
+  .g-client-list[data-columns='3'] .g-client-list__names { columns: 2; }
+  .g-client-list[data-columns='4'] .g-client-list__names { columns: 2; }
+}
+
+@media (min-width: 1024px) {
+  .g-client-list[data-columns='3'] .g-client-list__names { columns: 3; }
+  .g-client-list[data-columns='4'] .g-client-list__names { columns: 4; }
+}
+
+@media (max-width: 640px) {
+  .g-client-list__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

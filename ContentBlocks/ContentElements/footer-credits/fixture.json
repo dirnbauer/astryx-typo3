@@ -1,1 +1,36 @@
-{}
+{
+    "_type": "footer",
+    "header": "Picture credits as label and value pairs",
+    "text": "One to thirty credits in a description list. What is being credited on the left, the rights holder on the right, and the licence short name as a second description on the same term.",
+    "columns": "2",
+    "note": "Long lists read better in two or more columns; the pairs flow down each column rather than snaking across them.",
+    "tone": "muted",
+    "width": "lg",
+    "compact": true,
+    "rows": [
+        {
+            "title": "The title is what is credited",
+            "value": "",
+            "text": "The text is the rights holder",
+            "included": false
+        },
+        {
+            "title": "A credit under a licence",
+            "value": "CC BY 4.0",
+            "text": "The value becomes a chip under the holder",
+            "included": false
+        },
+        {
+            "title": "The chip is text in a badge",
+            "value": "ODbL",
+            "text": "so the licence is read out with its credit",
+            "included": false
+        },
+        {
+            "title": "A credit with no licence",
+            "value": "",
+            "text": "simply has no chip",
+            "included": false
+        }
+    ]
+}

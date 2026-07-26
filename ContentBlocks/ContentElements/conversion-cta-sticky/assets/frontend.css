@@ -5,6 +5,59 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* position: sticky and nothing else. The band still occupies its own place in
+   the column, so it can only float for as long as that column is on screen —
+   which is what stops it from ever reaching the page footer. */
 .g-conversion-cta-sticky {
-  display: block;
+  --section-gap: var(--spacing-3);
+  position: sticky;
+  inset-block-end: 0;
+  z-index: 1;
+  box-shadow: var(--shadow-med);
+}
+
+.g-conversion-cta-sticky__bar {
+  flex-wrap: wrap;
+}
+
+.g-conversion-cta-sticky__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+.g-conversion-cta-sticky__text,
+.g-conversion-cta-sticky__note {
+  margin: 0;
+}
+
+.g-conversion-cta-sticky__actions {
+  flex: 0 0 auto;
+  gap: var(--spacing-4);
+}
+
+.g-conversion-cta-sticky.accent .g-conversion-cta-sticky__text,
+.g-conversion-cta-sticky.accent .g-conversion-cta-sticky__note,
+.g-conversion-cta-sticky.accent .g-conversion-cta-sticky__secondary {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* A landscape phone has barely more than a bar's worth of height, and a bar
+   that covers the paragraph it argues about has stopped helping. Below that
+   the band gives up sticking and simply sits where it was placed. */
+@media (max-height: 30rem) {
+  .g-conversion-cta-sticky {
+    position: static;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-conversion-cta-sticky__actions {
+    flex: 1 0 100%;
+    justify-content: space-between;
+  }
 }

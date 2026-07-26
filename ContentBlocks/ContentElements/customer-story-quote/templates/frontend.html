@@ -5,13 +5,48 @@
 <f:asset.css identifier="g-customer-story-quote" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The image slot holds the customer's mark, not a portrait — it is rendered small and monochrome so it never competes with the quote.
+    The image slot holds the customer's mark, not a portrait, so it needs a real
+    alt naming the organisation — the file's own alternative text first, and the
+    role line, which carries the company, as the fallback.
 </f:comment>
 
-<section class="astryx-section g-customer-story-quote" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-customer-story-quote {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <figure class="g-customer-story-quote__figure">
+
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <f:if condition="{data.image}">
+                <f:for each="{data.image}" as="image">
+                    <f:image image="{image}"
+                             alt="{f:if(condition: image.alternative, then: image.alternative, else: data.role)}"
+                             height="96"
+                             loading="lazy"
+                             class="g-customer-story-quote__mark"/>
+                </f:for>
+            </f:if>
+
+            <blockquote class="astryx-blockquote g-customer-story-quote__quote">
+                <p>{data -> f:render.text(field: 'quote_text')}</p>
+            </blockquote>
+
+            <f:if condition="{data.author}">
+                <figcaption class="astryx-citation g-customer-story-quote__credit">
+                    <span class="g-customer-story-quote__name">{data -> f:render.text(field: 'author')}</span>
+                    <f:if condition="{data.role}">
+                        <span class="g-customer-story-quote__role">{data -> f:render.text(field: 'role')}</span>
+                    </f:if>
+                </figcaption>
+            </f:if>
+
+        </figure>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-customer-story-quote__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+            </p>
         </f:if>
     </div>
 </section>

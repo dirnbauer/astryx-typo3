@@ -5,14 +5,32 @@
 <f:asset.css identifier="g-jump-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Deliberately unstyled beyond link colour and separators: it should read as part of the prose, not as a widget.
+    A run of links that reads as a sentence in the prose, so the lead-in and
+    the targets sit on the same line and the separator is drawn between the
+    items rather than typed into them. It is still a list and still a named
+    landmark: reading as prose is a visual decision, not a structural one.
 </f:comment>
 
-<section class="astryx-section g-jump-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.jump" default="Jump to"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section tight g-jump-list" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <nav class="g-jump-list__nav {f:if(condition: data.compact, then: 'tight')}" aria-label="{navLabel}">
+
+            <f:if condition="{data.header}">
+                <span class="g-jump-list__lead-in">{data -> f:render.text(field: 'header')}</span>
+            </f:if>
+
+            <ul class="g-jump-list__targets">
+                <f:for each="{data.targets}" as="target">
+                    <li class="g-jump-list__target">
+                        <f:link.typolink parameter="{target.link}" class="astryx-link g-jump-list__link">{target.title}</f:link.typolink>
+                    </li>
+                </f:for>
+            </ul>
+
+        </nav>
     </div>
 </section>
 

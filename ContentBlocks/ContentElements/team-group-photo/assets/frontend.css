@@ -5,6 +5,69 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-team-group-photo {
+.g-team-group-photo__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-team-group-photo__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-team-group-photo__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+/* The photograph keeps its own proportions: a group portrait is composed
+   around where the people are standing, and cropping it to a fixed ratio is
+   the one decision this element must not make for the photographer. */
+.g-team-group-photo__image {
   display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+/* The caption keeps a reading measure even under a picture set to full width:
+   a line of caption as wide as a group photograph is unreadable. */
+.g-team-group-photo__caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  max-inline-size: 62ch;
+}
+
+.g-team-group-photo__key {
+  /* The key is a run of names and will wrap to several lines on a phone. It
+     wraps rather than disappearing: it is the only place the people in the
+     picture are named. */
+  text-wrap: pretty;
+}
+
+.g-team-group-photo__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-6);
+}
+
+.g-team-group-photo.accent .g-team-group-photo__lead,
+.g-team-group-photo.accent .g-team-group-photo__key,
+.g-team-group-photo.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-team-group-photo__intro {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-team-group-photo__actions {
+    margin-block-start: var(--spacing-4);
+  }
 }

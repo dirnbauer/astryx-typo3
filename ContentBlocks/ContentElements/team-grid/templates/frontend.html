@@ -5,14 +5,63 @@
 <f:asset.css identifier="g-team-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Portraits are cropped to one ratio for the whole grid; mixed ratios are the fastest way to make a good team look untidy.
+    Every portrait is cropped server-side to one ratio, so an upload of any
+    proportion lands in the same box as its neighbours — mixed ratios are the
+    fastest way to make a good team look untidy.
+
+    The alt is the person's name rather than empty, even though the name is
+    printed underneath: when a portrait fails to load, a card in a grid of
+    faces should still say whose face is missing, and a reader moving through
+    the page by image hears a roll call rather than a run of blank graphics.
+
+    The child's own text is deliberately not rendered. A grid where everyone is
+    the same size has room for a name and a role; one person writing three
+    lines makes every other cell look empty. 'Leadership Row' is the element
+    for people whose biography matters.
 </f:comment>
 
-<section class="astryx-section g-team-grid" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-team-grid {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-team-grid__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-team-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-team-grid__people">
+            <f:for each="{data.people}" as="person">
+                <li class="astryx-card {f:if(condition: person.image, then: 'media-top')} {f:if(condition: person.link, then: 'astryx-clickable-card')} g-team-grid__person">
+
+                    <f:if condition="{person.image}">
+                        <div class="g-team-grid__portrait">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="{person.title}" width="480c" height="600c" loading="lazy"/>
+                            </f:for>
+                        </div>
+                    </f:if>
+
+                    <h3 class="astryx-card-title g-team-grid__name">
+                        <f:if condition="{person.link.url}">
+                            <f:then><f:link.typolink parameter="{person.link}">{person.title}</f:link.typolink></f:then>
+                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{person.role}">
+                        <p class="astryx-card-body g-team-grid__role">{person -> f:render.text(field: 'role')}</p>
+                    </f:if>
+
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

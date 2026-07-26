@@ -5,6 +5,104 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-community-stats {
-  display: block;
+.g-community-stats__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-community-stats__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-community-stats__stats {
+  margin: 0;
+}
+
+/* A definition list fixes the source order as term-then-value; the figure has
+   to read the other way round, so the visual order is set here. */
+.g-community-stats__stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.g-community-stats__value {
+  order: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+}
+
+.g-community-stats__label {
+  order: 2;
+  color: var(--color-text-secondary);
+}
+
+.g-community-stats__note {
+  order: 3;
+  margin: 0;
+}
+
+/* One optical size for every figure, with lining, equal-width digits, so a
+   five-figure count and a two-figure one carry the same weight in the row. */
+.g-community-stats__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-2-size);
+  font-weight: var(--text-display-2-weight);
+  line-height: var(--text-display-2-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--color-text-primary);
+}
+
+.g-community-stats__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-community-stats__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-8);
+}
+
+.g-community-stats[data-align='center'] .g-community-stats__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-community-stats[data-align='center'] .g-community-stats__stat {
+  align-items: center;
+  text-align: center;
+}
+
+.g-community-stats[data-align='center'] .g-community-stats__actions {
+  text-align: center;
+}
+
+.g-community-stats.accent .g-community-stats__number {
+  color: currentColor;
+}
+
+.g-community-stats.accent .g-community-stats__lead,
+.g-community-stats.accent .g-community-stats__label,
+.g-community-stats.accent .g-community-stats__unit,
+.g-community-stats.accent .astryx-eyebrow,
+.g-community-stats.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-community-stats__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-community-stats__number {
+    font-size: var(--text-display-3-size);
+    line-height: var(--text-display-3-leading);
+  }
 }

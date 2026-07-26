@@ -5,6 +5,62 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-office-list {
-  display: block;
+.g-footer-office-list__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 60ch;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-footer-office-list__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-office-list__offices {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-office-list__offices.is-compact {
+  --grid-gap: var(--spacing-4);
+}
+
+/* Cards stretch to the tallest of their row, which is what keeps the pins on
+   one optical line and the directions links level at the bottom. */
+.g-footer-office-list__office {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-footer-office-list__offices.is-compact .g-footer-office-list__office {
+  --card-padding: var(--spacing-4);
+}
+
+.g-footer-office-list__pin {
+  margin-block-end: var(--spacing-1);
+}
+
+/* The browser default italicises address; a branch address is not an aside. */
+.g-footer-office-list__address {
+  font-style: normal;
+}
+
+.g-footer-office-list__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 70ch;
+}
+
+.g-footer-office-list.accent .g-footer-office-list__lead,
+.g-footer-office-list.accent .astryx-eyebrow,
+.g-footer-office-list.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-footer-office-list__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

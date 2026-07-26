@@ -5,6 +5,114 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-testimonial-carousel {
-  display: block;
+.g-testimonial-carousel__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-testimonial-carousel__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-testimonial-carousel__track {
+  margin: 0;
+  list-style: none;
+  /* A scroll container a keyboard can reach needs room for its own focus ring;
+     without it the ring is clipped by the very overflow that makes it scroll. */
+  scroll-padding-inline: var(--spacing-1);
+}
+
+/* Just under the reading measure, so the following card is still visible past
+   the edge at every width. That peek is the affordance; the arrows are the
+   fallback for a pointer that cannot flick. */
+.g-testimonial-carousel__item {
+  inline-size: min(85%, 30rem);
+}
+
+.g-testimonial-carousel__card {
+  margin: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  gap: var(--spacing-4);
+}
+
+.g-testimonial-carousel__portrait {
+  flex-shrink: 0;
+}
+
+.g-testimonial-carousel__quote {
+  margin: 0;
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+  quotes: auto;
+}
+
+.g-testimonial-carousel__quote > p {
+  margin: 0;
+}
+
+.g-testimonial-carousel__quote > p::before {
+  content: open-quote;
+}
+
+.g-testimonial-carousel__quote > p::after {
+  content: close-quote;
+}
+
+/* Pushed to the bottom so the names of two adjacent cards sit on one line even
+   when one quote runs to twice the length of the other. */
+.g-testimonial-carousel__credit {
+  margin-block-start: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.g-testimonial-carousel__control {
+  inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+}
+
+/* The arrow is two borders on an empty box: no glyph to fall back from, and it
+   takes the button's own colour in every theme. */
+.g-testimonial-carousel__control::before {
+  content: '';
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  rotate: -45deg;
+}
+
+.g-testimonial-carousel__control.start::before {
+  rotate: 135deg;
+  translate: var(--spacing-0-5) 0;
+}
+
+.g-testimonial-carousel__control.end::before {
+  translate: calc(-1 * var(--spacing-0-5)) 0;
+}
+
+.g-testimonial-carousel__control[disabled] {
+  opacity: 0.4;
+}
+
+.g-testimonial-carousel.accent .g-testimonial-carousel__lead,
+.g-testimonial-carousel.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  /* At this width the arrows sit on top of the first and last card, and a
+     touch screen already has the better control. */
+  .g-testimonial-carousel__control {
+    display: none;
+  }
+
+  .g-testimonial-carousel__item {
+    inline-size: min(90%, 30rem);
+  }
 }

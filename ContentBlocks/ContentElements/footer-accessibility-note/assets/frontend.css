@@ -5,6 +5,64 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-accessibility-note {
-  display: block;
+.g-footer-accessibility-note__box {
+  max-inline-size: 60rem;
+  gap: var(--spacing-4);
+}
+
+.g-footer-accessibility-note__icon {
+  flex-shrink: 0;
+}
+
+.g-footer-accessibility-note__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2) var(--spacing-3);
+  margin-block-end: var(--spacing-2);
+}
+
+.g-footer-accessibility-note__title {
+  margin: 0;
+  font-size: var(--text-heading-5-size);
+  line-height: var(--text-heading-5-leading);
+}
+
+/* The level is a word, not a colour: a badge that signals conformance by hue
+   alone tells a colour-blind reader nothing, and tells a screen reader less. */
+.g-footer-accessibility-note__level {
+  flex-shrink: 0;
+}
+
+.g-footer-accessibility-note__body {
+  max-inline-size: 70ch;
+}
+
+.g-footer-accessibility-note__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2) var(--spacing-5);
+  margin-block: var(--spacing-3) 0;
+}
+
+.g-footer-accessibility-note__note {
+  margin-block-start: var(--spacing-3);
+  max-inline-size: 70ch;
+}
+
+.g-footer-accessibility-note.accent .g-footer-accessibility-note__box {
+  background-color: transparent;
+  border: var(--border-width) solid currentColor;
+  color: currentColor;
+}
+
+.g-footer-accessibility-note.accent .g-footer-accessibility-note__box .astryx-link,
+.g-footer-accessibility-note.accent .astryx-text.supporting {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-footer-accessibility-note__box {
+    gap: var(--spacing-3);
+  }
 }

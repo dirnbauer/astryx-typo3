@@ -5,14 +5,57 @@
 <f:asset.css identifier="g-team-stats" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Keep the set to four or fewer figures: a team described by eight numbers reads as a spreadsheet, not as people.
+    The figures are a description list: each value is defined by the label
+    under it, and that is the one relationship a screen reader needs in order
+    to read "fifty-eight" as something other than a loose number.
+
+    The value comes before its label in the source as well as on screen — a
+    definition list is read term first, and here the number is the term the
+    sentence beneath explains.
+
+    The icon tile carries the semantic key rather than a glyph, so swapping the
+    icon library never reaches into a template.
 </f:comment>
 
-<section class="astryx-section g-team-stats" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-team-stats {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-team-stats__intro align-{data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-team-stats__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-grid cols-{data.columns} g-team-stats__figures align-{data.align}">
+            <f:for each="{data.stats}" as="stat">
+                <div class="g-team-stats__figure">
+                    <f:if condition="{stat.icon}">
+                        <span class="astryx-feature-icon g-team-stats__icon" data-icon="{stat.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <dt class="astryx-text display-3 g-team-stats__value">
+                        <span>{stat -> f:render.text(field: 'value')}</span>
+                        <f:if condition="{stat.unit}">
+                            <span class="g-team-stats__unit">{stat -> f:render.text(field: 'unit')}</span>
+                        </f:if>
+                    </dt>
+
+                    <dd class="g-team-stats__label">
+                        <span class="astryx-text label g-team-stats__title">{stat -> f:render.text(field: 'title')}</span>
+                        <f:if condition="{stat.text}">
+                            <span class="astryx-text supporting g-team-stats__note">{stat -> f:render.text(field: 'text')}</span>
+                        </f:if>
+                    </dd>
+                </div>
+            </f:for>
+        </dl>
+
     </div>
 </section>
 

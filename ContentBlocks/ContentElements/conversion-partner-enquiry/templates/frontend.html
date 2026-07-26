@@ -5,14 +5,79 @@
 <f:asset.css identifier="g-conversion-partner-enquiry" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Say what is expected in return as plainly as what is offered; a partner page that only lists benefits attracts the wrong applications.
+    The benefits sit under the whole band rather than inside one half of the
+    split, so what is expected in return — which belongs in the rich text
+    beside the picture — is read before the list of what a partner gets. A
+    page that only lists benefits attracts exactly the applications nobody
+    wanted.
 </f:comment>
 
-<section class="astryx-section g-conversion-partner-enquiry" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-conversion-partner-enquiry {data.tone}">
+    <div class="astryx-layout lg">
+
+        <div class="astryx-split g-conversion-partner-enquiry__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-partner-enquiry__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text large g-conversion-partner-enquiry__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-conversion-partner-enquiry__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-conversion-partner-enquiry__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-conversion-partner-enquiry__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-partner-enquiry__secondary">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-partner-enquiry__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="820" loading="lazy" class="g-conversion-partner-enquiry__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
+
+        <f:if condition="{data.benefits}">
+            <ul class="astryx-grid cols-{data.columns} g-conversion-partner-enquiry__benefits">
+                <f:for each="{data.benefits}" as="benefit">
+                    <li class="astryx-feature g-conversion-partner-enquiry__benefit">
+                        <f:if condition="{benefit.icon}">
+                            <span class="astryx-feature-icon" data-icon="{benefit.icon}" aria-hidden="true"></span>
+                        </f:if>
+                        <h3 class="astryx-card-title">{benefit -> f:render.text(field: 'title')}</h3>
+                        <f:if condition="{benefit.text}">
+                            <p class="astryx-card-body">{benefit -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
         </f:if>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-conversion-partner-enquiry__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

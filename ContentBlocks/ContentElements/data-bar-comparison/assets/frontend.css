@@ -5,6 +5,128 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-bar-comparison {
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-bar-comparison__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-data-bar-comparison__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-bar-comparison__chart {
+  margin: 0;
+}
+
+.g-data-bar-comparison__caption {
   display: block;
+  margin-block-end: var(--spacing-5);
+  color: var(--color-text-secondary);
+}
+
+.g-data-bar-comparison__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  margin: 0;
+  padding: 0;
+}
+
+.g-data-bar-comparison__rows.compact {
+  gap: var(--spacing-3);
+}
+
+/* Label, plot and figure on one line: the plot column takes whatever is left,
+   which is what puts every bar on the same origin and the same scale. */
+.g-data-bar-comparison__row {
+  display: grid;
+  grid-template-columns: minmax(6rem, 14rem) 1fr auto;
+  align-items: center;
+  gap: var(--spacing-1) var(--spacing-4);
+}
+
+.g-data-bar-comparison__label {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-bar-comparison__plot {
+  margin: 0;
+  block-size: var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+  overflow: hidden;
+}
+
+/* The whole visualisation: a width taken from the digits the editor typed. */
+.g-data-bar-comparison__bar {
+  display: block;
+  block-size: 100%;
+  inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.g-data-bar-comparison__value {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-bar-comparison__detail {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.g-data-bar-comparison__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-data-bar-comparison.accent .g-data-bar-comparison__bar {
+  background-color: currentColor;
+}
+
+.g-data-bar-comparison.accent .g-data-bar-comparison__plot {
+  background-color: var(--color-overlay-hover);
+}
+
+.g-data-bar-comparison.accent .g-data-bar-comparison__lead,
+.g-data-bar-comparison.accent .g-data-bar-comparison__caption,
+.g-data-bar-comparison.accent .astryx-eyebrow,
+.g-data-bar-comparison.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-bar-comparison__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  /* Three columns in a phone width leave the plot about a centimetre wide, at
+     which point the bar stops comparing anything. */
+  .g-data-bar-comparison__row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .g-data-bar-comparison__plot {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }

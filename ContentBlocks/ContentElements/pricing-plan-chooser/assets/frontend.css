@@ -5,6 +5,58 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-plan-chooser {
-  display: block;
+.g-pricing-plan-chooser__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-plan-chooser__scope,
+.g-pricing-plan-chooser__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-plan-chooser__routes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grid children stretch, so every card is as tall as the tallest of its row and
+   the icon tiles land on one optical line whatever the copy does below them. */
+.g-pricing-plan-chooser__route {
+  block-size: 100%;
+}
+
+.g-pricing-plan-chooser__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-plan-chooser[data-align='center'] .g-pricing-plan-chooser__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-pricing-plan-chooser[data-align='center'] .g-pricing-plan-chooser__route {
+  align-items: center;
+  text-align: center;
+}
+
+.g-pricing-plan-chooser[data-align='center'] .g-pricing-plan-chooser__note {
+  text-align: center;
+}
+
+.g-pricing-plan-chooser.accent .g-pricing-plan-chooser__scope,
+.g-pricing-plan-chooser.accent .g-pricing-plan-chooser__lead,
+.g-pricing-plan-chooser.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-plan-chooser__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

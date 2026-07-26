@@ -5,15 +5,66 @@
 <f:asset.css identifier="g-logo-cloud" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Marks are normalised by optical area rather than by box height, and desaturated by default so one loud brand cannot unbalance the row.
+    A mark is a name a reader recognises, so its alt is the organisation and
+    never "logo": a screen reader announcing "image, logo" ten times in a row
+    has told nobody which customers these are.
+
+    Without artwork the name is set as type instead. A wall with three gaps in
+    it is worse proof than a wall of words.
 </f:comment>
 
-<section class="astryx-section g-logo-cloud" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-logo-cloud {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-logo-cloud__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-logo-cloud__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ul class="astryx-grid cols-{data.columns} g-logo-cloud__marks">
+            <f:for each="{data.logos}" as="logo">
+                <li class="g-logo-cloud__cell">
+                    <f:if condition="{logo.link.url}">
+                        <f:then>
+                            <f:link.typolink parameter="{logo.link}" class="g-logo-cloud__link">
+                                <f:render section="mark" arguments="{logo: logo}"/>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <f:render section="mark" arguments="{logo: logo}"/>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
+
+<f:section name="mark">
+    <f:if condition="{logo.image}">
+        <f:then>
+            <f:for each="{logo.image}" as="image">
+                <f:image image="{image}"
+                         alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
+                         height="96"
+                         loading="lazy"
+                         class="g-logo-cloud__image"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <span class="g-logo-cloud__wordmark">{logo.title}</span>
+        </f:else>
+    </f:if>
+</f:section>
 
 </html>

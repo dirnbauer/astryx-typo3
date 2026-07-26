@@ -5,6 +5,78 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-calculator {
-  display: block;
+.g-pricing-calculator__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-calculator__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-calculator__input {
+  inline-size: 30%;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-pricing-calculator__col-rate,
+.g-pricing-calculator__rate {
+  inline-size: 1%;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-pricing-calculator__how {
+  color: var(--color-text-secondary);
+}
+
+/* The worked formula is the point of the band, so it is set apart from the rate
+   rows rather than reading as one more paragraph after a table. */
+.g-pricing-calculator__formula {
+  margin-block-start: var(--spacing-8);
+  padding: var(--spacing-6);
+  border-radius: var(--radius-container, var(--radius-element));
+  background-color: var(--color-background-muted);
+  max-inline-size: 70ch;
+}
+
+.g-pricing-calculator__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-6);
+}
+
+.g-pricing-calculator__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-calculator.accent .g-pricing-calculator__lead,
+.g-pricing-calculator.accent .g-pricing-calculator__how,
+.g-pricing-calculator.accent .astryx-eyebrow,
+.g-pricing-calculator.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-pricing-calculator__table {
+    min-inline-size: 38rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-pricing-calculator__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-pricing-calculator__formula {
+    padding: var(--spacing-4);
+  }
 }

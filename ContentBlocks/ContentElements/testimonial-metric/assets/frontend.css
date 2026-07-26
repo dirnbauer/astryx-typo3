@@ -5,6 +5,106 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-testimonial-metric {
-  display: block;
+.g-testimonial-metric__grid {
+  align-items: center;
+}
+
+.g-testimonial-metric__figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 45ch;
+}
+
+.g-testimonial-metric__quote > p {
+  margin: 0;
+  quotes: auto;
+}
+
+.g-testimonial-metric__quote > p::before {
+  content: open-quote;
+}
+
+.g-testimonial-metric__quote > p::after {
+  content: close-quote;
+}
+
+.g-testimonial-metric__credit {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-testimonial-metric__portrait {
+  flex-shrink: 0;
+}
+
+.g-testimonial-metric__who {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.g-testimonial-metric__name {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-testimonial-metric__result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-testimonial-metric__value {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+/* Lining, equal-width digits: the figure is read against the sentence beside
+   it, and proportional digits make the same number look like two sizes. */
+.g-testimonial-metric__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-1-size);
+  font-weight: var(--text-display-1-weight);
+  line-height: var(--text-display-1-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-testimonial-metric__unit {
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-testimonial-metric__method {
+  max-inline-size: 32ch;
+}
+
+.g-testimonial-metric.accent .astryx-citation,
+.g-testimonial-metric.accent .g-testimonial-metric__unit,
+.g-testimonial-metric.accent .g-testimonial-metric__method {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-testimonial-metric.accent .g-testimonial-metric__value,
+.g-testimonial-metric.accent .g-testimonial-metric__name {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-testimonial-metric__figure,
+  .g-testimonial-metric__method {
+    max-inline-size: none;
+  }
+
+  .g-testimonial-metric__number {
+    font-size: var(--text-display-2-size);
+    line-height: var(--text-display-2-leading);
+  }
 }

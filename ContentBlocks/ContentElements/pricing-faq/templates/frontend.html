@@ -5,14 +5,67 @@
 <f:asset.css identifier="g-pricing-faq" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Accordion variant uses details/summary; no data-g behaviour needed. Two columns only when the answers are short.
+    Native details elements: the open state, the keyboard behaviour, the
+    accessible name and the print rendering are all the browser's own, and the
+    band works with scripting switched off. The shared name attribute is what
+    makes the rows exclusive, and it is keyed to the record uid so that two FAQs
+    on one page do not close each other's answers.
+
+    The open-list variant is the same content with nothing to click — for a page
+    where the questions are the point rather than the tidiness.
 </f:comment>
 
-<section class="astryx-section g-pricing-faq" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-faq {data.tone}" data-variant="{data.variant}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-pricing-faq__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-faq__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.variant} == 'open-list'">
+            <f:then>
+                <div class="g-pricing-faq__open">
+                    <f:for each="{data.questions}" as="item">
+                        <div class="g-pricing-faq__entry">
+                            <h3 class="astryx-heading level-3 g-pricing-faq__question">{item -> f:render.text(field: 'title')}</h3>
+                            <div class="astryx-prose g-pricing-faq__answer"><f:format.html>{item.bodytext}</f:format.html></div>
+                        </div>
+                    </f:for>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="astryx-collapsible-group g-pricing-faq__group">
+                    <f:for each="{data.questions}" as="item">
+                        <details class="astryx-collapsible spacious g-pricing-faq__item" name="g-pricing-faq-{data.uid}">
+                            <summary>
+                                <h3 class="g-pricing-faq__summary-question">{item -> f:render.text(field: 'title')}</h3>
+                            </summary>
+                            <div class="astryx-collapsible-content astryx-prose g-pricing-faq__answer"><f:format.html>{item.bodytext}</f:format.html></div>
+                        </details>
+                    </f:for>
+                </div>
+            </f:else>
         </f:if>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-faq__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-faq__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
+        </f:if>
+
     </div>
 </section>
 

@@ -5,6 +5,107 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-hotline-band {
-  display: block;
+.g-footer-hotline-band__panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-6) var(--spacing-10);
+}
+
+.g-footer-hotline-band__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  flex: 1 1 20rem;
+  max-inline-size: 40rem;
+}
+
+.g-footer-hotline-band__hours {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-hotline-band__call {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+.g-footer-hotline-band__icon {
+  flex-shrink: 0;
+}
+
+.g-footer-hotline-band__number-link {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-footer-hotline-band__number-link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* The number is the content of this band, so it may break across lines but
+   must never be cut: tabular figures keep it from reflowing on hover. */
+.g-footer-hotline-band__number {
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+@media (hover: hover) {
+  .g-footer-hotline-band__number-link:hover .g-footer-hotline-band__number {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+}
+
+.g-footer-hotline-band__action {
+  color: var(--color-text-accent);
+}
+
+.g-footer-hotline-band__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-footer-hotline-band[data-align='center'] .g-footer-hotline-band__panel {
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.g-footer-hotline-band[data-align='center'] .g-footer-hotline-band__copy {
+  align-items: center;
+  flex-basis: auto;
+}
+
+.g-footer-hotline-band[data-align='center'] .g-footer-hotline-band__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-hotline-band.accent .g-footer-hotline-band__hours,
+.g-footer-hotline-band.accent .astryx-eyebrow,
+.g-footer-hotline-band.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-footer-hotline-band.accent .g-footer-hotline-band__action {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  /* Stacked, the number leads and the second channel becomes a full-width
+     action under it rather than a stub beside a large figure. */
+  .g-footer-hotline-band__call {
+    inline-size: 100%;
+  }
+
+  .g-footer-hotline-band__second {
+    inline-size: 100%;
+  }
 }

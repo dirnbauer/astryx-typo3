@@ -5,13 +5,55 @@
 <f:asset.css identifier="g-data-key-figures" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): `reverse` puts the figures first; each figure is typed by an editor, so give the reporting period in `note` rather than implying it is current.
+    The argument comes first in the source order whichever side the editor puts
+    it on: figures read before the paragraph that motivates them are a list of
+    numbers, and this element exists precisely so they are not.
 </f:comment>
 
-<section class="astryx-section g-data-key-figures" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-data-key-figures {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-data-key-figures__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-data-key-figures__argument">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-data-key-figures__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-data-key-figures__prose"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="g-data-key-figures__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
+
+            <dl class="astryx-grid cols-{data.columns} g-data-key-figures__figures">
+                <f:for each="{data.metrics}" as="metric">
+                    <div class="g-data-key-figures__figure">
+                        <dt class="astryx-text label g-data-key-figures__label">{metric -> f:render.text(field: 'title')}</dt>
+                        <dd class="g-data-key-figures__reading">
+                            <span class="astryx-text display-3 g-data-key-figures__value">{metric -> f:render.text(field: 'value')}</span><f:if condition="{metric.unit}"><span class="g-data-key-figures__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
+                        </dd>
+                        <f:if condition="{metric.text}">
+                            <dd class="astryx-text supporting g-data-key-figures__detail">{metric -> f:render.text(field: 'text')}</dd>
+                        </f:if>
+                    </div>
+                </f:for>
+            </dl>
+
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-key-figures__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
     </div>
 </section>

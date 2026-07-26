@@ -1,1 +1,45 @@
-{}
+{
+    "_type": "pricing",
+    "header": "A feature-by-feature table",
+    "subheader": "The caption names the table; the heading introduces it",
+    "lead": "Three columns: what the feature is, what this plan gives, and whether it is in the price. The full-table variant fills the band; plan-column narrows it so it can stand beside a sibling.",
+    "variant": "full-table",
+    "note": "The note is where the qualifications go, so the cells stay short enough to scan.",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "rows": [
+        {
+            "title": "The feature is the row header",
+            "value": "th scope=row",
+            "included": true,
+            "text": "So a cell read on its own still knows which line it belongs to."
+        },
+        {
+            "title": "The plan is the column header",
+            "value": "th scope=col",
+            "included": true
+        },
+        {
+            "title": "The state is a named mark",
+            "value": "Never colour alone",
+            "included": true
+        },
+        {
+            "title": "A caveat sits under its value",
+            "value": "Second line of the cell",
+            "included": true
+        },
+        {
+            "title": "A row outside the price keeps its place",
+            "value": "Add-on",
+            "included": false,
+            "text": "Hiding it would hide the difference between this plan and the next."
+        },
+        {
+            "title": "Anything that needs a script",
+            "value": "Not here",
+            "included": false
+        }
+    ]
+}

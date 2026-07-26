@@ -5,6 +5,99 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-certifications {
+.g-footer-certifications__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-footer-certifications__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-certifications__seals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-certifications__seals.is-compact {
+  gap: var(--spacing-4);
+}
+
+.g-footer-certifications__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  /* Two lines of a standard's name is the most this strip can carry before it
+     becomes a list rather than a strip. */
+  inline-size: 9rem;
+  text-align: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-footer-certifications__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Seals are normalised on height, not width: a round seal and a rectangular
+   certificate mark set to the same width read as two different sizes. */
+.g-footer-certifications__image {
   display: block;
+  block-size: var(--spacing-12);
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
+.g-footer-certifications__seals.is-compact .g-footer-certifications__image {
+  block-size: var(--spacing-10);
+}
+
+.g-footer-certifications__name {
+  font-weight: var(--font-weight-medium);
+  text-wrap: balance;
+}
+
+.g-footer-certifications__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+}
+
+.g-footer-certifications[data-align='center'] .g-footer-certifications__intro,
+.g-footer-certifications[data-align='center'] .g-footer-certifications__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-certifications[data-align='center'] .g-footer-certifications__seals {
+  justify-content: center;
+}
+
+.g-footer-certifications.accent .g-footer-certifications__lead,
+.g-footer-certifications.accent .astryx-eyebrow,
+.g-footer-certifications.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* Two seals across at this width leave the names on four lines each. */
+  .g-footer-certifications__seal {
+    flex: 1 0 100%;
+  }
+
+  .g-footer-certifications__link {
+    flex-direction: row;
+    inline-size: 100%;
+    text-align: start;
+    gap: var(--spacing-3);
+  }
 }

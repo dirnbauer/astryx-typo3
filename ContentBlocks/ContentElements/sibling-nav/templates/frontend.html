@@ -5,15 +5,52 @@
 <f:asset.css identifier="g-sibling-nav" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Derived from the page tree, not curated; the current page is rendered with aria-current=page and no href.
+    {siblings} is every page under the same parent as this one. A content
+    element renders through lib.contentBlock, which hands the template its own
+    record and nothing else, so the menu is put on this CType by the theme's
+    setup.typoscript rather than inherited from the page template.
+
+    The page the reader is standing on keeps its place in the list but loses
+    its link: a link to here is a link that does nothing, and aria-current
+    plus the marker say why it is different.
 </f:comment>
 
-<section class="astryx-section g-sibling-nav" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
-    </div>
-</section>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.siblings" default="More in this section"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<f:if condition="{siblings}">
+    <section class="astryx-section tight g-sibling-nav {data.tone}">
+        <div class="astryx-layout {data.width}">
+            <nav class="g-sibling-nav__nav" aria-label="{navLabel}">
+
+                <h2 class="astryx-heading level-4 g-sibling-nav__title">
+                    <f:if condition="{data.header}">
+                        <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                        <f:else>{navFallback}</f:else>
+                    </f:if>
+                </h2>
+
+                <ul class="g-sibling-nav__list {f:if(condition: data.compact, then: 'tight')}">
+                    <f:for each="{siblings}" as="page">
+                        <li class="g-sibling-nav__item">
+                            <f:if condition="{page.current}">
+                                <f:then>
+                                    <span class="g-sibling-nav__link current" aria-current="page">
+                                        {page.title}
+                                        <span class="astryx-visually-hidden"> — <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                                    </span>
+                                </f:then>
+                                <f:else>
+                                    <a class="g-sibling-nav__link" href="{page.link}">{page.title}</a>
+                                </f:else>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </ul>
+
+            </nav>
+        </div>
+    </section>
+</f:if>
 
 </html>

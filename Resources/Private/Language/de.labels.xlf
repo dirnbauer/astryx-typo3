@@ -270,5 +270,215 @@
         <target>Bild anzeigen</target>
       </segment>
     </unit>
+
+    <!-- Navigationsgruppe. Jedes Menü im Inhaltsbereich ist eine eigene
+         Landmarke, und mehrere davon können auf einer Seite stehen — jede
+         braucht daher einen Namen. Hier stehen die Ersatznamen für Elemente
+         ohne eigene Überschrift und die Wörter, mit denen ein Zustand
+         ausgeschrieben wird: Farbe oder Häkchen allein sagen niemandem am
+         Screenreader, welcher Eintrag der aktuelle ist. -->
+    <unit id="nav.sectionMenu">
+      <segment state="final">
+        <source>Section menu</source>
+        <target>Bereichsmenü</target>
+      </segment>
+    </unit>
+    <unit id="nav.destinations">
+      <segment state="final">
+        <source>Destinations</source>
+        <target>Ziele</target>
+      </segment>
+    </unit>
+    <unit id="nav.linkList">
+      <segment state="final">
+        <source>Link list</source>
+        <target>Linkliste</target>
+      </segment>
+    </unit>
+    <unit id="nav.quickLinks">
+      <segment state="final">
+        <source>Quick links</source>
+        <target>Schnellzugriff</target>
+      </segment>
+    </unit>
+    <unit id="nav.index">
+      <segment state="final">
+        <source>Index</source>
+        <target>Verzeichnis</target>
+      </segment>
+    </unit>
+    <unit id="nav.letters">
+      <segment state="final">
+        <source>Jump to a letter</source>
+        <target>Zu einem Buchstaben springen</target>
+      </segment>
+    </unit>
+    <unit id="nav.sitemap">
+      <segment state="final">
+        <source>Sitemap</source>
+        <target>Sitemap</target>
+      </segment>
+    </unit>
+    <unit id="nav.siblings">
+      <segment state="final">
+        <source>More in this section</source>
+        <target>Mehr in diesem Bereich</target>
+      </segment>
+    </unit>
+    <unit id="nav.path">
+      <segment state="final">
+        <source>You are here</source>
+        <target>Sie sind hier</target>
+      </segment>
+    </unit>
+    <unit id="nav.anchors">
+      <segment state="final">
+        <source>Sections of this page</source>
+        <target>Abschnitte dieser Seite</target>
+      </segment>
+    </unit>
+    <unit id="nav.outline">
+      <segment state="final">
+        <source>Page contents</source>
+        <target>Inhalt dieser Seite</target>
+      </segment>
+    </unit>
+    <unit id="nav.jump">
+      <segment state="final">
+        <source>Jump to</source>
+        <target>Direkt zu</target>
+      </segment>
+    </unit>
+    <unit id="nav.categories">
+      <segment state="final">
+        <source>Categories</source>
+        <target>Kategorien</target>
+      </segment>
+    </unit>
+    <unit id="nav.pagination">
+      <segment state="final">
+        <source>Parts of this series</source>
+        <target>Teile dieser Reihe</target>
+      </segment>
+    </unit>
+    <unit id="nav.part">
+      <segment state="final">
+        <source>Part</source>
+        <target>Teil</target>
+      </segment>
+    </unit>
+    <unit id="nav.steps">
+      <segment state="final">
+        <source>Steps</source>
+        <target>Schritte</target>
+      </segment>
+    </unit>
+    <unit id="nav.chapters">
+      <segment state="final">
+        <source>Chapters</source>
+        <target>Kapitel</target>
+      </segment>
+    </unit>
+    <unit id="nav.related">
+      <segment state="final">
+        <source>Related pages</source>
+        <target>Verwandte Seiten</target>
+      </segment>
+    </unit>
+    <unit id="nav.resources">
+      <segment state="final">
+        <source>External sources</source>
+        <target>Externe Quellen</target>
+      </segment>
+    </unit>
+    <unit id="nav.pageMoves">
+      <segment state="final">
+        <source>Previous and next page</source>
+        <target>Vorige und nächste Seite</target>
+      </segment>
+    </unit>
+    <unit id="nav.upNext">
+      <segment state="final">
+        <source>Read next</source>
+        <target>Weiterlesen</target>
+      </segment>
+    </unit>
+    <unit id="nav.backToSection">
+      <segment state="final">
+        <source>Back to the section</source>
+        <target>Zurück zum Bereich</target>
+      </segment>
+    </unit>
+    <unit id="nav.tabs">
+      <segment state="final">
+        <source>Sections</source>
+        <target>Abschnitte</target>
+      </segment>
+    </unit>
+    <unit id="nav.current">
+      <segment state="final">
+        <source>Current page</source>
+        <target>Aktuelle Seite</target>
+      </segment>
+    </unit>
+    <unit id="nav.currentStep">
+      <segment state="final">
+        <source>Current step</source>
+        <target>Aktueller Schritt</target>
+      </segment>
+    </unit>
+    <unit id="nav.stepDone">
+      <segment state="final">
+        <source>Completed</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="nav.stepOpen">
+      <segment state="final">
+        <source>Still to come</source>
+        <target>Noch offen</target>
+      </segment>
+    </unit>
+    <unit id="nav.previous">
+      <segment state="final">
+        <source>Previous</source>
+        <target>Zurück</target>
+      </segment>
+    </unit>
+    <unit id="nav.next">
+      <segment state="final">
+        <source>Next</source>
+        <target>Weiter</target>
+      </segment>
+    </unit>
+    <unit id="nav.externalLink">
+      <segment state="final">
+        <source>opens on another site</source>
+        <target>führt auf eine andere Website</target>
+      </segment>
+    </unit>
+
+    <!-- Teamgruppe. Ein Band mit Personen erzeugt Reihen gleichlautender
+         Links — sechs Schaltflächen mit denselben drei Wörtern. Die
+         wiederkehrende Beschriftung steht deshalb hier, und der Name, der sie
+         unterscheidet, kommt pro Zeile als Text dazu, den nur der Screenreader
+         vorliest. -->
+    <unit id="team.requestSession">
+      <segment state="final">
+        <source>Request a session</source>
+        <target>Termin anfragen</target>
+      </segment>
+    </unit>
+
+    <!-- Conversion-Gruppe. Das einzige Bedienelement der Gruppe ohne
+         Redaktionsfeld dahinter: der Schließen-Knopf am schließbaren
+         Angebotsband. Sein Name ist echter Text statt eines aria-label und
+         wird deshalb mit allem anderen auf der Seite übersetzt. -->
+    <unit id="conversion.dismiss">
+      <segment state="final">
+        <source>Close</source>
+        <target>Schließen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

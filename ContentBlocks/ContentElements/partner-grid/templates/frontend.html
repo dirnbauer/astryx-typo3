@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-partner-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): A partner card carries a mark, a name and one link and nothing else; if a partner needs a paragraph, that paragraph belongs on the linked page.
+    One link per card, carried by the name, so the whole card can become the
+    target while the accessible name stays the partner. A partner without a
+    link is a plain tile rather than an anchor that goes nowhere.
 </f:comment>
 
-<section class="astryx-section g-partner-grid" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-partner-grid {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-partner-grid__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-partner-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-partner-grid__partners">
+            <f:for each="{data.partners}" as="partner">
+                <li class="astryx-card g-partner-grid__card {f:if(condition: partner.link, then: 'astryx-clickable-card')}">
+                    <f:if condition="{partner.image}">
+                        <span class="g-partner-grid__mark">
+                            <f:for each="{partner.image}" as="image">
+                                <f:image image="{image}"
+                                         alt="{f:if(condition: image.alternative, then: image.alternative, else: partner.title)}"
+                                         height="96"
+                                         loading="lazy"
+                                         class="g-partner-grid__image"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title g-partner-grid__name">
+                        <f:if condition="{partner.link.url}">
+                            <f:then><f:link.typolink parameter="{partner.link}">{partner.title}</f:link.typolink></f:then>
+                            <f:else>{partner -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

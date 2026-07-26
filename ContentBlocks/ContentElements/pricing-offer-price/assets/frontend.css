@@ -5,6 +5,80 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-offer-price {
-  display: block;
+.g-pricing-offer-price__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+}
+
+.g-pricing-offer-price__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-offer-price__flag,
+.g-pricing-offer-price__actions,
+.g-pricing-offer-price__note {
+  margin: 0;
+}
+
+.g-pricing-offer-price__figures {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+}
+
+/* The withdrawn figure is smaller and quieter as well as struck: at the same
+   size the eye reads the pair as two prices rather than as one replaced. */
+.g-pricing-offer-price__was-amount {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-2-size);
+  line-height: var(--text-heading-2-leading);
+  color: var(--color-text-secondary);
+  text-decoration-thickness: from-font;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-offer-price__now {
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-pricing-offer-price__amount {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-offer-price__period {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-offer-price[data-align='center'] .g-pricing-offer-price__panel {
+  align-items: center;
+  text-align: center;
+}
+
+.g-pricing-offer-price[data-align='center'] .g-pricing-offer-price__figures {
+  justify-content: center;
+}
+
+.g-pricing-offer-price.accent .g-pricing-offer-price__lead,
+.g-pricing-offer-price.accent .g-pricing-offer-price__was-amount,
+.g-pricing-offer-price.accent .g-pricing-offer-price__period,
+.g-pricing-offer-price.accent .astryx-eyebrow,
+.g-pricing-offer-price.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* Side by side the two figures wrap mid-amount on a narrow phone, which reads
+     as a third price; stacked they stay two. */
+  .g-pricing-offer-price__figures {
+    flex-direction: column;
+    gap: var(--spacing-1);
+  }
 }

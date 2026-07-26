@@ -5,6 +5,85 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-licence-tiers {
-  display: block;
+.g-pricing-licence-tiers__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-licence-tiers__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-licence-tiers__tier {
+  align-items: baseline;
+  gap: var(--spacing-6);
+}
+
+.g-pricing-licence-tiers__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.g-pricing-licence-tiers__scope {
+  color: var(--color-text-secondary);
+  max-inline-size: 52ch;
+}
+
+/* The prices are the one column a reader scans straight down, so they are
+   pinned to the end edge and given figures of one width. */
+.g-pricing-licence-tiers__price {
+  flex: 0 0 auto;
+  margin: 0;
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+.g-pricing-licence-tiers__amount {
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-pricing-licence-tiers__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-licence-tiers__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-licence-tiers.accent .g-pricing-licence-tiers__lead,
+.g-pricing-licence-tiers.accent .g-pricing-licence-tiers__scope,
+.g-pricing-licence-tiers.accent .astryx-eyebrow,
+.g-pricing-licence-tiers.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* Below the fold of a phone the price would sit two lines away from the name
+     it belongs to, so the row stacks and the figure returns to the start edge. */
+  .g-pricing-licence-tiers__tier {
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+
+  .g-pricing-licence-tiers__price {
+    margin-inline-start: 0;
+    text-align: start;
+  }
+
+  .g-pricing-licence-tiers__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

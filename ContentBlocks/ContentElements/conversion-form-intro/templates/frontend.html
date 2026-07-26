@@ -5,14 +5,67 @@
 <f:asset.css identifier="g-conversion-form-intro" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Keep the step titles identical to the ones the real form shows, or the intro becomes a second, wrong source of truth.
+    This is editorial copy about a form, not the form: the steps and their
+    logic live in the TYPO3 form framework on the page the button opens. The
+    step titles therefore have to match the ones the real form shows, or the
+    band becomes a second and wrong source of truth about a process nobody
+    checks twice.
+
+    The list is ordered, so the sequence survives being read aloud; the
+    numbers drawn beside each step are decoration on top of that.
 </f:comment>
 
-<section class="astryx-section g-conversion-form-intro" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-form-intro {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-conversion-form-intro__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-conversion-form-intro__subheader">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-conversion-form-intro__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ol class="astryx-list with-dividers spacious g-conversion-form-intro__steps">
+            <f:for each="{data.steps}" as="step" iteration="position">
+                <li class="g-conversion-form-intro__step">
+                    <span class="g-conversion-form-intro__number" aria-hidden="true">{position.cycle}</span>
+
+                    <div class="g-conversion-form-intro__step-body">
+                        <h3 class="astryx-card-title g-conversion-form-intro__step-title">{step -> f:render.text(field: 'title')}</h3>
+
+                        <f:if condition="{step.value}">
+                            <p class="astryx-text supporting g-conversion-form-intro__duration">{step -> f:render.text(field: 'value')}</p>
+                        </f:if>
+
+                        <f:if condition="{step.text}">
+                            <p class="astryx-text body g-conversion-form-intro__step-text">{step -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </div>
+                </li>
+            </f:for>
+        </ol>
+
+        <div class="g-conversion-form-intro__foot">
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-conversion-form-intro__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-form-intro__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+        </div>
+
     </div>
 </section>
 

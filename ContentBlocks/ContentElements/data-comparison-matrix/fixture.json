@@ -1,1 +1,29 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Comparison Matrix",
+    "header": "One row per criterion, a tick and an answer",
+    "lead": "Two subjects only. The tick column is each row's included toggle; the column beside it is the sentence describing how the alternative handles the same point.",
+    "caption": "Name both sides here — the column headings stay generic so the caption can carry the two real names.",
+    "note": "The tick carries its own name in the markup, because a mark that means something only by its shape is unreadable to anyone using the table without seeing it.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "rows": [
+        {
+            "title": "A covered criterion",
+            "included": 1,
+            "text": "The sentence beside the tick says what the other side does instead."
+        },
+        {
+            "title": "A criterion both sides cover",
+            "included": 1,
+            "text": "Say so plainly. A comparison that never concedes anything is not read as a comparison."
+        },
+        {
+            "title": "A criterion this option does not cover",
+            "included": 0,
+            "text": "The cross is grey rather than red: not every gap is a failure."
+        }
+    ]
+}

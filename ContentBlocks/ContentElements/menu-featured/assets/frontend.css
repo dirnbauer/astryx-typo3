@@ -5,6 +5,86 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-menu-featured {
-  display: block;
+.g-menu-featured__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-menu-featured__grid {
+  display: grid;
+  gap: var(--spacing-8);
+  align-items: start;
+  grid-template-columns: 1fr;
+}
+
+.g-menu-featured__media {
+  margin: 0;
+}
+
+.g-menu-featured__image {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.g-menu-featured__title a {
+  text-decoration: none;
+}
+
+/* The cue is written text rather than a second link — the card already has
+   one, and its arrow is the only thing this line adds. */
+.g-menu-featured__cue {
+  margin: 0;
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-2);
+  color: var(--color-text-accent);
+}
+
+.g-menu-featured__items {
+  margin: 0;
+}
+
+.g-menu-featured__link {
+  inline-size: 100%;
+  gap: var(--spacing-3);
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-menu-featured__name {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-menu-featured__link::after {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-start: 2px solid currentColor;
+  rotate: 45deg;
+  color: var(--color-icon-secondary);
+}
+
+.g-menu-featured.accent .astryx-eyebrow,
+.g-menu-featured.accent .astryx-item-description {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* Two columns, and the featured half keeps the larger share: the whole point
+   of this band is that one destination is visibly senior to the rest. */
+@media (min-width: 768px) {
+  .g-menu-featured__grid {
+    grid-template-columns: 3fr 2fr;
+    gap: var(--spacing-10);
+  }
+
+  .g-menu-featured__grid.reversed > :first-child {
+    order: 2;
+  }
 }

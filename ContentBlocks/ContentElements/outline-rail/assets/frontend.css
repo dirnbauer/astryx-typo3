@@ -3,8 +3,47 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The hairline, the indents and the hover tint are .astryx-outline's own; all
+ * this file adds is the rail's width and the sticky offset.
  */
 
-.g-outline-rail {
-  display: block;
+.g-outline-rail__rail {
+  max-inline-size: 20rem;
+}
+
+.g-outline-rail__title {
+  margin-block-end: var(--spacing-2);
+  padding-inline-start: var(--spacing-3);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.g-outline-rail__entry {
+  display: flex;
+}
+
+.g-outline-rail__link {
+  inline-size: 100%;
+}
+
+.g-outline-rail.accent .g-outline-rail__title,
+.g-outline-rail.accent .g-outline-rail__link {
+  color: currentColor;
+}
+
+/* Sticky only once there is a column to sit beside. On a phone the rail is a
+   plain list above the first section — a layer that followed the reader down
+   a 375px screen would cover the text it is pointing at. */
+@media (min-width: 768px) {
+  .g-outline-rail__rail {
+    position: sticky;
+    inset-block-start: calc(var(--grande-header-height) + var(--spacing-4));
+    /* Long outlines scroll inside the rail rather than past the viewport. */
+    max-block-size: calc(100dvh - var(--grande-header-height) - var(--spacing-8));
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-track) transparent;
+  }
 }

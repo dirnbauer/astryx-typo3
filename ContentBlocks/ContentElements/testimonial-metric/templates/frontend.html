@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-testimonial-metric" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The number is set at display size and the explaining line stays small — an unexplained figure reads as marketing, an explained one reads as evidence.
+    The line under the figure is what separates evidence from marketing: an
+    unexplained number is a claim, and a number with its method beside it is a
+    measurement. It is therefore rendered small but never optional in practice.
 </f:comment>
 
-<section class="astryx-section g-testimonial-metric" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-testimonial-metric {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-testimonial-metric__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <figure class="g-testimonial-metric__figure">
+                <blockquote class="astryx-blockquote g-testimonial-metric__quote">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
+                </blockquote>
+
+                <f:if condition="{data.author}">
+                    <figcaption class="astryx-citation g-testimonial-metric__credit">
+                        <f:if condition="{data.image}">
+                            <span class="astryx-avatar md g-testimonial-metric__portrait">
+                                <f:for each="{data.image}" as="image">
+                                    <f:image image="{image}" alt="" width="72c" height="72c" loading="lazy"/>
+                                </f:for>
+                            </span>
+                        </f:if>
+
+                        <span class="g-testimonial-metric__who">
+                            <span class="g-testimonial-metric__name">{data -> f:render.text(field: 'author')}</span>
+                            <f:if condition="{data.role}">
+                                <span>{data -> f:render.text(field: 'role')}</span>
+                            </f:if>
+                        </span>
+                    </figcaption>
+                </f:if>
+            </figure>
+
+            <div class="g-testimonial-metric__result">
+                <p class="g-testimonial-metric__value">
+                    <span class="g-testimonial-metric__number">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-testimonial-metric__unit">{data.unit}</span></f:if>
+                </p>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text supporting g-testimonial-metric__method">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
+
+        </div>
     </div>
 </section>
 

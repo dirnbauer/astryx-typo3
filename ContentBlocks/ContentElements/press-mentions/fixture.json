@@ -1,1 +1,33 @@
-{}
+{
+    "_type": "social-proof",
+    "eyebrow": "Press Mentions",
+    "header": "Coverage, one row per article",
+    "lead": "Two to sixteen mentions. The child title holds the headline and the description holds the publication and the date; the citation sits outside the link, so the accessible name stays the article.",
+    "columns": "2",
+    "cta_label": "Secondary action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "mentions": [
+        {
+            "title": "The headline goes in the title field",
+            "description": "The publication and date go in the description",
+            "link": "#"
+        },
+        {
+            "title": "Every row carries the out-of-site marker",
+            "description": "Because every mention leads away from here",
+            "link": "#"
+        },
+        {
+            "title": "Two to four columns",
+            "description": "One column on a phone",
+            "link": "#"
+        },
+        {
+            "title": "A row without a link still renders",
+            "description": "Print coverage with no online edition",
+            "link": ""
+        }
+    ]
+}

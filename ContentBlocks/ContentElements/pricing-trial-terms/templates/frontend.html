@@ -5,14 +5,53 @@
 <f:asset.css identifier="g-pricing-trial-terms" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): State the end-of-trial behaviour explicitly in a row of its own; silence there is the single biggest source of billing complaints.
+    A description list, because that is the shape of the content: each term is a
+    question about the trial and each value is its answer. It also means a reader
+    copying the panel into a mail to a colleague still gets pairs rather than two
+    disconnected columns of words.
+
+    The clarification is a second value on the same term rather than a paragraph
+    of its own, so a term with a caveat still reads as one answer.
 </f:comment>
 
-<section class="astryx-section g-pricing-trial-terms" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-pricing-trial-terms {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-pricing-trial-terms__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-pricing-trial-terms__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="astryx-metadata-list g-pricing-trial-terms__terms">
+            <f:for each="{data.terms}" as="term">
+                <div class="astryx-metadata-list-item g-pricing-trial-terms__term">
+                    <dt class="g-pricing-trial-terms__label">{term -> f:render.text(field: 'title')}</dt>
+                    <dd class="g-pricing-trial-terms__value">{term -> f:render.text(field: 'value')}</dd>
+                    <f:if condition="{term.text}">
+                        <dd class="astryx-text supporting g-pricing-trial-terms__detail">{term -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-pricing-trial-terms__foot">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-pricing-trial-terms__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

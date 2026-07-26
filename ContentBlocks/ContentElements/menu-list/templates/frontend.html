@@ -5,14 +5,46 @@
 <f:asset.css identifier="g-menu-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The whole row is clickable; the arrow is decorative, and rows without a description collapse to a single line.
+    The link wraps the whole row rather than the title alone: a row is one
+    destination, and somebody aiming at four words on a phone should not have
+    to hit them exactly. The arrow is drawn in CSS and hidden from assistive
+    technology — it says "this goes somewhere", which the link already said.
 </f:comment>
 
-<section class="astryx-section g-menu-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-menu-list {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-menu-list__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-menu-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-menu-list__nav" aria-label="{navLabel}">
+            <ul class="astryx-list with-dividers {f:if(condition: data.compact, then: 'compact', else: 'balanced')} g-menu-list__rows">
+                <f:for each="{data.items}" as="item">
+                    <li class="g-menu-list__row">
+                        <f:link.typolink parameter="{item.link}" class="astryx-item interactive g-menu-list__link">
+                            <span class="astryx-item-content">
+                                <span class="astryx-item-label g-menu-list__title">{item.title}</span>
+                                <f:if condition="{item.description}">
+                                    <span class="astryx-item-description">{item.description}</span>
+                                </f:if>
+                            </span>
+                        </f:link.typolink>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

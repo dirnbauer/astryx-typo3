@@ -5,14 +5,55 @@
 <f:asset.css identifier="g-testimonial-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Cards stretch to equal height in the equal variant; the masonry variant lets long quotes keep their natural height via CSS columns.
+    Every card is a figure: the words in a blockquote, the person in the
+    caption. A quote card carries no title, so there is no heading inside the
+    grid and the page outline stays as short as the band deserves.
 </f:comment>
 
-<section class="astryx-section g-testimonial-grid" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-testimonial-grid {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-testimonial-grid__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-testimonial-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-testimonial-grid__items">
+            <f:for each="{data.quotes}" as="item">
+                <li class="g-testimonial-grid__item">
+                    <figure class="astryx-card g-testimonial-grid__card">
+                        <blockquote class="g-testimonial-grid__quote">
+                            <p>{item -> f:render.text(field: 'quote_text')}</p>
+                        </blockquote>
+
+                        <figcaption class="g-testimonial-grid__credit">
+                            <f:if condition="{item.image}">
+                                <span class="astryx-avatar md">
+                                    <f:for each="{item.image}" as="portrait">
+                                        <f:image image="{portrait}" alt="" width="72c" height="72c" loading="lazy"/>
+                                    </f:for>
+                                </span>
+                            </f:if>
+
+                            <span class="g-testimonial-grid__who">
+                                <span class="astryx-text label">{item -> f:render.text(field: 'author')}</span>
+                                <f:if condition="{item.role}">
+                                    <span class="astryx-text supporting">{item -> f:render.text(field: 'role')}</span>
+                                </f:if>
+                            </span>
+                        </figcaption>
+                    </figure>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

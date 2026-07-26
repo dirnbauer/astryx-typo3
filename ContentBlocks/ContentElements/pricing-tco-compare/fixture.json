@@ -1,1 +1,42 @@
-{}
+{
+    "_type": "pricing",
+    "header": "Cost of ownership as figures",
+    "subheader": "Licence, hosting, hours, migration — over a stated period",
+    "lead": "Each figure is a number with its unit and a line saying what it is measured against. A cost of ownership with no stated basis is a number chosen to win an argument.",
+    "columns": "3",
+    "align": "start",
+    "note": "The note carries the basis of the whole comparison: the period, the size of the organisation, the date the prices were taken.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "muted",
+    "figures": [
+        {
+            "icon": "receipt",
+            "value": "0,000",
+            "unit": "€",
+            "title": "The label is the term",
+            "text": "A description list, so the pairing survives being read out of order."
+        },
+        {
+            "icon": "clock",
+            "value": "000",
+            "unit": "h per year",
+            "title": "The unit is text, not styling",
+            "text": "So the figure is read as hours rather than as a smaller font."
+        },
+        {
+            "icon": "chart",
+            "value": "0.0",
+            "unit": "%",
+            "title": "The basis is the third line",
+            "text": "Where the number came from, and what it excludes."
+        },
+        {
+            "icon": "alert",
+            "value": "0",
+            "unit": "incidents",
+            "title": "Two to eight figures",
+            "text": "Fewer than two is not a comparison; more than eight is a table."
+        }
+    ]
+}

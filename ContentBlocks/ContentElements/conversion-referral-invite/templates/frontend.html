@@ -5,14 +5,58 @@
 <f:asset.css identifier="g-conversion-referral-invite" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Name the reward in the lead, not only in the steps; the conditions belong on a linked page, not in the note.
+    The steps are an ordered list, so their order survives the layout: read
+    aloud they are still first, second, third, and the numbers drawn in the
+    tiles are decoration on top of that rather than the only clue.
 </f:comment>
 
-<section class="astryx-section g-conversion-referral-invite" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-referral-invite {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-conversion-referral-invite__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-conversion-referral-invite__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <f:if condition="{data.image}">
+            <div class="g-conversion-referral-invite__media">
+                <f:for each="{data.image}" as="image">
+                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1120" loading="lazy" class="g-conversion-referral-invite__image"/>
+                </f:for>
+            </div>
         </f:if>
+
+        <ol class="astryx-grid cols-{data.columns} g-conversion-referral-invite__steps">
+            <f:for each="{data.steps}" as="step" iteration="position">
+                <li class="astryx-card g-conversion-referral-invite__step">
+                    <span class="astryx-feature-icon g-conversion-referral-invite__number" data-icon="{step.icon}" aria-hidden="true">{position.cycle}</span>
+                    <h3 class="astryx-card-title">{step -> f:render.text(field: 'title')}</h3>
+                    <f:if condition="{step.text}">
+                        <p class="astryx-card-body">{step -> f:render.text(field: 'text')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+
+        <div class="g-conversion-referral-invite__foot">
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-conversion-referral-invite__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-referral-invite__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+        </div>
+
     </div>
 </section>
 

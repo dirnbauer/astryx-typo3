@@ -1,1 +1,45 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Trend Strip",
+    "header": "One column per period, drawn as a height",
+    "value": "24",
+    "unit": "periods, maximum",
+    "badge_text": "No script involved",
+    "lead": "Each column's height is the percentage typed on its child record, so the shape is drawn by the editor rather than calculated from anything. Three periods minimum, because two is a comparison and not a trend.",
+    "note": "Past eight periods the middle labels leave the visual layer and stay in the text layer, which is what keeps a twelve-month strip legible without hiding eleven figures from a screen reader.",
+    "tone": "body",
+    "width": "lg",
+    "compact": 0,
+    "metrics": [
+        {
+            "value": "40",
+            "unit": "%",
+            "title": "First"
+        },
+        {
+            "value": "62",
+            "unit": "%",
+            "title": "Second"
+        },
+        {
+            "value": "55",
+            "unit": "%",
+            "title": "Third"
+        },
+        {
+            "value": "78",
+            "unit": "%",
+            "title": "Fourth"
+        },
+        {
+            "value": "91",
+            "unit": "%",
+            "title": "Fifth"
+        },
+        {
+            "value": "84",
+            "unit": "%",
+            "title": "Sixth"
+        }
+    ]
+}

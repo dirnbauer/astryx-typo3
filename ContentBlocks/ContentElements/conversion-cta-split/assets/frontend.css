@@ -5,6 +5,78 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-cta-split {
-  display: block;
+.g-conversion-cta-split__grid {
+  align-items: center;
+}
+
+/* Without a picture the split would leave half the band empty. */
+.g-conversion-cta-split__grid:not(:has(.g-conversion-cta-split__media)) {
+  grid-template-columns: 1fr;
+}
+
+.g-conversion-cta-split__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 34rem;
+}
+
+.g-conversion-cta-split__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-cta-split__actions {
+  margin-block-start: var(--spacing-2);
+  gap: var(--spacing-5);
+}
+
+.g-conversion-cta-split__note {
+  margin: 0;
+}
+
+.g-conversion-cta-split__media {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+/* The picture keeps its own proportions: a product shot cropped to a fixed
+   ratio loses exactly the edges that show it is a real screen. */
+.g-conversion-cta-split__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-cta-split__media figcaption {
+  margin: 0;
+}
+
+.g-conversion-cta-split.accent .g-conversion-cta-split__lead,
+.g-conversion-cta-split.accent .g-conversion-cta-split__note,
+.g-conversion-cta-split.accent .g-conversion-cta-split__secondary,
+.g-conversion-cta-split.accent .astryx-eyebrow,
+.g-conversion-cta-split.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-cta-split.accent .astryx-prose :where(a) {
+  color: currentColor;
+}
+
+@media (max-width: 767px) {
+  .g-conversion-cta-split__copy {
+    max-inline-size: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-conversion-cta-split__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-4);
+  }
 }

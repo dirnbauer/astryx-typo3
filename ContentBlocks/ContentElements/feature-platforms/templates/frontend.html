@@ -34,7 +34,7 @@
 
                     <span class="astryx-item-content">
                         <span class="astryx-item-label g-feature-platforms__name">
-                            <f:if condition="{platform.link}">
+                            <f:if condition="{platform.link.url}">
                                 <f:then><f:link.typolink parameter="{platform.link}">{platform.title}</f:link.typolink></f:then>
                                 <f:else>{platform -> f:render.text(field: 'title')}</f:else>
                             </f:if>

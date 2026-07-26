@@ -1,1 +1,30 @@
-{}
+{
+    "_type": "conversion",
+    "eyebrow": "Multi-Step Form Intro",
+    "header": "What a long form asks, before it asks",
+    "subheader": "The steps in order, roughly how long each takes, what to have ready.",
+    "lead": "Editorial copy about a form rather than the form itself: the steps and their logic live in the TYPO3 form framework on the page the button opens.",
+    "note": "Keep the step titles identical to the ones the real form shows, or this band becomes a second and wrong source of truth about the process.",
+    "cta_label": "Begin",
+    "cta_link": "#",
+    "align": "start",
+    "tone": "surface",
+    "width": "md",
+    "steps": [
+        {
+            "title": "Two to eight steps",
+            "value": "the title",
+            "text": "Each row is a title, an optional duration and a sentence about what to have to hand."
+        },
+        {
+            "title": "The duration is the value",
+            "value": "24 characters",
+            "text": "Short enough to sit under the title on one line, which is where anybody looks for it first."
+        },
+        {
+            "title": "The list is ordered",
+            "value": "an ol",
+            "text": "So the sequence survives being read aloud, and the numbered markers are decoration on top of it."
+        }
+    ]
+}

@@ -5,14 +5,68 @@
 <f:asset.css identifier="g-office-people" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child role holds the office name and the text holds the address; the person's own name stays the record title so the backend list is scannable.
+    The card is headed by the office rather than by the person, because a
+    reader on this band is looking for a place first and a name second. The
+    child's role holds the office name and its text holds the address; the
+    person's own name stays the record title, so the backend list is still
+    scannable by who rather than by where.
+
+    The address is an <address> element. It is the one tag the platform has for
+    exactly this, and it is what lets a browser or an assistive technology
+    offer to do something with it.
+
+    The alt names the person: the portrait sits at the foot of a card whose
+    heading is a place, and an unnamed face there belongs to nobody.
 </f:comment>
 
-<section class="astryx-section g-office-people" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-office-people {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-office-people__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-office-people__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-office-people__offices">
+            <f:for each="{data.contacts}" as="office">
+                <li class="astryx-card g-office-people__office">
+
+                    <f:if condition="{office.role}">
+                        <h3 class="astryx-card-title g-office-people__place">{office -> f:render.text(field: 'role')}</h3>
+                    </f:if>
+
+                    <f:if condition="{office.text}">
+                        <address class="astryx-text body g-office-people__address">{office -> f:render.text(field: 'text')}</address>
+                    </f:if>
+
+                    <div class="g-office-people__contact">
+                        <f:if condition="{office.image}">
+                            <span class="astryx-avatar md g-office-people__portrait">
+                                <f:for each="{office.image}" as="image">
+                                    <f:image image="{image}" alt="{office.title}" width="96c" height="96c" loading="lazy"/>
+                                </f:for>
+                            </span>
+                        </f:if>
+
+                        <p class="astryx-text supporting g-office-people__person">
+                            <f:if condition="{office.link.url}">
+                                <f:then><f:link.typolink parameter="{office.link}" class="astryx-link">{office.title}</f:link.typolink></f:then>
+                                <f:else>{office -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </p>
+                    </div>
+
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

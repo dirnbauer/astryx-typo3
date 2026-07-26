@@ -5,14 +5,95 @@
 <f:asset.css identifier="g-pagination" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child whose link resolves to the current page is rendered without a link and marked aria-current=page; the arrows are derived from its position.
+    The current part is the child whose link resolves to this page, or the one
+    whose link the editor left empty — the same statement made by hand. It is
+    found in a first pass so that the two arrows, which are simply the parts on
+    either side of it, can be rendered before and after the numbers. With no
+    part matching, the row is numbers alone: an arrow pointing at a guess is
+    worse than no arrow at all.
+
+    The number is what is shown; the accessible name is the part number and the
+    part's own title, because "3" on its own tells a screen-reader user nothing
+    about where the link goes.
 </f:comment>
 
-<section class="astryx-section g-pagination" data-variant="{data.variant}">
-    <div class="astryx-layout">
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.pagination" default="Parts of this series"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="partLabel"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.part" default="Part"/></f:variable>
+<f:variable name="buttonSize">{f:if(condition: data.compact, then: 'sm', else: 'md')}</f:variable>
+<f:variable name="selfUri"><f:uri.page/></f:variable>
+
+<f:variable name="currentIndex" value="-1"/>
+<f:for each="{data.pages}" as="part" iteration="step">
+    <f:if condition="{part.link.url}">
+        <f:variable name="partUri"><f:uri.typolink parameter="{part.link}"/></f:variable>
+        <f:if condition="{partUri} == {selfUri}"><f:variable name="currentIndex" value="{step.index}"/></f:if>
+    </f:if>
+</f:for>
+<f:comment>
+    Second pass, so that a part the editor deliberately left unlinked wins over
+    a link that merely happens to resolve here.
+</f:comment>
+<f:for each="{data.pages}" as="part" iteration="step">
+    <f:if condition="!{part.link.url}"><f:variable name="currentIndex" value="{step.index}"/></f:if>
+</f:for>
+<f:variable name="prevIndex" value="{currentIndex - 1}"/>
+<f:variable name="nextIndex" value="{currentIndex + 1}"/>
+
+<section class="astryx-section tight g-pagination" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
         <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <h2 class="astryx-heading level-4 g-pagination__title">{data -> f:render.text(field: 'header')}</h2>
         </f:if>
+
+        <nav class="astryx-pagination g-pagination__nav" aria-label="{navLabel}">
+            <div class="astryx-pagination-controls g-pagination__controls">
+
+                <f:if condition="{currentIndex} > -1">
+                    <f:for each="{data.pages}" as="part" iteration="step">
+                        <f:if condition="{step.index} == {prevIndex}">
+                            <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__step previous">
+                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>: {part.title}</span>
+                            </f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </f:if>
+
+                <f:for each="{data.pages}" as="part" iteration="step">
+                    <f:if condition="{step.index} == {currentIndex} || !{part.link.url}">
+                        <f:then>
+                            <span class="astryx-button ghost {buttonSize} g-pagination__number" aria-current="page">
+                                <span class="astryx-visually-hidden">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                                <span aria-hidden="true">{step.cycle}</span>
+                            </span>
+                        </f:then>
+                        <f:else>
+                            <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__number">
+                                <span class="astryx-visually-hidden">{partLabel} {step.cycle}: {part.title}</span>
+                                <span aria-hidden="true">{step.cycle}</span>
+                            </f:link.typolink>
+                        </f:else>
+                    </f:if>
+                </f:for>
+
+                <f:if condition="{currentIndex} > -1">
+                    <f:for each="{data.pages}" as="part" iteration="step">
+                        <f:if condition="{step.index} == {nextIndex}">
+                            <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__step next">
+                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>: {part.title}</span>
+                            </f:link.typolink>
+                        </f:if>
+                    </f:for>
+                </f:if>
+
+            </div>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-pagination-info g-pagination__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+        </nav>
+
     </div>
 </section>
 

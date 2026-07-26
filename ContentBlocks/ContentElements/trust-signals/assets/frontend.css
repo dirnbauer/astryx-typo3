@@ -6,5 +6,66 @@
  */
 
 .g-trust-signals {
-  display: block;
+  /* Half the usual band: this strip is a companion to whatever sits above it,
+     not a section of its own, and full band spacing would separate the two. */
+  --section-gap: var(--grande-band-tight);
+}
+
+.g-trust-signals__signals {
+  --grid-gap: var(--spacing-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-trust-signals__signal {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-trust-signals__icon {
+  flex-shrink: 0;
+}
+
+.g-trust-signals__copy {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+/* One line each, truncated rather than wrapped: a promise that needs two lines
+   is an argument, and arguments belong in the benefit list. */
+.g-trust-signals__promise,
+.g-trust-signals__detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.g-trust-signals[data-align='center'] .g-trust-signals__signal {
+  justify-content: center;
+}
+
+.g-trust-signals.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+/* On the accent band the tinted tile disappears into the background, so the
+   icon plate becomes a hollow ring in the band's own ink instead. */
+.g-trust-signals.accent .g-trust-signals__icon {
+  background-color: transparent;
+  box-shadow: inset 0 0 0 var(--border-width) currentColor;
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-trust-signals__signals {
+    --grid-gap: var(--spacing-4);
+  }
+
+  .g-trust-signals[data-align='center'] .g-trust-signals__signal {
+    justify-content: flex-start;
+  }
 }

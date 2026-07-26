@@ -5,6 +5,116 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-rating-summary {
-  display: block;
+.g-rating-summary__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.g-rating-summary__score {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+}
+
+.g-rating-summary__number {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-1-size);
+  font-weight: var(--text-display-1-weight);
+  line-height: var(--text-display-1-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+  color: var(--color-text-primary);
+}
+
+/* The scale is read with the score but is not part of it — "4.6" is the claim,
+   "out of 5" is the context. */
+.g-rating-summary__unit {
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-rating-summary__stars {
+  --g-star-on: var(--color-accent);
+  --g-star-off: var(--color-track);
+  margin: 0;
+  display: inline-flex;
+  gap: var(--spacing-1);
+}
+
+/* One star, filled from the left by a hard gradient stop and then clipped to
+   the star outline. The stop is computed per star from the shared score, so a
+   fractional rating renders as a partly filled star instead of being rounded
+   to something nobody claimed. clamp() keeps a score above or below the scale
+   from spilling into the neighbouring star. */
+.g-rating-summary__star {
+  inline-size: var(--spacing-6);
+  block-size: var(--spacing-6);
+  background-image: linear-gradient(
+    to right,
+    var(--g-star-on) calc(clamp(0, var(--g-rating, 0) - var(--g-star-index) + 1, 1) * 100%),
+    var(--g-star-off) 0
+  );
+  clip-path: polygon(
+    50% 0%, 61.8% 34.5%, 98% 34.5%, 69% 56%, 79.4% 90.5%,
+    50% 69%, 20.6% 90.5%, 31% 56%, 2% 34.5%, 38.2% 34.5%
+  );
+}
+
+.g-rating-summary__star:nth-child(1) { --g-star-index: 1; }
+.g-rating-summary__star:nth-child(2) { --g-star-index: 2; }
+.g-rating-summary__star:nth-child(3) { --g-star-index: 3; }
+.g-rating-summary__star:nth-child(4) { --g-star-index: 4; }
+.g-rating-summary__star:nth-child(5) { --g-star-index: 5; }
+
+.g-rating-summary__count {
+  color: var(--color-text-secondary);
+  max-inline-size: 44ch;
+}
+
+.g-rating-summary__source {
+  max-inline-size: 60ch;
+}
+
+.g-rating-summary__actions {
+  margin: 0;
+  margin-block-start: var(--spacing-3);
+}
+
+.g-rating-summary[data-align='center'] .g-rating-summary__inner {
+  align-items: center;
+  text-align: center;
+}
+
+/* Accent on accent would be invisible, so both halves of the star move to the
+   band's own ink and separate on opacity instead. */
+.g-rating-summary.accent .g-rating-summary__stars {
+  --g-star-on: currentColor;
+  --g-star-off: transparent;
+}
+
+.g-rating-summary.accent .g-rating-summary__number {
+  color: currentColor;
+}
+
+.g-rating-summary.accent .g-rating-summary__unit,
+.g-rating-summary.accent .g-rating-summary__count,
+.g-rating-summary.accent .astryx-eyebrow,
+.g-rating-summary.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-rating-summary__star {
+    inline-size: var(--spacing-5);
+    block-size: var(--spacing-5);
+  }
+
+  .g-rating-summary__count,
+  .g-rating-summary__source {
+    max-inline-size: none;
+  }
 }

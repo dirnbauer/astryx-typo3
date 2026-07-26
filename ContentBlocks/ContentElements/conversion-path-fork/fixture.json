@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "conversion",
+    "eyebrow": "Sales or Self-Serve Fork",
+    "header": "Two or three panels that split readers by how they want to buy",
+    "subheader": "Each panel names who it is for and where it leads.",
+    "lead": "Panels get identical weight on purpose. A card is a link target as a whole when its entry carries a link, and the title supplies the accessible name.",
+    "columns": "3",
+    "align": "start",
+    "note": "The note is the line that holds for every route — the one thing the fork does not split.",
+    "tone": "body",
+    "paths": [
+        {
+            "icon": "rocket",
+            "title": "Self-serve",
+            "description": "The route for a reader who would rather start than talk.",
+            "link": "#"
+        },
+        {
+            "icon": "phone",
+            "title": "Talk to sales",
+            "description": "The route for a reader who needs a person before a decision.",
+            "link": "#"
+        },
+        {
+            "icon": "handshake",
+            "title": "Through a partner",
+            "description": "The route for a reader who already buys through somebody else.",
+            "link": "#"
+        }
+    ]
+}

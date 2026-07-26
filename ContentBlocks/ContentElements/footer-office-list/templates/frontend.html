@@ -5,14 +5,61 @@
 <f:asset.css identifier="g-footer-office-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Each office is one icon-lead child: pin icon, city as title, the address block in its multi-line text and the directions link on the child.
+    Each office is one address element with the city as its heading, so the list
+    can be navigated by heading and every entry can be copied on its own. The
+    address keeps the line breaks the editor typed — a postal address flattened
+    into one line is a postal address nobody can paste into a delivery note.
+
+    The pin is a tile carrying a semantic key, decoration on top of a heading
+    that already says which city this is.
 </f:comment>
 
-<section class="astryx-section g-footer-office-list" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-footer-office-list {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-office-list__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-footer-office-list__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-footer-office-list__offices {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.items}" as="office">
+                <li class="astryx-card g-footer-office-list__office">
+                    <f:if condition="{office.icon}">
+                        <span class="astryx-feature-icon g-footer-office-list__pin" data-icon="{office.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <h3 class="astryx-card-title">{office -> f:render.text(field: 'title')}</h3>
+
+                    <f:if condition="{office.text}">
+                        <address class="astryx-card-body g-footer-office-list__address">{office -> f:render.text(field: 'text')}</address>
+                    </f:if>
+
+                    <f:if condition="{office.link.url}">
+                        <div class="astryx-card-footer">
+                            <f:comment>
+                                The link names its own destination. Twelve cards each
+                                offering "Directions" give a screen-reader user twelve
+                                identical links and no way to tell them apart.
+                            </f:comment>
+                            <f:link.typolink parameter="{office.link}" class="astryx-link cta g-footer-office-list__directions"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-office-list/language/labels.xlf:office.directions" arguments="{0: office.title}" default="Directions to {office.title}"/></f:link.typolink>
+                        </div>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-office-list__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

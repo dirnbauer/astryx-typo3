@@ -5,14 +5,74 @@
 <f:asset.css identifier="g-menu-featured" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The featured half lives in the block's own fields, the rest in the collection — that is what keeps one entry visibly senior to the others.
+    One link in the featured card and the subheading carries it, so the card
+    can become the target as a whole. The label under it is written text, not a
+    second link: two links inside one clickable card would leave a reader
+    tabbing twice to reach the same page.
 </f:comment>
 
-<section class="astryx-section g-menu-featured" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.destinations" default="Destinations"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-menu-featured {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header}">
+            <div class="g-menu-featured__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+            </div>
         </f:if>
+
+        <div class="g-menu-featured__grid {f:if(condition: data.reverse, then: 'reversed')}">
+
+            <div class="astryx-card astryx-clickable-card media-top g-menu-featured__lead">
+                <f:if condition="{data.image}">
+                    <figure class="g-menu-featured__media">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="800" loading="lazy" class="g-menu-featured__image"/>
+                        </f:for>
+                    </figure>
+                </f:if>
+
+                <h3 class="astryx-card-title g-menu-featured__title">
+                    <f:if condition="{data.cta_link.url}">
+                        <f:then><f:link.typolink parameter="{data.cta_link}">{data.subheader}</f:link.typolink></f:then>
+                        <f:else>{data -> f:render.text(field: 'subheader')}</f:else>
+                    </f:if>
+                </h3>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-card-body">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <p class="astryx-link cta g-menu-featured__cue">{data -> f:render.text(field: 'cta_label')}</p>
+                </f:if>
+            </div>
+
+            <nav class="g-menu-featured__nav" aria-label="{navLabel}">
+                <ul class="astryx-list with-dividers balanced g-menu-featured__items">
+                    <f:for each="{data.items}" as="item">
+                        <li class="g-menu-featured__item">
+                            <f:link.typolink parameter="{item.link}" class="astryx-item interactive g-menu-featured__link">
+                                <span class="astryx-item-content">
+                                    <span class="astryx-item-label g-menu-featured__name">{item.title}</span>
+                                    <f:if condition="{item.description}">
+                                        <span class="astryx-item-description">{item.description}</span>
+                                    </f:if>
+                                </span>
+                            </f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
+
+        </div>
     </div>
 </section>
 

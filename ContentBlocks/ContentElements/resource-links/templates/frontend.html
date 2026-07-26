@@ -5,14 +5,54 @@
 <f:asset.css identifier="g-resource-links" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): External targets get rel=noopener and a visible out-of-site marker; the child's description doubles as the name of the source.
+    Every link here leaves the site, so every row says so twice: a drawn marker
+    for a reader who sees it, and a short line inside the link for one who does
+    not. rel="noopener" goes on regardless of whether the editor set a target —
+    a resource list is the one place where the target is somebody else's page.
+
+    The child's description is the name of the source, not a summary: "the
+    provincial education portal" is what tells a reader whether the link is
+    worth following.
 </f:comment>
 
-<section class="astryx-section g-resource-links" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.resources" default="External sources"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-resource-links {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.lead}">
+            <div class="g-resource-links__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-resource-links__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav class="g-resource-links__nav" aria-label="{navLabel}">
+            <ul class="g-resource-links__items {f:if(condition: data.compact, then: 'tight')}">
+                <f:for each="{data.links}" as="link">
+                    <li class="g-resource-links__item">
+                        <f:link.typolink parameter="{link.link}" class="g-resource-links__link" additionalAttributes="{rel: 'noopener'}">
+                            <span class="g-resource-links__title">{link.title}</span>
+                            <span class="astryx-visually-hidden"> (<f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.externalLink" default="opens on another site"/>)</span>
+                        </f:link.typolink>
+
+                        <f:if condition="{link.description}">
+                            <span class="astryx-citation g-resource-links__source">{link -> f:render.text(field: 'description')}</span>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-resource-links__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

@@ -5,14 +5,65 @@
 <f:asset.css identifier="g-leadership-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Beyond six people the row stops reading as leadership and starts reading as a small team grid; the max enforces that.
+    Round portraits at the shared avatar's largest size, rather than the framed
+    rectangles of 'Team Grid': the two elements sit on the same page often
+    enough that they have to be told apart at a glance.
+
+    The alt names the person. The picture is the largest thing in the cell, so
+    when it fails to load an empty alt would leave a silent hole where a face
+    was meant to be — the two words cost less than that.
+
+    The name carries the link. A second "get in touch" underneath would be a
+    duplicate target with vaguer wording, and a heading that is already the
+    person's name is the clearest accessible name a link can have.
 </f:comment>
 
-<section class="astryx-section g-leadership-row" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-leadership-row {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-leadership-row__intro align-{data.align}">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-leadership-row__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-leadership-row__people align-{data.align}">
+            <f:for each="{data.people}" as="person">
+                <li class="astryx-stack gap-2 g-leadership-row__person">
+
+                    <f:if condition="{person.image}">
+                        <span class="astryx-avatar xl g-leadership-row__portrait">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="{person.title}" width="256c" height="256c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <h3 class="astryx-heading level-3 g-leadership-row__name">
+                        <f:if condition="{person.link.url}">
+                            <f:then><f:link.typolink parameter="{person.link}" class="astryx-link quiet">{person.title}</f:link.typolink></f:then>
+                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{person.role}">
+                        <p class="astryx-text label g-leadership-row__role">{person -> f:render.text(field: 'role')}</p>
+                    </f:if>
+
+                    <f:if condition="{person.text}">
+                        <p class="astryx-text body g-leadership-row__bio">{person -> f:render.text(field: 'text')}</p>
+                    </f:if>
+
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

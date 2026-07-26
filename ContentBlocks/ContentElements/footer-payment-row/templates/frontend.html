@@ -5,15 +5,65 @@
 <f:asset.css identifier="g-footer-payment-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Marks are editor-uploaded images so brand assets stay current; give them one common height and put the conditions sentence in `note`.
+    A payment mark is a promise about what happens at the till, so the name of
+    the method is always text: the artwork carries it as its alt, and a method
+    with no artwork uploaded yet is set as type rather than left as a gap. The
+    marks share one height, because a wide wordmark and a square emblem set to
+    the same width read as two different sizes.
+
+    Conditions that need words — delivery times, surcharges, minimum order —
+    belong in the note, not on a mark nobody can read.
 </f:comment>
 
-<section class="astryx-section g-footer-payment-row" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-payment-row {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.text}">
+            <div class="g-footer-payment-row__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-payment-row__lead">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ul class="astryx-overflow-list multi-row g-footer-payment-row__marks {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.logos}" as="mark">
+                <li class="g-footer-payment-row__mark">
+                    <f:if condition="{mark.link.url}">
+                        <f:then>
+                            <f:link.typolink parameter="{mark.link}" class="g-footer-payment-row__link">
+                                <f:render section="mark" arguments="{mark: mark}"/>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <f:render section="mark" arguments="{mark: mark}"/>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-payment-row__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
+
+<f:section name="mark">
+    <f:if condition="{mark.image}">
+        <f:then>
+            <f:for each="{mark.image}" as="image">
+                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: mark.title)}" height="32" loading="lazy" class="g-footer-payment-row__image"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <span class="g-footer-payment-row__wordmark">{mark.title}</span>
+        </f:else>
+    </f:if>
+</f:section>
 
 </html>

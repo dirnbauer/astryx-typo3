@@ -1,1 +1,49 @@
-{}
+{
+    "_type": "footer",
+    "header": "Brand column, link columns, quiet line",
+    "text": "The whole closing block as one element, for a page laid out without the site's own template footer.",
+    "columns": "3",
+    "cta_label": "The brand column's one link",
+    "cta_link": "#",
+    "note": "Only place this where the template footer is switched off, or the page ends twice. It stays a section rather than claiming the footer landmark — two contentinfo landmarks make the landmark list meaningless.",
+    "tone": "surface",
+    "width": "xl",
+    "links": [
+        {
+            "title": "An entry without a link",
+            "link": ""
+        },
+        {
+            "title": "starts the next column",
+            "link": "#"
+        },
+        {
+            "title": "and becomes its heading",
+            "link": "#"
+        },
+        {
+            "title": "The second heading",
+            "link": ""
+        },
+        {
+            "title": "Three to twenty-four links",
+            "link": "#"
+        },
+        {
+            "title": "Two, three or four columns",
+            "link": "#"
+        },
+        {
+            "title": "The third heading",
+            "link": ""
+        },
+        {
+            "title": "One column below 641px",
+            "link": "#"
+        },
+        {
+            "title": "The note closes the block",
+            "link": "#"
+        }
+    ]
+}

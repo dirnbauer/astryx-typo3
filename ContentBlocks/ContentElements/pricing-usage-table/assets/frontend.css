@@ -5,6 +5,67 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-usage-table {
-  display: block;
+.g-pricing-usage-table__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-usage-table__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-usage-table__unit {
+  inline-size: 34%;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Rates are read down the column and compared against each other, so the digits
+   have to line up whichever they are. */
+.g-pricing-usage-table__col-rate,
+.g-pricing-usage-table__rate {
+  inline-size: 1%;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-pricing-usage-table__counted {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-usage-table__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-6);
+}
+
+.g-pricing-usage-table__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-usage-table.accent .g-pricing-usage-table__lead,
+.g-pricing-usage-table.accent .g-pricing-usage-table__counted,
+.g-pricing-usage-table.accent .astryx-eyebrow,
+.g-pricing-usage-table.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  /* Three columns of prose do not fit a phone; the wrapper takes the scroll so
+     the page never does. */
+  .g-pricing-usage-table__table {
+    min-inline-size: 36rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .g-pricing-usage-table__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

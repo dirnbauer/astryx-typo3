@@ -6,5 +6,121 @@
  */
 
 .g-conversion-offer-dismissible {
-  display: block;
+  --section-gap: var(--spacing-4);
+}
+
+.g-conversion-offer-dismissible__offer {
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.g-conversion-offer-dismissible__icon {
+  flex: 0 0 auto;
+  align-self: flex-start;
+}
+
+.g-conversion-offer-dismissible__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.g-conversion-offer-dismissible__flags {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-conversion-offer-dismissible__text,
+.g-conversion-offer-dismissible__note {
+  margin: 0;
+}
+
+.g-conversion-offer-dismissible__action {
+  flex: 0 0 auto;
+}
+
+/* The close control is the way out of an interruption, so it is at least as
+   large a target as the thing it lets you escape. */
+.g-conversion-offer-dismissible__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-inline-size: var(--spacing-11);
+  min-block-size: var(--spacing-11);
+  align-self: flex-start;
+}
+
+.g-conversion-offer-dismissible__close > svg {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.g-conversion-offer-dismissible__close:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------- corner card */
+/* Sticky rather than fixed: a fixed card would still be over the page after
+   its own column has scrolled away, and would sit on the footer. */
+.g-conversion-offer-dismissible[data-variant='corner-card'] {
+  position: sticky;
+  inset-block-end: 0;
+  z-index: 1;
+  background-color: transparent;
+}
+
+.g-conversion-offer-dismissible[data-variant='corner-card'] .astryx-layout {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__offer {
+  flex-wrap: wrap;
+  max-inline-size: 26rem;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-med);
+  background-color: var(--color-background-card);
+}
+
+.g-conversion-offer-dismissible[data-variant='corner-card'].surface .g-conversion-offer-dismissible__offer {
+  background-color: var(--color-background-surface);
+}
+
+.g-conversion-offer-dismissible[data-variant='corner-card'].muted .g-conversion-offer-dismissible__offer {
+  background-color: var(--color-background-muted);
+}
+
+.g-conversion-offer-dismissible[data-variant='corner-card'].accent .g-conversion-offer-dismissible__offer {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__action {
+  flex: 1 0 100%;
+}
+
+.g-conversion-offer-dismissible.accent .g-conversion-offer-dismissible__text,
+.g-conversion-offer-dismissible.accent .g-conversion-offer-dismissible__note,
+.g-conversion-offer-dismissible.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-offer-dismissible.accent .astryx-banner {
+  background-color: transparent;
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-offer-dismissible__action {
+    flex: 1 0 100%;
+  }
+
+  .g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__offer {
+    max-inline-size: none;
+  }
 }

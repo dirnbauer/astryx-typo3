@@ -1,1 +1,62 @@
-{}
+{
+    "_type": "footer",
+    "header": "Sections and their pages, two levels deep",
+    "lead": "Four to sixty entries in a CSS column flow. An entry without a link opens a section; everything under it is a page in that section and is indented under the heading.",
+    "note": "The list is maintained by hand rather than generated from the page tree — a scraped sitemap grows every branch somebody forgot to exclude and shrinks whenever a section is renamed.",
+    "columns": "3",
+    "tone": "body",
+    "width": "xl",
+    "compact": true,
+    "links": [
+        {
+            "title": "A section heading",
+            "description": "An entry with no link",
+            "link": ""
+        },
+        {
+            "title": "Pages sit indented under it",
+            "link": "#"
+        },
+        {
+            "title": "and are ordinary links",
+            "link": "#"
+        },
+        {
+            "title": "in the editor's own order",
+            "link": "#"
+        },
+        {
+            "title": "Sections flow, they do not break",
+            "description": "With fifty entries a forced break empties half the band",
+            "link": ""
+        },
+        {
+            "title": "A heading may not end a column",
+            "link": "#"
+        },
+        {
+            "title": "which is what break-after handles",
+            "link": "#"
+        },
+        {
+            "title": "Two to four columns",
+            "link": ""
+        },
+        {
+            "title": "One column below 641px",
+            "link": "#"
+        },
+        {
+            "title": "Three or four from 1024px",
+            "link": "#"
+        },
+        {
+            "title": "Compact tightens the rows",
+            "link": "#"
+        },
+        {
+            "title": "The headings are real h3 elements",
+            "link": "#"
+        }
+    ]
+}

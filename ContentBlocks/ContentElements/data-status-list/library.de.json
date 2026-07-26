@@ -1,1 +1,49 @@
-{}
+{
+    "eyebrow": "Betriebsstatus",
+    "header": "Was lief, als diese Seite geschrieben wurde",
+    "lead": "Eine Seite, die jemand schreibt, kein Monitor. Bei einer Störung ist die Störungskarte die schnellere Quelle, und die Ansage auf der Servicenummer ist noch schneller.",
+    "note": "Geschrieben am 12. Jänner 2027 um 09:00 und von Hand fortgeschrieben. Widerspricht ein Eintrag unten der Störungskarte, gilt die Karte.",
+    "cta_label": "Störungskarte öffnen",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "md",
+    "compact": 0,
+    "metrics": [
+        {
+            "icon": "success",
+            "title": "Stromversorgung",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "success",
+            "title": "Gasversorgung",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "warning",
+            "title": "Fernwärme, Netz Ashcombe",
+            "value": "Eingeschränkt",
+            "text": "Vorlauftemperatur um 8 °C abgesenkt, solange die Pumpstation Marrowfield umgebaut wird. Rückkehr zum Normalbetrieb voraussichtlich im Mai 2027."
+        },
+        {
+            "icon": "success",
+            "title": "Kundenportal",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "success",
+            "title": "Telefonische Zählerstandsmeldung",
+            "value": "Normal",
+            "text": ""
+        },
+        {
+            "icon": "error",
+            "title": "Ladenetz, Old Harbour",
+            "value": "Teilausfall",
+            "text": "Vierzehn von 340 Ladepunkten außer Betrieb, seit die Arbeiten am Hafenparkplatz laufen. Noch kein Termin."
+        }
+    ]
+}

@@ -5,14 +5,50 @@
 <f:asset.css identifier="g-conversion-deadline-cta" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): No countdown: value/unit and note are editorial text. A ticking clock inside a cached page is a lie, and an expired one is worse.
+    The figure and the deadline are editorial text, and there is no clock.
+    A counter rendered into a cached page keeps counting from whenever the
+    cache was written, so it is wrong for every reader but the first — and
+    once it reaches zero it argues against the button beside it.
 </f:comment>
 
-<section class="astryx-section g-conversion-deadline-cta" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-conversion-deadline-cta {data.tone}" data-align="{data.align}">
+    <div class="astryx-layout md">
+        <div class="astryx-card roomy g-conversion-deadline-cta__card">
+
+            <f:if condition="{data.badge_text} || {data.eyebrow}">
+                <p class="g-conversion-deadline-cta__flags">
+                    <f:if condition="{data.badge_text}">
+                        <span class="astryx-badge accent">{data.badge_text}</span>
+                    </f:if>
+                    <f:if condition="{data.eyebrow}">
+                        <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                    </f:if>
+                </p>
+            </f:if>
+
+            <f:if condition="{data.value}">
+                <p class="g-conversion-deadline-cta__figure">
+                    <span class="g-conversion-deadline-cta__value">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-conversion-deadline-cta__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
+                </p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-conversion-deadline-cta__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+
+            <f:if condition="{data.cta_label}">
+                <div class="astryx-button-group g-conversion-deadline-cta__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                </div>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-conversion-deadline-cta__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

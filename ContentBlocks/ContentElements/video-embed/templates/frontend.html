@@ -25,7 +25,7 @@
         </f:if>
 
         <figure class="g-video-embed__figure">
-            <f:if condition="{data.cta_link}">
+            <f:if condition="{data.cta_link.url}">
                 <f:then>
                     <div class="astryx-aspect-ratio g-video-embed__frame">
                         <f:for each="{data.image}" as="poster">

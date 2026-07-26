@@ -1,1 +1,34 @@
-{}
+{
+    "_type": "pricing",
+    "eyebrow": "Usage Rate Table",
+    "header": "Price per unit, row by row",
+    "lead": "One row per billable unit, the rate beside it, and a line saying how the unit is counted. Nothing is added up.",
+    "note": "The note carries the billing terms — when the count is taken, how it appears on the invoice, whether tax is included.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "rates": [
+        {
+            "title": "The unit is the row header",
+            "value": "€0.00",
+            "text": "So a rate read on its own still knows what it is a rate for."
+        },
+        {
+            "title": "The rate keeps its own column",
+            "value": "€0.00",
+            "text": "Tabular figures, so the decimal points line up down the table."
+        },
+        {
+            "title": "How it is counted is the third column",
+            "value": "€0.00",
+            "text": "The sentence that stops a rate from being argued about later."
+        },
+        {
+            "title": "A total row",
+            "value": "—",
+            "text": "Deliberately absent: the arithmetic belongs to the invoice."
+        }
+    ]
+}

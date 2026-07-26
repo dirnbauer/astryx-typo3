@@ -5,14 +5,49 @@
 <f:asset.css identifier="g-menu-with-intro" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): On narrow screens the intro always comes first; the link column keeps its own scroll rhythm and never wraps into the prose.
+    The intro comes first in the source whichever side it ends up on, so a
+    reader who never sees the layout is told what the section is before being
+    handed its links. The swap is done by the split's own order rule, which
+    only applies from the point where there are two columns to swap.
 </f:comment>
 
-<section class="astryx-section g-menu-with-intro" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<section class="astryx-section g-menu-with-intro {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-menu-with-intro__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-menu-with-intro__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-menu-with-intro__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+            </div>
+
+            <nav class="g-menu-with-intro__nav" aria-label="{navLabel}">
+                <ul class="astryx-list with-dividers balanced g-menu-with-intro__items">
+                    <f:for each="{data.items}" as="item">
+                        <li class="g-menu-with-intro__item">
+                            <f:link.typolink parameter="{item.link}" class="astryx-item interactive g-menu-with-intro__link">
+                                <span class="astryx-item-content">
+                                    <span class="astryx-item-label g-menu-with-intro__title">{item.title}</span>
+                                    <f:if condition="{item.description}">
+                                        <span class="astryx-item-description">{item.description}</span>
+                                    </f:if>
+                                </span>
+                            </f:link.typolink>
+                        </li>
+                    </f:for>
+                </ul>
+            </nav>
+
+        </div>
     </div>
 </section>
 

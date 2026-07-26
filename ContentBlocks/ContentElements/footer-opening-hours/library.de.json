@@ -1,1 +1,42 @@
-{}
+{
+    "eyebrow": "Standort Wien",
+    "header": "Wann Schalter und Telefone besetzt sind",
+    "text": "Das sind die veröffentlichten Zeiten des Büros in der Rebhanggasse. Der Störungsdienst unter 0800 24 24 90 ist auch außerhalb erreichbar, an jedem Tag im Jahr.",
+    "note": "Am 24. und 31. Dezember geschlossen; zwischen den Feiertagen öffnet der Schalter nur am 27. und 30. Dezember von 08:00 bis 12:00. Abweichungen an Feiertagen kündigen wir hier zwei Wochen vorher an.",
+    "tone": "muted",
+    "align": "start",
+    "width": "md",
+    "compact": false,
+    "rows": [
+        {
+            "title": "Montag bis Donnerstag",
+            "value": "07:30 – 16:30",
+            "text": "Schalter, Auftragsannahme und Buchhaltung",
+            "included": true
+        },
+        {
+            "title": "Freitag",
+            "value": "07:30 – 12:30",
+            "text": "Schalter schließt mittags, Anlieferung bis 11:00",
+            "included": true
+        },
+        {
+            "title": "Ersatzteilausgabe, Mo bis Fr",
+            "value": "07:00 – 15:30",
+            "text": "Eigener Eingang im Hof",
+            "included": true
+        },
+        {
+            "title": "Samstag",
+            "value": "",
+            "text": "",
+            "included": false
+        },
+        {
+            "title": "Sonn- und Feiertag",
+            "value": "",
+            "text": "Nur Störungsdienst",
+            "included": false
+        }
+    ]
+}

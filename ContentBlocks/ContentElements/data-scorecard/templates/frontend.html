@@ -5,14 +5,57 @@
 <f:asset.css identifier="g-data-scorecard" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The scale is five segments, so type 4.5 rather than 90%; the overall score in `value` is typed too and is never averaged from the rows.
+    Five segments, always: the scale is the element's contract, which is why a
+    row is entered as 4.5 and not as 90%. Every row writes its score out beside
+    the segments, and a half-filled segment is a rendering of that number
+    rather than a substitute for it.
 </f:comment>
 
-<section class="astryx-section g-data-scorecard" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-scorecard {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-scorecard__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <p class="g-data-scorecard__overall">
+                <span class="astryx-text display-1 g-data-scorecard__score">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-data-scorecard__scale">{data -> f:render.text(field: 'unit')}</span></f:if>
+            </p>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-scorecard__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <dl class="g-data-scorecard__criteria">
+            <f:for each="{data.metrics}" as="metric">
+                <div class="g-data-scorecard__criterion" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                    <dt class="g-data-scorecard__name">{metric -> f:render.text(field: 'title')}</dt>
+
+                    <dd class="g-data-scorecard__segments" aria-hidden="true">
+                        <span class="g-data-scorecard__pip"></span>
+                        <span class="g-data-scorecard__pip"></span>
+                        <span class="g-data-scorecard__pip"></span>
+                        <span class="g-data-scorecard__pip"></span>
+                        <span class="g-data-scorecard__pip"></span>
+                    </dd>
+
+                    <dd class="g-data-scorecard__rating">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
+
+                    <f:if condition="{metric.text}">
+                        <dd class="astryx-text supporting g-data-scorecard__remark">{metric -> f:render.text(field: 'text')}</dd>
+                    </f:if>
+                </div>
+            </f:for>
+        </dl>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-scorecard__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

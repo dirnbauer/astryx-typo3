@@ -5,14 +5,38 @@
 <f:asset.css identifier="g-conversion-cta-sticky" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): position: sticky only — no scroll listener, no fixed overlay. It must never cover the page footer or a form's own submit button.
+    The band is its own sticky element — no scroll listener, no fixed overlay
+    and nothing that outlives the column it was placed in. Because it stays in
+    the flow it can never be reached by Tab out of order, and it releases at
+    the foot of the content instead of sitting on top of the page footer.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-sticky" data-variant="{data.variant}">
+<section class="astryx-section g-conversion-cta-sticky {data.tone}">
     <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+        <div class="astryx-toolbar lg g-conversion-cta-sticky__bar">
+
+            <div class="astryx-toolbar-start g-conversion-cta-sticky__copy">
+                <h2 class="astryx-heading level-5">{data -> f:render.text(field: 'header')}</h2>
+                <f:if condition="{data.text}">
+                    <p class="astryx-text supporting g-conversion-cta-sticky__text">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-cta-sticky__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <div class="astryx-toolbar-end g-conversion-cta-sticky__actions">
+                    <f:if condition="{data.secondary_label}">
+                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-cta-sticky__secondary">{data.secondary_label}</f:link.typolink>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary g-conversion-cta-sticky__action">{data.cta_label}</f:link.typolink>
+                    </f:if>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

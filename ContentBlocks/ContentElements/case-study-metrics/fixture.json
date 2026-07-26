@@ -1,1 +1,42 @@
-{}
+{
+    "_type": "social-proof",
+    "eyebrow": "Case Study Metrics Band",
+    "header": "The results of one project, as a row of figures",
+    "lead": "Two to six measures, each with its label and a line saying how it was counted. The figure is printed above its label, which is why the visual order is set in the stylesheet rather than by reversing the markup.",
+    "note": "The note carries the measurement period. Figures without a period invite the reader to distrust all of them, including the ones that are true.",
+    "columns": "4",
+    "cta_label": "Secondary action",
+    "cta_link": "#",
+    "tone": "surface",
+    "width": "lg",
+    "metrics": [
+        {
+            "value": "2",
+            "unit": "minimum",
+            "title": "Figures in the band",
+            "text": "One figure on its own belongs in the case study teaser.",
+            "icon": "chart"
+        },
+        {
+            "value": "6",
+            "unit": "maximum",
+            "title": "Figures in the band",
+            "text": "Past six, a reader remembers none of them.",
+            "icon": "columns"
+        },
+        {
+            "value": "1",
+            "unit": "project",
+            "title": "One customer only",
+            "text": "Numbers about your own reach belong in community stats instead.",
+            "icon": "user"
+        },
+        {
+            "value": "0",
+            "unit": "",
+            "title": "Animated counters",
+            "text": "A number that counts up is read twice and believed once.",
+            "icon": "clock"
+        }
+    ]
+}

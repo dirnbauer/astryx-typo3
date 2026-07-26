@@ -5,14 +5,75 @@
 <f:asset.css identifier="g-open-roles" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child description carries location and contract type; the note field holds the speculative-application line that follows the list.
+    The whole row is the link, not just the job title: a vacancy is one target,
+    and somebody reading on a phone should not have to hit four words exactly.
+
+    The row's description carries the location and the contract type, because
+    that is the pair of facts an applicant filters on before reading anything
+    else — and it is the one place an editor can keep them true.
+
+    A role with no link is still rendered, as plain text: a vacancy that has
+    been announced but whose posting is not written yet is a real state, and a
+    dead link would be worse than no link.
 </f:comment>
 
-<section class="astryx-section g-open-roles" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-open-roles {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-open-roles__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-open-roles__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-list with-dividers g-open-roles__list">
+            <f:for each="{data.roles}" as="role">
+                <li class="g-open-roles__row">
+                    <f:if condition="{role.link.url}">
+                        <f:then>
+                            <f:link.typolink parameter="{role.link}" class="astryx-item interactive spacious g-open-roles__link">
+                                <span class="astryx-item-content">
+                                    <span class="astryx-item-label g-open-roles__title">{role.title}</span>
+                                    <f:if condition="{role.description}">
+                                        <span class="astryx-item-description">{role.description}</span>
+                                    </f:if>
+                                </span>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <span class="astryx-item spacious g-open-roles__plain">
+                                <span class="astryx-item-content">
+                                    <span class="astryx-item-label g-open-roles__title">{role -> f:render.text(field: 'title')}</span>
+                                    <f:if condition="{role.description}">
+                                        <span class="astryx-item-description">{role -> f:render.text(field: 'description')}</span>
+                                    </f:if>
+                                </span>
+                            </span>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note} || {data.cta_label}">
+            <div class="g-open-roles__closing">
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-open-roles__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+                <f:if condition="{data.cta_label}">
+                    <p class="g-open-roles__actions">
+                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    </p>
+                </f:if>
+            </div>
         </f:if>
+
     </div>
 </section>
 

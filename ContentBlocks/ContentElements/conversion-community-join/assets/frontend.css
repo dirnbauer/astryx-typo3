@@ -5,6 +5,82 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-community-join {
-  display: block;
+.g-conversion-community-join__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-conversion-community-join[data-align='center'] .g-conversion-community-join__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-conversion-community-join__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-community-join__media {
+  margin-block-end: var(--spacing-8);
+}
+
+.g-conversion-community-join__image {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-low);
+}
+
+.g-conversion-community-join__places {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Every place is the same size on the page: a forum with a thousand members
+   and a monthly meeting of nine are both simply somewhere to turn up. */
+.g-conversion-community-join__place {
+  block-size: 100%;
+}
+
+.g-conversion-community-join[data-align='center'] .g-conversion-community-join__place {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-community-join__foot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-conversion-community-join[data-align='center'] .g-conversion-community-join__foot {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-community-join__note {
+  margin: 0;
+  max-inline-size: 40rem;
+}
+
+.g-conversion-community-join.accent .g-conversion-community-join__lead,
+.g-conversion-community-join.accent .g-conversion-community-join__note,
+.g-conversion-community-join.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-community-join__intro,
+  .g-conversion-community-join__media {
+    margin-block-end: var(--spacing-6);
+  }
+
+  .g-conversion-community-join__foot {
+    margin-block-start: var(--spacing-6);
+  }
 }

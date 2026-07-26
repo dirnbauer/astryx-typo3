@@ -5,6 +5,74 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-stat-context {
-  display: block;
+.g-data-stat-context__grid {
+  align-items: start;
+}
+
+.g-data-stat-context__figure-side,
+.g-data-stat-context__prose-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-data-stat-context__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  color: var(--color-text-accent);
+}
+
+.g-data-stat-context__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-stat-context__unit {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-heading-2-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-stat-context__claim {
+  color: var(--color-text-primary);
+}
+
+.g-data-stat-context__note {
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-data-stat-context__actions {
+  margin: 0;
+}
+
+.g-data-stat-context.accent .g-data-stat-context__figure {
+  color: currentColor;
+}
+
+.g-data-stat-context.accent .g-data-stat-context__note {
+  border-block-start-color: currentColor;
+}
+
+.g-data-stat-context.accent .g-data-stat-context__unit,
+.g-data-stat-context.accent .astryx-eyebrow,
+.g-data-stat-context.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  /* The figure column does not need half the band; the paragraph does. */
+  .g-data-stat-context__grid {
+    grid-template-columns: 5fr 7fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .g-data-stat-context__figure-side {
+    gap: var(--spacing-3);
+  }
 }

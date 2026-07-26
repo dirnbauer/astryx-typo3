@@ -5,6 +5,60 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-callback {
-  display: block;
+.g-conversion-callback__card {
+  gap: var(--spacing-4);
+  align-items: flex-start;
+}
+
+.g-conversion-callback[data-align='center'] .g-conversion-callback__card {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-callback.tight .g-conversion-callback__card {
+  --card-padding: var(--spacing-4);
+  gap: var(--spacing-3);
+}
+
+.g-conversion-callback__subheader,
+.g-conversion-callback__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-callback__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+/* Lining digits of one width so a phone number does not wobble the way
+   proportional numerals make it. */
+.g-conversion-callback__number {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-conversion-callback__note {
+  margin: 0;
+}
+
+.g-conversion-callback.accent .astryx-card {
+  background-color: transparent;
+  box-shadow: none;
+  color: currentColor;
+}
+
+.g-conversion-callback.accent .g-conversion-callback__subheader,
+.g-conversion-callback.accent .g-conversion-callback__lead,
+.g-conversion-callback.accent .g-conversion-callback__note {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* Ringing and requesting are equally likely on a phone, so both actions
+     get the full width rather than one being squeezed beside the other. */
+  .g-conversion-callback__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    inline-size: 100%;
+  }
 }

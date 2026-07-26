@@ -5,14 +5,59 @@
 <f:asset.css identifier="g-footer-contact-block" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Put the value in the title and the channel word in the description; the link carries the tel: or mailto: URL so the entry works on a phone.
+    An address element, because that is what these details are — and the channel
+    word comes before the value in the source, so a screen reader announces
+    "Telephone, 0800 24 24 90" rather than a number with no idea what it dials.
+    The icon is decoration on top of that word, never instead of it.
+
+    The link carries the tel: or mailto: URL and the value is its text, so the
+    row works with one tap on a phone and still reads as a number on paper.
 </f:comment>
 
-<section class="astryx-section g-footer-contact-block" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-footer-contact-block {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-contact-block__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-footer-contact-block__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <address class="g-footer-contact-block__address">
+            <ul class="g-footer-contact-block__channels {f:if(condition: data.compact, then: 'is-compact')}">
+                <f:for each="{data.links}" as="channel">
+                    <li class="g-footer-contact-block__channel">
+                        <f:if condition="{channel.icon}">
+                            <span class="astryx-feature-icon g-footer-contact-block__icon" data-icon="{channel.icon}" aria-hidden="true"></span>
+                        </f:if>
+
+                        <span class="g-footer-contact-block__body">
+                            <f:if condition="{channel.description}">
+                                <span class="astryx-text supporting g-footer-contact-block__kind">{channel.description}</span>
+                            </f:if>
+
+                            <span class="astryx-text body g-footer-contact-block__value">
+                                <f:if condition="{channel.link.url}">
+                                    <f:then><f:link.typolink parameter="{channel.link}" class="astryx-link quiet">{channel.title}</f:link.typolink></f:then>
+                                    <f:else>{channel -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </span>
+                        </span>
+                    </li>
+                </f:for>
+            </ul>
+        </address>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-contact-block__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

@@ -5,6 +5,91 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-counter-band {
-  display: block;
+.g-data-counter-band__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-counter-band[data-align='center'] .g-data-counter-band__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Wrapping rather than a fixed grid: three to six counters of very different
+   digit counts look better sharing the room than divided into equal cells. */
+.g-data-counter-band__counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8) var(--spacing-12);
+  margin: 0;
+  padding: 0;
+}
+
+.g-data-counter-band[data-align='center'] .g-data-counter-band__counters {
+  justify-content: center;
+}
+
+.g-data-counter-band__counter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.g-data-counter-band[data-align='center'] .g-data-counter-band__counter {
+  align-items: center;
+  text-align: center;
+}
+
+/* Term first in the source, figure first on the page. */
+.g-data-counter-band__figure {
+  order: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+}
+
+.g-data-counter-band__word {
+  order: 2;
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.g-data-counter-band__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-counter-band__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-counter-band__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-data-counter-band[data-align='center'] .g-data-counter-band__note {
+  text-align: center;
+}
+
+.g-data-counter-band.accent .g-data-counter-band__word,
+.g-data-counter-band.accent .g-data-counter-band__unit,
+.g-data-counter-band.accent .g-data-counter-band__lead,
+.g-data-counter-band.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-counter-band__counters {
+    gap: var(--spacing-6) var(--spacing-8);
+  }
 }

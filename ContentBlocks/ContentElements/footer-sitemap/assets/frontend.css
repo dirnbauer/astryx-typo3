@@ -5,6 +5,96 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-sitemap {
+.g-footer-sitemap__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-footer-sitemap__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-sitemap__list {
   display: block;
+  columns: 1;
+  column-gap: var(--spacing-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-sitemap__entry {
+  break-inside: avoid;
+}
+
+.g-footer-sitemap__entry.is-page {
+  padding-block: var(--spacing-1);
+}
+
+.g-footer-sitemap__list.is-compact .g-footer-sitemap__entry.is-page {
+  padding-block: var(--spacing-0-5);
+}
+
+/* A section heading that lands at the foot of a column has nothing under it,
+   which is exactly what makes a sitemap unreadable. */
+.g-footer-sitemap__entry.is-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  break-after: avoid;
+  padding-block-start: var(--spacing-6);
+  padding-block-end: var(--spacing-2);
+}
+
+.g-footer-sitemap__entry.is-section:first-child {
+  padding-block-start: 0;
+}
+
+.g-footer-sitemap__section {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* The pages of a section are indented under it, which is the second level the
+   element promises — the hierarchy is not carried by the heading alone. */
+.g-footer-sitemap__entry.is-page {
+  padding-inline-start: var(--spacing-3);
+}
+
+.g-footer-sitemap__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 70ch;
+}
+
+.g-footer-sitemap.accent .g-footer-sitemap__lead,
+.g-footer-sitemap.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-footer-sitemap.accent .g-footer-sitemap__link {
+  color: currentColor;
+}
+
+@media (min-width: 641px) {
+  .g-footer-sitemap[data-columns='2'] .g-footer-sitemap__list,
+  .g-footer-sitemap[data-columns='3'] .g-footer-sitemap__list,
+  .g-footer-sitemap[data-columns='4'] .g-footer-sitemap__list {
+    columns: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .g-footer-sitemap[data-columns='3'] .g-footer-sitemap__list { columns: 3; }
+  .g-footer-sitemap[data-columns='4'] .g-footer-sitemap__list { columns: 4; }
+}
+
+@media (max-width: 640px) {
+  .g-footer-sitemap__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

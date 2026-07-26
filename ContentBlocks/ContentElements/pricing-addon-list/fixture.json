@@ -1,1 +1,34 @@
-{}
+{
+    "_type": "pricing",
+    "header": "Paid extras on top of a plan",
+    "subheader": "The same list as rows or as a card grid",
+    "lead": "What the add-on is, what it costs, and one line on what it does. The variant changes the surface and nothing else.",
+    "variant": "list",
+    "columns": "2",
+    "note": "The note carries the terms shared by every extra — how they are billed, and what happens when one is switched off.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "addons": [
+        {
+            "title": "The name is a heading",
+            "value": "€00",
+            "text": "Each extra is an item of the band, so it takes the third heading level."
+        },
+        {
+            "title": "The price keeps its own column",
+            "value": "€00",
+            "text": "Pinned to the end edge in the list variant, so the figures read straight down."
+        },
+        {
+            "title": "One line says what it does",
+            "value": "€00",
+            "text": "Any more than that and the row stops being scannable."
+        },
+        {
+            "title": "Cards stretch to their row",
+            "value": "€00",
+            "text": "So the prices land on one optical line whatever the copy does below them."
+        }
+    ]
+}

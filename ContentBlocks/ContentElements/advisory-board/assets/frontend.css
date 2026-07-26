@@ -5,6 +5,64 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-advisory-board {
-  display: block;
+.g-advisory-board__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-advisory-board__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-advisory-board__people {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-advisory-board__person {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-advisory-board__portrait {
+  margin-block-end: var(--spacing-1);
+}
+
+/* Name and affiliation share the card-title style and are separated by air
+   alone. Giving the affiliation a smaller size would quietly demote the one
+   fact an advisory board exists to state. */
+.g-advisory-board__affiliation {
+  color: var(--color-text-secondary);
+}
+
+.g-advisory-board__subject {
+  margin: 0;
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-2);
+}
+
+.g-advisory-board__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 44rem;
+}
+
+.g-advisory-board.accent .g-advisory-board__lead,
+.g-advisory-board.accent .g-advisory-board__note,
+.g-advisory-board.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-advisory-board__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-advisory-board__note {
+    margin-block-start: var(--spacing-6);
+  }
 }

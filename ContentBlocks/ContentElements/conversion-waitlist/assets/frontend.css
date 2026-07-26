@@ -5,6 +5,80 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-waitlist {
+.g-conversion-waitlist__card {
+  gap: var(--spacing-4);
+  align-items: flex-start;
+}
+
+.g-conversion-waitlist[data-align='center'] .g-conversion-waitlist__card {
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-waitlist__media {
   display: block;
+  inline-size: 100%;
+}
+
+.g-conversion-waitlist__image {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.g-conversion-waitlist__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The count and its unit share a baseline: a number set large beside a phrase
+   set small only reads as one sentence if they sit on the same line. */
+.g-conversion-waitlist__figure {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.g-conversion-waitlist__value {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-3-size);
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-conversion-waitlist__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-waitlist__actions {
+  margin-block-start: var(--spacing-2);
+}
+
+.g-conversion-waitlist__note {
+  margin: 0;
+}
+
+.g-conversion-waitlist.accent .astryx-card {
+  background-color: transparent;
+  box-shadow: none;
+  color: currentColor;
+}
+
+.g-conversion-waitlist.accent .g-conversion-waitlist__lead,
+.g-conversion-waitlist.accent .g-conversion-waitlist__unit,
+.g-conversion-waitlist.accent .g-conversion-waitlist__note,
+.g-conversion-waitlist.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-conversion-waitlist__card {
+    --card-padding: var(--spacing-5);
+  }
 }

@@ -5,6 +5,55 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-related-links {
-  display: block;
+.g-related-links__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-5);
+}
+
+.g-related-links__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-related-links__items {
+  --grid-gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-related-links__item {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-related-links__title {
+  font-size: var(--text-heading-5-size);
+  line-height: var(--text-heading-5-leading);
+}
+
+.g-related-links__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The arrow marks the card as a way out of this page without asking for a
+   second link inside it. */
+.g-related-links__title a::before {
+  content: '→';
+  margin-inline-end: var(--spacing-2);
+  color: var(--color-text-accent);
+}
+
+.g-related-links.accent .g-related-links__lead {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-related-links__intro {
+    margin-block-end: var(--spacing-4);
+  }
 }

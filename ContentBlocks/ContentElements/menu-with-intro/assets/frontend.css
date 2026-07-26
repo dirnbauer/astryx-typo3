@@ -5,6 +5,58 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-menu-with-intro {
-  display: block;
+/* The two halves of this band are prose and a list, and a list wants to start
+   at the top of its column rather than float in the middle of the paragraph. */
+.g-menu-with-intro__grid {
+  align-items: start;
+}
+
+.g-menu-with-intro__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 34rem;
+}
+
+.g-menu-with-intro__body {
+  color: var(--color-text-secondary);
+}
+
+.g-menu-with-intro__items {
+  margin: 0;
+}
+
+.g-menu-with-intro__link {
+  inline-size: 100%;
+  gap: var(--spacing-3);
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-menu-with-intro__title {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-menu-with-intro__link::after {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-start: 2px solid currentColor;
+  rotate: 45deg;
+  color: var(--color-icon-secondary);
+}
+
+.g-menu-with-intro.accent .g-menu-with-intro__body,
+.g-menu-with-intro.accent .astryx-eyebrow,
+.g-menu-with-intro.accent .astryx-item-description {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-menu-with-intro__intro {
+    max-inline-size: none;
+  }
 }

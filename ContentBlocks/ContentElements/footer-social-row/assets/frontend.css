@@ -5,6 +5,71 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-social-row {
-  display: block;
+.g-footer-social-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 60ch;
+  margin-block-end: var(--spacing-6);
+}
+
+.g-footer-social-row__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-social-row__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-social-row__list.is-compact {
+  gap: var(--spacing-1);
+}
+
+.g-footer-social-row__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-footer-social-row__name {
+  font-weight: var(--font-weight-medium);
+}
+
+/* The tile is smaller here than in a feature grid: a row of ten profiles at
+   the grid size would outweigh everything the footer is actually for. */
+.g-footer-social-row__icon {
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+}
+
+.g-footer-social-row__list.is-compact .g-footer-social-row__icon {
+  inline-size: var(--spacing-7);
+  block-size: var(--spacing-7);
+}
+
+.g-footer-social-row[data-align='center'] .g-footer-social-row__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-social-row[data-align='center'] .g-footer-social-row__list {
+  justify-content: center;
+}
+
+.g-footer-social-row.accent .g-footer-social-row__lead,
+.g-footer-social-row.accent .astryx-item-description {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 480px) {
+  /* One profile per line: at this width two rows of half-width items break
+     their own names across lines. */
+  .g-footer-social-row__item {
+    flex: 1 0 100%;
+  }
 }

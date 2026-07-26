@@ -3,8 +3,75 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The pill shape, padding and radius are .astryx-token's; the selected state
+ * and the link behaviour are what this file adds.
  */
 
 .g-category-chips {
-  display: block;
+  --section-gap: var(--spacing-5);
+}
+
+.g-category-chips__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.g-category-chips[data-align='center'] .g-category-chips__nav {
+  align-items: center;
+}
+
+.g-category-chips__title {
+  margin: 0;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.g-category-chips__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-category-chips[data-align='center'] .g-category-chips__list {
+  justify-content: center;
+}
+
+.g-category-chips__chip {
+  border: var(--border-width) solid transparent;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.g-category-chips__list.tight .g-category-chips__chip {
+  padding-block: var(--spacing-0-5);
+  font-size: var(--text-supporting-size);
+}
+
+@media (hover: hover) {
+  .g-category-chips__chip:hover {
+    background-color: var(--color-neutral);
+  }
+}
+
+/* Three cues, not one: the tint, a border and the weight. A row of chips is
+   exactly where a theme with a soft accent would otherwise lose the selected
+   one entirely. */
+.g-category-chips__chip.current {
+  background-color: var(--color-accent-muted);
+  border-color: var(--color-accent);
+  color: var(--color-text-accent);
+  font-weight: var(--font-weight-semibold);
+  cursor: default;
+}
+
+@media (max-width: 480px) {
+  .g-category-chips__list {
+    gap: var(--spacing-1);
+  }
 }

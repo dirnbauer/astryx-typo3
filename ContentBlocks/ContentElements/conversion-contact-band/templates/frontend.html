@@ -5,14 +5,60 @@
 <f:asset.css identifier="g-conversion-contact-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Only promise a response time you can hold; the band is the visible half of a promise the form framework has to keep.
+    The band is the frame around a contact form, never the form: the fields,
+    the validation and the sending belong to the TYPO3 form framework on the
+    page the button points at. What is written here is a promise somebody else
+    has to keep, which is the reason to only write one you can.
 </f:comment>
 
-<section class="astryx-section g-conversion-contact-band" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-conversion-contact-band {data.tone}">
+    <div class="astryx-layout {data.width}">
+        <div class="astryx-split g-conversion-contact-band__grid {f:if(condition: data.reverse, then: 'media-first')}">
+
+            <div class="g-conversion-contact-band__copy">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+
+                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.subheader}">
+                    <p class="astryx-text large g-conversion-contact-band__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                </f:if>
+
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text body g-conversion-contact-band__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+
+                <f:if condition="{data.bodytext}">
+                    <div class="astryx-prose g-conversion-contact-band__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                </f:if>
+
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <div class="astryx-button-group g-conversion-contact-band__actions">
+                        <f:if condition="{data.cta_label}">
+                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                        </f:if>
+                    </div>
+                </f:if>
+
+                <f:if condition="{data.note}">
+                    <p class="astryx-text supporting g-conversion-contact-band__note">{data -> f:render.text(field: 'note')}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{data.image}">
+                <div class="g-conversion-contact-band__media">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="820" loading="lazy" class="g-conversion-contact-band__image"/>
+                    </f:for>
+                </div>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -13,5 +13,35 @@
         <target>Rendert eine Tabelle aus Leistungszeilen: Bezeichnung, was dieser Tarif konkret bietet, eine Fußnote für den Vorbehalt und ein Häkchen oder einen Strich. Die Variante &apos;plan-column&apos; erzeugt eine schmale Spalte, die neben ihren Geschwistern steht, &apos;full-table&apos; füllt das Band allein. Einsetzen für: den großen Vergleich unter einer Tarifreihe, das vollständige Leistungsverzeichnis eines Tarifs, eine schnelle Ja-Nein-Liste. Für kurze Listen ohne Vergleich ist die &apos;Leistungs-Checkliste&apos; besser, beim Kostenargument der &apos;Gesamtkostenvergleich&apos;.</target>
       </segment>
     </unit>
+    <unit id="feature.included">
+      <segment state="final">
+        <source>Included</source>
+        <target>Enthalten</target>
+      </segment>
+    </unit>
+    <unit id="feature.excluded">
+      <segment state="final">
+        <source>Not included</source>
+        <target>Nicht enthalten</target>
+      </segment>
+    </unit>
+    <unit id="column.feature">
+      <segment state="final">
+        <source>Feature</source>
+        <target>Leistung</target>
+      </segment>
+    </unit>
+    <unit id="column.value">
+      <segment state="final">
+        <source>What you get</source>
+        <target>Was Sie bekommen</target>
+      </segment>
+    </unit>
+    <unit id="column.state">
+      <segment state="final">
+        <source>In this plan</source>
+        <target>Im Tarif</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

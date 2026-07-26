@@ -5,6 +5,77 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-page-meta {
-  display: block;
+.g-footer-page-meta__bar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-footer-page-meta__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.g-footer-page-meta__title {
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+.g-footer-page-meta__lead,
+.g-footer-page-meta__note {
+  max-inline-size: 70ch;
+}
+
+.g-footer-page-meta__rows {
+  gap: var(--spacing-2) var(--spacing-6);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+/* Term and value on one line: a housekeeping line is scanned across, not read
+   down, so the shared list's stacked item has to become a row. */
+.g-footer-page-meta__row {
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--spacing-2);
+}
+
+.g-footer-page-meta__term {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.g-footer-page-meta__value {
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.g-footer-page-meta[data-align='center'] .g-footer-page-meta__bar {
+  align-items: center;
+  text-align: center;
+}
+
+.g-footer-page-meta[data-align='center'] .g-footer-page-meta__rows {
+  justify-content: center;
+}
+
+.g-footer-page-meta.accent .g-footer-page-meta__bar {
+  border-block-start-color: currentColor;
+}
+
+.g-footer-page-meta.accent .astryx-text.supporting,
+.g-footer-page-meta.accent .g-footer-page-meta__term {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-footer-page-meta__rows {
+    gap: var(--spacing-1) var(--spacing-4);
+  }
 }

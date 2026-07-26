@@ -6,5 +6,79 @@
  */
 
 .g-footer-newsletter-strip {
+  --section-gap: var(--grande-band-tight);
+}
+
+.g-footer-newsletter-strip__strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-5);
+}
+
+.g-footer-newsletter-strip__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1 1 20rem;
+  min-inline-size: 0;
+}
+
+.g-footer-newsletter-strip__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-footer-newsletter-strip__mark {
+  flex-shrink: 0;
+}
+
+.g-footer-newsletter-strip__image {
   display: block;
+  inline-size: var(--spacing-12);
+  block-size: var(--spacing-12);
+  object-fit: cover;
+  border-radius: var(--radius-element);
+}
+
+.g-footer-newsletter-strip__action {
+  flex-shrink: 0;
+}
+
+.g-footer-newsletter-strip__small-print {
+  margin-block-start: var(--spacing-4);
+  max-inline-size: 70ch;
+}
+
+.g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__strip {
+  flex-direction: column;
+  text-align: center;
+}
+
+.g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__copy {
+  align-items: center;
+  flex-basis: auto;
+}
+
+.g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__small-print {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-newsletter-strip.accent .g-footer-newsletter-strip__lead,
+.g-footer-newsletter-strip.accent .astryx-eyebrow,
+.g-footer-newsletter-strip.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  /* Stacked, the button is the last thing before the small print and takes the
+     full width rather than sitting as a stub under a wrapped sentence. */
+  .g-footer-newsletter-strip__action {
+    inline-size: 100%;
+  }
+
+  .g-footer-newsletter-strip__action > .astryx-button {
+    inline-size: 100%;
+  }
 }

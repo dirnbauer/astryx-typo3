@@ -26,7 +26,7 @@
                     </f:for>
 
                     <span class="astryx-overlay-scrim fill dark always align-center g-hero-video__scrim">
-                        <f:if condition="{data.cta_link}">
+                        <f:if condition="{data.cta_link.url}">
                             <f:then>
                                 <button type="button" class="astryx-button primary lg astryx-icon-button g-hero-video__play" data-g-dialog-open="g-hero-video-{data.uid}">
                                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5 19 12 8 18.5Z" fill="currentColor"/></svg>
@@ -45,7 +45,7 @@
     </div>
 </section>
 
-<f:if condition="{data.cta_link}">
+<f:if condition="{data.cta_link.url}">
     <dialog id="g-hero-video-{data.uid}" class="astryx-dialog fullscreen g-hero-video__dialog" aria-label="{data.header}">
         <button type="button" class="astryx-button ghost astryx-icon-button g-hero-video__close" data-g-dialog-close="close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>

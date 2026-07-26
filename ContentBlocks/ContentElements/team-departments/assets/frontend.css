@@ -5,6 +5,70 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-team-departments {
-  display: block;
+.g-team-departments__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 44rem;
+  padding-block-end: var(--spacing-5);
+  /* The rule belongs to the intro rather than being a divider of its own, so a
+     band without a heading cannot end up with a line hanging above nothing. */
+  border-block-end: var(--border-width) solid var(--color-border);
+  margin-block-end: var(--spacing-8);
+}
+
+.g-team-departments__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-team-departments__people {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-team-departments__person {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.g-team-departments__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+.g-team-departments__note {
+  color: var(--color-text-secondary);
+}
+
+/* Compact is for a band that sits between two others: the department still
+   gets its heading and its rule, the people just stop taking a full row of
+   air each. */
+.g-team-departments__people.compact {
+  --grid-gap: var(--spacing-4);
+}
+
+.g-team-departments__people.compact .g-team-departments__note {
+  display: none;
+}
+
+.g-team-departments.accent .g-team-departments__intro {
+  border-block-end-color: currentColor;
+}
+
+.g-team-departments.accent .g-team-departments__lead,
+.g-team-departments.accent .g-team-departments__role,
+.g-team-departments.accent .g-team-departments__note,
+.g-team-departments.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-team-departments__intro {
+    margin-block-end: var(--spacing-6);
+  }
 }

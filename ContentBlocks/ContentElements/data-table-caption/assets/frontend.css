@@ -5,6 +5,66 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-table-caption {
-  display: block;
+.g-data-table-caption__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-table-caption__lead {
+  color: var(--color-text-secondary);
+}
+
+/* The caption is the table's own title, not a decorative line above it: left
+   aligned, so it starts where the first column does. */
+.g-data-table-caption__caption {
+  text-align: start;
+  padding-block-end: var(--spacing-4);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.g-data-table-caption__item {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Figures set right and tabular, because a column of numbers is read by
+   comparing digits in the same place, not by reading each one. */
+.g-data-table-caption__figure-head,
+.g-data-table-caption__figure {
+  text-align: end;
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-table-caption__remark {
+  color: var(--color-text-secondary);
+}
+
+.g-data-table-caption__note {
+  margin-block-start: var(--spacing-5);
+}
+
+.g-data-table-caption.accent .g-data-table-caption__remark {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-data-table-caption.accent .g-data-table-caption__lead,
+.g-data-table-caption.accent .astryx-eyebrow,
+.g-data-table-caption.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-table-caption__table {
+    min-inline-size: 30rem;
+  }
 }

@@ -5,6 +5,95 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-funding-note {
+.g-footer-funding-note__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 70ch;
+  margin-block-end: var(--spacing-5);
+}
+
+.g-footer-funding-note__logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* Funding conditions prescribe clear space around an emblem, so the gap is
+     generous and the artwork is never cropped, tinted or greyscaled. */
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-footer-funding-note__logos.is-compact {
+  gap: var(--spacing-6);
+}
+
+.g-footer-funding-note__link {
   display: block;
+}
+
+.g-footer-funding-note__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+/* Emblems are normalised on height, not width: an EU flag and a square
+   programme mark set to the same width read as two different sizes. */
+.g-footer-funding-note__image {
+  display: block;
+  block-size: var(--spacing-11);
+  inline-size: auto;
+  max-inline-size: 14rem;
+}
+
+.g-footer-funding-note__logos.is-compact .g-footer-funding-note__image {
+  block-size: var(--spacing-9);
+}
+
+.g-footer-funding-note__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--spacing-11);
+  color: var(--color-text-secondary);
+}
+
+.g-footer-funding-note__statement {
+  margin-block-start: var(--spacing-5);
+  max-inline-size: 70ch;
+}
+
+.g-footer-funding-note__note {
+  margin-block-start: var(--spacing-3);
+  max-inline-size: 70ch;
+}
+
+.g-footer-funding-note[data-align='center'] .g-footer-funding-note__intro,
+.g-footer-funding-note[data-align='center'] .g-footer-funding-note__statement,
+.g-footer-funding-note[data-align='center'] .g-footer-funding-note__note {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-footer-funding-note[data-align='center'] .g-footer-funding-note__logos {
+  justify-content: center;
+}
+
+.g-footer-funding-note.accent .g-footer-funding-note__statement,
+.g-footer-funding-note.accent .g-footer-funding-note__wordmark,
+.g-footer-funding-note.accent .astryx-eyebrow,
+.g-footer-funding-note.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-footer-funding-note__logos {
+    gap: var(--spacing-6);
+  }
+
+  .g-footer-funding-note__image {
+    block-size: var(--spacing-9);
+  }
 }

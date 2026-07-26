@@ -5,6 +5,67 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-leader-letter {
+.g-leader-letter__sheet {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  /* A letter is read, so it keeps a letter's measure whatever width the band
+     was given. */
+  max-inline-size: 62ch;
+}
+
+.g-leader-letter__sheet.align-center {
+  margin-inline: auto;
+}
+
+.g-leader-letter__sign-off {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-leader-letter__sheet.align-center .g-leader-letter__sign-off {
+  align-items: center;
+  text-align: center;
+}
+
+/* The sign-off image is sized by height rather than width: a signature is
+   wide and thin and a portrait is square, and only a shared height makes both
+   of them sit at the same weight under the same paragraph. */
+.g-leader-letter__mark-image {
   display: block;
+  block-size: 4.5rem;
+  inline-size: auto;
+  max-inline-size: 100%;
+}
+
+.g-leader-letter__credit {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  margin: 0;
+}
+
+.g-leader-letter__note {
+  margin: 0;
+}
+
+.g-leader-letter.accent .g-leader-letter__sign-off {
+  border-block-start-color: currentColor;
+}
+
+.g-leader-letter.accent .g-leader-letter__role,
+.g-leader-letter.accent .g-leader-letter__note,
+.g-leader-letter.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-leader-letter__mark-image {
+    block-size: 3.5rem;
+  }
 }

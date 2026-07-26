@@ -5,15 +5,65 @@
 <f:asset.css identifier="g-footer-funding-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Funding programmes prescribe both wording and logo clear space, so keep the sentence in `text` editable and never crop the supplied logo.
+    Funding programmes prescribe both the wording and the clear space around
+    their emblem, so the sentence stays an editable text rather than something
+    this template composes, and the supplied artwork is never cropped, tinted or
+    turned to greyscale — only scaled to a common height.
+
+    The funder's name is the artwork's alt, because a funding notice that a
+    screen reader renders as "image" has acknowledged nobody.
 </f:comment>
 
-<section class="astryx-section g-footer-funding-note" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-footer-funding-note {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-funding-note__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+        </div>
+
+        <ul class="g-footer-funding-note__logos {f:if(condition: data.compact, then: 'is-compact')}">
+            <f:for each="{data.logos}" as="funder">
+                <li class="g-footer-funding-note__logo">
+                    <f:if condition="{funder.link.url}">
+                        <f:then>
+                            <f:link.typolink parameter="{funder.link}" class="g-footer-funding-note__link">
+                                <f:render section="emblem" arguments="{funder: funder}"/>
+                            </f:link.typolink>
+                        </f:then>
+                        <f:else>
+                            <f:render section="emblem" arguments="{funder: funder}"/>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.text}">
+            <p class="astryx-text body g-footer-funding-note__statement">{data -> f:render.text(field: 'text')}</p>
         </f:if>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-funding-note__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
+
+<f:section name="emblem">
+    <f:if condition="{funder.image}">
+        <f:then>
+            <f:for each="{funder.image}" as="image">
+                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: funder.title)}" height="64" loading="lazy" class="g-footer-funding-note__image"/>
+            </f:for>
+        </f:then>
+        <f:else>
+            <span class="g-footer-funding-note__wordmark">{funder.title}</span>
+        </f:else>
+    </f:if>
+</f:section>
 
 </html>

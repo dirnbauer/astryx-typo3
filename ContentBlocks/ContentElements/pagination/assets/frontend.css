@@ -3,8 +3,65 @@
  *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ *
+ * The row, the current-page tint and the info line come from .astryx-pagination
+ * and its buttons; the arrows are the only thing drawn here.
  */
 
 .g-pagination {
-  display: block;
+  --section-gap: var(--spacing-5);
+}
+
+.g-pagination__title {
+  margin-block-end: var(--spacing-3);
+}
+
+.g-pagination[data-align='center'] .g-pagination__nav {
+  justify-content: center;
+}
+
+.g-pagination__controls {
+  flex-wrap: wrap;
+}
+
+.g-pagination__number {
+  min-inline-size: var(--size-element-md);
+  text-decoration: none;
+}
+
+/* Two borders on an empty button: no glyph to fall back from, no icon set to
+   load, and it takes the button's own colour in every theme. */
+.g-pagination__step::before {
+  content: '';
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+}
+
+.g-pagination__step.previous::before {
+  rotate: 135deg;
+  translate: var(--spacing-0-5) 0;
+}
+
+.g-pagination__step.next::before {
+  rotate: -45deg;
+  translate: calc(-1 * var(--spacing-0-5)) 0;
+}
+
+.g-pagination__note {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  /* The note drops under the row rather than fighting it for the width. */
+  .g-pagination__nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  .g-pagination[data-align='center'] .g-pagination__nav {
+    align-items: center;
+  }
 }

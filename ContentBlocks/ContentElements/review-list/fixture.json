@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "social-proof",
+    "eyebrow": "Review List",
+    "header": "Individual reviews, stacked and undivided by columns",
+    "lead": "Two to twenty rows, each with its rating, the text as submitted, and who left it. The rating is printed as a number beside its stars, because five graphics are unreadable to anyone who cannot see them.",
+    "note": "The note says who collected the reviews and what you can and cannot do to them.",
+    "cta_label": "Secondary action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "md",
+    "reviews": [
+        {
+            "quote_text": "The stars are drawn from the child rating field, so a half point renders as half a star instead of being rounded up to a claim nobody made.",
+            "author": "The first review",
+            "role": "Five out of five",
+            "rating": 5
+        },
+        {
+            "quote_text": "A review with no rating still renders — the star row is simply left out rather than filled with a value nobody gave.",
+            "author": "The second review",
+            "role": "No rating at all",
+            "rating": 0
+        },
+        {
+            "quote_text": "Each row is a figure: the words in a blockquote, the reviewer in the caption, and a divider between one row and the next.",
+            "author": "The third review",
+            "role": "Three out of five",
+            "rating": 3
+        }
+    ]
+}

@@ -5,14 +5,51 @@
 <f:asset.css identifier="g-footer-page-meta" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The dates are typed, not taken from the record's timestamp — that is the point: it says when a human last checked the page, not when a field changed.
+    The dates are typed, not taken from the record's timestamp — and that is the
+    point of the element. A timestamp says when a field last changed, which a
+    corrected typo also does; this line says when a human last read the page and
+    decided it was still correct.
+
+    A real description list, so each date keeps the label that explains it
+    rather than becoming a loose number in a row. The short value is capped at
+    twenty-four characters, which a date fits and a department name often does
+    not, so a row with no value falls back to its longer text.
 </f:comment>
 
-<section class="astryx-section g-footer-page-meta" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-footer-page-meta {data.tone} {f:if(condition: data.compact, then: 'flush', else: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+        <div class="g-footer-page-meta__bar">
+
+            <f:if condition="{data.header} || {data.text}">
+                <div class="g-footer-page-meta__intro">
+                    <f:if condition="{data.header}">
+                        <h2 class="astryx-text label g-footer-page-meta__title">{data -> f:render.text(field: 'header')}</h2>
+                    </f:if>
+                    <f:if condition="{data.text}">
+                        <p class="astryx-text supporting g-footer-page-meta__lead">{data -> f:render.text(field: 'text')}</p>
+                    </f:if>
+                </div>
+            </f:if>
+
+            <dl class="astryx-metadata-list horizontal g-footer-page-meta__rows">
+                <f:for each="{data.rows}" as="row">
+                    <div class="astryx-metadata-list-item g-footer-page-meta__row">
+                        <dt class="g-footer-page-meta__term">{row -> f:render.text(field: 'title')}</dt>
+                        <dd class="g-footer-page-meta__value">
+                            <f:if condition="{row.value}">
+                                <f:then>{row -> f:render.text(field: 'value')}</f:then>
+                                <f:else>{row -> f:render.text(field: 'text')}</f:else>
+                            </f:if>
+                        </dd>
+                    </div>
+                </f:for>
+            </dl>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-footer-page-meta__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+
+        </div>
     </div>
 </section>
 

@@ -5,14 +5,66 @@
 <f:asset.css identifier="g-team-departments" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): One element is one department. Stacking several gives the organisation its shape and lets each band carry its own tone.
+    One element is one department. Stacking several of them gives the
+    organisation its shape and lets each band carry its own tone, which a
+    single element holding every department could not do.
+
+    The rule under the department title is a border on the intro rather than a
+    separate divider element, so it can never outlive the heading it belongs to.
+
+    The alt names the person: these are cards in a band whose heading is the
+    department, and a face without a name would be the second unlabelled thing
+    on the row.
 </f:comment>
 
-<section class="astryx-section g-team-departments" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-team-departments {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-team-departments__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-team-departments__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-team-departments__people {f:if(condition: data.compact, then: 'compact')}">
+            <f:for each="{data.people}" as="person">
+                <li class="g-team-departments__person">
+
+                    <f:if condition="{person.image}">
+                        <span class="astryx-avatar lg g-team-departments__portrait">
+                            <f:for each="{person.image}" as="image">
+                                <f:image image="{image}" alt="{person.title}" width="128c" height="128c" loading="lazy"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <div class="g-team-departments__detail">
+                        <h3 class="astryx-heading level-4 g-team-departments__name">
+                            <f:if condition="{person.link.url}">
+                                <f:then><f:link.typolink parameter="{person.link}" class="astryx-link quiet">{person.title}</f:link.typolink></f:then>
+                                <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </h3>
+
+                        <f:if condition="{person.role}">
+                            <p class="astryx-text supporting g-team-departments__role">{person -> f:render.text(field: 'role')}</p>
+                        </f:if>
+
+                        <f:if condition="{person.text}">
+                            <p class="astryx-text supporting g-team-departments__note">{person -> f:render.text(field: 'text')}</p>
+                        </f:if>
+                    </div>
+
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 

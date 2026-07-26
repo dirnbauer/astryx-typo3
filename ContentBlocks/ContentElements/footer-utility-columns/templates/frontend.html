@@ -5,14 +5,65 @@
 <f:asset.css identifier="g-footer-utility-columns" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Only place this where the site's template footer is switched off, otherwise the page ends twice; an entry with an empty link starts a new column.
+    Place this only where the site's own template footer is switched off, or the
+    page ends twice — this element renders the same kind of block that
+    Partials/Pages/Footer.fluid.html renders, for pages laid out without it.
+
+    It is still a content element, so it stays a section rather than claiming
+    the footer landmark: a page with two contentinfo landmarks is a page whose
+    landmark list has stopped meaning anything.
 </f:comment>
 
-<section class="astryx-section g-footer-utility-columns" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-utility-columns/language/labels.xlf:nav.label', default: 'Footer links')}"/>
+
+<section class="astryx-section g-footer-utility-columns {data.tone}" data-columns="{data.columns}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-footer-utility-columns__grid">
+
+            <div class="g-footer-utility-columns__brand">
+                <f:if condition="{data.image}">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="" height="40" loading="lazy" class="g-footer-utility-columns__logo"/>
+                    </f:for>
+                </f:if>
+
+                <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+
+                <f:if condition="{data.text}">
+                    <p class="astryx-text body g-footer-utility-columns__statement">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+
+                <f:if condition="{data.cta_label}">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                </f:if>
+            </div>
+
+            <nav class="g-footer-utility-columns__nav" aria-label="{navLabel}">
+                <ul class="g-footer-utility-columns__list">
+                    <f:for each="{data.links}" as="item">
+                        <f:if condition="{item.link.url}">
+                            <f:then>
+                                <li class="g-footer-utility-columns__entry is-link">
+                                    <f:link.typolink parameter="{item.link}" class="astryx-link quiet">{item.title}</f:link.typolink>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <li class="g-footer-utility-columns__entry is-heading">
+                                    <h3 class="astryx-text label g-footer-utility-columns__group">{item -> f:render.text(field: 'title')}</h3>
+                                </li>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </ul>
+            </nav>
+
+        </div>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-utility-columns__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

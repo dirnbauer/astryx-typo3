@@ -1,1 +1,34 @@
-{}
+{
+    "_type": "pricing",
+    "eyebrow": "Cost Calculator Sheet",
+    "header": "The inputs and the formula, and no total",
+    "lead": "One row per thing that is counted, the rate that applies to it, and a line on how to count it. The formula is written out underneath in rich text.",
+    "bodytext": "<p><strong>Total = base + (quantity × rate) + extras</strong></p><p>The formula belongs in the rich text, where an editor can set a worked example beside it. The element does no arithmetic of its own: a figure it produced would be a quotation nobody at the company had seen.</p>",
+    "note": "The note says which rates apply and what overrides them — a written offer usually does.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "inputs": [
+        {
+            "title": "What is counted is the row header",
+            "value": "€0.00",
+            "text": "So a rate read on its own still knows what it applies to."
+        },
+        {
+            "title": "The rate keeps its own column",
+            "value": "€0.00",
+            "text": "Tabular figures, so the amounts line up down the sheet."
+        },
+        {
+            "title": "How to count it is the third column",
+            "value": "€0.00",
+            "text": "Where the reader finds the number to multiply — last month's invoice, a statistics page, a headcount."
+        },
+        {
+            "title": "A range is a legitimate rate",
+            "value": "€0 – €00",
+            "text": "Not everything a sheet counts has one price."
+        }
+    ]
+}

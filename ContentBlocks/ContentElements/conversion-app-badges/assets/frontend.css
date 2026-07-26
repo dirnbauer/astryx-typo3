@@ -5,6 +5,88 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-app-badges {
+.g-conversion-app-badges__grid {
+  align-items: center;
+}
+
+.g-conversion-app-badges__grid:not(:has(.g-conversion-app-badges__device)) {
+  grid-template-columns: 1fr;
+}
+
+.g-conversion-app-badges__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  max-inline-size: 34rem;
+}
+
+.g-conversion-app-badges__copy.center {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-app-badges__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-app-badges__stores {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* Store guidelines require clear space around a badge; the gap is that
+     space and is the reason the row never tightens up on small screens. */
+  gap: var(--spacing-4);
+}
+
+.g-conversion-app-badges__copy.center .g-conversion-app-badges__stores {
+  justify-content: center;
+}
+
+.g-conversion-app-badges__link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.g-conversion-app-badges__image {
   display: block;
+  block-size: var(--spacing-10);
+  inline-size: auto;
+}
+
+.g-conversion-app-badges__note {
+  margin: 0;
+}
+
+.g-conversion-app-badges__device {
+  display: flex;
+  justify-content: center;
+}
+
+.g-conversion-app-badges__device-image {
+  inline-size: 100%;
+  max-inline-size: 20rem;
+  block-size: auto;
+}
+
+.g-conversion-app-badges.accent .g-conversion-app-badges__lead,
+.g-conversion-app-badges.accent .g-conversion-app-badges__note,
+.g-conversion-app-badges.accent .astryx-eyebrow,
+.g-conversion-app-badges.accent .astryx-link {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-conversion-app-badges__copy {
+    max-inline-size: none;
+  }
+
+  .g-conversion-app-badges__image {
+    block-size: var(--spacing-9);
+  }
 }

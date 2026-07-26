@@ -5,6 +5,67 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-pricing-discount-note {
-  display: block;
+.g-pricing-discount-note__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-pricing-discount-note__scope,
+.g-pricing-discount-note__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-pricing-discount-note__programmes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grid children stretch, so every cell is as tall as the tallest of its row and
+   the icon tiles land on one optical line whatever the copy does below them. */
+.g-pricing-discount-note__programme {
+  block-size: 100%;
+}
+
+.g-pricing-discount-note__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin-block-start: var(--spacing-8);
+}
+
+.g-pricing-discount-note__note {
+  flex: 1 1 24rem;
+  margin: 0;
+}
+
+.g-pricing-discount-note[data-align='center'] .g-pricing-discount-note__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-pricing-discount-note[data-align='center'] .g-pricing-discount-note__programme {
+  align-items: center;
+  text-align: center;
+}
+
+.g-pricing-discount-note[data-align='center'] .g-pricing-discount-note__foot {
+  justify-content: center;
+}
+
+.g-pricing-discount-note.accent .g-pricing-discount-note__scope,
+.g-pricing-discount-note.accent .g-pricing-discount-note__lead,
+.g-pricing-discount-note.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-pricing-discount-note__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

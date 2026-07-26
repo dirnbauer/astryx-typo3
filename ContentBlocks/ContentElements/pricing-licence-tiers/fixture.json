@@ -1,1 +1,33 @@
-{}
+{
+    "_type": "pricing",
+    "eyebrow": "Licence Tiers",
+    "header": "Named editions with their price and their scope",
+    "lead": "A list, not a table: the scope of a licence is a sentence about who may use it and where, and a sentence does not fit a cell.",
+    "note": "The note holds the terms common to every edition — tax, maintenance, transferability, governing law.",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "tiers": [
+        {
+            "title": "The edition name is a heading",
+            "value": "€000",
+            "text": "Each tier is an item of the band, so it takes the third heading level."
+        },
+        {
+            "title": "The price is pinned to the end edge",
+            "value": "€000",
+            "text": "It is the one column a reader scans straight down, so the figures share a width."
+        },
+        {
+            "title": "The scope is prose",
+            "value": "€000",
+            "text": "Workstations, addresses, redistribution rights — everything a cell would have truncated."
+        },
+        {
+            "title": "On a phone the row stacks",
+            "value": "€000",
+            "text": "A price two lines away from the name it belongs to is a price attached to nothing."
+        }
+    ]
+}

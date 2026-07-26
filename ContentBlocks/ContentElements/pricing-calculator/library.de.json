@@ -1,1 +1,48 @@
-{}
+{
+    "eyebrow": "Nachgerechnet",
+    "header": "Was ein Monat Ihre Praxis kostet",
+    "lead": "Fünf Zahlen bestimmen eine Talbrunn-Rechnung. Nehmen Sie sie aus der Praxisstatistik des Vormonats, und die Rechnung unten ergibt den Monat, bevor er stattfindet.",
+    "bodytext": "<p><strong>Monatssumme = Tarifpreis + (Behandler über dem Tarif × Staffelpreis) + (weitere Adressen × 25 €) + (versendete SMS × 0,08 €) + (Recall-Briefe × 0,95 €) + (Speicher über 20 GB × 0,90 €) + Zusatzmodule</strong></p><p>Ein gerechnetes Beispiel. Eine Praxis mit sieben Behandlern an zwei Adressen, etwa 400 SMS und 60 Recall-Briefen im Monat, 24 GB Speicher und Online-Terminbuchung:</p><p>89 € Tarif + (2 × 18 €) + (1 × 25 €) + (400 × 0,08 €) + (60 × 0,95 €) + (4 × 0,90 €) + 19 € = <strong>260,60 € netto</strong>, also 312,72 € inklusive 20 % USt.</p><p>Einmalige Posten — Datenübernahme, Schulung, Terminaleinrichtung — stecken in dieser Summe nicht. Sie stehen einmal auf der Rechnung jenes Monats, in dem die Arbeit erledigt wurde.</p>",
+    "note": "Unten stehen die laufenden Ansätze. Praxen mit schriftlichem Angebot rechnen mit den Zahlen dieses Angebots; sie gehen dieser Seite für die Laufzeit vor.",
+    "cta_label": "Zahlen von uns prüfen lassen",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "inputs": [
+        {
+            "title": "Tarifpreis",
+            "value": "39 – 169 €",
+            "text": "Einzel 39 €, Praxis 89 €, Verbund 169 €. Eine Zeile je Praxis, was der Monat auch bringt."
+        },
+        {
+            "title": "Behandler über dem Tarif",
+            "value": "18 – 9 €",
+            "text": "Behandlerkonten am Monatsersten zählen, die im Tarif enthaltenen abziehen, den Staffelpreis ablesen."
+        },
+        {
+            "title": "Weitere Behandlungsadressen",
+            "value": "25 €",
+            "text": "Je Adresse ab der zweiten, gezählt am Monatsersten."
+        },
+        {
+            "title": "SMS-Erinnerungen",
+            "value": "0,08 €",
+            "text": "Etwa eine je Termin, bei dem sie gewünscht wurde. Die Zahl des Vormonats steht in Ihrer Praxisstatistik."
+        },
+        {
+            "title": "Gedruckte Recall-Briefe",
+            "value": "0,95 €",
+            "text": "Nur tatsächlich gedruckte und versendete Briefe. Per E-Mail beantwortete Recalls kosten nichts."
+        },
+        {
+            "title": "Dokumentenspeicher über 20 GB",
+            "value": "0,90 €",
+            "text": "Je Gigabyte, gemessen am letzten Tag des Monats. Wer jede Verordnung scannt, erreicht 20 GB in etwa drei Jahren."
+        },
+        {
+            "title": "Zusatzmodule",
+            "value": "8 – 45 €",
+            "text": "Zusammenzählen, was aktiv ist: Online-Terminbuchung, Patienten-App, automatische Warteliste, zweiter Datenstandort."
+        }
+    ]
+}

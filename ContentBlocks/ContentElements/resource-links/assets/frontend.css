@@ -5,6 +5,91 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-resource-links {
-  display: block;
+.g-resource-links__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-5);
+}
+
+.g-resource-links__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-resource-links__items {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-inline-size: 48rem;
+}
+
+.g-resource-links__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  padding-block: var(--spacing-3);
+}
+
+.g-resource-links__items.tight .g-resource-links__item {
+  padding-block: var(--spacing-2);
+}
+
+.g-resource-links__item + .g-resource-links__item {
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-resource-links__link {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+}
+
+@media (hover: hover) {
+  .g-resource-links__link:hover .g-resource-links__title {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+/* The out-of-site marker: an arrow drawn from two borders, leaving the box at
+   its top corner. Nothing to load, and it takes the row's own colour. */
+.g-resource-links__link::after {
+  content: '';
+  display: inline-block;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  margin-inline-start: var(--spacing-2);
+  border-block-start: 2px solid currentColor;
+  border-inline-end: 2px solid currentColor;
+  color: var(--color-icon-secondary);
+  translate: 0 -0.1em;
+}
+
+.g-resource-links__source {
+  margin: 0;
+}
+
+.g-resource-links__note {
+  margin-block-start: var(--spacing-4);
+  max-inline-size: 48rem;
+}
+
+.g-resource-links.accent .g-resource-links__lead,
+.g-resource-links.accent .g-resource-links__source,
+.g-resource-links.accent .g-resource-links__note {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-resource-links.accent .g-resource-links__link {
+  color: currentColor;
+}
+
+@media (max-width: 640px) {
+  .g-resource-links__intro {
+    margin-block-end: var(--spacing-4);
+  }
 }

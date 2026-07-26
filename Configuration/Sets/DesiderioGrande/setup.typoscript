@@ -96,3 +96,52 @@ elementLibraryPreview {
   headerData.2610 < page.headerData.2610
   headerData.2620 >
 }
+
+# ------------------------------------------------ page tree for four elements
+# Four navigation elements are derived from the page tree rather than from a
+# curated list, which is the whole point of them: a sitemap or a path that an
+# editor maintains by hand is a sitemap or a path that goes stale.
+#
+# lib.desiderioPageDataProcessing puts those menus on lib.fluidPage, so they
+# reach page TEMPLATES. A content element renders through lib.contentBlock,
+# which runs one processor and hands the template its own record and nothing
+# else — mainMenu and breadcrumb never arrive there. Each of the four therefore
+# gets the one menu it needs, under its own variable name, and the templates
+# render nothing when the menu comes back empty.
+tt_content.desiderio_grande_breadcrumbband.dataProcessing.20 = menu
+tt_content.desiderio_grande_breadcrumbband.dataProcessing.20 {
+  special = rootline
+  as = trail
+  # A page flagged "hide in menu" is still a page the reader is standing on;
+  # dropping it would end the trail one step short of where they are.
+  includeNotInMenu = 1
+  titleField = nav_title // title
+}
+
+tt_content.desiderio_grande_sitemaptree.dataProcessing.20 = menu
+tt_content.desiderio_grande_sitemaptree.dataProcessing.20 {
+  special = directory
+  special.value.data = page:uid
+  as = sitemap
+  levels = 2
+  expandAll = 1
+  titleField = nav_title // title
+}
+
+tt_content.desiderio_grande_siblingnav.dataProcessing.20 = menu
+tt_content.desiderio_grande_siblingnav.dataProcessing.20 {
+  special = directory
+  special.value.data = page:pid
+  as = siblings
+  titleField = nav_title // title
+}
+
+# Only for the fallback: the element links wherever the editor points it, and
+# reaches for the rootline solely when that field was left empty.
+tt_content.desiderio_grande_backtoparent.dataProcessing.20 = menu
+tt_content.desiderio_grande_backtoparent.dataProcessing.20 {
+  special = rootline
+  as = trail
+  includeNotInMenu = 1
+  titleField = nav_title // title
+}

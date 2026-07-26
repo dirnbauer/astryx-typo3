@@ -5,6 +5,87 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-kpi-row {
-  display: block;
+.g-data-kpi-row__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A band intro that runs the full container width stops introducing and
+     starts being body copy. */
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-data-kpi-row__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-kpi-row[data-align='center'] .g-data-kpi-row__intro {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.g-data-kpi-row__card {
+  block-size: 100%;
+  gap: var(--spacing-1);
+}
+
+.g-data-kpi-row[data-align='center'] .g-data-kpi-row__card {
+  align-items: center;
+  text-align: center;
+}
+
+/* The list has to be written term-first to be a valid pair; it has to be read
+   figure-first to be a KPI card. Order settles the difference. */
+.g-data-kpi-row__figure {
+  order: 1;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-data-kpi-row__label {
+  order: 2;
+  color: var(--color-text-secondary);
+}
+
+.g-data-kpi-row__context {
+  order: 3;
+  margin: 0;
+  margin-block-start: var(--spacing-1);
+}
+
+/* Lining digits of equal width, so a six-figure count and a one-decimal sum
+   sit at the same weight across a row of cards. */
+.g-data-kpi-row__value {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-kpi-row__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-kpi-row__note {
+  margin-block-start: var(--spacing-8);
+}
+
+.g-data-kpi-row.accent .g-data-kpi-row__figure {
+  color: currentColor;
+}
+
+.g-data-kpi-row.accent .g-data-kpi-row__lead,
+.g-data-kpi-row.accent .astryx-eyebrow,
+.g-data-kpi-row.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-kpi-row__intro {
+    margin-block-end: var(--spacing-8);
+  }
 }

@@ -5,14 +5,59 @@
 <f:asset.css identifier="g-conversion-contact-options" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Use real protocol links (tel:, mailto:) so a phone opens the dialler; put opening hours in each item's description, not in the shared note.
+    Hours belong to the channel, not to the band: a shared note saying
+    "8 to 5" is wrong the moment one row is a help centre that never closes.
+    Each entry therefore carries its own availability in its description.
 </f:comment>
 
-<section class="astryx-section g-conversion-contact-options" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<f:variable name="listClass"><f:if condition="{data.variant} == 'cards'"><f:then>astryx-grid cols-{data.columns}</f:then><f:else>astryx-list with-dividers spacious</f:else></f:if></f:variable>
+<f:variable name="rowClass"><f:if condition="{data.variant} == 'cards'"><f:then>astryx-card</f:then><f:else>astryx-item align-start</f:else></f:if></f:variable>
+<f:variable name="linkedClass"><f:if condition="{data.variant} == 'cards'">astryx-clickable-card</f:if></f:variable>
+<f:variable name="titleClass"><f:if condition="{data.variant} == 'cards'"><f:then>astryx-card-title</f:then><f:else>astryx-item-label</f:else></f:if></f:variable>
+<f:variable name="bodyClass"><f:if condition="{data.variant} == 'cards'"><f:then>astryx-card-body</f:then><f:else>astryx-item-description</f:else></f:if></f:variable>
+
+<section class="astryx-section g-conversion-contact-options {data.tone}" data-variant="{data.variant}" data-align="{data.align}">
+    <div class="astryx-layout lg">
+
+        <div class="g-conversion-contact-options__intro">
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.subheader}">
+                <p class="astryx-text large g-conversion-contact-options__subheader">{data -> f:render.text(field: 'subheader')}</p>
+            </f:if>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text body g-conversion-contact-options__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="{listClass} g-conversion-contact-options__channels">
+            <f:for each="{data.channels}" as="channel">
+                <li class="{rowClass} g-conversion-contact-options__channel {f:if(condition: channel.link, then: linkedClass)}">
+                    <f:if condition="{channel.icon}">
+                        <span class="astryx-feature-icon g-conversion-contact-options__icon" data-icon="{channel.icon}" aria-hidden="true"></span>
+                    </f:if>
+
+                    <div class="astryx-item-content g-conversion-contact-options__body">
+                        <h3 class="{titleClass}">
+                            <f:if condition="{channel.link.url}">
+                                <f:then><f:link.typolink parameter="{channel.link}">{channel.title}</f:link.typolink></f:then>
+                                <f:else>{channel -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </h3>
+
+                        <f:if condition="{channel.description}">
+                            <p class="{bodyClass}">{channel -> f:render.text(field: 'description')}</p>
+                        </f:if>
+                    </div>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-conversion-contact-options__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

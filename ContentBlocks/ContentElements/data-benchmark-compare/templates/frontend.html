@@ -5,14 +5,62 @@
 <f:asset.css identifier="g-data-benchmark-compare" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): `caption` names your series and `badge_text` the reference series; both bar widths are read from the digits the editor typed into the row's value and text, on one shared scale.
+    Each bar names its own series in the text layer as well as in the legend,
+    because a legend read three screens ago is not available to somebody
+    hearing the fifth row. The two bars share one scale, which is what makes
+    the pair comparable and the rows deliberately not.
 </f:comment>
 
-<section class="astryx-section g-data-benchmark-compare" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-data-benchmark-compare {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-benchmark-compare__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-data-benchmark-compare__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <figure class="g-data-benchmark-compare__chart">
+            <figcaption class="g-data-benchmark-compare__legend">
+                <span class="g-data-benchmark-compare__key">
+                    <span class="g-data-benchmark-compare__swatch is-ours" aria-hidden="true"></span>{data -> f:render.text(field: 'caption')}
+                </span>
+                <span class="g-data-benchmark-compare__key">
+                    <span class="g-data-benchmark-compare__swatch is-reference" aria-hidden="true"></span>{data -> f:render.text(field: 'badge_text')}
+                </span>
+            </figcaption>
+
+            <dl class="g-data-benchmark-compare__rows">
+                <f:for each="{data.rows}" as="row">
+                    <div class="g-data-benchmark-compare__row">
+                        <dt class="g-data-benchmark-compare__criterion">{row -> f:render.text(field: 'title')}</dt>
+
+                        <dd class="g-data-benchmark-compare__series is-ours" style="--value: {row.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                            <span class="astryx-visually-hidden">{data.caption}</span>
+                            <span class="g-data-benchmark-compare__track" aria-hidden="true"><span class="g-data-benchmark-compare__bar"></span></span>
+                            <span class="g-data-benchmark-compare__figure">{row -> f:render.text(field: 'value')}</span>
+                        </dd>
+
+                        <dd class="g-data-benchmark-compare__series is-reference" style="--value: {row.text -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                            <span class="astryx-visually-hidden">{data.badge_text}</span>
+                            <span class="g-data-benchmark-compare__track" aria-hidden="true"><span class="g-data-benchmark-compare__bar"></span></span>
+                            <span class="g-data-benchmark-compare__figure">{row -> f:render.text(field: 'text')}</span>
+                        </dd>
+                    </div>
+                </f:for>
+            </dl>
+        </figure>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-data-benchmark-compare__note">{data -> f:render.text(field: 'note')}</p>
         </f:if>
+
     </div>
 </section>
 

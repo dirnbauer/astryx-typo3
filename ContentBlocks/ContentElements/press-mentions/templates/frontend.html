@@ -5,14 +5,52 @@
 <f:asset.css identifier="g-press-mentions" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The child title holds the headline and the description holds the publication and date; external links get an out-of-site marker.
+    A mention always leads off this site, so the marker on the headline is
+    unconditional rather than sniffed out of the URL: an arrow that appears on
+    some rows and not others teaches the reader a rule that is not true.
+
+    The publication and the date are the citation, not part of the headline, so
+    they sit outside the link and keep the accessible name to the article title.
 </f:comment>
 
-<section class="astryx-section g-press-mentions" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
+<section class="astryx-section g-press-mentions {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-press-mentions__intro">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
             <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.lead}">
+                <p class="astryx-text large g-press-mentions__lead">{data -> f:render.text(field: 'lead')}</p>
+            </f:if>
+        </div>
+
+        <ul class="astryx-grid cols-{data.columns} g-press-mentions__items">
+            <f:for each="{data.mentions}" as="mention">
+                <li class="astryx-card flat g-press-mentions__item {f:if(condition: mention.link, then: 'astryx-clickable-card')}">
+                    <h3 class="astryx-card-title g-press-mentions__headline">
+                        <f:if condition="{mention.link.url}">
+                            <f:then><f:link.typolink parameter="{mention.link}">{mention.title}</f:link.typolink></f:then>
+                            <f:else>{mention -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+
+                    <f:if condition="{mention.description}">
+                        <p class="astryx-citation g-press-mentions__source">{mention -> f:render.text(field: 'description')}</p>
+                    </f:if>
+                </li>
+            </f:for>
+        </ul>
+
+        <f:if condition="{data.cta_label}">
+            <p class="g-press-mentions__actions">
+                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+            </p>
         </f:if>
+
     </div>
 </section>
 

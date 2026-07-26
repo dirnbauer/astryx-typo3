@@ -1,1 +1,48 @@
-{}
+{
+    "eyebrow": "Working it out",
+    "header": "What a month costs your practice",
+    "lead": "Five figures decide a Talbrunn invoice. Take them off last month's practice statistics and the arithmetic below gives you the month before it happens.",
+    "bodytext": "<p><strong>Monthly total = plan price + (practitioners above the plan × band rate) + (extra addresses × €25) + (SMS sent × €0.08) + (recall letters × €0.95) + (storage above 20 GB × €0.90) + add-ons</strong></p><p>A worked example. A practice with seven practitioners at two addresses, sending about 400 SMS and 60 recall letters a month, storing 24 GB and running online booking:</p><p>€89 plan + (2 × €18) + (1 × €25) + (400 × €0.08) + (60 × €0.95) + (4 × €0.90) + €19 = <strong>€260.60 net</strong>, or €312.72 including 20 % VAT.</p><p>One-off charges — migration, training, terminal setup — are not part of this sum. They appear once, on the invoice for the month the work was done.</p>",
+    "note": "The rates below are the standing ones. A practice on a written offer uses the figures in that offer, which override anything on this page for the term it covers.",
+    "cta_label": "Ask us to check your numbers",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "inputs": [
+        {
+            "title": "Plan price",
+            "value": "€39 – €169",
+            "text": "Einzel €39, Praxis €89, Verbund €169. One line per practice, whatever the month brings."
+        },
+        {
+            "title": "Practitioners above the plan",
+            "value": "€18 – €9",
+            "text": "Count the practitioner accounts on the first of the month, subtract those the plan includes, and read the band rate."
+        },
+        {
+            "title": "Extra treatment addresses",
+            "value": "€25",
+            "text": "Per address beyond the first, counted on the first of the month."
+        },
+        {
+            "title": "SMS reminders",
+            "value": "€0.08",
+            "text": "Roughly one per appointment where the patient asked for one. Last month's figure is on your practice statistics page."
+        },
+        {
+            "title": "Printed recall letters",
+            "value": "€0.95",
+            "text": "Only letters actually printed and posted. Recalls answered by e-mail cost nothing."
+        },
+        {
+            "title": "Document storage above 20 GB",
+            "value": "€0.90",
+            "text": "Per gigabyte, measured on the last day of the month. A practice scanning every prescription reaches 20 GB in about three years."
+        },
+        {
+            "title": "Add-ons",
+            "value": "€8 – €45",
+            "text": "Add together whatever is switched on: online booking, patient app, waiting-list automation, second data location."
+        }
+    ]
+}

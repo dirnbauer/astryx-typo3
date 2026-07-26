@@ -5,6 +5,65 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-lead-magnet {
-  display: block;
+.g-conversion-lead-magnet__grid {
+  align-items: center;
+}
+
+.g-conversion-lead-magnet__grid:not(:has(.g-conversion-lead-magnet__cover)) {
+  grid-template-columns: 1fr;
+}
+
+.g-conversion-lead-magnet__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-conversion-lead-magnet__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-lead-magnet__takeaways {
+  margin-block: var(--spacing-2);
+  padding: 0;
+  list-style: none;
+  --grid-gap: var(--spacing-5);
+}
+
+.g-conversion-lead-magnet__takeaway {
+  block-size: 100%;
+  gap: var(--spacing-2);
+}
+
+.g-conversion-lead-magnet__note {
+  margin: 0;
+}
+
+/* A cover stands up rather than lying across the column: a document is
+   recognised by its proportions before its title is read. */
+.g-conversion-lead-magnet__cover {
+  display: flex;
+  justify-content: center;
+}
+
+.g-conversion-lead-magnet__image {
+  inline-size: 100%;
+  max-inline-size: 22rem;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-med);
+}
+
+.g-conversion-lead-magnet.accent .g-conversion-lead-magnet__lead,
+.g-conversion-lead-magnet.accent .g-conversion-lead-magnet__note,
+.g-conversion-lead-magnet.accent .astryx-card-body,
+.g-conversion-lead-magnet.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  .g-conversion-lead-magnet__image {
+    max-inline-size: 16rem;
+  }
 }

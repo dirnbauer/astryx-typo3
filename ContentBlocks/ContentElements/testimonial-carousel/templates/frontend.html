@@ -5,14 +5,74 @@
 <f:asset.css identifier="g-testimonial-carousel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Scroll snapping and the track itself are CSS; the behaviour only adds the arrow buttons and the live region announcing the current slide.
+    The track is a scroll-snap row, so it is already a carousel with no script
+    at all — drag, momentum and keyboard scrolling belong to the browser. The
+    hook only adds the two arrows a mouse user has no other way to reach, and
+    the shared runtime disables them at either end.
+
+    The next card is deliberately left peeking past the edge: it is the only
+    honest signal that the band continues, and it costs no markup.
 </f:comment>
 
-<section class="astryx-section g-testimonial-carousel" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-testimonial-carousel {data.tone}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-testimonial-carousel__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-testimonial-carousel__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <div class="astryx-carousel gap-4 g-testimonial-carousel__carousel" data-g-carousel>
+            <button type="button"
+                    class="astryx-icon-button astryx-carousel-control start g-testimonial-carousel__control"
+                    data-g-carousel-prev
+                    aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'content.carousel.previous', default: 'Previous quote')}"></button>
+
+            <ul class="astryx-carousel-track g-testimonial-carousel__track"
+                data-g-carousel-track
+                tabindex="0"
+                aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'content.carousel.region', default: 'Quotes')}">
+                <f:for each="{data.quotes}" as="item">
+                    <li class="astryx-carousel-item g-testimonial-carousel__item">
+                        <figure class="astryx-card raised g-testimonial-carousel__card">
+                            <f:if condition="{item.image}">
+                                <span class="astryx-avatar lg g-testimonial-carousel__portrait">
+                                    <f:for each="{item.image}" as="portrait">
+                                        <f:image image="{portrait}" alt="" width="96c" height="96c" loading="lazy"/>
+                                    </f:for>
+                                </span>
+                            </f:if>
+
+                            <blockquote class="g-testimonial-carousel__quote">
+                                <p>{item -> f:render.text(field: 'quote_text')}</p>
+                            </blockquote>
+
+                            <figcaption class="g-testimonial-carousel__credit">
+                                <span class="astryx-text label g-testimonial-carousel__name">{item -> f:render.text(field: 'author')}</span>
+                                <f:if condition="{item.role}">
+                                    <span class="astryx-text supporting">{item -> f:render.text(field: 'role')}</span>
+                                </f:if>
+                            </figcaption>
+                        </figure>
+                    </li>
+                </f:for>
+            </ul>
+
+            <button type="button"
+                    class="astryx-icon-button astryx-carousel-control end g-testimonial-carousel__control"
+                    data-g-carousel-next
+                    aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'content.carousel.next', default: 'Next quote')}"></button>
+        </div>
+
     </div>
 </section>
 

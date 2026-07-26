@@ -5,6 +5,114 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-cta-proof {
+.g-conversion-cta-proof__ask {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  max-inline-size: 40rem;
+}
+
+.g-conversion-cta-proof[data-align='center'] .g-conversion-cta-proof__ask {
+  margin-inline: auto;
+  align-items: center;
+  text-align: center;
+}
+
+.g-conversion-cta-proof__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-cta-proof__actions {
+  margin-block-start: var(--spacing-2);
+  gap: var(--spacing-5);
+}
+
+.g-conversion-cta-proof__proof {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.g-conversion-cta-proof__rule {
+  margin-block: var(--spacing-10) var(--spacing-2);
+}
+
+.g-conversion-cta-proof__note {
+  margin: 0;
+}
+
+.g-conversion-cta-proof[data-align='center'] .g-conversion-cta-proof__note,
+.g-conversion-cta-proof[data-align='center'] .g-conversion-cta-proof__row {
+  justify-content: center;
+  text-align: center;
+}
+
+.g-conversion-cta-proof__row {
+  margin: 0;
+  padding-inline-start: 0;
+  list-style: none;
+  gap: var(--spacing-8);
+  row-gap: var(--spacing-5);
+}
+
+/* Marks are normalised on height, not width: a wide wordmark and a square
+   emblem set to the same pixel width read as two different sizes. */
+.g-conversion-cta-proof__image {
   display: block;
+  block-size: var(--spacing-7);
+  inline-size: auto;
+  max-inline-size: 9rem;
+}
+
+.g-conversion-cta-proof__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--spacing-7);
+  color: var(--color-text-secondary);
+}
+
+.g-conversion-cta-proof__link {
+  display: block;
+}
+
+/* The row is evidence, not decoration, and it sits directly under the one
+   button on the band: colour in the marks would take the contrast the
+   button needs. */
+.g-conversion-cta-proof__image {
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+
+.g-conversion-cta-proof.accent .g-conversion-cta-proof__lead,
+.g-conversion-cta-proof.accent .g-conversion-cta-proof__note,
+.g-conversion-cta-proof.accent .g-conversion-cta-proof__wordmark,
+.g-conversion-cta-proof.accent .g-conversion-cta-proof__secondary,
+.g-conversion-cta-proof.accent .astryx-eyebrow {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+.g-conversion-cta-proof.accent .g-conversion-cta-proof__rule {
+  background-color: currentColor;
+  opacity: 0.3;
+}
+
+@media (max-width: 767px) {
+  .g-conversion-cta-proof__ask {
+    max-inline-size: none;
+  }
+
+  .g-conversion-cta-proof__rule {
+    margin-block: var(--spacing-8) var(--spacing-2);
+  }
+
+  .g-conversion-cta-proof__row {
+    gap: var(--spacing-6);
+    row-gap: var(--spacing-4);
+  }
+
+  .g-conversion-cta-proof__image {
+    block-size: var(--spacing-6);
+  }
 }

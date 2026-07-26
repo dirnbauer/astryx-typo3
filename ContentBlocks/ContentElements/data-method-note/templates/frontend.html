@@ -5,14 +5,49 @@
 <f:asset.css identifier="g-data-method-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): The companion to every element in this group: since each figure above it was typed by an editor, this is where the editor says on what basis.
+    The companion to every other element in this group. Since each figure above
+    it was typed by an editor rather than measured by anything, this is the
+    band where the editor says on what basis — and the pairs are a description
+    list so period, sample and source can be quoted as pairs.
 </f:comment>
 
-<section class="astryx-section g-data-method-note" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
-        </f:if>
+<section class="astryx-section g-data-method-note {data.tone} {f:if(condition: data.compact, then: 'tight')}">
+    <div class="astryx-layout {data.width}">
+
+        <div class="g-data-method-note__box">
+            <f:if condition="{data.eyebrow}">
+                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            </f:if>
+
+            <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+
+            <f:if condition="{data.text}">
+                <p class="astryx-text body g-data-method-note__summary">{data -> f:render.text(field: 'text')}</p>
+            </f:if>
+
+            <dl class="astryx-metadata-list columns-{data.columns} g-data-method-note__pairs">
+                <f:for each="{data.rows}" as="row">
+                    <div class="astryx-metadata-list-item g-data-method-note__pair">
+                        <dt class="g-data-method-note__term">{row -> f:render.text(field: 'title')}</dt>
+                        <dd class="g-data-method-note__value">{row -> f:render.text(field: 'value')}</dd>
+                        <f:if condition="{row.text}">
+                            <dd class="astryx-text supporting g-data-method-note__detail">{row -> f:render.text(field: 'text')}</dd>
+                        </f:if>
+                    </div>
+                </f:for>
+            </dl>
+
+            <f:if condition="{data.cta_label}">
+                <p class="g-data-method-note__actions">
+                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                </p>
+            </f:if>
+
+            <f:if condition="{data.note}">
+                <p class="astryx-text supporting g-data-method-note__note">{data -> f:render.text(field: 'note')}</p>
+            </f:if>
+        </div>
+
     </div>
 </section>
 

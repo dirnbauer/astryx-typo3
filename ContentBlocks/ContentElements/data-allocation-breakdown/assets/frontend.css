@@ -5,6 +5,145 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-allocation-breakdown {
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-allocation-breakdown__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-allocation-breakdown__total {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-data-allocation-breakdown__sum {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-allocation-breakdown__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-allocation-breakdown__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-allocation-breakdown__lines {
+  margin: 0;
+  padding: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* Item, plot, share and amount on one line: the amount is the figure a reader
+   came for, so it gets the far edge and the tabular figures. */
+.g-data-allocation-breakdown__line {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(4rem, 10rem) auto auto;
+  align-items: center;
+  gap: var(--spacing-1) var(--spacing-4);
+  padding-block: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.g-data-allocation-breakdown__lines.compact .g-data-allocation-breakdown__line {
+  padding-block: var(--spacing-2);
+}
+
+.g-data-allocation-breakdown__item {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-allocation-breakdown__plot {
+  margin: 0;
+  block-size: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+  overflow: hidden;
+}
+
+/* The whole visualisation: a width taken from the share typed on the line. */
+.g-data-allocation-breakdown__bar {
   display: block;
+  block-size: 100%;
+  inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.g-data-allocation-breakdown__share {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-allocation-breakdown__amount {
+  margin: 0;
+  min-inline-size: 6rem;
+  text-align: end;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-allocation-breakdown__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__total {
+  color: currentColor;
+}
+
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__bar {
+  background-color: currentColor;
+}
+
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__plot {
+  background-color: var(--color-overlay-hover);
+}
+
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__lines,
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__line {
+  border-color: currentColor;
+}
+
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__lead,
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__share,
+.g-data-allocation-breakdown.accent .g-data-allocation-breakdown__unit,
+.g-data-allocation-breakdown.accent .astryx-eyebrow,
+.g-data-allocation-breakdown.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 767px) {
+  /* Four columns in a tablet width squeeze the item name to two words a line;
+     the plot is the one that can be given up first. */
+  .g-data-allocation-breakdown__line {
+    grid-template-columns: 1fr auto auto;
+  }
+
+  .g-data-allocation-breakdown__plot {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }

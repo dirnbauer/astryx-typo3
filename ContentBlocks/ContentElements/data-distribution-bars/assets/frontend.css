@@ -5,6 +5,133 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-data-distribution-bars {
+/* Registering the property is the guard the inline hand-off needs: an editor who
+   types "about half" leaves the bar at zero instead of collapsing the row,
+   because an unparsable value falls back to the initial value rather than
+   poisoning the declaration that reads it. */
+@property --value {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.g-data-distribution-bars__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-8);
+}
+
+.g-data-distribution-bars__total {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-data-distribution-bars__sum {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-data-distribution-bars__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-data-distribution-bars__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-data-distribution-bars__buckets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+}
+
+.g-data-distribution-bars__buckets.compact {
+  gap: var(--spacing-2);
+}
+
+/* Name, plot, share on one line, the absolute count under them: the count is a
+   second reading of the same share and never competes with it for the row. */
+.g-data-distribution-bars__bucket {
+  display: grid;
+  grid-template-columns: minmax(6rem, 12rem) 1fr auto;
+  align-items: center;
+  gap: var(--spacing-1) var(--spacing-4);
+}
+
+.g-data-distribution-bars__name {
+  margin: 0;
+  font-weight: var(--font-weight-medium);
+}
+
+.g-data-distribution-bars__plot {
+  margin: 0;
+  block-size: var(--spacing-4);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-track);
+  overflow: hidden;
+}
+
+/* The whole visualisation: a width taken from the share typed on the bucket. */
+.g-data-distribution-bars__bar {
   display: block;
+  block-size: 100%;
+  inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-accent);
+}
+
+.g-data-distribution-bars__share {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+
+.g-data-distribution-bars__count {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.g-data-distribution-bars__note {
+  margin-block-start: var(--spacing-6);
+}
+
+.g-data-distribution-bars.accent .g-data-distribution-bars__total {
+  color: currentColor;
+}
+
+.g-data-distribution-bars.accent .g-data-distribution-bars__bar {
+  background-color: currentColor;
+}
+
+.g-data-distribution-bars.accent .g-data-distribution-bars__plot {
+  background-color: var(--color-overlay-hover);
+}
+
+.g-data-distribution-bars.accent .g-data-distribution-bars__lead,
+.g-data-distribution-bars.accent .g-data-distribution-bars__unit,
+.g-data-distribution-bars.accent .astryx-eyebrow,
+.g-data-distribution-bars.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-data-distribution-bars__bucket {
+    grid-template-columns: 1fr auto;
+  }
+
+  .g-data-distribution-bars__plot {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
 }

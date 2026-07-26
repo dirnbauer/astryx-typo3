@@ -5,14 +5,48 @@
 <f:asset.css identifier="g-footer-legal-links" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Leave the header empty when the bar should read as a single line; the separators are drawn by the template, never typed into the labels.
+    The rules between the links are drawn by the stylesheet, never typed into a
+    label: a separator that lives in the text ends up in a copied line, in the
+    page title of a bookmark and in what a screen reader announces between two
+    perfectly ordinary link names.
+
+    With the heading left empty the bar reads as one line, so the nav takes its
+    accessible name from a translated default instead.
 </f:comment>
 
-<section class="astryx-section g-footer-legal-links" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<f:variable name="navLabel" value="{data.header}"/>
+<f:if condition="!{data.header}">
+    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-legal-links/language/labels.xlf:nav.label', default: 'Legal')}"/>
+</f:if>
+
+<section class="astryx-section g-footer-legal-links {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.header} || {data.text}">
+            <div class="g-footer-legal-links__intro">
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.text}">
+                    <p class="astryx-text supporting g-footer-legal-links__lead">{data -> f:render.text(field: 'text')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <nav aria-label="{navLabel}">
+            <ul class="g-footer-legal-links__list {f:if(condition: data.compact, then: 'is-compact')}">
+                <f:for each="{data.links}" as="item">
+                    <li class="g-footer-legal-links__item">
+                        <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footer-legal-links__link" title="{item.description}">{item.title}</f:link.typolink>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
+        <f:if condition="{data.note}">
+            <p class="astryx-text supporting g-footer-legal-links__note">{data -> f:render.text(field: 'note')}</p>
+        </f:if>
+
     </div>
 </section>
 

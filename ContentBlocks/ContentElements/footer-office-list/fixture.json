@@ -1,1 +1,31 @@
-{}
+{
+    "_type": "footer",
+    "eyebrow": "Office List",
+    "header": "Several locations, one card each",
+    "lead": "Pin, city as the heading, the address on its own lines and a directions link. One to twelve entries at two, three or four across.",
+    "columns": "3",
+    "note": "Each directions link names its own destination: twelve cards all offering 'Directions' give a screen-reader user twelve identical links and no way to tell them apart.",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "items": [
+        {
+            "icon": "map-pin",
+            "title": "The title is the city",
+            "text": "The text holds the address\nand keeps its line breaks\nso it can be copied",
+            "link": "#"
+        },
+        {
+            "icon": "map-pin",
+            "title": "Each card is an address element",
+            "text": "Street and number\nPostcode and town\nPhone",
+            "link": "#"
+        },
+        {
+            "icon": "map-pin",
+            "title": "Cards end level",
+            "text": "Every card stretches to the tallest\nof its row, which is what keeps\nthe pins on one line",
+            "link": ""
+        }
+    ]
+}

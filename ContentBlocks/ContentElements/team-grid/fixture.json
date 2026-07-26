@@ -1,1 +1,29 @@
-{}
+{
+    "_type": "team",
+    "eyebrow": "Team Grid",
+    "header": "Everyone at the same size, two to four across",
+    "lead": "A portrait, a name and a role per cell. Every picture is cropped to the same ratio for the whole grid, and a cell that carries a link becomes one target rather than growing a second one.",
+    "columns": "4",
+    "tone": "body",
+    "width": "lg",
+    "people": [
+        {
+            "title": "The name heads the card",
+            "role": "at heading level three, with the role underneath",
+            "link": "#"
+        },
+        {
+            "title": "One ratio for every portrait",
+            "role": "cropped 4:5 server-side, whatever was uploaded"
+        },
+        {
+            "title": "A link makes the whole cell the target",
+            "role": "and the name still carries the accessible name",
+            "link": "#"
+        },
+        {
+            "title": "Cells end level with each other",
+            "role": "so the portraits in a row start on one line"
+        }
+    ]
+}

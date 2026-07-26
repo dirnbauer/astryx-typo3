@@ -5,6 +5,113 @@
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-before-after-result {
-  display: block;
+.g-before-after-result__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  max-inline-size: 44rem;
+  margin-block-end: var(--spacing-10);
+}
+
+.g-before-after-result__lead {
+  color: var(--color-text-secondary);
+}
+
+.g-before-after-result__measures {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-before-after-result__measure {
+  block-size: 100%;
+  gap: var(--spacing-3);
+}
+
+.g-before-after-result__name {
+  font-size: var(--text-heading-5-size);
+  line-height: var(--text-heading-5-leading);
+  color: var(--color-text-secondary);
+}
+
+.g-before-after-result__change {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+/* The starting value stays at body size and keeps the secondary ink: it is the
+   thing being left behind, and setting both figures alike would make the pair
+   a comparison instead of a change. */
+.g-before-after-result__from {
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums lining-nums;
+  text-decoration: line-through;
+  text-decoration-thickness: var(--border-width);
+}
+
+/* One border on an empty box, rotated: an arrow that inherits the band's ink
+   and needs no icon set to exist. */
+.g-before-after-result__arrow {
+  align-self: center;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-block-start: 2px solid currentColor;
+  border-inline-end: 2px solid currentColor;
+  rotate: 45deg;
+  opacity: 0.5;
+}
+
+.g-before-after-result__to {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-1);
+  color: var(--color-text-accent);
+}
+
+.g-before-after-result__value {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-display-3-size);
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.g-before-after-result__unit {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.g-before-after-result__note {
+  margin-block-start: var(--spacing-8);
+  max-inline-size: 60ch;
+}
+
+.g-before-after-result.accent .g-before-after-result__to {
+  color: currentColor;
+}
+
+.g-before-after-result.accent .g-before-after-result__lead,
+.g-before-after-result.accent .g-before-after-result__from,
+.g-before-after-result.accent .g-before-after-result__unit,
+.g-before-after-result.accent .g-before-after-result__name,
+.g-before-after-result.accent .astryx-eyebrow,
+.g-before-after-result.accent .astryx-text.supporting {
+  color: currentColor;
+  opacity: 0.85;
+}
+
+@media (max-width: 640px) {
+  .g-before-after-result__intro {
+    margin-block-end: var(--spacing-8);
+  }
+
+  .g-before-after-result__note {
+    max-inline-size: none;
+  }
 }

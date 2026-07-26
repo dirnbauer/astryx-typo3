@@ -1,1 +1,48 @@
-{}
+{
+    "eyebrow": "Metered items",
+    "header": "What each unit costs on top of the plan",
+    "lead": "Only four things are counted, and none of them is a patient or an appointment. Everything else in Talbrunn is inside the monthly price.",
+    "note": "Metered items appear as separate lines on the monthly invoice, with the count for the period beside each. Figures are net; 20 % VAT is added on the invoice.",
+    "cta_label": "Work out a monthly estimate",
+    "cta_link": "#",
+    "tone": "body",
+    "width": "lg",
+    "compact": false,
+    "rates": [
+        {
+            "title": "SMS appointment reminder",
+            "value": "€0.08",
+            "text": "Per message actually sent. Reminders that fail are not counted."
+        },
+        {
+            "title": "E-mail appointment reminder",
+            "value": "€0.00",
+            "text": "Unlimited, included in every plan."
+        },
+        {
+            "title": "Printed recall letter",
+            "value": "€0.95",
+            "text": "Per letter, including paper, envelope and Austrian domestic postage."
+        },
+        {
+            "title": "Document storage above 20 GB",
+            "value": "€0.90",
+            "text": "Per gigabyte per month, measured on the last day of the month."
+        },
+        {
+            "title": "Card-terminal transaction",
+            "value": "€0.06",
+            "text": "Per completed card payment. The terminal's own bank fees are separate."
+        },
+        {
+            "title": "Additional treatment address",
+            "value": "€25.00",
+            "text": "Per address per month, counted on the first day of the month."
+        },
+        {
+            "title": "Restore from an archived backup",
+            "value": "€90.00",
+            "text": "Per restore older than 90 days. Restores inside 90 days are free."
+        }
+    ]
+}

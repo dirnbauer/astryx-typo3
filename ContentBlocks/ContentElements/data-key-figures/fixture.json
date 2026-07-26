@@ -1,1 +1,40 @@
-{}
+{
+    "_type": "data",
+    "eyebrow": "Key Figures Band",
+    "header": "Text on one side, figures on the other",
+    "lead": "Numbers that arrive with an argument rather than on their own.",
+    "bodytext": "<p>The rich-text column carries the reasoning and the figures column carries the evidence. The toggle swaps the two halves; the argument still comes first in the source order either way, because figures read before the paragraph that motivates them are just a list of numbers.</p>",
+    "columns": "2",
+    "cta_label": "Optional action",
+    "cta_link": "#",
+    "note": "Give the reporting period in the note rather than implying the figures are current.",
+    "tone": "body",
+    "width": "lg",
+    "reverse": 0,
+    "metrics": [
+        {
+            "value": "2",
+            "unit": "",
+            "title": "Figures, minimum",
+            "text": "One figure is a Big Number."
+        },
+        {
+            "value": "6",
+            "unit": "",
+            "title": "Figures, maximum",
+            "text": "Past six the column outruns the paragraph."
+        },
+        {
+            "value": "2",
+            "unit": "columns",
+            "title": "Default grid",
+            "text": "Two, three or four."
+        },
+        {
+            "value": "1",
+            "unit": "toggle",
+            "title": "Reverse",
+            "text": "Puts the figures first."
+        }
+    ]
+}

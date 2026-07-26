@@ -5,14 +5,53 @@
 <f:asset.css identifier="g-awards-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    TODO(grande): Emblems keep their own colours — an award seal desaturated to match the page stops looking like an award.
+    Emblems keep their own colours here — an award seal desaturated to match the
+    page stops looking like an award and starts looking like a supplier logo.
+    That is the one deliberate difference from the customer walls.
 </f:comment>
 
-<section class="astryx-section g-awards-row" data-variant="{data.variant}">
-    <div class="astryx-layout">
-        <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+<section class="astryx-section g-awards-row {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
+    <div class="astryx-layout {data.width}">
+
+        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+            <div class="g-awards-row__intro">
+                <f:if condition="{data.eyebrow}">
+                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                </f:if>
+                <f:if condition="{data.header}">
+                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                </f:if>
+                <f:if condition="{data.lead}">
+                    <p class="astryx-text large g-awards-row__lead">{data -> f:render.text(field: 'lead')}</p>
+                </f:if>
+            </div>
         </f:if>
+
+        <ul class="g-awards-row__awards">
+            <f:for each="{data.awards}" as="award">
+                <li class="g-awards-row__award">
+                    <f:if condition="{award.image}">
+                        <span class="g-awards-row__emblem">
+                            <f:for each="{award.image}" as="image">
+                                <f:image image="{image}"
+                                         alt="{f:if(condition: image.alternative, then: image.alternative, else: award.title)}"
+                                         height="128"
+                                         loading="lazy"
+                                         class="g-awards-row__image"/>
+                            </f:for>
+                        </span>
+                    </f:if>
+
+                    <h3 class="astryx-text label g-awards-row__name">
+                        <f:if condition="{award.link.url}">
+                            <f:then><f:link.typolink parameter="{award.link}" class="astryx-link quiet">{award.title}</f:link.typolink></f:then>
+                            <f:else>{award -> f:render.text(field: 'title')}</f:else>
+                        </f:if>
+                    </h3>
+                </li>
+            </f:for>
+        </ul>
+
     </div>
 </section>
 
