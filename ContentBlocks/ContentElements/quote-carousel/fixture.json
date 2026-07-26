@@ -9,17 +9,38 @@
         {
             "quote_text": "Each card is a figure: a blockquote for the words, a figcaption for the person, and a portrait when there is one.",
             "author": "The first card",
-            "role": "Every card is the same shape"
+            "role": "Every card is the same shape",
+            "image": [
+                {
+                    "file": "EXT:desiderio_grande/Resources/Public/Images/portrait/p16.jpg",
+                    "alternative": "A man in his fifties",
+                    "title": ""
+                }
+            ]
         },
         {
             "quote_text": "Two to twelve quotes. Below 768px the arrows are removed, because a touch screen already has the better control.",
             "author": "The second card",
-            "role": "Cards stay level whatever their length"
+            "role": "Cards stay level whatever their length",
+            "image": [
+                {
+                    "file": "EXT:desiderio_grande/Resources/Public/Images/portrait/p01.jpg",
+                    "alternative": "A woman in her fifties",
+                    "title": ""
+                }
+            ]
         },
         {
             "quote_text": "This is the only element in the content group with a script hook, and the hook adds nothing the browser already does.",
             "author": "The third card",
-            "role": "Behaviour lives in the shared runtime"
+            "role": "Behaviour lives in the shared runtime",
+            "image": [
+                {
+                    "file": "EXT:desiderio_grande/Resources/Public/Images/portrait/p02.jpg",
+                    "alternative": "A man in his thirties",
+                    "title": ""
+                }
+            ]
         }
     ]
 }
