@@ -152,12 +152,14 @@ async function generateGemini(job) {
  * what PNG is for, and JPEG rings around lettering.
  */
 function encode(bytes, job) {
-  if (job.format !== 'jpeg') return bytes;
-  return execFileSync(
-    'magick',
-    ['png:-', '-strip', '-interlace', 'Plane', '-quality', '82', 'jpg:-'],
-    {input: bytes, maxBuffer: 64 * 1024 * 1024},
-  );
+  const recipe = job.format === 'jpeg'
+    ? ['png:-', '-strip', '-interlace', 'Plane', '-quality', '82', 'jpg:-']
+    // A flat wordmark uses a handful of colours; leaving it as a full-depth PNG
+    // stores a megabyte of nothing. Quantising keeps the edges crisp and takes
+    // roughly nine tenths of the bytes away.
+    : ['png:-', '-strip', '-colors', '64', 'png:-'];
+
+  return execFileSync('magick', recipe, {input: bytes, maxBuffer: 64 * 1024 * 1024});
 }
 
 let written = 0;
