@@ -1,0 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Pages/Default"/>
+
+<f:comment>
+    The overview partial is generated from the compiled theme stylesheet, so
+    this page states what the themes are rather than what someone once wrote
+    down about them. Any content an editor adds renders underneath it.
+</f:comment>
+
+<f:section name="Main">
+    <h1 class="astryx-visually-hidden">{page.pageRecord.title}</h1>
+    <f:render partial="Pages/ThemeOverview" arguments="{_all}"/>
+    <!--TYPO3SEARCH_begin-->
+    <f:if condition="{content.main}">
+        <f:render.contentArea contentArea="{content.main}"/>
+    </f:if>
+    <!--TYPO3SEARCH_end-->
+</f:section>
+
+</html>

@@ -1,0 +1,89 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:d="http://typo3.org/ns/Webconsulting/Desiderio/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="document" type="object"/>
+<f:argument name="resultSet" type="object"/>
+<f:argument name="settings" type="array" optional="true"/>
+<f:argument name="logging" type="array" optional="true"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="Document">
+    <f:comment>
+        One result is an Astryx Item: label, description, trailing badge. The
+        title's link covers the whole row (see .g-search__result-title a::after),
+        so the row is clickable without a second link competing for focus —
+        exactly one tab stop per result.
+
+        d:searchSnippet crops around the match and wraps the hit in <mark>, so
+        the visitor can see *why* a result is in the list.
+    </f:comment>
+    <article
+        class="astryx-item align-start g-search__result{f:if(condition: document.isElevated, then: ' elevated')}"
+        data-document-score="{document.score}"
+        data-document-id="{document.id}"
+    >
+        <div class="astryx-item-content">
+            <h3 class="astryx-item-label g-search__result-title">
+                <a href="{s:uri.result.addSearchWordList(url: document.url, searchWords: resultSet.usedQuery.query)}">
+                    <d:searchSnippet text="{document.title}" query="{resultSet.usedQuery.rawSearchTerm}" maxCharacters="140" highlightClass="g-search__mark"/>
+                </a>
+            </h3>
+
+            <f:if condition="{document.url}">
+                <p class="g-search__result-url">{document.url}</p>
+            </f:if>
+
+            <f:if condition="{document.content}">
+                <p class="astryx-item-description g-search__result-snippet">
+                    <d:searchSnippet text="{document.content}" query="{resultSet.usedQuery.rawSearchTerm}" maxCharacters="220" highlightClass="g-search__mark"/>
+                </p>
+            </f:if>
+
+            <f:if condition="{document.type} == 'tx_solr_file'">
+                <div class="g-search__result-file">
+                    <p class="astryx-text supporting">{document.fileMimeType}</p>
+                    <ul class="astryx-list compact">
+                        <f:if condition="{document.fileReferenceUrl}">
+                            <li><f:link.typolink parameter="{document.fileReferenceUrl}" class="astryx-link">{document.fileReferenceTitle}</f:link.typolink></li>
+                        </f:if>
+                        <f:for each="{document.variants}" as="variant">
+                            <li><f:link.typolink parameter="{variant.fileReferenceUrl}" class="astryx-link">{variant.fileReferenceTitle}</f:link.typolink></li>
+                        </f:for>
+                    </ul>
+                </div>
+            </f:if>
+
+            <f:if condition="{settings.logging.debugOutput} || {logging.debugOutput}">
+                <f:variable name="scoreAnalysis"><f:render partial="Debug/Explain" section="Explain" arguments="{document: document, resultSet: resultSet}"/></f:variable>
+                <f:if condition="{scoreAnalysis}">
+                    <div class="g-search__result-debug"><f:format.raw>{scoreAnalysis}</f:format.raw></div>
+                </f:if>
+            </f:if>
+        </div>
+
+        <div class="astryx-item-end g-search__result-meta">
+            <f:if condition="{document.isElevated}">
+                <span class="astryx-badge accent"><f:translate key="{labels}:search.promoted" default="Promoted"/></span>
+            </f:if>
+
+            <f:if condition="{document.type}">
+                <span class="astryx-badge neutral">
+                    <f:switch expression="{document.type}">
+                        <f:case value="pages"><f:translate key="{labels}:search.type.pages" default="Page"/></f:case>
+                        <f:case value="tx_news_domain_model_news"><f:translate key="{labels}:search.type.news" default="News"/></f:case>
+                        <f:case value="tt_address"><f:translate key="{labels}:search.type.addresses" default="Address"/></f:case>
+                        <f:case value="tx_solr_file"><f:translate key="{labels}:search.type.files" default="File"/></f:case>
+                        <f:defaultCase>{document.type}</f:defaultCase>
+                    </f:switch>
+                </span>
+            </f:if>
+        </div>
+    </article>
+</f:section>
+
+</html>

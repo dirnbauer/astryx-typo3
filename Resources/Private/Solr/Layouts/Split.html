@@ -1,0 +1,38 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>
+    The results shell: filters beside the results on a wide screen, above them
+    on a narrow one.
+
+    The sidebar is rendered first and measured, because EXT:solr always fills
+    the "extra" section — it just fills it with facet blocks that render to
+    nothing when the query returned no facets. An `f:if` on the raw output would
+    therefore always be true and every no-facet search would show an empty
+    column, so the test is made against the text that survives stripping tags.
+</f:comment>
+
+<f:variable name="aside"><f:render section="extra"/></f:variable>
+<f:variable name="asidePlain" value="{aside -> f:format.stripTags() -> f:format.trim()}"/>
+
+<div class="tx_solr astryx-section tight g-search">
+    <div class="astryx-layout xl">
+        <div class="g-search__grid{f:if(condition: asidePlain, else: ' single')}">
+
+            <f:if condition="{asidePlain}">
+                <aside
+                    class="g-search__aside"
+                    aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:search.filters', default: 'Filter the results')}"
+                >
+                    <f:format.raw>{aside}</f:format.raw>
+                </aside>
+            </f:if>
+
+            <div class="g-search__main">
+                <f:render section="content"/>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</html>

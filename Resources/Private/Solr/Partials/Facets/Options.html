@@ -1,0 +1,65 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="facet" type="object" optional="true"/>
+<f:argument name="settings" type="array" optional="true"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+<f:variable name="optionLimit">{f:if(condition: '{settings.faceting.limit}', then: '{settings.faceting.limit}', else: 10)}</f:variable>
+
+<f:comment>
+    A facet block is a small Astryx panel: a heading, then one Item per option.
+    The tx-solr-* class names are load-bearing — EXT:solr's own show-more script
+    finds the toggle and the surplus options through them — so they stay on the
+    elements alongside the Astryx classes that do the painting.
+
+    The show-more anchor holds bare text on purpose: the script swaps its
+    textContent, which would delete any element nested inside it.
+</f:comment>
+
+<section class="astryx-card flat g-search__facet" aria-labelledby="facet-label-{facet.name}">
+    <h2 class="astryx-card-title g-search__facet-title" id="facet-label-{facet.name}">{facet.label}</h2>
+
+    <ul
+        class="astryx-list compact g-search__facet-list facet-option-list facet-type-options fluidfacet"
+        id="facet{facet.name}"
+        data-facet-name="{facet.name}"
+        data-facet-label="{facet.label}"
+    >
+        <f:for each="{facet.options}" as="option" iteration="iteration">
+            <li class="facet-option{f:if(condition: '{iteration.index} < {optionLimit}', else: ' tx-solr-facet-hidden')}" data-facet-item-value="{option.value}">
+                <a
+                    class="astryx-item compact interactive g-search__facet-option{f:if(condition: option.selected, then: ' selected')} facet solr-ajaxified"
+                    href="{s:uri.facet.addFacetItem(facet: facet, facetItem: option)}"
+                    {f:if(condition: option.selected, then: 'aria-current="true"')}
+                >
+                    <span class="astryx-item-content">
+                        <span class="astryx-item-label truncate">{option.label}</span>
+                    </span>
+                    <span class="astryx-item-end">
+                        <span class="astryx-badge neutral" aria-hidden="true">{option.documentCount}</span>
+                        <span class="astryx-visually-hidden">
+                            <f:translate key="{labels}:search.facet.count" arguments="{0: option.documentCount}">{0} results</f:translate>
+                        </span>
+                    </span>
+                </a>
+            </li>
+        </f:for>
+
+        <f:if condition="{facet.options -> f:count()} > {optionLimit}">
+            <li class="g-search__facet-more">
+                <a
+                    href="#"
+                    class="astryx-link quiet tx-solr-facet-show-all"
+                    data-label-more="{f:translate(key: '{labels}:search.facet.showMore', default: 'Show all')}"
+                    data-label-less="{f:translate(key: '{labels}:search.facet.showFewer', default: 'Show fewer')}"
+                ><f:translate key="{labels}:search.facet.showMore" default="Show all"/></a>
+            </li>
+        </f:if>
+    </ul>
+</section>
+
+</html>

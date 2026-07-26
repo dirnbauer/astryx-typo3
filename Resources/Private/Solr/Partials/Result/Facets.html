@@ -1,0 +1,21 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="resultSet" type="object"/>
+
+<f:section name="Facets">
+    <div id="tx-solr-faceting" class="g-search__facets">
+        <s:facet.area.group groupName="main" facets="{resultSet.facets.available}">
+            <f:for each="{areaFacets}" as="facet">
+                <div id="facet-accordion-{facet.name}">
+                    <f:render partial="Facets/{facet.partialName}" arguments="{resultSet: resultSet, facet: facet}"/>
+                </div>
+            </f:for>
+        </s:facet.area.group>
+    </div>
+</f:section>
+
+</html>

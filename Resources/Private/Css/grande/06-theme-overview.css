@@ -1,0 +1,116 @@
+/*
+ * The theme overview page.
+ *
+ * Each card carries its own data-astryx-theme, so it paints itself from that
+ * theme's tokens while the page around it stays in the site's theme. The cards
+ * therefore must not inherit colour from the page — every colour here is a
+ * token, resolved inside the card's own scope.
+ */
+
+.g-themes__lead {
+  max-inline-size: 62ch;
+  color: var(--color-text-secondary);
+  margin-block: var(--spacing-3) var(--spacing-8);
+}
+
+.g-themes__grid {
+  display: grid;
+  gap: var(--spacing-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+}
+
+/* The card is a window into another theme: its own canvas, its own text
+   colour, its own corner radius — all read from the theme it names. */
+.g-themes__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  background-color: var(--color-background-body);
+  color: var(--color-text-primary);
+  border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+  border-radius: var(--radius-container, var(--radius-element));
+  font-family: var(--font-family-body);
+}
+
+.g-themes__card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+}
+
+.g-themes__id {
+  font-family: var(--font-family-code);
+  font-size: var(--text-supporting-size);
+  color: var(--color-text-secondary);
+}
+
+.g-themes__character {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.g-themes__swatches {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.g-themes__swatch {
+  inline-size: var(--spacing-10);
+  block-size: var(--spacing-8);
+  border-radius: var(--radius-element);
+  border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+}
+
+.g-themes__swatch--accent { background-color: var(--color-accent); }
+.g-themes__swatch--body { background-color: var(--color-background-body); }
+.g-themes__swatch--surface { background-color: var(--color-background-surface); }
+
+.g-themes__sample {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.g-themes__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-1) var(--spacing-4);
+  margin: 0;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-themes__facts dt {
+  color: var(--color-text-secondary);
+}
+
+.g-themes__facts dd {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------ the table */
+.g-themes__matrix {
+  inline-size: 100%;
+}
+
+/* A dot rather than a swatch column: the row already names the theme, and the
+   colour is there to help someone scanning find the row again. */
+.g-themes__dot {
+  display: inline-block;
+  inline-size: var(--spacing-3);
+  block-size: var(--spacing-3);
+  margin-inline-end: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+  vertical-align: -0.1em;
+}
+
+.g-themes__note {
+  margin-block-start: var(--spacing-6);
+  max-inline-size: 70ch;
+  color: var(--color-text-secondary);
+}

@@ -21,6 +21,7 @@ final class GrandeSiteDefinitions
     public const LAYOUT_STARTPAGE = 'pagets__GrandeStartpage';
     public const LAYOUT_CONTENTPAGE = 'pagets__GrandeContentpage';
     public const LAYOUT_ERROR = 'pagets__GrandeError';
+    public const LAYOUT_THEMES = 'pagets__GrandeThemes';
 
     /**
      * The ten component chapters, in wizard-group order.
@@ -123,6 +124,15 @@ final class GrandeSiteDefinitions
                 'noIndex' => false,
                 'abstract' => 'Every content element this theme ships, grouped the way the editor wizard groups them.',
                 'role' => 'hub',
+            ],
+            [
+                'title' => 'Themes',
+                'slug' => 'themes',
+                'layout' => self::LAYOUT_THEMES,
+                'navHide' => false,
+                'noIndex' => false,
+                'abstract' => 'All seven Astryx themes side by side, each card rendered live in the theme it names.',
+                'role' => 'themes',
             ],
             [
                 'title' => 'Imprint',

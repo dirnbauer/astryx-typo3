@@ -1,0 +1,57 @@
+# Desiderio Grande — Search (Astryx).
+#
+# Everything that makes search *work* comes from webconsulting/solr-defaults:
+# the EXT:solr base TypoScript, the page index queue, the faceting defaults and
+# the tx_solr_suggest page type (typeNum 7384) the dropdown fetches from. This
+# set is the visible layer only — Astryx templates, Astryx facet labels.
+
+# ------------------------------------------------------------ template paths
+# Higher index wins. Desiderio's shadcn-flavoured Solr templates stay below at
+# .100 as a fallback, so a partial this theme does not restyle (the debug and
+# range-facet partials) still resolves rather than fataling.
+plugin.tx_solr.view {
+  templateRootPaths.200 = EXT:desiderio_grande/Resources/Private/Solr/Templates/
+  partialRootPaths.200 = EXT:desiderio_grande/Resources/Private/Solr/Partials/
+  layoutRootPaths.200 = EXT:desiderio_grande/Resources/Private/Solr/Layouts/
+}
+
+# ------------------------------------------------------------- facet labels
+# The "Content type" facet is the one facet every site gets, and Desiderio
+# labels it in English from its own file. Re-point it at this theme's labels so
+# the German column of the sidebar is not half-translated.
+plugin.tx_solr.search.faceting.facets.type {
+  label = TEXT
+  label.data = LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:search.facet.type
+
+  renderingInstruction.pages >
+  renderingInstruction.pages = TEXT
+  renderingInstruction.pages.data = LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:search.type.pages
+
+  renderingInstruction.tx_news_domain_model_news >
+  renderingInstruction.tx_news_domain_model_news = TEXT
+  renderingInstruction.tx_news_domain_model_news.data = LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:search.type.news
+
+  renderingInstruction.tt_address >
+  renderingInstruction.tt_address = TEXT
+  renderingInstruction.tt_address.data = LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:search.type.addresses
+}
+
+# ---------------------------------------------------------------- behaviour
+plugin.tx_solr.search {
+  # The header field submits ?q=… to the results page; without a spell check
+  # a typo there produces a blank page and no way out of it.
+  spellchecking = 1
+  spellchecking.searchUsingSpellCheckerSuggestion = 1
+
+  # The result list is a list of pages, not a debugging surface: the sword_list
+  # parameter EXT:solr appends to every hit URL only bloats the link.
+  results.siteHighlighting = 0
+}
+
+# The dropdown groups term suggestions above a handful of real documents, which
+# is the whole reason it is worth having over a plain datalist.
+plugin.tx_solr.suggest {
+  numberOfSuggestions = 6
+  showTopResults = 1
+  numberOfTopResults = 4
+}

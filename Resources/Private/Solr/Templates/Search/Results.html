@@ -1,0 +1,178 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Split"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="content">
+    <div id="tx-solr-search" class="g-search__results">
+
+        <f:render partial="Debug/Query" section="Query" arguments="{resultSet: resultSet}"/>
+
+        <f:comment>
+            The query field and the sort control are one row: the thing you
+            typed and the order it came back in belong together, and on a phone
+            they stack in that same order.
+        </f:comment>
+        <div class="g-search__command">
+            <div class="g-search__command-field">
+                <f:render
+                    partial="Search/Form"
+                    section="Form"
+                    arguments="{search: search, additionalFilters: additionalFilters, pluginNamespace: pluginNamespace, resultSet: resultSet}"
+                />
+            </div>
+
+            <f:if condition="{resultSet.hasSearched} && {resultSet.usedSearchRequest.contextTypoScriptConfiguration.searchSorting}">
+                <f:render partial="Result/Sorting" section="Sorting" arguments="{resultSet: resultSet}"/>
+            </f:if>
+        </div>
+
+        <f:if condition="{resultSet.facets.used -> f:count()}">
+            <f:render partial="Result/FacetsActive" section="FacetsActive" arguments="{resultSet: resultSet}"/>
+        </f:if>
+
+        <s:debug.query>
+            <f:if condition="{parsedQuery}">
+                <div class="astryx-banner info g-search__banner" role="status">
+                    <div class="astryx-banner-body">
+                        <p class="astryx-banner-title"><f:translate key="{labels}:search.debug.parsedQuery" default="Parsed query"/></p>
+                        <p class="astryx-banner-content">{parsedQuery}</p>
+                    </div>
+                </div>
+            </f:if>
+        </s:debug.query>
+
+        <f:if condition="{resultSet.hasSearched}">
+            <f:comment>
+                One live region for everything that describes the result set, so
+                a screen reader hears the correction, the count and the range as
+                a single announcement instead of three interrupting ones.
+            </f:comment>
+            <div class="g-search__meta" role="status">
+
+                <f:if condition="{resultSet.isAutoCorrected}">
+                    <f:then>
+                        <p class="astryx-text supporting">
+                            <f:translate key="{labels}:search.nothingFound" arguments="{0: resultSet.initialQueryString}">Nothing found for “{0}”.</f:translate>
+                            <f:translate key="{labels}:search.showingInstead" arguments="{0: resultSet.correctedQueryString}">Showing results for “{0}” instead.</f:translate>
+                        </p>
+                    </f:then>
+                    <f:else>
+                        <f:if condition="{resultSet.allResultCount}">
+                            <p class="astryx-text supporting">
+                                <f:translate key="{labels}:search.resultsFound" arguments="{0: resultSet.allResultCount}">{0} results.</f:translate>
+                                <f:if condition="{pagination.lastPageNumber} > 1">
+                                    <s:pageBrowserRange>
+                                        <f:translate key="{labels}:search.resultsRange" arguments="{0: from, 1: to, 2: total}">Showing {0}–{1} of {2}.</f:translate>
+                                    </s:pageBrowserRange>
+                                </f:if>
+                            </p>
+                        </f:if>
+                    </f:else>
+                </f:if>
+
+                <f:if condition="{resultSet.hasSpellCheckingSuggestions}">
+                    <p class="astryx-text supporting g-search__didyoumean">
+                        <f:translate key="{labels}:search.didYouMean" default="Did you mean"/>
+                        <f:for each="{resultSet.spellCheckingSuggestions}" as="suggestion">
+                            <f:link.page additionalParams="{q: suggestion.suggestion}" class="astryx-link">{suggestion.suggestion}</f:link.page>
+                        </f:for>?
+                    </p>
+                </f:if>
+
+            </div>
+        </f:if>
+
+        <f:if condition="{resultSet.hasSearched}">
+            <f:if condition="{resultSet.searchresults.hasGroups}">
+                <f:then>
+                    <f:for each="{resultSet.searchresults.groups}" as="group">
+                        <section class="g-search__group">
+                            <h2 class="astryx-heading level-4">{group.groupname}</h2>
+                            <f:for each="{group.groupitems}" as="groupItem">
+                                <div class="g-search__group-block">
+                                    <p class="astryx-text supporting g-search__group-label">
+                                        {groupItem.groupValue}
+                                        <span class="astryx-badge neutral">{groupItem.allResultCount}</span>
+                                    </p>
+                                    <s:groupItemPaginate groupItem="{groupItem}" resultSet="{resultSet}">
+                                        <ol class="g-search__list" start="{pagination.resultCountStart}">
+                                            <f:for each="{documents}" as="document">
+                                                <li>
+                                                    <f:render partial="Result/Document" section="Document" arguments="{resultSet: resultSet, document: document}"/>
+                                                </li>
+                                            </f:for>
+                                        </ol>
+                                    </s:groupItemPaginate>
+                                </div>
+                            </f:for>
+                        </section>
+                    </f:for>
+                </f:then>
+
+                <f:else if="{resultSet.allResultCount}">
+                    <h2 class="astryx-visually-hidden"><f:translate key="{labels}:search.resultsHeading" default="Search results"/></h2>
+
+                    <ol class="g-search__list" start="{pagination.startRecordNumber}">
+                        <f:for each="{resultSet.searchResults}" as="document">
+                            <li>
+                                <f:render partial="Result/Document" section="Document" arguments="{resultSet: resultSet, document: document}"/>
+                            </li>
+                        </f:for>
+                    </ol>
+
+                    <div class="g-search__foot">
+                        <f:if condition="{pagination.lastPageNumber} > 1">
+                            <f:render partial="Result/Pagination" section="Pagination" arguments="{resultSet: resultSet, pagination: pagination, currentPage: currentPage}"/>
+                        </f:if>
+                        <f:render partial="Result/PerPage" section="PerPage" arguments="{resultSet: resultSet}"/>
+                    </div>
+                </f:else>
+
+                <f:else>
+                    <f:comment>
+                        Nothing found, and no correction to fall back on. An
+                        EmptyState says what is empty and what to do next; a bare
+                        "0 results" leaves the visitor with no move to make.
+                    </f:comment>
+                    <div class="astryx-empty-state g-search__empty">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
+                            <circle cx="11" cy="11" r="7"/>
+                            <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+                        </svg>
+                        <p class="astryx-heading level-4">
+                            <f:translate key="{labels}:search.nothingFound" arguments="{0: resultSet.usedQuery.rawSearchTerm}">Nothing found for “{0}”.</f:translate>
+                        </p>
+                        <p class="astryx-text supporting">
+                            <f:translate key="{labels}:search.nothingFoundHint" default="Try fewer words, or a more general term."/>
+                        </p>
+                    </div>
+                </f:else>
+            </f:if>
+        </f:if>
+
+    </div>
+</f:section>
+
+<f:section name="extra">
+    <div id="tx-solr-search-functions" class="g-search__panels">
+        <f:if condition="{resultSet.hasSearched} && {resultSet.usedSearchRequest.contextTypoScriptConfiguration.searchFaceting}">
+            <f:render partial="Result/Facets" section="Facets" arguments="{resultSet: resultSet}"/>
+        </f:if>
+
+        <f:if condition="{resultSet.usedSearchRequest.contextTypoScriptConfiguration.searchFrequentSearches}">
+            <f:render partial="Search/FrequentlySearched" section="FrequentlySearched"/>
+        </f:if>
+
+        <f:if condition="{resultSet.usedSearchRequest.contextTypoScriptConfiguration.searchLastSearches}">
+            <f:render partial="Search/LastSearches" section="LastSearches"/>
+        </f:if>
+    </div>
+</f:section>
+
+</html>

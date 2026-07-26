@@ -1,0 +1,69 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:argument name="search" type="object" optional="true"/>
+<f:argument name="additionalFilters" type="array" optional="true"/>
+<f:argument name="existingParameters" type="array" optional="true"/>
+<f:argument name="pluginNamespace" type="string" optional="true" default="tx_solr"/>
+<f:argument name="q" type="string" optional="true" default=""/>
+<f:argument name="resultSet" type="object" optional="true"/>
+
+<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+
+<f:section name="Form">
+    <f:comment>
+        s:searchForm renders the <form> itself and puts data-suggest on it —
+        the URL of the tx_solr_suggest page type. grande.js binds the dropdown
+        to exactly that attribute, so this field and the one in the site header
+        share one implementation and one endpoint.
+    </f:comment>
+    <s:searchForm
+        id="tx-solr-search-form-pi-results"
+        class="g-search__form"
+        additionalFilters="{additionalFilters}"
+        suggestHeader="{f:translate(key: '{labels}:search.suggest.topResults', default: 'Top results')}"
+        data-g-suggest="1"
+        data-g-suggest-min-chars="2"
+        data-g-suggest-label-pages="{f:translate(key: '{labels}:search.type.pages', default: 'Page')}"
+        data-g-suggest-label-news="{f:translate(key: '{labels}:search.type.news', default: 'News')}"
+        data-g-suggest-label-addresses="{f:translate(key: '{labels}:search.type.addresses', default: 'Address')}"
+        data-g-suggest-empty="{f:translate(key: '{labels}:search.suggest.empty', default: 'No suggestions')}"
+    >
+        <f:for each="{existingParameters}" key="name" as="value">
+            <f:form.hidden name="{pluginNamespace}{name}" value="{value}"/>
+        </f:for>
+
+        <div class="astryx-input-group lg g-search__group" data-g-suggest-anchor>
+            <span class="astryx-input-group-text g-search__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" focusable="false">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+                </svg>
+            </span>
+
+            <label class="astryx-visually-hidden" for="tx-solr-q">
+                <f:translate key="{labels}:search.label" default="Search this site"/>
+            </label>
+            <input
+                id="tx-solr-q"
+                class="astryx-text-input lg g-search__input"
+                type="search"
+                name="{pluginNamespace}[q]"
+                value="{q}"
+                maxlength="80"
+                autocomplete="off"
+                placeholder="{f:translate(key: '{labels}:search.placeholder', default: 'Search this site')}"
+                data-g-suggest-input
+            />
+
+            <button class="astryx-button primary lg g-search__submit" type="submit">
+                <f:translate key="{labels}:search.submit" default="Search"/>
+            </button>
+        </div>
+    </s:searchForm>
+</f:section>
+
+</html>

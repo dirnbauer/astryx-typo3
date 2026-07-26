@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>
+    The single-column shell, used by the standalone search box, the frequent
+    searches list and by EXT:solr's own templates this theme does not restyle —
+    overriding the layout by its upstream name is what puts those inside the
+    Astryx container instead of leaving them in Bootstrap grid markup.
+</f:comment>
+
+<div class="tx_solr astryx-section tight g-search">
+    <div class="astryx-layout lg">
+        <f:render section="content"/>
+    </div>
+</div>
+
+</html>
