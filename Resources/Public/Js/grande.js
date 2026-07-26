@@ -46,6 +46,19 @@
     return 'system';
   }
 
+  /**
+   * What the visitor is actually looking at right now.
+   *
+   * "system" is a preference, not an appearance: on a machine set to dark it
+   * looks exactly like "dark". The button has to flip what is on screen, so it
+   * asks the media query what "system" currently resolves to.
+   */
+  function visibleScheme() {
+    var scheme = currentScheme();
+    if (scheme !== 'system') return scheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
   function applyScheme(scheme) {
     var root = document.documentElement;
     root.classList.remove('light', 'dark');
@@ -68,10 +81,12 @@
       bind(button, 'Scheme', function (element) {
         element.setAttribute('data-g-scheme-state', currentScheme());
         element.addEventListener('click', function () {
-          // system -> dark -> light -> system: three states, so a visitor can
-          // always get back to following their operating system.
-          var next = {system: 'dark', dark: 'light', light: 'system'}[currentScheme()];
-          applyScheme(next);
+          // Flip what is on screen, never the stored preference. A three-way
+          // cycle through "system" spends one click in three changing nothing
+          // a visitor can see — and on a machine already set to dark, that
+          // silent click is the first one, which is precisely when someone
+          // decides the button is broken.
+          applyScheme(visibleScheme() === 'dark' ? 'light' : 'dark');
         });
       });
     });
