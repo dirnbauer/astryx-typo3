@@ -13,80 +13,171 @@
     "they still stay apart, because an editor filling one expects different",
     "things from an editor filling the other."
   ],
-
   "recordTypes": {
     "nav-item": {
       "table": "desiderio_grande_nav_item",
       "labelField": "title",
       "purpose": "A link in a list: menus, footers, tabs, tables of contents, link cards.",
-      "fields": ["title", "description", "link", "icon"]
+      "fields": [
+        "title",
+        "description",
+        "link",
+        "icon"
+      ]
     },
     "icon-lead": {
       "table": "desiderio_grande_icon_lead",
       "labelField": "title",
       "purpose": "Icon, title and a sentence — the repeated unit of every feature and benefit grid.",
-      "fields": ["icon", "title", "text", "link"]
+      "fields": [
+        "icon",
+        "title",
+        "text",
+        "link"
+      ]
     },
     "metric-item": {
       "table": "desiderio_grande_metric_item",
       "labelField": "value",
       "purpose": "One number with its label, and optionally what it is compared against.",
-      "fields": ["value", "unit", "title", "text", "icon"]
+      "fields": [
+        "value",
+        "unit",
+        "title",
+        "text",
+        "icon"
+      ]
     },
     "quote-item": {
       "table": "desiderio_grande_quote_item",
       "labelField": "author",
       "purpose": "A testimonial or review: what was said, by whom, and their standing.",
-      "fields": ["quote_text", "author", "role", "image", "rating"]
+      "fields": [
+        "quote_text",
+        "author",
+        "role",
+        "image",
+        "rating"
+      ]
     },
     "person-item": {
       "table": "desiderio_grande_person_item",
       "labelField": "title",
       "purpose": "A person: portrait, name, role, a line about them, and where to reach them.",
-      "fields": ["image", "title", "role", "text", "link"]
+      "fields": [
+        "image",
+        "title",
+        "role",
+        "text",
+        "link"
+      ]
     },
     "logo-item": {
       "table": "desiderio_grande_logo_item",
       "labelField": "title",
       "purpose": "A client or partner mark, optionally linked.",
-      "fields": ["image", "title", "link"]
+      "fields": [
+        "image",
+        "title",
+        "link"
+      ]
     },
     "qa-item": {
       "table": "desiderio_grande_qa_item",
       "labelField": "title",
       "purpose": "A question and its answer — accordions, FAQs, glossaries.",
-      "fields": ["title", "bodytext"]
+      "fields": [
+        "title",
+        "bodytext"
+      ]
     },
     "label-value": {
       "table": "desiderio_grande_label_value",
       "labelField": "title",
       "purpose": "A row of a specification, comparison or plan-feature table.",
-      "fields": ["title", "value", "text", "included"]
+      "fields": [
+        "title",
+        "value",
+        "text",
+        "included"
+      ]
     },
     "media-card": {
       "table": "desiderio_grande_media_card",
       "labelField": "title",
       "purpose": "A card with its own picture: link cards, slides, partner tiles, anything where the image belongs to the item rather than to the band.",
       "_note": "icon-lead carries an icon and logo-item only a mark, so neither can hold a picture card. This is the type to reach for whenever each item needs its own image.",
-      "fields": ["image", "title", "text", "link", "date"]
+      "fields": [
+        "image",
+        "title",
+        "text",
+        "link",
+        "date"
+      ]
     }
   },
-
   "childFields": {
-    "title": {"type": "Text", "_note": "Never call this 'label' — Content Blocks reserves that identifier."},
-    "text": {"type": "Textarea", "rows": 3},
-    "description": {"type": "Text"},
-    "bodytext": {"type": "Textarea", "rows": 5, "enableRichtext": true},
-    "quote_text": {"type": "Textarea", "rows": 4},
-    "author": {"type": "Text"},
-    "role": {"type": "Text"},
-    "value": {"type": "Text", "max": 24},
-    "unit": {"type": "Text", "max": 24},
-    "link": {"type": "Link"},
-    "image": {"type": "File", "maxitems": 1, "allowed": "common-image-types"},
-    "icon": {"type": "Select", "renderType": "selectSingle", "_items": "icon-library"},
-    "rating": {"type": "Number", "_note": "Whole stars, 1–5."},
-    "date": {"type": "DateTime", "format": "date", "_note": "A real date rather than free text, so it can be formatted per language and sorted."},
-    "included": {"type": "Checkbox", "renderType": "checkboxToggle", "_note": "Whether this row's feature is part of the plan."}
+    "title": {
+      "type": "Text",
+      "_note": "Never call this 'label' — Content Blocks reserves that identifier."
+    },
+    "text": {
+      "type": "Textarea",
+      "rows": 3
+    },
+    "description": {
+      "type": "Text"
+    },
+    "bodytext": {
+      "type": "Textarea",
+      "rows": 5,
+      "enableRichtext": true
+    },
+    "quote_text": {
+      "type": "Textarea",
+      "rows": 4
+    },
+    "author": {
+      "type": "Text"
+    },
+    "role": {
+      "type": "Text"
+    },
+    "value": {
+      "type": "Textarea",
+      "rows": 1,
+      "_note": "A figure, or a comparison cell. Textarea with one row rather than Text: a varchar(24) truncated real comparison copy, and TEXT is what tt_content's row budget can afford anyway."
+    },
+    "unit": {
+      "type": "Text",
+      "max": 24
+    },
+    "link": {
+      "type": "Link"
+    },
+    "image": {
+      "type": "File",
+      "maxitems": 1,
+      "allowed": "common-image-types"
+    },
+    "icon": {
+      "type": "Select",
+      "renderType": "selectSingle",
+      "_items": "icon-library"
+    },
+    "rating": {
+      "type": "Number",
+      "_note": "Whole stars, 1–5."
+    },
+    "date": {
+      "type": "DateTime",
+      "format": "date",
+      "_note": "A real date rather than free text, so it can be formatted per language and sorted."
+    },
+    "included": {
+      "type": "Checkbox",
+      "renderType": "checkboxToggle",
+      "_note": "Whether this row's feature is part of the plan."
+    }
   }
 }

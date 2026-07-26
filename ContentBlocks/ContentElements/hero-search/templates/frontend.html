@@ -19,15 +19,15 @@
 
             <form class="astryx-field g-hero-search__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
                 <label class="astryx-visually-hidden" for="g-hero-search-q-{data.uid}">
-                    <f:translate extensionName="desiderio_grande" key="hero.searchQuery" default="Search term"/>
+                    <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
                 </label>
                 <div class="astryx-input-group lg">
                     <input class="astryx-text-input lg" type="search" name="q" id="g-hero-search-q-{data.uid}"
-                           placeholder="{f:translate(extensionName: 'desiderio_grande', key: 'hero.searchSitePlaceholder', default: 'What are you looking for?')}"/>
+                           placeholder="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.searchSitePlaceholder', default: 'What are you looking for?')}"/>
                     <button class="astryx-button primary lg g-hero-search__submit" type="submit">
                         <f:if condition="{data.cta_label}">
                             <f:then>{data.cta_label}</f:then>
-                            <f:else><f:translate extensionName="desiderio_grande" key="hero.search" default="Search"/></f:else>
+                            <f:else><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
                         </f:if>
                     </button>
                 </div>
@@ -39,7 +39,7 @@
                     already answered, so they work with the network off and are
                     crawlable on their own.
                 </f:comment>
-                <nav class="g-hero-search__suggestions" aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'hero.suggestedSearches', default: 'Suggested searches')}">
+                <nav class="g-hero-search__suggestions" aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.suggestedSearches', default: 'Suggested searches')}">
                     <ul class="g-hero-search__tokens">
                         <f:for each="{data.suggestions}" as="suggestion">
                             <li>

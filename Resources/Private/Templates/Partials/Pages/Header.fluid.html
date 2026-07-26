@@ -20,7 +20,7 @@
             <span class="grande-header__wordmark">{wordmark}</span>
         </a>
 
-        <nav class="grande-header__nav" aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.mainNavigation', default: 'Main navigation')}">
+        <nav class="grande-header__nav" aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
             <ul class="grande-nav__list">
                 <f:for each="{mainMenu}" as="item">
                     <li class="grande-nav__item">
@@ -50,7 +50,7 @@
                     type="button"
                     class="grande-scheme-toggle"
                     data-g-scheme-toggle
-                    aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.toggleScheme', default: 'Switch between light and dark')}"
+                    aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.toggleScheme', default: 'Switch between light and dark')}"
                 >
                     <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <circle cx="12" cy="12" r="4"/>
@@ -70,7 +70,7 @@
             <details class="grande-menu" data-g-menu>
                 <summary
                     class="grande-menu__toggle"
-                    aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.openMenu', default: 'Open menu')}"
+                    aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.openMenu', default: 'Open menu')}"
                 >
                     <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
@@ -81,7 +81,7 @@
                 </summary>
 
                 <div class="grande-menu__panel">
-                    <nav aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.mainNavigation', default: 'Main navigation')}">
+                    <nav aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
                         <ul class="grande-nav__list">
                             <f:for each="{mainMenu}" as="item">
                                 <li class="grande-nav__item">

@@ -26,15 +26,15 @@
                 </f:comment>
                 <form class="astryx-field g-hero-signup__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="post">
                     <label class="astryx-visually-hidden" for="g-hero-signup-email-{data.uid}">
-                        <f:translate extensionName="desiderio_grande" key="hero.email" default="Email address"/>
+                        <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.email" default="Email address"/>
                     </label>
                     <div class="astryx-input-group lg">
                         <input class="astryx-text-input lg" type="email" name="email" id="g-hero-signup-email-{data.uid}" required="required"
-                               placeholder="{f:translate(extensionName: 'desiderio_grande', key: 'hero.emailPlaceholder', default: 'name@company.com')}"/>
+                               placeholder="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.emailPlaceholder', default: 'name@company.com')}"/>
                         <button class="astryx-button primary lg g-hero-signup__submit" type="submit">
                             <f:if condition="{data.cta_label}">
                                 <f:then>{data.cta_label}</f:then>
-                                <f:else><f:translate extensionName="desiderio_grande" key="hero.subscribe" default="Sign up"/></f:else>
+                                <f:else><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:hero.subscribe" default="Sign up"/></f:else>
                             </f:if>
                         </button>
                     </div>

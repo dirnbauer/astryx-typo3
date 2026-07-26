@@ -23,7 +23,7 @@
             </div>
 
             <f:if condition="{languageNavigation}">
-                <nav aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.languageNavigation', default: 'Language')}">
+                <nav aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.languageNavigation', default: 'Language')}">
                     <ul class="grande-footer__list">
                         <f:for each="{languageNavigation}" as="language">
                             <f:if condition="{language.available}">
@@ -54,7 +54,7 @@
             </p>
 
             <f:if condition="{legalMenu}">
-                <nav aria-label="{f:translate(extensionName: 'desiderio_grande', key: 'chrome.legalNavigation', default: 'Legal')}">
+                <nav aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.legalNavigation', default: 'Legal')}">
                     <ul class="grande-footer__list">
                         <f:for each="{legalMenu}" as="item">
                             <li>
