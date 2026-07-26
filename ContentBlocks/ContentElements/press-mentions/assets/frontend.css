@@ -35,19 +35,28 @@
   text-wrap: balance;
 }
 
-/* Two borders on an empty box again, because it inherits the headline's colour
-   and needs no icon set to exist. */
-.g-press-mentions__headline a::before {
+/*
+ * The leaves-this-site marker follows the headline; it does not lead it.
+ *
+ * Set before the text it reads as a list bullet, and a column of them turns a
+ * set of mentions into what looks like a broken enumeration. After the text it
+ * reads as what it is — this link goes elsewhere — which is also where the
+ * convention puts it.
+ *
+ * Sized in em so it tracks the headline rather than a fixed step, and rotated
+ * to point up and away rather than merely right.
+ */
+.g-press-mentions__headline a::after {
   content: '';
   display: inline-block;
-  inline-size: var(--spacing-2);
-  block-size: var(--spacing-2);
-  margin-inline-end: var(--spacing-1);
-  border-block-start: 2px solid currentColor;
-  border-inline-end: 2px solid currentColor;
+  inline-size: 0.4em;
+  block-size: 0.4em;
+  margin-inline-start: 0.4em;
+  border-block-start: 1.5px solid currentColor;
+  border-inline-end: 1.5px solid currentColor;
   rotate: 45deg;
-  translate: 0 var(--spacing-0-5);
-  opacity: 0.6;
+  vertical-align: 0.08em;
+  opacity: 0.55;
 }
 
 .g-press-mentions__source {

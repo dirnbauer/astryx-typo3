@@ -33,24 +33,34 @@
   color: var(--color-text-primary);
 }
 
+/*
+ * Status badges borrow the categorical quartet rather than the status colour
+ * over its own muted tint.
+ *
+ * The tinted pairing looks like the obvious one and is a trap: in several
+ * themes --color-warning-muted resolves to the same value as --color-warning,
+ * so the label is painted onto itself and disappears. The hue quartets are the
+ * set upstream tunes for contrast — which is why gothic and y2k already
+ * override these very rules to use them. This makes every theme agree.
+ */
 .astryx-badge.info {
   background-color: var(--color-background-blue);
   color: var(--color-text-blue);
 }
 
 .astryx-badge.success {
-  background-color: var(--color-success-muted);
-  color: var(--color-success);
+  background-color: var(--color-background-green);
+  color: var(--color-text-green);
 }
 
 .astryx-badge.warning {
-  background-color: var(--color-warning-muted);
-  color: var(--color-warning);
+  background-color: var(--color-background-yellow);
+  color: var(--color-text-yellow);
 }
 
 .astryx-badge.error {
-  background-color: var(--color-error-muted);
-  color: var(--color-error);
+  background-color: var(--color-background-red);
+  color: var(--color-text-red);
 }
 
 /* Categorical hues, for badges that classify rather than signal state. */
@@ -134,18 +144,18 @@
 }
 
 .astryx-banner.success {
-  background-color: var(--color-success-muted);
-  color: var(--color-success);
+  background-color: var(--color-background-green);
+  color: var(--color-text-green);
 }
 
 .astryx-banner.warning {
-  background-color: var(--color-warning-muted);
-  color: var(--color-warning);
+  background-color: var(--color-background-yellow);
+  color: var(--color-text-yellow);
 }
 
 .astryx-banner.error {
-  background-color: var(--color-error-muted);
-  color: var(--color-error);
+  background-color: var(--color-background-red);
+  color: var(--color-text-red);
 }
 
 .astryx-banner-title {

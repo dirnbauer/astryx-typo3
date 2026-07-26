@@ -19,6 +19,20 @@
   --grande-band-tight: clamp(2rem, 4vw, 3rem);
   --grande-container: 72rem;
   --grande-header-height: 4rem;
+
+  /*
+   * Half-steps below Astryx's smallest spacing token.
+   *
+   * The scale starts at --spacing-1 (4px), but optical work — nudging a drawn
+   * chevron onto the text baseline, hairline gaps inside a chip — needs 2px and
+   * 6px. Eighty-one declarations across the catalog already asked for
+   * --spacing-0-5 and --spacing-1-5 assuming they existed; they did not, so
+   * every one of those declarations was silently dropped and the elements sat
+   * half-aligned. Defining them is the smaller fix, and the names read as the
+   * scale they extend.
+   */
+  --spacing-0-5: 2px;
+  --spacing-1-5: 6px;
 }
 
 *,
