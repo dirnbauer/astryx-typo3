@@ -1,0 +1,315 @@
+{
+  "_comment": [
+    "What demo imagery this theme needs, and the prompt for each piece.",
+    "",
+    "250 elements do not need 250 photographs. They need a small pool that the",
+    "demo content reuses, which is also how a real site works: one photo library,",
+    "many pages. Each entry is generated once into Resources/Public/Images/<pool>/",
+    "and referenced from library.json / fixture.json as an EXT: path.",
+    "",
+    "Two providers, chosen per pool rather than globally. Anything with lettering",
+    "in it goes to Gemini's image model, which renders text far more reliably;",
+    "everything else goes to GPT Image 2, which is cheaper per picture. See",
+    "Build/Scripts/generate-images.mjs.",
+    "",
+    "The businesses named here are the inventions the demo copy already uses.",
+    "None is real, and no prompt asks for a real company, product or person."
+  ],
+  "style": {
+    "shared": "Editorial photography for a business website. Natural light, muted colours, shallow depth of field, no text or logos anywhere in the frame, no watermarks. Documentary rather than staged stock: real work in progress, imperfect surfaces, unposed. 16:9 unless stated.",
+    "portrait": "Head-and-shoulders portrait of a fictional person, natural window light, plain uncluttered background, neutral friendly expression, looking at the camera. Not a glamour shot; the register of a company's own staff page. Square crop.",
+    "logo": "A flat vector wordmark on a plain white background. One or two colours, no gradients, no photographic elements, generous margins. It must read as a small business's real mark, not as clip art."
+  },
+  "pools": {
+    "scene": {
+      "provider": "openai",
+      "size": "1536x1024",
+      "purpose": "The general-purpose photo pool behind the 65 elements with a single image field.",
+      "images": [
+        {
+          "id": "workshop-bench",
+          "prompt": "A tidy workshop bench in a small metalworking shop, hand tools laid out, afternoon light from a high window."
+        },
+        {
+          "id": "technician-tablet",
+          "prompt": "A service technician in workwear checking a rugged tablet beside an industrial boiler in a plant room."
+        },
+        {
+          "id": "warehouse-aisle",
+          "prompt": "A narrow warehouse aisle of shelved parts boxes, a picking trolley mid-aisle, cool overhead light."
+        },
+        {
+          "id": "office-standup",
+          "prompt": "Four colleagues standing around a monitor in a small open-plan office, mid-discussion, papers on the desk."
+        },
+        {
+          "id": "counter-service",
+          "prompt": "A trade counter in a wholesaler, an order form and a card reader on the worktop, shelves behind."
+        },
+        {
+          "id": "delivery-van",
+          "prompt": "A plain white delivery van with its rear doors open on a quiet industrial street at dawn, crates inside."
+        },
+        {
+          "id": "site-survey",
+          "prompt": "Two surveyors with a tripod-mounted instrument on the edge of a construction site, overcast sky."
+        },
+        {
+          "id": "drawing-review",
+          "prompt": "Hands spreading a large technical drawing across a table, a scale rule and a pencil resting on it."
+        },
+        {
+          "id": "server-rack",
+          "prompt": "A single half-populated server rack in a small utility room, cables neatly combed, door ajar."
+        },
+        {
+          "id": "training-room",
+          "prompt": "A modest training room with a semicircle of chairs and a flipchart, empty before a session."
+        },
+        {
+          "id": "bakery-counter",
+          "prompt": "An early-morning bakery counter, trays being loaded, a till at the end of the run."
+        },
+        {
+          "id": "cafe-morning",
+          "prompt": "A small cafe interior just after opening, chairs down, one member of staff at the espresso machine."
+        },
+        {
+          "id": "practice-reception",
+          "prompt": "A calm physiotherapy practice reception, appointment screen off to one side, plants and light wood."
+        },
+        {
+          "id": "treatment-room",
+          "prompt": "An empty physiotherapy treatment room, plinth made up, exercise bands hung on the wall."
+        },
+        {
+          "id": "control-desk",
+          "prompt": "A utility control desk with several monitors showing generic line diagrams, one operator seated, back to camera."
+        },
+        {
+          "id": "substation",
+          "prompt": "A small electricity substation behind a mesh fence in open countryside, late afternoon."
+        },
+        {
+          "id": "pipework",
+          "prompt": "Freshly installed copper pipework and valves against a plant-room wall, insulation part-fitted."
+        },
+        {
+          "id": "river-gauge",
+          "prompt": "A river monitoring station on a shallow gravel-bed stream, a measuring post in the water, trees behind."
+        },
+        {
+          "id": "field-sampling",
+          "prompt": "A researcher in waders taking a water sample into a bottle at a riverbank, notebook on the bank."
+        },
+        {
+          "id": "lab-bench",
+          "prompt": "A modest water-testing laboratory bench, sample bottles in a rack, a pipette in use."
+        },
+        {
+          "id": "meeting-two",
+          "prompt": "Two people at the corner of a meeting table with a laptop between them, mid-conversation, glass partition behind."
+        },
+        {
+          "id": "handover-keys",
+          "prompt": "A set of keys and a signed job sheet being handed across a doorway threshold on a residential landing."
+        },
+        {
+          "id": "roof-plant",
+          "prompt": "Rooftop ventilation plant against a grey sky, access walkway in the foreground."
+        },
+        {
+          "id": "night-shift",
+          "prompt": "A lit workshop window seen from outside at dusk, someone working inside, rest of the street dark."
+        }
+      ],
+      "format": "jpeg"
+    },
+    "portrait": {
+      "provider": "openai",
+      "size": "1024x1024",
+      "purpose": "Portraits for the 12 person-item and 5 quote-item collections.",
+      "styleKey": "portrait",
+      "images": [
+        {
+          "id": "p01",
+          "prompt": "A woman in her fifties, short grey hair, dark blazer over a plain top."
+        },
+        {
+          "id": "p02",
+          "prompt": "A man in his thirties, close beard, open collar shirt, no jacket."
+        },
+        {
+          "id": "p03",
+          "prompt": "A woman in her late twenties, dark hair tied back, workwear polo shirt."
+        },
+        {
+          "id": "p04",
+          "prompt": "A man in his sixties, glasses, cardigan over a shirt."
+        },
+        {
+          "id": "p05",
+          "prompt": "A woman in her forties, shoulder-length brown hair, simple knit jumper."
+        },
+        {
+          "id": "p06",
+          "prompt": "A man in his forties, shaved head, high-visibility jacket collar just in frame."
+        },
+        {
+          "id": "p07",
+          "prompt": "A woman in her thirties, headscarf, plain dark top."
+        },
+        {
+          "id": "p08",
+          "prompt": "A man in his twenties, curly hair, apprentice's work shirt."
+        },
+        {
+          "id": "p09",
+          "prompt": "A woman in her fifties, silver-rimmed glasses, patterned blouse."
+        },
+        {
+          "id": "p10",
+          "prompt": "A man in his fifties, moustache, checked shirt with a pen in the pocket."
+        },
+        {
+          "id": "p11",
+          "prompt": "A woman in her thirties, blonde bob, plain white shirt."
+        },
+        {
+          "id": "p12",
+          "prompt": "A man in his forties, dark hair greying at the temples, fleece over a shirt."
+        },
+        {
+          "id": "p13",
+          "prompt": "A woman in her sixties, hair pinned up, scarf at the neck."
+        },
+        {
+          "id": "p14",
+          "prompt": "A man in his thirties, glasses, plain crew-neck sweatshirt."
+        },
+        {
+          "id": "p15",
+          "prompt": "A woman in her twenties, long dark hair, lab coat collar just in frame."
+        },
+        {
+          "id": "p16",
+          "prompt": "A man in his fifties, weathered face, quilted work gilet."
+        }
+      ],
+      "format": "jpeg"
+    },
+    "gallery": {
+      "provider": "openai",
+      "size": "1536x1024",
+      "purpose": "Sets for the four elements with a multi-image gallery field.",
+      "images": [
+        {
+          "id": "g01",
+          "prompt": "A river weir from the footbridge above, water braided over the sill."
+        },
+        {
+          "id": "g02",
+          "prompt": "A monitoring cabinet open at the roadside, instruments and a logger inside."
+        },
+        {
+          "id": "g03",
+          "prompt": "A shallow stream through farmland, marker post at the bank."
+        },
+        {
+          "id": "g04",
+          "prompt": "Rain gauges in a fenced enclosure on a grassy rise."
+        },
+        {
+          "id": "g05",
+          "prompt": "A flooded meadow at first light, fence posts standing in water."
+        },
+        {
+          "id": "g06",
+          "prompt": "A concrete outfall structure on a canal bank, moss on the stonework."
+        },
+        {
+          "id": "g07",
+          "prompt": "A workshop wall of labelled parts drawers, one pulled open."
+        },
+        {
+          "id": "g08",
+          "prompt": "Stacked pallets of boxed goods under a warehouse skylight."
+        },
+        {
+          "id": "g09",
+          "prompt": "A van interior fitted out with racking and tools, doors open."
+        },
+        {
+          "id": "g10",
+          "prompt": "An engineer's hands adjusting a valve with a spanner, close crop."
+        },
+        {
+          "id": "g11",
+          "prompt": "A quiet street of small shopfronts on a weekday morning."
+        },
+        {
+          "id": "g12",
+          "prompt": "A noticeboard of printed schedules in a staff corridor, no legible text."
+        }
+      ],
+      "format": "jpeg"
+    },
+    "logo": {
+      "provider": "gemini",
+      "size": "1024x1024",
+      "styleKey": "logo",
+      "purpose": "Wordmarks for the invented companies the demo copy names. Gemini renders lettering far more reliably than the alternatives, which is the whole reason this pool is split off.",
+      "images": [
+        {
+          "id": "brenner",
+          "prompt": "Wordmark reading exactly \"Brenner\" in a solid geometric sans, deep blue, with a small square mark to the left of the word."
+        },
+        {
+          "id": "molnar",
+          "prompt": "Wordmark reading exactly \"Molnár\" in a rounded sans, teal, with a small droplet mark above the a."
+        },
+        {
+          "id": "hafner",
+          "prompt": "Wordmark reading exactly \"Hafner\" in a condensed sans, warm grey, underlined by a thin rule."
+        },
+        {
+          "id": "steinbach",
+          "prompt": "Wordmark reading exactly \"Steinbach\" in a humanist sans, dark green, letters slightly spaced."
+        },
+        {
+          "id": "auer",
+          "prompt": "Wordmark reading exactly \"Auer\" in a heavy grotesque, black, with an orange dot after the word."
+        },
+        {
+          "id": "vogl",
+          "prompt": "Wordmark reading exactly \"Vogl\" in a light sans, navy, inside a thin rectangular outline."
+        },
+        {
+          "id": "talmann",
+          "prompt": "Wordmark reading exactly \"Talmann\" in a slab serif, oxblood red."
+        },
+        {
+          "id": "kirnbach",
+          "prompt": "Wordmark reading exactly \"Kirnbach\" in a technical sans, steel blue, with a small chevron before the word."
+        },
+        {
+          "id": "hollrigl",
+          "prompt": "Wordmark reading exactly \"Hollrigl\" in a classical serif, dark brown."
+        },
+        {
+          "id": "marbeck",
+          "prompt": "Wordmark reading exactly \"Marbeck\" in a wide sans, forest green, letters widely tracked."
+        },
+        {
+          "id": "ostheim",
+          "prompt": "Wordmark reading exactly \"Ostheim\" in a soft rounded sans, mustard yellow on white."
+        },
+        {
+          "id": "presswerk",
+          "prompt": "Wordmark reading exactly \"Presswerk\" in an industrial condensed sans, charcoal, with a thin frame."
+        }
+      ],
+      "format": "png"
+    }
+  }
+}
