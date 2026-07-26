@@ -153,3 +153,28 @@ hr {
 .grande-content > * + * {
   margin-block-start: 0;
 }
+
+/*
+ * Ink artwork — a signature, a stamp — is drawn in dark ink on transparency,
+ * and dark ink on a dark surface is nothing at all. An element's own stylesheet
+ * may only speak in tokens (no light-dark(), no scheme queries — the audit
+ * enforces it), so the flip lives here, where chrome CSS is allowed to ask what
+ * scheme is on screen, and the element just applies the token.
+ */
+:root {
+  --g-ink-filter: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --g-ink-filter: invert(1) brightness(1.35);
+  }
+}
+
+:root.light {
+  --g-ink-filter: none;
+}
+
+:root.dark {
+  --g-ink-filter: invert(1) brightness(1.35);
+}

@@ -40,6 +40,10 @@
   block-size: 4.5rem;
   inline-size: auto;
   max-inline-size: 100%;
+  /* A signature is dark ink on transparency, which vanishes on a dark surface.
+     The token is defined once in the chrome stylesheet, which is allowed to ask
+     what colour scheme is on screen; this file is not. */
+  filter: var(--g-ink-filter, none);
 }
 
 .g-leader-letter__credit {

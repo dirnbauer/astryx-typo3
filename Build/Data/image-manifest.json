@@ -18,7 +18,8 @@
   "style": {
     "shared": "Editorial photography for a business website. Natural light, muted colours, shallow depth of field, no text or logos anywhere in the frame, no watermarks. Documentary rather than staged stock: real work in progress, imperfect surfaces, unposed. 16:9 unless stated.",
     "portrait": "Head-and-shoulders portrait of a fictional person, natural window light, plain uncluttered background, neutral friendly expression, looking at the camera. Not a glamour shot; the register of a company's own staff page. Square crop.",
-    "logo": "A flat vector wordmark on a plain white background. One or two colours, no gradients, no photographic elements, generous margins. It must read as a small business's real mark, not as clip art."
+    "logo": "A flat vector wordmark on a plain white background. One or two colours, no gradients, no photographic elements, generous margins. It must read as a small business's real mark, not as clip art.",
+    "signature": "A handwritten signature in dark blue-black fountain-pen ink on a plain white background. Fluid cursive with natural pressure variation, the way a real person signs a letter rather than a font imitating one. Nothing else in the frame: no paper texture, no border, no printed name, no date."
   },
   "pools": {
     "scene": {
@@ -310,6 +311,38 @@
         }
       ],
       "format": "png"
+    },
+    "pair": {
+      "provider": "openai",
+      "size": "1536x1024",
+      "purpose": "The before/after band. Two pictures of ONE subject: the second is generated from the first through the edits endpoint, because two prompts describing the same shopfront produce two different shopfronts — which is exactly what this element must not show.",
+      "styleKey": "shared",
+      "format": "jpeg",
+      "images": [
+        {
+          "id": "refit-before",
+          "prompt": "A small independent bakery shopfront on a European side street, tired and overdue for work: faded paintwork, a sagging awning, a cluttered window, scuffed step. Flat grey overcast light. Photographed straight on from across the pavement, the whole shopfront in frame."
+        },
+        {
+          "id": "refit-after",
+          "reference": "refit-before",
+          "prompt": "Show this exact shopfront after a careful refit: repainted in a clean colour, new awning, clear glazing with a tidy window display, repaired step. Keep the same building, the same street, the same camera position and the same framing — only the condition changes."
+        }
+      ]
+    },
+    "signature": {
+      "provider": "openai",
+      "size": "1024x1024",
+      "purpose": "The signature under a signed letter. Generated on white and lifted to transparency afterwards — gpt-image-2 cannot render a transparent background — so it sits on any theme's surface colour.",
+      "styleKey": "signature",
+      "format": "png",
+      "images": [
+        {
+          "id": "signature-01",
+          "prompt": "The signature of a fictional woman named Helene Marchetti — a legible flowing hand with a confident closing stroke."
+        }
+      ],
+      "alphaFromWhite": true
     }
   }
 }

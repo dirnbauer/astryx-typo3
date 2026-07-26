@@ -61,6 +61,13 @@ for (const [poolName, pool] of Object.entries(manifest.pools)) {
       size: pool.size,
       format,
       id: image.id,
+      // A picture that has to be the SAME subject as another one cannot be
+      // prompted into existence twice — the second call would invent a
+      // different shop. It is generated FROM the first instead.
+      reference: image.reference ?? null,
+      // gpt-image-2 cannot render a transparent background, so anything that
+      // needs one is generated on white and has the white lifted afterwards.
+      alphaFromWhite: pool.alphaFromWhite === true,
       prompt: `${style}\n\n${image.prompt}`,
       file: path.join(OUT_ROOT, poolName, `${image.id}.${format === 'jpeg' ? 'jpg' : format}`),
     });
@@ -120,7 +127,42 @@ async function generateOpenAi(job) {
   const response = await fetch('https://api.openai.com/v1/images/generations', {
     method: 'POST',
     headers: {Authorization: `Bearer ${keys.openai}`, 'Content-Type': 'application/json'},
-    body: JSON.stringify({model: 'gpt-image-2', prompt: job.prompt, size: job.size, n: 1}),
+    body: JSON.stringify({
+      model: 'gpt-image-2',
+      prompt: job.prompt,
+      size: job.size,
+      n: 1,
+    }),
+  });
+  if (!response.ok) throw new Error(`${response.status} ${(await response.text()).slice(0, 200)}`);
+  const data = await response.json();
+  return Buffer.from(data.data[0].b64_json, 'base64');
+}
+
+/**
+ * Generate FROM an existing picture, so the result is the same subject.
+ *
+ * The generations endpoint cannot do this: two prompts describing one shopfront
+ * produce two different shopfronts, which is precisely what a before/after
+ * band must not show. The edits endpoint takes the first image as the subject
+ * and applies the change described in the prompt.
+ *
+ * @returns {Promise<Buffer>} the PNG bytes
+ */
+async function generateOpenAiFromReference(job, referenceFile) {
+  const form = new FormData();
+  form.append('model', 'gpt-image-2');
+  form.append('prompt', job.prompt);
+  form.append('size', job.size);
+  form.append('n', '1');
+  // An untyped Blob arrives as application/octet-stream and the API rejects it.
+  const mime = referenceFile.endsWith('.png') ? 'image/png' : 'image/jpeg';
+  form.append('image', new Blob([fs.readFileSync(referenceFile)], {type: mime}), path.basename(referenceFile));
+
+  const response = await fetch('https://api.openai.com/v1/images/edits', {
+    method: 'POST',
+    headers: {Authorization: `Bearer ${keys.openai}`},
+    body: form,
   });
   if (!response.ok) throw new Error(`${response.status} ${(await response.text()).slice(0, 200)}`);
   const data = await response.json();
@@ -152,6 +194,17 @@ async function generateGemini(job) {
  * what PNG is for, and JPEG rings around lettering.
  */
 function encode(bytes, job) {
+  if (job.alphaFromWhite) {
+    // Ink on white becomes ink on nothing: the fuzz swallows the paper and the
+    // antialiasing around the strokes, and the trim drops the empty margin so
+    // the signature sits tight in whatever box the template gives it.
+    return execFileSync(
+      'magick',
+      ['png:-', '-strip', '-fuzz', '12%', '-transparent', 'white', '-trim', '+repage', 'png:-'],
+      {input: bytes, maxBuffer: 64 * 1024 * 1024},
+    );
+  }
+
   const recipe = job.format === 'jpeg'
     ? ['png:-', '-strip', '-interlace', 'Plane', '-quality', '82', 'jpg:-']
     // A flat wordmark uses a handful of colours; leaving it as a full-depth PNG
@@ -168,7 +221,18 @@ const failed = [];
 for (const [index, job] of pending.entries()) {
   process.stdout.write(`[${index + 1}/${pending.length}] ${job.pool}/${job.id} … `);
   try {
-    const raw = job.provider === 'gemini' ? await generateGemini(job) : await generateOpenAi(job);
+    let raw;
+    if (job.reference) {
+      const referenceJob = jobs.find(candidate => candidate.id === job.reference);
+      if (!referenceJob || !fs.existsSync(referenceJob.file)) {
+        throw new Error(`reference "${job.reference}" has not been generated yet — run it first`);
+      }
+      raw = await generateOpenAiFromReference(job, referenceJob.file);
+    } else if (job.provider === 'gemini') {
+      raw = await generateGemini(job);
+    } else {
+      raw = await generateOpenAi(job);
+    }
     const bytes = encode(raw, job);
     fs.mkdirSync(path.dirname(job.file), {recursive: true});
     fs.writeFileSync(job.file, bytes);

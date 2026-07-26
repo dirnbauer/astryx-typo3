@@ -3,7 +3,18 @@
     "eyebrow": "Before and After Images",
     "header": "Two states of one subject under a single heading",
     "lead": "The band takes the first two files and gives each its own caption from the file's own metadata. Side by side is the default; the reveal variant stacks them and slides a boundary across.",
-    "images": [],
+    "images": [
+        {
+            "file": "EXT:desiderio_grande/Resources/Public/Images/pair/refit-before.jpg",
+            "alternative": "The bakery shopfront before the refit: faded paintwork and a sagging awning",
+            "title": "Before — March"
+        },
+        {
+            "file": "EXT:desiderio_grande/Resources/Public/Images/pair/refit-after.jpg",
+            "alternative": "The same shopfront after the refit: repainted, with a new awning and clear glazing",
+            "title": "After — September"
+        }
+    ],
     "caption": "Each picture takes its caption from the file's own title.",
     "note": "The reveal sits at the halfway line at rest, so both states are visible before anybody hovers. It falls back to two stacked pictures wherever the wipe cannot be drawn.",
     "variant": "side-by-side",
