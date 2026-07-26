@@ -131,18 +131,24 @@
   border-end-end-radius: var(--radius-element);
 }
 
+/* The hue tint, not --color-*-muted: the two families disagree about which of
+   them is the light one in dark mode (butter's red tint is light while its
+   error-muted is dark; stone is the other way round), so a single hue text
+   token cannot stay legible on both. Pairing each message with the same tint
+   its badge uses keeps one readable combination — and makes a field error and
+   an error badge look like the same thing, which they are. */
 .astryx-field-status.warning {
-  background-color: var(--color-warning-muted);
+  background-color: var(--color-background-yellow);
   color: var(--color-text-yellow);
 }
 
 .astryx-field-status.error {
-  background-color: var(--color-error-muted);
+  background-color: var(--color-background-red);
   color: var(--color-text-red);
 }
 
 .astryx-field-status.success {
-  background-color: var(--color-success-muted);
+  background-color: var(--color-background-green);
   color: var(--color-text-green);
 }
 

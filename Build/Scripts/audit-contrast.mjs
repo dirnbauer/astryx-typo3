@@ -23,102 +23,17 @@
  *   node Build/Scripts/audit-contrast.mjs --all     also list the passes
  */
 
-import * as fs from 'node:fs';
-import * as path from 'node:path';
-import {fileURLToPath} from 'node:url';
-
-const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
-const CSS = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
-
-const THEMES = ['neutral', 'butter', 'chocolate', 'matcha', 'stone', 'gothic', 'y2k'];
-const HUES = ['red', 'orange', 'yellow', 'green', 'teal', 'cyan', 'blue', 'purple', 'pink'];
+import {
+  THEMES, HUES,
+  composite, contrast,
+  loadTokens,
+} from './lib/theme-tokens.mjs';
 
 const showAll = process.argv.includes('--all');
 
-// ---------------------------------------------------------------- colour
-
-/** @returns {[number, number, number, number]|null} r,g,b 0-255 and alpha 0-1 */
-function parseColor(value) {
-  const input = value.trim();
-
-  const hex = input.match(/^#([0-9a-f]{3,8})$/i);
-  if (hex) {
-    let h = hex[1];
-    if (h.length === 3 || h.length === 4) h = [...h].map(c => c + c).join('');
-    const n = p => parseInt(h.slice(p, p + 2), 16);
-    return [n(0), n(2), n(4), h.length === 8 ? n(6) / 255 : 1];
-  }
-
-  const rgb = input.match(/^rgba?\(([^)]+)\)$/i);
-  if (rgb) {
-    const parts = rgb[1].split(/[,/]/).map(p => p.trim());
-    const channel = p => (p.endsWith('%') ? Math.round(parseFloat(p) * 2.55) : parseFloat(p));
-    return [channel(parts[0]), channel(parts[1]), channel(parts[2]), parts[3] === undefined ? 1 : parseFloat(parts[3])];
-  }
-
-  return null;
-}
-
-/** Paint a possibly translucent colour onto an opaque one. */
-function composite(fg, bg) {
-  if (fg[3] >= 1) return fg;
-  return [0, 1, 2].map(i => Math.round(fg[i] * fg[3] + bg[i] * (1 - fg[3]))).concat(1);
-}
-
-function luminance([r, g, b]) {
-  const channel = v => {
-    const s = v / 255;
-    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
-  };
-  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-}
-
-function contrast(fg, bg) {
-  const a = luminance(fg);
-  const b = luminance(bg);
-  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
-}
-
-// ------------------------------------------------------------ the tokens
-
-const css = fs.readFileSync(CSS, 'utf8');
-
-/** @returns {Record<string,string>} token => raw value, from the first matching block */
-function blockTokens(selectorPattern) {
-  const match = css.match(selectorPattern);
-  if (!match) return {};
-  const out = {};
-  for (const [, name, value] of match[1].matchAll(/(--[a-z0-9-]+)\s*:\s*([^;]+);/g)) {
-    out[name] = value.trim();
-  }
-  return out;
-}
-
-const base = blockTokens(/:root\s*\{([\s\S]*?)\n\s*\}/);
-const themeTokens = {};
-for (const theme of THEMES) {
-  const pattern = new RegExp(`\\[data-astryx-theme="${theme}"\\]\\s*\\{([\\s\\S]*?)\\n\\s*\\}`);
-  themeTokens[theme] = {...base, ...blockTokens(pattern)};
-}
-
-/** Resolve a token for one theme and scheme, following var() and light-dark(). */
-function resolve(theme, name, scheme, seen = new Set()) {
-  if (seen.has(name)) return null;
-  seen.add(name);
-
-  let value = themeTokens[theme][name];
-  if (!value) return null;
-
-  const ref = value.match(/^var\(\s*(--[a-z0-9-]+)\s*(?:,\s*([^)]+))?\)$/);
-  if (ref) {
-    return resolve(theme, ref[1], scheme, seen) ?? (ref[2] ? parseColor(ref[2]) : null);
-  }
-
-  const pair = value.match(/^light-dark\(\s*([^,]+),\s*(.+)\s*\)$/);
-  if (pair) value = (scheme === 'dark' ? pair[2] : pair[1]).trim();
-
-  return parseColor(value);
-}
+// The corrections are part of what ships, so the audit reads them too:
+// measuring the generated theme alone would report a state the site never has.
+const {resolve} = loadTokens({withOverrides: true});
 
 // ------------------------------------------------------------- the pairs
 
@@ -142,18 +57,17 @@ function pairs(scheme) {
     ['primary button label', '--color-on-accent', '--color-accent', 4.5],
     ['popover text', '--color-text-primary', '--color-background-popover', 4.5],
 
-    // An inverted surface flips with the scheme: it is dark on a light page and
-    // light on a dark one, so the text on it flips too. Pairing it with
-    // --color-on-dark in both schemes measures white on near-white and reports
-    // a failure that no component would ever render.
-    ['text on inverted', scheme === 'dark' ? '--color-on-light' : '--color-on-dark', '--color-background-inverted', 4.5],
-
-    // Status colours are never text on the page canvas — every component that
-    // uses them puts them on the matching muted tint. Measuring them against
-    // the body background asks a question the CSS never poses.
-    ['success on its tint', '--color-success', '--color-success-muted', 4.5],
-    ['warning on its tint', '--color-warning', '--color-warning-muted', 4.5],
-    ['error on its tint', '--color-error', '--color-error-muted', 4.5],
+    // Every pair below is one a stylesheet actually declares. The toast paints
+    // --color-background-surface on the inverted surface (08-overlay.css), and
+    // the field status messages paint the hue TEXT token on the status tint
+    // (05-forms.css) — not the bare --color-success/warning/error, which the
+    // themes deliberately set equal to their own tint in several palettes and
+    // which nothing renders as text.
+    ['toast text', '--color-background-surface', '--color-background-inverted', 4.5],
+    ['toast error text', '--color-on-error', '--color-background-error-inverted', 4.5],
+    ['field success message', '--color-text-green', '--color-background-green', 4.5],
+    ['field warning message', '--color-text-yellow', '--color-background-yellow', 4.5],
+    ['field error message', '--color-text-red', '--color-background-red', 4.5],
 
     // 1.4.11: a boundary or a focus ring is a graphical object, not text.
     ['focus ring on page', '--color-accent', '--color-background-body', 3],

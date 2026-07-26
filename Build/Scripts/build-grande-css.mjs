@@ -39,6 +39,20 @@ const BUNDLES = [
  */
 const UNLAYERED = new Set(['00-fonts.css']);
 
+/**
+ * Partials that belong in a different layer than their bundle's default.
+ *
+ * The contrast corrections restate theme tokens, so they have to sit in
+ * astryx-theme: that layer is declared last and therefore beats every other,
+ * and a correction emitted into astryx-chrome would be silently overruled by
+ * the very theme block it is meant to correct. Within the layer, source order
+ * decides, and grande.css is included after astryx-theme.css — so the
+ * correction wins.
+ */
+const LAYER_OVERRIDES = new Map([
+  ['07-contrast-overrides.css', 'astryx-theme'],
+]);
+
 function minifyCss(css) {
   return css
     .replace(/\/\*[\s\S]*?\*\//g, '')
@@ -67,7 +81,7 @@ for (const bundle of BUNDLES) {
     .filter(line => line !== '' && !line.startsWith('#'));
 
   const unlayered = [];
-  const layered = [];
+  const byLayer = new Map();
 
   for (const entry of entries) {
     const filePath = path.join(sourceDir, entry);
@@ -78,12 +92,19 @@ for (const bundle of BUNDLES) {
     }
     const css = minifyCss(fs.readFileSync(filePath, 'utf8'));
     if (css === '') continue;
-    (UNLAYERED.has(entry) ? unlayered : layered).push(css);
+
+    if (UNLAYERED.has(entry)) {
+      unlayered.push(css);
+      continue;
+    }
+    const layer = LAYER_OVERRIDES.get(entry) ?? bundle.layer;
+    if (!byLayer.has(layer)) byLayer.set(layer, []);
+    byLayer.get(layer).push(css);
   }
 
   const parts = [...unlayered];
-  if (layered.length > 0) {
-    parts.push(`@layer ${bundle.layer}{${layered.join('')}}`);
+  for (const [layer, chunks] of byLayer) {
+    parts.push(`@layer ${layer}{${chunks.join('')}}`);
   }
 
   const output = path.join(EXT_ROOT, 'Resources/Public/Css', bundle.name);
