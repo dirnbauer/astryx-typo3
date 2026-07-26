@@ -373,7 +373,8 @@ final class GrandeSiteDefinitions
             ],
             'privacy' => [
                 'header' => 'What this site stores, and what it does not',
-                'bodytext' => '<p>This demonstration site sets no tracking cookies and embeds no third-party services. Fonts are served from this domain, so visiting a page makes no request to anyone else.</p>'
+                'bodytext' => '<p>This demonstration site sets no tracking cookies of its own, and fonts are served from this domain, so an ordinary page makes no request to anyone else.</p>'
+                    . '<p>The exception is video. The chapters that demonstrate the video elements embed a recording from YouTube through its privacy-enhanced <em>youtube-nocookie.com</em> address, which sets no tracking cookies until the film is actually played. Two of those elements only fetch the player when you press play — a closed dialog never loads its iframe — while the plain embed loads it with the page.</p>'
                     . '<p>The one thing stored in your browser is the light/dark preference you pick with the toggle in the header. It never leaves your device, and clearing your site data removes it.</p>'
                     . '<p>A production site replaces this page with a privacy notice describing what it actually processes.</p>',
             ],
