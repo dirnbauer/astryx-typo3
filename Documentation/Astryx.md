@@ -65,11 +65,11 @@ editor, this is the whole chapter.
 ### Choosing a theme
 
 The theme is a setting, and changing it repaints the site. No rebuild, no
-re-save of content — the tokens for all twenty themes are already on the page,
+re-save of content — the tokens for all twenty-five themes are already on the page,
 and the site just declares which one applies.
 
 - **Per site:** `desiderioGrande.theme.default` in the site's `settings.yaml`,
-  one of the twenty names below.
+  one of the twenty-five names below.
 - **Per page and everything below it:** the *Astryx theme* field in the page
   properties (Appearance tab). It inherits down the page tree, so one setting on
   a campaign folder themes the whole campaign.
@@ -125,11 +125,11 @@ time upstream nudged a value; generated output cannot, and regenerating is one
 command.
 
 Themes are scoped to `[data-astryx-theme="<name>"]` rather than to `<body>`.
-That is why the *Themes* overview page can render all twenty side by side on one
+That is why the *Themes* overview page can render all twenty-five side by side on one
 page, each card genuinely wearing its own theme rather than showing a
 screenshot.
 
-### 3.1a Seven themes are Astryx's. Thirteen are ours.
+### 3.1a Seven themes are Astryx's. Eighteen are ours.
 
 Astryx ships **seven** themes and no more — `neutral`, `butter`, `chocolate`,
 `matcha`, `stone`, `gothic`, `y2k` — which you can verify yourself:
@@ -138,8 +138,11 @@ Astryx ships **seven** themes and no more — `neutral`, `butter`, `chocolate`,
 gh api repos/facebook/astryx/contents/packages/themes --jq '.[].name'
 ```
 
-This extension adds **thirteen**: `harbour`, `ember`, `linen`, `orchid`,
-`cobalt`, `moss`, `clay`, `plum`, `sand`, `ink`, `lagoon`, `rose`, `graphite`.
+This extension adds **eighteen**: `harbour`, `ember`, `linen`, `orchid`,
+`cobalt`, `moss`, `clay`, `plum`, `sand`, `ink`, `lagoon`, `rose`, `graphite`,
+`frost`, `latte`, `solar`, `retro`, `midnight`. The last five adapt palettes
+published by other open-source projects under the MIT licence — Nord,
+Catppuccin, Solarized, Gruvbox and Tokyo Night — and each says so on its card.
 They are ours, not Meta's, and the theme overview badges every card so nobody
 has to guess which is which.
 
@@ -161,7 +164,7 @@ A seed names only what is genuinely a brand decision:
 Everything else is **inherited from neutral**: the nine categorical hue ramps,
 the status colours and the syntax palette are semantic categories rather than
 brand decisions, and inheriting them means they keep the contrast behaviour the
-audit already verified instead of giving us thirteen fresh chances to make a
+audit already verified instead of giving us eighteen fresh chances to make a
 badge unreadable.
 
 Fonts must come from the ten families `sync-fonts.mjs` already self-hosts. A
@@ -223,11 +226,11 @@ php scripts/audit-content-elements.php     # 250 elements, 0 findings
 
 This is what makes the theme switch total rather than approximate. An element
 that hardcoded `#333` would survive every review and then quietly stay dark grey
-in all twenty themes.
+in all twenty-five themes.
 
 ### 3.4 Accessibility is measured, and the build refuses to finish without it
 
-`Build/Scripts/audit-contrast.mjs` measures **1,200 colour pairs** — twenty themes
+`Build/Scripts/audit-contrast.mjs` measures **1,500 colour pairs** — twenty-five themes
 × light and dark — against WCAG 2.2 AA: 4.5:1 for body text, 3:1 for
 boundaries, focus rings and meaningful graphics.
 

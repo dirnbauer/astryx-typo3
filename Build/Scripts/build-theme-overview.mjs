@@ -65,7 +65,7 @@ const rows = THEMES.map(theme => {
 });
 
 /** One live sample per theme: real tokens, real fonts, real components. */
-const cards = rows.map(r => `
+const cardFor = r => `
         <article class="g-themes__card" data-astryx-theme="${r.id}">
             <header class="g-themes__card-head">
                 <h3 class="astryx-heading level-3">
@@ -99,7 +99,12 @@ const cards = rows.map(r => `
                 <dt>Corners</dt><dd>${escape(r.radius)}</dd>
                 <dt>Best for</dt><dd>${escape(r.use)}</dd>
             </dl>
-        </article>`).join('');
+        </article>`;
+
+const astryxRows = rows.filter(r => r.family === 'astryx');
+const ourRows = rows.filter(r => r.family === 'webconsulting');
+const astryxCards = astryxRows.map(cardFor).join('');
+const ourCards = ourRows.map(cardFor).join('');
 
 const tableRows = rows.map(r => `
                     <tr>
@@ -134,14 +139,45 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" da
 <section class="astryx-section g-themes">
     <div class="astryx-layout">
         <p class="astryx-eyebrow">Themes</p>
-        <h2 class="astryx-heading level-1">Seven themes, one set of content</h2>
+        <h2 class="astryx-heading level-1">${rows.length} themes, one set of content</h2>
         <p class="astryx-text large g-themes__lead">
             Every card below is rendered live in its own theme — the same components,
             the same markup, only different tokens. Switching a theme repaints the site;
             it never touches a word of content. Pick one per site, or per page.
         </p>
+    </div>
+</section>
 
-        <div class="g-themes__grid">${cards}
+<section class="astryx-section g-themes">
+    <div class="astryx-layout">
+        <p class="astryx-eyebrow">From Astryx</p>
+        <h2 class="astryx-heading level-2">The ${astryxRows.length} Meta ships</h2>
+        <p class="astryx-text body g-themes__lead">
+            These are Astryx's own themes, token for token: the values come from
+            upstream's theme compiler rather than from anyone's eye. Astryx has
+            seven and no more.
+        </p>
+
+        <div class="g-themes__grid">${astryxCards}
+        </div>
+    </div>
+</section>
+
+<section class="astryx-section g-themes surface">
+    <div class="astryx-layout">
+        <p class="astryx-eyebrow">From webconsulting</p>
+        <h2 class="astryx-heading level-2">${ourRows.length} more, built on the same contract</h2>
+        <p class="astryx-text body g-themes__lead">
+            Ours, not Meta's. Each is expanded into exactly the structure Astryx's
+            own generator emits and carries the same token names, so no component
+            can tell the difference — and each passes the same WCAG 2.2 AA audit
+            as the ones above. What they are not is Astryx's work, which is why
+            they are on their own shelf. Five of them adapt palettes published by
+            other open-source projects under the MIT licence — Nord, Catppuccin,
+            Solarized, Gruvbox and Tokyo Night — and say so on their card.
+        </p>
+
+        <div class="g-themes__grid">${ourCards}
         </div>
     </div>
 </section>
