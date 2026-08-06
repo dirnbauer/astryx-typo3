@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-checklist
-typeName: desiderio_grande_herochecklist
+name: astryx-typo3/hero-checklist
+typeName: astryx_typo3_herochecklist
 title: 'Hero with Benefit Bullets'
 description: 'Renders the opening claim with three or four ticked one-line benefits beside or beneath it, each with its own icon, and the action after them. Use it for: comparison landing pages, paid-campaign pages, B2B offers where the reader wants the shortlist before scrolling, tender and grant pages. Prefer ''Hero with Metrics'' when the proof is numeric, and ''Split Media Hero'' when a screenshot says it faster than three ticked lines.'
 group: hero
@@ -92,7 +92,7 @@ fields:
   -
     identifier: bullets
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

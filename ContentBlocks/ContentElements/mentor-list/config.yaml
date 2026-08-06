@@ -1,5 +1,5 @@
-name: desiderio-grande/mentor-list
-typeName: desiderio_grande_mentorlist
+name: astryx-typo3/mentor-list
+typeName: astryx_typo3_mentorlist
 title: 'Mentor List'
 description: 'Renders available mentors with the subjects they cover and a way to request a session with each. Use it for: an accelerator''s mentor pool, an association''s expert directory, a coaching programme where readers pick a person. Prefer ''Advisory Board'' when the people advise the organisation instead of its members, and ''Team Grid'' when nobody is meant to book anything.'
 group: team
@@ -93,7 +93,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

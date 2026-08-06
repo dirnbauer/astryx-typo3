@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-plan-change
-typeName: desiderio_grande_pricingplanchange
+name: astryx-typo3/pricing-plan-change
+typeName: astryx_typo3_pricingplanchange
 title: 'Plan Change Explainer'
 description: 'Renders the rules of moving between plans as questions and answers: upgrading mid-term, downgrading, what happens to data on cancellation, when a refund is due, how notice periods work. Use it for: the band under a tier row, a billing help page, the section a support team links to twice a day. Prefer ''Pricing FAQ'' for the wider set of money questions, and ''Guarantee Band'' when the promise is one sentence worth saying loudly.'
 group: pricing
@@ -71,7 +71,7 @@ fields:
   -
     identifier: rules
     type: Collection
-    foreign_table: desiderio_grande_qa_item
+    foreign_table: astryx_typo3_qa_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -39,7 +39,7 @@
                         <f:if condition="{row.included}">
                             <f:then>{row -> f:render.text(field: 'value')}</f:then>
                             <f:else>
-                                <span class="g-footer-opening-hours__state"><f:translate key="LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-opening-hours/language/labels.xlf:row.closed" default="Closed"/></span>
+                                <span class="g-footer-opening-hours__state"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-opening-hours/language/labels.xlf:row.closed" default="Closed"/></span>
                                 <f:if condition="{row.value}">
                                     <s class="g-footer-opening-hours__struck">{row.value}</s>
                                 </f:if>

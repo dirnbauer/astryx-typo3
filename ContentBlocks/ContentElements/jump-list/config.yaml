@@ -1,5 +1,5 @@
-name: desiderio-grande/jump-list
-typeName: desiderio_grande_jumplist
+name: astryx-typo3/jump-list
+typeName: astryx_typo3_jumplist
 title: 'Jump List'
 description: 'Renders a short inline run of links to points further down the page, sitting exactly where it is placed and scrolling away with the text around it. Use it for: a mid-article skip to the answer, the three parts of a form named above it, jumps into a long table, a shortcut past a legal preamble. Prefer ''Article Contents'' for a boxed list of every section, and ''Anchor Bar'' when the links should follow the reader down the page.'
 group: navigation
@@ -52,7 +52,7 @@ fields:
   -
     identifier: targets
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

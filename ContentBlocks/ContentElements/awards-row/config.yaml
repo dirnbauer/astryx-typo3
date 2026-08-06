@@ -1,5 +1,5 @@
-name: desiderio-grande/awards-row
-typeName: desiderio_grande_awardsrow
+name: astryx-typo3/awards-row
+typeName: astryx_typo3_awardsrow
 title: 'Awards Row'
 description: 'Renders award emblems in a row with the name of the prize and the year beneath each. Use it for: prizes won, rankings and listings, a jury result on an agency profile. Prefer ''Certification Row'' for audited standards and compliance seals, which promise an ongoing state rather than a one-off win, and ''Trust Signals Strip'' for plain service promises with no issuing body behind them.'
 group: social-proof
@@ -81,7 +81,7 @@ fields:
   -
     identifier: awards
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

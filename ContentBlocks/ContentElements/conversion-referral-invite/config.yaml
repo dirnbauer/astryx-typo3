@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-referral-invite
-typeName: desiderio_grande_conversionreferralinvite
+name: astryx-typo3/conversion-referral-invite
+typeName: astryx_typo3_conversionreferralinvite
 title: 'Referral Invite Band'
 description: 'Renders how a recommendation works in three steps — you invite, they join, both sides get something — with the reward stated and the button that starts it. Use it for: a customer referral programme, a member-gets-member offer, a partner introduction scheme, an affiliate invitation. Prefer ''Community Join Band'' when nothing is being rewarded, and ''CTA with Trust Row'' when the point is that others have already bought rather than that they should recruit.'
 group: conversion
@@ -93,7 +93,7 @@ fields:
   -
     identifier: steps
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

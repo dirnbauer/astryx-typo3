@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-seat-bands
-typeName: desiderio_grande_pricingseatbands
+name: astryx-typo3/pricing-seat-bands
+typeName: astryx_typo3_pricingseatbands
 title: 'Seat Price Bands'
 description: 'Renders a volume ladder: each row a seat range, the price per seat inside that range, and a note. The entry price and its period sit above the ladder so a reader sees where it starts before they see where it falls. Use it for: per-user SaaS pricing, licence packs that get cheaper in bulk, team plans with a minimum seat count, classroom licences. Prefer ''Licence Tiers'' for named editions rather than quantities, and ''Usage Rate Table'' when what is counted is consumption rather than people.'
 group: pricing
@@ -71,7 +71,7 @@ fields:
   -
     identifier: bands
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

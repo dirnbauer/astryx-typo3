@@ -11,7 +11,7 @@
 /* One full-width band. --section-gap is the knob an element reaches for when
    it needs more or less air than the page default. */
 .astryx-section {
-  --section-gap: var(--grande-band);
+  --section-gap: var(--astryx-band);
   display: block;
   padding-block: var(--section-gap);
   background-color: var(--color-background-body);
@@ -49,7 +49,7 @@
 }
 
 .astryx-section.tight {
-  --section-gap: var(--grande-band-tight);
+  --section-gap: var(--astryx-band-tight);
 }
 
 .astryx-section.flush {
@@ -65,7 +65,7 @@
 /* Horizontal container. Width comes from the size tokens so every element on
    a page lines up on the same gutters. */
 .astryx-layout {
-  --layout-max: var(--grande-container);
+  --layout-max: var(--astryx-container);
   width: 100%;
   max-width: var(--layout-max);
   margin-inline: auto;

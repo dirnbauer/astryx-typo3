@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-legal-links
-typeName: desiderio_grande_footerlegallinks
+name: astryx-typo3/footer-legal-links
+typeName: astryx_typo3_footerlegallinks
 title: 'Legal Links Bar'
 description: 'Renders imprint, privacy, terms and accessibility links as a single line separated by rules, wrapping on narrow screens. Use it for: the legal line at the end of a landing page that has no template footer, a microsite, a campaign page in its own layout. Prefer ''Copyright Bar'' when a copyright line is the whole content, and ''Imprint Summary'' when the operator details themselves must be shown.'
 group: footer
@@ -81,7 +81,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

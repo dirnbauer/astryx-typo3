@@ -1,5 +1,5 @@
-name: desiderio-grande/person-interview
-typeName: desiderio_grande_personinterview
+name: astryx-typo3/person-interview
+typeName: astryx_typo3_personinterview
 title: 'Interview'
 description: 'Renders a conversation with one person as question and answer pairs, introduced by their portrait, name and role. Use it for: a magazine-style piece on an internal blog, a developer talking about a rewrite, a new hire introducing themselves. Prefer ''Person with Quote'' when one sentence is enough, and ''Person Profile'' when the text is a biography rather than a conversation.'
 group: team
@@ -79,7 +79,7 @@ fields:
   -
     identifier: questions
     type: Collection
-    foreign_table: desiderio_grande_qa_item
+    foreign_table: astryx_typo3_qa_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

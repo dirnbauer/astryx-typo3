@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-versus
-typeName: desiderio_grande_featureversus
+name: astryx-typo3/feature-versus
+typeName: astryx_typo3_featureversus
 title: 'Us vs the Status Quo'
 description: 'Renders two aligned columns — the old way on one side, your way on the other — with one row per point, so the contrast reads line by line instead of paragraph by paragraph. Use it for: replacing-a-spreadsheet arguments, migration pages, category-creation copy, sales pages aimed at a reader who already has a solution. Prefer ''Included Checklist'' when there is nothing to compare against, and ''Spec Sheet'' when both columns would be numbers rather than sentences.'
 group: features
@@ -76,7 +76,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

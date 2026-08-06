@@ -1,5 +1,5 @@
-name: desiderio-grande/link-grid
-typeName: desiderio_grande_linkgrid
+name: astryx-typo3/link-grid
+typeName: astryx_typo3_linkgrid
 title: 'Link Grid'
 description: 'Renders many bare links as a dense grid of labels, with no descriptions and no cards around them. Use it for: a list of locations, an index of tags, every country or language a site serves, all the forms of one document type, the sub-brands of a group. Prefer ''Page List Menu'' when each link needs a line of explanation, and ''Category Chips'' when the labels are a taxonomy the reader filters by rather than pages to open.'
 group: navigation
@@ -79,7 +79,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

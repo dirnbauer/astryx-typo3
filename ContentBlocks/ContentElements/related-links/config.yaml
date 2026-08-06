@@ -1,5 +1,5 @@
-name: desiderio-grande/related-links
-typeName: desiderio_grande_relatedlinks
+name: astryx-typo3/related-links
+typeName: astryx_typo3_relatedlinks
 title: 'Related Links'
 description: 'Renders a short set of further pages worth reading, each with its title and a line of context, side by side. Use it for: the foot of an article, a support answer pointing at neighbouring answers, a product page linking to its case studies, a topic page gathering its background pieces. Prefer ''Up Next'' when one suggestion should dominate the others, and ''External Resources'' when the links leave the site.'
 group: navigation
@@ -74,7 +74,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

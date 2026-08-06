@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-sticky-list
-typeName: desiderio_grande_featurestickylist
+name: astryx-typo3/feature-sticky-list
+typeName: astryx_typo3_featurestickylist
 title: 'Sticky Intro with Feature List'
 description: 'Renders the band intro in one column that stays put while a long list of entries scrolls past it in the other. Use it for: dense capability pages, platform overviews with a dozen entries, documentation-style marketing pages, security and compliance inventories, long service catalogues. Prefer ''Benefit List'' when the intro should scroll away with the content, and ''Capability Tabs'' when the list is better cut into a handful of named groups.'
 group: features
@@ -77,7 +77,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

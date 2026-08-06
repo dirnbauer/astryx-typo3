@@ -1,5 +1,5 @@
-name: desiderio-grande/downloads-list
-typeName: desiderio_grande_downloadslist
+name: astryx-typo3/downloads-list
+typeName: astryx_typo3_downloadslist
 title: 'Downloads'
 description: 'Renders a list of files to take away, each row showing an icon for the file type, a title, a line of context and the size. Use it for: forms on a service page, a press kit, slides after a talk, terms and conditions as PDF, an annual report and its appendices. Prefer ''Footnotes'' for sources that are not files, and ''Link Grid'' when the targets are pages on the site rather than documents.'
 group: content
@@ -79,7 +79,7 @@ fields:
   -
     identifier: files
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

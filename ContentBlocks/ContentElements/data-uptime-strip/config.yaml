@@ -1,5 +1,5 @@
-name: desiderio-grande/data-uptime-strip
-typeName: desiderio_grande_datauptimestrip
+name: astryx-typo3/data-uptime-strip
+typeName: astryx_typo3_datauptimestrip
 title: 'Uptime Strip'
 description: 'Renders one tick per period in a row, each filled to the percentage typed on it, under a headline availability figure. Use it for: a published availability record per month, service quality reported in an SLA appendix, opening reliability per week. Prefer ''Status List'' when today''s state is the message, and ''Trend Strip'' when the values are counts rather than availability shares.'
 group: data
@@ -83,7 +83,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

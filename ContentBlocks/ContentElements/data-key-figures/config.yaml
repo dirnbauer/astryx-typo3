@@ -1,5 +1,5 @@
-name: desiderio-grande/data-key-figures
-typeName: desiderio_grande_datakeyfigures
+name: astryx-typo3/data-key-figures
+typeName: astryx_typo3_datakeyfigures
 title: 'Key Figures Band'
 description: 'Renders a heading with an introductory paragraph on one side and a column or grid of figures on the other, so the numbers arrive with an argument. Use it for: the results section of an annual report, an about page opening on the company in numbers, a proof band under a claim. Prefer ''Counter Band'' when the figures should stand alone, and ''KPI Card Row'' when each one belongs in its own card.'
 group: data
@@ -103,7 +103,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

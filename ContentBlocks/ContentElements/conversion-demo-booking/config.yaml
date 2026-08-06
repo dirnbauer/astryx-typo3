@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-demo-booking
-typeName: desiderio_grande_conversiondemobooking
+name: astryx-typo3/conversion-demo-booking
+typeName: astryx_typo3_conversiondemobooking
 title: 'Demo Booking Band'
 description: 'Renders the pitch for a live demonstration: how long it lasts, who runs it, what gets shown, whether it is recorded, and the button that opens the calendar. Use it for: B2B software pages, an implementation service, a machinery product page, a pre-sales landing page, a tender shortlist page. Prefer ''Callback Request Band'' when no appointment is needed, and ''Trial Signup Band'' when the reader would rather try the thing than watch someone use it.'
 group: conversion
@@ -94,7 +94,7 @@ fields:
   -
     identifier: agenda
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

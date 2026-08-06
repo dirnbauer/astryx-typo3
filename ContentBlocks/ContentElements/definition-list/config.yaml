@@ -1,5 +1,5 @@
-name: desiderio-grande/definition-list
-typeName: desiderio_grande_definitionlist
+name: astryx-typo3/definition-list
+typeName: astryx_typo3_definitionlist
 title: 'Definition List'
 description: 'Renders term and description pairs in two columns, one pair per row, ruled between so the eye can run down either side. Use it for: a glossary, technical specifications, the facts under a record, opening hours, key data on a profile page. Prefer ''Accordion'' when the descriptions are long enough to be worth hiding, and ''Pros and Cons'' when the rows split into two opposed lists rather than pairs.'
 group: content
@@ -74,7 +74,7 @@ fields:
   -
     identifier: entries
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

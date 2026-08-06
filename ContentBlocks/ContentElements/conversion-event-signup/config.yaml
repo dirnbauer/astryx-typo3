@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-event-signup
-typeName: desiderio_grande_conversioneventsignup
+name: astryx-typo3/conversion-event-signup
+typeName: astryx_typo3_conversioneventsignup
 title: 'Event Registration Band'
 description: 'Renders an event''s facts as a short specification — date, time, place, price, language, capacity — beside a picture, with the registration button underneath. Use it for: a workshop, a webinar, a conference day, an open evening, a training course, an annual general meeting. Prefer ''Waitlist Band'' when the date is not fixed yet, and ''Demo Booking Band'' when the appointment is one-to-one rather than a public event.'
 group: conversion
@@ -100,7 +100,7 @@ fields:
   -
     identifier: facts
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

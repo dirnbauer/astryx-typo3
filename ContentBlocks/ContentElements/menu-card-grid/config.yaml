@@ -1,5 +1,5 @@
-name: desiderio-grande/menu-card-grid
-typeName: desiderio_grande_menucardgrid
+name: astryx-typo3/menu-card-grid
+typeName: astryx_typo3_menucardgrid
 title: 'Page Card Menu'
 description: 'Renders a set of destinations as a grid of cards, each with an icon, its title and a line explaining what is behind it. Use it for: the landing page of a section, a service overview, a topic hub, the entry point into a documentation area, a choice between four or five routes. Prefer ''Page List Menu'' when there are more than a dozen destinations, and ''Link Grid'' when the titles alone say enough without a card around them.'
 group: navigation
@@ -79,7 +79,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

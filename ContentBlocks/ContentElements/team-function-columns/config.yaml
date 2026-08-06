@@ -1,5 +1,5 @@
-name: desiderio-grande/team-function-columns
-typeName: desiderio_grande_teamfunctioncolumns
+name: astryx-typo3/team-function-columns
+typeName: astryx_typo3_teamfunctioncolumns
 title: 'Team by Function'
 description: 'Renders one grid whose people are grouped into columns headed by their function, names listed under each heading without portraits. Use it for: a large agency showing its disciplines, a production credits panel, an institute listing who does what. Prefer ''Departments'' when each group needs its own band, description and tone, and ''Team Directory'' when a single flat list of rows is easier to search.'
 group: team
@@ -84,7 +84,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

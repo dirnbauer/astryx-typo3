@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-page-meta
-typeName: desiderio_grande_footerpagemeta
+name: astryx-typo3/footer-page-meta
+typeName: astryx_typo3_footerpagemeta
 title: 'Page Meta Line'
 description: 'Renders the housekeeping facts about a page as label and value pairs: when it was last reviewed, which version it is, who is responsible. Use it for: the foot of a documentation page, a policy document, a public authority page with a review duty, a technical guideline. Prefer ''Credits and Photo Notices'' when the subject is image rights, and ''Imprint Summary'' when the operator details are required.'
 group: footer
@@ -81,7 +81,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

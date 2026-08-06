@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-checklist
-typeName: desiderio_grande_featurechecklist
+name: astryx-typo3/feature-checklist
+typeName: astryx_typo3_featurechecklist
 title: 'Included Checklist'
 description: 'Renders a dense two-column checklist where every row is a ticked or crossed line with an optional short qualifier at the end. Use it for: ''everything included'' bands, scope-of-work summaries, package contents, requirement lists on tender and grant pages, delivery inclusions. Prefer ''Spec Sheet'' when each row carries a measured value rather than a yes or no, and ''Us vs the Status Quo'' when the ticks only mean something next to somebody else''s crosses.'
 group: features
@@ -89,7 +89,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

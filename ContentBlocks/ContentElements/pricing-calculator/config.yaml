@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-calculator
-typeName: desiderio_grande_pricingcalculator
+name: astryx-typo3/pricing-calculator
+typeName: astryx_typo3_pricingcalculator
 title: 'Cost Calculator Sheet'
 description: 'Renders the inputs of a price calculation as a readable sheet: one row per thing that is counted, the rate that applies to it, and a note on how to count it, with the formula written out underneath. It calculates nothing — it teaches a reader to calculate. Use it for: a rate sheet a salesperson walks through, a printed offer, an estimate worksheet, a budgeting page. Prefer ''Usage Rate Table'' when only the rates matter, and ''Quote Request Panel'' when the reader should not be doing arithmetic at all.'
 group: pricing
@@ -82,7 +82,7 @@ fields:
   -
     identifier: inputs
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webconsulting\DesiderioGrande\ViewHelpers;
+namespace Webconsulting\AstryxTypo3\ViewHelpers;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use Webconsulting\Desiderio\Icon\IconRegistry;

@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-enterprise-panel
-typeName: desiderio_grande_pricingenterprisepanel
+name: astryx-typo3/pricing-enterprise-panel
+typeName: astryx_typo3_pricingenterprisepanel
 title: 'Enterprise Panel'
 description: 'Renders the tier that has no number: a panel saying what large customers get — security review, single sign-on, a named contact, custom terms, an invoice on account — and asking them to start a conversation instead of a checkout. Use it for: the fourth box beside three priced tiers, the foot of a plans page, a public-sector landing page. Prefer ''Plan Card'' when the price is public, and ''Quote Request Panel'' when the ask is a written estimate rather than a meeting.'
 group: pricing
@@ -102,7 +102,7 @@ fields:
   -
     identifier: capabilities
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

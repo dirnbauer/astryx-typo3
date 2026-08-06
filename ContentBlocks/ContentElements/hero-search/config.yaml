@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-search
-typeName: desiderio_grande_herosearch
+name: astryx-typo3/hero-search
+typeName: astryx_typo3_herosearch
 title: 'Search Hero'
 description: 'Renders a headline over one large search field, with a handful of suggested queries as chips underneath it. Use it for: help centres, job boards, marketplace and directory home pages, documentation search landings, event programme finders, municipal service portals. Prefer ''Documentation Hero'' when the band must also carry quick links and a version, and ''Signup Hero'' when the input collects an address instead of a query.'
 group: hero
@@ -90,7 +90,7 @@ fields:
   -
     identifier: suggestions
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

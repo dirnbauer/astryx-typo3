@@ -23,7 +23,7 @@
    scrolling under it whichever tone the band is set to. */
 .g-directory-index__letters {
   position: sticky;
-  inset-block-start: var(--grande-header-height);
+  inset-block-start: var(--astryx-header-height);
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
@@ -81,7 +81,7 @@
   line-height: 1;
   color: var(--color-text-accent);
   /* The bar jumps to this letter, so it must not land under the sticky bar. */
-  scroll-margin-block-start: calc(var(--grande-header-height) + var(--spacing-12));
+  scroll-margin-block-start: calc(var(--astryx-header-height) + var(--spacing-12));
 }
 
 .g-directory-index__link {

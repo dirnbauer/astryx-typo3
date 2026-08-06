@@ -39,9 +39,9 @@
 @media (min-width: 768px) {
   .g-outline-rail__rail {
     position: sticky;
-    inset-block-start: calc(var(--grande-header-height) + var(--spacing-4));
+    inset-block-start: calc(var(--astryx-header-height) + var(--spacing-4));
     /* Long outlines scroll inside the rail rather than past the viewport. */
-    max-block-size: calc(100dvh - var(--grande-header-height) - var(--spacing-8));
+    max-block-size: calc(100dvh - var(--astryx-header-height) - var(--spacing-8));
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--color-track) transparent;

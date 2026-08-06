@@ -1,5 +1,5 @@
-name: desiderio-grande/data-trend-strip
-typeName: desiderio_grande_datatrendstrip
+name: astryx-typo3/data-trend-strip
+typeName: astryx_typo3_datatrendstrip
 title: 'Trend Strip'
 description: 'Renders a sparkline-style strip of small columns, one per period, under a headline figure and its change. Use it for: monthly signups beside the running total, twelve months of turnover on a report page, a season of visitor counts. Prefer ''Bar Comparison'' when the rows are categories rather than periods, and ''Metric with Trend'' when one delta says everything and the shape adds nothing.'
 group: data
@@ -88,7 +88,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

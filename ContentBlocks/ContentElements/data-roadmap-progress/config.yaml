@@ -1,5 +1,5 @@
-name: desiderio-grande/data-roadmap-progress
-typeName: desiderio_grande_dataroadmapprogress
+name: astryx-typo3/data-roadmap-progress
+typeName: astryx_typo3_dataroadmapprogress
 title: 'Milestone Progress'
 description: 'Renders milestones in order, each with its state icon, a percentage of its own and a line of detail. Use it for: a public product roadmap, construction phases on a project page, the stages of a funding round, a rollout plan per region. Prefer ''Progress Bars'' when the rows have no order and no state, and ''Status List'' when only the state matters and no percentage is being claimed.'
 group: data
@@ -73,7 +73,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

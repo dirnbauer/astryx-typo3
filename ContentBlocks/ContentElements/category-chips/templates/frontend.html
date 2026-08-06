@@ -17,7 +17,7 @@
     category nobody will ever click.
 </f:comment>
 
-<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.categories" default="Categories"/></f:variable>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.categories" default="Categories"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 <f:variable name="selfUri"><f:uri.page/></f:variable>
 
@@ -43,7 +43,7 @@
                             <f:then>
                                 <span class="astryx-token g-category-chips__chip current" aria-current="page">
                                     <span class="g-category-chips__label">{chip.title}</span>
-                                    <span class="astryx-visually-hidden"> — <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                                    <span class="astryx-visually-hidden"> — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
                                 </span>
                             </f:then>
                             <f:else>

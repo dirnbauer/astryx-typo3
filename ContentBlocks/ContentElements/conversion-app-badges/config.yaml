@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-app-badges
-typeName: desiderio_grande_conversionappbadges
+name: astryx-typo3/conversion-app-badges
+typeName: astryx_typo3_conversionappbadges
 title: 'App Store Buttons Band'
 description: 'Renders the store marks for a mobile app beside a device shot: one badge per store, each linked, with the platform requirements in the small print. Use it for: an app landing page, a product page with a companion app, a campaign page pointing at a download, a support page telling people where to update. Prefer ''Split CTA with Media'' for a web product whose action is a button rather than a store badge, and ''Lead Magnet Download'' when the file is a document.'
 group: conversion
@@ -73,7 +73,7 @@ fields:
   -
     identifier: stores
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

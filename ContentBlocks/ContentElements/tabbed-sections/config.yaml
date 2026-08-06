@@ -1,5 +1,5 @@
-name: desiderio-grande/tabbed-sections
-typeName: desiderio_grande_tabbedsections
+name: astryx-typo3/tabbed-sections
+typeName: astryx_typo3_tabbedsections
 title: 'Tabbed Sections'
 description: 'Renders several passages of text as tabs, one panel visible at a time and the rest a single click away. Use it for: instructions that differ by operating system, a product described for two audiences, prices per region, specifications by model, the same answer for private and business customers. Prefer ''Accordion'' when the panels are a list a reader works through, and ''Side-by-Side Texts'' when two of them should be visible at once.'
 group: navigation
@@ -63,7 +63,7 @@ fields:
   -
     identifier: panels
     type: Collection
-    foreign_table: desiderio_grande_qa_item
+    foreign_table: astryx_typo3_qa_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

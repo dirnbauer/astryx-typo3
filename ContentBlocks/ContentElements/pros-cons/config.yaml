@@ -1,5 +1,5 @@
-name: desiderio-grande/pros-cons
-typeName: desiderio_grande_proscons
+name: astryx-typo3/pros-cons
+typeName: astryx_typo3_proscons
 title: 'Pros and Cons'
 description: 'Renders arguments for and against in two facing columns, each row marked as a point in favour or a point against. Use it for: weighing two options in a buying guide, an honest assessment of a method, the trade-offs behind a decision, the verdict at the end of a review. Prefer ''Side-by-Side Texts'' when each side is a paragraph rather than a list of points, and ''Definition List'' when nothing is being weighed against anything.'
 group: content
@@ -63,7 +63,7 @@ fields:
   -
     identifier: points
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

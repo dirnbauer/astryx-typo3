@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webconsulting\DesiderioGrande\Tests\Unit;
+namespace Webconsulting\AstryxTypo3\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
@@ -84,7 +84,7 @@ final class ElementMatrixTest extends TestCase
     {
         $seen = [];
         foreach (self::allElements() as $element) {
-            $cType = 'desiderio_grande_' . str_replace('-', '', (string)$element['id']);
+            $cType = 'astryx_typo3_' . str_replace('-', '', (string)$element['id']);
             self::assertArrayNotHasKey(
                 $cType,
                 $seen,
@@ -243,7 +243,7 @@ final class ElementMatrixTest extends TestCase
             self::assertContains(
                 $element['js'],
                 ['carousel', 'tabs', 'dialog', 'dismiss'],
-                sprintf('%s asks for behaviour "%s", which grande.js does not implement', $element['id'], $element['js']),
+                sprintf('%s asks for behaviour "%s", which astryx.js does not implement', $element['id'], $element['js']),
             );
         }
     }

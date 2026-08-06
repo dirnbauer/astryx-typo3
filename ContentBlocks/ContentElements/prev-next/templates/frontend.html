@@ -19,12 +19,12 @@
     <div class="astryx-layout {data.width}">
         <f:if condition="{data.cta_label} || {data.secondary_label}">
             <nav class="g-prev-next__nav {f:if(condition: data.compact, then: 'plain')}"
-                 aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.pageMoves', default: 'Previous and next page')}">
+                 aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.pageMoves', default: 'Previous and next page')}">
 
                 <f:if condition="{data.secondary_label}">
                     <div class="astryx-card astryx-clickable-card g-prev-next__half previous">
                         <p class="astryx-text supporting g-prev-next__direction">
-                            <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>
+                            <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>
                         </p>
                         <p class="g-prev-next__title">
                             <f:link.typolink parameter="{data.secondary_link}">{data.secondary_label}</f:link.typolink>
@@ -35,7 +35,7 @@
                 <f:if condition="{data.cta_label}">
                     <div class="astryx-card astryx-clickable-card g-prev-next__half next">
                         <p class="astryx-text supporting g-prev-next__direction">
-                            <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>
+                            <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>
                         </p>
                         <p class="g-prev-next__title">
                             <f:link.typolink parameter="{data.cta_link}">{data.cta_label}</f:link.typolink>

@@ -1,5 +1,5 @@
-name: desiderio-grande/resource-links
-typeName: desiderio_grande_resourcelinks
+name: astryx-typo3/resource-links
+typeName: astryx_typo3_resourcelinks
 title: 'External Resources'
 description: 'Renders a reading list of links that leave the site, each showing its title, the source it comes from and a marker that says the link goes elsewhere. Use it for: further reading under a research piece, the standards and legislation a page refers to, partner and association sites, tools you recommend, official registers. Prefer ''Related Links'' for pages on this site, and ''Footnotes'' when the sources back up specific claims in the text.'
 group: navigation
@@ -68,7 +68,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

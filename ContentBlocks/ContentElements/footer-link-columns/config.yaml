@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-link-columns
-typeName: desiderio_grande_footerlinkcolumns
+name: astryx-typo3/footer-link-columns
+typeName: astryx_typo3_footerlinkcolumns
 title: 'Footer Link Columns'
 description: 'Renders a set of links grouped into two to four columns, where a child without a link becomes the heading of the next column. Use it for: the closing link block of a landing page, a section index at the end of a campaign site, grouped shortcuts under a long article. Prefer ''Sitemap Footer'' when the whole tree should be listed, and ''Utility Footer'' when the block also carries a brand column and a legal line.'
 group: footer
@@ -84,7 +84,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/client-list
-typeName: desiderio_grande_clientlist
+name: astryx-typo3/client-list
+typeName: astryx_typo3_clientlist
 title: 'Client List'
 description: 'Renders customer names as plain linked text in several columns, without any imagery. Use it for: the long tail of accounts a logo wall cannot hold, agencies and public bodies whose marks may not be reproduced, an appendix on a references page. Prefer ''Logo Cloud'' when the marks are licensed and recognisable, and ''Partner Grid'' when each name needs its own card and link target.'
 group: social-proof
@@ -84,7 +84,7 @@ fields:
   -
     identifier: clients
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Webconsulting\DesiderioGrande\Tests\Unit;
+namespace Webconsulting\AstryxTypo3\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Webconsulting\DesiderioGrande\ViewHelpers\EmbedUrlViewHelper;
+use Webconsulting\AstryxTypo3\ViewHelpers\EmbedUrlViewHelper;
 
 /**
  * The URLs an editor actually pastes, and what a player can be framed with.

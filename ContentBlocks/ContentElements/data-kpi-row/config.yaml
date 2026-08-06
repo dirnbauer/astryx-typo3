@@ -1,5 +1,5 @@
-name: desiderio-grande/data-kpi-row
-typeName: desiderio_grande_datakpirow
+name: astryx-typo3/data-kpi-row
+typeName: astryx_typo3_datakpirow
 title: 'KPI Card Row'
 description: 'Renders two to four metric cards side by side, each with a typed figure, a short label and one line of context. Use it for: quarterly results under a report heading, three outcome numbers closing a case study, a summary strip on an investor page. Prefer ''Counter Band'' when the numbers should sit bare on a tinted band, and ''Key Figures Band'' when they need a paragraph of introduction beside them.'
 group: data
@@ -97,7 +97,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-lead-magnet
-typeName: desiderio_grande_conversionleadmagnet
+name: astryx-typo3/conversion-lead-magnet
+typeName: astryx_typo3_conversionleadmagnet
 title: 'Lead Magnet Download'
 description: 'Renders a downloadable in exchange for attention: a cover image on one side, what the reader will learn as three or four icon points, the button, and a line about what happens to the address. Use it for: whitepapers, checklists, templates, a sample chapter, a benchmark report, a price list as a PDF. Prefer ''Gated Content Teaser'' when the material is a page rather than a file, and ''Newsletter Signup Band'' when there is nothing to download at all.'
 group: conversion
@@ -104,7 +104,7 @@ fields:
   -
     identifier: takeaways
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

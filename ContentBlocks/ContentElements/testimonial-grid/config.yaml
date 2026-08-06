@@ -1,5 +1,5 @@
-name: desiderio-grande/testimonial-grid
-typeName: desiderio_grande_testimonialgrid
+name: astryx-typo3/testimonial-grid
+typeName: astryx_typo3_testimonialgrid
 title: 'Testimonial Grid'
 description: 'Renders a grid of quote cards, each with its text, a small avatar and the speaker''s role. Use it for: a wall of customer voices on a references page, three short quotes under a pricing table, proof gathered from several industries at once. Prefer ''Quote Carousel'' when there are more quotes than a page can show at once, and ''Review List'' when each entry carries a star rating and a date.'
 group: social-proof
@@ -79,7 +79,7 @@ fields:
   -
     identifier: quotes
     type: Collection
-    foreign_table: desiderio_grande_quote_item
+    foreign_table: astryx_typo3_quote_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

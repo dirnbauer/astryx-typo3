@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-cta-proof
-typeName: desiderio_grande_conversionctaproof
+name: astryx-typo3/conversion-cta-proof
+typeName: astryx_typo3_conversionctaproof
 title: 'CTA with Trust Row'
 description: 'Renders a call to action with a row of customer or certification marks underneath, so the ask and the reason to believe it are read in one movement. Use it for: the closing band of a B2B landing page, a signup prompt that needs reassurance, a tender or public-sector page, a page whose visitors have never heard of you. Prefer ''Closing CTA Band'' when the logos already live in their own section, and ''Named Contact Panel'' when the reassurance is a person rather than a wall of marks.'
 group: conversion
@@ -99,7 +99,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

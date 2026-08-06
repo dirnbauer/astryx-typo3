@@ -1,5 +1,5 @@
-name: desiderio-grande/alumni-list
-typeName: desiderio_grande_alumnilist
+name: astryx-typo3/alumni-list
+typeName: astryx_typo3_alumnilist
 title: 'Alumni'
 description: 'Renders people who have left, with the years they were here and a line on where they went. Use it for: a research group listing former doctoral students, a fellowship programme, an agency proud of where its people ended up. Prefer ''Contributor Wall'' when past involvement needs no dates or destinations, and ''Team Directory'' for the people who are still here.'
 group: team
@@ -89,7 +89,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

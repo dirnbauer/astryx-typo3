@@ -1,5 +1,5 @@
-name: desiderio-grande/team-facepile
-typeName: desiderio_grande_teamfacepile
+name: astryx-typo3/team-facepile
+typeName: astryx_typo3_teamfacepile
 title: 'Team Facepile'
 description: 'Renders a compact cluster of overlapping portraits with a count and one sentence, small enough to sit directly above a button. Use it for: reassurance next to a sign-up form, the people behind a support promise, a short line naming how many specialists are on call. Prefer ''Contributor Wall'' when every name should be legible, and ''Team Grid'' when roles and links matter.'
 group: team
@@ -92,7 +92,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/contributor-wall
-typeName: desiderio_grande_contributorwall
+name: astryx-typo3/contributor-wall
+typeName: astryx_typo3_contributorwall
 title: 'Contributor Wall'
 description: 'Renders many contributors as small avatars with their names beneath, densely tiled so a hundred people still fit above the fold. Use it for: crediting an open source project, thanking volunteers after an event, an acknowledgements section in a report. Prefer ''Team Grid'' when each person deserves a role and a link, and ''Team Facepile'' when a compact cluster with a count says enough.'
 group: team
@@ -73,7 +73,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,4 +1,4 @@
-# Desiderio Grande
+# Astryx for TYPO3
 
 Meta's [Astryx](https://github.com/facebook/astryx) design system, server-rendered for TYPO3 14.
 
@@ -6,8 +6,8 @@ Astryx ships as React components styled with StyleX. This extension ships the
 same design system as **Fluid templates and plain CSS**: no React, no StyleX, no
 build step between an editor pressing save and a visitor seeing the page. What
 comes from upstream is the part that matters — the token vocabulary and the
-seven themes, taken from Astryx's own theme compiler rather than transcribed by
-hand.
+seven official themes, taken from Astryx `v0.3.0` rather than from a moving
+branch. Eighteen webconsulting themes use the same stable token contract.
 
 It is a sibling of [Desiderio](https://github.com/dirnbauer/desiderio), not a
 fork: Desiderio remains the engine underneath (page rendering, the element
@@ -38,9 +38,8 @@ the contrast gate.
 
 ## Requirements
 
-TYPO3 14.3+, PHP 8.3+, `friendsoftypo3/content-blocks` 2.2+, and
-`webconsulting/desiderio` 3.2+ (the element library's host registration and
-per-site host filtering arrived in 3.2).
+TYPO3 14.3+, PHP 8.4+, `friendsoftypo3/content-blocks` 2.2+,
+`praetorius/vite-asset-collector` 1.18+ and `webconsulting/desiderio` 4.x.
 
 ## Setting up a site
 
@@ -48,21 +47,21 @@ Add the two sets to `config/sites/<site>/config.yaml`:
 
 ```yaml
 dependencies:
-  - webconsulting/desiderio-grande
-  - webconsulting/desiderio-grande-content-elements
+  - webconsulting/astryx-typo3
+  - webconsulting/astryx-typo3-content-elements
 ```
 
 Then in `settings.yaml`:
 
 ```yaml
-desiderioGrande.theme.default: neutral        # or butter, chocolate, matcha, stone, gothic, y2k
-desiderioGrande.theme.colorScheme: system     # system | light | dark
-desiderioGrande.brand.wordmark: 'Your name'
-desiderioGrande.footer.legalPageIds: '12,13,14'
+astryx.theme.default: neutral        # or butter, chocolate, matcha, stone, gothic, y2k
+astryx.theme.colorScheme: system     # system | light | dark
+astryx.brand.wordmark: 'Your name'
+astryx.footer.legalPageIds: '12,13,14'
 
 # Offer only this theme's elements in the picker. Without it, a site with both
 # themes installed lists both catalogs in one wizard.
-elementLibrary.hosts: 'desiderio_grande,core'
+elementLibrary.hosts: 'astryx_typo3,core'
 ```
 
 A page can override the theme for itself and everything below it through the
@@ -76,9 +75,9 @@ it to point at.
 
 ```yaml
 dependencies:
-  - webconsulting/desiderio-grande
-  - webconsulting/desiderio-grande-content-elements
-  - webconsulting/desiderio-grande-search
+  - webconsulting/astryx-typo3
+  - webconsulting/astryx-typo3-content-elements
+  - webconsulting/astryx-typo3-search
 solr_enabled_read: true
 solr_host_read: typo3-solr
 solr_port_read: '8983'
@@ -94,11 +93,11 @@ languages:
 Then in `settings.yaml`:
 
 ```yaml
-desiderioGrande.search.enabled: true
-desiderioGrande.search.targetPageId: '1308'   # the page carrying the Solr results plugin
+astryx.search.enabled: true
+astryx.search.targetPageId: '1308'   # the page carrying the Solr results plugin
 ```
 
-`desiderio-grande:site:seed --content` creates that page — a hidden-from-navigation,
+`astryx-typo3:site:seed --content` creates that page — a hidden-from-navigation,
 no-indexed `/search` carrying a lead paragraph and EXT:solr's results plugin — and
 prints its uid with the rest of the site YAML. The page is seeded whether or not
 Solr is configured; without a connection the plugin renders the "search
@@ -113,27 +112,28 @@ Two surfaces come out of it, and they share one implementation:
 
 - **The header field.** A loupe in the top-right corner that opens a real
   `<form>` submitting `?q=…` to the results page. It is markup that works on
-  its own: `grande.js` adds the collapse, so with the script absent the field is
+  its own: `astryx.js` adds the collapse, so with the script absent the field is
   simply visible rather than an icon that does nothing.
 - **The results page.** Drop the *Apache Solr — Search: Results* plugin on a
   page. Filters sit beside the results on a wide screen and above them on a
   narrow one; each result is an Astryx `Item` with the matched words marked, and
   the suggest dropdown is the same Astryx `Typeahead` the header uses.
 
-Set `desiderioGrande.search.queryParameter` only for a non-Solr backend —
+Set `astryx.search.queryParameter` only for a non-Solr backend —
 EXT:solr reads a plain `q` on any page, which is why that is the default.
 
 ### The showcase site
 
 ```bash
-ddev exec vendor/bin/typo3 desiderio-grande:site:seed --dry-run
-ddev exec vendor/bin/typo3 desiderio-grande:site:seed --content
+ddev exec vendor/bin/typo3 astryx-typo3:site:seed --dry-run
+ddev exec vendor/bin/typo3 astryx-typo3:site:seed --content
 ```
 
 Creates the site root, a `/components` hub, one chapter page per group and the
 legal and error pages, then prints the uids to put into the site YAML.
-`--content` additionally places every element on its chapter page from its own
-`fixture.json`. Both are idempotent, and the content pass replaces only what a
+`--content` additionally places every non-video element on its chapter page
+from its own `fixture.json`. Pass `--include-video` only when a deliberate video
+demo is wanted. Both are idempotent, and the content pass replaces only what a
 previous run seeded — anything an editor added by hand stays.
 
 Each chapter wears a different one of the seven themes, so walking the hub is
@@ -142,7 +142,7 @@ also the fastest way to see that switching a theme changes nothing but paint.
 ### The element library
 
 ```bash
-ddev exec vendor/bin/typo3 desiderio:library:seed --parent=<root uid> --hosts=desiderio_grande,core
+ddev exec vendor/bin/typo3 desiderio:library:seed --parent=<root uid> --hosts=astryx_typo3,core
 ddev exec vendor/bin/typo3 desiderio:library:warm
 ```
 
@@ -175,7 +175,7 @@ Two files per element are authored by hand and never overwritten:
 ### Getting the columns into the database
 
 ```bash
-ddev exec php packages/desiderio_grande/Build/Scripts/apply-schema.php --apply
+ddev exec php packages/astryx_typo3/Build/Scripts/apply-schema.php --apply
 ```
 
 `extension:setup` will report success and apply nothing. `tt_content` in a lab
@@ -216,8 +216,8 @@ npm run build            # theme tokens, component CSS, chrome CSS, fonts
   `generateThemeRulesSplit()` produced for the seven shipped themes (upstream
   commit recorded in the file); the script re-scopes the rules to plain
   attribute selectors and orders the cascade with layers.
-- `Build/Scripts/build-grande-css.mjs` — concatenates the manifest-ordered
-  partials into `grande-components.css` and `grande.css`.
+- `Build/Scripts/build-astryx-css.mjs` — concatenates the manifest-ordered
+  partials into `astryx-components.css` and `astryx.css`.
 - `Build/Scripts/sync-fonts.mjs` — copies the woff2 subsets and writes the
   `@font-face` partial.
 
@@ -226,6 +226,12 @@ npm run build            # theme tokens, component CSS, chrome CSS, fonts
 GPL-2.0-or-later, like TYPO3.
 
 Astryx is MIT, © Meta Platforms, Inc. and affiliates. This extension vendors its
-design tokens (`Build/astryx/tokens.json`) and its component documentation
-(`Build/astryx/components.json`); no upstream source code is redistributed. The
-bundled fonts are licensed under the SIL Open Font License.
+design tokens (`Build/astryx/tokens.json`) and the exact component inventory
+(`Build/astryx/components.json`) from official release `v0.3.0`, commit
+`82d4dab3d05b9314a76ab0bda296491a65f69c88`; no React or StyleX runtime is
+redistributed. The bundled fonts are licensed under the SIL Open Font License.
+
+Our sincere thanks to the Astryx team, Meta Open Source, the Facebook design
+systems community and every upstream contributor for publishing the design
+language under MIT. The exact upstream notice is preserved in
+`THIRD_PARTY_NOTICES.md`.

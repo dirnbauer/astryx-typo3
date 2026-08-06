@@ -1,5 +1,5 @@
-name: desiderio-grande/accordion-faq
-typeName: desiderio_grande_accordionfaq
+name: astryx-typo3/accordion-faq
+typeName: astryx_typo3_accordionfaq
 title: 'Accordion'
 description: 'Renders a stack of questions that each fold open to reveal their answer, all closed on first paint so the page stays scannable. Use it for: a frequently asked questions block, terms explained one by one, support answers under a product, a long list of details most readers will skip. Prefer ''Definition List'' when the answers are short enough to leave open, and ''Tabbed Sections'' when the panels are alternatives rather than a list.'
 group: content
@@ -63,7 +63,7 @@ fields:
   -
     identifier: questions
     type: Collection
-    foreign_table: desiderio_grande_qa_item
+    foreign_table: astryx_typo3_qa_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

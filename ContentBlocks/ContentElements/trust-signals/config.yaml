@@ -1,5 +1,5 @@
-name: desiderio-grande/trust-signals
-typeName: desiderio_grande_trustsignals
+name: astryx-typo3/trust-signals
+typeName: astryx_typo3_trustsignals
 title: 'Trust Signals Strip'
 description: 'Renders a compact strip of icon and short promise pairs, sized to sit directly above or below a call to action. Use it for: free returns and delivery terms in a shop, response times on a support page, payment and cancellation reassurance next to a checkout button. Prefer ''Certification Row'' when an outside body has audited the claim, and ''Community Stats'' when the reassurance is a set of numbers.'
 group: social-proof
@@ -84,7 +84,7 @@ fields:
   -
     identifier: signals
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

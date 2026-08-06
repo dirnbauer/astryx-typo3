@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-office-list
-typeName: desiderio_grande_footerofficelist
+name: astryx-typo3/footer-office-list
+typeName: astryx_typo3_footerofficelist
 title: 'Office List'
 description: 'Renders several locations, each with a pin icon, the city as the heading, the address on its own lines and a directions link. Use it for: the branch list of an agency, subsidiaries on a company page, service points of a public body, partner practices. Prefer ''Address Card'' when one location gets the full treatment with an image, and ''Contact Block'' when the entries are channels rather than places.'
 group: footer
@@ -89,7 +89,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

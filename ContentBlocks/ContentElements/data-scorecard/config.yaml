@@ -1,5 +1,5 @@
-name: desiderio-grande/data-scorecard
-typeName: desiderio_grande_datascorecard
+name: astryx-typo3/data-scorecard
+typeName: astryx_typo3_datascorecard
 title: 'Scorecard'
 description: 'Renders an overall score with its scale, then one row per criterion with its own score shown as filled segments. Use it for: a test verdict on a product page, an assessment result, supplier ratings, a self-evaluation published in a report. Prefer ''Progress Bars'' when the rows are percentages of completion, and ''Distribution Bars'' when you are showing how many people gave each rating.'
 group: data
@@ -83,7 +83,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

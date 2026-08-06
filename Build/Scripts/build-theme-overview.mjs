@@ -70,7 +70,7 @@ const cardFor = r => `
             <header class="g-themes__card-head">
                 <h3 class="astryx-heading level-3">
                     <f:for each="{themePages}" as="themePage">
-                        <f:if condition="{themePage.data.tx_desideriogrande_theme} == '${r.id}'">
+                        <f:if condition="{themePage.data.tx_desiderioastryx_theme} == '${r.id}'">
                             <f:link.typolink parameter="{themePage.link}" class="g-themes__link">${escape(r.name)}</f:link.typolink>
                         </f:if>
                     </f:for>
@@ -214,7 +214,7 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" da
         </div>
 
         <p class="astryx-text supporting g-themes__note">
-            Set the theme for a whole site with <code>desiderioGrande.theme.default</code>,
+            Set the theme for a whole site with <code>astryx.theme.default</code>,
             or for one page and everything beneath it with the <strong>Astryx theme</strong>
             field in the page properties. The tokens come from
             <a class="astryx-link" href="https://github.com/facebook/astryx" rel="noreferrer noopener">Meta's Astryx design system</a>;

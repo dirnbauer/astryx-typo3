@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-contact-options
-typeName: desiderio_grande_conversioncontactoptions
+name: astryx-typo3/conversion-contact-options
+typeName: astryx_typo3_conversioncontactoptions
 title: 'Contact Options Grid'
 description: 'Renders every way to reach you as a grid of cards or a list of rows: chat, phone, email, the help centre, the status page, the shop counter — each with an icon, its hours or response time, and a link. Use it for: a support landing page, the main section of a contact page, the foot of a documentation site. Prefer ''Named Contact Panel'' when one person should be the face of the page, and ''Sales or Self-Serve Fork'' when the routes lead to buying rather than to help.'
 group: conversion
@@ -90,7 +90,7 @@ fields:
   -
     identifier: channels
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

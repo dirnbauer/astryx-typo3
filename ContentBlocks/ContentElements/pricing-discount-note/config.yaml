@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-discount-note
-typeName: desiderio_grande_pricingdiscountnote
+name: astryx-typo3/pricing-discount-note
+typeName: astryx_typo3_pricingdiscountnote
 title: 'Discount & Eligibility Note'
 description: 'Renders the reductions that depend on who is asking: nonprofit, education, startup, open source, public sector. Each entry gets an icon, the size of the reduction and a line on how to prove eligibility. Use it for: a nonprofit rate band under a pricing table, a student discount notice, a programme page for community projects. Prefer ''Launch Offer Price'' for a discount everyone gets, and ''Quote Request Panel'' when eligibility has to be assessed case by case.'
 group: pricing
@@ -85,7 +85,7 @@ fields:
   -
     identifier: programmes
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

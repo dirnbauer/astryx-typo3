@@ -2,7 +2,7 @@
  * Typeahead — the suggestion menu that opens under a search field.
  *
  * Upstream this is a React component with a portal and a positioning engine.
- * Here it is a <ul role="listbox"> that grande.js appends to the element the
+ * Here it is a <ul role="listbox"> that astryx.js appends to the element the
  * template marked as the anchor, so the only thing this file owns is the
  * popover shell, the group heading, the active row and the highlight.
  *
@@ -12,7 +12,7 @@
  * menu its own row recipe is how the two drift apart.
  */
 
-/* The anchor is whatever the template wrapped around the field. grande.js adds
+/* The anchor is whatever the template wrapped around the field. astryx.js adds
    this class, so a template only has to mark the element, never style it. */
 .astryx-typeahead-anchor {
   position: relative;

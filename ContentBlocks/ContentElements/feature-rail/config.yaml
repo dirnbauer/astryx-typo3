@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-rail
-typeName: desiderio_grande_featurerail
+name: astryx-typo3/feature-rail
+typeName: astryx_typo3_featurerail
 title: 'Feature Rail'
 description: 'Renders the entries as a single horizontal row that scrolls with snap points instead of wrapping, keeping the band one screen tall no matter how many entries there are. Use it for: long capability sets on a short page, mobile-first landing pages, module ranges too wide for a grid, product line overviews. Prefer ''Feature Grid'' when readers must see everything without scrolling sideways, and ''Capability Tabs'' when they should pick one entry rather than browse them all.'
 group: features
@@ -77,7 +77,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

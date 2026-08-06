@@ -25,7 +25,7 @@
     <div class="astryx-layout {data.width}">
         <f:if condition="{trail}">
             <nav class="astryx-breadcrumbs {f:if(condition: data.compact, then: 'supporting')} g-breadcrumb-band__nav"
-                 aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.path', default: 'You are here')}">
+                 aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.path', default: 'You are here')}">
                 <ol class="g-breadcrumb-band__list" itemscope itemtype="https://schema.org/BreadcrumbList">
                     <f:for each="{trail}" as="crumb" iteration="step">
                         <f:if condition="{step.isLast}">

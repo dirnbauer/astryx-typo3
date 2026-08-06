@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-licence-tiers
-typeName: desiderio_grande_pricinglicencetiers
+name: astryx-typo3/pricing-licence-tiers
+typeName: astryx_typo3_pricinglicencetiers
 title: 'Licence Tiers'
 description: 'Renders named licence editions as a list: the edition, what it costs, and the scope it covers — one site, five sites, an agency, redistribution. Use it for: perpetual software licences, font and asset licences, template and theme editions, image rights, OEM terms. Prefer ''Plan Card'' for recurring subscriptions that each deserve a card of their own, and ''Seat Price Bands'' when the ladder is a quantity rather than a named edition.'
 group: pricing
@@ -77,7 +77,7 @@ fields:
   -
     identifier: tiers
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

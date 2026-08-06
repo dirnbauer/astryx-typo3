@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-contact-block
-typeName: desiderio_grande_footercontactblock
+name: astryx-typo3/footer-contact-block
+typeName: astryx_typo3_footercontactblock
 title: 'Contact Block'
 description: 'Renders the ways to reach you as a list, each entry with an icon, the value itself and a word saying which channel it is. Use it for: phone, e-mail and postal address at the end of a service page, a press contact under a release, the reachability block of a department. Prefer ''Address Card'' when one location with directions is the point, and ''Hotline Band'' when one number should be impossible to miss.'
 group: footer
@@ -86,7 +86,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

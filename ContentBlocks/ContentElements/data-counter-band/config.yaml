@@ -1,5 +1,5 @@
-name: desiderio-grande/data-counter-band
-typeName: desiderio_grande_datacounterband
+name: astryx-typo3/data-counter-band
+typeName: astryx_typo3_datacounterband
 title: 'Counter Band'
 description: 'Renders three to six large numbers across a tinted band with one short word under each, no cards and no explanation. Use it for: the reassurance strip between two sections, years in business and countries served, an event''s attendance figures. Prefer ''KPI Card Row'' when each figure needs a sentence of context, and ''Key Figures Band'' when the numbers belong to a heading and paragraph beside them.'
 group: data
@@ -81,7 +81,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

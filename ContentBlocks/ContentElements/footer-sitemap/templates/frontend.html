@@ -19,7 +19,7 @@
 
 <f:variable name="navLabel" value="{data.header}"/>
 <f:if condition="!{data.header}">
-    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:desiderio_grande/ContentBlocks/ContentElements/footer-sitemap/language/labels.xlf:nav.label', default: 'Site index')}"/>
+    <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-sitemap/language/labels.xlf:nav.label', default: 'Site index')}"/>
 </f:if>
 
 <section class="astryx-section g-footer-sitemap {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-columns="{data.columns}">

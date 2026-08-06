@@ -1,5 +1,5 @@
-name: desiderio-grande/data-leaderboard
-typeName: desiderio_grande_dataleaderboard
+name: astryx-typo3/data-leaderboard
+typeName: astryx_typo3_dataleaderboard
 title: 'Ranking List'
 description: 'Renders a numbered list where position carries the meaning, each row with its figure on the right and an optional note. Use it for: the most read articles of a year, top products by revenue, tournament standings, an award shortlist. Prefer ''Bar Comparison'' when the distance between values matters more than the order, and ''Figures List'' when the rows are simply labelled numbers.'
 group: data
@@ -82,7 +82,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

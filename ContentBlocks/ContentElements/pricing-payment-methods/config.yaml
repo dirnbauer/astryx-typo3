@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-payment-methods
-typeName: desiderio_grande_pricingpaymentmethods
+name: astryx-typo3/pricing-payment-methods
+typeName: astryx_typo3_pricingpaymentmethods
 title: 'Payment Methods Strip'
 description: 'Renders the marks of the payment methods and billing arrangements you accept as a quiet row of logos, with one line of small print for the conditions. Use it for: the foot of a pricing page, the area above a checkout button, a billing help page, an invoice-on-account note for public bodies. Prefer ''Guarantee Band'' when the reassurance is a promise rather than a set of marks, and ''Pricing FAQ'' when each method needs its own explanation.'
 group: pricing
@@ -62,7 +62,7 @@ fields:
   -
     identifier: methods
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

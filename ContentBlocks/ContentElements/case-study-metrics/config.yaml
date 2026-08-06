@@ -1,5 +1,5 @@
-name: desiderio-grande/case-study-metrics
-typeName: desiderio_grande_casestudymetrics
+name: astryx-typo3/case-study-metrics
+typeName: astryx_typo3_casestudymetrics
 title: 'Case Study Metrics Band'
 description: 'Renders the results of one named project as a row of figures, each with its label and how it was measured. Use it for: the summary band at the head of a case study, outcomes after a migration, a proof section on a services page. Prefer ''Community Stats'' when the numbers describe your own reach rather than one customer''s result, and ''Before and After'' when each figure only makes sense next to the value it replaced.'
 group: social-proof
@@ -93,7 +93,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

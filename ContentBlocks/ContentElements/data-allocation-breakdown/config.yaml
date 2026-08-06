@@ -1,5 +1,5 @@
-name: desiderio-grande/data-allocation-breakdown
-typeName: desiderio_grande_dataallocationbreakdown
+name: astryx-typo3/data-allocation-breakdown
+typeName: astryx_typo3_dataallocationbreakdown
 title: 'Allocation Breakdown'
 description: 'Renders where a total goes: one row per line item with its share as a bar, the amount written out beside it and the total above. Use it for: how donations are spent, a budget on a transparency page, cost structure in a tender, effort split across workstreams. Prefer ''Distribution Bars'' when the rows are counts rather than money, and ''Share Bar'' when a single stacked bar tells the story faster.'
 group: data
@@ -83,7 +83,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

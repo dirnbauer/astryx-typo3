@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-imprint-summary
-typeName: desiderio_grande_footerimprintsummary
+name: astryx-typo3/footer-imprint-summary
+typeName: astryx_typo3_footerimprintsummary
 title: 'Imprint Summary'
 description: 'Renders the operator details as label and value pairs — company form, register number, VAT ID, supervising authority, chamber membership — with a link to the full imprint. Use it for: the short disclosure at the end of a landing page, a microsite that has no imprint page of its own, the foot of a shop page. Prefer ''Legal Links Bar'' when only links are needed, and ''Address Card'' when the point is a place people can visit.'
 group: footer
@@ -93,7 +93,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

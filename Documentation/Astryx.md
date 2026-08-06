@@ -68,7 +68,7 @@ The theme is a setting, and changing it repaints the site. No rebuild, no
 re-save of content — the tokens for all twenty-five themes are already on the page,
 and the site just declares which one applies.
 
-- **Per site:** `desiderioGrande.theme.default` in the site's `settings.yaml`,
+- **Per site:** `astryx.theme.default` in the site's `settings.yaml`,
   one of the twenty-five names below.
 - **Per page and everything below it:** the *Astryx theme* field in the page
   properties (Appearance tab). It inherits down the page tree, so one setting on
@@ -106,7 +106,7 @@ and it is enforced by an audit, not by discipline (see §3.4).
 
 ## 3. How we use it
 
-This is the part that is specific to `desiderio_grande`.
+This is the part that is specific to `astryx_typo3`.
 
 The goal was a TYPO3 theme that is genuinely Astryx — not "inspired by" it —
 while shipping no React, no StyleX and no build step on the rendered page. Four
@@ -117,7 +117,7 @@ decisions get us there.
 We do not read Astryx's palettes and retype them. We run **Astryx's own theme
 compiler** (`generateThemeRulesSplit()`) over the seven shipped themes and
 vendor the result as `Build/astryx/tokens.json`, with the upstream commit
-recorded beside it — currently `dd421ea4`.
+recorded beside it — release `v0.3.0`, commit `82d4dab3`.
 
 `Build/Scripts/build-astryx-theme.mjs` turns that payload into
 `Resources/Public/Css/astryx-theme.css`. A transcription would drift the first
@@ -147,8 +147,8 @@ They are ours, not Meta's, and the theme overview badges every card so nobody
 has to guess which is which.
 
 They are not a second mechanism. Each is expanded by
-`Build/Scripts/build-grande-themes.mjs` from a small seed in
-`Build/Data/grande-themes.json` into exactly the structure Astryx's own
+`Build/Scripts/build-astryx-themes.mjs` from a small seed in
+`Build/Data/astryx-themes.json` into exactly the structure Astryx's own
 generator emits, with the same token names — no component can tell them apart.
 A seed names only what is genuinely a brand decision:
 
@@ -200,7 +200,8 @@ component override rules land on our buttons and cards because they carry the
 names those rules are written against. What a theme has no opinion about — that
 this particular element puts its price at the end edge of the row — is ours.
 
-`Build/astryx/components.json` holds the 94 upstream components we harvested,
+`Build/astryx/components.json` holds the 155 component exports reported by the
+official Astryx CLI `v0.3.0`,
 with their categories, keywords, usage notes and theming targets. It is the
 source for the class names above and for the element descriptions.
 
@@ -266,7 +267,7 @@ fix.
 The corrections file is emitted into the `astryx-theme` cascade layer, which is
 declared last and therefore wins. In any earlier layer the theme block it
 corrects would simply override it — which it did, silently, until the layer was
-made explicit in `build-grande-css.mjs`.
+made explicit in `build-astryx-css.mjs`.
 
 `npm run build` runs the generator and then the audit, and exits non-zero on any
 failure. A palette change cannot quietly regress the site.
@@ -280,7 +281,7 @@ dismissible offer, the video hero and the demo — behaviours HTML genuinely doe
 not have.
 
 They are wired declaratively through `data-g-*` attributes, and the whole
-runtime is one 24 kB vanilla file (`Resources/Public/Js/grande.js`) that
+runtime is one 24 kB vanilla file (`Resources/Public/Js/astryx.js`) that
 initialises idempotently, so the Visual Editor can swap content in without
 double-binding.
 

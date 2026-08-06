@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-usage-table
-typeName: desiderio_grande_pricingusagetable
+name: astryx-typo3/pricing-usage-table
+typeName: astryx_typo3_pricingusagetable
 title: 'Usage Rate Table'
 description: 'Renders a metered rate card: one row per billable unit, the price for that unit beside it, and a note on how the unit is counted. Nothing is added up — the table states rates and leaves the arithmetic to the invoice. Use it for: pay-as-you-go API pricing, per-gigabyte storage, per-transaction fees, printing, delivery or courier rates. Prefer ''Seat Price Bands'' when the rate falls with volume, and ''Cost Calculator Sheet'' when the reader is meant to work out a total.'
 group: pricing
@@ -82,7 +82,7 @@ fields:
   -
     identifier: rates
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

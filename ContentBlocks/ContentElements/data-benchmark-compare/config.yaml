@@ -1,5 +1,5 @@
-name: desiderio-grande/data-benchmark-compare
-typeName: desiderio_grande_databenchmarkcompare
+name: astryx-typo3/data-benchmark-compare
+typeName: astryx_typo3_databenchmarkcompare
 title: 'Benchmark Comparison'
 description: 'Renders two bars per criterion — your figure and the reference figure — with a legend naming both series. Use it for: your delivery times against the industry average, energy use before and against a standard, a survey result against a national result. Prefer ''Bar Comparison'' when only one series is shown, and ''Comparison Matrix'' when the two sides are statements rather than numbers.'
 group: data
@@ -78,7 +78,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

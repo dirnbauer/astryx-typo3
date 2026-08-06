@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-list
-typeName: desiderio_grande_featurelist
+name: astryx-typo3/feature-list
+typeName: astryx_typo3_featurelist
 title: 'Benefit List'
 description: 'Renders the entries as full-width rows — icon on the left, title and a real paragraph on the right, a rule between them — so each one can carry an argument rather than a caption. Use it for: benefit sections that persuade rather than list, service descriptions, ''why teams switch'' bands, security and compliance summaries. Prefer ''Feature Grid'' when the entries are short enough to scan side by side, and ''Expandable Feature List'' when most readers only want one of them.'
 group: features
@@ -81,7 +81,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

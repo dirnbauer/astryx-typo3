@@ -1,5 +1,5 @@
-name: desiderio-grande/office-people
-typeName: desiderio_grande_officepeople
+name: astryx-typo3/office-people
+typeName: astryx_typo3_officepeople
 title: 'Offices with Contacts'
 description: 'Renders each location as a card carrying the address and the person who answers there, with a portrait and a direct link. Use it for: a company with branches in several cities, a practice with two surgeries, regional sales offices. Prefer ''Contact Person Panel'' when there is only one location and one contact, and ''Departments'' when the grouping is by discipline rather than by place.'
 group: team
@@ -79,7 +79,7 @@ fields:
   -
     identifier: contacts
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

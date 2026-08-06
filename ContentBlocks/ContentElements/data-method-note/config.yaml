@@ -1,5 +1,5 @@
-name: desiderio-grande/data-method-note
-typeName: desiderio_grande_datamethodnote
+name: astryx-typo3/data-method-note
+typeName: astryx_typo3_datamethodnote
 title: 'Methodology Note'
 description: 'Renders where the figures on a page come from: a short paragraph on how they were collected and label-value pairs for period, sample, method and source, with a link to the full data. Use it for: the small print under a survey result, provenance beneath a report band, licence and vintage of open data, the method box of a study page. Prefer ''Captioned Data Table'' when the numbers themselves belong in the element, and ''Figures List'' when the pairs are results rather than method.'
 group: data
@@ -98,7 +98,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

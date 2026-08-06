@@ -1,5 +1,5 @@
-name: desiderio-grande/team-departments
-typeName: desiderio_grande_teamdepartments
+name: astryx-typo3/team-departments
+typeName: astryx_typo3_teamdepartments
 title: 'Departments'
 description: 'Renders one department as a titled band with its own short description and the people who work in it, so several bands stack into an organisation. Use it for: a company split into practices, a clinic listing its specialisms, a school with subject groups. Prefer ''Team by Function'' when everyone belongs in one band and only the column headings differ, and ''Team Grid'' when the organisation has no divisions worth naming.'
 group: team
@@ -84,7 +84,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

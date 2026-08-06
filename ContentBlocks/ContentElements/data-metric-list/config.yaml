@@ -1,5 +1,5 @@
-name: desiderio-grande/data-metric-list
-typeName: desiderio_grande_datametriclist
+name: astryx-typo3/data-metric-list
+typeName: astryx_typo3_datametriclist
 title: 'Figures List'
 description: 'Renders a compact vertical list with the label on the left and the figure on the right, divided by rules — built for narrow columns. Use it for: quick facts in a sidebar, a summary under a long article, ticket numbers beside an event description, contract terms at a glance. Prefer ''KPI Card Row'' when the figures should carry a full-width band, and ''Specification Table'' when the pairs are product attributes.'
 group: data
@@ -68,7 +68,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Copy the webfonts the seven Astryx themes ask for into
 // Resources/Public/Css/files/ and generate the @font-face partial
-// Resources/Private/Css/grande/00-fonts.css.
+// Resources/Private/Css/astryx/00-fonts.css.
 //
 // Fonts are self-hosted, never fetched from a CDN: no third-party request from
 // a visitor's browser, and the files are versioned with the extension.
@@ -25,7 +25,7 @@ import {fileURLToPath} from 'node:url';
 const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const MODULES = path.join(EXT_ROOT, 'node_modules');
 const FILES_OUT = path.join(EXT_ROOT, 'Resources/Public/Css/files');
-const CSS_OUT = path.join(EXT_ROOT, 'Resources/Private/Css/grande/00-fonts.css');
+const CSS_OUT = path.join(EXT_ROOT, 'Resources/Private/Css/astryx/00-fonts.css');
 
 /**
  * family  — the name Astryx's tokens use, and therefore the @font-face family

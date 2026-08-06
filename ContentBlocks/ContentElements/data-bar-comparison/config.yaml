@@ -1,5 +1,5 @@
-name: desiderio-grande/data-bar-comparison
-typeName: desiderio_grande_databarcomparison
+name: astryx-typo3/data-bar-comparison
+typeName: astryx_typo3_databarcomparison
 title: 'Bar Comparison'
 description: 'Renders one bar per item in a CSS grid, label on the left and figure on the right, with lengths taken from the percentages typed on each row. Use it for: comparing suppliers, channels, models or regions on one measure, showing which option wins on price or speed. Prefer ''Trend Strip'' when the axis is time rather than category, and ''Benchmark Comparison'' when every row needs a second bar to compare against.'
 group: data
@@ -78,7 +78,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-grid
-typeName: desiderio_grande_featuregrid
+name: astryx-typo3/feature-grid
+typeName: astryx_typo3_featuregrid
 title: 'Feature Grid'
 description: 'Renders a band intro over a grid of two to four columns, each cell an icon, a short title and one or two sentences. Use it for: the capability overview under a hero, service listings, module and add-on summaries, ''what you get'' sections, association benefit overviews. Prefer ''Benefit List'' when the entries need more prose than a grid cell allows, and ''Bento Grid'' when one entry should be visibly larger than the rest.'
 group: features
@@ -106,7 +106,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-included-checklist
-typeName: desiderio_grande_pricingincludedchecklist
+name: astryx-typo3/pricing-included-checklist
+typeName: astryx_typo3_pricingincludedchecklist
 title: 'What''s Included Checklist'
 description: 'Renders a checklist of what a price covers: a tick against everything included and a struck-through dash against everything that is not, in one to four columns. Use it for: the list under a single price, the small print of a package, a ''what you get'' band on a service page, the summary above a booking button. Prefer ''Feature Comparison Matrix'' when the point is the difference between plans, and ''Add-On List'' when the missing items can be bought separately.'
 group: pricing
@@ -85,7 +85,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

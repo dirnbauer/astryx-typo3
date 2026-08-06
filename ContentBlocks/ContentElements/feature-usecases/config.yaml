@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-usecases
-typeName: desiderio_grande_featureusecases
+name: astryx-typo3/feature-usecases
+typeName: astryx_typo3_featureusecases
 title: 'Use-Case Cards'
 description: 'Renders a grid of cards that each name an audience or a job to be done and link away to the page that covers it. Use it for: ''built for'' sections, industry and role landings, solution overviews, the hub of a programmatic set of pages, department overviews on an intranet. Prefer ''Feature Grid'' when the entries describe capabilities and stay on this page, and ''Full Feature Index'' when there are forty of them and each is a single line.'
 group: features
@@ -88,7 +88,7 @@ fields:
   -
     identifier: cases
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

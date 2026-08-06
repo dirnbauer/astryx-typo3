@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-funding-note
-typeName: desiderio_grande_footerfundingnote
+name: astryx-typo3/footer-funding-note
+typeName: astryx_typo3_footerfundingnote
 title: 'Funding Acknowledgement'
 description: 'Renders the logos of funders and programme partners with the sentence their funding conditions require underneath. Use it for: an EU or national funding notice on a project page, a research programme''s acknowledgement, sponsors closing an event page. Prefer ''Certification Strip'' for seals the organisation itself holds, and ''Payment and Shipping Row'' for marks that belong to a purchase.'
 group: footer
@@ -86,7 +86,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

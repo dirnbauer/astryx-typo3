@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-path-fork
-typeName: desiderio_grande_conversionpathfork
+name: astryx-typo3/conversion-path-fork
+typeName: astryx_typo3_conversionpathfork
 title: 'Sales or Self-Serve Fork'
 description: 'Renders two or three panels that split readers by how they want to buy: start on your own, talk to sales, or go through a partner. Each panel names who it is for, what happens next, and links onward. Use it for: the foot of a pricing page, a B2B homepage, an onboarding hub, a page serving both a card payment and a procurement process. Prefer ''Contact Options Grid'' when every route is a support channel rather than a way to buy, and ''Plan Chooser'' when the split is by audience.'
 group: conversion
@@ -81,7 +81,7 @@ fields:
   -
     identifier: paths
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

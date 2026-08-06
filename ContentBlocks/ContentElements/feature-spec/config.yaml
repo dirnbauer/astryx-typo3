@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-spec
-typeName: desiderio_grande_featurespec
+name: astryx-typo3/feature-spec
+typeName: astryx_typo3_featurespec
 title: 'Spec Sheet'
 description: 'Renders name-and-value pairs in a clean two-column table, with an optional explanatory line under each pair. Use it for: technical specifications, hardware dimensions, service-level figures, API limits, material and ingredient declarations, vehicle and machine data. Prefer ''Included Checklist'' when the answer is only yes or no, and ''Outcome Numbers'' when the figures are achievements to celebrate rather than facts to look up.'
 group: features
@@ -89,7 +89,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/advisory-board
-typeName: desiderio_grande_advisoryboard
+name: astryx-typo3/advisory-board
+typeName: astryx_typo3_advisoryboard
 title: 'Advisory Board'
 description: 'Renders external advisors with their portrait, the organisation they come from and the subject they advise on. Use it for: a scientific advisory board, the supervisory body of an association, industry advisors on a start-up page. Prefer ''Leadership Row'' for people who run the business day to day, and ''Mentor List'' when the reader is meant to approach these people rather than merely note their names.'
 group: team
@@ -84,7 +84,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

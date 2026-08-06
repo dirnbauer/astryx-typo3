@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-opening-hours
-typeName: desiderio_grande_footeropeninghours
+name: astryx-typo3/footer-opening-hours
+typeName: astryx_typo3_footeropeninghours
 title: 'Opening Hours'
 description: 'Renders the published schedule as day and time pairs, with days switched off shown as closed and a note for holidays. Use it for: shop or office hours at the end of a location page, telephone service times, counter hours in a public authority listing. Prefer ''Contact Block'' when the hours are one line among the contact details, and ''Hotline Band'' when availability belongs to one prominent number.'
 group: footer
@@ -86,7 +86,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

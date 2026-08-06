@@ -1,5 +1,5 @@
-name: desiderio-grande/testimonial-carousel
-typeName: desiderio_grande_testimonialcarousel
+name: astryx-typo3/testimonial-carousel
+typeName: astryx_typo3_testimonialcarousel
 title: 'Testimonial Carousel'
 description: 'Renders a horizontally scrolling track of quotes with previous and next controls, showing one or two at a time. Use it for: a long list of references that would otherwise dominate the page, quotes on a narrow mobile layout, a rotating band of customer voices near the footer. Prefer ''Testimonial Grid'' when every quote should be visible and printable at once, since a carousel hides most of its content by design.'
 group: social-proof
@@ -63,7 +63,7 @@ fields:
   -
     identifier: quotes
     type: Collection
-    foreign_table: desiderio_grande_quote_item
+    foreign_table: astryx_typo3_quote_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

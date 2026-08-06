@@ -1,5 +1,5 @@
-name: desiderio-grande/logo-cloud
-typeName: desiderio_grande_logocloud
+name: astryx-typo3/logo-cloud
+typeName: astryx_typo3_logocloud
 title: 'Logo Cloud'
 description: 'Renders customer or partner marks in an even grid at a uniform optical size, each optionally linked. Use it for: the reassurance strip under a hero, a short list of recognisable accounts, marks repeated across every page of a campaign. Prefer ''Logo Wall with Claim'' when a sentence should sit inside the wall, and ''Client List'' when the names are worth reading but the marks are not worth licensing.'
 group: social-proof
@@ -84,7 +84,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/quote-carousel
-typeName: desiderio_grande_quotecarousel
+name: astryx-typo3/quote-carousel
+typeName: astryx_typo3_quotecarousel
 title: 'Quote Carousel'
 description: 'Renders several quotations in a track that shows one at a time, with dots and arrows to move between them and a swipe on touch. Use it for: a run of customer verdicts, reviews after a conference, alumni voices on a course page, statements from every partner in a consortium. Prefer ''Quote with Portrait'' when one voice is enough for the page, and ''Pull Quote'' for a line taken from the article itself.'
 group: content
@@ -63,7 +63,7 @@ fields:
   -
     identifier: quotes
     type: Collection
-    foreign_table: desiderio_grande_quote_item
+    foreign_table: astryx_typo3_quote_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

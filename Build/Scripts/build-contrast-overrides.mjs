@@ -162,7 +162,7 @@ const header = `/*
  * This is a deliberate divergence from upstream, and the reason is that a theme
  * sold for public-sector and corporate TYPO3 has to meet AA.
  *
- * The build puts this file in the astryx-theme layer (see build-grande-css.mjs)
+ * The build puts this file in the astryx-theme layer (see build-astryx-css.mjs)
  * — in any earlier layer the theme block it corrects would simply win.
  *
  * Re-run the generator after updating the vendored tokens; verify with

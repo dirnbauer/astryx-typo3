@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-social-row
-typeName: desiderio_grande_footersocialrow
+name: astryx-typo3/footer-social-row
+typeName: astryx_typo3_footersocialrow
 title: 'Social Links Row'
 description: 'Renders the profiles you keep as a row of icon links, optionally with the network name beside each icon. Use it for: the follow row at the end of a page, channel links under an editorial piece, an artist''s profiles beside a booking note. Prefer ''Contact Block'' when the entries are ways to reach a person, and ''App Store Badges'' when the links lead to app downloads.'
 group: footer
@@ -76,7 +76,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

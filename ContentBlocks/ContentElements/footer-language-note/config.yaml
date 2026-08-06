@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-language-note
-typeName: desiderio_grande_footerlanguagenote
+name: astryx-typo3/footer-language-note
+typeName: astryx_typo3_footerlanguagenote
 title: 'Language and Region Note'
 description: 'Renders a sentence saying which language or country version this page is, with plain links to the others and the current one marked. Use it for: a note under a translated article, a country selector on a corporate site, a hint that a document exists in easy language too. Prefer ''Legal Links Bar'' when the links are legal pages, and ''Footer Link Columns'' when the versions belong in a larger link block.'
 group: footer
@@ -89,7 +89,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

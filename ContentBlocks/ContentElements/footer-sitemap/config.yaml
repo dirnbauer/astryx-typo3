@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-sitemap
-typeName: desiderio_grande_footersitemap
+name: astryx-typo3/footer-sitemap
+typeName: astryx_typo3_footersitemap
 title: 'Sitemap Footer'
 description: 'Renders the site''s sections and their pages as columns of links, two levels deep, with a child without a link opening each section. Use it for: the HTML sitemap page itself, a large portal''s closing block, an intranet start page that needs everything visible. Prefer ''Footer Link Columns'' for a short curated set, and ''Utility Footer'' when a brand column and a legal line belong with it.'
 group: footer
@@ -84,7 +84,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

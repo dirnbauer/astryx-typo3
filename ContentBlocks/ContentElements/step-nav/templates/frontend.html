@@ -15,7 +15,7 @@
     of one process and not a set of choices.
 </f:comment>
 
-<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.steps" default="Steps"/></f:variable>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.steps" default="Steps"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 <f:variable name="selfUri"><f:uri.page/></f:variable>
 
@@ -69,9 +69,9 @@
                             </f:if>
 
                             <span class="astryx-visually-hidden">
-                                <f:if condition="{state} == 'done'"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.stepDone" default="Completed"/></f:if>
-                                <f:if condition="{state} == 'current'"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.currentStep" default="Current step"/></f:if>
-                                <f:if condition="{state} == 'upcoming'"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.stepOpen" default="Still to come"/></f:if>
+                                <f:if condition="{state} == 'done'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepDone" default="Completed"/></f:if>
+                                <f:if condition="{state} == 'current'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.currentStep" default="Current step"/></f:if>
+                                <f:if condition="{state} == 'upcoming'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepOpen" default="Still to come"/></f:if>
                             </span>
 
                             <f:if condition="{step.description}">

@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 defined('TYPO3') or die();
 
 // Per-page theme override. Empty inherits from the parent page (levelfield
-// slide in the body tag cObject) and finally from the desiderioGrande.theme
+// slide in the body tag cObject) and finally from the astryx.theme
 // site setting. Switching a theme is a repaint: the tokens are all runtime CSS
 // custom properties, nothing is rebuilt and no content is touched.
 //
@@ -16,7 +16,7 @@ defined('TYPO3') or die();
 // Configuration/page.tsconfig.
 $themeItems = [
     [
-        'label' => 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:pages.astryxTheme.inherit',
+        'label' => 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:pages.astryxTheme.inherit',
         'value' => '',
     ],
 ];
@@ -44,7 +44,7 @@ foreach ([
     'lagoon' => 'Lagoon — blue-green water on pale sand',
     'rose' => 'Rose — dusty rose, deliberately desaturated so',
     'graphite' => 'Graphite — cool monochrome with no hue',
-    // Five adapted from well-known open-source palettes; see Build/Data/grande-themes.json.
+    // Five adapted from well-known open-source palettes; see Build/Data/astryx-themes.json.
     'frost' => 'Frost — arctic blue-grey, desaturated to the',
     'latte' => 'Latte — pastel mauve on a cool',
     'solar' => 'Solar — cream paper and dark cyan',
@@ -54,10 +54,10 @@ foreach ([
     $themeItems[] = ['label' => $label, 'value' => $value];
 }
 
-$GLOBALS['TCA']['pages']['columns']['tx_desideriogrande_theme'] = [
+$GLOBALS['TCA']['pages']['columns']['tx_desiderioastryx_theme'] = [
     'exclude' => true,
-    'label' => 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:pages.astryxTheme',
-    'description' => 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:pages.astryxTheme.description',
+    'label' => 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:pages.astryxTheme',
+    'description' => 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:pages.astryxTheme.description',
     'config' => [
         'type' => 'select',
         'renderType' => 'selectSingle',
@@ -69,6 +69,6 @@ $GLOBALS['TCA']['pages']['columns']['tx_desideriogrande_theme'] = [
 ExtensionManagementUtility::addFieldsToPalette(
     'pages',
     'layout',
-    'tx_desideriogrande_theme',
+    'tx_desiderioastryx_theme',
     'after:backend_layout_next_level',
 );

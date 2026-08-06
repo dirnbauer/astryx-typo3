@@ -1,5 +1,5 @@
-name: desiderio-grande/data-distribution-bars
-typeName: desiderio_grande_datadistributionbars
+name: astryx-typo3/data-distribution-bars
+typeName: astryx_typo3_datadistributionbars
 title: 'Distribution Bars'
 description: 'Renders how one total splits across named buckets, one row per bucket with its share as a bar and its figure at the end. Use it for: a five-star rating breakdown, visitors by channel, orders by region, age groups in a survey. Prefer ''Share Bar'' when the split should read as a single bar, and ''Bar Comparison'' when the rows are independent measures that do not add up to anything.'
 group: data
@@ -83,7 +83,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

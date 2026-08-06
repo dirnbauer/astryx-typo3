@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-certifications
-typeName: desiderio_grande_footercertifications
+name: astryx-typo3/footer-certifications
+typeName: astryx_typo3_footercertifications
 title: 'Certification Strip'
 description: 'Renders the seals and standards the organisation holds as a row of marks, each linked to its certificate, with validity dates in the note. Use it for: quality and environmental standards at the end of a company page, audit seals on a services page, memberships closing a profile. Prefer ''Payment and Shipping Row'' for transactional marks, and ''Funding Acknowledgement'' for funders you must name rather than seals you hold.'
 group: footer
@@ -86,7 +86,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-outcomes
-typeName: desiderio_grande_featureoutcomes
+name: astryx-typo3/feature-outcomes
+typeName: astryx_typo3_featureoutcomes
 title: 'Outcome Numbers'
 description: 'Renders a band where each entry pairs a measured result with the capability that produced it — the figure large, its unit beside it, one line of explanation underneath. Use it for: results sections on a feature page, efficiency claims, savings after a migration, service-level summaries, programme impact reporting. Prefer ''Spec Sheet'' when the numbers are properties to look up rather than wins, and ''Feature with Customer Proof'' when a named person should say it instead.'
 group: features
@@ -93,7 +93,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

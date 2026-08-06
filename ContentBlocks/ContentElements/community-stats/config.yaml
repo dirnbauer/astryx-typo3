@@ -1,5 +1,5 @@
-name: desiderio-grande/community-stats
-typeName: desiderio_grande_communitystats
+name: astryx-typo3/community-stats
+typeName: astryx_typo3_communitystats
 title: 'Community Stats'
 description: 'Renders a set of figures describing the people around a product: members, contributors, countries, events held. Use it for: an open source project page, an association''s about section, the reach summary above a newsletter sign-up. Prefer ''Case Study Metrics Band'' when the numbers belong to one customer''s project, and ''Used By Counter'' when a single figure should dominate instead of a balanced set.'
 group: social-proof
@@ -101,7 +101,7 @@ fields:
   -
     identifier: stats
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

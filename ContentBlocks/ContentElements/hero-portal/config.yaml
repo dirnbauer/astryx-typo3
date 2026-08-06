@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-portal
-typeName: desiderio_grande_heroportal
+name: astryx-typo3/hero-portal
+typeName: astryx_typo3_heroportal
 title: 'Portal Hero'
 description: 'Renders a welcome line over two to four large destination cards, each with an icon, a title, a sentence and its own link — the opening for a site whose readers arrive with different errands. Use it for: institution and municipality home pages, university and association sites, intranet landings, multi-audience portals, group company home pages. Prefer ''Documentation Hero'' when the links are compact and search leads, and ''Hero with Benefit Bullets'' when the items describe one product instead of routing away from it.'
 group: hero
@@ -92,7 +92,7 @@ fields:
   -
     identifier: routes
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

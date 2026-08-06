@@ -1,5 +1,5 @@
-name: desiderio-grande/data-spec-table
-typeName: desiderio_grande_dataspectable
+name: astryx-typo3/data-spec-table
+typeName: astryx_typo3_dataspectable
 title: 'Specification Table'
 description: 'Renders label and value pairs as a specification list, optionally split into two columns of pairs, each pair able to carry a clarifying note. Use it for: technical data on a product page, room details in a venue listing, materials and dimensions, delivery conditions. Prefer ''Captioned Data Table'' when the rows form a table with a source, and ''Comparison Matrix'' when two options are being weighed against each other.'
 group: data
@@ -78,7 +78,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

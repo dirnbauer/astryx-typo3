@@ -1,5 +1,5 @@
-name: desiderio-grande/outline-rail
-typeName: desiderio_grande_outlinerail
+name: astryx-typo3/outline-rail
+typeName: astryx_typo3_outlinerail
 title: 'Outline Rail'
 description: 'Renders the page''s headings as a vertical rail beside the text, sticking while the reader scrolls past it and moving above the content on narrow screens. Use it for: documentation, a long policy or statute, a handbook chapter, a research paper, anything past about two screens of reading. Prefer ''Anchor Bar'' for a horizontal band under the header, and ''Article Contents'' for a box that scrolls away with the text.'
 group: navigation
@@ -53,7 +53,7 @@ fields:
   -
     identifier: entries
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

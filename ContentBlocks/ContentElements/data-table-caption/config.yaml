@@ -1,5 +1,5 @@
-name: desiderio-grande/data-table-caption
-typeName: desiderio_grande_datatablecaption
+name: astryx-typo3/data-table-caption
+typeName: astryx_typo3_datatablecaption
 title: 'Captioned Data Table'
 description: 'Renders rows as a proper table with a caption above and a source note below, so the figures can be cited. Use it for: measurement results in a report, a price and quantity list, statistics reproduced from an official source, appendix data. Prefer ''Specification Table'' for product attributes without a source apparatus, and ''Ranking List'' when the order of the rows is the point.'
 group: data
@@ -78,7 +78,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

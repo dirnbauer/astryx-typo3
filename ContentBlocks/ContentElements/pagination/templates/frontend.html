@@ -17,9 +17,9 @@
     about where the link goes.
 </f:comment>
 
-<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.pagination" default="Parts of this series"/></f:variable>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.pagination" default="Parts of this series"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
-<f:variable name="partLabel"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.part" default="Part"/></f:variable>
+<f:variable name="partLabel"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.part" default="Part"/></f:variable>
 <f:variable name="buttonSize">{f:if(condition: data.compact, then: 'sm', else: 'md')}</f:variable>
 <f:variable name="selfUri"><f:uri.page/></f:variable>
 
@@ -54,7 +54,7 @@
                     <f:for each="{data.pages}" as="part" iteration="step">
                         <f:if condition="{step.index} == {prevIndex}">
                             <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__step previous">
-                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>: {part.title}</span>
+                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>: {part.title}</span>
                             </f:link.typolink>
                         </f:if>
                     </f:for>
@@ -64,7 +64,7 @@
                     <f:if condition="{step.index} == {currentIndex} || !{part.link.url}">
                         <f:then>
                             <span class="astryx-button ghost {buttonSize} g-pagination__number" aria-current="page">
-                                <span class="astryx-visually-hidden">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                                <span class="astryx-visually-hidden">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
                                 <span aria-hidden="true">{step.cycle}</span>
                             </span>
                         </f:then>
@@ -81,7 +81,7 @@
                     <f:for each="{data.pages}" as="part" iteration="step">
                         <f:if condition="{step.index} == {nextIndex}">
                             <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__step next">
-                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>: {part.title}</span>
+                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>: {part.title}</span>
                             </f:link.typolink>
                         </f:if>
                     </f:for>

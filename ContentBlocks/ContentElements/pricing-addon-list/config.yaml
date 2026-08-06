@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-addon-list
-typeName: desiderio_grande_pricingaddonlist
+name: astryx-typo3/pricing-addon-list
+typeName: astryx_typo3_pricingaddonlist
 title: 'Add-On List'
 description: 'Renders the extras that can be bought on top of a plan: what the add-on is, what it costs, and one line on what it does. The ''cards'' variant spreads them across a grid, ''list'' keeps them as rows. Use it for: optional modules, extra storage, priority support, additional environments, paid integrations, insurance cover. Prefer ''What''s Included Checklist'' for things already inside the price, and ''One-Off Cost List'' for charges that happen only once.'
 group: pricing
@@ -86,7 +86,7 @@ fields:
   -
     identifier: addons
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

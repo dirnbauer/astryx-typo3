@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-credits
-typeName: desiderio_grande_footercredits
+name: astryx-typo3/footer-credits
+typeName: astryx_typo3_footercredits
 title: 'Credits and Photo Notices'
 description: 'Renders picture credits, licences and the people behind the site as label and value pairs, optionally in two columns. Use it for: image rights at the end of a gallery page, the colophon of a magazine issue, licence notices under an open data page, agency and photographer credits. Prefer ''Imprint Summary'' for operator details, and ''Funding Acknowledgement'' when a funder must be named.'
 group: footer
@@ -84,7 +84,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

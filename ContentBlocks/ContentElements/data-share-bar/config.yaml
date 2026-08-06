@@ -1,5 +1,5 @@
-name: desiderio-grande/data-share-bar
-typeName: desiderio_grande_datasharebar
+name: astryx-typo3/data-share-bar
+typeName: astryx_typo3_datasharebar
 title: 'Share Bar'
 description: 'Renders a single full-width bar divided into coloured segments with a legend beneath, so a whole reads as its parts at once. Use it for: the energy mix, revenue by business unit, a workforce split, seats by party. Prefer ''Distribution Bars'' when each part deserves its own row and figure, and ''Percentage Rings'' when a single share is the whole message.'
 group: data
@@ -83,7 +83,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

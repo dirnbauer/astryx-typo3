@@ -1,5 +1,5 @@
-name: desiderio-grande/team-list
-typeName: desiderio_grande_teamlist
+name: astryx-typo3/team-list
+typeName: astryx_typo3_teamlist
 title: 'Team Directory'
 description: 'Renders a large team as dense rows: a small avatar, the name, the role and a contact link, several dozen to a screen. Use it for: a faculty list, a hospital''s staff register, any team too large for a portrait grid. Prefer ''Team Grid'' when portraits should carry the section, and ''Team by Function'' when the reader is looking for a discipline rather than a name.'
 group: team
@@ -89,7 +89,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

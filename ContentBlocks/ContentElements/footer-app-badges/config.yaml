@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-app-badges
-typeName: desiderio_grande_footerappbadges
+name: astryx-typo3/footer-app-badges
+typeName: astryx_typo3_footerappbadges
 title: 'App Store Badges'
 description: 'Renders store badges as links, optionally beside a QR image, under a short line about the app. Use it for: the download prompt at the end of a product page, a public transport app on a service page, a members'' app under a membership description. Prefer ''Social Links Row'' for profile links, and ''Payment and Shipping Row'' when the marks are payment methods rather than stores.'
 group: footer
@@ -87,7 +87,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/quick-links
-typeName: desiderio_grande_quicklinks
+name: astryx-typo3/quick-links
+typeName: astryx_typo3_quicklinks
 title: 'Quick Links Bar'
 description: 'Renders a slim single-row bar of shortcuts, each one an icon and two or three words, wrapping onto a second line only on narrow screens. Use it for: the three or four things people came to a page to do, the forms and phone numbers on a service page, jump-offs directly under a page title. Prefer ''Link Grid'' when there are more than about six, and ''Anchor Bar'' when the targets are sections of the page itself.'
 group: navigation
@@ -66,7 +66,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

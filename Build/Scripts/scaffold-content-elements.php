@@ -177,7 +177,7 @@ function writeFile(string $path, string $contents): void
 
 function cType(string $id): string
 {
-    return 'desiderio_grande_' . str_replace('-', '', $id);
+    return 'astryx_typo3_' . str_replace('-', '', $id);
 }
 
 function xmlEscape(string $value): string
@@ -208,17 +208,17 @@ function buildDerivedFiles(string $root, array $matrix, array $recordTypes): arr
         '# include this set: they see exactly these elements (plus the native TYPO3',
         '# types), and none of the other theme\'s. An element missing from this list',
         '# renders fine but never appears in the wizard.',
-        'name: webconsulting/desiderio-grande-content-elements',
-        'label: "Desiderio Grande Content Elements"',
+        'name: webconsulting/astryx-typo3-content-elements',
+        'label: "Astryx for TYPO3 Content Elements"',
         'hidden: true',
         'dependencies:',
-        '  - webconsulting/desiderio-grande',
+        '  - webconsulting/astryx-typo3',
         'optionalDependencies:',
     ];
     foreach ($elements as $element) {
-        $lines[] = '  - desiderio-grande/' . $element['id'];
+        $lines[] = '  - astryx-typo3/' . $element['id'];
     }
-    $files[$root . '/Configuration/Sets/DesiderioGrandeContentElements/config.yaml'] = implode("\n", $lines) . "\n";
+    $files[$root . '/Configuration/Sets/AstryxTypo3ContentElements/config.yaml'] = implode("\n", $lines) . "\n";
 
     // Keyword chips and the search index. One unit per cType; the value packs
     // ranked chips and unshown synonyms into "a | b || syn | syn".
@@ -254,7 +254,7 @@ function buildDerivedFiles(string $root, array $matrix, array $recordTypes): arr
             ),
         ];
     }
-    $files[$root . '/Resources/Private/Data/grande-content-groups.json'] =
+    $files[$root . '/Resources/Private/Data/astryx-content-groups.json'] =
         json_encode(['groups' => $groups], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n";
 
     // Shared child tables.
@@ -295,7 +295,7 @@ function collectUsedRecordTypes(array $elements, array $recordTypes): array
             '# shareAcrossTables/shareAcrossFields, so one table serves them all rather',
             '# than each collection generating a near-identical one.',
             '# Used by: ' . implode(', ', $consumers),
-            'name: desiderio-grande/' . $key,
+            'name: astryx-typo3/' . $key,
             'table: ' . $type['table'],
             'prefixFields: false',
             'labelField: ' . $type['labelField'],
@@ -448,7 +448,7 @@ function elementConfig(array $row, string $group, array $fieldLibrary, array $re
 {
     $id = $row['id'];
     $lines = [
-        'name: desiderio-grande/' . $id,
+        'name: astryx-typo3/' . $id,
         // Always explicit: the element library derives the cType from this, and
         // a vendor segment that differs from the extension key would otherwise
         // produce a cType that does not match the registered one.
@@ -565,7 +565,7 @@ function frontendTemplate(array $row): string
     <f:asset.css identifier="{$class}" href="{cb:assetPath()}/frontend.css"/>
 
     <f:comment>
-        TODO(grande): {$notes}
+        TODO(astryx): {$notes}
     </f:comment>
 
     <section class="astryx-section {$class}" data-variant="{data.variant}">
@@ -628,7 +628,7 @@ function backendPreview(array $row): string
     <f:section name="Header"></f:section>
 
     <f:section name="Content">
-        <f:asset.css identifier="grande-content-preview" href="EXT:desiderio_grande/Resources/Public/Css/content-preview.css"/>
+        <f:asset.css identifier="astryx-content-preview" href="EXT:astryx_typo3/Resources/Public/Css/content-preview.css"/>
         <div class="g-ce-preview" data-slot="card">
             <div class="g-ce-preview__meta">
                 <span class="g-ce-preview__ctype">{$title}</span>

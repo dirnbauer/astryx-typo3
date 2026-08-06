@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-plan-spotlight
-typeName: desiderio_grande_pricingplanspotlight
+name: astryx-typo3/pricing-plan-spotlight
+typeName: astryx_typo3_pricingplanspotlight
 title: 'Featured Plan Spotlight'
 description: 'Renders the recommended plan as a band of its own, wider than a card: a large price, a paragraph of argument rather than a single sentence, the entitlements in two or three columns, and both a primary and a quiet secondary action. Use it for: the plan most visitors should take, a renewal offer above the full tier row, one flagship package on a service page. Prefer ''Plan Card'' when the tiers are meant to be weighed against each other, and ''Enterprise Panel'' when the price is a conversation rather than a number.'
 group: pricing
@@ -112,7 +112,7 @@ fields:
   -
     identifier: features
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

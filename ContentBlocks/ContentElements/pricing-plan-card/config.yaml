@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-plan-card
-typeName: desiderio_grande_pricingplancard
+name: astryx-typo3/pricing-plan-card
+typeName: astryx_typo3_pricingplancard
 title: 'Plan Card'
 description: 'Renders one subscription plan as a card: name, price, billing period, a sentence of positioning, a ticked feature list and its own button. Place two, three or four side by side — each plan is a separate element, so a tier can be reordered, hidden or translated without touching its neighbours. Use it for: a three-tier SaaS page, a free-and-paid split, a row of agency retainers. Prefer ''Featured Plan Spotlight'' for the one tier that should be read first, and ''Single Price Panel'' when there is nothing to compare.'
 group: pricing
@@ -85,7 +85,7 @@ fields:
   -
     identifier: features
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/anchor-bar
-typeName: desiderio_grande_anchorbar
+name: astryx-typo3/anchor-bar
+typeName: astryx_typo3_anchorbar
 title: 'Anchor Bar'
 description: 'Renders the sections of the current page as a horizontal bar of links that sticks under the header while the reader scrolls. Use it for: a long landing page with named sections, a product page whose specifications sit far down, a report in parts, a campaign page with several stops. Prefer ''Outline Rail'' when there is room for a vertical rail beside the text, and ''Jump List'' when the links should stay exactly where they were placed.'
 group: navigation
@@ -66,7 +66,7 @@ fields:
   -
     identifier: anchors
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

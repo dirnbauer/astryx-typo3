@@ -1,5 +1,5 @@
-name: desiderio-grande/certification-row
-typeName: desiderio_grande_certificationrow
+name: astryx-typo3/certification-row
+typeName: astryx_typo3_certificationrow
 title: 'Certification Row'
 description: 'Renders compliance and standards seals with the scope of each certificate and a link to the issuing body''s register. Use it for: information security and quality standards, sector accreditations, an audit summary in a procurement section. Prefer ''Awards Row'' for prizes decided by a jury, and ''Trust Signals Strip'' for promises you make yourself, such as free returns, which no external body has verified.'
 group: social-proof
@@ -81,7 +81,7 @@ fields:
   -
     identifier: certificates
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

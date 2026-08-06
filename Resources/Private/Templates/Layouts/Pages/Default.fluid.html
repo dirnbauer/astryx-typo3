@@ -1,13 +1,16 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vite="http://typo3.org/ns/Praetorius/ViteAssetCollector/ViewHelpers"
     data-namespace-typo3-fluid="true"
 >
 
 <f:page.meta property="viewport">width=device-width, initial-scale=1.0</f:page.meta>
 <f:render partial="Pages/SeoMeta" arguments="{_all}"/>
+<vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Main.entry.css"/>
+<vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Components.entry.js"/>
 
-<a href="#main-content" class="grande-skip-link">
-    <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.skipToContent">Skip to main content</f:translate>
+<a href="#main-content" class="astryx-skip-link">
+    <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.skipToContent">Skip to main content</f:translate>
 </a>
 
 <f:render partial="Pages/Header" arguments="{_all}"/>
@@ -18,7 +21,7 @@
         heading. The site root has a one-item rootline and gets none.
     </f:comment>
     <f:variable name="rootlineDepth" value="{breadcrumb -> f:count()}"/>
-    <f:if condition="{site.configuration.settings.desiderioGrande.header.breadcrumb} && {rootlineDepth} > 1">
+    <f:if condition="{site.configuration.settings.astryx.header.breadcrumb} && {rootlineDepth} > 1">
         <f:render partial="Pages/Breadcrumb" arguments="{_all}"/>
     </f:if>
 

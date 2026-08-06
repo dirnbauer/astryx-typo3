@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 /**
  * These tests read the extension's own data files and generated output; none
- * of them boots TYPO3, so the lab's autoloader is enough.
+ * of them boots TYPO3, so Astryx's own Composer autoloader is enough.
  */
-$autoload = dirname(__DIR__, 3) . '/vendor/autoload.php';
+$autoload = dirname(__DIR__) . '/vendor/autoload.php';
 if (!is_file($autoload)) {
-    fwrite(STDERR, "Install the lab's dependencies first (composer install in the project root).\n");
+    fwrite(STDERR, "Install Astryx dependencies first (composer install in this repository).\n");
     exit(1);
 }
 

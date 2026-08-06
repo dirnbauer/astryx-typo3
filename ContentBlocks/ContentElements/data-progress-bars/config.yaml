@@ -1,5 +1,5 @@
-name: desiderio-grande/data-progress-bars
-typeName: desiderio_grande_dataprogressbars
+name: astryx-typo3/data-progress-bars
+typeName: astryx_typo3_dataprogressbars
 title: 'Progress Bars'
 description: 'Renders a list of named rows, each with a horizontal bar filled to the percentage typed on that row. Use it for: project phases and how far each has run, capability levels in a profile, capacity per location, adoption per department. Prefer ''Goal Meter'' when one target is the whole story, and ''Distribution Bars'' when the rows are shares of one total rather than independent percentages.'
 group: data
@@ -73,7 +73,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

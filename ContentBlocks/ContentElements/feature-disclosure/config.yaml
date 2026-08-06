@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-disclosure
-typeName: desiderio_grande_featuredisclosure
+name: astryx-typo3/feature-disclosure
+typeName: astryx_typo3_featuredisclosure
 title: 'Expandable Feature List'
 description: 'Renders each entry as a closed row that opens on click to reveal its rich text, using native disclosure markup so no script is involved at all. Use it for: long capability inventories, technical detail that would swamp the page, regulation and policy explanations, feature pages with a knowledgeable minority of readers. Prefer ''Benefit List'' when everything should be visible at once, and ''Capability Tabs'' when only one entry should ever be open.'
 group: features
@@ -68,7 +68,7 @@ fields:
   -
     identifier: entries
     type: Collection
-    foreign_table: desiderio_grande_qa_item
+    foreign_table: astryx_typo3_qa_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

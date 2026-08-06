@@ -1,17 +1,17 @@
 {
-  "name": "@webconsulting/desiderio-grande",
+  "name": "@webconsulting/astryx-typo3",
   "private": true,
-  "version": "0.1.0",
-  "description": "Build tooling for the Desiderio Grande TYPO3 extension: Astryx theme tokens, component CSS, self-hosted fonts.",
+  "version": "1.0.0",
+  "description": "Build tooling for the Astryx for TYPO3 TYPO3 extension: Astryx theme tokens, component CSS, self-hosted fonts.",
   "type": "module",
   "scripts": {
     "build": "npm run build:themes && npm run build:theme && npm run build:contrast && npm run build:css && npm run build:fonts && npm run build:overview && npm run audit:contrast",
     "build:theme": "node Build/Scripts/build-astryx-theme.mjs",
     "build:contrast": "node Build/Scripts/build-contrast-overrides.mjs",
-    "build:css": "node Build/Scripts/build-grande-css.mjs",
+    "build:css": "node Build/Scripts/build-astryx-css.mjs",
     "build:fonts": "node Build/Scripts/sync-fonts.mjs",
     "audit:contrast": "node Build/Scripts/audit-contrast.mjs",
-    "build:themes": "node Build/Scripts/build-grande-themes.mjs",
+    "build:themes": "node Build/Scripts/build-astryx-themes.mjs",
     "build:overview": "node Build/Scripts/build-theme-overview.mjs"
   },
   "devDependencies": {

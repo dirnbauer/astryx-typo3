@@ -1,5 +1,5 @@
-name: desiderio-grande/press-mentions
-typeName: desiderio_grande_pressmentions
+name: astryx-typo3/press-mentions
+typeName: astryx_typo3_pressmentions
 title: 'Press Mentions'
 description: 'Renders a list of press coverage, each row carrying the headline, the publication and a link to the article. Use it for: a newsroom page, an investor section, a strip of coverage after a launch. Prefer ''Logo Cloud'' for the plain as-seen-in strip of publication marks, and ''Social Mentions Wall'' when the sources are short public posts rather than published articles.'
 group: social-proof
@@ -88,7 +88,7 @@ fields:
   -
     identifier: mentions
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

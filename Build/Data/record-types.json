@@ -15,7 +15,7 @@
   ],
   "recordTypes": {
     "nav-item": {
-      "table": "desiderio_grande_nav_item",
+      "table": "astryx_typo3_nav_item",
       "labelField": "title",
       "purpose": "A link in a list: menus, footers, tabs, tables of contents, link cards.",
       "fields": [
@@ -26,7 +26,7 @@
       ]
     },
     "icon-lead": {
-      "table": "desiderio_grande_icon_lead",
+      "table": "astryx_typo3_icon_lead",
       "labelField": "title",
       "purpose": "Icon, title and a sentence — the repeated unit of every feature and benefit grid.",
       "fields": [
@@ -37,7 +37,7 @@
       ]
     },
     "metric-item": {
-      "table": "desiderio_grande_metric_item",
+      "table": "astryx_typo3_metric_item",
       "labelField": "value",
       "purpose": "One number with its label, and optionally what it is compared against.",
       "fields": [
@@ -49,7 +49,7 @@
       ]
     },
     "quote-item": {
-      "table": "desiderio_grande_quote_item",
+      "table": "astryx_typo3_quote_item",
       "labelField": "author",
       "purpose": "A testimonial or review: what was said, by whom, and their standing.",
       "fields": [
@@ -61,7 +61,7 @@
       ]
     },
     "person-item": {
-      "table": "desiderio_grande_person_item",
+      "table": "astryx_typo3_person_item",
       "labelField": "title",
       "purpose": "A person: portrait, name, role, a line about them, and where to reach them.",
       "fields": [
@@ -73,7 +73,7 @@
       ]
     },
     "logo-item": {
-      "table": "desiderio_grande_logo_item",
+      "table": "astryx_typo3_logo_item",
       "labelField": "title",
       "purpose": "A client or partner mark, optionally linked.",
       "fields": [
@@ -83,7 +83,7 @@
       ]
     },
     "qa-item": {
-      "table": "desiderio_grande_qa_item",
+      "table": "astryx_typo3_qa_item",
       "labelField": "title",
       "purpose": "A question and its answer — accordions, FAQs, glossaries.",
       "fields": [
@@ -92,7 +92,7 @@
       ]
     },
     "label-value": {
-      "table": "desiderio_grande_label_value",
+      "table": "astryx_typo3_label_value",
       "labelField": "title",
       "purpose": "A row of a specification, comparison or plan-feature table.",
       "fields": [
@@ -103,7 +103,7 @@
       ]
     },
     "media-card": {
-      "table": "desiderio_grande_media_card",
+      "table": "astryx_typo3_media_card",
       "labelField": "title",
       "purpose": "A card with its own picture: link cards, slides, partner tiles, anything where the image belongs to the item rather than to the band.",
       "_note": "icon-lead carries an icon and logo-item only a mark, so neither can hold a picture card. This is the type to reach for whenever each item needs its own image.",

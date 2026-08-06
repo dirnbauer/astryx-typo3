@@ -1,5 +1,5 @@
-name: desiderio-grande/open-roles
-typeName: desiderio_grande_openroles
+name: astryx-typo3/open-roles
+typeName: astryx_typo3_openroles
 title: 'Open Roles'
 description: 'Renders the vacancies currently open as a list, each row carrying the job title, its location or contract type and a link to the full posting. Use it for: a careers page, a short hiring teaser at the foot of an about page, an agency looking for freelancers. Prefer ''Culture Band'' for the reasons to apply rather than the openings themselves, and ''Contact Person Panel'' when applications go to one named recruiter.'
 group: team
@@ -77,7 +77,7 @@ fields:
   -
     identifier: roles
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

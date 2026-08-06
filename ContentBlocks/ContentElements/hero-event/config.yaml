@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-event
-typeName: desiderio_grande_heroevent
+name: astryx-typo3/hero-event
+typeName: astryx_typo3_heroevent
 title: 'Event Hero'
 description: 'Renders a dated opening: a badge, the event title, one line of positioning, a fact list for date, venue and price, and a registration action. Use it for: conferences, camps, webinars, workshops, launch parties, exhibitions, anything with a date attached to it. Prefer ''Product Hero'' for pages without a date, and ''Announcement Hero'' when the event is only being teased and registration has not opened yet.'
 group: hero
@@ -97,7 +97,7 @@ fields:
   -
     identifier: facts
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

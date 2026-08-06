@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-index
-typeName: desiderio_grande_featureindex
+name: astryx-typo3/feature-index
+typeName: astryx_typo3_featureindex
 title: 'Full Feature Index'
 description: 'Renders every capability as a dense multi-column index of linked one-liners, in the order an editor gives them — the reference list rather than the sales band. Use it for: ''all features'' pages, module catalogues, comparison footers, sitemap-like overviews, the page a search engine should find every term on. Prefer ''Feature Grid'' when a dozen entries need selling rather than listing, and ''Included Checklist'' when readers care whether each line is part of their plan.'
 group: features
@@ -84,7 +84,7 @@ fields:
   -
     identifier: entries
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

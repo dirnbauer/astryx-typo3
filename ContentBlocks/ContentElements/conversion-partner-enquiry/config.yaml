@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-partner-enquiry
-typeName: desiderio_grande_conversionpartnerenquiry
+name: astryx-typo3/conversion-partner-enquiry
+typeName: astryx_typo3_conversionpartnerenquiry
 title: 'Partner Enquiry Band'
 description: 'Renders the invitation to become a reseller, integrator or affiliate: what a partner receives, what is expected in return, which markets are open, and the way to apply. Use it for: a partner programme page, a reseller landing page, the foot of an integration directory, a distributor recruitment campaign. Prefer ''Sales or Self-Serve Fork'' when the reader is buying rather than partnering, and ''Quote Request Panel'' when the ask is a price for one project.'
 group: conversion
@@ -102,7 +102,7 @@ fields:
   -
     identifier: benefits
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

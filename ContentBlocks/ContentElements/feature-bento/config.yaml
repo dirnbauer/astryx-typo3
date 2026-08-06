@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-bento
-typeName: desiderio_grande_featurebento
+name: astryx-typo3/feature-bento
+typeName: astryx_typo3_featurebento
 title: 'Bento Grid'
 description: 'Renders tiles of deliberately unequal size on one grid, so the leading entry can take a double cell and the rest fall in around it. Use it for: product overview bands where one capability leads, platform pages with a headline feature, marketing pages that want a composed rather than a regular rhythm. Prefer ''Feature Grid'' when every entry carries the same weight, and ''Feature Showcase Row'' when the leading capability deserves a whole band of its own.'
 group: features
@@ -76,7 +76,7 @@ fields:
   -
     identifier: tiles
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

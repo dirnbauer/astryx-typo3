@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-faq
-typeName: desiderio_grande_pricingfaq
+name: astryx-typo3/pricing-faq
+typeName: astryx_typo3_pricingfaq
 title: 'Pricing FAQ'
 description: 'Renders the questions a reader asks before paying — tax, invoices, currencies, contract length, what counts as a user — either as an accordion or as an open list in one or two columns. The accordion is native disclosure markup, so it opens without a line of script. Use it for: the foot of a pricing page, a billing help section, the small print of a rate card. Prefer ''Plan Change Explainer'' when every question is about switching tiers, and ''Trial Terms Panel'' when they are all about the trial.'
 group: pricing
@@ -107,7 +107,7 @@ fields:
   -
     identifier: questions
     type: Collection
-    foreign_table: desiderio_grande_qa_item
+    foreign_table: astryx_typo3_qa_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

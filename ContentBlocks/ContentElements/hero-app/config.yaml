@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-app
-typeName: desiderio_grande_heroapp
+name: astryx-typo3/hero-app
+typeName: astryx_typo3_heroapp
 title: 'App Download Hero'
 description: 'Renders a mobile-app opening: copy on one side, a device shot on the other, and a row of store links each carrying its own icon and platform name. Use it for: app landing pages, store campaign pages, the download page a QR code points at, beta programme invitations. Prefer ''Split Media Hero'' when the product is not an app and the links are ordinary buttons, and ''Product Hero'' when the screenshot is a desktop interface rather than a phone.'
 group: hero
@@ -79,7 +79,7 @@ fields:
   -
     identifier: stores
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

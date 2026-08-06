@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-guarantee-band
-typeName: desiderio_grande_pricingguaranteeband
+name: astryx-typo3/pricing-guarantee-band
+typeName: astryx_typo3_pricingguaranteeband
 title: 'Guarantee Band'
 description: 'Renders a promise in one short band: an icon, the guarantee itself in a line or two, and up to four supporting points beside it. Use it for: a thirty-day money-back promise, a price-lock pledge, an uptime commitment under a plan row, a satisfaction guarantee above a checkout button. Prefer ''Pricing FAQ'' when the promise needs its conditions explained at length, and ''Trial Terms Panel'' when what is offered is a trial period rather than a refund.'
 group: pricing
@@ -82,7 +82,7 @@ fields:
   -
     identifier: points
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

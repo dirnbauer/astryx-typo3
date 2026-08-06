@@ -1,5 +1,5 @@
-name: desiderio-grande/chapter-list
-typeName: desiderio_grande_chapterlist
+name: astryx-typo3/chapter-list
+typeName: astryx_typo3_chapterlist
 title: 'Chapter List'
 description: 'Renders the parts of a long work as a numbered contents list spanning several pages, each entry with its number, title and a line about what it covers. Use it for: the front page of a handbook, a course syllabus, a report''s contents, a guide published chapter by chapter, a documentation landing page. Prefer ''Article Contents'' when the sections all live on the current page, and ''Step Navigation'' when the parts have to be worked through in order.'
 group: navigation
@@ -63,7 +63,7 @@ fields:
   -
     identifier: chapters
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

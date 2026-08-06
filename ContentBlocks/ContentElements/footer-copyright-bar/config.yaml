@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-copyright-bar
-typeName: desiderio_grande_footercopyrightbar
+name: astryx-typo3/footer-copyright-bar
+typeName: astryx_typo3_footercopyrightbar
 title: 'Copyright Bar'
 description: 'Renders one quiet line — the copyright notice, and at most a couple of links beside it. Use it for: closing a microsite that has no template footer, the last line of a printed-looking document page, a landing page in its own layout. Prefer ''Legal Links Bar'' when several legal links are the point, and ''Credits and Photo Notices'' when picture credits have to be listed.'
 group: footer
@@ -78,7 +78,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

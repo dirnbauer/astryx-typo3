@@ -1,5 +1,5 @@
 # TCA is global, so registering the per-page theme field adds it to every site
 # in the installation — including the ones running Desiderio, where it would do
-# nothing but confuse. Hide it by default; the DesiderioGrande site set turns it
+# nothing but confuse. Hide it by default; the AstryxTypo3 site set turns it
 # back on for the sites that actually load this theme.
-TCEFORM.pages.tx_desideriogrande_theme.disabled = 1
+TCEFORM.pages.tx_desiderioastryx_theme.disabled = 1

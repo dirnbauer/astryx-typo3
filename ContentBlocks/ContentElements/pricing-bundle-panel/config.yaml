@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-bundle-panel
-typeName: desiderio_grande_pricingbundlepanel
+name: astryx-typo3/pricing-bundle-panel
+typeName: astryx_typo3_pricingbundlepanel
 title: 'Bundle Panel'
 description: 'Renders a bundle: everything inside it, the bundled price, and what the same items would cost bought apart. The saving is the whole argument, so it gets a badge and a line of its own. Use it for: a starter kit of several products, a course-plus-book package, a retainer that folds in hosting and support, a seasonal set. Prefer ''Plan Card'' when the packages are tiers of one product, and ''Add-On List'' when the extras are picked one at a time.'
 group: pricing
@@ -94,7 +94,7 @@ fields:
   -
     identifier: contents
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-integrations
-typeName: desiderio_grande_featureintegrations
+name: astryx-typo3/feature-integrations
+typeName: astryx_typo3_featureintegrations
 title: 'Integration Grid'
 description: 'Renders a grid of the tools and services this product connects to, each mark optionally linking to its own integration page, with a line of copy and a browse-all action above it. Use it for: integration and app-directory landings, ''works with your stack'' bands, partner and marketplace overviews, payment and shipping provider lists. Prefer ''Platform Availability'' when the row lists where your own product runs, and ''Feature Grid'' when the entries are your capabilities rather than someone else''s logo.'
 group: features
@@ -93,7 +93,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

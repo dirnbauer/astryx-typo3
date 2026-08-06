@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-docs
-typeName: desiderio_grande_herodocs
+name: astryx-typo3/hero-docs
+typeName: astryx_typo3_herodocs
 title: 'Documentation Hero'
 description: 'Renders the top of a documentation or help home page: product name, one line on what the docs cover, a search prompt, a version badge and a short list of the pages people actually open. Use it for: developer documentation, help centres, knowledge bases, API reference landings, onboarding guides. Prefer ''Search Hero'' when search is the only thing the band should carry, and ''Category Hero'' for a listing page that needs no search field at all.'
 group: hero
@@ -82,7 +82,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

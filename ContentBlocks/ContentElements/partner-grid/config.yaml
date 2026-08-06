@@ -1,5 +1,5 @@
-name: desiderio-grande/partner-grid
-typeName: desiderio_grande_partnergrid
+name: astryx-typo3/partner-grid
+typeName: astryx_typo3_partnergrid
 title: 'Partner Grid'
 description: 'Renders partner marks as individual cards, each linking to the partner or to a page about the relationship. Use it for: a technology partner directory, integration providers, resellers arranged by region. Prefer ''Logo Cloud'' when the marks are only a trust strip and should not be clickable cards, and ''Client List'' when the partners are simply names to be read.'
 group: social-proof
@@ -79,7 +79,7 @@ fields:
   -
     identifier: partners
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-plan-chooser
-typeName: desiderio_grande_pricingplanchooser
+name: astryx-typo3/pricing-plan-chooser
+typeName: astryx_typo3_pricingplanchooser
 title: 'Plan Chooser'
 description: 'Renders two to four routing cards that send a reader to the right price list before any number appears: for individuals, for teams, for schools, for resellers. Each card carries an icon, a line of qualification and a link onward. Use it for: the top of a pricing hub, a catalogue with separate rate cards, a site that prices by audience. Prefer ''Plan Card'' when the prices belong on this page, and ''Sales or Self-Serve Fork'' when the split is about how to buy rather than what to buy.'
 group: pricing
@@ -76,7 +76,7 @@ fields:
   -
     identifier: routes
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

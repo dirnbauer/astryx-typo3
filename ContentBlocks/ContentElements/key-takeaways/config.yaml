@@ -1,5 +1,5 @@
-name: desiderio-grande/key-takeaways
-typeName: desiderio_grande_keytakeaways
+name: astryx-typo3/key-takeaways
+typeName: astryx_typo3_keytakeaways
 title: 'Key Takeaways'
 description: 'Renders a boxed list of the few points a reader should leave with, each of them one line long. Use it for: the summary at the top of a long report, the recap at the end of a guide, the essentials above a legal text, an executive summary on a study page. Prefer ''Callout'' for a single remark that needs a warning tone, and ''Pros and Cons'' when the points fall into two opposed columns.'
 group: content
@@ -71,7 +71,7 @@ fields:
   -
     identifier: points
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

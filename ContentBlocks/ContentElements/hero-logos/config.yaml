@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-logos
-typeName: desiderio_grande_herologos
+name: astryx-typo3/hero-logos
+typeName: astryx_typo3_herologos
 title: 'Hero with Logo Strip'
 description: 'Renders the opening band and closes it with a quiet row of customer or partner marks and one line introducing them. Use it for: B2B home pages, enterprise landing pages, agency portfolios, any first screen that has to answer ''who else uses this'' before the reader scrolls. Prefer ''Hero with Metrics'' when the proof is a number rather than a name, and ''Testimonial Hero'' when one named customer says it better than ten marks.'
 group: hero
@@ -82,7 +82,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

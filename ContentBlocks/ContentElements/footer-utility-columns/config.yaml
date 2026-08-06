@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-utility-columns
-typeName: desiderio_grande_footerutilitycolumns
+name: astryx-typo3/footer-utility-columns
+typeName: astryx_typo3_footerutilitycolumns
 title: 'Utility Footer'
 description: 'Renders the full closing block: a brand column with logo and a short statement, link columns beside it and a quiet line underneath. Use it for: a microsite or campaign site that has no template footer of its own, a landing page that must close on its own terms, a subsite in a separate layout. Prefer ''Footer Link Columns'' when only the links are wanted, and ''Brand and Newsletter Footer'' when the second half should be a sign-up.'
 group: footer
@@ -94,7 +94,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-workflow
-typeName: desiderio_grande_featureworkflow
+name: astryx-typo3/feature-workflow
+typeName: astryx_typo3_featureworkflow
 title: 'Workflow Stages'
 description: 'Renders stages chained left to right with arrows between them, each stage a short label and a line about what happens there. Use it for: data pipelines, approval and review chains, integration flows, logistics routes, editorial workflows, anything with an input, a middle and an output. Prefer ''How It Works'' when the reader is the one performing the steps, and ''Feature Grid'' when the boxes have no direction between them.'
 group: features
@@ -81,7 +81,7 @@ fields:
   -
     identifier: stages
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

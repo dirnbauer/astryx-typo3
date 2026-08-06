@@ -1,5 +1,5 @@
-name: desiderio-grande/leadership-row
-typeName: desiderio_grande_leadershiprow
+name: astryx-typo3/leadership-row
+typeName: astryx_typo3_leadershiprow
 title: 'Leadership Row'
 description: 'Renders a small number of people at larger size, each with a line of biography and a way to reach them. Use it for: the management team on an about page, the partners of a firm, the three founders above the wider team grid. Prefer ''Team Grid'' when everyone should carry the same weight, and ''Advisory Board'' for people who advise from outside rather than run the business.'
 group: team
@@ -92,7 +92,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

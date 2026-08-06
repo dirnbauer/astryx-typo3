@@ -1,5 +1,5 @@
-name: desiderio-grande/data-status-list
-typeName: desiderio_grande_datastatuslist
+name: astryx-typo3/data-status-list
+typeName: astryx_typo3_datastatuslist
 title: 'Status List'
 description: 'Renders a list of components or services, each with a state word, a coloured dot taken from its icon and an optional detail line. Use it for: a published service status page, a checklist of finished and open items, availability per system, audit findings. Prefer ''Uptime Strip'' when the history of a single service matters, and ''Progress Bars'' when each row is a percentage rather than a state.'
 group: data
@@ -82,7 +82,7 @@ fields:
   -
     identifier: metrics
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

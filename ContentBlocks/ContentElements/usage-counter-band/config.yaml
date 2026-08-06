@@ -1,5 +1,5 @@
-name: desiderio-grande/usage-counter-band
-typeName: desiderio_grande_usagecounterband
+name: astryx-typo3/usage-counter-band
+typeName: astryx_typo3_usagecounterband
 title: 'Used By Counter'
 description: 'Renders one dominating count with a short qualifying sentence and, underneath, a small row of customer marks. Use it for: total accounts, downloads or installations, the reassurance band above a sign-up form, a single memorable figure on a campaign page. Prefer ''Community Stats'' when four or five numbers together tell the story, and ''Logo Wall with Claim'' when the marks are the substance and the figure only the caption.'
 group: social-proof
@@ -91,7 +91,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/nav-carousel
-typeName: desiderio_grande_navcarousel
+name: astryx-typo3/nav-carousel
+typeName: astryx_typo3_navcarousel
 title: 'Scrolling Link Row'
 description: 'Renders many destinations as a single row of cards that scrolls sideways, with arrows on wide screens and a swipe on touch. Use it for: a long list of categories under a shop-style page, the other courses in a catalogue, a row of location pages, related topics where a grid would push the rest of the page too far down. Prefer ''Page Card Menu'' when the whole set should be visible at once, and ''Link Grid'' when the labels are short enough to wrap into a grid.'
 group: navigation
@@ -63,7 +63,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

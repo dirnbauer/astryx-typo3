@@ -1,5 +1,5 @@
-name: desiderio-grande/team-stats
-typeName: desiderio_grande_teamstats
+name: astryx-typo3/team-stats
+typeName: astryx_typo3_teamstats
 title: 'Team in Numbers'
 description: 'Renders figures about the team itself: headcount, average tenure, languages spoken, certifications held. Use it for: an employer branding page, the summary above a careers section, a firm proving depth without naming everyone. Prefer ''Community Stats'' when the numbers describe people outside the company, and ''Team Directory'' when the reader wants the actual names behind the count.'
 group: team
@@ -92,7 +92,7 @@ fields:
   -
     identifier: stats
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-payment-row
-typeName: desiderio_grande_footerpaymentrow
+name: astryx-typo3/footer-payment-row
+typeName: astryx_typo3_footerpaymentrow
 title: 'Payment and Shipping Row'
 description: 'Renders accepted payment methods and delivery partners as a row of marks, each optionally linked to its conditions. Use it for: reassurance under a shop checkout, the foot of a product page, the conditions block of a booking page. Prefer ''Certification Strip'' when the marks are seals the organisation itself holds, and ''Specification Table'' when delivery conditions need to be spelled out in words.'
 group: footer
@@ -81,7 +81,7 @@ fields:
   -
     identifier: logos
     type: Collection
-    foreign_table: desiderio_grande_logo_item
+    foreign_table: astryx_typo3_logo_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

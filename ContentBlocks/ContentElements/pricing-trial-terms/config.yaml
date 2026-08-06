@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-trial-terms
-typeName: desiderio_grande_pricingtrialterms
+name: astryx-typo3/pricing-trial-terms
+typeName: astryx_typo3_pricingtrialterms
 title: 'Trial Terms Panel'
 description: 'Renders the mechanics of a free trial as a short specification: how long it runs, whether a card is needed, what is limited during it, and what happens on the last day. Use it for: the panel beside a trial button, a sales page''s reassurance block, the answer support keeps repeating, the small print of a campaign. Prefer ''Trial Signup Band'' for the band whose job is the click, and ''Guarantee Band'' when the promise is a refund after paying rather than a period before it.'
 group: pricing
@@ -82,7 +82,7 @@ fields:
   -
     identifier: terms
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

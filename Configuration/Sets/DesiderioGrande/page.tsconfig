@@ -1,6 +1,0 @@
-@import 'EXT:desiderio_grande/Configuration/BackendLayouts/*.tsconfig'
-
-# The per-page theme field is hidden installation-wide (see the extension's
-# global page.tsconfig, which keeps it out of the way on Desiderio sites) and
-# turned back on here, for the sites that actually load this theme.
-TCEFORM.pages.tx_desideriogrande_theme.disabled = 0

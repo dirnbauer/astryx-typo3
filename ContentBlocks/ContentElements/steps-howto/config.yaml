@@ -1,5 +1,5 @@
-name: desiderio-grande/steps-howto
-typeName: desiderio_grande_stepshowto
+name: astryx-typo3/steps-howto
+typeName: astryx_typo3_stepshowto
 title: 'Numbered Steps'
 description: 'Renders instructions as a numbered sequence, each step with an icon, a heading and a sentence or two of what to do. Use it for: a how-to in a help centre, an application procedure, an onboarding checklist, assembly instructions, the stages of a service. Prefer ''Timeline'' when the sequence is history rather than instruction, and ''Step Navigation'' when each step is a page of its own that the reader has to travel to.'
 group: content
@@ -79,7 +79,7 @@ fields:
   -
     identifier: steps
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

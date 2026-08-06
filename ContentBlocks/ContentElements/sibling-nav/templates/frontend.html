@@ -15,7 +15,7 @@
     plus the marker say why it is different.
 </f:comment>
 
-<f:variable name="navFallback"><f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.siblings" default="More in this section"/></f:variable>
+<f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.siblings" default="More in this section"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
 <f:if condition="{siblings}">
@@ -37,7 +37,7 @@
                                 <f:then>
                                     <span class="g-sibling-nav__link current" aria-current="page">
                                         {page.title}
-                                        <span class="astryx-visually-hidden"> — <f:translate key="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                                        <span class="astryx-visually-hidden"> — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
                                     </span>
                                 </f:then>
                                 <f:else>

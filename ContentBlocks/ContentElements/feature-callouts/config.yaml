@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-callouts
-typeName: desiderio_grande_featurecallouts
+name: astryx-typo3/feature-callouts
+typeName: astryx_typo3_featurecallouts
 title: 'Annotated Screenshot'
 description: 'Renders one large image with a numbered legend beside it, each entry naming a marked place in the picture and explaining it in a sentence. Use it for: interface tours, hardware anatomy, dashboard explanations, print and packaging breakdowns, editor onboarding, map and floor-plan keys. Prefer ''Feature Showcase Row'' when the points do not refer to anything inside the image, and ''Before and After'' when two pictures matter more than one annotated one.'
 group: features
@@ -79,7 +79,7 @@ fields:
   -
     identifier: callouts
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

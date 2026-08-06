@@ -11,7 +11,7 @@ defined('TYPO3') or die();
 // site setting; see Desiderio's Documentation/Developer/Index.rst.
 $hosts = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['libraryHostExtensions'] ?? [];
 $hosts = is_array($hosts) ? $hosts : [];
-$hosts[] = 'desiderio_grande';
+$hosts[] = 'astryx_typo3';
 $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['libraryHostExtensions'] = array_values(array_unique($hosts));
 
 // This extension's shared RecordTypes. Desiderio's seeders resolve a
@@ -24,9 +24,9 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['libraryHostExtensions'] 
 // survives the concatenation.
 $paths = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['recordTypePaths'] ?? [];
 $paths = is_array($paths) ? $paths : [];
-$paths[] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('desiderio_grande') . 'ContentBlocks/RecordTypes';
+$paths[] = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('astryx_typo3') . 'ContentBlocks/RecordTypes';
 $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['recordTypePaths'] = array_values(array_unique($paths));
 
 // The g: namespace, so element templates can call <g:icon name="…"/> without
 // each of them declaring an xmlns.
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['g'][] = 'Webconsulting\\DesiderioGrande\\ViewHelpers';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['g'][] = 'Webconsulting\\AstryxTypo3\\ViewHelpers';

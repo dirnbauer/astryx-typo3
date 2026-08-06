@@ -1,0 +1,253 @@
+/*
+ * Page header: brand, primary navigation, colour-scheme toggle.
+ *
+ * The mobile menu is a native <details> disclosure — open state, keyboard
+ * behaviour and the escape hatch all come free, and the header still works
+ * with JavaScript disabled. astryx.js only closes it on outside clicks and on
+ * resize past the breakpoint.
+ */
+
+.astryx-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  background-color: var(--color-background-surface);
+  border-block-end: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+}
+
+.astryx-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-4);
+  min-block-size: var(--astryx-header-height);
+}
+
+/* ---------------------------------------------------------------- brand */
+.astryx-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}
+
+.astryx-header__mark {
+  inline-size: var(--spacing-7);
+  block-size: var(--spacing-7);
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+
+.astryx-header__wordmark {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+/* ----------------------------------------------------------- navigation */
+.astryx-header__nav {
+  display: none;
+}
+
+.astryx-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.astryx-nav__link {
+  display: inline-flex;
+  align-items: center;
+  block-size: var(--size-element-md);
+  padding-inline: var(--spacing-3);
+  border-radius: var(--radius-element);
+  color: var(--color-text-secondary);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-nav__link:hover {
+    background-color: var(--color-overlay-hover);
+    color: var(--color-text-primary);
+  }
+}
+
+/* The current page is marked by weight and colour together: colour alone
+   fails in the high-contrast themes and for anyone who cannot separate the
+   two hues. */
+.astryx-nav__link[aria-current='page'] {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+  background-color: var(--color-background-muted);
+}
+
+/* Second level, shown on hover/focus of its parent item. */
+.astryx-nav__item {
+  position: relative;
+}
+
+.astryx-nav__sub {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-start: 0;
+  min-inline-size: 12rem;
+  padding: var(--spacing-2);
+  margin: 0;
+  list-style: none;
+  background-color: var(--color-background-popover);
+  border-radius: var(--radius-container, var(--radius-element));
+  box-shadow: var(--shadow-med);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-nav__item:hover > .astryx-nav__sub,
+.astryx-nav__item:focus-within > .astryx-nav__sub {
+  opacity: 1;
+  visibility: visible;
+}
+
+.astryx-nav__sub .astryx-nav__link {
+  display: flex;
+  inline-size: 100%;
+  block-size: auto;
+  padding-block: var(--spacing-2);
+}
+
+/* --------------------------------------------------------------- actions */
+.astryx-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.astryx-scheme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  color: var(--color-icon-primary);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .astryx-scheme-toggle:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-scheme-toggle > svg {
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+}
+
+/* Only one of the two icons is ever shown; which one depends on the scheme
+   in force, which is why this reads the color-scheme rather than a class. */
+.astryx-scheme-toggle .icon-dark { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .astryx-scheme-toggle .icon-light { display: none; }
+  :root:not(.light) .astryx-scheme-toggle .icon-dark { display: block; }
+}
+
+:root.dark .astryx-scheme-toggle .icon-light { display: none; }
+:root.dark .astryx-scheme-toggle .icon-dark { display: block; }
+:root.light .astryx-scheme-toggle .icon-light { display: block; }
+:root.light .astryx-scheme-toggle .icon-dark { display: none; }
+
+/* ----------------------------------------------------------- mobile menu */
+.astryx-menu {
+  flex-shrink: 0;
+}
+
+.astryx-menu__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+  border-radius: var(--radius-element);
+  color: var(--color-icon-primary);
+  cursor: pointer;
+  list-style: none;
+}
+
+.astryx-menu__toggle::-webkit-details-marker {
+  display: none;
+}
+
+.astryx-menu__toggle > svg {
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+}
+
+.astryx-menu[open] .astryx-menu__toggle .icon-open { display: none; }
+.astryx-menu:not([open]) .astryx-menu__toggle .icon-close { display: none; }
+
+.astryx-menu__panel {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  padding: var(--spacing-4);
+  background-color: var(--color-background-surface);
+  border-block-end: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
+  box-shadow: var(--shadow-low);
+  max-block-size: calc(100vh - var(--astryx-header-height));
+  overflow-y: auto;
+}
+
+.astryx-menu__panel .astryx-nav__list {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-1);
+}
+
+.astryx-menu__panel .astryx-nav__link {
+  block-size: auto;
+  padding-block: var(--spacing-3);
+}
+
+.astryx-menu__panel .astryx-nav__sub {
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  box-shadow: none;
+  background: none;
+  padding-block: 0;
+  padding-inline-start: var(--spacing-4);
+}
+
+/* --------------------------------------------------------------- desktop */
+@media (min-width: 768px) {
+  .astryx-header__nav {
+    display: block;
+  }
+
+  .astryx-menu {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-nav__link,
+  .astryx-nav__sub {
+    transition: none;
+  }
+}

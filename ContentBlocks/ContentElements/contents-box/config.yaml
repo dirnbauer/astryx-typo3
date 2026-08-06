@@ -1,5 +1,5 @@
-name: desiderio-grande/contents-box
-typeName: desiderio_grande_contentsbox
+name: astryx-typo3/contents-box
+typeName: astryx_typo3_contentsbox
 title: 'Article Contents'
 description: 'Renders a boxed list of the sections of the page it sits on, each entry jumping straight to its heading. Use it for: the top of a long guide, a report with numbered chapters, a policy page with many parts, a documentation page before the first section. Prefer ''Outline Rail'' when the contents should follow the reader down the page, and ''Jump List'' for a bare inline run of links with no box around it.'
 group: content
@@ -58,7 +58,7 @@ fields:
   -
     identifier: entries
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

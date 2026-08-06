@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-form-intro
-typeName: desiderio_grande_conversionformintro
+name: astryx-typo3/conversion-form-intro
+typeName: astryx_typo3_conversionformintro
 title: 'Multi-Step Form Intro'
 description: 'Renders what a long application asks for before it asks: the steps in order, roughly how long each takes, what to have ready, and the button that begins. It is editorial copy about a form, not the form — the steps and their logic live in the TYPO3 form framework. Use it for: a grant application, a job application, an insurance quote, an onboarding questionnaire, a tender submission. Prefer ''Quote Request Panel'' when there is one short form and no steps to explain.'
 group: conversion
@@ -93,7 +93,7 @@ fields:
   -
     identifier: steps
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

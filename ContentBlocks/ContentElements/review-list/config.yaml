@@ -1,5 +1,5 @@
-name: desiderio-grande/review-list
-typeName: desiderio_grande_reviewlist
+name: astryx-typo3/review-list
+typeName: astryx_typo3_reviewlist
 title: 'Review List'
 description: 'Renders individual reviews as stacked rows, each with its star rating, the reviewer, and the text as submitted. Use it for: product reviews under a shop listing, verified feedback on a service page, the detail below an aggregate score. Prefer ''Rating Summary'' when only the average is needed, and ''Testimonial Grid'' when the quotes were solicited and edited rather than left by customers themselves.'
 group: social-proof
@@ -77,7 +77,7 @@ fields:
   -
     identifier: reviews
     type: Collection
-    foreign_table: desiderio_grande_quote_item
+    foreign_table: astryx_typo3_quote_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

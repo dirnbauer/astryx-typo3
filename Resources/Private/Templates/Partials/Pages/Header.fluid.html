@@ -1,8 +1,8 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<f:variable name="labels" value="LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf"/>
+<f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
 
-<f:variable name="wordmark" value="{site.configuration.settings.desiderioGrande.brand.wordmark}"/>
+<f:variable name="wordmark" value="{site.configuration.settings.astryx.brand.wordmark}"/>
 <f:if condition="!{wordmark}">
     <f:variable name="wordmark" value="{site.configuration.websiteTitle}"/>
 </f:if>
@@ -12,40 +12,40 @@
     the site root is the honest fallback: a query still lands somewhere real
     rather than reloading whatever page the visitor happened to be on.
 </f:comment>
-<f:variable name="searchTarget" value="{site.configuration.settings.desiderioGrande.search.targetPageId}"/>
+<f:variable name="searchTarget" value="{site.configuration.settings.astryx.search.targetPageId}"/>
 <f:variable name="searchAction" value="{f:uri.page(pageUid: '{searchTarget ?: site.rootPageId}')}"/>
-<f:variable name="searchParam" value="{site.configuration.settings.desiderioGrande.search.queryParameter ?: 'q'}"/>
+<f:variable name="searchParam" value="{site.configuration.settings.astryx.search.queryParameter ?: 'q'}"/>
 
-<header class="grande-header">
-    <div class="astryx-layout grande-header__inner">
+<header class="astryx-header">
+    <div class="astryx-layout astryx-header__inner">
 
-        <a href="{f:uri.page(pageUid: site.rootPageId)}" class="grande-header__brand">
+        <a href="{f:uri.page(pageUid: site.rootPageId)}" class="astryx-header__brand">
             <f:comment>
                 The mark is drawn from currentColor so it takes the theme's
                 accent in every scheme without a second asset.
             </f:comment>
-            <svg class="grande-header__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <svg class="astryx-header__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
                 <path d="M12 2 3 20h4l5-10 5 10h4L12 2Z" fill="currentColor"/>
                 <circle cx="12" cy="15" r="2.5" fill="currentColor" opacity=".45"/>
             </svg>
-            <span class="grande-header__wordmark">{wordmark}</span>
+            <span class="astryx-header__wordmark">{wordmark}</span>
         </a>
 
-        <nav class="grande-header__nav" aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
-            <ul class="grande-nav__list">
+        <nav class="astryx-header__nav" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
+            <ul class="astryx-nav__list">
                 <f:for each="{mainMenu}" as="item">
-                    <li class="grande-nav__item">
+                    <li class="astryx-nav__item">
                         <a
                             href="{item.link}"
-                            class="grande-nav__link"
+                            class="astryx-nav__link"
                             target="{item.target}"
                             aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
                         >{item.title}</a>
                         <f:if condition="{item.children}">
-                            <ul class="grande-nav__sub">
+                            <ul class="astryx-nav__sub">
                                 <f:for each="{item.children}" as="child">
                                     <li>
-                                        <a href="{child.link}" class="grande-nav__link" target="{child.target}">{child.title}</a>
+                                        <a href="{child.link}" class="astryx-nav__link" target="{child.target}">{child.title}</a>
                                     </li>
                                 </f:for>
                             </ul>
@@ -55,12 +55,12 @@
             </ul>
         </nav>
 
-        <div class="grande-header__actions">
-            <f:if condition="{site.configuration.settings.desiderioGrande.search.enabled}">
+        <div class="astryx-header__actions">
+            <f:if condition="{site.configuration.settings.astryx.search.enabled}">
                 <f:comment>
                     A real form, not a button that reveals one: with the script
                     absent the field is simply visible and submits to the results
-                    page. The loupe is the collapse control, and grande.js is
+                    page. The loupe is the collapse control, and astryx.js is
                     what turns "always visible" into "opens on click" — so the
                     degraded state is a working search, never a dead icon.
 
@@ -69,7 +69,7 @@
                     same one EXT:solr's own search form emits.
                 </f:comment>
                 <form
-                    class="grande-search"
+                    class="astryx-search"
                     role="search"
                     method="get"
                     action="{searchAction}"
@@ -90,21 +90,21 @@
                         item of the group and never inherits the seam rules that
                         weld the group's segments together.
                     </f:comment>
-                    <div class="grande-search__field" data-g-suggest-anchor>
+                    <div class="astryx-search__field" data-g-suggest-anchor>
                         <div class="astryx-input-group sm">
-                            <label class="astryx-visually-hidden" for="grande-header-search">
+                            <label class="astryx-visually-hidden" for="astryx-header-search">
                                 <f:translate key="{labels}:search.label" default="Search this site"/>
                             </label>
                             <input
-                                id="grande-header-search"
-                                class="astryx-text-input sm grande-search__input"
+                                id="astryx-header-search"
+                                class="astryx-text-input sm astryx-search__input"
                                 type="search"
                                 name="{searchParam}"
                                 placeholder="{f:translate(key: '{labels}:search.placeholder', default: 'Search this site')}"
                                 autocomplete="off"
                                 data-g-suggest-input
                             />
-                            <button class="astryx-button ghost sm astryx-icon-button grande-search__submit" type="submit">
+                            <button class="astryx-button ghost sm astryx-icon-button astryx-search__submit" type="submit">
                                 <span class="astryx-visually-hidden"><f:translate key="{labels}:search.submit" default="Search"/></span>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                                     <circle cx="11" cy="11" r="7"/>
@@ -123,10 +123,10 @@
                     </f:comment>
                     <button
                         type="button"
-                        class="grande-search__trigger"
+                        class="astryx-search__trigger"
                         data-g-search-toggle
                         aria-expanded="false"
-                        aria-controls="grande-header-search"
+                        aria-controls="astryx-header-search"
                         aria-label="{f:translate(key: '{labels}:search.label', default: 'Search this site')}"
                     >
                         <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
@@ -140,12 +140,12 @@
                 </form>
             </f:if>
 
-            <f:if condition="{site.configuration.settings.desiderioGrande.theme.schemeToggle}">
+            <f:if condition="{site.configuration.settings.astryx.theme.schemeToggle}">
                 <button
                     type="button"
-                    class="grande-scheme-toggle"
+                    class="astryx-scheme-toggle"
                     data-g-scheme-toggle
-                    aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.toggleScheme', default: 'Switch between light and dark')}"
+                    aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.toggleScheme', default: 'Switch between light and dark')}"
                 >
                     <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <circle cx="12" cy="12" r="4"/>
@@ -159,13 +159,13 @@
 
             <f:comment>
                 A native disclosure, so the menu opens, closes and traps the
-                Escape key without any script. grande.js only adds the
+                Escape key without any script. astryx.js only adds the
                 click-outside and resize behaviours the platform lacks.
             </f:comment>
-            <details class="grande-menu" data-g-menu>
+            <details class="astryx-menu" data-g-menu>
                 <summary
-                    class="grande-menu__toggle"
-                    aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.openMenu', default: 'Open menu')}"
+                    class="astryx-menu__toggle"
+                    aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.openMenu', default: 'Open menu')}"
                 >
                     <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
@@ -175,21 +175,21 @@
                     </svg>
                 </summary>
 
-                <div class="grande-menu__panel">
-                    <nav aria-label="{f:translate(key: 'LLL:EXT:desiderio_grande/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
-                        <ul class="grande-nav__list">
+                <div class="astryx-menu__panel">
+                    <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
+                        <ul class="astryx-nav__list">
                             <f:for each="{mainMenu}" as="item">
-                                <li class="grande-nav__item">
+                                <li class="astryx-nav__item">
                                     <a
                                         href="{item.link}"
-                                        class="grande-nav__link"
+                                        class="astryx-nav__link"
                                         target="{item.target}"
                                         aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
                                     >{item.title}</a>
                                     <f:if condition="{item.children}">
-                                        <ul class="grande-nav__sub">
+                                        <ul class="astryx-nav__sub">
                                             <f:for each="{item.children}" as="child">
-                                                <li><a href="{child.link}" class="grande-nav__link">{child.title}</a></li>
+                                                <li><a href="{child.link}" class="astryx-nav__link">{child.title}</a></li>
                                             </f:for>
                                         </ul>
                                     </f:if>

@@ -17,7 +17,7 @@ before writing anything.
 ## Markup
 
 - Keep the generated `<f:asset.css identifier="g-<id>" href="{cb:assetPath()}/frontend.css"/>` line.
-- Delete the scaffolded `TODO(grande)` comment. A comment that stays must
+- Delete the scaffolded `TODO(astryx)` comment. A comment that stays must
   explain *why* something is done — never what the next line does.
 - Text fields render through `{data -> f:render.text(field: 'x')}`, which is
   what makes them editable in place in the visual editor. Rich text goes
@@ -81,8 +81,8 @@ it. Prove the templates parse against real data instead:
 
 ```bash
 ddev exec vendor/bin/typo3 cache:flush
-ddev exec vendor/bin/typo3 desiderio:library:seed --parent=1290 --hosts=desiderio_grande,core --no-warm
-ddev exec vendor/bin/typo3 desiderio:library:urls --site=desiderio-grande --json
+ddev exec vendor/bin/typo3 desiderio:library:seed --parent=1290 --hosts=astryx_typo3,core --no-warm
+ddev exec vendor/bin/typo3 desiderio:library:urls --site=astryx-typo3 --json
 ```
 
 Curl a dozen of the URLs for your group and confirm none contains
@@ -96,5 +96,5 @@ element that wants a glyph draws its own inline SVG or uses a tinted tile
 carrying `data-icon="<key>"`. No template will need changing when a renderer
 lands.
 
-Prefixed Content Blocks columns are `desideriogrande_<elementwithoutdashes>_<field>`
+Prefixed Content Blocks columns are `desiderioastryx_<elementwithoutdashes>_<field>`
 in the database, while Fluid still addresses them by the bare identifier.

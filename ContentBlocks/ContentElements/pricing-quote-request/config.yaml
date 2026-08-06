@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-quote-request
-typeName: desiderio_grande_pricingquoterequest
+name: astryx-typo3/pricing-quote-request
+typeName: astryx_typo3_pricingquoterequest
 title: 'Quote Request Panel'
 description: 'Renders the invitation to ask for a written price: what to tell you, what comes back, how long it takes, then a button to the form. The element renders the panel and the call to action only — the form itself is a TYPO3 form element, and nothing here collects, stores or sends what a visitor types. Use it for: project pricing, tenders, bespoke service work, made-to-measure products. Prefer ''Enterprise Panel'' when the next step is a meeting rather than a document.'
 group: pricing
@@ -105,7 +105,7 @@ fields:
   -
     identifier: steps
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

@@ -27,8 +27,8 @@
  *
  * Only additive statements are applied. Nothing is altered, nothing dropped.
  *
- *   ddev exec php packages/desiderio_grande/Build/Scripts/apply-schema.php
- *   ddev exec php packages/desiderio_grande/Build/Scripts/apply-schema.php --apply
+ *   ddev exec php packages/astryx_typo3/Build/Scripts/apply-schema.php
+ *   ddev exec php packages/astryx_typo3/Build/Scripts/apply-schema.php --apply
  */
 
 use TYPO3\CMS\Core\Core\Bootstrap;

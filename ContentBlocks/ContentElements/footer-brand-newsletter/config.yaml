@@ -1,5 +1,5 @@
-name: desiderio-grande/footer-brand-newsletter
-typeName: desiderio_grande_footerbrandnewsletter
+name: astryx-typo3/footer-brand-newsletter
+typeName: astryx_typo3_footerbrandnewsletter
 title: 'Brand and Newsletter Footer'
 description: 'Renders the logo and a short statement about the organisation on one side and a newsletter prompt with a button on the other, plus a small row of links. Use it for: the closing band of a campaign page, the end of a one-pager that has no template footer, a landing page that should end on a sign-up. Prefer ''Newsletter Strip'' when only the sign-up is wanted, and ''Utility Footer'' when full link columns are needed.'
 group: footer
@@ -83,7 +83,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

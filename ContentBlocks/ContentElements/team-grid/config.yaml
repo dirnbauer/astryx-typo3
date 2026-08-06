@@ -1,5 +1,5 @@
-name: desiderio-grande/team-grid
-typeName: desiderio_grande_teamgrid
+name: astryx-typo3/team-grid
+typeName: astryx_typo3_teamgrid
 title: 'Team Grid'
 description: 'Renders the whole team as an even grid of portraits, each with a name, a role and an optional link to a profile. Use it for: the main block of an about page, a department page after a short intro, a studio showing everyone at equal size. Prefer ''Leadership Row'' when a handful of people should be shown larger than the rest, and ''Team Directory'' when the team has outgrown portraits and needs readable rows instead.'
 group: team
@@ -79,7 +79,7 @@ fields:
   -
     identifier: people
     type: Collection
-    foreign_table: desiderio_grande_person_item
+    foreign_table: astryx_typo3_person_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

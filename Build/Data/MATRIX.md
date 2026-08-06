@@ -37,7 +37,7 @@ shelf labels: `hero`, `features`, `content`, `pricing`, `social-proof`, `team`,
 
 | Key | Rule |
 |---|---|
-| `id` | kebab-case, unique across all ten groups. Becomes the directory name, and `desiderio_grande_<id without hyphens>` becomes the cType. Keep it short enough to stay readable there. |
+| `id` | kebab-case, unique across all ten groups. Becomes the directory name, and `astryx_typo3_<id without hyphens>` becomes the cType. Keep it short enough to stay readable there. |
 | `title` / `titleDe` | Title case. What an editor scans in the wizard. Unique across the catalog. |
 | `description` / `descriptionDe` | The "when to use" text, 100–650 characters, in three parts: one sentence on what it renders, then `Use it for:` with a comma list of real situations, then `Prefer 'Other Element' for …` naming at least one sibling it is confusable with. This is the single most valuable field in the row — it is what the editor reads in the picker flyout and what the search ranks on. |
 | `short` / `shortDe` | One line for the picker card, under ~90 characters. `**bold**` and `*italic*` are rendered. |

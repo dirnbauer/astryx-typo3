@@ -1,5 +1,5 @@
-name: desiderio-grande/category-chips
-typeName: desiderio_grande_categorychips
+name: astryx-typo3/category-chips
+typeName: astryx_typo3_categorychips
 title: 'Category Chips'
 description: 'Renders a taxonomy as a wrapping row of pill-shaped links, with the current one marked as selected. Use it for: filtering a blog by topic, browsing tags, choosing a product category, jumping between the branches of a knowledge base, switching between event types. Prefer ''Link Grid'' when the labels are destinations rather than a taxonomy, and ''Tabbed Sections'' when choosing one should change what is already on the page.'
 group: navigation
@@ -52,7 +52,7 @@ fields:
   -
     identifier: chips
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

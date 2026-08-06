@@ -1,5 +1,5 @@
-name: desiderio-grande/menu-featured
-typeName: desiderio_grande_menufeatured
+name: astryx-typo3/menu-featured
+typeName: astryx_typo3_menufeatured
 title: 'Featured Entry Menu'
 description: 'Renders one destination as a large card with its own picture and summary, and the remaining ones as a compact list beside it. Use it for: a news section with a lead story, a knowledge base with a most-read article, a course overview where one module starts the path, a shop category with a highlighted range. Prefer ''Page Card Menu'' when the destinations rank equally, and ''Up Next'' when there is only one thing to point at.'
 group: navigation
@@ -86,7 +86,7 @@ fields:
   -
     identifier: items
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

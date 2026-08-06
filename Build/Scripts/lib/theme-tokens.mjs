@@ -17,7 +17,7 @@ import {fileURLToPath} from 'node:url';
 
 export const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 export const THEME_CSS = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
-export const OVERRIDE_CSS = path.join(EXT_ROOT, 'Resources/Private/Css/grande/07-contrast-overrides.css');
+export const OVERRIDE_CSS = path.join(EXT_ROOT, 'Resources/Private/Css/astryx/07-contrast-overrides.css');
 
 /** All 20 themes, from the generated registry — never a second hardcoded list. */
 export const THEMES = JSON.parse(

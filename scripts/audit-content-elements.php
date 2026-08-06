@@ -20,12 +20,12 @@ $json = in_array('--json', $argv, true);
 
 // Parse YAML through Symfony rather than the optional ext-yaml, so the audit
 // runs on a bare PHP CLI as well as inside the container.
-$autoload = dirname($root, 2) . '/vendor/autoload.php';
+$autoload = $root . '/vendor/autoload.php';
 if (is_file($autoload)) {
     require_once $autoload;
 }
 if (!class_exists(\Symfony\Component\Yaml\Yaml::class)) {
-    fwrite(STDERR, "Symfony YAML is unavailable — run composer install in the project root.\n");
+    fwrite(STDERR, "Symfony YAML is unavailable — run composer install in this repository.\n");
     exit(1);
 }
 
@@ -87,12 +87,12 @@ foreach ($directories as $name) {
     }
 
     // --- identity -----------------------------------------------------
-    $expectedType = 'desiderio_grande_' . str_replace('-', '', $name);
+    $expectedType = 'astryx_typo3_' . str_replace('-', '', $name);
     if (!str_contains($configText, 'typeName: ' . $expectedType)) {
         $add($name, 'typename_mismatch', 'expected typeName: ' . $expectedType);
     }
-    if (!str_contains($configText, 'name: desiderio-grande/' . $name)) {
-        $add($name, 'name_mismatch', 'expected name: desiderio-grande/' . $name);
+    if (!str_contains($configText, 'name: astryx-typo3/' . $name)) {
+        $add($name, 'name_mismatch', 'expected name: astryx-typo3/' . $name);
     }
     if (!str_contains($configText, 'prefixFields: false')) {
         $add($name, 'missing_prefix_fields', 'prefixFields: false is required so field identifiers stay shared');
@@ -153,7 +153,7 @@ foreach ($directories as $name) {
             $add($name, 'css_never_loaded', 'assets/frontend.css exists but the template does not include it');
         }
         if (preg_match('/<\s*script/i', $template) === 1) {
-            $add($name, 'inline_script', 'behaviour belongs in grande.js, wired by a data-g-* attribute');
+            $add($name, 'inline_script', 'behaviour belongs in astryx.js, wired by a data-g-* attribute');
         }
         if (preg_match('/\sstyle\s*=\s*"[^"]*[a-z]/i', $template) === 1
             && preg_match('/\sstyle\s*=\s*"[^"]*--/', $template) !== 1) {
@@ -164,7 +164,7 @@ foreach ($directories as $name) {
         if (preg_match('/<d:/', $template) === 1) {
             $add($name, 'foreign_component_namespace', 'uses Desiderio d: components');
         }
-        if (str_contains($template, 'TODO(grande)')) {
+        if (str_contains($template, 'TODO(astryx)')) {
             $add($name, 'template_todo_marker', 'still carries the scaffolded TODO');
         }
     }

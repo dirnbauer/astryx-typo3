@@ -1,0 +1,136 @@
+categories:
+  astryx:
+    label: 'Astryx for TYPO3'
+    description: 'The Astryx design system, server-rendered: theme selection, brand and page chrome.'
+
+  astryx.theme:
+    label: 'Theme'
+    parent: astryx
+    description: 'Which of the seven Astryx themes a site paints with, and how it treats dark mode.'
+
+  astryx.brand:
+    label: 'Brand'
+    parent: astryx
+    description: 'Wordmark and tagline shown in the header and footer.'
+
+  astryx.chrome:
+    label: 'Page chrome'
+    parent: astryx
+    description: 'Header, footer and legal navigation.'
+
+  astryx.search:
+    label: 'Search'
+    parent: astryx
+    description: 'The field behind the loupe in the header, and where it sends a query.'
+
+settings:
+  # ------------------------------------------------------------------ Theme
+  astryx.theme.default:
+    label: 'Astryx theme'
+    description: 'Site-wide theme. Individual pages can override it (and pass it down their subtree) through the "Astryx theme" field in the page properties. All twenty-five ship in one stylesheet as custom-property overrides, so switching is a repaint — no rebuild, no content change.'
+    category: astryx.theme
+    type: string
+    enum:
+      neutral: 'Neutral — a pure grayscale spine'
+      butter: 'Butter — cream paper with one vivid'
+      chocolate: 'Chocolate — warm browns with a serif'
+      matcha: 'Matcha — deep green on paper, headings'
+      stone: 'Stone — cool grey with montserrat headings'
+      gothic: 'Gothic — dark even in light mode'
+      y2k: 'Y2K — lavender canvas and square corners'
+      harbour: 'Harbour — deep maritime navy with a'
+      ember: 'Ember — warm charcoal lit by a'
+      linen: 'Linen — a soft warm neutral built'
+      orchid: 'Orchid — muted purple with a cool'
+      cobalt: 'Cobalt — a saturated engineering blue on'
+      moss: 'Moss — deep forest green, quieter and'
+      clay: 'Clay — terracotta and warm stone'
+      plum: 'Plum — deep aubergine on a faintly'
+      sand: 'Sand — desert warmth'
+      ink: 'Ink — near-black on white at the'
+      lagoon: 'Lagoon — blue-green water on pale sand'
+      rose: 'Rose — dusty rose, deliberately desaturated so'
+      graphite: 'Graphite — cool monochrome with no hue'
+      frost: 'Frost — arctic blue-grey, desaturated to the'
+      latte: 'Latte — pastel mauve on a cool'
+      solar: 'Solar — cream paper and dark cyan'
+      retro: 'Retro — warm amber on aged cream'
+      midnight: 'Midnight — indigo on a faintly blue'
+    default: neutral
+
+  astryx.theme.colorScheme:
+    label: 'Default colour scheme'
+    description: 'What a first-time visitor sees. "system" follows the operating system setting. Every theme token carries a light and a dark value, so the scheme switch never changes which theme is active.'
+    category: astryx.theme
+    type: string
+    enum:
+      system: 'Follow the operating system'
+      light: 'Light'
+      dark: 'Dark'
+    default: system
+
+  astryx.theme.schemeToggle:
+    label: 'Show the colour scheme toggle'
+    description: 'Renders the light/dark switch in the page header.'
+    category: astryx.theme
+    type: bool
+    default: true
+
+  # ------------------------------------------------------------------ Brand
+  astryx.brand.wordmark:
+    label: 'Wordmark'
+    description: 'Text next to the brand mark in the header. Falls back to the site title when empty.'
+    category: astryx.brand
+    type: string
+    default: ''
+
+  astryx.brand.tagline:
+    label: 'Tagline'
+    description: 'One line under the wordmark in the footer.'
+    category: astryx.brand
+    type: string
+    default: ''
+
+  # ----------------------------------------------------------------- Chrome
+  astryx.header.breadcrumb:
+    label: 'Show breadcrumb'
+    description: 'Renders the rootline trail above the page content. Suppressed on the site root and whenever the trail has a single item.'
+    category: astryx.chrome
+    type: bool
+    default: true
+
+  astryx.footer.legalPageIds:
+    label: 'Legal page ids'
+    description: 'Comma-separated page uids listed in the footer''s legal row, e.g. imprint, privacy and accessibility.'
+    category: astryx.chrome
+    type: string
+    default: ''
+
+  astryx.footer.copyrightText:
+    label: 'Copyright line'
+    description: 'Footer copyright text. The current year is prepended automatically.'
+    category: astryx.chrome
+    type: string
+    default: ''
+
+  # ----------------------------------------------------------------- Search
+  astryx.search.enabled:
+    label: 'Show the search field'
+    description: 'Renders the loupe in the page header. The field it opens submits to the page named below. Off by default, because a search field that leads nowhere is worse than none.'
+    category: astryx.search
+    type: bool
+    default: false
+
+  astryx.search.targetPageId:
+    label: 'Results page'
+    description: 'Uid of the page carrying the search plugin. Empty sends queries to the site root, which is only useful if the plugin sits there.'
+    category: astryx.search
+    type: string
+    default: ''
+
+  astryx.search.queryParameter:
+    label: 'Query parameter'
+    description: 'Name of the URL parameter the field submits under. EXT:solr reads a plain "q" on any page, which is why that is the default; change it only for a different search backend.'
+    category: astryx.search
+    type: string
+    default: 'q'

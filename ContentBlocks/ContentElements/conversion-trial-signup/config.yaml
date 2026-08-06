@@ -1,5 +1,5 @@
-name: desiderio-grande/conversion-trial-signup
-typeName: desiderio_grande_conversiontrialsignup
+name: astryx-typo3/conversion-trial-signup
+typeName: astryx_typo3_conversiontrialsignup
 title: 'Trial Signup Band'
 description: 'Renders the ask to start a free trial with the objections answered right next to the button: no card, cancel any time, how many days, how long setup takes. Use it for: SaaS landing pages, the end of a product tour, the band above a pricing table, a campaign page. Prefer ''Trial Terms Panel'' when the mechanics need a proper specification rather than three reassurances, and ''Demo Booking Band'' when a guided walk-through suits the audience better.'
 group: conversion
@@ -120,7 +120,7 @@ fields:
   -
     identifier: reassurances
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

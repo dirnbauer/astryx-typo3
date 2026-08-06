@@ -1,5 +1,5 @@
-name: desiderio-grande/feature-tabs
-typeName: desiderio_grande_featuretabs
+name: astryx-typo3/feature-tabs
+typeName: astryx_typo3_featuretabs
 title: 'Capability Tabs'
 description: 'Renders a row of tab buttons over one panel at a time, each panel holding its title, its copy and a link. Use it for: audience switches such as designers, engineers and operations, module-by-module walkthroughs, plan-specific capability views, long feature pages that would otherwise scroll forever. Prefer ''Expandable Feature List'' when readers should be able to open several entries at once, and ''Feature Rail'' when the entries are equal and browsing beats choosing.'
 group: features
@@ -76,7 +76,7 @@ fields:
   -
     identifier: panels
     type: Collection
-    foreign_table: desiderio_grande_icon_lead
+    foreign_table: astryx_typo3_icon_lead
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

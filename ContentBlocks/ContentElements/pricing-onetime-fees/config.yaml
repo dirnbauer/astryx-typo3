@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-onetime-fees
-typeName: desiderio_grande_pricingonetimefees
+name: astryx-typo3/pricing-onetime-fees
+typeName: astryx_typo3_pricingonetimefees
 title: 'One-Off Cost List'
 description: 'Renders the charges that happen once rather than every month: setup, migration, training, custom development, disposal. Each row names the service, states the fee and explains what the fee covers. Use it for: onboarding costs under a subscription table, implementation figures in a proposal, an installation price list, a project''s fixed items. Prefer ''Usage Rate Table'' for charges that recur with consumption, and ''Add-On List'' for optional extras that renew with the plan.'
 group: pricing
@@ -71,7 +71,7 @@ fields:
   -
     identifier: fees
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

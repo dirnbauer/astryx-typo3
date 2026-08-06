@@ -1,5 +1,5 @@
-name: desiderio-grande/step-nav
-typeName: desiderio_grande_stepnav
+name: astryx-typo3/step-nav
+typeName: astryx_typo3_stepnav
 title: 'Step Navigation'
 description: 'Renders the stages of a multi-page process as numbered links, with the stages behind the reader marked as done and the current one held in place. Use it for: an application spread over several pages, a guided setup, a course working through modules, a sequence of information pages before a form. Prefer ''Numbered Steps'' when every step is on this one page, and ''Series Pagination'' when the parts have no order that has to be completed.'
 group: navigation
@@ -63,7 +63,7 @@ fields:
   -
     identifier: steps
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

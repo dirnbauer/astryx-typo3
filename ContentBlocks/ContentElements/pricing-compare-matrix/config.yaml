@@ -1,5 +1,5 @@
-name: desiderio-grande/pricing-compare-matrix
-typeName: desiderio_grande_pricingcomparematrix
+name: astryx-typo3/pricing-compare-matrix
+typeName: astryx_typo3_pricingcomparematrix
 title: 'Feature Comparison Matrix'
 description: 'Renders a table of feature rows: the feature name, what this plan actually gives, a footnote for the caveat, and a tick or a dash. The ''plan-column'' variant renders one narrow column meant to stand beside its siblings; ''full-table'' fills the band alone. Use it for: the long comparison under a tier row, a single plan''s full specification, an at-a-glance yes-and-no list. Prefer ''What''s Included Checklist'' for a short list with no comparison to make, and ''Total Cost Comparison'' when the difference is money rather than features.'
 group: pricing
@@ -85,7 +85,7 @@ fields:
   -
     identifier: rows
     type: Collection
-    foreign_table: desiderio_grande_label_value
+    foreign_table: astryx_typo3_label_value
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

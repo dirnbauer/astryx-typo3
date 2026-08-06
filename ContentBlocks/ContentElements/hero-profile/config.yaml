@@ -1,5 +1,5 @@
-name: desiderio-grande/hero-profile
-typeName: desiderio_grande_heroprofile
+name: astryx-typo3/hero-profile
+typeName: astryx_typo3_heroprofile
 title: 'Profile Hero'
 description: 'Renders a person-led opening: portrait, name, role, two or three sentences of introduction, and a row of contact or profile links each with its own icon. Use it for: portfolio and freelance sites, speaker pages, author pages, consultant and coach landings, candidate and campaign pages. Prefer ''Testimonial Hero'' when the person is quoted rather than introduced, and ''Article Hero'' when the portrait is a byline on a piece of writing.'
 group: hero
@@ -110,7 +110,7 @@ fields:
   -
     identifier: links
     type: Collection
-    foreign_table: desiderio_grande_nav_item
+    foreign_table: astryx_typo3_nav_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

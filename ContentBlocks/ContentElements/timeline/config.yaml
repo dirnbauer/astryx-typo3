@@ -1,5 +1,5 @@
-name: desiderio-grande/timeline
-typeName: desiderio_grande_timeline
+name: astryx-typo3/timeline
+typeName: astryx_typo3_timeline
 title: 'Timeline'
 description: 'Renders dated entries down a line in order, each with its year or date, a heading and a short paragraph. Use it for: a company history, the milestones of a project, the stages of a legal case, a roadmap of what has already shipped, a festival programme by day. Prefer ''Numbered Steps'' when the entries are instructions to follow rather than events that happened, and ''Definition List'' for undated pairs.'
 group: content
@@ -63,7 +63,7 @@ fields:
   -
     identifier: entries
     type: Collection
-    foreign_table: desiderio_grande_metric_item
+    foreign_table: astryx_typo3_metric_item
     shareAcrossTables: true
     shareAcrossFields: true
     prefixField: true

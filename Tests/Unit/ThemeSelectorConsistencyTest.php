@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webconsulting\DesiderioGrande\Tests\Unit;
+namespace Webconsulting\AstryxTypo3\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
@@ -37,10 +37,10 @@ final class ThemeSelectorConsistencyTest extends TestCase
     private static function knownThemes(): array
     {
         $seeds = json_decode(
-            (string)file_get_contents(self::root() . '/Build/Data/grande-themes.json'),
+            (string)file_get_contents(self::root() . '/Build/Data/astryx-themes.json'),
             true
         );
-        self::assertIsArray($seeds['themes'] ?? null, 'grande-themes.json has no themes array');
+        self::assertIsArray($seeds['themes'] ?? null, 'astryx-themes.json has no themes array');
 
         $upstream = json_decode(
             (string)file_get_contents(self::root() . '/Build/Data/upstream-theme-meta.json'),
@@ -91,10 +91,10 @@ final class ThemeSelectorConsistencyTest extends TestCase
     private static function settingThemes(): array
     {
         $yaml = (string)file_get_contents(
-            self::root() . '/Configuration/Sets/DesiderioGrande/settings.definitions.yaml'
+            self::root() . '/Configuration/Sets/AstryxTypo3/settings.definitions.yaml'
         );
 
-        $start = strpos($yaml, 'desiderioGrande.theme.default:');
+        $start = strpos($yaml, 'astryx.theme.default:');
         self::assertNotFalse($start, 'the theme setting has been renamed');
         $enum = strpos($yaml, 'enum:', $start);
         self::assertNotFalse($enum, 'the theme setting has no enum');
