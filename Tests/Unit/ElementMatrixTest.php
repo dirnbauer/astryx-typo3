@@ -32,6 +32,14 @@ final class ElementMatrixTest extends TestCase
         return $decoded;
     }
 
+    public function testOfficialViteEntrypointsAreDeclared(): void
+    {
+        self::assertSame([
+            '../Resources/Private/Assets/Main.entry.css',
+            '../Resources/Private/Assets/Components.entry.js',
+        ], self::readJson('Configuration/ViteEntrypoints.json'));
+    }
+
     /** @return list<array<string, mixed>> */
     private static function allElements(): array
     {
