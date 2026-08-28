@@ -2,6 +2,15 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [1.0.2] - 2026-08-28
+
+### Fixed
+
+- Keep structural page fields, including `is_siteroot`, synchronized on German
+  page overlays so EXT:solr can resolve multilingual rootlines.
+- Make translation seeding idempotent after concurrent runs by retaining the
+  oldest managed overlay and soft-deleting duplicate overlay records.
+
 ## [1.0.1] - 2026-08-06
 
 ### Fixed

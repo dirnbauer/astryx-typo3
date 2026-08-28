@@ -705,7 +705,7 @@ final class SeedAstryxSiteCommand extends Command
         $connection = $this->connectionPool->getConnectionForTable('pages');
 
         $originals = $connection->fetchAllAssociative(
-            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, no_index FROM pages'
+            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, no_index, is_siteroot FROM pages'
             . ' WHERE deleted = 0 AND sys_language_uid = 0'
             . ' AND (uid = ? OR pid = ? OR pid IN (SELECT p.uid FROM (SELECT uid FROM pages WHERE pid = ? AND deleted = 0) p))',
             [$rootUid, $rootUid, $rootUid],
@@ -713,38 +713,52 @@ final class SeedAstryxSiteCommand extends Command
 
         $created = 0;
         $updated = 0;
+        $duplicatesRemoved = 0;
         foreach ($originals as $page) {
             $uid = (int)$page['uid'];
             $title = (string)$page['title'];
             $german = $titles[$title] ?? $title;
 
-            $existing = $connection->fetchOne(
-                'SELECT uid FROM pages WHERE deleted = 0 AND sys_language_uid = 1 AND l10n_parent = ?',
+            $existingUids = array_map('intval', $connection->fetchFirstColumn(
+                'SELECT uid FROM pages WHERE deleted = 0 AND sys_language_uid = 1 AND l10n_parent = ? ORDER BY uid',
                 [$uid],
-            );
+            ));
 
-            $values = [
+            $values = $this->databaseSchema->filterRow([
                 'title' => $german,
-                'tstamp' => $now,
-            ];
-
-            if ($existing !== false && $existing !== null) {
-                $connection->update('pages', $values, ['uid' => (int)$existing]);
-                $updated++;
-                continue;
-            }
-
-            $connection->insert('pages', array_merge($values, [
                 'pid' => (int)$page['pid'],
-                'sys_language_uid' => 1,
-                'l10n_parent' => $uid,
-                // The slug is per language and TYPO3 prefixes it with the
-                // language base, so the English one is what belongs here.
+                // Keep translated site roots recognizable to EXT:solr's
+                // language-aware rootline resolver.
+                'is_siteroot' => (int)$page['is_siteroot'],
                 'slug' => (string)$page['slug'],
                 'doktype' => (int)$page['doktype'],
                 'sorting' => (int)$page['sorting'],
                 'nav_hide' => (int)$page['nav_hide'],
                 'no_index' => (int)$page['no_index'],
+                'tstamp' => $now,
+            ], $columns);
+
+            if ($existingUids !== []) {
+                $canonicalUid = array_shift($existingUids);
+                $connection->update('pages', $values, ['uid' => $canonicalUid]);
+                $updated++;
+
+                // Concurrent or interrupted seed runs may have created more
+                // than one overlay. Preserve the oldest and soft-delete only
+                // duplicate records managed by this seeder.
+                foreach ($existingUids as $duplicateUid) {
+                    $connection->update('pages', [
+                        'deleted' => 1,
+                        'tstamp' => $now,
+                    ], ['uid' => $duplicateUid]);
+                    $duplicatesRemoved++;
+                }
+                continue;
+            }
+
+            $connection->insert('pages', array_merge($values, [
+                'sys_language_uid' => 1,
+                'l10n_parent' => $uid,
                 'crdate' => $now,
                 'hidden' => 0,
                 'deleted' => 0,
@@ -752,7 +766,13 @@ final class SeedAstryxSiteCommand extends Command
             $created++;
         }
 
-        $io->writeln(sprintf('  %-28s %d created, %d updated', 'German page records', $created, $updated));
+        $io->writeln(sprintf(
+            '  %-28s %d created, %d updated, %d duplicate records soft-deleted',
+            'German page records',
+            $created,
+            $updated,
+            $duplicatesRemoved,
+        ));
     }
 
     /**
