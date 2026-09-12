@@ -71,6 +71,143 @@ function minifyCss(css) {
     .trim();
 }
 
+/**
+ * Which .astryx-* class names anything actually renders.
+ *
+ * Scanned, not assumed: the 74 Fluid components, the 250 element templates, the
+ * page and Solr templates, the element stylesheets, astryx.js, and the compiled
+ * upstream theme payload. A class nobody renders is dead weight in every
+ * visitor's download.
+ *
+ * Build/Data/css-keep-list.json is the escape hatch, with a reason per entry,
+ * for names that are real but unscannable — a class a script composes at
+ * runtime, or one an editor may type into a rich-text field.
+ */
+function collectUsedClasses() {
+  const used = new Set();
+  const add = text => {
+    for (const match of text.matchAll(/astryx-[a-z0-9]+(?:-[a-z0-9]+)*(?:__[a-z0-9-]+)?/g)) {
+      used.add(match[0]);
+    }
+  };
+
+  const readIf = file => (fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '');
+  const walk = (dir, extensions) => {
+    if (!fs.existsSync(dir)) return;
+    for (const entry of fs.readdirSync(dir, {withFileTypes: true})) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full, extensions);
+      else if (extensions.some(extension => entry.name.endsWith(extension))) add(fs.readFileSync(full, 'utf8'));
+    }
+  };
+
+  walk(path.join(EXT_ROOT, 'Resources/Private/Components'), ['.html']);
+  walk(path.join(EXT_ROOT, 'Resources/Private/Templates'), ['.html']);
+  walk(path.join(EXT_ROOT, 'Resources/Private/Solr'), ['.html']);
+  walk(path.join(EXT_ROOT, 'ContentBlocks'), ['.html', '.css']);
+  add(readIf(path.join(EXT_ROOT, 'Resources/Public/Js/astryx.js')));
+  add(readIf(path.join(EXT_ROOT, 'Resources/Private/Assets/Components.entry.js')));
+
+  // The upstream themes style these by name. Dropping one would mean a theme
+  // rule with nothing underneath it, which is worse than an unused base rule.
+  const tokens = JSON.parse(readIf(path.join(EXT_ROOT, 'Build/astryx/tokens.json')) || '{"themes":{}}');
+  for (const theme of Object.values(tokens.themes ?? {})) {
+    for (const rule of [...(theme.component ?? []), ...(theme.prose ?? [])]) {
+      add(rule.slice(0, rule.indexOf('{')));
+    }
+  }
+
+  const keepListPath = path.join(EXT_ROOT, 'Build/Data/css-keep-list.json');
+  const keepList = JSON.parse(readIf(keepListPath) || '{"keep":{}}');
+  for (const name of Object.keys(keepList.keep ?? {})) used.add(name);
+
+  return used;
+}
+
+/**
+ * Drop every rule whose selector list names only unused .astryx-* classes.
+ *
+ * Rule by rule, on the minified text, with brace depth counted so a nested
+ * @media or @supports block is descended into rather than eaten whole. A rule
+ * is kept if ANY selector in its list survives — dropping a whole list because
+ * one of its selectors died would silently unstyle the others.
+ */
+function treeShake(css, used, removed) {
+  const out = [];
+  let index = 0;
+
+  while (index < css.length) {
+    const brace = css.indexOf('{', index);
+    if (brace === -1) {
+      out.push(css.slice(index));
+      break;
+    }
+
+    const prelude = css.slice(index, brace);
+    let depth = 1;
+    let cursor = brace + 1;
+    while (cursor < css.length && depth > 0) {
+      if (css[cursor] === '{') depth++;
+      else if (css[cursor] === '}') depth--;
+      cursor++;
+    }
+    const body = css.slice(brace + 1, cursor - 1);
+
+    // An at-rule with a block of rules inside it: recurse, and drop the wrapper
+    // only when nothing survived inside.
+    if (/^\s*@(media|supports|layer|container|scope)\b/.test(prelude)) {
+      const inner = treeShake(body, used, removed);
+      if (inner.trim() !== '') out.push(prelude + '{' + inner + '}');
+      index = cursor;
+      continue;
+    }
+    if (/^\s*@/.test(prelude)) {
+      out.push(prelude + '{' + body + '}');
+      index = cursor;
+      continue;
+    }
+
+    const selectors = splitSelectorList(prelude);
+    const kept = selectors.filter(selector => {
+      const names = [...selector.matchAll(/\.(astryx-[a-zA-Z0-9_-]+)/g)].map(match => match[1]);
+      if (names.length === 0) return true; // not ours to judge
+      return names.some(name => used.has(name));
+    });
+
+    if (kept.length === 0) {
+      for (const selector of selectors) removed.add(selector.trim());
+    } else {
+      out.push(kept.join(',') + '{' + body + '}');
+    }
+
+    index = cursor;
+  }
+
+  return out.join('');
+}
+
+/** Split on top-level commas only: `:where(h1, h2)` is one selector. */
+function splitSelectorList(selector) {
+  const parts = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < selector.length; i++) {
+    const char = selector[i];
+    if (char === '(' || char === '[') depth++;
+    else if (char === ')' || char === ']') depth = Math.max(0, depth - 1);
+    else if (char === ',' && depth === 0) {
+      parts.push(selector.slice(start, i));
+      start = i + 1;
+    }
+  }
+  parts.push(selector.slice(start));
+  return parts.map(part => part.trim()).filter(part => part !== '');
+}
+
+const shake = !process.argv.includes('--no-tree-shake');
+const usedClasses = shake ? collectUsedClasses() : null;
+const removedSelectors = new Set();
+
 let failed = false;
 
 for (const bundle of BUNDLES) {
@@ -113,7 +250,8 @@ for (const bundle of BUNDLES) {
 
   const parts = [...unlayered];
   for (const [layer, chunks] of byLayer) {
-    parts.push(`@layer ${layer}{${chunks.join('')}}`);
+    const joined = chunks.join('');
+    parts.push(`@layer ${layer}{${shake ? treeShake(joined, usedClasses, removedSelectors) : joined}}`);
   }
 
   const output = path.join(EXT_ROOT, 'Resources/Public/Css', bundle.name);
@@ -122,6 +260,13 @@ for (const bundle of BUNDLES) {
 
   const kb = (parts.join('').length / 1024).toFixed(1);
   console.log(`${bundle.name.padEnd(24)} ${String(entries.length).padStart(2)} partials  ${kb.padStart(6)} kB`);
+}
+
+if (shake && removedSelectors.size > 0) {
+  const list = [...removedSelectors].sort();
+  console.log(`\ntree-shaken ${list.length} selector(s) nothing renders:`);
+  for (const selector of list) console.log(`  ${selector}`);
+  console.log('\nTo keep one deliberately, add it with a reason to Build/Data/css-keep-list.json.');
 }
 
 process.exit(failed ? 1 : 0);
