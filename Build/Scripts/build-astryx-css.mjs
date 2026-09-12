@@ -37,7 +37,12 @@ const BUNDLES = [
  * font faces are not subject to the cascade at all, and wrapping them changes
  * nothing but risks confusion. Partials that only declare faces opt out.
  */
-const UNLAYERED = new Set(['00-fonts.css']);
+const UNLAYERED = new Set([
+  '00-fonts.css',
+  // The reduced-motion answer has to beat every layer, and an unlayered rule
+  // does that without a single !important. See the partial's own comment.
+  '09-reduced-motion.css',
+]);
 
 /**
  * Partials that belong in a different layer than their bundle's default.

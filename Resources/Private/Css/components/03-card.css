@@ -102,6 +102,22 @@
   }
 }
 
+/*
+ * On a touch screen the hover above never happens, so without this a whole
+ * card-sized tap target gives no feedback at all between the finger going down
+ * and the next page arriving.
+ */
+.astryx-clickable-card:active {
+  box-shadow: var(--shadow-low);
+  transform: var(--card-press-scale, scale(0.995));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-clickable-card:active {
+    transform: none;
+  }
+}
+
 .astryx-clickable-card a::after {
   content: '';
   position: absolute;

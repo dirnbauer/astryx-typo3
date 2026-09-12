@@ -1,0 +1,47 @@
+/*
+ * One answer to prefers-reduced-motion, for the whole design system.
+ *
+ * Before 2.0 this was scattered: nine partials each remembered to guard their
+ * own transition, and the design review found 704 elements where one had been
+ * forgotten — .astryx-link's colour transition among them. A vestibular
+ * disorder does not care which partial an animation was declared in, so the
+ * answer belongs in one place and has to be unmissable.
+ *
+ * This partial is emitted OUTSIDE every cascade layer. An unlayered rule beats
+ * every layered one no matter how specific the layered selector is, which is
+ * precisely the guarantee needed here and the reason there is not a single
+ * !important below. A component may still declare a reduced-motion rule of its
+ * own where "no motion" is not the same as "no animation" — a spinner that has
+ * to keep indicating progress, for instance — and because that rule is also
+ * unlayered-beating within its own layer, it says so explicitly rather than by
+ * accident.
+ *
+ * 0.01ms rather than 0: an animation with a zero duration never fires its
+ * animationend event, and any script waiting for one would hang.
+ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms;
+    animation-delay: 0.01ms;
+    animation-iteration-count: 1;
+    transition-duration: 0.01ms;
+    transition-delay: 0.01ms;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  /*
+   * Scroll-snap is not motion, but smooth programmatic scrolling into a snap
+   * point is. The snapping itself stays: it is what makes a carousel usable
+   * with a keyboard.
+   */
+  [data-astryx-carousel],
+  .astryx-carousel-track {
+    scroll-behavior: auto;
+  }
+}

@@ -119,10 +119,79 @@
 }
 
 /* ----------------------------------------------------------- IconButton */
+/*
+ * Until 2.0 an icon button was written `class="astryx-button astryx-icon-button"`
+ * and inherited everything from the button beside it. A component renders
+ * exactly one root class, so it inherits nothing now and has to say all of it.
+ * The design review found this the moment the harness rendered one on its own:
+ * no shape, no hover, no press, no focus ring.
+ */
 .astryx-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   aspect-ratio: var(--button-icon-only-aspect, 1 / 1);
   padding-inline: 0;
   padding-block: 0;
+  height: var(--size-element-md);
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--_button-radius, var(--radius-element));
+  font-family: inherit;
+  color: var(--color-icon-primary);
+  background-color: transparent;
+  cursor: pointer;
+  transition-property: background-image, background-color, color, opacity, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-icon-button[data-size="sm"] { height: var(--size-element-sm); }
+.astryx-icon-button[data-size="md"] { height: var(--size-element-md); }
+.astryx-icon-button[data-size="lg"] { height: var(--size-element-lg); }
+
+.astryx-icon-button[data-variant="primary"] {
+  color: var(--color-on-accent);
+  background-color: var(--color-accent);
+}
+
+.astryx-icon-button[data-variant="secondary"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-neutral);
+}
+
+.astryx-icon-button[data-variant="outline"] {
+  border-width: var(--border-width);
+  border-style: solid;
+  border-color: var(--color-border-emphasized);
+}
+
+@media (hover: hover) {
+  .astryx-icon-button:hover:not([disabled]):not([aria-disabled='true']) {
+    background-image: linear-gradient(var(--color-overlay-hover), var(--color-overlay-hover));
+  }
+}
+
+.astryx-icon-button:active:not([disabled]):not([aria-disabled='true']) {
+  background-image: linear-gradient(var(--color-overlay-pressed), var(--color-overlay-pressed));
+  transform: var(--button-press-scale, scale(0.98));
+}
+
+.astryx-icon-button:focus-visible {
+  outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-outline-color);
+  outline-offset: var(--focus-outline-offset);
+}
+
+.astryx-icon-button[disabled],
+.astryx-icon-button[aria-disabled='true'] {
+  color: var(--color-icon-disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-icon-button:active {
+    transform: none;
+  }
 }
 
 .astryx-button > svg,
@@ -181,6 +250,15 @@
   .astryx-link:hover {
     text-decoration-thickness: 2px;
   }
+}
+
+/*
+ * A press has to be visible on a touch screen too, where there is no hover to
+ * precede it. Dimming the link is the least disruptive acknowledgement that
+ * does not move anything.
+ */
+.astryx-link:active {
+  opacity: 0.7;
 }
 
 .astryx-link[data-variant="quiet"] {
