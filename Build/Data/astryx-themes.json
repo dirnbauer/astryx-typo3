@@ -1,42 +1,5 @@
 {
-  "_comment": [
-    "Themes this extension adds on top of the seven Astryx ships.",
-    "",
-    "Astryx has exactly seven themes — butter, chocolate, gothic, matcha,",
-    "neutral, stone, y2k — verified against packages/themes/ in the upstream",
-    "repository. These eighteen are OURS. They are built on Astryx's token",
-    "contract, carry the same token names and go through the same generator, so",
-    "a component cannot tell them apart; but they are not Meta's work and the",
-    "theme overview labels them accordingly.",
-    "",
-    "A seed is deliberately small. Everything not named here is inherited from",
-    "the neutral theme: the nine categorical hue ramps, the status colours and",
-    "the syntax palette are semantic categories rather than brand decisions, and",
-    "inheriting them means they keep the contrast behaviour the audit already",
-    "verified instead of thirteen new chances to get a badge wrong.",
-    "",
-    "core.ink     darkest brand colour: accent, primary text, inverted surface",
-    "core.mid     secondary text — must reach 4.5:1 on core.paper",
-    "core.soft    disabled text, and the accent in dark mode",
-    "core.paper   page background in light mode",
-    "dark.*       the three dark-mode surfaces",
-    "",
-    "Five of these are adapted from well-known open-source palettes rather than",
-    "designed here: frost (Nord), latte (Catppuccin Latte), solar (Solarized),",
-    "retro (Gruvbox) and midnight (Tokyo Night) — all MIT. Only the four core and",
-    "three dark values are taken; everything else inherits from neutral as usual,",
-    "so they are adaptations and not ports, and the upstream projects are credited",
-    "in each description.",
-    "",
-    "Where an upstream secondary colour already cleared 4.5:1 it was kept as-is",
-    "(Solarized base01, Gruvbox dark3, Catppuccin subtext1). Three did not:",
-    "Catppuccin subtext0 (4.37), Solarized base00 (4.13) and Gruvbox dark4 (4.29)",
-    "are tuned for code editors, not for body text on a web page, and were",
-    "darkened until they passed.",
-    "",
-    "Fonts must come from the ten families sync-fonts.mjs already self-hosts;",
-    "a theme that needs an eleventh would add a download to every page."
-  ],
+  "_comment": "Seeds for this extension's own themes. Each expands into an Astryx-shaped payload through Build/Scripts/build-astryx-themes.mjs. The seven official Astryx themes are NOT here — they come from the vendored upstream payload and are described in upstream-theme-meta.json.",
   "themes": [
     {
       "name": "harbour",
@@ -57,7 +20,8 @@
         "heading": "Figtree",
         "body": "DM Sans"
       },
-      "radius": "0.5rem"
+      "radius": "0.5rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "ember",
@@ -78,7 +42,8 @@
         "heading": "Outfit",
         "body": "Albert Sans"
       },
-      "radius": "0.625rem"
+      "radius": "0.625rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "linen",
@@ -99,7 +64,8 @@
         "heading": "Fraunces",
         "body": "DM Sans"
       },
-      "radius": "0.375rem"
+      "radius": "0.375rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "orchid",
@@ -120,7 +86,8 @@
         "heading": "Poppins",
         "body": "Figtree"
       },
-      "radius": "0.75rem"
+      "radius": "0.75rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "cobalt",
@@ -141,7 +108,8 @@
         "heading": "Montserrat",
         "body": "Albert Sans"
       },
-      "radius": "0.375rem"
+      "radius": "0.375rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "moss",
@@ -162,7 +130,8 @@
         "heading": "Fustat",
         "body": "DM Sans"
       },
-      "radius": "0.5rem"
+      "radius": "0.5rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "clay",
@@ -183,7 +152,8 @@
         "heading": "Outfit",
         "body": "Figtree"
       },
-      "radius": "1rem"
+      "radius": "1rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "plum",
@@ -204,7 +174,8 @@
         "heading": "Fraunces",
         "body": "Albert Sans"
       },
-      "radius": "0.25rem"
+      "radius": "0.25rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "sand",
@@ -225,7 +196,8 @@
         "heading": "Poppins",
         "body": "DM Sans"
       },
-      "radius": "0.625rem"
+      "radius": "0.625rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "ink",
@@ -246,7 +218,8 @@
         "heading": "Albert Sans",
         "body": "Albert Sans"
       },
-      "radius": "0rem"
+      "radius": "0rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "lagoon",
@@ -267,7 +240,8 @@
         "heading": "Figtree",
         "body": "Figtree"
       },
-      "radius": "0.75rem"
+      "radius": "0.75rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "rose",
@@ -288,7 +262,8 @@
         "heading": "Fraunces",
         "body": "Figtree"
       },
-      "radius": "0.5rem"
+      "radius": "0.5rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "graphite",
@@ -309,7 +284,8 @@
         "heading": "Montserrat",
         "body": "DM Sans"
       },
-      "radius": "0.375rem"
+      "radius": "0.375rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "frost",
@@ -330,7 +306,8 @@
         "heading": "Figtree",
         "body": "DM Sans"
       },
-      "radius": "0.375rem"
+      "radius": "0.375rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "latte",
@@ -351,7 +328,8 @@
         "heading": "Poppins",
         "body": "Figtree"
       },
-      "radius": "0.75rem"
+      "radius": "0.75rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "solar",
@@ -372,7 +350,8 @@
         "heading": "Fraunces",
         "body": "DM Sans"
       },
-      "radius": "0.25rem"
+      "radius": "0.25rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "retro",
@@ -393,7 +372,8 @@
         "heading": "Outfit",
         "body": "Albert Sans"
       },
-      "radius": "0.25rem"
+      "radius": "0.25rem",
+      "provenance": "webconsulting"
     },
     {
       "name": "midnight",
@@ -414,7 +394,8 @@
         "heading": "Montserrat",
         "body": "Albert Sans"
       },
-      "radius": "0.5rem"
+      "radius": "0.5rem",
+      "provenance": "webconsulting"
     }
   ]
 }

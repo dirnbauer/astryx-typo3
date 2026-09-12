@@ -204,6 +204,51 @@ fs.writeFileSync(OUT, JSON.stringify({
 const REGISTRY = path.join(EXT_ROOT, 'Build/Data/theme-registry.json');
 const upstreamMeta = JSON.parse(fs.readFileSync(path.join(EXT_ROOT, 'Build/Data/upstream-theme-meta.json'), 'utf8'));
 
+/**
+ * Provenance is a claim about where a theme came from, and claims get checked.
+ *
+ *   upstream@<tag>                          shipped by Astryx at that release,
+ *                                           and present in the vendored payload
+ *   upstream@<tag> (retired upstream, kept)  Astryx shipped it once and dropped
+ *                                           it; we keep the last harvest so a
+ *                                           live site does not lose its paint
+ *   webconsulting                           ours, expanded from a seed above
+ *
+ * The first form is verified against the payload, so a theme cannot silently
+ * claim upstream provenance after upstream stopped shipping it: the harvest
+ * would drop it from tokens.json and this would fail.
+ */
+const UPSTREAM_PROVENANCE = /^upstream@v\d+\.\d+\.\d+( \(retired upstream, kept\))?$/;
+
+for (const entry of upstreamMeta) {
+  if (!UPSTREAM_PROVENANCE.test(entry.provenance ?? '')) {
+    console.error(`Theme "${entry.id}" has no usable provenance: ${JSON.stringify(entry.provenance)}`);
+    process.exit(1);
+  }
+  const retired = entry.provenance.includes('retired');
+  const present = Boolean(upstream.themes[entry.id]);
+  if (!present && !retired) {
+    console.error(
+      `Theme "${entry.id}" claims ${entry.provenance} but is not in the vendored payload `
+      + `(${upstream.release}). Either re-harvest, or mark it "(retired upstream, kept)".`,
+    );
+    process.exit(1);
+  }
+  if (present && entry.provenance !== `upstream@${upstream.release}`) {
+    console.error(
+      `Theme "${entry.id}" says ${entry.provenance} but the vendored payload is ${upstream.release}.`,
+    );
+    process.exit(1);
+  }
+}
+
+for (const seed of seeds) {
+  if (seed.provenance !== 'webconsulting') {
+    console.error(`Seed "${seed.name}" must declare "provenance": "webconsulting".`);
+    process.exit(1);
+  }
+}
+
 const registry = [
   ...upstreamMeta.map(entry => ({...entry, family: 'astryx'})),
   ...seeds.map(seed => ({
@@ -212,6 +257,7 @@ const registry = [
     character: seed.description,
     use: seed.use ?? '',
     family: 'webconsulting',
+    provenance: seed.provenance,
   })),
 ];
 
@@ -221,4 +267,4 @@ fs.writeFileSync(REGISTRY, JSON.stringify({
 }, null, 2) + '\n');
 
 console.log(`${Object.keys(generated).length} themes generated: ${Object.keys(generated).join(', ')}`);
-console.log(`registry: ${registry.length} themes (${registry.filter(t => t.family === 'astryx').length} from Astryx, ${registry.filter(t => t.family === 'webconsulting').length} ours)`);
+console.log(`registry: ${registry.length} themes (${registry.filter(t => t.family === "astryx").length} from Astryx ${upstream.release}, ${registry.filter(t => t.family === "webconsulting").length} ours)`);

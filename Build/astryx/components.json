@@ -1,9 +1,10 @@
 {
-  "source": "https://github.com/facebook/astryx/releases/tag/v0.3.0",
-  "release": "v0.3.0",
-  "commit": "82d4dab3d05b9314a76ab0bda296491a65f69c88",
-  "harvested": 155,
-  "note": "Exact component inventory from @astryxdesign/cli 0.3.0. Runtime React APIs are documentation provenance only and are not shipped by this TYPO3 extension.",
+  "source": "https://github.com/facebook/astryx/releases/tag/v0.6.0",
+  "release": "v0.6.0",
+  "commit": "1e63a5144bdf4777081edee472089277aceb5d75",
+  "harvestedBy": "@astryxdesign/cli@0.6.0 component --list --json",
+  "harvested": 163,
+  "note": "Exact component inventory from the official release. Runtime React APIs are documentation provenance only and are not shipped by this TYPO3 extension.",
   "components": [
     {
       "component": "AlertDialog",
@@ -69,6 +70,18 @@
       "component": "Blockquote",
       "name": "Blockquote",
       "group": "Blockquote",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "BottomSheet",
+      "name": "BottomSheet",
+      "group": "BottomSheet",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "BottomSheetSwitcher",
+      "name": "BottomSheetSwitcher",
+      "group": "BottomSheet",
       "package": "@astryxdesign/core"
     },
     {
@@ -350,6 +363,12 @@
     {
       "component": "DropdownMenuCheckboxItem",
       "name": "DropdownMenuCheckboxItem",
+      "group": "DropdownMenu",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "DropdownMenuDivider",
+      "name": "DropdownMenuDivider",
       "group": "DropdownMenu",
       "package": "@astryxdesign/core"
     },
@@ -738,6 +757,18 @@
       "package": "@astryxdesign/core"
     },
     {
+      "component": "Step",
+      "name": "Step",
+      "group": "Stepper",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "Stepper",
+      "name": "Stepper",
+      "group": "Stepper",
+      "package": "@astryxdesign/core"
+    },
+    {
       "component": "Switch",
       "name": "Switch",
       "group": "Switch",
@@ -756,8 +787,26 @@
       "package": "@astryxdesign/core"
     },
     {
+      "component": "TableBody",
+      "name": "TableBody",
+      "group": "Table",
+      "package": "@astryxdesign/core"
+    },
+    {
       "component": "TableCell",
       "name": "TableCell",
+      "group": "Table",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "TableFooter",
+      "name": "TableFooter",
+      "group": "Table",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "TableHeader",
+      "name": "TableHeader",
       "group": "Table",
       "package": "@astryxdesign/core"
     },
