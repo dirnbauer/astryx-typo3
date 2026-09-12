@@ -29,7 +29,11 @@
         d:searchSnippet crops around the match and wraps the hit in <mark>, so
         the visitor can see *why* a result is in the list.
     </f:comment>
-    <a:molecule.item align="start" class="g-search__result{f:if(condition: document.isElevated, then: ' elevated')}" data-document-score="{document.score}" data-document-id="{document.id}">
+    <article
+        class="astryx-item align-start g-search__result{f:if(condition: document.isElevated, then: ' elevated')}"
+        data-document-score="{document.score}"
+        data-document-id="{document.id}"
+    >
         <a:molecule.itemContent>
             <a:molecule.itemLabel class="g-search__result-title">
                 <a href="{s:uri.result.addSearchWordList(url: document.url, searchWords: resultSet.usedQuery.query)}">
@@ -86,7 +90,7 @@
                 </a:atom.badge>
             </f:if>
         </div>
-    </a:molecule.item>
+    </article>
 </f:section>
 
 </html>

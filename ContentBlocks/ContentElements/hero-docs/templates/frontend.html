@@ -27,7 +27,7 @@
                 A GET form pointed at the results page: the query arrives as "q"
                 on a full page load, so search works before any script does.
             </f:comment>
-            <a:molecule.field class="g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+            <form class="astryx-field g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
                 <a:atom.visuallyHidden as="label" for="g-hero-docs-q-{data.uid}">
                     <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
                 </a:atom.visuallyHidden>
@@ -41,7 +41,7 @@
                         </f:if>
                     </a:atom.button>
                 </a:molecule.inputGroup>
-            </a:molecule.field>
+            </form>
         </div>
 
         <f:if condition="{data.links}">

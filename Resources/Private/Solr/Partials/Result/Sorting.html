@@ -41,7 +41,7 @@
                         <f:else>
                             <f:if condition="{sorting.selected}">
                                 <f:then>
-                                    <a:molecule.item density="compact" interactive="interactive" selected="selected" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}" aria-current="true">
+                                    <a:molecule.item density="compact" interactive="interactive" selected="selected" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}" ariaCurrent="true">
                                         <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
                                         <span class="astryx-item-end">
                                             <svg class="g-search__sorting-arrow {f:if(condition: sorting.isAscDirection, then: 'asc', else: 'desc')}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">

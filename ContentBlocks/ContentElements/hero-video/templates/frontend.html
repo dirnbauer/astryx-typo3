@@ -31,10 +31,10 @@
                     <span class="astryx-overlay-scrim fill dark always align-center g-hero-video__scrim">
                         <f:if condition="{data.cta_link.url}">
                             <f:then>
-                                <a:atom.button variant="primary" size="lg" class="astryx-icon-button g-hero-video__play" type="button" data-g-dialog-open="g-hero-video-{data.uid}">
+                                <button type="button" class="astryx-button primary lg astryx-icon-button g-hero-video__play" data-g-dialog-open="g-hero-video-{data.uid}">
                                     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5 19 12 8 18.5Z" fill="currentColor"/></svg>
                                     <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.play" default="Play the film"/><f:if condition="{data.cta_label}">: {data.cta_label}</f:if></a:atom.visuallyHidden>
-                                </a:atom.button>
+                                </button>
                             </f:then>
                         </f:if>
                     </span>
@@ -49,11 +49,11 @@
 </a:layout.section>
 
 <f:if condition="{data.cta_link.url}">
-    <a:molecule.dialog variant="fullscreen" class="g-hero-video__dialog" id="g-hero-video-{data.uid}" aria-label="{data.header}">
-        <a:atom.button variant="ghost" class="astryx-icon-button g-hero-video__close" type="button" data-g-dialog-close="close">
+    <a:molecule.dialog variant="fullscreen" class="g-hero-video__dialog" id="g-hero-video-{data.uid}" ariaLabel="{data.header}">
+        <button type="button" class="astryx-button ghost astryx-icon-button g-hero-video__close" data-g-dialog-close="close">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>
             <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.close" default="Close"/></a:atom.visuallyHidden>
-        </a:atom.button>
+        </button>
 
         <a:atom.aspectRatio class="g-hero-video__player">
             <f:comment>

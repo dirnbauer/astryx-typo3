@@ -25,7 +25,7 @@
                     sits behind cta_link — a mailing service, a TYPO3 form page —
                     receives "email" and needs no JavaScript from this element.
                 </f:comment>
-                <a:molecule.field class="g-hero-signup__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="post">
+                <form class="astryx-field g-hero-signup__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="post">
                     <a:atom.visuallyHidden as="label" for="g-hero-signup-email-{data.uid}">
                         <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.email" default="Email address"/>
                     </a:atom.visuallyHidden>
@@ -39,7 +39,7 @@
                             </f:if>
                         </a:atom.button>
                     </a:molecule.inputGroup>
-                </a:molecule.field>
+                </form>
 
                 <f:if condition="{data.note}">
                     <a:atom.text type="supporting" class="g-hero-signup__note">{data -> f:render.text(field: 'note')}</a:atom.text>

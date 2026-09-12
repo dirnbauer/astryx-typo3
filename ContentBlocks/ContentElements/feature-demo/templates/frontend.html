@@ -41,7 +41,7 @@
 
                     <f:if condition="{data.cta_label} && {data.cta_link}">
                         <span class="astryx-overlay-scrim fill align-center always g-feature-demo__scrim">
-                            <a:atom.button variant="primary" size="lg" class="g-feature-demo__play" type="button" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</a:atom.button>
+                            <button type="button" class="astryx-button primary lg g-feature-demo__play" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</button>
                         </span>
                     </f:if>
                 </a:molecule.overlay>
@@ -55,11 +55,11 @@
     </a:layout.container>
 
     <f:if condition="{data.cta_link.url}">
-        <a:molecule.dialog class="g-feature-demo__dialog" id="g-feature-demo-{data.uid}" aria-labelledby="g-feature-demo-{data.uid}-title">
+        <a:molecule.dialog class="g-feature-demo__dialog" id="g-feature-demo-{data.uid}" ariaLabelledby="g-feature-demo-{data.uid}-title">
             <div class="astryx-dialog-header">
                 <h3 class="astryx-dialog-title" id="g-feature-demo-{data.uid}-title">{data.header}</h3>
 
-                <a:atom.button variant="ghost" class="astryx-icon-button g-feature-demo__close" type="button" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}">
+                <a:atom.button variant="ghost" class="astryx-icon-button g-feature-demo__close" type="button" ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}">
                     <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
                 </a:atom.button>
             </div>

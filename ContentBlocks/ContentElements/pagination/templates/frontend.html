@@ -41,14 +41,14 @@
 <f:variable name="prevIndex" value="{currentIndex - 1}"/>
 <f:variable name="nextIndex" value="{currentIndex + 1}"/>
 
-<a:layout.section spacing="tight" class="g-pagination" data-align="{data.align}">
+<a:layout.section spacing="tight" class="g-pagination" align="{data.align}">
     <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header}">
             <a:atom.heading level="4" class="g-pagination__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
         </f:if>
 
-        <a:molecule.pagination class="g-pagination__nav" aria-label="{navLabel}">
+        <a:molecule.pagination class="g-pagination__nav" ariaLabel="{navLabel}">
             <div class="astryx-pagination-controls g-pagination__controls">
 
                 <f:if condition="{currentIndex} > -1">
@@ -64,7 +64,7 @@
                 <f:for each="{data.pages}" as="part" iteration="step">
                     <f:if condition="{step.index} == {currentIndex} || !{part.link.url}">
                         <f:then>
-                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__number" aria-current="page">
+                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__number" ariaCurrent="page">
                                 <a:atom.visuallyHidden as="span">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></a:atom.visuallyHidden>
                                 <span aria-hidden="true">{step.cycle}</span>
                             </a:atom.button>

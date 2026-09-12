@@ -29,7 +29,7 @@
 
         <ul class="g-data-progress-bars__rows {f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.metrics}" as="metric">
-                <a:atom.progressBar class="g-data-progress-bars__row"> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                <li class="astryx-progressbar g-data-progress-bars__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <div class="astryx-progressbar-header">
                         <span class="astryx-progressbar-label">{metric -> f:render.text(field: 'title')}</span>
                         <span class="astryx-progressbar-value g-data-progress-bars__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
@@ -42,7 +42,7 @@
                     <f:if condition="{metric.text}">
                         <a:atom.text type="supporting" class="g-data-progress-bars__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
-                </a:atom.progressBar>
+                </li>
             </f:for>
         </ul>
 

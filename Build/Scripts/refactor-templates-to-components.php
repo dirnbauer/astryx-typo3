@@ -33,7 +33,6 @@ declare(strict_types=1);
  * Everything it knows about modifiers comes from
  * Build/Data/component-contract.json. This script invents no mapping of its own.
  */
-
 const EXT_ROOT = __DIR__ . '/../..';
 
 /**
@@ -115,7 +114,53 @@ const NAMESPACE_URI = 'http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/
  * `<a:atom.button variant="primary" size="lg" parameter="…">`, and the component
  * does the typolink itself.
  */
-const OPENING_TAG = '#<([a-zA-Z][a-zA-Z0-9]*(?::[a-zA-Z][a-zA-Z0-9.]*)?)(\\s[^>]*?)?(/?)>#s';
+const TAG_NAME = '#<([a-zA-Z][a-zA-Z0-9]*(?::[a-zA-Z][a-zA-Z0-9.]*)?)#';
+
+/**
+ * Attributes that may travel from the original tag onto the component tag.
+ *
+ * The map is closed on purpose. Fluid REJECTS an argument a component does not
+ * declare - ComponentAdapter::validateAdditionalArguments throws - so carrying
+ * an attribute the component never heard of does not degrade, it takes the page
+ * down. The hyphenated ARIA attributes are renamed to the camelCase spelling the
+ * components declare.
+ *
+ * A tag carrying anything outside this map is left alone and reported. That
+ * loses a few conversions and costs nothing but a line in the residue list,
+ * which is the right trade against a fatal at render time.
+ */
+const CARRIED_ATTRIBUTES = [
+    'id' => 'id',
+    'name' => 'name',
+    'href' => 'href',
+    'target' => 'target',
+    'type' => 'type',
+    'parameter' => 'parameter',
+    'title' => 'title',
+    'datetime' => 'datetime',
+    'value' => 'value',
+    'open' => 'open',
+    'for' => 'for',
+    'lang' => 'lang',
+    'dir' => 'dir',
+    'aria-label' => 'ariaLabel',
+    'aria-labelledby' => 'ariaLabelledby',
+    'aria-describedby' => 'ariaDescribedby',
+    'aria-current' => 'ariaCurrent',
+    'aria-expanded' => 'ariaExpanded',
+    'aria-controls' => 'ariaControls',
+    'aria-hidden' => 'ariaHidden',
+    /*
+     * Three data attributes appear on 80 element roots because they ARE
+     * component decisions an editor makes - how the section aligns, how many
+     * columns it runs, which variant it wears - that 1.x wrote straight onto the
+     * tag. They become declared arguments and the component renders them back as
+     * the same data attribute, so the element's own CSS keeps working unchanged.
+     */
+    'data-align' => 'align',
+    'data-columns' => 'columns',
+    'data-variant' => 'variant',
+];
 
 // --------------------------------------------------------------------- args
 
@@ -257,24 +302,69 @@ function findClosingTag(string $source, string $tagName, int $afterOpeningTag): 
 {
     $depth = 1;
     $offset = $afterOpeningTag;
-    $pattern = '#<(/?)' . preg_quote($tagName, '#') . '(\s[^>]*?)?(/?)>#is';
+    $openPattern = '#<' . preg_quote($tagName, '#') . '(?=[\s/>])#i';
+    $closePattern = '#</' . preg_quote($tagName, '#') . '\s*>#i';
 
-    while (preg_match($pattern, $source, $match, PREG_OFFSET_CAPTURE, $offset)) {
-        $isClosing = $match[1][0] === '/';
-        $isSelfClosing = ($match[3][0] ?? '') === '/';
-        $start = $match[0][1];
-        $end = $start + strlen($match[0][0]);
+    while (true) {
+        $nextOpen = preg_match($openPattern, $source, $openMatch, PREG_OFFSET_CAPTURE, $offset)
+            ? $openMatch[0][1] : null;
+        $nextClose = preg_match($closePattern, $source, $closeMatch, PREG_OFFSET_CAPTURE, $offset)
+            ? $closeMatch[0][1] : null;
 
-        if ($isClosing) {
-            $depth--;
-            if ($depth === 0) {
-                return ['start' => $start, 'end' => $end];
-            }
-        } elseif (!$isSelfClosing) {
-            $depth++;
+        if ($nextClose === null) {
+            return null;
         }
 
+        if ($nextOpen !== null && $nextOpen < $nextClose) {
+            $end = endOfOpeningTag($source, $nextOpen);
+            if ($end === null) {
+                return null;
+            }
+            // A self-closing occurrence never needs a closing tag of its own.
+            if (!str_ends_with(rtrim(substr($source, $nextOpen, $end - $nextOpen), '>'), '/')) {
+                $depth++;
+            }
+            $offset = $end;
+            continue;
+        }
+
+        $depth--;
+        $end = $nextClose + strlen($closeMatch[0][0]);
+        if ($depth === 0) {
+            return ['start' => $nextClose, 'end' => $end];
+        }
         $offset = $end;
+    }
+}
+
+/**
+ * The byte offset just past an opening tag that starts at $start.
+ *
+ * Not a regex, because an attribute value may contain a `>` and regularly does:
+ * `style="--value: {f:if(condition: '{a} > 50', …)}"`. The first version stopped
+ * at that `>` and wrote half a tag into the file. Quotes are tracked instead, so
+ * only a `>` outside a quoted value ends the tag.
+ */
+function endOfOpeningTag(string $source, int $start): ?int
+{
+    $length = strlen($source);
+    $quote = null;
+
+    for ($i = $start; $i < $length; $i++) {
+        $char = $source[$i];
+        if ($quote !== null) {
+            if ($char === $quote) {
+                $quote = null;
+            }
+            continue;
+        }
+        if ($char === '"' || $char === "'") {
+            $quote = $char;
+            continue;
+        }
+        if ($char === '>') {
+            return $i + 1;
+        }
     }
 
     return null;
@@ -453,13 +543,17 @@ function runPass(string $source, array $componentKeys, array $byRootClass, strin
     $rewrites = 0;
     $offset = 0;
 
-    while (preg_match(OPENING_TAG, $source, $match, PREG_OFFSET_CAPTURE, $offset)) {
+    while (preg_match(TAG_NAME, $source, $match, PREG_OFFSET_CAPTURE, $offset)) {
         $tagStart = $match[0][1];
-        $tagText = $match[0][0];
-        $tagEnd = $tagStart + strlen($tagText);
         $tagName = $match[1][0];
+
+        $tagEnd = endOfOpeningTag($source, $tagStart);
+        if ($tagEnd === null) {
+            break;
+        }
+        $tagText = substr($source, $tagStart, $tagEnd - $tagStart);
         $htmlTagName = strtolower($tagName);
-        $selfClosing = ($match[3][0] ?? '') === '/';
+        $selfClosing = str_ends_with(rtrim(substr($tagText, 0, -1)), '/');
 
         if (str_starts_with($tagName, 'a:')) {
             $offset = $tagEnd;
@@ -500,11 +594,32 @@ function runPass(string $source, array $componentKeys, array $byRootClass, strin
             $residue->add($file, "{$rootClass}: could not map class token `{$token}`");
         }
 
-        // Attributes the original tag carried that are not `class` travel across
-        // unchanged. A component that does not declare one will fail the
-        // conformance test, which is exactly where that should surface.
-        $carried = $attributes;
-        unset($carried['class']);
+        $carried = [];
+        $unmappable = [];
+        foreach ($attributes as $name => $value) {
+            if ($name === 'class') {
+                continue;
+            }
+            if (!isset(CARRIED_ATTRIBUTES[$name])) {
+                $unmappable[] = $name;
+                continue;
+            }
+            $carried[CARRIED_ATTRIBUTES[$name]] = $value;
+        }
+
+        if ($unmappable !== []) {
+            $residue->add(
+                $file,
+                sprintf(
+                    '%s on <%s> carries %s, which no component declares — left for hand-finishing',
+                    $rootClass,
+                    $tagName,
+                    implode(', ', $unmappable),
+                ),
+            );
+            $offset = $tagEnd;
+            continue;
+        }
 
         $componentAttributes = $mapped['attributes'];
         $leftoverClass = implode(' ', $mapped['leftover']);
@@ -547,7 +662,7 @@ function ensureNamespace(string $source, string $file, Residue $residue): string
             1,
         );
         if ($replacement === $tag) {
-            $replacement = substr($tag, 0, -1) . "\n      xmlns:a=\"" . NAMESPACE_URI . "\">";
+            $replacement = substr($tag, 0, -1) . "\n      xmlns:a=\"" . NAMESPACE_URI . '">';
         }
         return substr($source, 0, $match[0][1]) . $replacement . substr($source, $match[0][1] + strlen($tag));
     }

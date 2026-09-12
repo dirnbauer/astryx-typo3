@@ -21,7 +21,7 @@
     <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:nav.label', default: 'Language and region')}"/>
 </f:if>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-language-note" data-align="{data.align}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-language-note" align="{data.align}">
     <a:layout.container size="{data.width}">
         <div class="g-footer-language-note__inner">
 

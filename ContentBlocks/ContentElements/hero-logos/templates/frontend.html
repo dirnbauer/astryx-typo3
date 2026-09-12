@@ -31,7 +31,7 @@
                     <a:atom.text type="supporting" class="g-hero-logos__note" id="g-hero-logos-note-{data.uid}">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
 
-                <a:molecule.overflowList wrap="multi-row" class="g-hero-logos__row" aria-labelledby="g-hero-logos-note-{data.uid}">
+                <a:molecule.overflowList wrap="multi-row" class="g-hero-logos__row" ariaLabelledby="g-hero-logos-note-{data.uid}">
                     <f:for each="{data.logos}" as="logo">
                         <li class="g-hero-logos__mark">
                             <f:if condition="{logo.link.url}">

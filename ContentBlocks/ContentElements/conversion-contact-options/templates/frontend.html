@@ -17,7 +17,7 @@
 <f:variable name="titleClass"><f:if condition="{data.variant} == 'cards'"><f:then>astryx-card-title</f:then><f:else>astryx-item-label</f:else></f:if></f:variable>
 <f:variable name="bodyClass"><f:if condition="{data.variant} == 'cards'"><f:then>astryx-card-body</f:then><f:else>astryx-item-description</f:else></f:if></f:variable>
 
-<a:layout.section surface="{data.tone}" class="g-conversion-contact-options" data-variant="{data.variant}" data-align="{data.align}">
+<a:layout.section surface="{data.tone}" class="g-conversion-contact-options" variant="{data.variant}" align="{data.align}">
     <a:layout.container size="lg">
 
         <div class="g-conversion-contact-options__intro">

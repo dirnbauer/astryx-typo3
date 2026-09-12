@@ -11,7 +11,7 @@
     names and no reason for them being there.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-conversion-cta-proof" data-align="{data.align}">
+<a:layout.section surface="{data.tone}" class="g-conversion-cta-proof" align="{data.align}">
     <a:layout.container size="{data.width}">
 
         <div class="g-conversion-cta-proof__ask">
@@ -45,7 +45,7 @@
                     <a:atom.text type="supporting" class="g-conversion-cta-proof__note" id="g-conversion-cta-proof-note-{data.uid}">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
 
-                <a:molecule.overflowList wrap="multi-row" class="g-conversion-cta-proof__row" aria-labelledby="g-conversion-cta-proof-note-{data.uid}">
+                <a:molecule.overflowList wrap="multi-row" class="g-conversion-cta-proof__row" ariaLabelledby="g-conversion-cta-proof-note-{data.uid}">
                     <f:for each="{data.logos}" as="logo">
                         <li class="g-conversion-cta-proof__mark">
                             <f:if condition="{logo.link.url}">

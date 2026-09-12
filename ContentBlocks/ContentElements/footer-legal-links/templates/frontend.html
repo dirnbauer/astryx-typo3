@@ -20,7 +20,7 @@
     <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-legal-links/language/labels.xlf:nav.label', default: 'Legal')}"/>
 </f:if>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-legal-links" data-align="{data.align}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-legal-links" align="{data.align}">
     <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.text}">

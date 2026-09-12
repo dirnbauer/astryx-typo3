@@ -15,7 +15,7 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.index" default="Index"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<a:layout.section surface="{data.tone}" class="g-section-index" data-columns="{data.columns}">
+<a:layout.section surface="{data.tone}" class="g-section-index" columns="{data.columns}">
     <a:layout.container size="{data.width}">
 
         <div class="g-section-index__intro">

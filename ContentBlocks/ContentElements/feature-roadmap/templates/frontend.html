@@ -29,7 +29,7 @@
         <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-roadmap__items">
             <f:for each="{data.items}" as="item">
                 <li class="g-feature-roadmap__item" data-shipped="{f:if(condition: item.included, then: 'yes', else: 'no')}">
-                    <a:atom.statusDot variant="{f:if(condition: item.included, then: 'success', else: 'accent')}" class="g-feature-roadmap__dot" aria-hidden="true"></a:atom.statusDot>
+                    <a:atom.statusDot variant="{f:if(condition: item.included, then: 'success', else: 'accent')}" class="g-feature-roadmap__dot" ariaHidden="true"></a:atom.statusDot>
 
                     <div class="g-feature-roadmap__body">
                         <a:atom.heading level="4">{item -> f:render.text(field: 'title')}</a:atom.heading>

@@ -14,7 +14,7 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-contents-box">
     <a:layout.container size="{data.width}">
-        <a:molecule.card variant="flat" class="g-contents-box__box" aria-labelledby="g-contents-title-{data.uid}">
+        <a:molecule.card variant="flat" class="g-contents-box__box" ariaLabelledby="g-contents-title-{data.uid}">
 
             <a:atom.heading level="4" class="g-contents-box__title" id="g-contents-title-{data.uid}">
                 <f:if condition="{data.header}">

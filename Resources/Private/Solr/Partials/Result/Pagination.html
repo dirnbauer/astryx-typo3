@@ -22,15 +22,20 @@
         aria-current so the stylesheet's [aria-current='page'] rule paints it —
         weight and tint together, never colour alone.
     </f:comment>
-    <a:molecule.pagination size="sm" class="g-search__pagination" aria-label="{f:translate(key: '{labels}:search.pagination', default: 'Search result pages')}">
+    <a:molecule.pagination size="sm" class="g-search__pagination" ariaLabel="{f:translate(key: '{labels}:search.pagination', default: 'Search result pages')}">
         <div class="astryx-pagination-controls">
 
             <f:if condition="{pagination.previousPageNumber}">
-                <a:atom.button variant="ghost" size="sm" class="astryx-icon-button solr-ajaxified" href="{s:uri.paginate.resultPage(page: pagination.previousPageNumber)}" rel="prev" aria-label="{f:translate(key: '{labels}:search.paginationPrevious', default: 'Previous page')}">
+                <a
+                    class="astryx-button ghost sm astryx-icon-button solr-ajaxified"
+                    href="{s:uri.paginate.resultPage(page: pagination.previousPageNumber)}"
+                    rel="prev"
+                    aria-label="{f:translate(key: '{labels}:search.paginationPrevious', default: 'Previous page')}"
+                >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                         <path d="m14 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </a:atom.button>
+                </a>
             </f:if>
 
             <f:if condition="{pagination.hasLessPages}">
@@ -40,7 +45,7 @@
             <f:for each="{pagination.allPageNumbers}" as="page">
                 <f:if condition="{page} == {currentPage}">
                     <f:then>
-                        <a:atom.button variant="ghost" size="sm" aria-current="page">
+                        <a:atom.button variant="ghost" size="sm" ariaCurrent="page">
                             <a:atom.visuallyHidden as="span"><f:translate key="{labels}:search.paginationCurrent" default="Current page"/>,</a:atom.visuallyHidden>
                             {page}
                         </a:atom.button>
@@ -52,7 +57,7 @@
                             and only the bare one is the canonical first page.
                         </f:comment>
                         <f:variable name="pageUri"><f:if condition="{page} > 1"><f:then>{s:uri.paginate.resultPage(page: page)}</f:then><f:else>{s:uri.paginate.resultPage()}</f:else></f:if></f:variable>
-                        <a:atom.button variant="ghost" size="sm" class="solr-ajaxified" href="{pageUri}" aria-label="{f:translate(key: '{labels}:search.paginationPage', arguments: {page: page}, default: 'Page {page}')}">{page}</a:atom.button>
+                        <a:atom.button variant="ghost" size="sm" class="solr-ajaxified" href="{pageUri}" ariaLabel="{f:translate(key: '{labels}:search.paginationPage', arguments: {page: page}, default: 'Page {page}')}">{page}</a:atom.button>
                     </f:else>
                 </f:if>
             </f:for>
@@ -62,11 +67,16 @@
             </f:if>
 
             <f:if condition="{pagination.nextPageNumber}">
-                <a:atom.button variant="ghost" size="sm" class="astryx-icon-button solr-ajaxified" href="{s:uri.paginate.resultPage(page: pagination.nextPageNumber)}" rel="next" aria-label="{f:translate(key: '{labels}:search.paginationNext', default: 'Next page')}">
+                <a
+                    class="astryx-button ghost sm astryx-icon-button solr-ajaxified"
+                    href="{s:uri.paginate.resultPage(page: pagination.nextPageNumber)}"
+                    rel="next"
+                    aria-label="{f:translate(key: '{labels}:search.paginationNext', default: 'Next page')}"
+                >
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                         <path d="m10 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                </a:atom.button>
+                </a>
             </f:if>
 
         </div>

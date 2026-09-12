@@ -23,7 +23,7 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sitemap" default="Sitemap"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<a:layout.section surface="{data.tone}" class="g-sitemap-tree" data-columns="{data.columns}">
+<a:layout.section surface="{data.tone}" class="g-sitemap-tree" columns="{data.columns}">
     <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">

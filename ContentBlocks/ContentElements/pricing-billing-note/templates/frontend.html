@@ -16,7 +16,7 @@
     the term and the amount is its value.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-billing-note" data-align="{data.align}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-billing-note" align="{data.align}">
     <a:layout.container size="md">
         <div class="g-pricing-billing-note__panel">
 
@@ -37,7 +37,7 @@
                 </a:molecule.metadataListItem>
 
                 <f:if condition="{data.value}">
-                    <a:molecule.metadataListItem class="g-pricing-billing-note__slot" data-preferred="yes">
+                    <div class="astryx-metadata-list-item g-pricing-billing-note__slot" data-preferred="yes">
                         <a:atom.text type="label" as="dt" class="g-pricing-billing-note__term">{data.unit}</a:atom.text>
                         <dd class="g-pricing-billing-note__value">
                             <a:atom.text type="display-3" as="span" class="g-pricing-billing-note__amount">{data -> f:render.text(field: 'value')}</a:atom.text>
@@ -45,7 +45,7 @@
                                 <a:atom.badge variant="success" as="span" class="g-pricing-billing-note__saving">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                             </f:if>
                         </dd>
-                    </a:molecule.metadataListItem>
+                    </div>
                 </f:if>
             </a:molecule.metadataList>
 

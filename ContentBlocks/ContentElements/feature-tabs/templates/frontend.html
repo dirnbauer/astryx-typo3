@@ -11,7 +11,7 @@
     out of the flow — without it the page is longer, never broken.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-tabs" data-align="{data.align}">
+<a:layout.section surface="{data.tone}" class="g-feature-tabs" align="{data.align}">
     <a:layout.container size="{data.width}">
 
         <div class="g-feature-tabs__intro">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="g-feature-tabs__tabs" data-g-tabs>
-            <a:molecule.tabList variant="divided" class="g-feature-tabs__list" role="tablist">
+            <div class="astryx-tab-list divided g-feature-tabs__list" role="tablist">
                 <f:for each="{data.panels}" as="panel" iteration="position">
                     <button type="button"
                             class="astryx-tab"
@@ -37,7 +37,7 @@
                             aria-controls="g-feature-tabs-{data.uid}-panel-{position.index}"
                             aria-selected="{f:if(condition: position.isFirst, then: 'true', else: 'false')}">{panel.title}</button>
                 </f:for>
-            </a:molecule.tabList>
+            </div>
 
             <f:for each="{data.panels}" as="panel" iteration="position">
                 <div class="g-feature-tabs__panel"

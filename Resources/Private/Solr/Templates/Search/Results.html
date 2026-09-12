@@ -91,7 +91,7 @@
                     <a:atom.text type="supporting" class="g-search__didyoumean">
                         <f:translate key="{labels}:search.didYouMean" default="Did you mean"/>
                         <f:for each="{resultSet.spellCheckingSuggestions}" as="suggestion">
-                            <a:atom.link additionalParams="{q: suggestion.suggestion}">{suggestion.suggestion}</a:atom.link>
+                            <f:link.page additionalParams="{q: suggestion.suggestion}" class="astryx-link">{suggestion.suggestion}</f:link.page>
                         </f:for>?
                     </a:atom.text>
                 </f:if>
