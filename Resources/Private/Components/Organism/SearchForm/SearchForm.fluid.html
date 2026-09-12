@@ -56,31 +56,31 @@
     data-g-suggest-empty="{suggestEmpty}">
 
     <div class="astryx-search__field" data-g-suggest-anchor>
-        <div class="astryx-input-group" data-size="{size}" data-disabled="false">
-            <label class="astryx-visually-hidden" for="{inputId}">{label}</label>
-            <input
+        <a:molecule.inputGroup size="{size}">
+            <a:atom.visuallyHidden as="label" for="{inputId}">{label}</a:atom.visuallyHidden>
+            <a:molecule.textInput
                 id="{inputId}"
-                class="astryx-text-input astryx-search__input"
+                class="astryx-search__input"
                 type="search"
                 name="{queryParameter}"
                 placeholder="{placeholder}"
                 autocomplete="off"
-                data-size="{size}"
-                data-status="default"
-                data-g-suggest-input
-            />
-            <button
-                type="submit"
-                class="astryx-button astryx-icon-button astryx-search__submit"
-                data-variant="ghost"
-                data-size="{size}">
-                <span class="astryx-visually-hidden">{submitLabel}</span>
+                size="{size}"
+                suggestInput="{true}" />
+            <f:comment>
+                Both button classes, as in 1.x: the icon recipe draws the square
+                and the loupe inside it, and `astryx-button` is what the search
+                stylesheet's `.astryx-search .astryx-input-group > .astryx-button`
+                rule needs to stop the group stretching this to half the field.
+            </f:comment>
+            <a:atom.button variant="ghost" size="{size}" type="submit" class="astryx-icon-button astryx-search__submit">
+                <a:atom.visuallyHidden as="span">{submitLabel}</a:atom.visuallyHidden>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                     <circle cx="11" cy="11" r="7"/>
                     <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
                 </svg>
-            </button>
-        </div>
+            </a:atom.button>
+        </a:molecule.inputGroup>
     </div>
 
     <f:comment>

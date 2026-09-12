@@ -14,10 +14,9 @@
     emitted and the unused one is empty, which assistive technology ignores —
     branching the element would have meant two copies of everything inside it.
 
-    The body wrapper is the caller's, because a dialog that scrolls and one
-    that holds a single fixed-ratio frame want different things inside the same
-    frame, and `astryx-dialog-body` is what makes only the first of them
-    scroll.
+    The header, the body and the close control are this component's, and
+    `titleLevel` and `closeClass` are what let an element that used to write
+    its own keep the heading level and the class it styled the control with.
 
     Overlay is a separate component and stays separate: a scrim over a picture
     is a decoration, a dialog is a mode. Sharing markup between the two would
@@ -26,22 +25,37 @@
 
 <f:argument name="id" type="string" />
 <f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
 <f:argument name="variant" type="string" optional="{true}" default="default" />
 <f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="closeClass" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 
+<f:comment>
+    One aria-labelledby, not two. A caller pointing at a heading of its own
+    wins; otherwise the title this component wrote names it. The same attribute
+    written twice on one tag is the first of the two silently winning, and the
+    first was the empty default.
+</f:comment>
+<f:variable name="titleId"><f:if condition="{title}">{id}-title</f:if></f:variable>
+<f:variable name="labelledby" value="{f:if(condition: ariaLabelledby, then: ariaLabelledby, else: titleId)}" />
+
 <dialog
     id="{id}"
-    class="astryx-dialog {class}" aria-labelledby="{ariaLabelledby}"
+    class="astryx-dialog {class}"
     data-variant="{variant}"
-    aria-labelledby="{f:if(condition: title, then: '{id}-title')}"
+    aria-labelledby="{labelledby}"
     aria-label="{ariaLabel}">
     <f:if condition="{title} || {closeLabel}">
         <div class="astryx-dialog-header">
             <f:if condition="{title}">
-                <h2 class="astryx-dialog-title" id="{id}-title">{title}</h2>
+                <f:switch expression="{titleLevel}">
+                    <f:case value="3"><h3 class="astryx-dialog-title" id="{id}-title">{title}</h3></f:case>
+                    <f:case value="4"><h4 class="astryx-dialog-title" id="{id}-title">{title}</h4></f:case>
+                    <f:defaultCase><h2 class="astryx-dialog-title" id="{id}-title">{title}</h2></f:defaultCase>
+                </f:switch>
             </f:if>
             <f:comment>
                 The close button appears only once it has a name. An icon-only
@@ -51,7 +65,7 @@
             <f:if condition="{closeLabel}">
                 <button
                     type="button"
-                    class="astryx-button astryx-icon-button"
+                    class="astryx-button astryx-icon-button {closeClass}"
                     data-variant="ghost"
                     data-size="sm"
                     data-g-dialog-close
@@ -62,6 +76,17 @@
                 </button>
             </f:if>
         </div>
+    </f:if>
+
+    <f:comment>
+        `astryx-dialog-body` is what makes a dialog's content scroll inside the
+        frame instead of growing it, and a dialog holding one fixed-ratio frame
+        wants the opposite. So it is a slot rather than a wrapper every caller
+        writes: what goes in `body` scrolls, what goes in the default slot
+        fills.
+    </f:comment>
+    <f:if condition="{f:slot(name: 'body')}">
+        <div class="astryx-dialog-body"><f:slot name="body" /></div>
     </f:if>
 
     <f:slot />

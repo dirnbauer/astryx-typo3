@@ -4,8 +4,22 @@
     The controls row and the "page 3 of 9" line are two different things: one
     is a set of destinations, the other is a sentence about where the reader
     has got to. The sentence is a slot of its own so it never lands inside the
-    flex row that spaces the buttons, and `astryx-pagination-controls` is left
-    to the caller, which is where every existing pagination already writes it.
+    flex row that spaces the buttons, and that row — `astryx-pagination-controls`
+    — is the component's, not the caller's: it is the flex box that does the
+    spacing, and a caller that has to remember to write it is a caller that
+    will one day forget.
+
+    The two handles are slots rather than arguments because what they hold is a
+    control, not a string: whether previous and next are icon buttons, words,
+    or absent because there is no such page is the caller's decision. Naming
+    them is what keeps them at the ends of the row however the caller happens
+    to order the markup.
+
+    The elisions belong to the component for the same reason. A gap in a run of
+    page numbers is the pagination talking about itself — there are pages here
+    it is not showing — and it is decoration rather than a destination, so it
+    is hidden from assistive technology instead of being read out as a stray
+    ellipsis between two links.
 
     The current page belongs in the markup as a `span` carrying
     aria-current="page" rather than as a link to itself; the stylesheet paints
@@ -15,6 +29,17 @@
 
 <f:argument name="size" type="string" optional="{true}" default="md" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="truncatedStart" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="truncatedEnd" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="controlsClass" type="string" optional="{true}" default="" />
+<f:argument name="infoClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<nav class="astryx-pagination {class}" data-size="{size}" aria-label="{ariaLabel}"><f:slot /><f:if condition="{f:slot(name: 'info')}"><p class="astryx-pagination-info"><f:slot name="info" /></p></f:if></nav>
+<f:comment>
+    Both inner rows take a class of the caller's. The row of a series
+    pagination wraps onto a second line and its note loses its margin, and
+    those are decisions about that one element rather than about paginations —
+    so they stay where an element's own stylesheet can make them, now that the
+    markup they were written against is no longer the element's to write.
+</f:comment>
+<nav class="astryx-pagination {class}" data-size="{size}" aria-label="{ariaLabel}"><div class="astryx-pagination-controls {controlsClass}"><f:slot name="previous" /><f:if condition="{truncatedStart}"><span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span></f:if><f:slot /><f:if condition="{truncatedEnd}"><span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span></f:if><f:slot name="next" /></div><f:if condition="{f:slot(name: 'info')}"><p class="astryx-pagination-info {infoClass}"><f:slot name="info" /></p></f:if></nav>

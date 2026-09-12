@@ -13,15 +13,22 @@
     What is left here is the frame and, when it is given one, the header strip:
     a file name, a language, a copy button. It is written only when it is
     filled, because an empty header still draws its rule across the top.
+
+    `scroll` puts the listing in its own scroll container. A block beside a
+    column of prose has a width the source does not fit in, and something has
+    to take the overflow; without the container the widest line of code decides
+    how wide the band is. It is asked for rather than assumed because a block
+    set to wrap its lines has nothing to scroll.
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
 <f:argument name="wrap" type="string" optional="{true}" default="default" />
 <f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="scroll" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div
     class="astryx-codeblock {class}"
     data-variant="{variant}"
     data-wrap="{wrap}"
-    data-size="{size}"><f:if condition="{f:slot(name: 'header')}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:slot /></div>
+    data-size="{size}"><f:if condition="{f:slot(name: 'header')}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:if condition="{scroll}"><f:then><div class="astryx-codeblock-scroll"><f:slot /></div></f:then><f:else><f:slot /></f:else></f:if></div>

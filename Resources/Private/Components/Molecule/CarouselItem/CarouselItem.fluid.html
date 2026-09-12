@@ -1,0 +1,17 @@
+<f:comment>
+    CarouselItem — one cell of a Carousel's track.
+
+    A list item, because a rail is a list of things and a reader who cannot see
+    it should be told how many there are and be able to step through them. The
+    scroll snapping is the item's own — the stylesheet gives it the snap
+    alignment and the width that makes the next card peek past the edge — which
+    is why the class has to be on the cell rather than inferred by the track.
+
+    `:focus-within` on this element is what scrolls a cell into view when a
+    keyboard reaches a link inside it, so a rail stays operable without the
+    arrows. Nothing here needs scripting.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li class="astryx-carousel-item {class}"><f:slot /></li>

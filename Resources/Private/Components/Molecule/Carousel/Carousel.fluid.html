@@ -5,13 +5,21 @@
     browser; the two arrows are an enhancement on top of a control that already
     works, and astryx.js disables them at either end so they never lie about
     what they will do. `data-g-carousel` is therefore emitted unconditionally:
-    with no arrows in the markup the script finds nothing to wire, and a rail
-    that later grows a pair of them needs no change here.
+    a rail with no arrows simply gives the script nothing to wire.
 
-    The track and the arrows are the caller's. The track carries the element's
-    own class beside `astryx-carousel-track`, and every rail labels it
-    differently — some by a heading already on the page, some by a phrase of
-    their own — so the scroll region is written where that decision is made.
+    The track and the arrows are rendered here, and that is a change from 2.0's
+    first pass. They were the caller's on the grounds that every rail labels its
+    scroll region differently; four rails then wrote the same `ul` by hand, two
+    of them dropped `data-g-carousel-track` in the process and both arrow pairs
+    lost the `data-g-carousel-prev`/`-next` hooks the script looks for — so the
+    arrows rendered, and did nothing. Naming the region is what varies, so that
+    is what the caller passes: `trackLabel` for a phrase of its own,
+    `trackLabelledby` for a heading already on the page.
+
+    An arrow exists only once it has a name, because a control announced as
+    "button" and nothing else is no way to move through a rail. That is why
+    `previousLabel` and `nextLabel` are what bring the pair into being rather
+    than a boolean beside them.
 
     `ariaLabel` decides the element, as it does for Toolbar: a rail of links
     that moves a visitor around the site is navigation and needs a named `nav`
@@ -20,9 +28,26 @@
 
 <f:argument name="gap" type="string" optional="{true}" default="1" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="trackClass" type="string" optional="{true}" default="" />
+<f:argument name="trackLabel" type="string" optional="{true}" default="" />
+<f:argument name="trackLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="previousLabel" type="string" optional="{true}" default="" />
+<f:argument name="nextLabel" type="string" optional="{true}" default="" />
+<f:argument name="controlClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
+<f:comment>
+    `start` and `end` ride along as bare classes beside `astryx-carousel-control`
+    because that is where the stylesheet pins the two arrows to the edges of the
+    rail. The control class is not a component root, so the CSS codemod never
+    moved those two to data attributes; IconButton's own `position` says the
+    same thing in the spelling the codemod did reach.
+</f:comment>
 <f:if condition="{ariaLabel}">
-    <f:then><nav class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel aria-label="{ariaLabel}"><f:slot /></nav></f:then>
-    <f:else><div class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel><f:slot /></div></f:else>
+    <f:then>
+        <nav class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel aria-label="{ariaLabel}"><f:if condition="{previousLabel}"><a:atom.iconButton carousel="previous" position="start" class="astryx-carousel-control start {controlClass}" ariaLabel="{previousLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if><ul class="astryx-carousel-track {trackClass}" data-g-carousel-track tabindex="0" aria-label="{trackLabel}" aria-labelledby="{trackLabelledby}"><f:slot /></ul><f:if condition="{nextLabel}"><a:atom.iconButton carousel="next" position="end" class="astryx-carousel-control end {controlClass}" ariaLabel="{nextLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m9.5 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if></nav>
+    </f:then>
+    <f:else>
+        <div class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel><f:if condition="{previousLabel}"><a:atom.iconButton carousel="previous" position="start" class="astryx-carousel-control start {controlClass}" ariaLabel="{previousLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if><ul class="astryx-carousel-track {trackClass}" data-g-carousel-track tabindex="0" aria-label="{trackLabel}" aria-labelledby="{trackLabelledby}"><f:slot /></ul><f:if condition="{nextLabel}"><a:atom.iconButton carousel="next" position="end" class="astryx-carousel-control end {controlClass}" ariaLabel="{nextLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m9.5 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if></div>
+    </f:else>
 </f:if>

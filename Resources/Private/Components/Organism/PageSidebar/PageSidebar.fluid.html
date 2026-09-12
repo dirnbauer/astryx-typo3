@@ -1,0 +1,49 @@
+<f:comment>
+    PageSidebar — a content page's body when it has a column of sibling links
+    beside it.
+
+    The main content comes first in the source and the navigation follows it,
+    and the grid is what moves the second beside the first. That order is the
+    reading order for anyone not seeing the layout, and it is the right one: a
+    visitor who arrived at this page wants the page, not the list of the pages
+    around it.
+
+    It is a `nav` landmark rather than a second content column, which is why
+    `ariaLabel` matters — a page with a main navigation and this one has two
+    nav landmarks, and a screen reader's landmark list is useless when both are
+    called "navigation".
+
+    The links reuse `astryx-nav__*`, the same recipe as the header's, because
+    they are the same object: a list of pages, one of which is the one you are
+    on. `aria-current="page"` is what says which, and the stylesheet paints it
+    from that attribute rather than from a class, so the state cannot be drawn
+    without also being announced.
+
+    Like PageHeader, this sits inside a Container rather than being one. A
+    component renders one root class and the measure is the Container's;
+    nothing moves on screen, because a max-width and a grid do not interact.
+</f:comment>
+
+<f:argument name="items" type="array" optional="{true}" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-sidebar-layout {class}">
+    <div><f:slot /></div>
+
+    <f:if condition="{items}">
+        <nav class="astryx-sidebar" aria-label="{ariaLabel}">
+            <ul class="astryx-nav__list">
+                <f:for each="{items}" as="item">
+                    <li>
+                        <a
+                            href="{item.link}"
+                            class="astryx-nav__link"
+                            aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
+                        >{item.title}</a>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+    </f:if>
+</div>

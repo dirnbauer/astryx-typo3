@@ -1,0 +1,30 @@
+<f:comment>
+    Tab — one trigger in a TabList.
+
+    A real `button`, so it is in the tab order, fires on Space and Enter and is
+    announced as something that can be pressed. `role="tab"` then tells
+    assistive technology it is one of a set, and astryx.js binds the arrow keys
+    and the roving focus to exactly these elements: the script looks for
+    `data-g-tab` inside a `data-g-tabs` boundary, so the hook belongs on the
+    component rather than on whoever places it.
+
+    `controls` is the id of the panel this trigger opens, and `selected` says
+    which one starts open. Both are written as ARIA rather than as classes,
+    because with the script absent the browser still has to be able to tell a
+    reader what the row is: every panel stays in the page, and the first tab is
+    the one marked selected.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="controls" type="string" optional="{true}" default="" />
+<f:argument name="selected" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<button
+    type="button"
+    class="astryx-tab {class}"
+    role="tab"
+    data-g-tab
+    id="{id}"
+    aria-controls="{controls}"
+    aria-selected="{f:if(condition: selected, then: 'true', else: 'false')}"><f:slot /></button>

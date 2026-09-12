@@ -10,6 +10,16 @@
 
     `status="error"` also renders aria-invalid. The red border is a colour, and
     a colour on its own is not a message.
+
+    `maxlength` is emitted whether or not it is set. An empty maxlength is not a
+    valid non-negative integer, so the browser ignores it and the field has no
+    cap — which is exactly what an unset argument should mean, and it saves
+    doubling an already doubled tag for a third independent flag.
+
+    `suggestInput` marks this field as the one the site's typeahead attaches to.
+    astryx.js binds the dropdown to `[data-g-suggest-input]` inside a form, and a
+    form may hold more than one input, so which of them is the query field has to
+    be stated rather than guessed.
 </f:comment>
 
 <f:argument name="type" type="string" optional="{true}" default="text" />
@@ -26,6 +36,8 @@
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="maxlength" type="string" optional="{true}" default="" />
+<f:argument name="suggestInput" type="boolean" optional="{true}" default="{false}" />
 
 <f:if condition="{id}">
     <f:then>
@@ -37,6 +49,7 @@
             value="{value}"
             placeholder="{placeholder}"
             autocomplete="{autocomplete}"
+            maxlength="{maxlength}"
             data-size="{size}"
             data-status="{status}"
             data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
@@ -45,7 +58,8 @@
             aria-label="{ariaLabel}"
             {f:if(condition: disabled, then: 'disabled')}
             {f:if(condition: required, then: 'required')}
-            {f:if(condition: readonly, then: 'readonly')} />
+            {f:if(condition: readonly, then: 'readonly')}
+            {f:if(condition: suggestInput, then: 'data-g-suggest-input')} />
     </f:then>
     <f:else>
         <input
@@ -55,6 +69,7 @@
             value="{value}"
             placeholder="{placeholder}"
             autocomplete="{autocomplete}"
+            maxlength="{maxlength}"
             data-size="{size}"
             data-status="{status}"
             data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
@@ -63,6 +78,7 @@
             aria-label="{ariaLabel}"
             {f:if(condition: disabled, then: 'disabled')}
             {f:if(condition: required, then: 'required')}
-            {f:if(condition: readonly, then: 'readonly')} />
+            {f:if(condition: readonly, then: 'readonly')}
+            {f:if(condition: suggestInput, then: 'data-g-suggest-input')} />
     </f:else>
 </f:if>

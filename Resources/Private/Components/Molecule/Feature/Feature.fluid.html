@@ -10,6 +10,11 @@
     `icon` is a key from the shared icon vocabulary rather than a slot, because
     the CSS sizes the glyph through `.astryx-feature-icon > svg` and a caller
     passing its own markup would have to reproduce that contract exactly.
+
+    The square itself is Atom/FeatureIcon, which this calls like any other
+    caller. It is not written out here because thirty-seven further places in
+    the catalogue need the same square under a card, a banner or a bare list
+    row: a shape owned by one of its parents is a shape the other parents copy.
 </f:comment>
 
 <f:argument name="icon" type="string" optional="{true}" default="" />
@@ -20,7 +25,7 @@
     class="astryx-feature {class}"
     data-align="{align}">
     <f:if condition="{icon}">
-        <span class="astryx-feature-icon" data-icon="{icon}" aria-hidden="true"><g:icon name="{icon}"/></span>
+        <a:atom.featureIcon icon="{icon}" />
     </f:if>
     <f:slot />
 </div>

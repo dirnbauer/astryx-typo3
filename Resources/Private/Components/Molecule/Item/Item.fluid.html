@@ -24,22 +24,28 @@
 <f:argument name="target" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
-<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
 <f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
 
 <f:comment>
     A selected row says so in ARIA as well as in the data attribute. The empty
     string is ARIA's own "not current", so the unselected case needs no branch.
+
+    One attribute, not two: a caller's `ariaCurrent` says which kind of current
+    this row is — `page` in a menu of pages, `true` where there is nothing more
+    specific — and selecting a row without saying so falls back to `true`. The
+    first version wrote both onto the same tag, and a duplicate attribute is
+    resolved by the parser taking the first and discarding the second, which
+    meant `selected` never reached ARIA at any call site that also set
+    `ariaCurrent`.
 </f:comment>
-<f:variable
-    name="current"
-    value="{f:if(condition: '{selected} == \'selected\'', then: 'true')}" />
+<f:variable name="current"><f:if condition="{ariaCurrent}"><f:then>{ariaCurrent}</f:then><f:else>{f:if(condition: '{selected} == \'selected\'', then: 'true')}</f:else></f:if></f:variable>
 
 <f:if condition="{href}">
     <f:then>
         <a
             href="{href}"
-            class="astryx-item {class}" aria-current="{ariaCurrent}"
+            class="astryx-item {class}"
             data-interactive="{interactive}"
             data-density="{density}"
             data-align="{align}"
@@ -55,7 +61,7 @@
     </f:then>
     <f:else>
         <li
-            class="astryx-item {class}" aria-current="{ariaCurrent}"
+            class="astryx-item {class}"
             data-interactive="{interactive}"
             data-density="{density}"
             data-align="{align}"

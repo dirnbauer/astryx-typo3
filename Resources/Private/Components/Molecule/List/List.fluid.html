@@ -10,6 +10,13 @@
     `dividers` and `density` are separate on purpose: a rule between rows
     replaces the gap entirely, and the padding that gives that rule its air is
     the density's job.
+
+    `facetName` and `facetLabel` are EXT:solr's own markup contract for a facet
+    option list, read back by its show-all and ajaxify scripts. They are
+    declared here rather than written onto a hand-rolled `ul` in the search
+    partial because the alternative is a list that no longer composes this
+    component and therefore no longer gets its rhythm — and a facet list is
+    still a list. They render nothing when unset.
 </f:comment>
 
 <f:argument name="marker" type="string" optional="{true}" default="default" />
@@ -17,6 +24,8 @@
 <f:argument name="density" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="facetName" type="string" optional="{true}" default="" />
+<f:argument name="facetLabel" type="string" optional="{true}" default="" />
 
 <f:if condition="{marker} == 'decimal'">
     <f:then>
@@ -24,13 +33,17 @@
             class="astryx-list {class}" id="{id}"
             data-marker="{marker}"
             data-dividers="{dividers}"
-            data-density="{density}"><f:slot /></ol>
+            data-density="{density}"
+            data-facet-name="{facetName}"
+            data-facet-label="{facetLabel}"><f:slot /></ol>
     </f:then>
     <f:else>
         <ul
             class="astryx-list {class}" id="{id}"
             data-marker="{marker}"
             data-dividers="{dividers}"
-            data-density="{density}"><f:slot /></ul>
+            data-density="{density}"
+            data-facet-name="{facetName}"
+            data-facet-label="{facetLabel}"><f:slot /></ul>
     </f:else>
 </f:if>

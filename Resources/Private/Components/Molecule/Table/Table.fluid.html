@@ -14,9 +14,13 @@
     markup. Putting the raw slot first means both spellings — whole markup, or
     region by region — produce a conforming table.
 
-    The horizontal scroll container stays outside. It carries
-    `astryx-table-wrap`, a second root class this component may not render, so
-    a table in a narrow column is wrapped by whoever places it.
+    `scroll` asks for the horizontal scroll container around it. A table is the
+    one element that cannot be made to fit a narrow column — a five-column table
+    in a 320px viewport either scrolls or breaks the page — and the wrapper is
+    what takes that scroll so the page never does. It used to be written by
+    whoever placed the table, on the grounds that `astryx-table-wrap` is a
+    second root class; eight elements then wrote the same div, which is how a
+    convention rots. It is rendered here and the caller asks for it by name.
 </f:comment>
 
 <f:argument name="density" type="string" optional="{true}" default="default" />
@@ -24,12 +28,27 @@
 <f:argument name="hoverable" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="striped" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="bordered" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="scroll" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="scrollClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<table
-    class="astryx-table {class}"
-    data-density="{density}"
-    data-layout="{layout}"
-    data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
-    data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
-    data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table>
+<f:if condition="{scroll}">
+    <f:then>
+        <div class="astryx-table-wrap {scrollClass}"><table
+            class="astryx-table {class}"
+            data-density="{density}"
+            data-layout="{layout}"
+            data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
+            data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
+            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table></div>
+    </f:then>
+    <f:else>
+        <table
+            class="astryx-table {class}"
+            data-density="{density}"
+            data-layout="{layout}"
+            data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
+            data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
+            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table>
+    </f:else>
+</f:if>

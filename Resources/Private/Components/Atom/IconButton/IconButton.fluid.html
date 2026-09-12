@@ -10,6 +10,17 @@
     control — the previous and next handles of a carousel — and is what the
     surrounding component reads to place them and point them the right way.
 
+    `carousel` and `dialogOpen` are the two script hooks a glyph-only control
+    carries in this theme: astryx.js pages a rail by `data-g-carousel-prev` and
+    `data-g-carousel-next`, and opens a modal by the id in `data-g-dialog-open`.
+    They are declared arguments rather than attributes a caller writes beside
+    the component because Fluid drops what a component does not declare — which
+    is how both carousels ended up with arrows that rendered and did nothing.
+    Both are written only when asked for: an empty `data-g-dialog-open` would
+    match the script's selector and bind a click that opens nothing, and a bare
+    hook on every icon button is worse than no hook at all. Only the `button`
+    forms carry them, because neither an arrow nor a modal opener navigates.
+
     Which element is rendered follows the same rule as Button: `parameter` is
     a TYPO3 link field and becomes a TypoLink, `href` a resolved URL and
     becomes a plain anchor, and neither leaves a real `<button>` for something
@@ -19,7 +30,7 @@
 <f:argument name="variant" type="string" optional="{true}" default="ghost" />
 <f:argument name="size" type="string" optional="{true}" default="md" />
 <f:argument name="position" type="string" optional="{true}" default="default" />
-<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
 <f:argument name="href" type="string" optional="{true}" default="" />
 <f:argument name="target" type="string" optional="{true}" default="" />
 <f:argument name="type" type="string" optional="{true}" default="button" />
@@ -27,16 +38,44 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="title" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="rel" type="string" optional="{true}" default="" />
+<f:argument name="carousel" type="string" optional="{true}" default="" />
+<f:argument name="dialogOpen" type="string" optional="{true}" default="" />
+
+<f:comment>
+    A caller's own `rel` wins over the computed one. Pagination is why: the
+    previous and next handles are rel="prev" and rel="next", which is how a
+    browser prefetches the page a reader is most likely to ask for next, and
+    nothing about a target can be made to produce it.
+</f:comment>
+<f:variable name="relValue"><f:if condition="{rel}"><f:then>{rel}</f:then><f:else>{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}</f:else></f:if></f:variable>
+
+<f:comment>
+    The hooks are built as a fragment of attribute source rather than as
+    attributes with an f:if inside them, because `data-g-carousel-prev` has no
+    value at all: the script tests for the attribute's presence. Captured
+    output is escaped on the way in, which is what keeps the id in
+    `data-g-dialog-open` safe, and printed raw on the way out, which is what
+    lets the attribute exist.
+</f:comment>
+<f:variable name="hooks"><f:if condition="{carousel} == 'previous'">data-g-carousel-prev</f:if><f:if condition="{carousel} == 'next'">data-g-carousel-next</f:if><f:if condition="{dialogOpen}"> data-g-dialog-open="{dialogOpen}"</f:if></f:variable>
 
 <f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: \'button\')}')}</f:variable>
 
 <f:switch expression="{mode}">
-    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" title="{title}" aria-label="{ariaLabel}"><f:slot /></f:link.typolink></f:case>
-    <f:case value="link"><a href="{href}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:case>
+<f:comment>
+    f:link.typolink is a ViewHelper, not a tag: it rejects any attribute it does
+    not declare. The data and ARIA attributes therefore go through
+    additionalAttributes rather than being written beside `parameter`, which is
+    what a plain <a> would allow and what the first version of this component
+    wrongly did.
+</f:comment>
+    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-icon-button {class}" title="{title}" additionalAttributes="{'data-variant': variant, 'data-size': size, 'data-position': position, 'aria-label': ariaLabel}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" target="{target}" rel="{relValue}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:case>
     <f:defaultCase>
         <f:if condition="{disabled}">
-            <f:then><button type="{type}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" title="{title}" aria-label="{ariaLabel}" disabled="disabled"><f:slot /></button></f:then>
-            <f:else><button type="{type}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" title="{title}" aria-label="{ariaLabel}"><f:slot /></button></f:else>
+            <f:then><button type="{type}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" title="{title}" aria-label="{ariaLabel}" {hooks -> f:format.raw()} disabled="disabled"><f:slot /></button></f:then>
+            <f:else><button type="{type}" class="astryx-icon-button {class}" data-variant="{variant}" data-size="{size}" data-position="{position}" title="{title}" aria-label="{ariaLabel}" {hooks -> f:format.raw()}><f:slot /></button></f:else>
         </f:if>
     </f:defaultCase>
 </f:switch>

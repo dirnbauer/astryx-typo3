@@ -1,0 +1,30 @@
+<f:comment>
+    OutlineItem — one line of an Outline's "on this page" rail.
+
+    The hairline the rail is drawn against belongs to Outline; the segment of it
+    that the current entry paints belongs here, and the stylesheet takes it from
+    `aria-current` rather than from a class. So marking an entry as current is
+    one statement that both a screen reader and the marker read, and there is no
+    second, visual-only spelling of it to fall out of step.
+
+    `level` indents a nested heading. It is a bare class because
+    `.astryx-outline-item.level-2` is what the stylesheet is written against —
+    the class is not a component root, so the CSS codemod left it alone and the
+    contract lists no modifiers here.
+
+    Put the text in a `span`: the stylesheet truncates `.astryx-outline-item >
+    span` at one line, and a bare text node has nothing to truncate.
+</f:comment>
+
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="level" type="string" optional="{true}" default="" />
+<f:argument name="current" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="currentValue" value="{f:if(condition: current, then: 'location')}" />
+
+<f:if condition="{parameter}">
+    <f:then><f:link.typolink parameter="{parameter}" class="astryx-outline-item {level} {class}" additionalAttributes="{'aria-current': currentValue}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-outline-item {level} {class}" aria-current="{currentValue}"><f:slot /></a></f:else>
+</f:if>

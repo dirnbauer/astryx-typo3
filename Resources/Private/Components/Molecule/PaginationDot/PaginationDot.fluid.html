@@ -1,0 +1,22 @@
+<f:comment>
+    PaginationDot — one dot of a PaginationDots row.
+
+    An anchor to a fragment, not a button. Which view a slideshow is showing is
+    then the browser's own business: the target scrolls into view, the address
+    bar records it, the choice survives a reload and the back button undoes it,
+    all without a line of script. That is the whole reason the dot is a link.
+
+    A dot has no text of its own, so the slot is where its name goes — visually
+    hidden, but the only thing a screen reader has to tell one dot from the next.
+    Marking the current one is `aria-current="page"`, which the stylesheet paints
+    from as well, so the filled dot and the announced position cannot disagree.
+</f:comment>
+
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="current" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<a
+    href="{href}"
+    class="astryx-pagination-dot {class}"
+    aria-current="{f:if(condition: current, then: 'page')}"><f:slot /></a>

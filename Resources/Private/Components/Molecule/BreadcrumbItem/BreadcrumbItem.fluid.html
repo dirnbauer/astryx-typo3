@@ -1,0 +1,40 @@
+<f:comment>
+    BreadcrumbItem — one crumb of a Breadcrumbs trail.
+
+    The separator between crumbs is drawn by the stylesheet from
+    `.astryx-breadcrumb-item + .astryx-breadcrumb-item::before`, so a crumb has
+    to be a sibling of the crumb before it and has to carry the class itself.
+    That is the whole reason this is a component rather than a plain `li` the
+    caller writes.
+
+    The last crumb is the page being read: no link inside it, and
+    `aria-current="page"` so a reader is told where they are instead of being
+    offered a link to where they already stand. The empty string ARIA reads as
+    "not current" is what the other crumbs get, which is why there is no branch
+    for it.
+
+    `microdata` adds schema.org's ListItem wiring. It is a flag rather than three
+    separate attributes because the three are meaningless apart: an `itemprop`
+    without the `itemscope` and the type beside it describes nothing, and a
+    caller choosing them one at a time would be choosing a way to get it wrong.
+</f:comment>
+
+<f:argument name="current" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="microdata" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{microdata}">
+    <f:then>
+        <li
+            class="astryx-breadcrumb-item {class}"
+            aria-current="{f:if(condition: current, then: 'page')}"
+            itemprop="itemListElement"
+            itemscope
+            itemtype="https://schema.org/ListItem"><f:slot /></li>
+    </f:then>
+    <f:else>
+        <li
+            class="astryx-breadcrumb-item {class}"
+            aria-current="{f:if(condition: current, then: 'page')}"><f:slot /></li>
+    </f:else>
+</f:if>

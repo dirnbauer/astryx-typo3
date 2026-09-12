@@ -1,0 +1,23 @@
+<f:comment>
+    FeatureIcon — the small tinted square a feature's glyph sits in.
+
+    It is a component of its own rather than a part of Feature because the
+    catalogue puts it under six different parents: a Feature, a Card, a Banner,
+    an Item row, a bare list row and a plain div. Only one of those could have
+    owned the markup, and the other five would have gone on writing the class
+    by hand — which is exactly the decay the atomic-design contract exists to
+    stop. Feature still renders one, by calling this.
+
+    The glyph is decoration and says so. It never carries anything the title
+    beside it does not already give, so the square is `aria-hidden` and there is
+    nothing here for a screen reader to announce.
+
+    The slot is for the handful of places that put a numeral in the square
+    instead of a glyph — a numbered step keeps the same tinted box and the same
+    size, and drawing it as an icon would mean an icon key per digit.
+</f:comment>
+
+<f:argument name="icon" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span class="astryx-feature-icon {class}" data-icon="{icon}" aria-hidden="true"><g:icon name="{icon}"/><f:slot /></span>

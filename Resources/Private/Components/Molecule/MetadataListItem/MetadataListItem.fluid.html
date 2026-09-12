@@ -10,11 +10,25 @@
     The term is a named slot rather than a string because it often carries an
     icon or a link beside the word, and the value is the default slot because
     it is the part callers always fill.
+
+    The pair is written only when that term slot is filled. Ten call sites hand
+    this component a `dt` and a `dd` of their own instead — the term is an
+    Atom/Text rendered `as="dt"`, so that it takes the theme's label type and
+    the element's own class — and wrapping those produced a `dd` inside a `dd`
+    with an empty `dt` beside it. A caller who brings the pair now gets it
+    through untouched; a caller who brings only the two halves gets them
+    wrapped. It is the same rule Banner follows with its title.
+
+    `preferred` is the editor's "this is the one we recommend", which a pricing
+    element's own stylesheet tints the pair from.
 </f:comment>
 
+<f:argument name="preferred" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div class="astryx-metadata-list-item {class}">
-    <dt><f:slot name="term" /></dt>
-    <dd><f:slot /></dd>
+<div class="astryx-metadata-list-item {class}" data-preferred="{preferred}">
+    <f:if condition="{f:slot(name: 'term')}">
+        <f:then><dt><f:slot name="term" /></dt><dd><f:slot /></dd></f:then>
+        <f:else><f:slot /></f:else>
+    </f:if>
 </div>

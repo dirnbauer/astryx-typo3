@@ -20,7 +20,7 @@
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
-<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
 <f:argument name="href" type="string" optional="{true}" default="" />
 <f:argument name="target" type="string" optional="{true}" default="" />
 <f:argument name="rel" type="string" optional="{true}" default="" />
@@ -32,6 +32,13 @@
 <f:variable name="effectiveRel" value="{f:if(condition: rel, then: rel, else: targetRel)}" />
 
 <f:if condition="{parameter}">
-    <f:then><f:link.typolink parameter="{parameter}" class="astryx-link {class}" data-variant="{variant}" title="{title}" aria-label="{ariaLabel}"><f:slot /></f:link.typolink></f:then>
+<f:comment>
+    f:link.typolink is a ViewHelper, not a tag: it rejects any attribute it does
+    not declare. The data and ARIA attributes therefore go through
+    additionalAttributes rather than being written beside `parameter`, which is
+    what a plain <a> would allow and what the first version of this component
+    wrongly did.
+</f:comment>
+    <f:then><f:link.typolink parameter="{parameter}" class="astryx-link {class}" title="{title}" additionalAttributes="{'data-variant': variant, 'aria-label': ariaLabel}"><f:slot /></f:link.typolink></f:then>
     <f:else><a href="{href}" class="astryx-link {class}" data-variant="{variant}" target="{target}" rel="{effectiveRel}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:else>
 </f:if>

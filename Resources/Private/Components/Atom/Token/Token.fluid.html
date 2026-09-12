@@ -18,7 +18,7 @@
 
 <f:argument name="selected" type="string" optional="{true}" default="default" />
 <f:argument name="size" type="string" optional="{true}" default="md" />
-<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
 <f:argument name="href" type="string" optional="{true}" default="" />
 <f:argument name="as" type="string" optional="{true}" default="span" />
 <f:argument name="class" type="string" optional="{true}" default="" />
@@ -27,7 +27,14 @@
 <f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: as)}')}</f:variable>
 
 <f:switch expression="{mode}">
-    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></f:link.typolink></f:case>
+<f:comment>
+    f:link.typolink is a ViewHelper, not a tag: it rejects any attribute it does
+    not declare. The data and ARIA attributes therefore go through
+    additionalAttributes rather than being written beside `parameter`, which is
+    what a plain <a> would allow and what the first version of this component
+    wrongly did.
+</f:comment>
+    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-token {class}" additionalAttributes="{'data-selected': selected, 'data-size': size, 'aria-current': ariaCurrent}"><f:slot /></f:link.typolink></f:case>
     <f:case value="link"><a href="{href}" class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></a></f:case>
     <f:case value="li"><li class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></li></f:case>
     <f:case value="div"><div class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></div></f:case>

@@ -1,0 +1,25 @@
+<f:comment>
+    SegmentedControlItem — one segment of a SegmentedControl's rail.
+
+    Which element is rendered follows Button's rule rather than being a free
+    choice: `parameter` is a TYPO3 link field and becomes a TypoLink, `href` is
+    a URL the template already resolved, and a segment that navigates is an
+    anchor either way. A segment that toggles something without leaving the page
+    is a `button`, and that is what neither argument means.
+
+    The size is a bare class because `.astryx-segmented-control-item.sm` is what
+    the stylesheet is written against; the class is not a component root, so the
+    CSS codemod never moved it to a data attribute and the contract lists no
+    modifiers here. Passing nothing leaves the segment at its default height.
+</f:comment>
+
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+
+<f:if condition="{parameter}">
+    <f:then><f:link.typolink parameter="{parameter}" class="astryx-segmented-control-item {size} {class}" additionalAttributes="{'aria-current': ariaCurrent}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-segmented-control-item {size} {class}" aria-current="{ariaCurrent}"><f:slot /></a></f:else>
+</f:if>

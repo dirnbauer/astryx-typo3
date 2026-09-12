@@ -7,6 +7,13 @@
     their own sheet. Nothing here can make that call, because nothing here
     knows which child is the field — so the group stays a plain row and the
     correction stays where the knowledge is.
+
+    The `addon` slot is the segment that is not a control: a leading loupe, a
+    currency sign, a fixed URL prefix. It is rendered first and wrapped in
+    `astryx-input-group-text`, which is the class the stylesheet paints that
+    segment with and the reason it is a slot rather than something the caller
+    writes — the group owns its own seams, and a caller that spells the wrapper
+    by hand is one rename away from an unstyled box.
 </f:comment>
 
 <f:argument name="size" type="string" optional="{true}" default="md" />
@@ -16,4 +23,4 @@
 <div
     class="astryx-input-group {class}"
     data-size="{size}"
-    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:slot /></div>
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:if condition="{f:slot(name: 'addon')}"><span class="astryx-input-group-text"><f:slot name="addon" /></span></f:if><f:slot /></div>

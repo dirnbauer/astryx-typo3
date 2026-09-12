@@ -1,0 +1,18 @@
+<f:comment>
+    PaginationDots — the row of dots under a slideshow, one per view.
+
+    A list, because that is what it is: the dots are a set a reader should be
+    able to count and step through, and a bare row of anchors offers neither.
+    The `li` wrappers are the caller's, so a slideshow can put anything else in
+    the row beside a dot without this component deciding what a row may hold.
+
+    Separate from Pagination rather than a region inside it. Pagination is a
+    `nav` naming a set of destinations in a document; a slideshow's dots move
+    the reader within one band, and wrapping them in a second, near-anonymous
+    navigation landmark would offer a screen reader a region it gains nothing
+    from entering.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ul class="astryx-pagination-dots {class}"><f:slot /></ul>

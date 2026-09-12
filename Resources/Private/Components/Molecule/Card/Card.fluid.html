@@ -10,24 +10,58 @@
     the default slot, because `data-media="top"` bleeds the media out to the
     card's padding with a negative margin on the first child. That rule needs a
     first child it can rely on, and a default slot cannot promise one.
+
+    `clickable` puts the whole card's link affordance on the card itself rather
+    than in a ClickableCard around it, and that is a deliberate exception to one
+    component, one root class. The affordance is not a box: it is a position, a
+    hover lift and the stretched pseudo-element that grows the card's own link
+    over the surface. Wrapped in a div of its own, the wrapper becomes the grid
+    item and the card inside it stops stretching, so a row of cards loses its
+    equal heights — which is why ClickableCard, a year on, has no call site at
+    all. ClickableCard stays for the rows that are not cards.
+
+    `featured` is the editor's "this is the plan we recommend", which a plan
+    card's own stylesheet keys off; `as` exists only so that a card which is a
+    self-contained piece of writing can say so with an `article`.
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
 <f:argument name="density" type="string" optional="{true}" default="default" />
 <f:argument name="media" type="string" optional="{true}" default="default" />
+<f:argument name="clickable" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="featured" type="string" optional="{true}" default="" />
+<f:argument name="as" type="string" optional="{true}" default="div" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 <f:argument name="align" type="string" optional="{true}" default="" />
 
-<div
-    class="astryx-card {class}" data-align="{align}" aria-labelledby="{ariaLabelledby}"
-    data-variant="{variant}"
-    data-density="{density}"
-    data-media="{media}">
-    <f:comment>
-        An unfilled slot renders as null, so the media region costs nothing
-        when a caller has no media to give it.
-    </f:comment>
-    <f:if condition="{f:slot(name: 'media')}"><f:slot name="media" /></f:if>
-    <f:slot />
-</div>
+<f:variable name="affordance">{f:if(condition: clickable, then: 'astryx-clickable-card')}</f:variable>
+
+<f:if condition="{as} == 'article'">
+    <f:then>
+        <article
+            class="astryx-card {affordance} {class}" data-align="{align}" aria-labelledby="{ariaLabelledby}"
+            data-variant="{variant}"
+            data-density="{density}"
+            data-media="{media}"
+            data-featured="{featured}">
+            <f:if condition="{f:slot(name: 'media')}"><f:slot name="media" /></f:if>
+            <f:slot />
+        </article>
+    </f:then>
+    <f:else>
+        <div
+            class="astryx-card {affordance} {class}" data-align="{align}" aria-labelledby="{ariaLabelledby}"
+            data-variant="{variant}"
+            data-density="{density}"
+            data-media="{media}"
+            data-featured="{featured}">
+            <f:comment>
+                An unfilled slot renders as null, so the media region costs
+                nothing when a caller has no media to give it.
+            </f:comment>
+            <f:if condition="{f:slot(name: 'media')}"><f:slot name="media" /></f:if>
+            <f:slot />
+        </div>
+    </f:else>
+</f:if>

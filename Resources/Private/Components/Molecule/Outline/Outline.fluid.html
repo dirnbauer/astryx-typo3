@@ -2,20 +2,24 @@
     Outline — the "on this page" rail: one line per heading, against a hairline
     that the current entry paints its own segment of.
 
-    A `div` wrapping the caller's list, not a `nav` wrapping a list of its own.
-    The rail is placed inside a landmark that already names it — the outline
-    rail element puts it in a `nav` labelled with the page's own heading — and
-    a second, identically named navigation landmark inside the first would
-    offer the same rail twice. Whoever places this owns the landmark and the
-    list; this owns the rail and the hairline behind it.
+    A `div`, not a `nav`. The rail is placed inside a landmark that already
+    names it — the outline rail element puts it in a `nav` labelled with the
+    page's own heading — and a second, identically named navigation landmark
+    inside the first would offer the same rail twice. Whoever places this owns
+    the landmark; this owns the rail, the hairline behind it and the list.
+
+    The list is written here and the `li` elements come through the slot. It
+    was the caller's until the rail's only call site had copied the same `ul`
+    into its own template, which is a wrapper nobody chose, only inherited.
 
     No entry marks itself as active. Knowing which section a reader is looking
     at is a scroll spy, a scroll spy is a script, and the marker in the
     stylesheet is driven by aria-current on whichever entry the caller decides
-    is the current one.
+    is the current one — which is OutlineItem's `current`.
 </f:comment>
 
 <f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="listClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div class="astryx-outline {class}" data-density="{density}"><f:slot /></div>
+<div class="astryx-outline {class}" data-density="{density}"><ul class="astryx-outline-list {listClass}"><f:slot /></ul></div>

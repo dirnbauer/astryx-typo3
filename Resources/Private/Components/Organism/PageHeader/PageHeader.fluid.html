@@ -18,18 +18,18 @@
 <f:if condition="{id}">
     <f:then>
         <div id="{id}" class="astryx-page-header {class}">
-            <div class="astryx-layout">
+            <a:layout.container>
                 <h1 class="astryx-page-title">{title}</h1>
                 <f:slot />
-            </div>
+            </a:layout.container>
         </div>
     </f:then>
     <f:else>
         <div class="astryx-page-header {class}">
-            <div class="astryx-layout">
+            <a:layout.container>
                 <h1 class="astryx-page-title">{title}</h1>
                 <f:slot />
-            </div>
+            </a:layout.container>
         </div>
     </f:else>
 </f:if>

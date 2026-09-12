@@ -16,6 +16,13 @@
     one column against the icon and the dismiss button on either side; with no
     title there is nothing to group, and wrapping a caller's own markup in it
     would swallow an icon they placed beside the text.
+
+    `ariaLive` is for a banner that arrives after the page has: the search
+    results page replaces itself over AJAX, and a message that appears in a
+    region nobody is listening to is a message only sighted visitors get. It
+    stays an aria-live attribute rather than role="status" because the element
+    is already a complementary landmark, and a role would take that away to say
+    something the attribute says on its own.
 </f:comment>
 
 <f:argument name="status" type="string" optional="{true}" default="default" />
@@ -25,6 +32,7 @@
 <f:argument name="dismissLabel" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="ariaLive" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:comment>
@@ -38,7 +46,8 @@
     class="astryx-banner {class}"
     data-status="{status}"
     aria-label="{ariaLabel}"
-    aria-labelledby="{ariaLabelledby}">
+    aria-labelledby="{ariaLabelledby}"
+    aria-live="{ariaLive}">
     <f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if>
     <f:if condition="{title}">
         <f:then>

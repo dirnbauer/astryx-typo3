@@ -8,6 +8,12 @@
     `frame` is the EDITOR's surface choice (tt_content.frame_class). It wins
     over the template's own `surface` default, so an element may ship an opinion
     and an editor may still override it from the backend form.
+
+    `dismissible` marks the band astryx.js takes away when a `data-g-dismiss`
+    control inside it is pressed — the script walks up to the nearest
+    `[data-g-dismissible]`, so the attribute has to be absent rather than empty
+    everywhere else, or the first dismissible offer on a page would take the
+    section above it with it.
 </f:comment>
 
 <f:argument name="spacing" type="string" optional="{true}" default="default" />
@@ -18,6 +24,8 @@
 <f:argument name="align" type="string" optional="{true}" default="" />
 <f:argument name="columns" type="string" optional="{true}" default="" />
 <f:argument name="variant" type="string" optional="{true}" default="" />
+<f:argument name="media" type="string" optional="{true}" default="" />
+<f:argument name="dismissible" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 
 <f:variable
@@ -25,12 +33,19 @@
     value="{f:if(condition: '{frame} && {frame} != \'default\'', then: frame, else: surface)}" />
 
 <f:comment>
-    `align`, `columns` and `variant` are the editor's choices that an element's
-    own stylesheet keys off — `.g-team-grid[data-columns="3"] .g-team-grid__people`
-    and the like. They were written straight onto the tag in 1.x; they are
-    declared arguments now and render back as the same attributes, so 80 element
+    `align`, `columns`, `variant` and `media` are the editor's choices that an
+    element's own stylesheet keys off — `.g-team-grid[data-columns="3"]
+    .g-team-grid__people`, `.g-footer-questions-band[data-media="yes"]` and the
+    like. They were written straight onto the tag in 1.x; they are declared
+    arguments now and render back as the same attributes, so 80 element
     stylesheets keep working untouched.
 </f:comment>
+
+<f:comment>
+    Built as a fragment of attribute source, so the hook is absent rather than
+    empty on the 249 sections that are not dismissible.
+</f:comment>
+<f:variable name="hooks"><f:if condition="{dismissible}">data-g-dismissible="1"</f:if></f:variable>
 
 <f:comment>
     The id branch is not duplication for its own sake: `id=""` is not a
@@ -46,7 +61,9 @@
             data-surface="{effectiveSurface}"
             data-align="{align}"
             data-columns="{columns}"
-            data-variant="{variant}"><f:slot /></section>
+            data-variant="{variant}"
+            data-media="{media}"
+            {hooks -> f:format.raw()}><f:slot /></section>
     </f:then>
     <f:else>
         <section
@@ -55,6 +72,8 @@
             data-surface="{effectiveSurface}"
             data-align="{align}"
             data-columns="{columns}"
-            data-variant="{variant}"><f:slot /></section>
+            data-variant="{variant}"
+            data-media="{media}"
+            {hooks -> f:format.raw()}><f:slot /></section>
     </f:else>
 </f:if>

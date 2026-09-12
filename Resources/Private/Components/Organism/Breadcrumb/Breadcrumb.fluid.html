@@ -1,11 +1,22 @@
 <f:comment>
     Breadcrumb — the page chrome's own trail, rendered above the content.
 
-    Distinct from Molecule/Breadcrumbs, and deliberately so: this one takes the
-    rootline and writes the crumbs itself, because the page templates always
-    have the same array to give it and nothing in a site's chrome varies. The
-    molecule is the one to reach for when the crumbs are something else — a
-    filter path, a folder trail typed by an editor.
+    Distinct from Molecule/Breadcrumbs, and deliberately so. The obvious tidy —
+    have this one compose the molecule — was considered and rejected, because
+    the two stylesheets disagree about what a trail is. `astryx-breadcrumb` is a
+    band: it owns the block padding that separates the trail from the header
+    above and the heading below, and it drops to the supporting type scale
+    because chrome should not compete with content. `astryx-breadcrumbs` is an
+    inline trail an editor places inside a content element, sized by whatever
+    surrounds it and carrying schema.org microdata on a list this one has no
+    business writing. Building the band out of the molecule would mean the band
+    inheriting the in-content metrics — a visible change, paid for a tidier
+    dependency graph.
+
+    So this one takes the rootline and writes the crumbs itself, because the
+    page templates always have the same array to give it and nothing in a
+    site's chrome varies. The molecule is the one to reach for when the crumbs
+    are something else — a filter path, a folder trail typed by an editor.
 
     The last item is the page being read: text rather than a link, and marked
     aria-current="page" so assistive technology announces the position instead
@@ -17,7 +28,7 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <nav class="astryx-breadcrumb {class}" aria-label="{ariaLabel}">
-    <div class="astryx-layout">
+    <a:layout.container>
         <ol class="astryx-breadcrumb__list">
             <f:for each="{items}" as="item" iteration="i">
                 <li class="astryx-breadcrumb__item">
@@ -32,5 +43,5 @@
                 </li>
             </f:for>
         </ol>
-    </div>
+    </a:layout.container>
 </nav>

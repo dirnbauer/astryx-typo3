@@ -1,0 +1,27 @@
+<f:comment>
+    Popover — the surface a menu, a filter list or a small form opens onto.
+
+    The surface only: rounding, the popover background token and a low shadow.
+    Where it opens and what opens it are the caller's, because the theme has
+    two ways of answering that and both are right. A native `[popover]` with an
+    invoker gets anchor positioning and light dismiss from the browser; a
+    `<details>` disclosure with the panel positioned in its own stylesheet gets
+    Escape and the open state from the browser instead. Baking either one in
+    here would rule the other out.
+
+    The padded inner box is always rendered rather than being a second
+    component. A popover with no padding is a shadow drawn tight against its
+    own text, and every caller would write the same wrapper back by hand.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then>
+        <div id="{id}" class="astryx-popover {class}"><div class="astryx-popover-body"><f:slot /></div></div>
+    </f:then>
+    <f:else>
+        <div class="astryx-popover {class}"><div class="astryx-popover-body"><f:slot /></div></div>
+    </f:else>
+</f:if>

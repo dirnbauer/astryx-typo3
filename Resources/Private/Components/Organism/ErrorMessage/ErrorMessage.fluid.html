@@ -1,0 +1,36 @@
+<f:comment>
+    ErrorMessage — what a 404 or a 403 page says before whatever an editor put
+    underneath it.
+
+    The heading is an h1 and not a decorated paragraph, because an error page
+    is still a page and this is still what it is about. It is also the only h1
+    it will have: the content elements an editor adds below head their own
+    bands with h2s.
+
+    The way home is a slot rather than an argument. Most sites want one button
+    to the front page; some want a link to a contact form beside it, and one
+    wants the search field. A component that took a single `homeUrl` would have
+    to grow a second argument the first time anybody asked.
+</f:comment>
+
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="code" type="string" optional="{true}" default="" />
+<f:argument name="body" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-error {class}">
+    <f:comment>
+        The status number is decorative — the heading below already says what
+        happened in words, and "404" read out before it is noise. It is drawn
+        large because it is the one thing a returning visitor recognises at a
+        glance, which is a visual job, not an announced one.
+    </f:comment>
+    <f:if condition="{code}">
+        <p class="astryx-error__code" aria-hidden="true">{code}</p>
+    </f:if>
+    <h1 class="astryx-error__title">{title}</h1>
+    <f:if condition="{body}">
+        <p class="astryx-error__body">{body}</p>
+    </f:if>
+    <f:slot />
+</div>

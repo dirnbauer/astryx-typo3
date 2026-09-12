@@ -16,6 +16,15 @@
     argument, and the search field and scheme toggle arrive through the slot —
     both are conditional on settings, and a component that asked the global
     configuration what to render could not be rendered anywhere else.
+
+    The skip link is rendered here, before the header rather than inside it,
+    and that is the one surprising thing in this file. It belongs to the header
+    because it exists only because the header has navigation to skip; it stays
+    outside the `header` element because `.astryx-header` is sticky, and a
+    sticky ancestor becomes the containing block of anything absolutely
+    positioned inside it. The link is positioned against the page, so moving it
+    in would move it on screen. It is also the first focusable thing in the
+    document, which is the whole point, and that is only true out here.
 </f:comment>
 
 <f:argument name="homeUrl" type="string" optional="{true}" default="" />
@@ -23,10 +32,16 @@
 <f:argument name="menu" type="array" optional="{true}" />
 <f:argument name="navigationLabel" type="string" optional="{true}" default="" />
 <f:argument name="menuLabel" type="string" optional="{true}" default="" />
+<f:argument name="skipLinkTarget" type="string" optional="{true}" default="" />
+<f:argument name="skipLinkLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
+<f:if condition="{skipLinkTarget}">
+    <a href="{skipLinkTarget}" class="astryx-skip-link">{skipLinkLabel}</a>
+</f:if>
+
 <header class="astryx-header {class}">
-    <div class="astryx-layout astryx-header__inner">
+    <a:layout.container class="astryx-header__inner">
 
         <a href="{homeUrl}" class="astryx-header__brand">
             <f:comment>
@@ -103,5 +118,5 @@
             </details>
         </div>
 
-    </div>
+    </a:layout.container>
 </header>

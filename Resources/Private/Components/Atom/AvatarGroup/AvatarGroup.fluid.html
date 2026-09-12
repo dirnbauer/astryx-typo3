@@ -1,0 +1,26 @@
+<f:comment>
+    AvatarGroup — a cluster of portraits that overlap, for saying "these people"
+    without saying each of them.
+
+    The size is set here rather than on each Avatar inside, because the overlap
+    is derived from it: the stylesheet reads `--_avatar-size` off this element
+    and pulls every child but the first back by a share of it. An avatar sizing
+    itself would put the picture and the overlap out of step.
+
+    That size is spelled as a bare class rather than a data attribute, alone
+    among this theme's components. `.astryx-avatar-group.md` is what the
+    stylesheet is written against and the CSS codemod leaves it alone, because
+    the class is not a component root; the contract therefore lists no modifiers
+    for this component and the token stays where the CSS can see it.
+
+    A pile of portraits is usually decoration, with the count written out in
+    words beside it. `ariaHidden` is how the caller says so, and most do.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaHidden" type="string" optional="{true}" default="" />
+
+<span
+    class="astryx-avatar-group {size} {class}"
+    aria-hidden="{ariaHidden}"><f:slot /></span>
