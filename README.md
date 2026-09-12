@@ -58,11 +58,12 @@ astryx.theme.default: neutral        # or butter, chocolate, matcha, stone, goth
 astryx.theme.colorScheme: system     # system | light | dark
 astryx.brand.wordmark: 'Your name'
 astryx.footer.legalPageIds: '12,13,14'
-
-# Offer only this theme's elements in the picker. Without it, a site with both
-# themes installed lists both catalogs in one wizard.
 elementLibrary.hosts: 'astryx_typo3,core'
 ```
+
+`elementLibrary.hosts` offers only this theme's elements in the picker.
+Without it, a site with both themes installed lists both catalogs in one
+wizard.
 
 A page can override the theme for itself and everything below it through the
 **Astryx theme** field in its page properties.
@@ -158,16 +159,16 @@ fields it uses and the Astryx components it composes. Nothing is invented in the
 generated files.
 
 ```bash
-# create the file set for rows that have no directory yet
 php Build/Scripts/scaffold-content-elements.php --scaffold --group=hero
-
-# regenerate everything derived from the matrix (wizard allow-list, keyword and
-# short-description catalogs, record types, the seeder's group manifest)
 php Build/Scripts/scaffold-content-elements.php --derive
-
-# fail if the derived files no longer match the matrix
 php Build/Scripts/scaffold-content-elements.php --check
 ```
+
+`--scaffold` creates the file set for rows that have no directory yet.
+`--derive` regenerates everything derived from the matrix: the wizard
+allow-list, the keyword and short-description catalogs, the record types and
+the seeder's group manifest. `--check` fails if the derived files no longer
+match the matrix.
 
 Two files per element are authored by hand and never overwritten:
 `templates/frontend.html` and `assets/frontend.css`.
