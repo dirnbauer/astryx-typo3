@@ -49,7 +49,7 @@
 
 .g-feature-list.accent .g-feature-list__lead,
 .g-feature-list.accent .astryx-eyebrow,
-.g-feature-list.accent .astryx-text.supporting {
+.g-feature-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -50,7 +50,7 @@
   border-block-start-color: currentColor;
 }
 
-.g-footer-copyright-bar.accent .astryx-text.supporting,
+.g-footer-copyright-bar.accent .astryx-text[data-type="supporting"],
 .g-footer-copyright-bar.accent .g-footer-copyright-bar__links a {
   color: currentColor;
   opacity: 0.85;

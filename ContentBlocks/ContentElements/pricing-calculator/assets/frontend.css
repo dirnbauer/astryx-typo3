@@ -60,7 +60,7 @@
 .g-pricing-calculator.accent .g-pricing-calculator__lead,
 .g-pricing-calculator.accent .g-pricing-calculator__how,
 .g-pricing-calculator.accent .astryx-eyebrow,
-.g-pricing-calculator.accent .astryx-text.supporting {
+.g-pricing-calculator.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

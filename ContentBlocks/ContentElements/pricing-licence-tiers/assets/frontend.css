@@ -65,7 +65,7 @@
 .g-pricing-licence-tiers.accent .g-pricing-licence-tiers__lead,
 .g-pricing-licence-tiers.accent .g-pricing-licence-tiers__scope,
 .g-pricing-licence-tiers.accent .astryx-eyebrow,
-.g-pricing-licence-tiers.accent .astryx-text.supporting {
+.g-pricing-licence-tiers.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

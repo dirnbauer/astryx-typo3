@@ -58,11 +58,11 @@
    border plus its top padding so the two baselines line up — and it stays a
    top alignment, not a centring, so a label beside a textarea does not drift
    into the middle of the box. */
-.astryx-field.horizontal {
+.astryx-field[data-orientation="horizontal"] {
   display: contents;
 }
 
-.astryx-field.horizontal > .astryx-field-label {
+.astryx-field[data-orientation="horizontal"] > .astryx-field-label {
   padding-block-start: calc(var(--border-width) + var(--spacing-1));
 }
 
@@ -260,7 +260,7 @@
 }
 
 .astryx-field :where(input, select, textarea):disabled,
-.astryx-text-input.disabled,
+.astryx-text-input[data-disabled="disabled"],
 .astryx-textarea.disabled,
 .astryx-selector.disabled,
 .astryx-number-input.disabled,
@@ -271,28 +271,28 @@
 }
 
 /* Sizes. A textarea is excluded — its height is its row count. */
-.astryx-text-input.sm,
+.astryx-text-input[data-size="sm"],
 .astryx-selector.sm,
 .astryx-number-input.sm,
 .astryx-date-input.sm,
-.astryx-input-group.sm { block-size: var(--size-element-sm); }
+.astryx-input-group[data-size="sm"] { block-size: var(--size-element-sm); }
 
-.astryx-text-input.md,
+.astryx-text-input[data-size="md"],
 .astryx-selector.md,
 .astryx-number-input.md,
 .astryx-date-input.md,
-.astryx-input-group.md { block-size: var(--size-element-md); }
+.astryx-input-group[data-size="md"] { block-size: var(--size-element-md); }
 
-.astryx-text-input.lg,
+.astryx-text-input[data-size="lg"],
 .astryx-selector.lg,
 .astryx-number-input.lg,
 .astryx-date-input.lg,
-.astryx-input-group.lg { block-size: var(--size-element-lg); }
+.astryx-input-group[data-size="lg"] { block-size: var(--size-element-lg); }
 
 /* ------------------------------------------------------ status variants */
 /* The border carries the status; the hover ring switches to the matching inset
    shadow token so the two never read as different states. */
-.astryx-text-input.warning,
+.astryx-text-input[data-status="warning"],
 .astryx-textarea.warning,
 .astryx-selector.warning,
 .astryx-number-input.warning,
@@ -301,7 +301,7 @@
   border-color: var(--color-warning);
 }
 
-.astryx-text-input.error,
+.astryx-text-input[data-status="error"],
 .astryx-textarea.error,
 .astryx-selector.error,
 .astryx-number-input.error,
@@ -311,7 +311,7 @@
   border-color: var(--color-error);
 }
 
-.astryx-text-input.success,
+.astryx-text-input[data-status="success"],
 .astryx-textarea.success,
 .astryx-selector.success,
 .astryx-number-input.success,
@@ -322,37 +322,37 @@
 
 /* A status border must survive focus, or the field loses its meaning the
    moment the user clicks into it to fix the problem. */
-.astryx-text-input.warning:focus-within,
+.astryx-text-input[data-status="warning"]:focus-within,
 .astryx-textarea.warning:focus-within,
 .astryx-selector.warning:focus-within,
 .astryx-number-input.warning:focus-within,
 .astryx-date-input.warning:focus-within { border-color: var(--color-warning); }
 
-.astryx-text-input.error:focus-within,
+.astryx-text-input[data-status="error"]:focus-within,
 .astryx-textarea.error:focus-within,
 .astryx-selector.error:focus-within,
 .astryx-number-input.error:focus-within,
 .astryx-date-input.error:focus-within,
 .astryx-field :where(input, select, textarea)[aria-invalid='true']:focus { border-color: var(--color-error); }
 
-.astryx-text-input.success:focus-within,
+.astryx-text-input[data-status="success"]:focus-within,
 .astryx-textarea.success:focus-within,
 .astryx-selector.success:focus-within,
 .astryx-number-input.success:focus-within,
 .astryx-date-input.success:focus-within { border-color: var(--color-success); }
 
 @media (hover: hover) {
-  .astryx-text-input.warning:hover:not(:focus-within),
+  .astryx-text-input[data-status="warning"]:hover:not(:focus-within),
   .astryx-textarea.warning:hover:not(:focus-within) {
     box-shadow: var(--shadow-inset-warning);
   }
 
-  .astryx-text-input.error:hover:not(:focus-within),
+  .astryx-text-input[data-status="error"]:hover:not(:focus-within),
   .astryx-textarea.error:hover:not(:focus-within) {
     box-shadow: var(--shadow-inset-error);
   }
 
-  .astryx-text-input.success:hover:not(:focus-within),
+  .astryx-text-input[data-status="success"]:hover:not(:focus-within),
   .astryx-textarea.success:hover:not(:focus-within) {
     box-shadow: var(--shadow-inset-success);
   }
@@ -918,7 +918,7 @@
   background-color: transparent;
 }
 
-.astryx-input-group.disabled {
+.astryx-input-group[data-disabled="disabled"] {
   cursor: not-allowed;
   opacity: 0.5;
 }

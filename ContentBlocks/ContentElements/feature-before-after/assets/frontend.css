@@ -54,7 +54,7 @@
 
 .g-feature-before-after.accent .g-feature-before-after__lead,
 .g-feature-before-after.accent .astryx-eyebrow,
-.g-feature-before-after.accent .astryx-text.supporting {
+.g-feature-before-after.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -54,7 +54,7 @@
 
 .g-footer-questions-band.accent .g-footer-questions-band__lead,
 .g-footer-questions-band.accent .astryx-eyebrow,
-.g-footer-questions-band.accent .astryx-text.supporting {
+.g-footer-questions-band.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

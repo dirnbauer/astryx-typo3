@@ -50,11 +50,11 @@
   }
 }
 
-.astryx-button.sm { height: var(--size-element-sm); }
-.astryx-button.md { height: var(--size-element-md); }
-.astryx-button.lg { height: var(--size-element-lg); padding-inline: var(--spacing-4); }
+.astryx-button[data-size="sm"] { height: var(--size-element-sm); }
+.astryx-button[data-size="md"] { height: var(--size-element-md); }
+.astryx-button[data-size="lg"] { height: var(--size-element-lg); padding-inline: var(--spacing-4); }
 
-.astryx-button.full-width {
+.astryx-button[data-width="full"] {
   width: 100%;
 }
 
@@ -71,39 +71,39 @@
 }
 
 /* ------------------------------------------------------------- variants */
-.astryx-button.primary {
+.astryx-button[data-variant="primary"] {
   background-color: var(--color-accent);
   color: var(--color-on-accent);
 }
 
-.astryx-button.primary:focus-visible {
+.astryx-button[data-variant="primary"]:focus-visible {
   outline: 2px solid var(--color-accent);
 }
 
-.astryx-button.secondary {
+.astryx-button[data-variant="secondary"] {
   background-color: var(--color-neutral);
   color: var(--color-text-primary);
 }
 
-.astryx-button.secondary:focus-visible {
+.astryx-button[data-variant="secondary"]:focus-visible {
   outline: 2px solid var(--color-accent);
 }
 
-.astryx-button.ghost {
+.astryx-button[data-variant="ghost"] {
   background-color: transparent;
   color: var(--color-text-primary);
 }
 
-.astryx-button.ghost:focus-visible {
+.astryx-button[data-variant="ghost"]:focus-visible {
   outline: 2px solid var(--color-accent);
 }
 
-.astryx-button.destructive {
+.astryx-button[data-variant="destructive"] {
   background-color: var(--color-error);
   color: var(--color-on-error, var(--color-on-accent));
 }
 
-.astryx-button.destructive:focus-visible {
+.astryx-button[data-variant="destructive"]:focus-visible {
   outline: 2px solid var(--color-error);
 }
 
@@ -133,7 +133,7 @@
   font-size: 1rem;
 }
 
-.astryx-button.lg > svg {
+.astryx-button[data-size="lg"] > svg {
   font-size: 1.25rem;
 }
 
@@ -145,25 +145,25 @@
   flex-wrap: wrap;
 }
 
-.astryx-button-group.attached {
+.astryx-button-group[data-variant="attached"] {
   gap: 0;
 }
 
-.astryx-button-group.attached > .astryx-button {
+.astryx-button-group[data-variant="attached"] > .astryx-button {
   border-radius: 0;
 }
 
-.astryx-button-group.attached > .astryx-button:first-child {
+.astryx-button-group[data-variant="attached"] > .astryx-button:first-child {
   border-start-start-radius: var(--radius-element);
   border-end-start-radius: var(--radius-element);
 }
 
-.astryx-button-group.attached > .astryx-button:last-child {
+.astryx-button-group[data-variant="attached"] > .astryx-button:last-child {
   border-start-end-radius: var(--radius-element);
   border-end-end-radius: var(--radius-element);
 }
 
-.astryx-button-group.attached > .astryx-button + .astryx-button {
+.astryx-button-group[data-variant="attached"] > .astryx-button + .astryx-button {
   border-inline-start: var(--border-width) solid var(--color-overlay-pressed);
 }
 
@@ -183,19 +183,19 @@
   }
 }
 
-.astryx-link.quiet {
+.astryx-link[data-variant="quiet"] {
   color: var(--color-text-primary);
   text-decoration: none;
 }
 
 @media (hover: hover) {
-  .astryx-link.quiet:hover {
+  .astryx-link[data-variant="quiet"]:hover {
     color: var(--color-text-accent);
   }
 }
 
 /* A link that reads as an action but is not a button. */
-.astryx-link.cta {
+.astryx-link[data-variant="cta"] {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-1);
@@ -203,23 +203,23 @@
   text-decoration: none;
 }
 
-.astryx-link.cta::after {
+.astryx-link[data-variant="cta"]::after {
   content: '→';
   transition: transform var(--duration-fast) var(--ease-standard);
 }
 
 @media (hover: hover) {
-  .astryx-link.cta:hover::after {
+  .astryx-link[data-variant="cta"]:hover::after {
     transform: translateX(2px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .astryx-link.cta::after {
+  .astryx-link[data-variant="cta"]::after {
     transition: none;
   }
 
-  .astryx-link.cta:hover::after {
+  .astryx-link[data-variant="cta"]:hover::after {
     transform: none;
   }
 }

@@ -63,7 +63,7 @@
 .g-hero-event.accent .g-hero-event__note,
 .g-hero-event.accent .astryx-eyebrow,
 .g-hero-event.accent .astryx-metadata-list :where(dt, dd),
-.g-hero-event.accent .astryx-text.supporting {
+.g-hero-event.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
 }
 

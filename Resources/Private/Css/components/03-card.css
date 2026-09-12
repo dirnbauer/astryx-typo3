@@ -19,30 +19,30 @@
   box-shadow: var(--shadow-low);
 }
 
-.astryx-card.flat {
+.astryx-card[data-variant="flat"] {
   box-shadow: none;
   border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
 }
 
-.astryx-card.raised {
+.astryx-card[data-variant="raised"] {
   box-shadow: var(--shadow-med);
 }
 
-.astryx-card.tight {
+.astryx-card[data-density="tight"] {
   --card-padding: var(--spacing-4);
 }
 
-.astryx-card.roomy {
+.astryx-card[data-density="roomy"] {
   --card-padding: var(--spacing-8);
 }
 
 /* A card that is mostly image: the media bleeds to the edges. */
-.astryx-card.media-top {
+.astryx-card[data-media="top"] {
   padding-block-start: 0;
   overflow: hidden;
 }
 
-.astryx-card.media-top > :first-child {
+.astryx-card[data-media="top"] > :first-child {
   margin-inline: calc(var(--card-padding) * -1);
   margin-block-end: var(--spacing-2);
 }

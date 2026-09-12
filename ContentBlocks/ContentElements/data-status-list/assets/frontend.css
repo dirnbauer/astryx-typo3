@@ -53,7 +53,7 @@
 .g-data-status-list.accent .astryx-item-description,
 .g-data-status-list.accent .g-data-status-list__lead,
 .g-data-status-list.accent .astryx-eyebrow,
-.g-data-status-list.accent .astryx-text.supporting {
+.g-data-status-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

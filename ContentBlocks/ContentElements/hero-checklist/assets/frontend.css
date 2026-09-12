@@ -73,7 +73,7 @@
 
 .g-hero-checklist.accent .g-hero-checklist__lead,
 .g-hero-checklist.accent .astryx-eyebrow,
-.g-hero-checklist.accent .astryx-text.supporting,
+.g-hero-checklist.accent .astryx-text[data-type="supporting"],
 .g-hero-checklist.accent .g-hero-checklist__tick {
   color: currentColor;
   opacity: 0.85;

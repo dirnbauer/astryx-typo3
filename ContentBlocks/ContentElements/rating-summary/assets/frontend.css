@@ -102,7 +102,7 @@
 .g-rating-summary.accent .g-rating-summary__unit,
 .g-rating-summary.accent .g-rating-summary__count,
 .g-rating-summary.accent .astryx-eyebrow,
-.g-rating-summary.accent .astryx-text.supporting {
+.g-rating-summary.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -281,7 +281,7 @@
   }
 }
 
-.astryx-dialog.fullscreen {
+.astryx-dialog[data-variant="fullscreen"] {
   inset: 0;
   margin: 0;
   inline-size: 100dvw;
@@ -499,9 +499,9 @@
   rotate: 225deg;
 }
 
-.astryx-collapsible.compact > summary { padding-block: var(--spacing-1); }
-.astryx-collapsible.balanced > summary { padding-block: var(--spacing-2); }
-.astryx-collapsible.spacious > summary { padding-block: var(--spacing-3); }
+.astryx-collapsible[data-density="compact"] > summary { padding-block: var(--spacing-1); }
+.astryx-collapsible[data-density="balanced"] > summary { padding-block: var(--spacing-2); }
+.astryx-collapsible[data-density="spacious"] > summary { padding-block: var(--spacing-3); }
 
 .astryx-collapsible[aria-disabled='true'] > summary {
   cursor: not-allowed;
@@ -520,9 +520,9 @@
   color: var(--color-text-primary);
 }
 
-.astryx-collapsible.compact .astryx-collapsible-content { padding-block-end: var(--spacing-1); }
-.astryx-collapsible.balanced .astryx-collapsible-content { padding-block-end: var(--spacing-2); }
-.astryx-collapsible.spacious .astryx-collapsible-content { padding-block-end: var(--spacing-3); }
+.astryx-collapsible[data-density="compact"] .astryx-collapsible-content { padding-block-end: var(--spacing-1); }
+.astryx-collapsible[data-density="balanced"] .astryx-collapsible-content { padding-block-end: var(--spacing-2); }
+.astryx-collapsible[data-density="spacious"] .astryx-collapsible-content { padding-block-end: var(--spacing-3); }
 
 /* Where the UA exposes the disclosure's own box, the reveal can be eased.
    Everywhere else it simply snaps open, which is the correct fallback. */
@@ -565,10 +565,10 @@
   max-inline-size: 100%;
 }
 
-.astryx-carousel.gap-2 { --carousel-gap: var(--spacing-2); }
-.astryx-carousel.gap-3 { --carousel-gap: var(--spacing-3); }
-.astryx-carousel.gap-4 { --carousel-gap: var(--spacing-4); }
-.astryx-carousel.gap-6 { --carousel-gap: var(--spacing-6); }
+.astryx-carousel[data-gap="2"] { --carousel-gap: var(--spacing-2); }
+.astryx-carousel[data-gap="3"] { --carousel-gap: var(--spacing-3); }
+.astryx-carousel[data-gap="4"] { --carousel-gap: var(--spacing-4); }
+.astryx-carousel[data-gap="6"] { --carousel-gap: var(--spacing-6); }
 
 .astryx-carousel-track {
   display: flex;

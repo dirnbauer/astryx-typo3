@@ -61,7 +61,7 @@
 
 .g-feature-workflow.accent .g-feature-workflow__lead,
 .g-feature-workflow.accent .astryx-eyebrow,
-.g-feature-workflow.accent .astryx-text.supporting {
+.g-feature-workflow.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

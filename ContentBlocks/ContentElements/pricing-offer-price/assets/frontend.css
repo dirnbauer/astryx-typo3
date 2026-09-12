@@ -69,7 +69,7 @@
 .g-pricing-offer-price.accent .g-pricing-offer-price__was-amount,
 .g-pricing-offer-price.accent .g-pricing-offer-price__period,
 .g-pricing-offer-price.accent .astryx-eyebrow,
-.g-pricing-offer-price.accent .astryx-text.supporting {
+.g-pricing-offer-price.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

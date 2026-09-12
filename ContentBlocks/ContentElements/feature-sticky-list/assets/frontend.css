@@ -39,7 +39,7 @@
 
 .g-feature-sticky-list.accent .g-feature-sticky-list__lead,
 .g-feature-sticky-list.accent .astryx-eyebrow,
-.g-feature-sticky-list.accent .astryx-text.supporting {
+.g-feature-sticky-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

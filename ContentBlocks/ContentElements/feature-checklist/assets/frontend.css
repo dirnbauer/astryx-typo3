@@ -65,7 +65,7 @@
 
 .g-feature-checklist.accent .g-feature-checklist__lead,
 .g-feature-checklist.accent .astryx-eyebrow,
-.g-feature-checklist.accent .astryx-text.supporting {
+.g-feature-checklist.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

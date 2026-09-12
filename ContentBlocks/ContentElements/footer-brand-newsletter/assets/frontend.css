@@ -57,7 +57,7 @@
 }
 
 .g-footer-brand-newsletter.accent .g-footer-brand-newsletter__prompt,
-.g-footer-brand-newsletter.accent .astryx-text.supporting {
+.g-footer-brand-newsletter.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -47,7 +47,7 @@
 
 .g-feature-platforms.accent .g-feature-platforms__lead,
 .g-feature-platforms.accent .astryx-eyebrow,
-.g-feature-platforms.accent .astryx-text.supporting {
+.g-feature-platforms.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

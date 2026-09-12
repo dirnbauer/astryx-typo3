@@ -132,7 +132,7 @@
 .g-data-trend-strip.accent .g-data-trend-strip__unit,
 .g-data-trend-strip.accent .g-data-trend-strip__period,
 .g-data-trend-strip.accent .astryx-eyebrow,
-.g-data-trend-strip.accent .astryx-text.supporting {
+.g-data-trend-strip.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

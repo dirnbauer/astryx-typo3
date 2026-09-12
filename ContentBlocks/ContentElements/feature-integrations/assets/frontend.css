@@ -58,7 +58,7 @@
 
 .g-feature-integrations.accent .g-feature-integrations__lead,
 .g-feature-integrations.accent .astryx-eyebrow,
-.g-feature-integrations.accent .astryx-text.supporting {
+.g-feature-integrations.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

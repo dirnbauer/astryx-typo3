@@ -120,7 +120,7 @@
 .g-data-roadmap-progress.accent .g-data-roadmap-progress__lead,
 .g-data-roadmap-progress.accent .g-data-roadmap-progress__share,
 .g-data-roadmap-progress.accent .astryx-eyebrow,
-.g-data-roadmap-progress.accent .astryx-text.supporting {
+.g-data-roadmap-progress.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

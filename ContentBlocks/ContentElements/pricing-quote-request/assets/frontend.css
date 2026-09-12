@@ -73,7 +73,7 @@
 .g-pricing-quote-request.accent .g-pricing-quote-request__lead,
 .g-pricing-quote-request.accent .astryx-card-body,
 .g-pricing-quote-request.accent .astryx-eyebrow,
-.g-pricing-quote-request.accent .astryx-text.supporting {
+.g-pricing-quote-request.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

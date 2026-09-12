@@ -66,7 +66,7 @@
 
 .g-data-metric-list.accent .g-data-metric-list__label,
 .g-data-metric-list.accent .g-data-metric-list__lead,
-.g-data-metric-list.accent .astryx-text.supporting {
+.g-data-metric-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

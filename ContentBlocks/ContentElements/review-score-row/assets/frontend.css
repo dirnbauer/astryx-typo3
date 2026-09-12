@@ -69,7 +69,7 @@
 
 .g-review-score-row.accent .g-review-score-row__lead,
 .g-review-score-row.accent .astryx-eyebrow,
-.g-review-score-row.accent .astryx-text.supporting {
+.g-review-score-row.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

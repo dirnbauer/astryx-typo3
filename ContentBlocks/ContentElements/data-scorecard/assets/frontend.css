@@ -137,7 +137,7 @@
 .g-data-scorecard.accent .g-data-scorecard__lead,
 .g-data-scorecard.accent .g-data-scorecard__scale,
 .g-data-scorecard.accent .astryx-eyebrow,
-.g-data-scorecard.accent .astryx-text.supporting {
+.g-data-scorecard.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

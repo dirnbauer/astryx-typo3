@@ -58,7 +58,7 @@
 
 .g-feature-roadmap.accent .g-feature-roadmap__lead,
 .g-feature-roadmap.accent .astryx-eyebrow,
-.g-feature-roadmap.accent .astryx-text.supporting {
+.g-feature-roadmap.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

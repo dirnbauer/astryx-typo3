@@ -99,7 +99,7 @@
 
 .g-feature-steps.accent .g-feature-steps__lead,
 .g-feature-steps.accent .astryx-eyebrow,
-.g-feature-steps.accent .astryx-text.supporting {
+.g-feature-steps.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

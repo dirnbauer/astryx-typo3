@@ -62,7 +62,7 @@
 
 .g-footer-credits.accent .g-footer-credits__lead,
 .g-footer-credits.accent .g-footer-credits__holder,
-.g-footer-credits.accent .astryx-text.supporting {
+.g-footer-credits.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

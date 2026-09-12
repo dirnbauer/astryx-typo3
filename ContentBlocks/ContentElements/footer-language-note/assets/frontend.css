@@ -75,7 +75,7 @@
 }
 
 .g-footer-language-note.accent .g-footer-language-note__statement,
-.g-footer-language-note.accent .astryx-text.supporting {
+.g-footer-language-note.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -51,7 +51,7 @@
 
 .g-section-index.accent .g-section-index__lead,
 .g-section-index.accent .astryx-eyebrow,
-.g-section-index.accent .astryx-text.supporting {
+.g-section-index.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

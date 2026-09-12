@@ -64,7 +64,7 @@
 .g-data-leaderboard.accent .g-data-leaderboard__lead,
 .g-data-leaderboard.accent .g-data-leaderboard__detail,
 .g-data-leaderboard.accent .astryx-eyebrow,
-.g-data-leaderboard.accent .astryx-text.supporting {
+.g-data-leaderboard.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

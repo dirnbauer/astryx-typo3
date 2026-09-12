@@ -58,7 +58,7 @@
 
 .g-data-table-caption.accent .g-data-table-caption__lead,
 .g-data-table-caption.accent .astryx-eyebrow,
-.g-data-table-caption.accent .astryx-text.supporting {
+.g-data-table-caption.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

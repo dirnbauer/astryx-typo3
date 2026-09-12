@@ -33,7 +33,7 @@
 .g-pricing-page-header.accent .g-pricing-page-header__standfirst,
 .g-pricing-page-header.accent .g-pricing-page-header__lead,
 .g-pricing-page-header.accent .astryx-eyebrow,
-.g-pricing-page-header.accent .astryx-text.supporting {
+.g-pricing-page-header.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

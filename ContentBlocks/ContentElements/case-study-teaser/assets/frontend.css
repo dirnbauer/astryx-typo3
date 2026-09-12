@@ -81,7 +81,7 @@
 .g-case-study-teaser.accent .g-case-study-teaser__lead,
 .g-case-study-teaser.accent .g-case-study-teaser__unit,
 .g-case-study-teaser.accent .astryx-eyebrow,
-.g-case-study-teaser.accent .astryx-text.supporting {
+.g-case-study-teaser.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

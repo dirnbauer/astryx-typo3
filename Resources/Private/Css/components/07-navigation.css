@@ -130,7 +130,7 @@
   line-height: var(--text-body-leading);
 }
 
-.astryx-breadcrumbs.supporting {
+.astryx-breadcrumbs[data-type="supporting"] {
   font-size: var(--text-supporting-size);
   line-height: var(--text-supporting-leading);
 }
@@ -194,7 +194,7 @@
   font-weight: var(--font-weight-medium);
 }
 
-.astryx-breadcrumbs.supporting .astryx-breadcrumb-item[aria-current='page'] {
+.astryx-breadcrumbs[data-type="supporting"] .astryx-breadcrumb-item[aria-current='page'] {
   color: var(--color-text-secondary);
 }
 
@@ -213,11 +213,11 @@
   min-inline-size: 0;
 }
 
-.astryx-tab-list.fill {
+.astryx-tab-list[data-variant="fill"] {
   inline-size: 100%;
 }
 
-.astryx-tab-list.vertical {
+.astryx-tab-list[data-orientation="vertical"] {
   flex-direction: column;
   align-items: stretch;
 }
@@ -225,7 +225,7 @@
 /* The divider rail. The reserved gap keeps the hover pill off the underline;
    --_tab-indicator-bottom drops the indicator through the gap (plus the
    border) so it still lands on the rail rather than floating above it. */
-.astryx-tab-list.divided {
+.astryx-tab-list[data-variant="divided"] {
   --_tab-indicator-bottom: calc(-1 * (var(--spacing-1) + var(--border-width)));
   border-block-end: var(--border-width) solid var(--color-border);
   padding-block-end: var(--spacing-1);
@@ -257,10 +257,10 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-tab-list.sm :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-sm); }
-.astryx-tab-list.lg :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-lg); }
+.astryx-tab-list[data-size="sm"] :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-sm); }
+.astryx-tab-list[data-size="lg"] :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-lg); }
 
-.astryx-tab-list.fill .astryx-tab {
+.astryx-tab-list[data-variant="fill"] .astryx-tab {
   flex: 1;
   justify-content: center;
 }
@@ -384,12 +384,12 @@
   background-color: var(--color-neutral);
 }
 
-.astryx-segmented-control.fill {
+.astryx-segmented-control[data-variant="fill"] {
   display: flex;
   inline-size: 100%;
 }
 
-.astryx-segmented-control.disabled {
+.astryx-segmented-control[data-disabled="disabled"] {
   opacity: 0.5;
   pointer-events: none;
 }
@@ -434,7 +434,7 @@
   block-size: calc(var(--size-element-lg) - var(--spacing-1));
 }
 
-.astryx-segmented-control.fill .astryx-segmented-control-item {
+.astryx-segmented-control[data-variant="fill"] .astryx-segmented-control-item {
   flex: 1;
   justify-content: center;
 }
@@ -1171,7 +1171,7 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-outline.compact .astryx-outline-item {
+.astryx-outline[data-density="compact"] .astryx-outline-item {
   padding-block: var(--spacing-1);
 }
 
@@ -1284,7 +1284,7 @@
   user-select: none;
 }
 
-.astryx-pagination.sm .astryx-pagination-ellipsis {
+.astryx-pagination[data-size="sm"] .astryx-pagination-ellipsis {
   min-inline-size: var(--size-element-sm);
   block-size: var(--size-element-sm);
   font-size: var(--text-supporting-size);
@@ -1358,18 +1358,18 @@
   min-block-size: var(--size-element-sm);
 }
 
-.astryx-toolbar.centered {
+.astryx-toolbar[data-align="center"] {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
 }
 
-.astryx-toolbar.vertical {
+.astryx-toolbar[data-orientation="vertical"] {
   flex-direction: column;
   align-items: stretch;
 }
 
-.astryx-toolbar.sm { --toolbar-gap: var(--spacing-1); }
-.astryx-toolbar.lg { --toolbar-gap: var(--spacing-3); }
+.astryx-toolbar[data-size="sm"] { --toolbar-gap: var(--spacing-1); }
+.astryx-toolbar[data-size="lg"] { --toolbar-gap: var(--spacing-3); }
 
 .astryx-toolbar-start,
 .astryx-toolbar-center,
@@ -1392,7 +1392,7 @@
   margin-inline-start: auto;
 }
 
-.astryx-toolbar.divided {
+.astryx-toolbar[data-dividers="divided"] {
   --_tab-indicator-bottom: calc(-1 * (var(--spacing-2) + var(--border-width)));
   padding-block-end: var(--spacing-2);
   border-block-end: var(--border-width) solid var(--color-border);

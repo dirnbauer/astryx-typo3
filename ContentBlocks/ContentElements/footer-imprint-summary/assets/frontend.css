@@ -76,7 +76,7 @@
 
 .g-footer-imprint-summary.accent .g-footer-imprint-summary__lead,
 .g-footer-imprint-summary.accent .g-footer-imprint-summary__long,
-.g-footer-imprint-summary.accent .astryx-text.supporting {
+.g-footer-imprint-summary.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

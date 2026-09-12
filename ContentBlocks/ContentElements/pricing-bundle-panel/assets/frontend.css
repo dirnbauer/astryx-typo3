@@ -116,7 +116,7 @@
 .g-pricing-bundle-panel.accent .g-pricing-bundle-panel__comparison,
 .g-pricing-bundle-panel.accent .g-pricing-bundle-panel__item-price,
 .g-pricing-bundle-panel.accent .astryx-eyebrow,
-.g-pricing-bundle-panel.accent .astryx-text.supporting {
+.g-pricing-bundle-panel.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

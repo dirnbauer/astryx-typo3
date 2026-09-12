@@ -36,7 +36,7 @@
 
 .g-pricing-plan-change.accent .g-pricing-plan-change__scope,
 .g-pricing-plan-change.accent .g-pricing-plan-change__lead,
-.g-pricing-plan-change.accent .astryx-text.supporting {
+.g-pricing-plan-change.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

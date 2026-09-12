@@ -73,7 +73,7 @@
 .g-hero-article.accent .g-hero-article__role,
 .g-hero-article.accent .astryx-eyebrow,
 .g-hero-article.accent .astryx-timestamp,
-.g-hero-article.accent .astryx-text.supporting {
+.g-hero-article.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

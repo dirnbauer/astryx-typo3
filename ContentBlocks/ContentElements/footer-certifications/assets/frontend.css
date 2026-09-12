@@ -83,7 +83,7 @@
 
 .g-footer-certifications.accent .g-footer-certifications__lead,
 .g-footer-certifications.accent .astryx-eyebrow,
-.g-footer-certifications.accent .astryx-text.supporting {
+.g-footer-certifications.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

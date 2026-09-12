@@ -7,7 +7,7 @@
  * rule they touched, however specific it was.
  *
  * What that cost, until it was found: `button { background: none }` silently
- * erased the fill of every `.astryx-button.primary` and `.secondary` on the
+ * erased the fill of every `.astryx-button[data-variant="primary"]` and `.secondary` on the
  * site — the accent submit button on the search page and in the Search Hero
  * rendered as bare text — and `font: inherit` pulled every button and input off
  * the component type scale onto the body's.

@@ -42,7 +42,7 @@
 
 .g-feature-disclosure.accent .g-feature-disclosure__lead,
 .g-feature-disclosure.accent .astryx-eyebrow,
-.g-feature-disclosure.accent .astryx-text.supporting {
+.g-feature-disclosure.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

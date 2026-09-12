@@ -140,7 +140,7 @@
 .g-data-benchmark-compare.accent .g-data-benchmark-compare__lead,
 .g-data-benchmark-compare.accent .g-data-benchmark-compare__legend,
 .g-data-benchmark-compare.accent .astryx-eyebrow,
-.g-data-benchmark-compare.accent .astryx-text.supporting {
+.g-data-benchmark-compare.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

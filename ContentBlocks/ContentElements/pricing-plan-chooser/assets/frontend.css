@@ -50,7 +50,7 @@
 
 .g-pricing-plan-chooser.accent .g-pricing-plan-chooser__scope,
 .g-pricing-plan-chooser.accent .g-pricing-plan-chooser__lead,
-.g-pricing-plan-chooser.accent .astryx-text.supporting {
+.g-pricing-plan-chooser.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

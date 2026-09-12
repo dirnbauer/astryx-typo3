@@ -83,7 +83,7 @@
 .g-data-big-number.accent .g-data-big-number__lead,
 .g-data-big-number.accent .g-data-big-number__unit,
 .g-data-big-number.accent .astryx-eyebrow,
-.g-data-big-number.accent .astryx-text.supporting {
+.g-data-big-number.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

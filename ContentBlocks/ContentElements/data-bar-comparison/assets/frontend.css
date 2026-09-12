@@ -109,7 +109,7 @@
 .g-data-bar-comparison.accent .g-data-bar-comparison__lead,
 .g-data-bar-comparison.accent .g-data-bar-comparison__caption,
 .g-data-bar-comparison.accent .astryx-eyebrow,
-.g-data-bar-comparison.accent .astryx-text.supporting {
+.g-data-bar-comparison.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

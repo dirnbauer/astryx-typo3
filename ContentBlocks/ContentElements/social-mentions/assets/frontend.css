@@ -67,7 +67,7 @@
 
 .g-social-mentions.accent .g-social-mentions__lead,
 .g-social-mentions.accent .astryx-eyebrow,
-.g-social-mentions.accent .astryx-text.supporting {
+.g-social-mentions.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

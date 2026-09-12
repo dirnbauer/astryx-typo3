@@ -83,7 +83,7 @@
 
 .g-feature-callouts.accent .g-feature-callouts__lead,
 .g-feature-callouts.accent .astryx-eyebrow,
-.g-feature-callouts.accent .astryx-text.supporting {
+.g-feature-callouts.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

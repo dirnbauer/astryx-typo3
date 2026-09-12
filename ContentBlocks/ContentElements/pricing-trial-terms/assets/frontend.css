@@ -54,7 +54,7 @@
 .g-pricing-trial-terms.accent .g-pricing-trial-terms__lead,
 .g-pricing-trial-terms.accent .g-pricing-trial-terms__label,
 .g-pricing-trial-terms.accent .astryx-eyebrow,
-.g-pricing-trial-terms.accent .astryx-text.supporting {
+.g-pricing-trial-terms.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

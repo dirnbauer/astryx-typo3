@@ -64,7 +64,7 @@
 
 .g-pricing-billing-note.accent .g-pricing-billing-note__lead,
 .g-pricing-billing-note.accent .g-pricing-billing-note__term,
-.g-pricing-billing-note.accent .astryx-text.supporting {
+.g-pricing-billing-note.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

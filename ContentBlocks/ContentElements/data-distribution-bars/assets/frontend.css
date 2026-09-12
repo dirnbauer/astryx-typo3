@@ -120,7 +120,7 @@
 .g-data-distribution-bars.accent .g-data-distribution-bars__lead,
 .g-data-distribution-bars.accent .g-data-distribution-bars__unit,
 .g-data-distribution-bars.accent .astryx-eyebrow,
-.g-data-distribution-bars.accent .astryx-text.supporting {
+.g-data-distribution-bars.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

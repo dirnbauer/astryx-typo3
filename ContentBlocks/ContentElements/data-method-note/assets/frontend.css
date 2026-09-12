@@ -57,7 +57,7 @@
 .g-data-method-note.accent .g-data-method-note__term,
 .g-data-method-note.accent .astryx-eyebrow,
 .g-data-method-note.accent .astryx-link,
-.g-data-method-note.accent .astryx-text.supporting {
+.g-data-method-note.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

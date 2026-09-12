@@ -66,7 +66,7 @@
 .g-pricing-enterprise-panel.accent .g-pricing-enterprise-panel__lead,
 .g-pricing-enterprise-panel.accent .astryx-card-body,
 .g-pricing-enterprise-panel.accent .astryx-eyebrow,
-.g-pricing-enterprise-panel.accent .astryx-text.supporting {
+.g-pricing-enterprise-panel.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -81,7 +81,7 @@
 
 .g-certification-row.accent .g-certification-row__lead,
 .g-certification-row.accent .astryx-eyebrow,
-.g-certification-row.accent .astryx-text.supporting {
+.g-certification-row.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

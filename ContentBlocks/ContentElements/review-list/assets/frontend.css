@@ -99,7 +99,7 @@
 
 .g-review-list.accent .g-review-list__lead,
 .g-review-list.accent .astryx-eyebrow,
-.g-review-list.accent .astryx-text.supporting {
+.g-review-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

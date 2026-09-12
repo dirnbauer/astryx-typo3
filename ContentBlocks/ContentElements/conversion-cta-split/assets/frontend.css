@@ -58,7 +58,7 @@
 .g-conversion-cta-split.accent .g-conversion-cta-split__note,
 .g-conversion-cta-split.accent .g-conversion-cta-split__secondary,
 .g-conversion-cta-split.accent .astryx-eyebrow,
-.g-conversion-cta-split.accent .astryx-text.supporting {
+.g-conversion-cta-split.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

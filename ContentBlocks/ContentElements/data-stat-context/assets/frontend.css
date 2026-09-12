@@ -59,7 +59,7 @@
 
 .g-data-stat-context.accent .g-data-stat-context__unit,
 .g-data-stat-context.accent .astryx-eyebrow,
-.g-data-stat-context.accent .astryx-text.supporting {
+.g-data-stat-context.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

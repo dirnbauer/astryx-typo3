@@ -67,7 +67,7 @@
 
 .g-pricing-faq.accent .g-pricing-faq__lead,
 .g-pricing-faq.accent .astryx-eyebrow,
-.g-pricing-faq.accent .astryx-text.supporting {
+.g-pricing-faq.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -50,7 +50,7 @@
 
 .g-feature-versus.accent .g-feature-versus__lead,
 .g-feature-versus.accent .astryx-eyebrow,
-.g-feature-versus.accent .astryx-text.supporting {
+.g-feature-versus.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -103,7 +103,7 @@
 .g-data-percent-ring.accent .g-data-percent-ring__lead,
 .g-data-percent-ring.accent .g-data-percent-ring__unit,
 .g-data-percent-ring.accent .astryx-eyebrow,
-.g-data-percent-ring.accent .astryx-text.supporting {
+.g-data-percent-ring.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

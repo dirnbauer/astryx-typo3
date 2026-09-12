@@ -28,7 +28,7 @@
   block-size: 1em;
 }
 
-.astryx-badge.neutral {
+.astryx-badge[data-variant="neutral"] {
   background-color: var(--color-background-neutral, var(--color-neutral));
   color: var(--color-text-primary);
 }
@@ -43,43 +43,43 @@
  * set upstream tunes for contrast — which is why gothic and y2k already
  * override these very rules to use them. This makes every theme agree.
  */
-.astryx-badge.info {
+.astryx-badge[data-variant="info"] {
   background-color: var(--color-background-blue);
   color: var(--color-text-blue);
 }
 
-.astryx-badge.success {
+.astryx-badge[data-variant="success"] {
   background-color: var(--color-background-green);
   color: var(--color-text-green);
 }
 
-.astryx-badge.warning {
+.astryx-badge[data-variant="warning"] {
   background-color: var(--color-background-yellow);
   color: var(--color-text-yellow);
 }
 
-.astryx-badge.error {
+.astryx-badge[data-variant="error"] {
   background-color: var(--color-background-red);
   color: var(--color-text-red);
 }
 
 /* Categorical hues, for badges that classify rather than signal state. */
-.astryx-badge.red { background-color: var(--color-background-red); color: var(--color-text-red); }
-.astryx-badge.orange { background-color: var(--color-background-orange); color: var(--color-text-orange); }
-.astryx-badge.yellow { background-color: var(--color-background-yellow); color: var(--color-text-yellow); }
-.astryx-badge.green { background-color: var(--color-background-green); color: var(--color-text-green); }
-.astryx-badge.teal { background-color: var(--color-background-teal); color: var(--color-text-teal); }
-.astryx-badge.cyan { background-color: var(--color-background-cyan); color: var(--color-text-cyan); }
-.astryx-badge.blue { background-color: var(--color-background-blue); color: var(--color-text-blue); }
-.astryx-badge.purple { background-color: var(--color-background-purple); color: var(--color-text-purple); }
-.astryx-badge.pink { background-color: var(--color-background-pink); color: var(--color-text-pink); }
+.astryx-badge[data-variant="red"] { background-color: var(--color-background-red); color: var(--color-text-red); }
+.astryx-badge[data-variant="orange"] { background-color: var(--color-background-orange); color: var(--color-text-orange); }
+.astryx-badge[data-variant="yellow"] { background-color: var(--color-background-yellow); color: var(--color-text-yellow); }
+.astryx-badge[data-variant="green"] { background-color: var(--color-background-green); color: var(--color-text-green); }
+.astryx-badge[data-variant="teal"] { background-color: var(--color-background-teal); color: var(--color-text-teal); }
+.astryx-badge[data-variant="cyan"] { background-color: var(--color-background-cyan); color: var(--color-text-cyan); }
+.astryx-badge[data-variant="blue"] { background-color: var(--color-background-blue); color: var(--color-text-blue); }
+.astryx-badge[data-variant="purple"] { background-color: var(--color-background-purple); color: var(--color-text-purple); }
+.astryx-badge[data-variant="pink"] { background-color: var(--color-background-pink); color: var(--color-text-pink); }
 
-.astryx-badge.accent {
+.astryx-badge[data-variant="accent"] {
   background-color: var(--color-accent);
   color: var(--color-on-accent);
 }
 
-.astryx-badge.outline {
+.astryx-badge[data-variant="outline"] {
   background-color: transparent;
   border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
   color: var(--color-text-secondary);
@@ -111,10 +111,10 @@
   flex-shrink: 0;
 }
 
-.astryx-statusdot.success { background-color: var(--color-success); }
-.astryx-statusdot.warning { background-color: var(--color-warning); }
-.astryx-statusdot.error { background-color: var(--color-error); }
-.astryx-statusdot.accent { background-color: var(--color-accent); }
+.astryx-statusdot[data-variant="success"] { background-color: var(--color-success); }
+.astryx-statusdot[data-variant="warning"] { background-color: var(--color-warning); }
+.astryx-statusdot[data-variant="error"] { background-color: var(--color-error); }
+.astryx-statusdot[data-variant="accent"] { background-color: var(--color-accent); }
 
 /* --------------------------------------------------------------- Banner */
 /* Page-level message. The tinted background carries the meaning, so a banner
@@ -138,22 +138,22 @@
   margin-block-start: 0.1em;
 }
 
-.astryx-banner.info {
+.astryx-banner[data-status="info"] {
   background-color: var(--color-background-blue);
   color: var(--color-text-blue);
 }
 
-.astryx-banner.success {
+.astryx-banner[data-status="success"] {
   background-color: var(--color-background-green);
   color: var(--color-text-green);
 }
 
-.astryx-banner.warning {
+.astryx-banner[data-status="warning"] {
   background-color: var(--color-background-yellow);
   color: var(--color-text-yellow);
 }
 
-.astryx-banner.error {
+.astryx-banner[data-status="error"] {
   background-color: var(--color-background-red);
   color: var(--color-text-red);
 }

@@ -74,7 +74,7 @@
 .g-data-comparison-matrix.accent .g-data-comparison-matrix__lead,
 .g-data-comparison-matrix.accent .g-data-comparison-matrix__caption,
 .g-data-comparison-matrix.accent .astryx-eyebrow,
-.g-data-comparison-matrix.accent .astryx-text.supporting {
+.g-data-comparison-matrix.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

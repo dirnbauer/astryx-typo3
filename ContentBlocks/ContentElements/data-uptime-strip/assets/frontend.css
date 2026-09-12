@@ -159,7 +159,7 @@
 .g-data-uptime-strip.accent .g-data-uptime-strip__unit,
 .g-data-uptime-strip.accent .g-data-uptime-strip__label,
 .g-data-uptime-strip.accent .astryx-eyebrow,
-.g-data-uptime-strip.accent .astryx-text.supporting {
+.g-data-uptime-strip.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

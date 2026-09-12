@@ -72,7 +72,7 @@
 .g-data-spec-table.accent .g-data-spec-table__lead,
 .g-data-spec-table.accent .g-data-spec-table__caption,
 .g-data-spec-table.accent .astryx-eyebrow,
-.g-data-spec-table.accent .astryx-text.supporting {
+.g-data-spec-table.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

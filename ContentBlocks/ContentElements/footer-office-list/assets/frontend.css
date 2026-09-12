@@ -54,7 +54,7 @@
 
 .g-footer-office-list.accent .g-footer-office-list__lead,
 .g-footer-office-list.accent .astryx-eyebrow,
-.g-footer-office-list.accent .astryx-text.supporting {
+.g-footer-office-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

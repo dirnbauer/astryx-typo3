@@ -130,7 +130,7 @@
 .g-data-allocation-breakdown.accent .g-data-allocation-breakdown__share,
 .g-data-allocation-breakdown.accent .g-data-allocation-breakdown__unit,
 .g-data-allocation-breakdown.accent .astryx-eyebrow,
-.g-data-allocation-breakdown.accent .astryx-text.supporting {
+.g-data-allocation-breakdown.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

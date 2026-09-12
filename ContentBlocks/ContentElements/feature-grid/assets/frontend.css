@@ -50,7 +50,7 @@
 
 .g-feature-grid.accent .g-feature-grid__lead,
 .g-feature-grid.accent .astryx-eyebrow,
-.g-feature-grid.accent .astryx-text.supporting {
+.g-feature-grid.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

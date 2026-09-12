@@ -66,7 +66,7 @@
 
 .g-chapter-list.accent .g-chapter-list__lead,
 .g-chapter-list.accent .astryx-eyebrow,
-.g-chapter-list.accent .astryx-text.supporting,
+.g-chapter-list.accent .astryx-text[data-type="supporting"],
 .g-chapter-list.accent .g-chapter-list__title,
 .g-chapter-list.accent .g-chapter-list__chapter::before {
   color: currentColor;

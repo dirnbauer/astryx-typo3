@@ -69,7 +69,7 @@
 /* On the accent band the secondary text colour is tuned for the page
    background and would drop out of contrast. */
 .g-footer-link-columns.accent .g-footer-link-columns__lead,
-.g-footer-link-columns.accent .astryx-text.supporting {
+.g-footer-link-columns.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

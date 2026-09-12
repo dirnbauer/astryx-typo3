@@ -59,7 +59,7 @@
 
 .g-pricing-discount-note.accent .g-pricing-discount-note__scope,
 .g-pricing-discount-note.accent .g-pricing-discount-note__lead,
-.g-pricing-discount-note.accent .astryx-text.supporting {
+.g-pricing-discount-note.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

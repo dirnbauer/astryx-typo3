@@ -73,7 +73,7 @@
 .g-pricing-seat-bands.accent .g-pricing-seat-bands__lead,
 .g-pricing-seat-bands.accent .g-pricing-seat-bands__period,
 .g-pricing-seat-bands.accent .g-pricing-seat-bands__band-note,
-.g-pricing-seat-bands.accent .astryx-text.supporting {
+.g-pricing-seat-bands.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

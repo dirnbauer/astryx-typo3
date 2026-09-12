@@ -45,7 +45,7 @@
 
 .g-feature-usecases.accent .g-feature-usecases__lead,
 .g-feature-usecases.accent .astryx-eyebrow,
-.g-feature-usecases.accent .astryx-text.supporting {
+.g-feature-usecases.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

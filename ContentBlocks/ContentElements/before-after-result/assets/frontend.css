@@ -101,7 +101,7 @@
 .g-before-after-result.accent .g-before-after-result__unit,
 .g-before-after-result.accent .g-before-after-result__name,
 .g-before-after-result.accent .astryx-eyebrow,
-.g-before-after-result.accent .astryx-text.supporting {
+.g-before-after-result.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

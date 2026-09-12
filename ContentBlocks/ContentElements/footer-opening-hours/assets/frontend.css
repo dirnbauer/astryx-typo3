@@ -86,7 +86,7 @@
 .g-footer-opening-hours.accent .astryx-eyebrow,
 .g-footer-opening-hours.accent .g-footer-opening-hours__state,
 .g-footer-opening-hours.accent .g-footer-opening-hours__struck,
-.g-footer-opening-hours.accent .astryx-text.supporting {
+.g-footer-opening-hours.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

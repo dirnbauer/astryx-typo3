@@ -39,7 +39,7 @@
 
 .g-client-list.accent .g-client-list__lead,
 .g-client-list.accent .astryx-eyebrow,
-.g-client-list.accent .astryx-text.supporting {
+.g-client-list.accent .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

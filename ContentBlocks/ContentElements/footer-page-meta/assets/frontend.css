@@ -68,7 +68,7 @@
   border-block-start-color: currentColor;
 }
 
-.g-footer-page-meta.accent .astryx-text.supporting,
+.g-footer-page-meta.accent .astryx-text[data-type="supporting"],
 .g-footer-page-meta.accent .g-footer-page-meta__term {
   color: currentColor;
   opacity: 0.85;

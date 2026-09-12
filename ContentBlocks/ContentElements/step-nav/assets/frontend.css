@@ -89,7 +89,7 @@
 }
 
 .g-step-nav.accent .g-step-nav__lead,
-.g-step-nav.accent .astryx-text.supporting,
+.g-step-nav.accent .astryx-text[data-type="supporting"],
 .g-step-nav.accent .g-step-nav__title {
   color: currentColor;
 }
