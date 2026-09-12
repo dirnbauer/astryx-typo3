@@ -3,8 +3,8 @@
  * Expand this extension's own theme seeds into Astryx-shaped theme payloads.
  *
  * Astryx ships seven themes and no more — verified against packages/themes/ in
- * the upstream repository. The thirteen in Build/Data/astryx-themes.json are
- * ours. They are not a different mechanism: each one comes out of here in
+ * the upstream repository, and re-verified on every run against the provenance
+ * each one declares. The eighteen in Build/Data/astryx-themes.json are ours. They are not a different mechanism: each one comes out of here in
  * exactly the structure Astryx's own generateThemeRulesSplit() produces, with
  * the same token names, so every component and every element stylesheet treats
  * them identically to Meta's.

@@ -496,8 +496,15 @@ function collectPages(baseUrlForHarness) {
 
   if (!args.urls) {
     console.error(
-      '--base-url needs --urls=<file>: a JSON array of {"id": "hero-split-media", "path": "/?type=…&elPreview=…&cHash=…"}.\n'
-      + 'Build it from the lab with:  vendor/bin/typo3 desiderio:library:urls --host=astryx_typo3 --json',
+      '--base-url needs --urls=<file>: a JSON array of entries carrying a URL and a name.\n'
+      + '\n'
+      + '  [{"id": "hero-split-media", "path": "/?type=…&elPreview=…&cHash=…"}]\n'
+      + '\n'
+      + 'Produce one from a running instance with\n'
+      + '  vendor/bin/typo3 desiderio:library:urls --site=<identifier> --json > '
+      + 'Build/Data/design-review-urls.json\n'
+      + 'That command writes {cType, uid, group, url} rather than {id, path}; both\n'
+      + 'shapes are accepted, and a cType is used as the name when no id is given.',
     );
     process.exit(1);
   }
@@ -508,11 +515,19 @@ function collectPages(baseUrlForHarness) {
     process.exit(1);
   }
 
-  let pages = JSON.parse(fs.readFileSync(file, 'utf8'));
-  if (args.only) pages = pages.filter(page => args.only.includes(page.id));
-  return pages.slice(0, args.limit).map(page => ({
-    id: page.id,
-    url: page.url ?? new URL(page.path, args.baseUrl).toString(),
+  /*
+   * Two shapes are accepted, because the obvious way to produce this list is to
+   * redirect `desiderio:library:urls --json` into it, and that command names an
+   * entry by its cType rather than by an `id`.
+   */
+  const named = entry => entry.id ?? entry.cType ?? String(entry.uid ?? 'unnamed');
+
+  let pages = JSON.parse(fs.readFileSync(file, 'utf8'))
+    .filter(entry => entry.url || entry.path);
+  if (args.only) pages = pages.filter(entry => args.only.includes(named(entry)));
+  return pages.slice(0, args.limit).map(entry => ({
+    id: named(entry),
+    url: entry.url ?? new URL(entry.path, args.baseUrl).toString(),
   }));
 }
 

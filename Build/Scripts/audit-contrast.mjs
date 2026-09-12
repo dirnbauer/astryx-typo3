@@ -2,8 +2,8 @@
 /**
  * Measure every theme against the contrast requirements of WCAG 2.2 AA.
  *
- * Seven themes × two colour schemes is fourteen palettes, and a person cannot
- * hold fourteen palettes in their head — so the pairs that have to pass are
+ * Twenty-five themes × two colour schemes is fifty palettes, and a person
+ * cannot hold fifty palettes in their head — so the pairs that have to pass are
  * listed once here and checked arithmetically.
  *
  * What this can and cannot tell you:

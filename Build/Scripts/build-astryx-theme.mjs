@@ -28,7 +28,7 @@ const PAYLOAD = path.join(EXT_ROOT, 'Build/astryx/tokens.json');
 const OUTPUT = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
 
 /** Order matters: the first theme is the one a page falls back to. */
-/** All 20 themes, from the generated registry — never a second hardcoded list. */
+/** Every theme, from the generated registry — never a second hardcoded list. */
 const THEMES = JSON.parse(
   fs.readFileSync(path.join(EXT_ROOT, 'Build/Data/theme-registry.json'), 'utf8')
 ).themes.map(theme => theme.id);
