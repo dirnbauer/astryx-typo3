@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-text-media" href="{cb:assetPath()}/frontend.css"/>
@@ -11,9 +12,9 @@
     and reading order no longer follows the DOM.
 </f:comment>
 
-<section class="astryx-section g-text-media {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-text-media__grid {f:if(condition: data.reverse, then: 'reverse')}">
+<a:layout.section surface="{data.tone}" class="g-text-media">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'reverse', else: 'default')}" class="g-text-media__grid">
 
             <f:if condition="{data.image}">
                 <figure class="g-text-media__media">
@@ -21,31 +22,31 @@
                         <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="800" loading="lazy" class="g-text-media__image"/>
                     </f:for>
                     <f:if condition="{data.caption}">
-                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                        <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
                     </f:if>
                 </figure>
             </f:if>
 
             <div class="g-text-media__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
 
                 <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
 
                 <f:if condition="{data.cta_label}">
                     <p class="g-text-media__action">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                     </p>
                 </f:if>
             </div>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

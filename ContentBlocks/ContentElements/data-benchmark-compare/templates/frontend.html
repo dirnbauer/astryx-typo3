@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-data-benchmark-compare" href="{cb:assetPath()}/frontend.css"/>
@@ -11,18 +12,18 @@
     the pair comparable and the rows deliberately not.
 </f:comment>
 
-<section class="astryx-section g-data-benchmark-compare {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-data-benchmark-compare">
+    <a:layout.container size="{data.width}">
 
         <div class="g-data-benchmark-compare__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-data-benchmark-compare__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-data-benchmark-compare__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -42,13 +43,13 @@
                         <dt class="g-data-benchmark-compare__criterion">{row -> f:render.text(field: 'title')}</dt>
 
                         <dd class="g-data-benchmark-compare__series is-ours" style="--value: {row.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                            <span class="astryx-visually-hidden">{data.caption}</span>
+                            <a:atom.visuallyHidden as="span">{data.caption}</a:atom.visuallyHidden>
                             <span class="g-data-benchmark-compare__track" aria-hidden="true"><span class="g-data-benchmark-compare__bar"></span></span>
                             <span class="g-data-benchmark-compare__figure">{row -> f:render.text(field: 'value')}</span>
                         </dd>
 
                         <dd class="g-data-benchmark-compare__series is-reference" style="--value: {row.text -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                            <span class="astryx-visually-hidden">{data.badge_text}</span>
+                            <a:atom.visuallyHidden as="span">{data.badge_text}</a:atom.visuallyHidden>
                             <span class="g-data-benchmark-compare__track" aria-hidden="true"><span class="g-data-benchmark-compare__bar"></span></span>
                             <span class="g-data-benchmark-compare__figure">{row -> f:render.text(field: 'text')}</span>
                         </dd>
@@ -58,10 +59,10 @@
         </figure>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-data-benchmark-compare__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-data-benchmark-compare__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

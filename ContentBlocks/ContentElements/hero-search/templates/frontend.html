@@ -1,37 +1,38 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-search" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-search {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-search">
+    <a:layout.container size="{data.width}">
         <div class="g-hero-search__copy {data.align}">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-hero-search__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-hero-search__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
-            <form class="astryx-field g-hero-search__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
-                <label class="astryx-visually-hidden" for="g-hero-search-q-{data.uid}">
+            <a:molecule.field class="g-hero-search__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+                <a:atom.visuallyHidden as="label" for="g-hero-search-q-{data.uid}">
                     <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
-                </label>
-                <div class="astryx-input-group lg">
+                </a:atom.visuallyHidden>
+                <a:molecule.inputGroup size="lg">
                     <input class="astryx-text-input lg" type="search" name="q" id="g-hero-search-q-{data.uid}"
                            placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchSitePlaceholder', default: 'What are you looking for?')}"/>
-                    <button class="astryx-button primary lg g-hero-search__submit" type="submit">
+                    <a:atom.button variant="primary" size="lg" class="g-hero-search__submit" type="submit">
                         <f:if condition="{data.cta_label}">
                             <f:then>{data.cta_label}</f:then>
                             <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
                         </f:if>
-                    </button>
-                </div>
-            </form>
+                    </a:atom.button>
+                </a:molecule.inputGroup>
+            </a:molecule.field>
 
             <f:if condition="{data.suggestions}">
                 <f:comment>
@@ -43,14 +44,14 @@
                     <ul class="g-hero-search__tokens">
                         <f:for each="{data.suggestions}" as="suggestion">
                             <li>
-                                <f:link.typolink parameter="{suggestion.link}" class="astryx-token g-hero-search__token">{suggestion.title}</f:link.typolink>
+                                <a:atom.token class="g-hero-search__token" parameter="{suggestion.link}">{suggestion.title}</a:atom.token>
                             </li>
                         </f:for>
                     </ul>
                 </nav>
             </f:if>
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

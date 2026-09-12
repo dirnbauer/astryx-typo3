@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-testimonial-portrait" href="{cb:assetPath()}/frontend.css"/>
@@ -11,22 +12,22 @@
     person out twice for no added information.
 </f:comment>
 
-<section class="astryx-section g-testimonial-portrait {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <figure class="astryx-split g-testimonial-portrait__figure {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-testimonial-portrait">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-testimonial-portrait__figure">
 
             <div class="g-testimonial-portrait__body">
-                <blockquote class="astryx-blockquote g-testimonial-portrait__quote">
+                <a:molecule.blockquote class="g-testimonial-portrait__quote">
                     <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </blockquote>
+                </a:molecule.blockquote>
 
                 <f:if condition="{data.author}">
-                    <figcaption class="astryx-citation g-testimonial-portrait__credit">
+                    <a:molecule.citation class="g-testimonial-portrait__credit">
                         <span class="g-testimonial-portrait__name">{data -> f:render.text(field: 'author')}</span>
                         <f:if condition="{data.role}">
                             <span class="g-testimonial-portrait__role">{data -> f:render.text(field: 'role')}</span>
                         </f:if>
-                    </figcaption>
+                    </a:molecule.citation>
                 </f:if>
             </div>
 
@@ -38,8 +39,8 @@
                 </div>
             </f:if>
 
-        </figure>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

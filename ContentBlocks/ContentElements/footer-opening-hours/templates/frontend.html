@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-opening-hours" href="{cb:assetPath()}/frontend.css"/>
@@ -15,24 +16,24 @@
     state survives being read aloud.
 </f:comment>
 
-<section class="astryx-section g-footer-opening-hours {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-opening-hours" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-opening-hours__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.text}">
-                <p class="astryx-text body g-footer-opening-hours__lead">{data -> f:render.text(field: 'text')}</p>
+                <a:atom.text type="body" class="g-footer-opening-hours__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
             </f:if>
         </div>
 
-        <dl class="astryx-metadata-list g-footer-opening-hours__rows {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.metadataList class="g-footer-opening-hours__rows {f:if(condition: data.compact, then: 'is-compact')}">
             <f:for each="{data.rows}" as="row">
-                <div class="astryx-metadata-list-item g-footer-opening-hours__row {f:if(condition: row.included, then: 'is-open', else: 'is-closed')}">
+                <a:molecule.metadataListItem class="g-footer-opening-hours__row {f:if(condition: row.included, then: 'is-open', else: 'is-closed')}">
                     <dt class="g-footer-opening-hours__day">{row -> f:render.text(field: 'title')}</dt>
 
                     <dd class="g-footer-opening-hours__hours">
@@ -48,17 +49,17 @@
                     </dd>
 
                     <f:if condition="{row.text}">
-                        <dd class="astryx-text supporting g-footer-opening-hours__qualifier">{row -> f:render.text(field: 'text')}</dd>
+                        <a:atom.text type="supporting" as="dd" class="g-footer-opening-hours__qualifier">{row -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
-                </div>
+                </a:molecule.metadataListItem>
             </f:for>
-        </dl>
+        </a:molecule.metadataList>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-opening-hours__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-opening-hours__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

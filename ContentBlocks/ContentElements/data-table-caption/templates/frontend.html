@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-data-table-caption" href="{cb:assetPath()}/frontend.css"/>
@@ -11,23 +12,23 @@
     types a header row that could then disagree with the columns under it.
 </f:comment>
 
-<section class="astryx-section g-data-table-caption {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-data-table-caption">
+    <a:layout.container size="{data.width}">
 
         <div class="g-data-table-caption__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-data-table-caption__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-data-table-caption__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
         <div class="astryx-table-wrap">
-            <table class="astryx-table {f:if(condition: data.compact, then: 'compact')} g-data-table-caption__table">
+            <a:molecule.table density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-data-table-caption__table">
                 <f:if condition="{data.caption}">
                     <caption class="g-data-table-caption__caption">{data -> f:render.text(field: 'caption')}</caption>
                 </f:if>
@@ -47,14 +48,14 @@
                         </tr>
                     </f:for>
                 </tbody>
-            </table>
+            </a:molecule.table>
         </div>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-data-table-caption__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-data-table-caption__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

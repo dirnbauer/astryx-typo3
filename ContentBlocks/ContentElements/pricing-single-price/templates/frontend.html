@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pricing-single-price" href="{cb:assetPath()}/frontend.css"/>
@@ -10,37 +11,37 @@
     "What the single practice pays", not "39 euros".
 </f:comment>
 
-<section class="astryx-section g-pricing-single-price {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-pricing-single-price" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-pricing-single-price__panel">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-pricing-single-price__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-pricing-single-price__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <p class="g-pricing-single-price__figure">
-                <span class="astryx-text display-2 g-pricing-single-price__amount">{data -> f:render.text(field: 'price')}</span><f:if condition="{data.period}"><span class="astryx-text large g-pricing-single-price__period">{data -> f:render.text(field: 'period')}</span></f:if>
+                <a:atom.text type="display-2" as="span" class="g-pricing-single-price__amount">{data -> f:render.text(field: 'price')}</a:atom.text><f:if condition="{data.period}"><a:atom.text type="large" as="span" class="g-pricing-single-price__period">{data -> f:render.text(field: 'period')}</a:atom.text></f:if>
             </p>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <div class="astryx-button-group g-pricing-single-price__actions">
+                <a:molecule.buttonGroup class="g-pricing-single-price__actions">
                     <f:if condition="{data.cta_label}">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                     <f:if condition="{data.secondary_label}">
-                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                        <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                     </f:if>
-                </div>
+                </a:molecule.buttonGroup>
             </f:if>
 
             <f:if condition="{data.included}">
-                <ul class="astryx-list compact g-pricing-single-price__included">
+                <a:molecule.list density="compact" class="g-pricing-single-price__included">
                     <f:for each="{data.included}" as="entry">
                         <li class="g-pricing-single-price__entry" data-included="{f:if(condition: entry.included, then: 'yes', else: 'no')}">
                             <f:if condition="{entry.included}">
@@ -51,19 +52,19 @@
                             <span class="g-pricing-single-price__entry-label">{entry -> f:render.text(field: 'title')}</span>
 
                             <f:if condition="{entry.value}">
-                                <span class="astryx-badge outline g-pricing-single-price__qualifier">{entry.value}</span>
+                                <a:atom.badge variant="outline" as="span" class="g-pricing-single-price__qualifier">{entry.value}</a:atom.badge>
                             </f:if>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.list>
             </f:if>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-pricing-single-price__note">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-pricing-single-price__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

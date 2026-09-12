@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-rail" href="{cb:assetPath()}/frontend.css"/>
@@ -10,53 +11,53 @@
     pointer can reach is a scroll container half the readers cannot use.
 </f:comment>
 
-<section class="astryx-section g-feature-rail {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-rail">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-rail__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2" id="g-feature-rail-{data.uid}-heading">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2" id="g-feature-rail-{data.uid}-heading">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-rail__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-rail__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <div class="astryx-carousel gap-4 g-feature-rail__rail">
+        <a:molecule.carousel gap="4" class="g-feature-rail__rail">
             <ul class="astryx-carousel-track g-feature-rail__track {f:if(condition: data.compact, then: 'compact')}" tabindex="0" aria-labelledby="g-feature-rail-{data.uid}-heading">
                 <f:for each="{data.items}" as="item">
                     <li class="astryx-carousel-item g-feature-rail__item">
-                        <article class="astryx-card astryx-feature g-feature-rail__card {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
+                        <a:molecule.card class="astryx-feature g-feature-rail__card {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
                             <f:if condition="{item.icon}">
                                 <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
                             </f:if>
 
-                            <h3 class="astryx-card-title">
+                            <a:molecule.cardTitle>
                                 <f:if condition="{item.link.url}">
                                     <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
                                     <f:else>{item -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
-                            </h3>
+                            </a:molecule.cardTitle>
 
                             <f:if condition="{item.text}">
-                                <p class="astryx-card-body">{item -> f:render.text(field: 'text')}</p>
+                                <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
                             </f:if>
-                        </article>
+                        </a:molecule.card>
                     </li>
                 </f:for>
             </ul>
-        </div>
+        </a:molecule.carousel>
 
         <f:if condition="{data.cta_label}">
             <p class="g-feature-rail__actions">
-                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </p>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

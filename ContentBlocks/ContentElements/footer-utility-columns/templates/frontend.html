@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-utility-columns" href="{cb:assetPath()}/frontend.css"/>
@@ -16,8 +17,8 @@
 
 <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-utility-columns/language/labels.xlf:nav.label', default: 'Footer links')}"/>
 
-<section class="astryx-section g-footer-utility-columns {data.tone}" data-columns="{data.columns}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-footer-utility-columns" data-columns="{data.columns}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-utility-columns__grid">
 
@@ -28,14 +29,14 @@
                     </f:for>
                 </f:if>
 
-                <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-utility-columns__statement">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-utility-columns__statement">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                 </f:if>
             </div>
 
@@ -45,12 +46,12 @@
                         <f:if condition="{item.link.url}">
                             <f:then>
                                 <li class="g-footer-utility-columns__entry is-link">
-                                    <f:link.typolink parameter="{item.link}" class="astryx-link quiet">{item.title}</f:link.typolink>
+                                    <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
                                 </li>
                             </f:then>
                             <f:else>
                                 <li class="g-footer-utility-columns__entry is-heading">
-                                    <h3 class="astryx-text label g-footer-utility-columns__group">{item -> f:render.text(field: 'title')}</h3>
+                                    <a:atom.text type="label" as="h3" class="g-footer-utility-columns__group">{item -> f:render.text(field: 'title')}</a:atom.text>
                                 </li>
                             </f:else>
                         </f:if>
@@ -61,10 +62,10 @@
         </div>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-utility-columns__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-utility-columns__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

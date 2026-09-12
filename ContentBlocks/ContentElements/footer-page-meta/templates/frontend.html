@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-page-meta" href="{cb:assetPath()}/frontend.css"/>
@@ -16,24 +17,24 @@
     not, so a row with no value falls back to its longer text.
 </f:comment>
 
-<section class="astryx-section g-footer-page-meta {data.tone} {f:if(condition: data.compact, then: 'flush', else: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footer-page-meta" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-page-meta__bar">
 
             <f:if condition="{data.header} || {data.text}">
                 <div class="g-footer-page-meta__intro">
                     <f:if condition="{data.header}">
-                        <h2 class="astryx-text label g-footer-page-meta__title">{data -> f:render.text(field: 'header')}</h2>
+                        <a:atom.text type="label" as="h2" class="g-footer-page-meta__title">{data -> f:render.text(field: 'header')}</a:atom.text>
                     </f:if>
                     <f:if condition="{data.text}">
-                        <p class="astryx-text supporting g-footer-page-meta__lead">{data -> f:render.text(field: 'text')}</p>
+                        <a:atom.text type="supporting" class="g-footer-page-meta__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
                 </div>
             </f:if>
 
-            <dl class="astryx-metadata-list horizontal g-footer-page-meta__rows">
+            <a:molecule.metadataList orientation="horizontal" class="g-footer-page-meta__rows">
                 <f:for each="{data.rows}" as="row">
-                    <div class="astryx-metadata-list-item g-footer-page-meta__row">
+                    <a:molecule.metadataListItem class="g-footer-page-meta__row">
                         <dt class="g-footer-page-meta__term">{row -> f:render.text(field: 'title')}</dt>
                         <dd class="g-footer-page-meta__value">
                             <f:if condition="{row.value}">
@@ -41,16 +42,16 @@
                                 <f:else>{row -> f:render.text(field: 'text')}</f:else>
                             </f:if>
                         </dd>
-                    </div>
+                    </a:molecule.metadataListItem>
                 </f:for>
-            </dl>
+            </a:molecule.metadataList>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-footer-page-meta__note">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-footer-page-meta__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

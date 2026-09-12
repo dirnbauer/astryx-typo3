@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-directory-index" href="{cb:assetPath()}/frontend.css"/>
@@ -21,13 +22,13 @@
 <f:variable name="barLetter" value=""/>
 <f:variable name="listLetter" value=""/>
 
-<section class="astryx-section g-directory-index {data.tone}" data-columns="{data.columns}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-directory-index" data-columns="{data.columns}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-directory-index__intro">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-directory-index__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-directory-index__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -59,7 +60,7 @@
                         </f:if>
 
                         <f:if condition="{entry.link.url}">
-                            <f:then><f:link.typolink parameter="{entry.link}" class="astryx-link quiet g-directory-index__link">{entry.title}</f:link.typolink></f:then>
+                            <f:then><a:atom.link variant="quiet" class="g-directory-index__link" parameter="{entry.link}">{entry.title}</a:atom.link></f:then>
                             <f:else><span class="g-directory-index__link">{entry -> f:render.text(field: 'title')}</span></f:else>
                         </f:if>
                     </li>
@@ -68,7 +69,7 @@
 
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

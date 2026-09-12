@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-contact-block" href="{cb:assetPath()}/frontend.css"/>
@@ -14,18 +15,18 @@
     row works with one tap on a phone and still reads as a number on paper.
 </f:comment>
 
-<section class="astryx-section g-footer-contact-block {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-contact-block" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-contact-block__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-footer-contact-block__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-footer-contact-block__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -39,15 +40,15 @@
 
                         <span class="g-footer-contact-block__body">
                             <f:if condition="{channel.description}">
-                                <span class="astryx-text supporting g-footer-contact-block__kind">{channel.description}</span>
+                                <a:atom.text type="supporting" as="span" class="g-footer-contact-block__kind">{channel.description}</a:atom.text>
                             </f:if>
 
-                            <span class="astryx-text body g-footer-contact-block__value">
+                            <a:atom.text type="body" as="span" class="g-footer-contact-block__value">
                                 <f:if condition="{channel.link.url}">
-                                    <f:then><f:link.typolink parameter="{channel.link}" class="astryx-link quiet">{channel.title}</f:link.typolink></f:then>
+                                    <f:then><a:atom.link variant="quiet" parameter="{channel.link}">{channel.title}</a:atom.link></f:then>
                                     <f:else>{channel -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
-                            </span>
+                            </a:atom.text>
                         </span>
                     </li>
                 </f:for>
@@ -55,10 +56,10 @@
         </address>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-contact-block__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-contact-block__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

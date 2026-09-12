@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-office-list" href="{cb:assetPath()}/frontend.css"/>
@@ -14,53 +15,53 @@
     that already says which city this is.
 </f:comment>
 
-<section class="astryx-section g-footer-office-list {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-office-list">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-office-list__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-footer-office-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-footer-office-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-footer-office-list__offices {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:layout.grid cols="{data.columns}" class="g-footer-office-list__offices {f:if(condition: data.compact, then: 'is-compact')}">
             <f:for each="{data.items}" as="office">
-                <li class="astryx-card g-footer-office-list__office">
+                <a:molecule.card class="g-footer-office-list__office">
                     <f:if condition="{office.icon}">
                         <span class="astryx-feature-icon g-footer-office-list__pin" data-icon="{office.icon}" aria-hidden="true"><g:icon name="{office.icon}"/></span>
                     </f:if>
 
-                    <h3 class="astryx-card-title">{office -> f:render.text(field: 'title')}</h3>
+                    <a:molecule.cardTitle>{office -> f:render.text(field: 'title')}</a:molecule.cardTitle>
 
                     <f:if condition="{office.text}">
-                        <address class="astryx-card-body g-footer-office-list__address">{office -> f:render.text(field: 'text')}</address>
+                        <a:molecule.cardBody class="g-footer-office-list__address">{office -> f:render.text(field: 'text')}</a:molecule.cardBody>
                     </f:if>
 
                     <f:if condition="{office.link.url}">
-                        <div class="astryx-card-footer">
+                        <a:molecule.cardFooter>
                             <f:comment>
                                 The link names its own destination. Twelve cards each
                                 offering "Directions" give a screen-reader user twelve
                                 identical links and no way to tell them apart.
                             </f:comment>
-                            <f:link.typolink parameter="{office.link}" class="astryx-link cta g-footer-office-list__directions"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-office-list/language/labels.xlf:office.directions" arguments="{0: office.title}" default="Directions to {office.title}"/></f:link.typolink>
-                        </div>
+                            <a:atom.link variant="cta" class="g-footer-office-list__directions" parameter="{office.link}"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-office-list/language/labels.xlf:office.directions" arguments="{0: office.title}" default="Directions to {office.title}"/></a:atom.link>
+                        </a:molecule.cardFooter>
                     </f:if>
-                </li>
+                </a:molecule.card>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-office-list__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-office-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

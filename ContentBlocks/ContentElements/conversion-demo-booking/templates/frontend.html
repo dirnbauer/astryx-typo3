@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-demo-booking" href="{cb:assetPath()}/frontend.css"/>
@@ -11,50 +12,50 @@
     to book anything.
 </f:comment>
 
-<section class="astryx-section g-conversion-demo-booking {data.tone}">
-    <div class="astryx-layout lg">
-        <div class="astryx-split g-conversion-demo-booking__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-conversion-demo-booking">
+    <a:layout.container size="lg">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-conversion-demo-booking__grid">
 
             <div class="g-conversion-demo-booking__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-conversion-demo-booking__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-conversion-demo-booking__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.agenda}">
-                    <ul class="astryx-grid cols-{data.columns} g-conversion-demo-booking__agenda">
+                    <a:layout.grid cols="{data.columns}" class="g-conversion-demo-booking__agenda">
                         <f:for each="{data.agenda}" as="point">
-                            <li class="astryx-feature g-conversion-demo-booking__point">
+                            <a:molecule.feature class="g-conversion-demo-booking__point">
                                 <f:if condition="{point.icon}">
                                     <span class="astryx-feature-icon" data-icon="{point.icon}" aria-hidden="true"><g:icon name="{point.icon}"/></span>
                                 </f:if>
-                                <h3 class="astryx-card-title">{point -> f:render.text(field: 'title')}</h3>
+                                <a:molecule.cardTitle>{point -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                                 <f:if condition="{point.text}">
-                                    <p class="astryx-card-body">{point -> f:render.text(field: 'text')}</p>
+                                    <a:molecule.cardBody>{point -> f:render.text(field: 'text')}</a:molecule.cardBody>
                                 </f:if>
-                            </li>
+                            </a:molecule.feature>
                         </f:for>
-                    </ul>
+                    </a:layout.grid>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <div class="astryx-button-group g-conversion-demo-booking__actions">
+                    <a:molecule.buttonGroup class="g-conversion-demo-booking__actions">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-demo-booking__secondary">{data.secondary_label}</f:link.typolink>
+                            <a:atom.link variant="cta" class="g-conversion-demo-booking__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
                         </f:if>
-                    </div>
+                    </a:molecule.buttonGroup>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-conversion-demo-booking__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-demo-booking__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
@@ -66,8 +67,8 @@
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

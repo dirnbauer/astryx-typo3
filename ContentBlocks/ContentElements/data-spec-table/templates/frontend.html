@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-data-spec-table" href="{cb:assetPath()}/frontend.css"/>
@@ -11,43 +12,43 @@
     is a second value on the same term, not a paragraph of its own.
 </f:comment>
 
-<section class="astryx-section g-data-spec-table {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-data-spec-table">
+    <a:layout.container size="{data.width}">
 
         <div class="g-data-spec-table__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-data-spec-table__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-data-spec-table__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
         <f:if condition="{data.caption}">
-            <p class="astryx-text label g-data-spec-table__caption">{data -> f:render.text(field: 'caption')}</p>
+            <a:atom.text type="label" class="g-data-spec-table__caption">{data -> f:render.text(field: 'caption')}</a:atom.text>
         </f:if>
 
-        <dl class="astryx-metadata-list g-data-spec-table__rows {f:if(condition: data.compact, then: 'compact')}">
+        <a:molecule.metadataList class="g-data-spec-table__rows {f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.rows}" as="row">
-                <div class="astryx-metadata-list-item g-data-spec-table__row">
+                <a:molecule.metadataListItem class="g-data-spec-table__row">
                     <dt class="g-data-spec-table__term">{row -> f:render.text(field: 'title')}</dt>
                     <dd class="g-data-spec-table__value">{row -> f:render.text(field: 'value')}</dd>
 
                     <f:if condition="{row.text}">
-                        <dd class="astryx-text supporting g-data-spec-table__caveat">{row -> f:render.text(field: 'text')}</dd>
+                        <a:atom.text type="supporting" as="dd" class="g-data-spec-table__caveat">{row -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
-                </div>
+                </a:molecule.metadataListItem>
             </f:for>
-        </dl>
+        </a:molecule.metadataList>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-data-spec-table__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-data-spec-table__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

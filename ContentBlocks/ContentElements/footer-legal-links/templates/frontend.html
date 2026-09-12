@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-legal-links" href="{cb:assetPath()}/frontend.css"/>
@@ -19,16 +20,16 @@
     <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-legal-links/language/labels.xlf:nav.label', default: 'Legal')}"/>
 </f:if>
 
-<section class="astryx-section g-footer-legal-links {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-legal-links" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.text}">
             <div class="g-footer-legal-links__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.text}">
-                    <p class="astryx-text supporting g-footer-legal-links__lead">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="supporting" class="g-footer-legal-links__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -37,17 +38,17 @@
             <ul class="g-footer-legal-links__list {f:if(condition: data.compact, then: 'is-compact')}">
                 <f:for each="{data.links}" as="item">
                     <li class="g-footer-legal-links__item">
-                        <f:link.typolink parameter="{item.link}" class="astryx-link quiet g-footer-legal-links__link" title="{item.description}">{item.title}</f:link.typolink>
+                        <a:atom.link variant="quiet" class="g-footer-legal-links__link" parameter="{item.link}" title="{item.description}">{item.title}</a:atom.link>
                     </li>
                 </f:for>
             </ul>
         </nav>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-legal-links__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-legal-links__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

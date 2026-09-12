@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-workflow" href="{cb:assetPath()}/frontend.css"/>
@@ -10,18 +11,18 @@
     start of a new line points at nothing.
 </f:comment>
 
-<section class="astryx-section g-feature-workflow {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-workflow" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-workflow__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-workflow__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-workflow__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -32,20 +33,20 @@
                         <span class="astryx-feature-icon" data-icon="{stage.icon}" aria-hidden="true"><g:icon name="{stage.icon}"/></span>
                     </f:if>
 
-                    <h3 class="astryx-heading level-4">{stage -> f:render.text(field: 'title')}</h3>
+                    <a:atom.heading level="4">{stage -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{stage.text}">
-                        <p class="astryx-text supporting">{stage -> f:render.text(field: 'text')}</p>
+                        <a:atom.text type="supporting">{stage -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
                 </li>
             </f:for>
         </ol>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-feature-workflow__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-feature-workflow__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

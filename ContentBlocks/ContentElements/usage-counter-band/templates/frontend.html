@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-usage-counter-band" href="{cb:assetPath()}/frontend.css"/>
@@ -13,12 +14,12 @@
     and quiet — the moment they compete, this is the logo wall instead.
 </f:comment>
 
-<section class="astryx-section g-usage-counter-band {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-usage-counter-band" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-usage-counter-band__inner">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
             <p class="g-usage-counter-band__count">
@@ -26,11 +27,11 @@
             </p>
 
             <f:if condition="{data.header}">
-                <h2 class="astryx-heading level-3 g-usage-counter-band__claim">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3" class="g-usage-counter-band__claim">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-usage-counter-band__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-usage-counter-band__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.logos}">
@@ -57,7 +58,7 @@
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

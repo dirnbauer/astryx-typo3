@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-cta-proof" href="{cb:assetPath()}/frontend.css"/>
@@ -10,29 +11,29 @@
     names and no reason for them being there.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-proof {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-conversion-cta-proof" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-conversion-cta-proof__ask">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-conversion-cta-proof__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-conversion-cta-proof__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <div class="astryx-button-group g-conversion-cta-proof__actions">
+                <a:molecule.buttonGroup class="g-conversion-cta-proof__actions">
                     <f:if condition="{data.cta_label}">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                     <f:if condition="{data.secondary_label}">
-                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-cta-proof__secondary">{data.secondary_label}</f:link.typolink>
+                        <a:atom.link variant="cta" class="g-conversion-cta-proof__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
                     </f:if>
-                </div>
+                </a:molecule.buttonGroup>
             </f:if>
         </div>
 
@@ -41,10 +42,10 @@
                 <hr class="astryx-divider g-conversion-cta-proof__rule"/>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-conversion-cta-proof__note" id="g-conversion-cta-proof-note-{data.uid}">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-cta-proof__note" id="g-conversion-cta-proof-note-{data.uid}">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
 
-                <ul class="astryx-overflow-list multi-row g-conversion-cta-proof__row" aria-labelledby="g-conversion-cta-proof-note-{data.uid}">
+                <a:molecule.overflowList wrap="multi-row" class="g-conversion-cta-proof__row" aria-labelledby="g-conversion-cta-proof-note-{data.uid}">
                     <f:for each="{data.logos}" as="logo">
                         <li class="g-conversion-cta-proof__mark">
                             <f:if condition="{logo.link.url}">
@@ -59,12 +60,12 @@
                             </f:if>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.overflowList>
             </div>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 <f:comment>
     A mark is artwork when there is artwork and the customer's name set as

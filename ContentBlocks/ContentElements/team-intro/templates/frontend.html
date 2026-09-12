@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-team-intro" href="{cb:assetPath()}/frontend.css"/>
@@ -14,18 +15,18 @@
     its own.
 </f:comment>
 
-<section class="astryx-section g-team-intro {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-team-intro">
+    <a:layout.container size="{data.width}">
         <div class="g-team-intro__copy align-{data.align}">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-team-intro__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-team-intro__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.bodytext}">
@@ -33,18 +34,18 @@
             </f:if>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <div class="astryx-button-group g-team-intro__actions">
+                <a:molecule.buttonGroup class="g-team-intro__actions">
                     <f:if condition="{data.cta_label}">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                     <f:if condition="{data.secondary_label}">
-                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost">{data.secondary_label}</f:link.typolink>
+                        <a:atom.button variant="ghost" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                     </f:if>
-                </div>
+                </a:molecule.buttonGroup>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

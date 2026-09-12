@@ -1,29 +1,30 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-app" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-app {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-hero-app__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-hero-app">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-hero-app__grid">
 
             <div class="g-hero-app__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-hero-app__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-hero-app__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.stores}">
                     <ul class="g-hero-app__stores">
                         <f:for each="{data.stores}" as="store">
                             <li>
-                                <f:link.typolink parameter="{store.link}" class="astryx-item interactive g-hero-app__store">
+                                <a:molecule.item interactive="interactive" class="g-hero-app__store" parameter="{store.link}">
                                     <f:comment>
                                         One glyph for every store: the child carries the
                                         platform name, so no store artwork — with its own
@@ -33,20 +34,20 @@
                                         <path d="M12 3v11m0 0 4-4m-4 4-4-4"/>
                                         <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
                                     </svg>
-                                    <span class="astryx-item-content">
+                                    <a:molecule.itemContent>
                                         <f:if condition="{store.description}">
-                                            <span class="astryx-item-description">{store.description}</span>
+                                            <a:molecule.itemDescription>{store.description}</a:molecule.itemDescription>
                                         </f:if>
-                                        <span class="astryx-item-label g-hero-app__store-name">{store.title}</span>
-                                    </span>
-                                </f:link.typolink>
+                                        <a:molecule.itemLabel class="g-hero-app__store-name">{store.title}</a:molecule.itemLabel>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
                             </li>
                         </f:for>
                     </ul>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-hero-app__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-hero-app__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
@@ -58,8 +59,8 @@
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

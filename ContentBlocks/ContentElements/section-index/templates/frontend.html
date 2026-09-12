@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-section-index" href="{cb:assetPath()}/frontend.css"/>
@@ -14,18 +15,18 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.index" default="Index"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-section-index {data.tone}" data-columns="{data.columns}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-section-index" data-columns="{data.columns}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-section-index__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-section-index__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-section-index__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -34,19 +35,19 @@
                 <f:for each="{data.entries}" as="entry">
                     <li class="g-section-index__entry">
                         <f:if condition="{entry.link.url}">
-                            <f:then><f:link.typolink parameter="{entry.link}" class="astryx-link quiet g-section-index__title">{entry.title}</f:link.typolink></f:then>
+                            <f:then><a:atom.link variant="quiet" class="g-section-index__title" parameter="{entry.link}">{entry.title}</a:atom.link></f:then>
                             <f:else><span class="g-section-index__title">{entry -> f:render.text(field: 'title')}</span></f:else>
                         </f:if>
 
                         <f:if condition="{entry.description}">
-                            <span class="astryx-text supporting g-section-index__note">{entry -> f:render.text(field: 'description')}</span>
+                            <a:atom.text type="supporting" as="span" class="g-section-index__note">{entry -> f:render.text(field: 'description')}</a:atom.text>
                         </f:if>
                     </li>
                 </f:for>
             </ul>
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

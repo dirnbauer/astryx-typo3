@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -22,21 +23,21 @@
                 URL, so it works with the network slow, is crawlable, and gives
                 a visitor who does not know what to type somewhere to start.
             </f:comment>
-            <section class="astryx-card flat g-search__facet" aria-labelledby="tx-solr-frequent-searches-label">
-                <h2 class="astryx-card-title g-search__facet-title" id="tx-solr-frequent-searches-label">
+            <a:molecule.card variant="flat" class="g-search__facet" aria-labelledby="tx-solr-frequent-searches-label">
+                <a:molecule.cardTitle class="g-search__facet-title" id="tx-solr-frequent-searches-label">
                     <f:translate key="{labels}:search.frequentSearches" default="Popular searches"/>
-                </h2>
+                </a:molecule.cardTitle>
 
                 <ul class="g-search__chips" id="tx-solr-frequent-searches">
                     <f:for each="{frequentSearches}" as="searchedForInfo">
                         <li>
-                            <a href="{s:uri.search.startNewSearch(queryString: searchedForInfo.q)}" class="astryx-token g-search__chip solr-ajaxified">
+                            <a:atom.token class="g-search__chip solr-ajaxified" href="{s:uri.search.startNewSearch(queryString: searchedForInfo.q)}">
                                 <f:format.htmlentities>{searchedForInfo.q}</f:format.htmlentities>
-                            </a>
+                            </a:atom.token>
                         </li>
                     </f:for>
                 </ul>
-            </section>
+            </a:molecule.card>
         </f:if>
     </s:frequentlySearched>
 </f:section>

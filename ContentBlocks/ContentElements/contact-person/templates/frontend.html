@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-contact-person" href="{cb:assetPath()}/frontend.css"/>
@@ -18,47 +19,47 @@
     stands on its own beside the text.
 </f:comment>
 
-<section class="astryx-section g-contact-person {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-card roomy g-contact-person__panel {f:if(condition: data.reverse, then: 'portrait-end')}">
+<a:layout.section surface="{data.tone}" class="g-contact-person">
+    <a:layout.container size="{data.width}">
+        <a:molecule.card density="roomy" class="g-contact-person__panel {f:if(condition: data.reverse, then: 'portrait-end')}">
 
             <f:if condition="{data.image}">
-                <span class="astryx-avatar xl g-contact-person__portrait">
+                <a:atom.avatar size="xl" class="g-contact-person__portrait">
                     <f:for each="{data.image}" as="image">
                         <f:image image="{image}" alt="{data.header}" width="256c" height="256c" loading="lazy"/>
                     </f:for>
-                </span>
+                </a:atom.avatar>
             </f:if>
 
             <div class="g-contact-person__body">
-                <h2 class="astryx-heading level-3 g-contact-person__name">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3" class="g-contact-person__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.subheader}">
-                    <p class="astryx-text label g-contact-person__role">{data -> f:render.text(field: 'subheader')}</p>
+                    <a:atom.text type="label" class="g-contact-person__role">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-contact-person__text">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-contact-person__text">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <div class="astryx-button-group g-contact-person__actions">
+                    <a:molecule.buttonGroup class="g-contact-person__actions">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost">{data.secondary_label}</f:link.typolink>
+                            <a:atom.button variant="ghost" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                         </f:if>
-                    </div>
+                    </a:molecule.buttonGroup>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-contact-person__hours">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-contact-person__hours">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
-        </div>
-    </div>
-</section>
+        </a:molecule.card>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

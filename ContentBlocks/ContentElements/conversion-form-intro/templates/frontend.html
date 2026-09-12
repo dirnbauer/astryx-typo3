@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-form-intro" href="{cb:assetPath()}/frontend.css"/>
@@ -15,58 +16,58 @@
     numbers drawn beside each step are decoration on top of that.
 </f:comment>
 
-<section class="astryx-section g-conversion-form-intro {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-conversion-form-intro" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-conversion-form-intro__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.subheader}">
-                <p class="astryx-text large g-conversion-form-intro__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                <a:atom.text type="large" class="g-conversion-form-intro__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-conversion-form-intro__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-conversion-form-intro__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ol class="astryx-list with-dividers spacious g-conversion-form-intro__steps">
+        <a:molecule.list dividers="with-dividers" density="spacious" class="g-conversion-form-intro__steps">
             <f:for each="{data.steps}" as="step" iteration="position">
                 <li class="g-conversion-form-intro__step">
                     <span class="g-conversion-form-intro__number" aria-hidden="true">{position.cycle}</span>
 
                     <div class="g-conversion-form-intro__step-body">
-                        <h3 class="astryx-card-title g-conversion-form-intro__step-title">{step -> f:render.text(field: 'title')}</h3>
+                        <a:molecule.cardTitle class="g-conversion-form-intro__step-title">{step -> f:render.text(field: 'title')}</a:molecule.cardTitle>
 
                         <f:if condition="{step.value}">
-                            <p class="astryx-text supporting g-conversion-form-intro__duration">{step -> f:render.text(field: 'value')}</p>
+                            <a:atom.text type="supporting" class="g-conversion-form-intro__duration">{step -> f:render.text(field: 'value')}</a:atom.text>
                         </f:if>
 
                         <f:if condition="{step.text}">
-                            <p class="astryx-text body g-conversion-form-intro__step-text">{step -> f:render.text(field: 'text')}</p>
+                            <a:atom.text type="body" class="g-conversion-form-intro__step-text">{step -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
                     </div>
                 </li>
             </f:for>
-        </ol>
+        </a:molecule.list>
 
         <div class="g-conversion-form-intro__foot">
             <f:if condition="{data.cta_label}">
-                <div class="astryx-button-group g-conversion-form-intro__actions">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
-                </div>
+                <a:molecule.buttonGroup class="g-conversion-form-intro__actions">
+                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
             </f:if>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-conversion-form-intro__note">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-conversion-form-intro__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
         </div>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

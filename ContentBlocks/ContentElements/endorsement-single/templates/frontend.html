@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-endorsement-single" href="{cb:assetPath()}/frontend.css"/>
@@ -10,31 +11,31 @@
     The portrait carries an empty alt: the name is printed right beside it.
 </f:comment>
 
-<section class="astryx-section g-endorsement-single {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-endorsement-single" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <figure class="g-endorsement-single__figure">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
             <f:if condition="{data.badge_text}">
                 <p class="g-endorsement-single__badge-row">
-                    <span class="astryx-badge outline">{data -> f:render.text(field: 'badge_text')}</span>
+                    <a:atom.badge variant="outline" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                 </p>
             </f:if>
 
-            <blockquote class="astryx-blockquote g-endorsement-single__quote">
+            <a:molecule.blockquote class="g-endorsement-single__quote">
                 <p>{data -> f:render.text(field: 'quote_text')}</p>
-            </blockquote>
+            </a:molecule.blockquote>
 
-            <figcaption class="astryx-citation g-endorsement-single__credit">
+            <a:molecule.citation class="g-endorsement-single__credit">
                 <f:if condition="{data.image}">
-                    <span class="astryx-avatar lg g-endorsement-single__portrait">
+                    <a:atom.avatar size="lg" class="g-endorsement-single__portrait">
                         <f:for each="{data.image}" as="image">
                             <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
                         </f:for>
-                    </span>
+                    </a:atom.avatar>
                 </f:if>
 
                 <span class="g-endorsement-single__who">
@@ -43,10 +44,10 @@
                         <span class="g-endorsement-single__role">{data -> f:render.text(field: 'role')}</span>
                     </f:if>
                 </span>
-            </figcaption>
+            </a:molecule.citation>
 
         </figure>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

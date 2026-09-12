@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-article-header" href="{cb:assetPath()}/frontend.css"/>
@@ -10,38 +11,38 @@
     who navigates by landmark with two competing answers to "where am I".
 </f:comment>
 
-<header class="astryx-section g-article-header {data.tone}">
-    <div class="astryx-layout md">
+<a:layout.section surface="{data.tone}" class="g-article-header">
+    <a:layout.container size="md">
         <div class="g-article-header__intro align-{data.align}">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-article-header__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-article-header__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.author} || {data.note}">
                 <div class="g-article-header__byline">
                     <f:if condition="{data.author}">
-                        <p class="astryx-text label g-article-header__author">
+                        <a:atom.text type="label" class="g-article-header__author">
                             {data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-article-header__role">{data -> f:render.text(field: 'role')}</span></f:if>
-                        </p>
+                        </a:atom.text>
                     </f:if>
                     <f:if condition="{data.note}">
-                        <p class="astryx-text supporting g-article-header__dateline">{data -> f:render.text(field: 'note')}</p>
+                        <a:atom.text type="supporting" class="g-article-header__dateline">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
                 </div>
             </f:if>
 
         </div>
-    </div>
+    </a:layout.container>
 
     <f:if condition="{data.image}">
-        <div class="astryx-layout lg g-article-header__figure-layout">
+        <a:layout.container size="lg" class="g-article-header__figure-layout">
             <figure class="g-article-header__figure">
                 <f:for each="{data.image}" as="image">
                     <f:comment>
@@ -51,11 +52,11 @@
                     <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="eager" class="g-article-header__image"/>
                 </f:for>
                 <f:if condition="{data.caption}">
-                    <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
                 </f:if>
             </figure>
-        </div>
+        </a:layout.container>
     </f:if>
-</header>
+</a:layout.section>
 
 </html>

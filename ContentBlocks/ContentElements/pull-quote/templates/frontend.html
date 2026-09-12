@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pull-quote" href="{cb:assetPath()}/frontend.css"/>
@@ -10,22 +11,22 @@
     index gets a phrase that no longer matches the article it was lifted from.
 </f:comment>
 
-<section class="astryx-section g-pull-quote">
-    <div class="astryx-layout {data.width}">
+<a:layout.section class="g-pull-quote">
+    <a:layout.container size="{data.width}">
         <figure class="g-pull-quote__figure align-{data.align}">
 
-            <blockquote class="astryx-blockquote g-pull-quote__quote">
+            <a:molecule.blockquote class="g-pull-quote__quote">
                 <p>{data -> f:render.text(field: 'quote_text')}</p>
-            </blockquote>
+            </a:molecule.blockquote>
 
             <f:if condition="{data.author}">
-                <figcaption class="astryx-citation g-pull-quote__credit">
+                <a:molecule.citation class="g-pull-quote__credit">
                     {data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-pull-quote__role">{data -> f:render.text(field: 'role')}</span></f:if>
-                </figcaption>
+                </a:molecule.citation>
             </f:if>
 
         </figure>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-demo" href="{cb:assetPath()}/frontend.css"/>
@@ -12,64 +13,64 @@
 
 <f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
 
-<section class="astryx-section g-feature-demo {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-feature-demo__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-feature-demo">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-feature-demo__grid">
 
             <div class="g-feature-demo__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.bodytext}">
                     <div class="astryx-prose g-feature-demo__body"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-feature-demo__runtime">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-feature-demo__runtime">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
             <figure class="g-feature-demo__media">
-                <div class="astryx-overlay g-feature-demo__poster">
+                <a:molecule.overlay class="g-feature-demo__poster">
                     <f:for each="{data.image}" as="image">
                         <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-demo__image"/>
                     </f:for>
 
                     <f:if condition="{data.cta_label} && {data.cta_link}">
                         <span class="astryx-overlay-scrim fill align-center always g-feature-demo__scrim">
-                            <button type="button" class="astryx-button primary lg g-feature-demo__play" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</button>
+                            <a:atom.button variant="primary" size="lg" class="g-feature-demo__play" type="button" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</a:atom.button>
                         </span>
                     </f:if>
-                </div>
+                </a:molecule.overlay>
 
                 <f:if condition="{data.caption}">
-                    <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                    <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
                 </f:if>
             </figure>
 
-        </div>
-    </div>
+        </a:layout.split>
+    </a:layout.container>
 
     <f:if condition="{data.cta_link.url}">
-        <dialog class="astryx-dialog g-feature-demo__dialog" id="g-feature-demo-{data.uid}" aria-labelledby="g-feature-demo-{data.uid}-title">
+        <a:molecule.dialog class="g-feature-demo__dialog" id="g-feature-demo-{data.uid}" aria-labelledby="g-feature-demo-{data.uid}-title">
             <div class="astryx-dialog-header">
                 <h3 class="astryx-dialog-title" id="g-feature-demo-{data.uid}-title">{data.header}</h3>
 
-                <button type="button" class="astryx-button ghost astryx-icon-button g-feature-demo__close" data-g-dialog-close aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}">
+                <a:atom.button variant="ghost" class="astryx-icon-button g-feature-demo__close" type="button" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}">
                     <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                </button>
+                </a:atom.button>
             </div>
 
             <div class="astryx-dialog-body">
-                <div class="astryx-aspect-ratio g-feature-demo__frame">
+                <a:atom.aspectRatio class="g-feature-demo__frame">
                     <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                </div>
+                </a:atom.aspectRatio>
             </div>
-        </dialog>
+        </a:molecule.dialog>
     </f:if>
-</section>
+</a:layout.section>
 
 </html>

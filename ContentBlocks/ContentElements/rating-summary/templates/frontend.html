@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-rating-summary" href="{cb:assetPath()}/frontend.css"/>
@@ -15,16 +16,16 @@
     read it.
 </f:comment>
 
-<section class="astryx-section g-rating-summary {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-rating-summary" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-rating-summary__inner">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
             <f:if condition="{data.header}">
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
             <p class="g-rating-summary__score">
@@ -40,21 +41,21 @@
             </p>
 
             <f:if condition="{data.text}">
-                <p class="astryx-text large g-rating-summary__count">{data -> f:render.text(field: 'text')}</p>
+                <a:atom.text type="large" class="g-rating-summary__count">{data -> f:render.text(field: 'text')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-rating-summary__source">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-rating-summary__source">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.cta_label}">
                 <p class="g-rating-summary__actions">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </p>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

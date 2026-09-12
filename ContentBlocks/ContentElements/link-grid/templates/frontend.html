@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-link-grid" href="{cb:assetPath()}/frontend.css"/>
@@ -17,16 +18,16 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.linkList" default="Link list"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-link-grid {data.tone}" data-columns="{data.columns}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-link-grid" data-columns="{data.columns}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-link-grid__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-link-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-link-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -36,7 +37,7 @@
                 <f:for each="{data.links}" as="link">
                     <li class="g-link-grid__item">
                         <f:if condition="{link.link.url}">
-                            <f:then><f:link.typolink parameter="{link.link}" class="astryx-link quiet g-link-grid__link">{link.title}</f:link.typolink></f:then>
+                            <f:then><a:atom.link variant="quiet" class="g-link-grid__link" parameter="{link.link}">{link.title}</a:atom.link></f:then>
                             <f:else><span class="g-link-grid__link">{link -> f:render.text(field: 'title')}</span></f:else>
                         </f:if>
                     </li>
@@ -44,7 +45,7 @@
             </ul>
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

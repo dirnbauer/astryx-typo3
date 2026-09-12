@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-trust-signals" href="{cb:assetPath()}/frontend.css"/>
@@ -13,9 +14,9 @@
     icon library never reaches into a template.
 </f:comment>
 
-<section class="astryx-section g-trust-signals {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
-        <ul class="astryx-grid cols-{data.columns} g-trust-signals__signals">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-trust-signals" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
+        <a:layout.grid cols="{data.columns}" class="g-trust-signals__signals">
             <f:for each="{data.signals}" as="signal">
                 <li class="g-trust-signals__signal">
                     <f:if condition="{signal.icon}">
@@ -23,21 +24,21 @@
                     </f:if>
 
                     <span class="g-trust-signals__copy">
-                        <span class="astryx-text label g-trust-signals__promise">
+                        <a:atom.text type="label" as="span" class="g-trust-signals__promise">
                             <f:if condition="{signal.link.url}">
-                                <f:then><f:link.typolink parameter="{signal.link}" class="astryx-link quiet">{signal.title}</f:link.typolink></f:then>
+                                <f:then><a:atom.link variant="quiet" parameter="{signal.link}">{signal.title}</a:atom.link></f:then>
                                 <f:else>{signal -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </span>
+                        </a:atom.text>
 
                         <f:if condition="{signal.text}">
-                            <span class="astryx-text supporting g-trust-signals__detail">{signal -> f:render.text(field: 'text')}</span>
+                            <a:atom.text type="supporting" as="span" class="g-trust-signals__detail">{signal -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
                     </span>
                 </li>
             </f:for>
-        </ul>
-    </div>
-</section>
+        </a:layout.grid>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

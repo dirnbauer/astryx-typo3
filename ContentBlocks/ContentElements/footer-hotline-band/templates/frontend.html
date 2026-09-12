@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-hotline-band" href="{cb:assetPath()}/frontend.css"/>
@@ -16,19 +17,19 @@
     keeps true, not a state this band works out for itself.
 </f:comment>
 
-<section class="astryx-section g-footer-hotline-band {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-footer-hotline-band" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-hotline-band__panel">
 
             <div class="g-footer-hotline-band__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-hotline-band__hours">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-hotline-band__hours">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
             </div>
 
@@ -38,24 +39,24 @@
                 </f:if>
 
                 <f:link.typolink parameter="{data.cta_link}" class="g-footer-hotline-band__number-link">
-                    <span class="astryx-text display-3 g-footer-hotline-band__number">{data.value}</span>
+                    <a:atom.text type="display-3" as="span" class="g-footer-hotline-band__number">{data.value}</a:atom.text>
                     <f:if condition="{data.cta_label}">
-                        <span class="astryx-text label g-footer-hotline-band__action">{data.cta_label}</span>
+                        <a:atom.text type="label" as="span" class="g-footer-hotline-band__action">{data.cta_label}</a:atom.text>
                     </f:if>
                 </f:link.typolink>
 
                 <f:if condition="{data.secondary_label}">
-                    <f:link.typolink parameter="{data.secondary_link}" class="astryx-button secondary g-footer-hotline-band__second">{data.secondary_label}</f:link.typolink>
+                    <a:atom.button variant="secondary" class="g-footer-hotline-band__second" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                 </f:if>
             </div>
 
         </div>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-hotline-band__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-hotline-band__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

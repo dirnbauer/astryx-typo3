@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-social-row" href="{cb:assetPath()}/frontend.css"/>
@@ -18,16 +19,16 @@
     <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-social-row/language/labels.xlf:nav.label', default: 'Our profiles')}"/>
 </f:if>
 
-<section class="astryx-section g-footer-social-row {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-social-row" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.text}">
             <div class="g-footer-social-row__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-social-row__lead">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-social-row__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -36,21 +37,21 @@
             <ul class="g-footer-social-row__list {f:if(condition: data.compact, then: 'is-compact')}">
                 <f:for each="{data.links}" as="profile">
                     <li class="g-footer-social-row__item">
-                        <f:link.typolink parameter="{profile.link}" class="astryx-item interactive g-footer-social-row__link">
+                        <a:molecule.item interactive="interactive" class="g-footer-social-row__link" parameter="{profile.link}">
                             <span class="astryx-item-start astryx-feature-icon g-footer-social-row__icon" data-icon="{profile.icon}" aria-hidden="true"><g:icon name="{profile.icon}"/></span>
-                            <span class="astryx-item-content">
-                                <span class="astryx-item-label g-footer-social-row__name">{profile.title}</span>
+                            <a:molecule.itemContent>
+                                <a:molecule.itemLabel class="g-footer-social-row__name">{profile.title}</a:molecule.itemLabel>
                                 <f:if condition="{profile.description}">
-                                    <span class="astryx-item-description">{profile.description}</span>
+                                    <a:molecule.itemDescription>{profile.description}</a:molecule.itemDescription>
                                 </f:if>
-                            </span>
-                        </f:link.typolink>
+                            </a:molecule.itemContent>
+                        </a:molecule.item>
                     </li>
                 </f:for>
             </ul>
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

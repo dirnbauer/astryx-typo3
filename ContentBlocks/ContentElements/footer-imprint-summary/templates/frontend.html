@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-imprint-summary" href="{cb:assetPath()}/frontend.css"/>
@@ -15,20 +16,20 @@
     unrelated words.
 </f:comment>
 
-<section class="astryx-section g-footer-imprint-summary {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-columns="{data.columns}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-imprint-summary" data-columns="{data.columns}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-imprint-summary__intro">
-            <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.text}">
-                <p class="astryx-text body g-footer-imprint-summary__lead">{data -> f:render.text(field: 'text')}</p>
+                <a:atom.text type="body" class="g-footer-imprint-summary__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
             </f:if>
         </div>
 
-        <dl class="astryx-metadata-list g-footer-imprint-summary__rows {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.metadataList class="g-footer-imprint-summary__rows {f:if(condition: data.compact, then: 'is-compact')}">
             <f:for each="{data.rows}" as="row">
-                <div class="astryx-metadata-list-item g-footer-imprint-summary__row">
+                <a:molecule.metadataListItem class="g-footer-imprint-summary__row">
                     <dt class="g-footer-imprint-summary__term">{row -> f:render.text(field: 'title')}</dt>
                     <dd class="g-footer-imprint-summary__value">
                         <f:if condition="{row.value}">
@@ -38,22 +39,22 @@
                             <span class="g-footer-imprint-summary__long">{row -> f:render.text(field: 'text')}</span>
                         </f:if>
                     </dd>
-                </div>
+                </a:molecule.metadataListItem>
             </f:for>
-        </dl>
+        </a:molecule.metadataList>
 
         <f:if condition="{data.cta_label} || {data.note}">
             <div class="g-footer-imprint-summary__footer">
                 <f:if condition="{data.cta_label}">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                 </f:if>
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-footer-imprint-summary__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-footer-imprint-summary__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

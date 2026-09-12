@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-testimonial-single" href="{cb:assetPath()}/frontend.css"/>
@@ -10,29 +11,29 @@
     field is stored bare — an editor who types the marks in gets four.
 </f:comment>
 
-<section class="astryx-section g-testimonial-single {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-testimonial-single" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow}">
-            <p class="astryx-eyebrow g-testimonial-single__eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+            <a:atom.eyebrow class="g-testimonial-single__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
         </f:if>
 
         <figure class="g-testimonial-single__figure">
-            <blockquote class="astryx-blockquote g-testimonial-single__quote">
+            <a:molecule.blockquote class="g-testimonial-single__quote">
                 <p>{data -> f:render.text(field: 'quote_text')}</p>
-            </blockquote>
+            </a:molecule.blockquote>
 
             <f:if condition="{data.author}">
-                <figcaption class="astryx-citation g-testimonial-single__credit">
+                <a:molecule.citation class="g-testimonial-single__credit">
                     <span class="g-testimonial-single__name">{data -> f:render.text(field: 'author')}</span>
                     <f:if condition="{data.role}">
                         <span class="g-testimonial-single__role">{data -> f:render.text(field: 'role')}</span>
                     </f:if>
-                </figcaption>
+                </a:molecule.citation>
             </f:if>
         </figure>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

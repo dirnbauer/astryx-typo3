@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-social-mentions" href="{cb:assetPath()}/frontend.css"/>
@@ -11,54 +12,54 @@
     with the post in a blockquote and the handle in the caption.
 </f:comment>
 
-<section class="astryx-section g-social-mentions {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-social-mentions">
+    <a:layout.container size="{data.width}">
 
         <div class="g-social-mentions__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-social-mentions__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-social-mentions__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-social-mentions__posts">
+        <a:layout.grid cols="{data.columns}" class="g-social-mentions__posts">
             <f:for each="{data.posts}" as="post">
                 <li class="g-social-mentions__cell">
-                    <figure class="astryx-card tight g-social-mentions__card">
+                    <a:molecule.card density="tight" class="g-social-mentions__card">
                         <figcaption class="g-social-mentions__who">
                             <f:if condition="{post.image}">
-                                <span class="astryx-avatar sm">
+                                <a:atom.avatar size="sm">
                                     <f:for each="{post.image}" as="portrait">
                                         <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
                                     </f:for>
-                                </span>
+                                </a:atom.avatar>
                             </f:if>
 
-                            <span class="astryx-text label g-social-mentions__handle">{post -> f:render.text(field: 'author')}</span>
+                            <a:atom.text type="label" as="span" class="g-social-mentions__handle">{post -> f:render.text(field: 'author')}</a:atom.text>
 
                             <f:if condition="{post.role}">
-                                <span class="astryx-token g-social-mentions__origin">{post -> f:render.text(field: 'role')}</span>
+                                <a:atom.token class="g-social-mentions__origin">{post -> f:render.text(field: 'role')}</a:atom.token>
                             </f:if>
                         </figcaption>
 
                         <blockquote class="g-social-mentions__post">
                             <p>{post -> f:render.text(field: 'quote_text')}</p>
                         </blockquote>
-                    </figure>
+                    </a:molecule.card>
                 </li>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-social-mentions__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-social-mentions__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

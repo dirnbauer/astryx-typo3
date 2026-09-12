@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-up-next" href="{cb:assetPath()}/frontend.css"/>
@@ -14,29 +15,29 @@
     only thing the second column holds.
 </f:comment>
 
-<section class="astryx-section tight g-up-next {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" surface="{data.tone}" class="g-up-next">
+    <a:layout.container size="{data.width}">
         <nav class="g-up-next__nav" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.upNext', default: 'Read next')}">
-            <div class="astryx-card astryx-clickable-card g-up-next__card {f:if(condition: data.image, then: 'with-image')}">
+            <a:molecule.card class="astryx-clickable-card g-up-next__card {f:if(condition: data.image, then: 'with-image')}">
 
                 <div class="g-up-next__copy">
                     <f:if condition="{data.eyebrow}">
-                        <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                        <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                     </f:if>
 
-                    <h2 class="astryx-heading level-3 g-up-next__title">
+                    <a:atom.heading level="3" class="g-up-next__title">
                         <f:if condition="{data.cta_link.url}">
                             <f:then><f:link.typolink parameter="{data.cta_link}">{data.header}</f:link.typolink></f:then>
                             <f:else>{data -> f:render.text(field: 'header')}</f:else>
                         </f:if>
-                    </h2>
+                    </a:atom.heading>
 
                     <f:if condition="{data.text}">
-                        <p class="astryx-card-body g-up-next__text">{data -> f:render.text(field: 'text')}</p>
+                        <a:molecule.cardBody class="g-up-next__text">{data -> f:render.text(field: 'text')}</a:molecule.cardBody>
                     </f:if>
 
                     <f:if condition="{data.cta_label}">
-                        <p class="astryx-link cta g-up-next__cue">{data -> f:render.text(field: 'cta_label')}</p>
+                        <a:atom.link variant="cta" class="g-up-next__cue">{data -> f:render.text(field: 'cta_label')}</a:atom.link>
                     </f:if>
                 </div>
 
@@ -48,9 +49,9 @@
                     </div>
                 </f:if>
 
-            </div>
+            </a:molecule.card>
         </nav>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

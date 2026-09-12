@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-data-roadmap-progress" href="{cb:assetPath()}/frontend.css"/>
@@ -12,18 +13,18 @@
     stripped out.
 </f:comment>
 
-<section class="astryx-section g-data-roadmap-progress {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-data-roadmap-progress">
+    <a:layout.container size="{data.width}">
 
         <div class="g-data-roadmap-progress__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-data-roadmap-progress__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-data-roadmap-progress__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -32,7 +33,7 @@
                 <li class="g-data-roadmap-progress__stage" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <span class="g-data-roadmap-progress__marker {metric.icon}" aria-hidden="true"></span>
 
-                    <div class="astryx-progressbar g-data-roadmap-progress__body">
+                    <a:atom.progressBar class="g-data-roadmap-progress__body">
                         <div class="astryx-progressbar-header">
                             <h3 class="astryx-progressbar-label g-data-roadmap-progress__name">{metric -> f:render.text(field: 'title')}</h3>
                             <span class="astryx-progressbar-value g-data-roadmap-progress__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
@@ -43,18 +44,18 @@
                         </div>
 
                         <f:if condition="{metric.text}">
-                            <p class="astryx-text supporting g-data-roadmap-progress__detail">{metric -> f:render.text(field: 'text')}</p>
+                            <a:atom.text type="supporting" class="g-data-roadmap-progress__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
-                    </div>
+                    </a:atom.progressBar>
                 </li>
             </f:for>
         </ol>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-data-roadmap-progress__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-data-roadmap-progress__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

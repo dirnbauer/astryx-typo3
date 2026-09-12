@@ -1,11 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-backdrop" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section flush g-hero-backdrop {data.tone} {data.variant}">
-    <div class="astryx-overlay g-hero-backdrop__frame">
+<a:layout.section spacing="flush" surface="{data.tone}" variant="{data.variant}" class="g-hero-backdrop">
+    <a:molecule.overlay class="g-hero-backdrop__frame">
         <f:for each="{data.image}" as="image">
             <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="eager" class="g-hero-backdrop__image"/>
         </f:for>
@@ -16,30 +17,30 @@
             opacity, and never has to darken the file before uploading it.
         </f:comment>
         <div class="astryx-overlay-scrim fill dark always g-hero-backdrop__scrim">
-            <div class="astryx-layout {data.width} g-hero-backdrop__copy {data.align}">
+            <a:layout.container size="{data.width}" align="{data.align}" class="g-hero-backdrop__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow g-hero-backdrop__eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow class="g-hero-backdrop__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-1 g-hero-backdrop__headline">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1" class="g-hero-backdrop__headline">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-hero-backdrop__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-hero-backdrop__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <div class="astryx-button-group g-hero-backdrop__actions">
+                    <a:molecule.buttonGroup class="g-hero-backdrop__actions">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button secondary lg">{data.secondary_label}</f:link.typolink>
+                            <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                         </f:if>
-                    </div>
+                    </a:molecule.buttonGroup>
                 </f:if>
-            </div>
+            </a:layout.container>
         </div>
-    </div>
-</section>
+    </a:molecule.overlay>
+</a:layout.section>
 
 </html>

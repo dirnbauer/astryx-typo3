@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-accessibility-note" href="{cb:assetPath()}/frontend.css"/>
@@ -12,9 +13,9 @@
     auditor rather than for a reader.
 </f:comment>
 
-<section class="astryx-section g-footer-accessibility-note {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
-        <aside class="astryx-banner g-footer-accessibility-note__box" aria-labelledby="g-footer-accessibility-note-{data.uid}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-accessibility-note">
+    <a:layout.container size="{data.width}">
+        <a:molecule.banner class="g-footer-accessibility-note__box" aria-labelledby="g-footer-accessibility-note-{data.uid}">
 
             <f:if condition="{data.icon}">
                 <span class="astryx-feature-icon g-footer-accessibility-note__icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
@@ -25,7 +26,7 @@
                     <h2 class="astryx-banner-title g-footer-accessibility-note__title" id="g-footer-accessibility-note-{data.uid}">{data -> f:render.text(field: 'header')}</h2>
 
                     <f:if condition="{data.badge_text}">
-                        <span class="astryx-badge outline g-footer-accessibility-note__level">{data -> f:render.text(field: 'badge_text')}</span>
+                        <a:atom.badge variant="outline" as="span" class="g-footer-accessibility-note__level">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                     </f:if>
                 </div>
 
@@ -36,21 +37,21 @@
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
                     <p class="g-footer-accessibility-note__actions">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-link">{data.cta_label}</f:link.typolink>
+                            <a:atom.link parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-link">{data.secondary_label}</f:link.typolink>
+                            <a:atom.link parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
                         </f:if>
                     </p>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-footer-accessibility-note__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-footer-accessibility-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
-        </aside>
-    </div>
-</section>
+        </a:molecule.banner>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

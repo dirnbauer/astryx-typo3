@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -17,23 +18,23 @@
 
     <s:lastSearches>
         <f:if condition="{lastSearches}">
-            <section class="astryx-card flat g-search__facet" aria-labelledby="tx-solr-lastsearches-label">
-                <h2 class="astryx-card-title g-search__facet-title" id="tx-solr-lastsearches-label">
+            <a:molecule.card variant="flat" class="g-search__facet" aria-labelledby="tx-solr-lastsearches-label">
+                <a:molecule.cardTitle class="g-search__facet-title" id="tx-solr-lastsearches-label">
                     <f:translate key="{labels}:search.lastSearches" default="Recent searches"/>
-                </h2>
+                </a:molecule.cardTitle>
 
-                <ul class="astryx-list compact g-search__facet-list" id="tx-solr-lastsearches">
+                <a:molecule.list density="compact" class="g-search__facet-list" id="tx-solr-lastsearches">
                     <f:for each="{lastSearches}" as="searchedFor">
                         <li>
-                            <a href="{s:uri.search.startNewSearch(queryString: searchedFor)}" class="astryx-item compact interactive solr-ajaxified">
-                                <span class="astryx-item-content">
-                                    <span class="astryx-item-label truncate"><f:format.htmlentities>{searchedFor}</f:format.htmlentities></span>
-                                </span>
-                            </a>
+                            <a:molecule.item density="compact" interactive="interactive" class="solr-ajaxified" href="{s:uri.search.startNewSearch(queryString: searchedFor)}">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel truncate="truncate"><f:format.htmlentities>{searchedFor}</f:format.htmlentities></a:molecule.itemLabel>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
                         </li>
                     </f:for>
-                </ul>
-            </section>
+                </a:molecule.list>
+            </a:molecule.card>
         </f:if>
     </s:lastSearches>
 </f:section>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-quote-portrait" href="{cb:assetPath()}/frontend.css"/>
@@ -10,35 +11,35 @@
     out twice for no added information.
 </f:comment>
 
-<section class="astryx-section g-quote-portrait {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-quote-portrait">
+    <a:layout.container size="{data.width}">
         <figure class="g-quote-portrait__figure align-{data.align}">
 
             <f:if condition="{data.image}">
-                <div class="astryx-avatar xl g-quote-portrait__portrait">
+                <a:atom.avatar size="xl" class="g-quote-portrait__portrait">
                     <f:for each="{data.image}" as="image">
                         <f:image image="{image}" alt="" width="256c" height="256c" loading="lazy"/>
                     </f:for>
-                </div>
+                </a:atom.avatar>
             </f:if>
 
             <div class="g-quote-portrait__body">
-                <blockquote class="astryx-blockquote g-quote-portrait__quote">
+                <a:molecule.blockquote class="g-quote-portrait__quote">
                     <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </blockquote>
+                </a:molecule.blockquote>
 
                 <f:if condition="{data.author}">
-                    <figcaption class="astryx-citation g-quote-portrait__credit">
+                    <a:molecule.citation class="g-quote-portrait__credit">
                         <span class="g-quote-portrait__name">{data -> f:render.text(field: 'author')}</span>
                         <f:if condition="{data.role}">
                             <span class="g-quote-portrait__role">{data -> f:render.text(field: 'role')}</span>
                         </f:if>
-                    </figcaption>
+                    </a:molecule.citation>
                 </f:if>
             </div>
 
         </figure>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-certifications" href="{cb:assetPath()}/frontend.css"/>
@@ -15,18 +16,18 @@
     than no seal at all.
 </f:comment>
 
-<section class="astryx-section g-footer-certifications {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-certifications" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-certifications__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.text}">
-                <p class="astryx-text body g-footer-certifications__lead">{data -> f:render.text(field: 'text')}</p>
+                <a:atom.text type="body" class="g-footer-certifications__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
             </f:if>
         </div>
 
@@ -50,11 +51,11 @@
         </ul>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-certifications__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-certifications__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 <f:section name="seal">
     <f:if condition="{seal.image}">
@@ -62,7 +63,7 @@
             <f:image image="{image}" alt="" height="72" loading="lazy" class="g-footer-certifications__image"/>
         </f:for>
     </f:if>
-    <span class="astryx-text label g-footer-certifications__name">{seal.title}</span>
+    <a:atom.text type="label" as="span" class="g-footer-certifications__name">{seal.title}</a:atom.text>
 </f:section>
 
 </html>

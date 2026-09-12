@@ -1,5 +1,6 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -20,12 +21,12 @@
     </f:comment>
     <f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
 
-    <div class="astryx-banner warning g-search__banner" role="status">
+    <a:molecule.banner status="warning" class="g-search__banner" role="status">
         <div class="astryx-banner-body">
             <p class="astryx-banner-title"><f:translate key="{labels}:search.unavailable" default="Search is unavailable right now"/></p>
             <p class="astryx-banner-content"><f:translate key="{labels}:search.unavailableHint" default="The search service is not responding. Please try again in a moment."/></p>
         </div>
-    </div>
+    </a:molecule.banner>
 </f:section>
 
 </html>

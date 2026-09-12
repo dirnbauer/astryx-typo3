@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-step-nav" href="{cb:assetPath()}/frontend.css"/>
@@ -34,16 +35,16 @@
     <f:if condition="!{step.link.url}"><f:variable name="currentIndex" value="{position.index}"/></f:if>
 </f:for>
 
-<section class="astryx-section tight g-step-nav {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" surface="{data.tone}" class="g-step-nav">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-step-nav__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-step-nav__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-step-nav__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -64,18 +65,18 @@
                                     <span class="g-step-nav__title" aria-current="step">{step.title}</span>
                                 </f:then>
                                 <f:else>
-                                    <f:link.typolink parameter="{step.link}" class="astryx-link quiet g-step-nav__title">{step.title}</f:link.typolink>
+                                    <a:atom.link variant="quiet" class="g-step-nav__title" parameter="{step.link}">{step.title}</a:atom.link>
                                 </f:else>
                             </f:if>
 
-                            <span class="astryx-visually-hidden">
+                            <a:atom.visuallyHidden as="span">
                                 <f:if condition="{state} == 'done'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepDone" default="Completed"/></f:if>
                                 <f:if condition="{state} == 'current'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.currentStep" default="Current step"/></f:if>
                                 <f:if condition="{state} == 'upcoming'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepOpen" default="Still to come"/></f:if>
-                            </span>
+                            </a:atom.visuallyHidden>
 
                             <f:if condition="{step.description}">
-                                <span class="astryx-text supporting g-step-nav__note">{step.description}</span>
+                                <a:atom.text type="supporting" as="span" class="g-step-nav__note">{step.description}</a:atom.text>
                             </f:if>
                         </span>
                     </li>
@@ -83,7 +84,7 @@
             </ol>
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

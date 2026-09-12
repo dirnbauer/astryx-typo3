@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-open-roles" href="{cb:assetPath()}/frontend.css"/>
@@ -17,64 +18,64 @@
     dead link would be worse than no link.
 </f:comment>
 
-<section class="astryx-section g-open-roles {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-open-roles">
+    <a:layout.container size="{data.width}">
 
         <div class="g-open-roles__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-open-roles__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-open-roles__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-list with-dividers g-open-roles__list">
+        <a:molecule.list dividers="with-dividers" class="g-open-roles__list">
             <f:for each="{data.roles}" as="role">
                 <li class="g-open-roles__row">
                     <f:if condition="{role.link.url}">
                         <f:then>
-                            <f:link.typolink parameter="{role.link}" class="astryx-item interactive spacious g-open-roles__link">
-                                <span class="astryx-item-content">
-                                    <span class="astryx-item-label g-open-roles__title">{role.title}</span>
+                            <a:molecule.item interactive="interactive" density="spacious" class="g-open-roles__link" parameter="{role.link}">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel class="g-open-roles__title">{role.title}</a:molecule.itemLabel>
                                     <f:if condition="{role.description}">
-                                        <span class="astryx-item-description">{role.description}</span>
+                                        <a:molecule.itemDescription>{role.description}</a:molecule.itemDescription>
                                     </f:if>
-                                </span>
-                            </f:link.typolink>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
                         </f:then>
                         <f:else>
-                            <span class="astryx-item spacious g-open-roles__plain">
-                                <span class="astryx-item-content">
-                                    <span class="astryx-item-label g-open-roles__title">{role -> f:render.text(field: 'title')}</span>
+                            <a:molecule.item density="spacious" class="g-open-roles__plain">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel class="g-open-roles__title">{role -> f:render.text(field: 'title')}</a:molecule.itemLabel>
                                     <f:if condition="{role.description}">
-                                        <span class="astryx-item-description">{role -> f:render.text(field: 'description')}</span>
+                                        <a:molecule.itemDescription>{role -> f:render.text(field: 'description')}</a:molecule.itemDescription>
                                     </f:if>
-                                </span>
-                            </span>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
                         </f:else>
                     </f:if>
                 </li>
             </f:for>
-        </ul>
+        </a:molecule.list>
 
         <f:if condition="{data.note} || {data.cta_label}">
             <div class="g-open-roles__closing">
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-open-roles__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-open-roles__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
                 <f:if condition="{data.cta_label}">
                     <p class="g-open-roles__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </p>
                 </f:if>
             </div>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

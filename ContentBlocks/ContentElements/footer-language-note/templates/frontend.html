@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-language-note" href="{cb:assetPath()}/frontend.css"/>
@@ -20,8 +21,8 @@
     <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:nav.label', default: 'Language and region')}"/>
 </f:if>
 
-<section class="astryx-section g-footer-language-note {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-language-note" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-language-note__inner">
 
             <f:if condition="{data.icon}">
@@ -30,11 +31,11 @@
 
             <div class="g-footer-language-note__body">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-language-note__statement">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-language-note__statement">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <nav aria-label="{navLabel}">
@@ -43,18 +44,18 @@
                             <li class="g-footer-language-note__version">
                                 <f:if condition="{version.link.url}">
                                     <f:then>
-                                        <f:link.typolink parameter="{version.link}" class="astryx-link quiet">{version.title}</f:link.typolink>
+                                        <a:atom.link variant="quiet" parameter="{version.link}">{version.title}</a:atom.link>
                                         <f:if condition="{version.description}">
-                                            <span class="astryx-text supporting g-footer-language-note__hint">{version.description}</span>
+                                            <a:atom.text type="supporting" as="span" class="g-footer-language-note__hint">{version.description}</a:atom.text>
                                         </f:if>
                                     </f:then>
                                     <f:else>
                                         <span class="g-footer-language-note__current" aria-current="true">
                                             {version.title}
-                                            <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:version.current" default="— the version you are reading"/></span>
+                                            <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:version.current" default="— the version you are reading"/></a:atom.visuallyHidden>
                                         </span>
                                         <f:if condition="{version.description}">
-                                            <span class="astryx-text supporting g-footer-language-note__hint">{version.description}</span>
+                                            <a:atom.text type="supporting" as="span" class="g-footer-language-note__hint">{version.description}</a:atom.text>
                                         </f:if>
                                     </f:else>
                                 </f:if>
@@ -64,12 +65,12 @@
                 </nav>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-footer-language-note__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-footer-language-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

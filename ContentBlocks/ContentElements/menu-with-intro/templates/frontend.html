@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-menu-with-intro" href="{cb:assetPath()}/frontend.css"/>
@@ -14,16 +15,16 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-menu-with-intro {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-menu-with-intro__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-menu-with-intro">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-menu-with-intro__grid">
 
             <div class="g-menu-with-intro__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.bodytext}">
                     <div class="astryx-prose g-menu-with-intro__body"><f:format.html>{data.bodytext}</f:format.html></div>
@@ -31,24 +32,24 @@
             </div>
 
             <nav class="g-menu-with-intro__nav" aria-label="{navLabel}">
-                <ul class="astryx-list with-dividers balanced g-menu-with-intro__items">
+                <a:molecule.list dividers="with-dividers" density="balanced" class="g-menu-with-intro__items">
                     <f:for each="{data.items}" as="item">
                         <li class="g-menu-with-intro__item">
-                            <f:link.typolink parameter="{item.link}" class="astryx-item interactive g-menu-with-intro__link">
-                                <span class="astryx-item-content">
-                                    <span class="astryx-item-label g-menu-with-intro__title">{item.title}</span>
+                            <a:molecule.item interactive="interactive" class="g-menu-with-intro__link" parameter="{item.link}">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel class="g-menu-with-intro__title">{item.title}</a:molecule.itemLabel>
                                     <f:if condition="{item.description}">
-                                        <span class="astryx-item-description">{item.description}</span>
+                                        <a:molecule.itemDescription>{item.description}</a:molecule.itemDescription>
                                     </f:if>
-                                </span>
-                            </f:link.typolink>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.list>
             </nav>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

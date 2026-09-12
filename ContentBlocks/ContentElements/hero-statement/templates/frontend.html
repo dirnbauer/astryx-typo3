@@ -1,29 +1,30 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-statement" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-statement {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-statement">
+    <a:layout.container size="{data.width}">
         <div class="g-hero-statement__copy {data.align}">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-1 g-hero-statement__claim">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1" class="g-hero-statement__claim">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.subheader}">
-                <p class="astryx-text body g-hero-statement__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                <a:atom.text type="body" class="g-hero-statement__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.cta_label}">
                 <p class="g-hero-statement__action">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta">{data.cta_label}</f:link.typolink>
+                    <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                 </p>
             </f:if>
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

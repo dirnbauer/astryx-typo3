@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-funding-note" href="{cb:assetPath()}/frontend.css"/>
@@ -14,15 +15,15 @@
     screen reader renders as "image" has acknowledged nobody.
 </f:comment>
 
-<section class="astryx-section g-footer-funding-note {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-funding-note" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-funding-note__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
         </div>
 
         <ul class="g-footer-funding-note__logos {f:if(condition: data.compact, then: 'is-compact')}">
@@ -43,15 +44,15 @@
         </ul>
 
         <f:if condition="{data.text}">
-            <p class="astryx-text body g-footer-funding-note__statement">{data -> f:render.text(field: 'text')}</p>
+            <a:atom.text type="body" class="g-footer-funding-note__statement">{data -> f:render.text(field: 'text')}</a:atom.text>
         </f:if>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-funding-note__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-funding-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 <f:section name="emblem">
     <f:if condition="{funder.image}">

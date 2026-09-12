@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-person-profile" href="{cb:assetPath()}/frontend.css"/>
@@ -18,15 +19,15 @@
     than inside a row of labelled cards, and it is the only picture on the band.
 </f:comment>
 
-<section class="astryx-section g-person-profile {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-person-profile__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-person-profile">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-person-profile__grid">
 
             <div class="g-person-profile__copy">
-                <h2 class="astryx-heading level-1 g-person-profile__name">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1" class="g-person-profile__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.subheader}">
-                    <p class="astryx-text large g-person-profile__role">{data -> f:render.text(field: 'subheader')}</p>
+                    <a:atom.text type="large" class="g-person-profile__role">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.bodytext}">
@@ -34,14 +35,14 @@
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <div class="astryx-button-group g-person-profile__actions">
+                    <a:molecule.buttonGroup class="g-person-profile__actions">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost">{data.secondary_label}</f:link.typolink>
+                            <a:atom.button variant="ghost" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                         </f:if>
-                    </div>
+                    </a:molecule.buttonGroup>
                 </f:if>
             </div>
 
@@ -53,8 +54,8 @@
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

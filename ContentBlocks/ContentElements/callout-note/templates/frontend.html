@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-callout-note" href="{cb:assetPath()}/frontend.css"/>
@@ -15,9 +16,9 @@
     the distinction instead.
 </f:comment>
 
-<section class="astryx-section g-callout-note {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <aside class="astryx-banner g-callout-note__box {f:if(condition: data.compact, then: 'compact')}">
+<a:layout.section surface="{data.tone}" class="g-callout-note">
+    <a:layout.container size="{data.width}">
+        <a:molecule.banner class="g-callout-note__box {f:if(condition: data.compact, then: 'compact')}">
             <div class="astryx-banner-content">
 
                 <f:if condition="{data.header}">
@@ -27,8 +28,8 @@
                 <div class="astryx-prose astryx-banner-body"><f:format.html>{data.bodytext}</f:format.html></div>
 
             </div>
-        </aside>
-    </div>
-</section>
+        </a:molecule.banner>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-jump-list" href="{cb:assetPath()}/frontend.css"/>
@@ -14,8 +15,8 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.jump" default="Jump to"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section tight g-jump-list" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" class="g-jump-list" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <nav class="g-jump-list__nav {f:if(condition: data.compact, then: 'tight')}" aria-label="{navLabel}">
 
             <f:if condition="{data.header}">
@@ -25,13 +26,13 @@
             <ul class="g-jump-list__targets">
                 <f:for each="{data.targets}" as="target">
                     <li class="g-jump-list__target">
-                        <f:link.typolink parameter="{target.link}" class="astryx-link g-jump-list__link">{target.title}</f:link.typolink>
+                        <a:atom.link class="g-jump-list__link" parameter="{target.link}">{target.title}</a:atom.link>
                     </li>
                 </f:for>
             </ul>
 
         </nav>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

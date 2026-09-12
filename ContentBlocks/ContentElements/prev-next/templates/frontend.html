@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-prev-next" href="{cb:assetPath()}/frontend.css"/>
@@ -15,37 +16,37 @@
     nobody hears "next" twice in a row.
 </f:comment>
 
-<section class="astryx-section tight g-prev-next {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" surface="{data.tone}" class="g-prev-next">
+    <a:layout.container size="{data.width}">
         <f:if condition="{data.cta_label} || {data.secondary_label}">
             <nav class="g-prev-next__nav {f:if(condition: data.compact, then: 'plain')}"
                  aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.pageMoves', default: 'Previous and next page')}">
 
                 <f:if condition="{data.secondary_label}">
-                    <div class="astryx-card astryx-clickable-card g-prev-next__half previous">
-                        <p class="astryx-text supporting g-prev-next__direction">
+                    <a:molecule.card class="astryx-clickable-card g-prev-next__half previous">
+                        <a:atom.text type="supporting" class="g-prev-next__direction">
                             <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>
-                        </p>
+                        </a:atom.text>
                         <p class="g-prev-next__title">
                             <f:link.typolink parameter="{data.secondary_link}">{data.secondary_label}</f:link.typolink>
                         </p>
-                    </div>
+                    </a:molecule.card>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <div class="astryx-card astryx-clickable-card g-prev-next__half next">
-                        <p class="astryx-text supporting g-prev-next__direction">
+                    <a:molecule.card class="astryx-clickable-card g-prev-next__half next">
+                        <a:atom.text type="supporting" class="g-prev-next__direction">
                             <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>
-                        </p>
+                        </a:atom.text>
                         <p class="g-prev-next__title">
                             <f:link.typolink parameter="{data.cta_link}">{data.cta_label}</f:link.typolink>
                         </p>
-                    </div>
+                    </a:molecule.card>
                 </f:if>
 
             </nav>
         </f:if>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

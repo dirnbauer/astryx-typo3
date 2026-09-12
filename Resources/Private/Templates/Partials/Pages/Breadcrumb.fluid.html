@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
 <f:comment>
     The last item is the current page: rendered as text, not a link, and
@@ -7,7 +7,7 @@
 </f:comment>
 
 <nav class="astryx-breadcrumb" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.breadcrumb', default: 'Breadcrumb')}">
-    <div class="astryx-layout">
+    <a:layout.container>
         <ol class="astryx-breadcrumb__list">
             <f:for each="{breadcrumb}" as="item" iteration="i">
                 <li class="astryx-breadcrumb__item">
@@ -22,7 +22,7 @@
                 </li>
             </f:for>
         </ol>
-    </div>
+    </a:layout.container>
 </nav>
 
 </html>

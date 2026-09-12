@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-leader-letter" href="{cb:assetPath()}/frontend.css"/>
@@ -15,15 +16,15 @@
     portrait it is the right one anyway.
 </f:comment>
 
-<section class="astryx-section g-leader-letter {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-leader-letter">
+    <a:layout.container size="{data.width}">
         <div class="g-leader-letter__sheet align-{data.align}">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2 g-leader-letter__subject">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2" class="g-leader-letter__subject">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.bodytext}">
                 <div class="astryx-prose g-leader-letter__body"><f:format.html>{data.bodytext}</f:format.html></div>
@@ -40,20 +41,20 @@
 
                 <f:if condition="{data.author}">
                     <p class="g-leader-letter__credit">
-                        <span class="astryx-text label g-leader-letter__name">{data -> f:render.text(field: 'author')}</span>
+                        <a:atom.text type="label" as="span" class="g-leader-letter__name">{data -> f:render.text(field: 'author')}</a:atom.text>
                         <f:if condition="{data.role}">
-                            <span class="astryx-text supporting g-leader-letter__role">{data -> f:render.text(field: 'role')}</span>
+                            <a:atom.text type="supporting" as="span" class="g-leader-letter__role">{data -> f:render.text(field: 'role')}</a:atom.text>
                         </f:if>
                     </p>
                 </f:if>
             </div>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-leader-letter__note">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-leader-letter__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

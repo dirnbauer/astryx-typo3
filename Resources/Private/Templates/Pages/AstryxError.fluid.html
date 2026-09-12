@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
 <f:layout name="Pages/Default"/>
 
@@ -9,17 +9,17 @@
 </f:comment>
 
 <f:section name="Main">
-    <div class="astryx-layout">
+    <a:layout.container>
         <div class="astryx-error">
             <h1 class="astryx-error__title">{page.pageRecord.title}</h1>
             <f:if condition="{page.pageRecord.abstract}">
                 <p class="astryx-error__body">{page.pageRecord.abstract}</p>
             </f:if>
-            <a href="{f:uri.page(pageUid: site.rootPageId)}" class="astryx-button primary">
+            <a:atom.button variant="primary" href="{f:uri.page(pageUid: site.rootPageId)}">
                 <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.home">Home</f:translate>
-            </a>
+            </a:atom.button>
         </div>
-    </div>
+    </a:layout.container>
     <!--TYPO3SEARCH_begin-->
     <f:if condition="{content.main}">
         <f:render.contentArea contentArea="{content.main}"/>

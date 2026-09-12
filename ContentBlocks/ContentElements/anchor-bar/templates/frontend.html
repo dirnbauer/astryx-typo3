@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-anchor-bar" href="{cb:assetPath()}/frontend.css"/>
@@ -18,26 +19,26 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.anchors" default="Sections of this page"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section flush g-anchor-bar {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="flush" surface="{data.tone}" class="g-anchor-bar" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <nav class="g-anchor-bar__inner" aria-label="{navLabel}">
 
             <f:if condition="{data.header}">
-                <h2 class="astryx-heading level-6 g-anchor-bar__title">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="6" class="g-anchor-bar__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
             <div class="g-anchor-bar__scroller">
-                <ul class="astryx-segmented-control g-anchor-bar__track">
+                <a:molecule.segmentedControl class="g-anchor-bar__track">
                     <f:for each="{data.anchors}" as="anchor">
                         <li class="g-anchor-bar__item">
                             <f:link.typolink parameter="{anchor.link}" class="astryx-segmented-control-item sm g-anchor-bar__link">{anchor.title}</f:link.typolink>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.segmentedControl>
             </div>
 
         </nav>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

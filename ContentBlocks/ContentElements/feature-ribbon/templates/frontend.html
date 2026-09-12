@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-ribbon" href="{cb:assetPath()}/frontend.css"/>
@@ -10,15 +11,15 @@
     the same records be reused in a fuller grid further down the page.
 </f:comment>
 
-<section class="astryx-section tight g-feature-ribbon {data.tone}" data-columns="{data.columns}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" surface="{data.tone}" class="g-feature-ribbon" data-columns="{data.columns}" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-ribbon__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
         </div>
 
         <ul class="g-feature-ribbon__items {f:if(condition: data.compact, then: 'compact')}">
@@ -28,12 +29,12 @@
                         <span class="astryx-feature-icon g-feature-ribbon__icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
                     </f:if>
 
-                    <span class="astryx-text label g-feature-ribbon__label">{item -> f:render.text(field: 'title')}</span>
+                    <a:atom.text type="label" as="span" class="g-feature-ribbon__label">{item -> f:render.text(field: 'title')}</a:atom.text>
                 </li>
             </f:for>
         </ul>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

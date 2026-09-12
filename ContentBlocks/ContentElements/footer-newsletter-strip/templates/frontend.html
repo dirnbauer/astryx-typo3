@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-newsletter-strip" href="{cb:assetPath()}/frontend.css"/>
@@ -15,8 +16,8 @@
     so it takes an empty alt.
 </f:comment>
 
-<section class="astryx-section g-footer-newsletter-strip {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-newsletter-strip" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-newsletter-strip__strip">
 
             <f:if condition="{data.image}">
@@ -29,29 +30,29 @@
 
             <div class="g-footer-newsletter-strip__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-newsletter-strip__lead">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-newsletter-strip__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
             </div>
 
             <f:if condition="{data.cta_label}">
                 <div class="g-footer-newsletter-strip__action">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </div>
             </f:if>
 
         </div>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-newsletter-strip__small-print">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-newsletter-strip__small-print">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

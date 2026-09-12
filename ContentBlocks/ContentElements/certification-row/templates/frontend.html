@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-certification-row" href="{cb:assetPath()}/frontend.css"/>
@@ -11,19 +12,19 @@
     scope is worth less than no seal at all.
 </f:comment>
 
-<section class="astryx-section g-certification-row {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-certification-row" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-certification-row__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-certification-row__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-certification-row__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -43,21 +44,21 @@
                         </span>
                     </f:if>
 
-                    <h3 class="astryx-text label g-certification-row__scope">
+                    <a:atom.text type="label" as="h3" class="g-certification-row__scope">
                         <f:if condition="{certificate.link.url}">
-                            <f:then><f:link.typolink parameter="{certificate.link}" class="astryx-link quiet">{certificate.title}</f:link.typolink></f:then>
+                            <f:then><a:atom.link variant="quiet" parameter="{certificate.link}">{certificate.title}</a:atom.link></f:then>
                             <f:else>{certificate -> f:render.text(field: 'title')}</f:else>
                         </f:if>
-                    </h3>
+                    </a:atom.text>
                 </li>
             </f:for>
         </ul>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-certification-row__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-certification-row__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-accordion-faq" href="{cb:assetPath()}/frontend.css"/>
@@ -14,35 +15,35 @@
     not close each other's rows.
 </f:comment>
 
-<section class="astryx-section g-accordion-faq {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-accordion-faq">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-accordion-faq__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-accordion-faq__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-accordion-faq__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
-        <div class="astryx-collapsible-group g-accordion-faq__group">
+        <a:molecule.collapsibleGroup class="g-accordion-faq__group">
             <f:for each="{data.questions}" as="item">
-                <details class="astryx-collapsible spacious g-accordion-faq__item" name="g-accordion-faq-{data.uid}">
+                <a:molecule.collapsible density="spacious" class="g-accordion-faq__item" name="g-accordion-faq-{data.uid}">
                     <summary>
                         <h3 class="g-accordion-faq__question">{item -> f:render.text(field: 'title')}</h3>
                     </summary>
                     <div class="astryx-collapsible-content astryx-prose g-accordion-faq__answer"><f:format.html>{item.bodytext}</f:format.html></div>
-                </details>
+                </a:molecule.collapsible>
             </f:for>
-        </div>
+        </a:molecule.collapsibleGroup>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

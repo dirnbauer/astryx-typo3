@@ -1,11 +1,12 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-slideshow" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section flush g-hero-slideshow {data.tone}">
-    <div class="astryx-overlay g-hero-slideshow__frame">
+<a:layout.section spacing="flush" surface="{data.tone}" class="g-hero-slideshow">
+    <a:molecule.overlay class="g-hero-slideshow__frame">
 
         <f:comment>
             The backdrops are the images field rather than a collection because
@@ -20,21 +21,21 @@
         </f:for>
 
         <div class="astryx-overlay-scrim fill dark always g-hero-slideshow__scrim">
-            <div class="astryx-layout {data.width} g-hero-slideshow__copy {data.align}">
+            <a:layout.container size="{data.width}" align="{data.align}" class="g-hero-slideshow__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow g-hero-slideshow__eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow class="g-hero-slideshow__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-1 g-hero-slideshow__headline">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1" class="g-hero-slideshow__headline">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-hero-slideshow__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-hero-slideshow__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <div class="astryx-button-group g-hero-slideshow__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
-                    </div>
+                    <a:molecule.buttonGroup class="g-hero-slideshow__actions">
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </a:molecule.buttonGroup>
                 </f:if>
 
                 <f:if condition="{f:count(subject: data.images)} > 1">
@@ -42,15 +43,15 @@
                         <f:for each="{data.images}" as="image" iteration="slide">
                             <li>
                                 <a class="astryx-pagination-dot g-hero-slideshow__dot" href="#g-hero-slideshow-{data.uid}-{slide.cycle}">
-                                    <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.showImage" default="Show image"/> {slide.cycle}</span>
+                                    <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.showImage" default="Show image"/> {slide.cycle}</a:atom.visuallyHidden>
                                 </a>
                             </li>
                         </f:for>
                     </ul>
                 </f:if>
-            </div>
+            </a:layout.container>
         </div>
-    </div>
-</section>
+    </a:molecule.overlay>
+</a:layout.section>
 
 </html>

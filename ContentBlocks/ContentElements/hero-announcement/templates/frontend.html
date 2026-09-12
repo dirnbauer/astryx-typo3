@@ -1,10 +1,11 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-announcement" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-announcement {data.tone}">
+<a:layout.section surface="{data.tone}" class="g-hero-announcement">
 
     <f:if condition="{data.note}">
         <f:comment>
@@ -13,42 +14,42 @@
             decides when it goes.
         </f:comment>
         <div class="g-hero-announcement__strip">
-            <div class="astryx-layout {data.width}">
-                <p class="astryx-banner info g-hero-announcement__notice">
+            <a:layout.container size="{data.width}">
+                <a:molecule.banner status="info" class="g-hero-announcement__notice">
                     <f:if condition="{data.badge_text}">
-                        <span class="astryx-badge accent g-hero-announcement__badge">{data.badge_text}</span>
+                        <a:atom.badge variant="accent" as="span" class="g-hero-announcement__badge">{data.badge_text}</a:atom.badge>
                     </f:if>
                     <span class="astryx-banner-content">
                         <f:if condition="{data.header_link.url}">
                             <f:then>
-                                <f:link.typolink parameter="{data.header_link}" class="astryx-link g-hero-announcement__link">{data -> f:render.text(field: 'note')}</f:link.typolink>
+                                <a:atom.link class="g-hero-announcement__link" parameter="{data.header_link}">{data -> f:render.text(field: 'note')}</a:atom.link>
                             </f:then>
                             <f:else>{data -> f:render.text(field: 'note')}</f:else>
                         </f:if>
                     </span>
-                </p>
-            </div>
+                </a:molecule.banner>
+            </a:layout.container>
         </div>
     </f:if>
 
-    <div class="astryx-layout {data.width} g-hero-announcement__body">
-        <div class="astryx-split g-hero-announcement__grid">
+    <a:layout.container size="{data.width}" class="g-hero-announcement__body">
+        <a:layout.split class="g-hero-announcement__grid">
 
             <div class="g-hero-announcement__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-hero-announcement__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-hero-announcement__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <div class="astryx-button-group g-hero-announcement__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
-                    </div>
+                    <a:molecule.buttonGroup class="g-hero-announcement__actions">
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </a:molecule.buttonGroup>
                 </f:if>
             </div>
 
@@ -60,8 +61,8 @@
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

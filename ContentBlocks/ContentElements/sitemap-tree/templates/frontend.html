@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-sitemap-tree" href="{cb:assetPath()}/frontend.css"/>
@@ -22,16 +23,16 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sitemap" default="Sitemap"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-sitemap-tree {data.tone}" data-columns="{data.columns}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-sitemap-tree" data-columns="{data.columns}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-sitemap-tree__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-sitemap-tree__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-sitemap-tree__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -58,7 +59,7 @@
             </nav>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

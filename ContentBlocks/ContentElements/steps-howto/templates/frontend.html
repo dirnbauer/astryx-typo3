@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-steps-howto" href="{cb:assetPath()}/frontend.css"/>
@@ -10,19 +11,19 @@
     left maintaining a sequence by hand.
 </f:comment>
 
-<section class="astryx-section g-steps-howto {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-steps-howto">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-steps-howto__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-steps-howto__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-steps-howto__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -30,20 +31,20 @@
         <ol class="g-steps-howto__list columns-{data.columns}">
             <f:for each="{data.steps}" as="item">
                 <li class="g-steps-howto__step">
-                    <h3 class="astryx-heading level-4 g-steps-howto__title">{item -> f:render.text(field: 'title')}</h3>
+                    <a:atom.heading level="4" class="g-steps-howto__title">{item -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{item.text}">
-                        <p class="astryx-text body g-steps-howto__text">{item -> f:render.text(field: 'text')}</p>
+                        <a:atom.text type="body" class="g-steps-howto__text">{item -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
 
                     <f:if condition="{item.link.url}">
-                        <f:link.typolink parameter="{item.link}" class="astryx-link cta g-steps-howto__link">{item.title}</f:link.typolink>
+                        <a:atom.link variant="cta" class="g-steps-howto__link" parameter="{item.link}">{item.title}</a:atom.link>
                     </f:if>
                 </li>
             </f:for>
         </ol>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

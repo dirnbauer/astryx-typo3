@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-logo-cloud" href="{cb:assetPath()}/frontend.css"/>
@@ -13,24 +14,24 @@
     it is worse proof than a wall of words.
 </f:comment>
 
-<section class="astryx-section g-logo-cloud {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-logo-cloud">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-logo-cloud__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-logo-cloud__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-logo-cloud__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
-        <ul class="astryx-grid cols-{data.columns} g-logo-cloud__marks">
+        <a:layout.grid cols="{data.columns}" class="g-logo-cloud__marks">
             <f:for each="{data.logos}" as="logo">
                 <li class="g-logo-cloud__cell">
                     <f:if condition="{logo.link.url}">
@@ -45,10 +46,10 @@
                     </f:if>
                 </li>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 <f:section name="mark">
     <f:if condition="{logo.image}">

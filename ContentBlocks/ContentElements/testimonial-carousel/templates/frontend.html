@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-testimonial-carousel" href="{cb:assetPath()}/frontend.css"/>
@@ -14,28 +15,25 @@
     honest signal that the band continues, and it costs no markup.
 </f:comment>
 
-<section class="astryx-section g-testimonial-carousel {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-testimonial-carousel">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-testimonial-carousel__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-testimonial-carousel__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-testimonial-carousel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
-        <div class="astryx-carousel gap-4 g-testimonial-carousel__carousel" data-g-carousel>
-            <button type="button"
-                    class="astryx-icon-button astryx-carousel-control start g-testimonial-carousel__control"
-                    data-g-carousel-prev
-                    aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.previous', default: 'Previous quote')}"></button>
+        <a:molecule.carousel gap="4" class="g-testimonial-carousel__carousel">
+            <a:atom.iconButton position="start" class="astryx-carousel-control g-testimonial-carousel__control" type="button" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.previous', default: 'Previous quote')}"></a:atom.iconButton>
 
             <ul class="astryx-carousel-track g-testimonial-carousel__track"
                 data-g-carousel-track
@@ -43,13 +41,13 @@
                 aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.region', default: 'Quotes')}">
                 <f:for each="{data.quotes}" as="item">
                     <li class="astryx-carousel-item g-testimonial-carousel__item">
-                        <figure class="astryx-card raised g-testimonial-carousel__card">
+                        <a:molecule.card variant="raised" class="g-testimonial-carousel__card">
                             <f:if condition="{item.image}">
-                                <span class="astryx-avatar lg g-testimonial-carousel__portrait">
+                                <a:atom.avatar size="lg" class="g-testimonial-carousel__portrait">
                                     <f:for each="{item.image}" as="portrait">
                                         <f:image image="{portrait}" alt="" width="96c" height="96c" loading="lazy"/>
                                     </f:for>
-                                </span>
+                                </a:atom.avatar>
                             </f:if>
 
                             <blockquote class="g-testimonial-carousel__quote">
@@ -57,23 +55,20 @@
                             </blockquote>
 
                             <figcaption class="g-testimonial-carousel__credit">
-                                <span class="astryx-text label g-testimonial-carousel__name">{item -> f:render.text(field: 'author')}</span>
+                                <a:atom.text type="label" as="span" class="g-testimonial-carousel__name">{item -> f:render.text(field: 'author')}</a:atom.text>
                                 <f:if condition="{item.role}">
-                                    <span class="astryx-text supporting">{item -> f:render.text(field: 'role')}</span>
+                                    <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
                                 </f:if>
                             </figcaption>
-                        </figure>
+                        </a:molecule.card>
                     </li>
                 </f:for>
             </ul>
 
-            <button type="button"
-                    class="astryx-icon-button astryx-carousel-control end g-testimonial-carousel__control"
-                    data-g-carousel-next
-                    aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.next', default: 'Next quote')}"></button>
-        </div>
+            <a:atom.iconButton position="end" class="astryx-carousel-control g-testimonial-carousel__control" type="button" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.next', default: 'Next quote')}"></a:atom.iconButton>
+        </a:molecule.carousel>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

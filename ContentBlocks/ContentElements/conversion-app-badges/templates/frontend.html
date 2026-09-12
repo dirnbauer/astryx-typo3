@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-app-badges" href="{cb:assetPath()}/frontend.css"/>
@@ -11,19 +12,19 @@
     than to something shaped like a badge but not one.
 </f:comment>
 
-<section class="astryx-section g-conversion-app-badges {data.tone}">
-    <div class="astryx-layout lg">
-        <div class="astryx-split g-conversion-app-badges__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-conversion-app-badges">
+    <a:layout.container size="lg">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-conversion-app-badges__grid">
 
             <div class="g-conversion-app-badges__copy {data.align}">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-conversion-app-badges__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-conversion-app-badges__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.stores}">
@@ -38,7 +39,7 @@
                                             </f:for>
                                         </f:then>
                                         <f:else>
-                                            <span class="astryx-link cta">{store.title}</span>
+                                            <a:atom.link variant="cta">{store.title}</a:atom.link>
                                         </f:else>
                                     </f:if>
                                 </f:link.typolink>
@@ -48,7 +49,7 @@
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-conversion-app-badges__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-app-badges__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
@@ -60,8 +61,8 @@
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

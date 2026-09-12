@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -43,7 +44,7 @@
         </f:for>
 
         <div class="g-search__anchor" data-g-suggest-anchor>
-            <div class="astryx-input-group lg g-search__group">
+            <a:molecule.inputGroup size="lg" class="g-search__group">
                 <span class="astryx-input-group-text g-search__icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" focusable="false">
                         <circle cx="11" cy="11" r="7"/>
@@ -51,9 +52,9 @@
                     </svg>
                 </span>
 
-                <label class="astryx-visually-hidden" for="tx-solr-q">
+                <a:atom.visuallyHidden as="label" for="tx-solr-q">
                     <f:translate key="{labels}:search.label" default="Search this site"/>
-                </label>
+                </a:atom.visuallyHidden>
                 <input
                     id="tx-solr-q"
                     class="astryx-text-input lg g-search__input"
@@ -66,10 +67,10 @@
                     data-g-suggest-input
                 />
 
-                <button class="astryx-button primary lg g-search__submit" type="submit">
+                <a:atom.button variant="primary" size="lg" class="g-search__submit" type="submit">
                     <f:translate key="{labels}:search.submit" default="Search"/>
-                </button>
-            </div>
+                </a:atom.button>
+            </a:molecule.inputGroup>
         </div>
     </s:searchForm>
 </f:section>

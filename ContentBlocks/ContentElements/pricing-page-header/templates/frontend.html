@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pricing-page-header" href="{cb:assetPath()}/frontend.css"/>
@@ -10,30 +11,30 @@
     each price is how a reader ends up believing the plans are taxed differently.
 </f:comment>
 
-<section class="astryx-section g-pricing-page-header {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-pricing-page-header" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-pricing-page-header__copy">
 
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.subheader}">
-                <p class="astryx-text large g-pricing-page-header__standfirst">{data -> f:render.text(field: 'subheader')}</p>
+                <a:atom.text type="large" class="g-pricing-page-header__standfirst">{data -> f:render.text(field: 'subheader')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-pricing-page-header__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-pricing-page-header__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-pricing-page-header__note">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-pricing-page-header__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

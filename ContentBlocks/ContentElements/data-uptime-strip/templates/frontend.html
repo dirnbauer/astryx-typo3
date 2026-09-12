@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-data-uptime-strip" href="{cb:assetPath()}/frontend.css"/>
@@ -11,22 +12,22 @@
     wrong, which are the only ones anyone came here for.
 </f:comment>
 
-<section class="astryx-section g-data-uptime-strip {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-uptime-strip">
+    <a:layout.container size="{data.width}">
 
         <div class="g-data-uptime-strip__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <p class="g-data-uptime-strip__headline">
-                <span class="astryx-text display-3 g-data-uptime-strip__total">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-data-uptime-strip__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
+                <a:atom.text type="display-3" as="span" class="g-data-uptime-strip__total">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-uptime-strip__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
             </p>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-data-uptime-strip__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-data-uptime-strip__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -45,17 +46,17 @@
                 <f:if condition="{metric.text}">
                     <div class="g-data-uptime-strip__incident">
                         <dt class="g-data-uptime-strip__when">{metric -> f:render.text(field: 'title')}</dt>
-                        <dd class="astryx-text supporting g-data-uptime-strip__what">{metric -> f:render.text(field: 'text')}</dd>
+                        <a:atom.text type="supporting" as="dd" class="g-data-uptime-strip__what">{metric -> f:render.text(field: 'text')}</a:atom.text>
                     </div>
                 </f:if>
             </f:for>
         </dl>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-data-uptime-strip__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-data-uptime-strip__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-speaker-lineup" href="{cb:assetPath()}/frontend.css"/>
@@ -14,59 +15,59 @@
     heads a card of its own.
 </f:comment>
 
-<section class="astryx-section g-speaker-lineup {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-speaker-lineup">
+    <a:layout.container size="{data.width}">
 
         <div class="g-speaker-lineup__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-speaker-lineup__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-speaker-lineup__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-speaker-lineup__speakers">
+        <a:layout.grid cols="{data.columns}" class="g-speaker-lineup__speakers">
             <f:for each="{data.speakers}" as="speaker">
-                <li class="astryx-card {f:if(condition: speaker.link.url, then: 'astryx-clickable-card')} g-speaker-lineup__speaker">
+                <a:molecule.card class="{f:if(condition: speaker.link.url, then: 'astryx-clickable-card')} g-speaker-lineup__speaker">
 
                     <f:if condition="{speaker.image}">
-                        <span class="astryx-avatar lg g-speaker-lineup__portrait">
+                        <a:atom.avatar size="lg" class="g-speaker-lineup__portrait">
                             <f:for each="{speaker.image}" as="image">
                                 <f:image image="{image}" alt="{speaker.title}" width="128c" height="128c" loading="lazy"/>
                             </f:for>
-                        </span>
+                        </a:atom.avatar>
                     </f:if>
 
-                    <h3 class="astryx-card-title g-speaker-lineup__name">{speaker -> f:render.text(field: 'title')}</h3>
+                    <a:molecule.cardTitle class="g-speaker-lineup__name">{speaker -> f:render.text(field: 'title')}</a:molecule.cardTitle>
 
                     <f:if condition="{speaker.role}">
-                        <p class="astryx-text supporting g-speaker-lineup__affiliation">{speaker -> f:render.text(field: 'role')}</p>
+                        <a:atom.text type="supporting" class="g-speaker-lineup__affiliation">{speaker -> f:render.text(field: 'role')}</a:atom.text>
                     </f:if>
 
                     <f:if condition="{speaker.text}">
-                        <p class="astryx-card-body g-speaker-lineup__talk">
+                        <a:molecule.cardBody class="g-speaker-lineup__talk">
                             <f:if condition="{speaker.link.url}">
                                 <f:then><f:link.typolink parameter="{speaker.link}">{speaker.text}</f:link.typolink></f:then>
                                 <f:else>{speaker -> f:render.text(field: 'text')}</f:else>
                             </f:if>
-                        </p>
+                        </a:molecule.cardBody>
                     </f:if>
 
-                </li>
+                </a:molecule.card>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
         <f:if condition="{data.cta_label}">
             <p class="g-speaker-lineup__actions">
-                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </p>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

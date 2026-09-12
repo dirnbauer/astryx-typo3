@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-back-to-parent" href="{cb:assetPath()}/frontend.css"/>
@@ -27,8 +28,8 @@
 
 <f:variable name="backLabel">{f:if(condition: data.cta_label, then: data.cta_label, else: parentTitle)}</f:variable>
 
-<section class="astryx-section tight g-back-to-parent {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" surface="{data.tone}" class="g-back-to-parent">
+    <a:layout.container size="{data.width}">
         <nav class="g-back-to-parent__nav {f:if(condition: data.compact, then: 'tight', else: 'boxed')}"
              aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.backToSection', default: 'Back to the section')}">
 
@@ -48,7 +49,7 @@
             </f:if>
 
         </nav>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

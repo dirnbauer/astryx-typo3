@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-address-card" href="{cb:assetPath()}/frontend.css"/>
@@ -14,32 +15,32 @@
     can copy.
 </f:comment>
 
-<section class="astryx-section g-footer-address-card {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-footer-address-card__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-footer-address-card">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-footer-address-card__grid">
 
-            <div class="astryx-card g-footer-address-card__card">
-                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+            <a:molecule.card class="g-footer-address-card__card">
+                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.text}">
-                    <address class="astryx-text body g-footer-address-card__address">{data -> f:render.text(field: 'text')}</address>
+                    <a:atom.text type="body" as="address" class="g-footer-address-card__address">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <div class="astryx-card-footer astryx-button-group">
+                    <a:molecule.cardFooter class="astryx-button-group">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button secondary">{data.secondary_label}</f:link.typolink>
+                            <a:atom.button variant="secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                         </f:if>
-                    </div>
+                    </a:molecule.cardFooter>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-footer-address-card__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-footer-address-card__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:molecule.card>
 
             <f:if condition="{data.image}">
                 <figure class="g-footer-address-card__media">
@@ -47,13 +48,13 @@
                         <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="900" loading="lazy" class="g-footer-address-card__image"/>
                     </f:for>
                     <f:if condition="{data.caption}">
-                        <figcaption class="astryx-text supporting">{data -> f:render.text(field: 'caption')}</figcaption>
+                        <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
                     </f:if>
                 </figure>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

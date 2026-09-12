@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-cta-inline" href="{cb:assetPath()}/frontend.css"/>
@@ -10,9 +11,9 @@
     that the article was interrupted and by what.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-inline {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-banner g-conversion-cta-inline__strip">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-conversion-cta-inline">
+    <a:layout.container size="{data.width}">
+        <a:molecule.banner class="g-conversion-cta-inline__strip">
 
             <f:if condition="{data.icon}">
                 <f:comment>
@@ -23,18 +24,18 @@
             </f:if>
 
             <div class="astryx-banner-content g-conversion-cta-inline__copy">
-                <h2 class="astryx-heading level-5">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="5">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 <f:if condition="{data.text}">
-                    <p class="astryx-text supporting g-conversion-cta-inline__text">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-cta-inline__text">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
             </div>
 
             <f:if condition="{data.cta_label}">
-                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary g-conversion-cta-inline__action">{data.cta_label}</f:link.typolink>
+                <a:atom.button variant="primary" class="g-conversion-cta-inline__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:molecule.banner>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

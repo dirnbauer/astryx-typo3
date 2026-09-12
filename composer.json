@@ -22,13 +22,19 @@
         "php": "^8.4",
         "friendsoftypo3/content-blocks": "^2.2",
         "praetorius/vite-asset-collector": "^1.18",
-        "typo3/cms-core": "^14.3",
-        "typo3/cms-fluid": "^14.3",
-        "webconsulting/desiderio": "^4.0"
+        "typo3/cms-core": "^14.3.7",
+        "typo3/cms-fluid": "^14.3.7",
+        "webconsulting/desiderio": "^4.1"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.75",
+        "phpstan/phpstan": "^2",
+        "phpstan/phpstan-phpunit": "^2",
         "phpunit/phpunit": "^11.5",
-        "symfony/yaml": "^7.3 || ^8.0"
+        "saschaegerer/phpstan-typo3": "^3.1",
+        "symfony/yaml": "^7.3 || ^8.0",
+        "typo3/coding-standards": "^0.8 || ^0.9",
+        "typo3/testing-framework": "^9.5"
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
@@ -63,7 +69,26 @@
         }
     },
     "scripts": {
-        "test": "phpunit --configuration=phpunit.xml.dist",
-        "audit-elements": "php scripts/audit-content-elements.php"
+        "lint": "find Classes Tests -name '*.php' -print0 | xargs -0 -n1 php -l",
+        "cgl": "php-cs-fixer fix --diff",
+        "cgl:check": "php-cs-fixer fix --dry-run --diff",
+        "phpstan": "phpstan analyse --configuration=phpstan.neon --no-progress",
+        "test:unit": "phpunit --configuration=Build/phpunit/UnitTests.xml",
+        "test:functional": "phpunit --configuration=Build/phpunit/FunctionalTests.xml",
+        "test": [
+            "@test:unit",
+            "@test:functional"
+        ],
+        "audit-elements": "vendor/bin/phpunit --configuration=Build/phpunit/UnitTests.xml --filter ContentElementAuditTest"
+    },
+    "scripts-descriptions": {
+        "lint": "Syntax-check every PHP file in Classes/ and Tests/.",
+        "cgl": "Apply the TYPO3 coding standards in place.",
+        "cgl:check": "Report coding standard violations without changing files.",
+        "phpstan": "Run static analysis at level 8.",
+        "test:unit": "Run the unit test suite.",
+        "test:functional": "Run the functional test suite (sqlite by default).",
+        "test": "Run unit and functional tests.",
+        "audit-elements": "Run the content element catalog audit."
     }
 }

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-copyright-bar" href="{cb:assetPath()}/frontend.css"/>
@@ -16,18 +17,18 @@
 
 <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-copyright-bar/language/labels.xlf:nav.label', default: 'Legal links')}"/>
 
-<section class="astryx-section g-footer-copyright-bar {data.tone} {f:if(condition: data.compact, then: 'flush', else: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footer-copyright-bar" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-copyright-bar__bar">
 
-            <p class="astryx-text supporting g-footer-copyright-bar__notice">{data -> f:render.text(field: 'text')}</p>
+            <a:atom.text type="supporting" class="g-footer-copyright-bar__notice">{data -> f:render.text(field: 'text')}</a:atom.text>
 
             <f:if condition="{data.links}">
                 <nav aria-label="{navLabel}">
                     <ul class="g-footer-copyright-bar__links">
                         <f:for each="{data.links}" as="item">
                             <li class="g-footer-copyright-bar__link">
-                                <f:link.typolink parameter="{item.link}" class="astryx-link quiet">{item.title}</f:link.typolink>
+                                <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
                             </li>
                         </f:for>
                     </ul>
@@ -37,10 +38,10 @@
         </div>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-copyright-bar__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-copyright-bar__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

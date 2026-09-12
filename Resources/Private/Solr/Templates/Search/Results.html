@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -52,7 +53,7 @@
             <f:if condition="{parsedQuery}">
                 <details class="g-search__debug">
                     <summary><f:translate key="{labels}:search.debug.parsedQuery" default="Parsed query"/></summary>
-                    <code class="astryx-text code">{parsedQuery}</code>
+                    <a:atom.text type="code" as="code">{parsedQuery}</a:atom.text>
                 </details>
             </f:if>
         </s:debug.query>
@@ -67,32 +68,32 @@
 
                 <f:if condition="{resultSet.isAutoCorrected}">
                     <f:then>
-                        <p class="astryx-text supporting">
+                        <a:atom.text type="supporting">
                             <f:translate key="{labels}:search.nothingFound" arguments="{query: resultSet.initialQueryString}">Nothing found for “{query}”.</f:translate>
                             <f:translate key="{labels}:search.showingInstead" arguments="{query: resultSet.correctedQueryString}">Showing results for “{query}” instead.</f:translate>
-                        </p>
+                        </a:atom.text>
                     </f:then>
                     <f:else>
                         <f:if condition="{resultSet.allResultCount}">
-                            <p class="astryx-text supporting">
+                            <a:atom.text type="supporting">
                                 <f:translate key="{labels}:search.resultsFound" arguments="{count: resultSet.allResultCount}">{count} results.</f:translate>
                                 <f:if condition="{pagination.lastPageNumber} > 1">
                                     <s:pageBrowserRange>
                                         <f:translate key="{labels}:search.resultsRange" arguments="{from: from, to: to, total: total}">Showing {from}–{to} of {total}.</f:translate>
                                     </s:pageBrowserRange>
                                 </f:if>
-                            </p>
+                            </a:atom.text>
                         </f:if>
                     </f:else>
                 </f:if>
 
                 <f:if condition="{resultSet.hasSpellCheckingSuggestions}">
-                    <p class="astryx-text supporting g-search__didyoumean">
+                    <a:atom.text type="supporting" class="g-search__didyoumean">
                         <f:translate key="{labels}:search.didYouMean" default="Did you mean"/>
                         <f:for each="{resultSet.spellCheckingSuggestions}" as="suggestion">
-                            <f:link.page additionalParams="{q: suggestion.suggestion}" class="astryx-link">{suggestion.suggestion}</f:link.page>
+                            <a:atom.link additionalParams="{q: suggestion.suggestion}">{suggestion.suggestion}</a:atom.link>
                         </f:for>?
-                    </p>
+                    </a:atom.text>
                 </f:if>
 
             </div>
@@ -103,13 +104,13 @@
                 <f:then>
                     <f:for each="{resultSet.searchresults.groups}" as="group">
                         <section class="g-search__group">
-                            <h2 class="astryx-heading level-4">{group.groupname}</h2>
+                            <a:atom.heading level="4">{group.groupname}</a:atom.heading>
                             <f:for each="{group.groupitems}" as="groupItem">
                                 <div class="g-search__group-block">
-                                    <p class="astryx-text supporting g-search__group-label">
+                                    <a:atom.text type="supporting" class="g-search__group-label">
                                         {groupItem.groupValue}
-                                        <span class="astryx-badge neutral">{groupItem.allResultCount}</span>
-                                    </p>
+                                        <a:atom.badge variant="neutral" as="span">{groupItem.allResultCount}</a:atom.badge>
+                                    </a:atom.text>
                                     <s:groupItemPaginate groupItem="{groupItem}" resultSet="{resultSet}">
                                         <ol class="g-search__list" start="{pagination.resultCountStart}">
                                             <f:for each="{documents}" as="document">
@@ -126,7 +127,7 @@
                 </f:then>
 
                 <f:else if="{resultSet.allResultCount}">
-                    <h2 class="astryx-visually-hidden"><f:translate key="{labels}:search.resultsHeading" default="Search results"/></h2>
+                    <a:atom.visuallyHidden as="h2"><f:translate key="{labels}:search.resultsHeading" default="Search results"/></a:atom.visuallyHidden>
 
                     <ol class="g-search__list" start="{pagination.startRecordNumber}">
                         <f:for each="{resultSet.searchResults}" as="document">
@@ -150,18 +151,18 @@
                         EmptyState says what is empty and what to do next; a bare
                         "0 results" leaves the visitor with no move to make.
                     </f:comment>
-                    <div class="astryx-empty-state g-search__empty">
+                    <a:molecule.emptyState class="g-search__empty">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" focusable="false">
                             <circle cx="11" cy="11" r="7"/>
                             <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
                         </svg>
-                        <p class="astryx-heading level-4">
+                        <a:atom.heading level="4">
                             <f:translate key="{labels}:search.nothingFound" arguments="{query: resultSet.usedQuery.rawSearchTerm}">Nothing found for “{query}”.</f:translate>
-                        </p>
-                        <p class="astryx-text supporting">
+                        </a:atom.heading>
+                        <a:atom.text type="supporting">
                             <f:translate key="{labels}:search.nothingFoundHint" default="Try fewer words, or a more general term."/>
-                        </p>
-                    </div>
+                        </a:atom.text>
+                    </a:molecule.emptyState>
                 </f:else>
             </f:if>
         </f:if>

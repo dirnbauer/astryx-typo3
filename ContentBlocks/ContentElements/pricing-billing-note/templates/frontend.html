@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pricing-billing-note" href="{cb:assetPath()}/frontend.css"/>
@@ -15,51 +16,51 @@
     the term and the amount is its value.
 </f:comment>
 
-<section class="astryx-section g-pricing-billing-note {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout md">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-billing-note" data-align="{data.align}">
+    <a:layout.container size="md">
         <div class="g-pricing-billing-note__panel">
 
             <f:if condition="{data.header}">
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-pricing-billing-note__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-pricing-billing-note__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
-            <dl class="astryx-metadata-list g-pricing-billing-note__slots">
-                <div class="astryx-metadata-list-item g-pricing-billing-note__slot">
-                    <dt class="astryx-text label g-pricing-billing-note__term">{data -> f:render.text(field: 'period')}</dt>
+            <a:molecule.metadataList class="g-pricing-billing-note__slots">
+                <a:molecule.metadataListItem class="g-pricing-billing-note__slot">
+                    <a:atom.text type="label" as="dt" class="g-pricing-billing-note__term">{data -> f:render.text(field: 'period')}</a:atom.text>
                     <dd class="g-pricing-billing-note__value">
-                        <span class="astryx-text display-3 g-pricing-billing-note__amount">{data -> f:render.text(field: 'price')}</span>
+                        <a:atom.text type="display-3" as="span" class="g-pricing-billing-note__amount">{data -> f:render.text(field: 'price')}</a:atom.text>
                     </dd>
-                </div>
+                </a:molecule.metadataListItem>
 
                 <f:if condition="{data.value}">
-                    <div class="astryx-metadata-list-item g-pricing-billing-note__slot" data-preferred="yes">
-                        <dt class="astryx-text label g-pricing-billing-note__term">{data.unit}</dt>
+                    <a:molecule.metadataListItem class="g-pricing-billing-note__slot" data-preferred="yes">
+                        <a:atom.text type="label" as="dt" class="g-pricing-billing-note__term">{data.unit}</a:atom.text>
                         <dd class="g-pricing-billing-note__value">
-                            <span class="astryx-text display-3 g-pricing-billing-note__amount">{data -> f:render.text(field: 'value')}</span>
+                            <a:atom.text type="display-3" as="span" class="g-pricing-billing-note__amount">{data -> f:render.text(field: 'value')}</a:atom.text>
                             <f:if condition="{data.badge_text}">
-                                <span class="astryx-badge success g-pricing-billing-note__saving">{data -> f:render.text(field: 'badge_text')}</span>
+                                <a:atom.badge variant="success" as="span" class="g-pricing-billing-note__saving">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                             </f:if>
                         </dd>
-                    </div>
+                    </a:molecule.metadataListItem>
                 </f:if>
-            </dl>
+            </a:molecule.metadataList>
 
             <f:if condition="{data.cta_label}">
                 <p class="g-pricing-billing-note__actions">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </p>
             </f:if>
 
             <f:if condition="{data.note}">
-                <p class="astryx-text supporting g-pricing-billing-note__note">{data -> f:render.text(field: 'note')}</p>
+                <a:atom.text type="supporting" class="g-pricing-billing-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

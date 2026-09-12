@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-list" href="{cb:assetPath()}/frontend.css"/>
@@ -9,22 +10,22 @@
     its own has outgrown a list row and belongs in a band of its own.
 </f:comment>
 
-<section class="astryx-section g-feature-list {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-list" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-list__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-list with-dividers {f:if(condition: data.compact, then: 'balanced', else: 'spacious')} g-feature-list__items">
+        <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-list__items">
             <f:for each="{data.items}" as="item">
                 <li class="g-feature-list__row {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{item.icon}">
@@ -32,22 +33,22 @@
                     </f:if>
 
                     <div class="g-feature-list__body">
-                        <h3 class="astryx-heading level-3">
+                        <a:atom.heading level="3">
                             <f:if condition="{item.link.url}">
                                 <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
                                 <f:else>{item -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </h3>
+                        </a:atom.heading>
 
                         <f:if condition="{item.text}">
-                            <p class="astryx-text body g-feature-list__text">{item -> f:render.text(field: 'text')}</p>
+                            <a:atom.text type="body" class="g-feature-list__text">{item -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
                     </div>
                 </li>
             </f:for>
-        </ul>
+        </a:molecule.list>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

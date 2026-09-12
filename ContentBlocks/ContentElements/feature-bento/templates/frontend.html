@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-bento" href="{cb:assetPath()}/frontend.css"/>
@@ -10,43 +11,43 @@
     being a composition and becomes an accident.
 </f:comment>
 
-<section class="astryx-section g-feature-bento {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-bento" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-bento__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-bento__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-bento__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
         <ul class="g-feature-bento__tiles">
             <f:for each="{data.tiles}" as="tile">
-                <li class="astryx-card astryx-feature g-feature-bento__tile {f:if(condition: tile.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card class="astryx-feature g-feature-bento__tile {f:if(condition: tile.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{tile.icon}">
                         <span class="astryx-feature-icon" data-icon="{tile.icon}" aria-hidden="true"><g:icon name="{tile.icon}"/></span>
                     </f:if>
 
-                    <h3 class="astryx-card-title">
+                    <a:molecule.cardTitle>
                         <f:if condition="{tile.link.url}">
                             <f:then><f:link.typolink parameter="{tile.link}">{tile.title}</f:link.typolink></f:then>
                             <f:else>{tile -> f:render.text(field: 'title')}</f:else>
                         </f:if>
-                    </h3>
+                    </a:molecule.cardTitle>
 
                     <f:if condition="{tile.text}">
-                        <p class="astryx-card-body">{tile -> f:render.text(field: 'text')}</p>
+                        <a:molecule.cardBody>{tile -> f:render.text(field: 'text')}</a:molecule.cardBody>
                     </f:if>
-                </li>
+                </a:molecule.card>
             </f:for>
         </ul>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

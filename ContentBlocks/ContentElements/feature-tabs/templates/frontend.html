@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-tabs" href="{cb:assetPath()}/frontend.css"/>
@@ -10,23 +11,23 @@
     out of the flow — without it the page is longer, never broken.
 </f:comment>
 
-<section class="astryx-section g-feature-tabs {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-tabs" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-tabs__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-tabs__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-tabs__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
         <div class="g-feature-tabs__tabs" data-g-tabs>
-            <div class="astryx-tab-list divided g-feature-tabs__list" role="tablist">
+            <a:molecule.tabList variant="divided" class="g-feature-tabs__list" role="tablist">
                 <f:for each="{data.panels}" as="panel" iteration="position">
                     <button type="button"
                             class="astryx-tab"
@@ -36,7 +37,7 @@
                             aria-controls="g-feature-tabs-{data.uid}-panel-{position.index}"
                             aria-selected="{f:if(condition: position.isFirst, then: 'true', else: 'false')}">{panel.title}</button>
                 </f:for>
-            </div>
+            </a:molecule.tabList>
 
             <f:for each="{data.panels}" as="panel" iteration="position">
                 <div class="g-feature-tabs__panel"
@@ -44,22 +45,22 @@
                      id="g-feature-tabs-{data.uid}-panel-{position.index}"
                      aria-labelledby="g-feature-tabs-{data.uid}-tab-{position.index}"
                      tabindex="0">
-                    <h3 class="astryx-heading level-3">{panel -> f:render.text(field: 'title')}</h3>
+                    <a:atom.heading level="3">{panel -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{panel.text}">
-                        <p class="astryx-text body g-feature-tabs__text">{panel -> f:render.text(field: 'text')}</p>
+                        <a:atom.text type="body" class="g-feature-tabs__text">{panel -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
 
                     <f:if condition="{panel.link.url}">
                         <p class="g-feature-tabs__action">
-                            <f:link.typolink parameter="{panel.link}" class="astryx-link cta">{panel.title}</f:link.typolink>
+                            <a:atom.link variant="cta" parameter="{panel.link}">{panel.title}</a:atom.link>
                         </p>
                     </f:if>
                 </div>
             </f:for>
         </div>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

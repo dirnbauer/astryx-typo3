@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-roadmap" href="{cb:assetPath()}/frontend.css"/>
@@ -10,52 +11,52 @@
     fact. The word is still what a reader reads.
 </f:comment>
 
-<section class="astryx-section g-feature-roadmap {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-roadmap">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-roadmap__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-roadmap__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-roadmap__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-list with-dividers {f:if(condition: data.compact, then: 'balanced', else: 'spacious')} g-feature-roadmap__items">
+        <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-roadmap__items">
             <f:for each="{data.items}" as="item">
                 <li class="g-feature-roadmap__item" data-shipped="{f:if(condition: item.included, then: 'yes', else: 'no')}">
-                    <span class="astryx-statusdot {f:if(condition: item.included, then: 'success', else: 'accent')} g-feature-roadmap__dot" aria-hidden="true"></span>
+                    <a:atom.statusDot variant="{f:if(condition: item.included, then: 'success', else: 'accent')}" class="g-feature-roadmap__dot" aria-hidden="true"></a:atom.statusDot>
 
                     <div class="g-feature-roadmap__body">
-                        <h3 class="astryx-heading level-4">{item -> f:render.text(field: 'title')}</h3>
+                        <a:atom.heading level="4">{item -> f:render.text(field: 'title')}</a:atom.heading>
 
                         <f:if condition="{item.text}">
-                            <p class="astryx-text supporting">{item -> f:render.text(field: 'text')}</p>
+                            <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
                     </div>
 
                     <f:if condition="{item.value}">
-                        <span class="astryx-badge {f:if(condition: item.included, then: 'success', else: 'outline')} g-feature-roadmap__state">{item -> f:render.text(field: 'value')}</span>
+                        <a:atom.badge variant="{f:if(condition: item.included, then: 'success', else: 'outline')}" as="span" class="g-feature-roadmap__state">{item -> f:render.text(field: 'value')}</a:atom.badge>
                     </f:if>
                 </li>
             </f:for>
-        </ul>
+        </a:molecule.list>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-feature-roadmap__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-feature-roadmap__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
         <f:if condition="{data.cta_label}">
             <p class="g-feature-roadmap__actions">
-                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </p>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

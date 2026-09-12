@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-speaker-featured" href="{cb:assetPath()}/frontend.css"/>
@@ -18,40 +19,40 @@
     stands away from the name rather than beside it.
 </f:comment>
 
-<section class="astryx-section g-speaker-featured {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-speaker-featured__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-speaker-featured">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-speaker-featured__grid">
 
             <div class="g-speaker-featured__copy">
                 <f:if condition="{data.eyebrow} || {data.badge_text}">
                     <p class="g-speaker-featured__markers">
                         <f:if condition="{data.badge_text}">
-                            <span class="astryx-badge accent g-speaker-featured__slot">{data -> f:render.text(field: 'badge_text')}</span>
+                            <a:atom.badge variant="accent" as="span" class="g-speaker-featured__slot">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                         </f:if>
                         <f:if condition="{data.eyebrow}">
-                            <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                            <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                         </f:if>
                     </p>
                 </f:if>
 
-                <h2 class="astryx-heading level-1 g-speaker-featured__session">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1" class="g-speaker-featured__session">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-speaker-featured__abstract">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-speaker-featured__abstract">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.author}">
                     <p class="g-speaker-featured__credit">
-                        <span class="astryx-text label g-speaker-featured__name">{data -> f:render.text(field: 'author')}</span>
+                        <a:atom.text type="label" as="span" class="g-speaker-featured__name">{data -> f:render.text(field: 'author')}</a:atom.text>
                         <f:if condition="{data.role}">
-                            <span class="astryx-text supporting g-speaker-featured__affiliation">{data -> f:render.text(field: 'role')}</span>
+                            <a:atom.text type="supporting" as="span" class="g-speaker-featured__affiliation">{data -> f:render.text(field: 'role')}</a:atom.text>
                         </f:if>
                     </p>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
                     <p class="g-speaker-featured__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </p>
                 </f:if>
             </div>
@@ -64,8 +65,8 @@
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

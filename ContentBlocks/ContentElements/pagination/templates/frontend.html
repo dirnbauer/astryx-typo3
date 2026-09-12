@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pagination" href="{cb:assetPath()}/frontend.css"/>
@@ -40,22 +41,22 @@
 <f:variable name="prevIndex" value="{currentIndex - 1}"/>
 <f:variable name="nextIndex" value="{currentIndex + 1}"/>
 
-<section class="astryx-section tight g-pagination" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" class="g-pagination" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header}">
-            <h2 class="astryx-heading level-4 g-pagination__title">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="4" class="g-pagination__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
         </f:if>
 
-        <nav class="astryx-pagination g-pagination__nav" aria-label="{navLabel}">
+        <a:molecule.pagination class="g-pagination__nav" aria-label="{navLabel}">
             <div class="astryx-pagination-controls g-pagination__controls">
 
                 <f:if condition="{currentIndex} > -1">
                     <f:for each="{data.pages}" as="part" iteration="step">
                         <f:if condition="{step.index} == {prevIndex}">
-                            <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__step previous">
-                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>: {part.title}</span>
-                            </f:link.typolink>
+                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__step previous" parameter="{part.link}">
+                                <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>: {part.title}</a:atom.visuallyHidden>
+                            </a:atom.button>
                         </f:if>
                     </f:for>
                 </f:if>
@@ -63,16 +64,16 @@
                 <f:for each="{data.pages}" as="part" iteration="step">
                     <f:if condition="{step.index} == {currentIndex} || !{part.link.url}">
                         <f:then>
-                            <span class="astryx-button ghost {buttonSize} g-pagination__number" aria-current="page">
-                                <span class="astryx-visually-hidden">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></span>
+                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__number" aria-current="page">
+                                <a:atom.visuallyHidden as="span">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></a:atom.visuallyHidden>
                                 <span aria-hidden="true">{step.cycle}</span>
-                            </span>
+                            </a:atom.button>
                         </f:then>
                         <f:else>
-                            <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__number">
-                                <span class="astryx-visually-hidden">{partLabel} {step.cycle}: {part.title}</span>
+                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__number" parameter="{part.link}">
+                                <a:atom.visuallyHidden as="span">{partLabel} {step.cycle}: {part.title}</a:atom.visuallyHidden>
                                 <span aria-hidden="true">{step.cycle}</span>
-                            </f:link.typolink>
+                            </a:atom.button>
                         </f:else>
                     </f:if>
                 </f:for>
@@ -80,9 +81,9 @@
                 <f:if condition="{currentIndex} > -1">
                     <f:for each="{data.pages}" as="part" iteration="step">
                         <f:if condition="{step.index} == {nextIndex}">
-                            <f:link.typolink parameter="{part.link}" class="astryx-button ghost {buttonSize} g-pagination__step next">
-                                <span class="astryx-visually-hidden"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>: {part.title}</span>
-                            </f:link.typolink>
+                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__step next" parameter="{part.link}">
+                                <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>: {part.title}</a:atom.visuallyHidden>
+                            </a:atom.button>
                         </f:if>
                     </f:for>
                 </f:if>
@@ -92,9 +93,9 @@
             <f:if condition="{data.note}">
                 <p class="astryx-pagination-info g-pagination__note">{data -> f:render.text(field: 'note')}</p>
             </f:if>
-        </nav>
+        </a:molecule.pagination>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

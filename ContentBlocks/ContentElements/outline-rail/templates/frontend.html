@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-outline-rail" href="{cb:assetPath()}/frontend.css"/>
@@ -18,18 +19,18 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.outline" default="Page contents"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section tight g-outline-rail {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section spacing="tight" surface="{data.tone}" class="g-outline-rail">
+    <a:layout.container size="{data.width}">
         <nav class="g-outline-rail__rail" aria-label="{navLabel}">
 
-            <h2 class="astryx-heading level-6 g-outline-rail__title">
+            <a:atom.heading level="6" class="g-outline-rail__title">
                 <f:if condition="{data.header}">
                     <f:then>{data -> f:render.text(field: 'header')}</f:then>
                     <f:else>{navFallback}</f:else>
                 </f:if>
-            </h2>
+            </a:atom.heading>
 
-            <div class="astryx-outline g-outline-rail__outline">
+            <a:molecule.outline class="g-outline-rail__outline">
                 <ul class="astryx-outline-list">
                     <f:for each="{data.entries}" as="entry">
                         <li class="g-outline-rail__entry">
@@ -37,10 +38,10 @@
                         </li>
                     </f:for>
                 </ul>
-            </div>
+            </a:molecule.outline>
 
         </nav>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

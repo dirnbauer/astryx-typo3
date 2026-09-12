@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-contributor-wall" href="{cb:assetPath()}/frontend.css"/>
@@ -15,18 +16,18 @@
     one place in this group where naming the face costs more than it gives.
 </f:comment>
 
-<section class="astryx-section g-contributor-wall {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-contributor-wall">
+    <a:layout.container size="{data.width}">
 
         <div class="g-contributor-wall__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-contributor-wall__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-contributor-wall__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
@@ -35,24 +36,24 @@
                 <li class="g-contributor-wall__person">
                     <f:if condition="{person.link.url}">
                         <f:then>
-                            <f:link.typolink parameter="{person.link}" class="astryx-link quiet g-contributor-wall__link">
+                            <a:atom.link variant="quiet" class="g-contributor-wall__link" parameter="{person.link}">
                                 <f:if condition="{person.image}">
-                                    <span class="astryx-avatar lg g-contributor-wall__portrait">
+                                    <a:atom.avatar size="lg" class="g-contributor-wall__portrait">
                                         <f:for each="{person.image}" as="image">
                                             <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
                                         </f:for>
-                                    </span>
+                                    </a:atom.avatar>
                                 </f:if>
                                 <span class="g-contributor-wall__name">{person.title}</span>
-                            </f:link.typolink>
+                            </a:atom.link>
                         </f:then>
                         <f:else>
                             <f:if condition="{person.image}">
-                                <span class="astryx-avatar lg g-contributor-wall__portrait">
+                                <a:atom.avatar size="lg" class="g-contributor-wall__portrait">
                                     <f:for each="{person.image}" as="image">
                                         <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
                                     </f:for>
-                                </span>
+                                </a:atom.avatar>
                             </f:if>
                             <span class="g-contributor-wall__name">{person -> f:render.text(field: 'title')}</span>
                         </f:else>
@@ -62,10 +63,10 @@
         </ul>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-contributor-wall__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-contributor-wall__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

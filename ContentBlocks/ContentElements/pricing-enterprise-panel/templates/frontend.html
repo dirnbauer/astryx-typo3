@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pricing-enterprise-panel" href="{cb:assetPath()}/frontend.css"/>
@@ -11,45 +12,45 @@
     rather than as a tier that is priced differently.
 </f:comment>
 
-<section class="astryx-section g-pricing-enterprise-panel {data.tone}" data-columns="{data.columns}">
-    <div class="astryx-layout xl">
-        <div class="astryx-split g-pricing-enterprise-panel__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-pricing-enterprise-panel" data-columns="{data.columns}">
+    <a:layout.container size="xl">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-pricing-enterprise-panel__grid">
 
             <div class="g-pricing-enterprise-panel__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.subheader}">
-                    <p class="astryx-text large g-pricing-enterprise-panel__scope">{data -> f:render.text(field: 'subheader')}</p>
+                    <a:atom.text type="large" class="g-pricing-enterprise-panel__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-pricing-enterprise-panel__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-pricing-enterprise-panel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <div class="g-pricing-enterprise-panel__anchor">
                     <f:if condition="{data.price}">
                         <p class="g-pricing-enterprise-panel__figure">
-                            <span class="astryx-text display-3 g-pricing-enterprise-panel__amount">{data -> f:render.text(field: 'price')}</span>
+                            <a:atom.text type="display-3" as="span" class="g-pricing-enterprise-panel__amount">{data -> f:render.text(field: 'price')}</a:atom.text>
                         </p>
                     </f:if>
 
                     <f:if condition="{data.cta_label} || {data.secondary_label}">
-                        <div class="astryx-button-group g-pricing-enterprise-panel__actions">
+                        <a:molecule.buttonGroup class="g-pricing-enterprise-panel__actions">
                             <f:if condition="{data.cta_label}">
-                                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                                <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                             </f:if>
                             <f:if condition="{data.secondary_label}">
-                                <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                                <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                             </f:if>
-                        </div>
+                        </a:molecule.buttonGroup>
                     </f:if>
 
                     <f:if condition="{data.note}">
-                        <p class="astryx-text supporting g-pricing-enterprise-panel__note">{data -> f:render.text(field: 'note')}</p>
+                        <a:atom.text type="supporting" class="g-pricing-enterprise-panel__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
                 </div>
             </div>
@@ -63,9 +64,9 @@
                     </figure>
                 </f:if>
 
-                <ul class="astryx-grid cols-{data.columns} g-pricing-enterprise-panel__capabilities">
+                <a:layout.grid cols="{data.columns}" class="g-pricing-enterprise-panel__capabilities">
                     <f:for each="{data.capabilities}" as="capability">
-                        <li class="astryx-feature g-pricing-enterprise-panel__capability">
+                        <a:molecule.feature class="g-pricing-enterprise-panel__capability">
                             <f:if condition="{capability.icon}">
                                 <f:comment>
                                     The tile carries the semantic key rather than a glyph, so swapping
@@ -74,23 +75,23 @@
                                 <span class="astryx-feature-icon" data-icon="{capability.icon}" aria-hidden="true"><g:icon name="{capability.icon}"/></span>
                             </f:if>
 
-                            <h3 class="astryx-card-title">
+                            <a:molecule.cardTitle>
                                 <f:if condition="{capability.link.url}">
-                                    <f:then><f:link.typolink parameter="{capability.link}" class="astryx-link quiet">{capability.title}</f:link.typolink></f:then>
+                                    <f:then><a:atom.link variant="quiet" parameter="{capability.link}">{capability.title}</a:atom.link></f:then>
                                     <f:else>{capability -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
-                            </h3>
+                            </a:molecule.cardTitle>
 
                             <f:if condition="{capability.text}">
-                                <p class="astryx-card-body">{capability -> f:render.text(field: 'text')}</p>
+                                <a:molecule.cardBody>{capability -> f:render.text(field: 'text')}</a:molecule.cardBody>
                             </f:if>
-                        </li>
+                        </a:molecule.feature>
                     </f:for>
-                </ul>
+                </a:layout.grid>
             </div>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

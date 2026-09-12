@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-steps" href="{cb:assetPath()}/frontend.css"/>
@@ -10,43 +11,43 @@
     carries that sequence for anything that cannot see the drawing.
 </f:comment>
 
-<section class="astryx-section g-feature-steps {data.tone}" data-variant="{data.variant}" data-columns="{data.columns}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-steps" data-variant="{data.variant}" data-columns="{data.columns}" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-steps__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-steps__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-steps__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ol class="astryx-grid fixed-{data.columns} g-feature-steps__steps">
+        <a:layout.grid fixed="{data.columns}" class="g-feature-steps__steps">
             <f:for each="{data.steps}" as="step">
                 <li class="g-feature-steps__step">
                     <span class="g-feature-steps__number" aria-hidden="true"></span>
 
                     <div class="g-feature-steps__body">
-                        <h3 class="astryx-heading level-3">
+                        <a:atom.heading level="3">
                             <f:if condition="{step.link.url}">
                                 <f:then><f:link.typolink parameter="{step.link}">{step.title}</f:link.typolink></f:then>
                                 <f:else>{step -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </h3>
+                        </a:atom.heading>
 
                         <f:if condition="{step.text}">
-                            <p class="astryx-text body g-feature-steps__text">{step -> f:render.text(field: 'text')}</p>
+                            <a:atom.text type="body" class="g-feature-steps__text">{step -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
                     </div>
                 </li>
             </f:for>
-        </ol>
+        </a:layout.grid>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

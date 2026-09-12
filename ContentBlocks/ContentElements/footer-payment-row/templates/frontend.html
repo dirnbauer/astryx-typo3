@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-payment-row" href="{cb:assetPath()}/frontend.css"/>
@@ -15,21 +16,21 @@
     belong in the note, not on a mark nobody can read.
 </f:comment>
 
-<section class="astryx-section g-footer-payment-row {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-payment-row" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.text}">
             <div class="g-footer-payment-row__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-payment-row__lead">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-payment-row__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
-        <ul class="astryx-overflow-list multi-row g-footer-payment-row__marks {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.overflowList wrap="multi-row" class="g-footer-payment-row__marks {f:if(condition: data.compact, then: 'is-compact')}">
             <f:for each="{data.logos}" as="mark">
                 <li class="g-footer-payment-row__mark">
                     <f:if condition="{mark.link.url}">
@@ -44,14 +45,14 @@
                     </f:if>
                 </li>
             </f:for>
-        </ul>
+        </a:molecule.overflowList>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-footer-payment-row__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-footer-payment-row__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 <f:section name="mark">
     <f:if condition="{mark.image}">

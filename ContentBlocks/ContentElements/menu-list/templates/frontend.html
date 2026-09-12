@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-menu-list" href="{cb:assetPath()}/frontend.css"/>
@@ -14,38 +15,38 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-menu-list {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-menu-list">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-menu-list__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-menu-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-menu-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
         <nav class="g-menu-list__nav" aria-label="{navLabel}">
-            <ul class="astryx-list with-dividers {f:if(condition: data.compact, then: 'compact', else: 'balanced')} g-menu-list__rows">
+            <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-menu-list__rows">
                 <f:for each="{data.items}" as="item">
                     <li class="g-menu-list__row">
-                        <f:link.typolink parameter="{item.link}" class="astryx-item interactive g-menu-list__link">
-                            <span class="astryx-item-content">
-                                <span class="astryx-item-label g-menu-list__title">{item.title}</span>
+                        <a:molecule.item interactive="interactive" class="g-menu-list__link" parameter="{item.link}">
+                            <a:molecule.itemContent>
+                                <a:molecule.itemLabel class="g-menu-list__title">{item.title}</a:molecule.itemLabel>
                                 <f:if condition="{item.description}">
-                                    <span class="astryx-item-description">{item.description}</span>
+                                    <a:molecule.itemDescription>{item.description}</a:molecule.itemDescription>
                                 </f:if>
-                            </span>
-                        </f:link.typolink>
+                            </a:molecule.itemContent>
+                        </a:molecule.item>
                     </li>
                 </f:for>
-            </ul>
+            </a:molecule.list>
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

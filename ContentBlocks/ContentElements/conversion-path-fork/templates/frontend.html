@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-path-fork" href="{cb:assetPath()}/frontend.css"/>
@@ -10,51 +11,51 @@
     has stopped being a fork and become a call to action with distractions.
 </f:comment>
 
-<section class="astryx-section g-conversion-path-fork {data.tone}" data-align="{data.align}">
-    <div class="astryx-layout lg">
+<a:layout.section surface="{data.tone}" class="g-conversion-path-fork" data-align="{data.align}">
+    <a:layout.container size="lg">
 
         <div class="g-conversion-path-fork__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.subheader}">
-                <p class="astryx-text large g-conversion-path-fork__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                <a:atom.text type="large" class="g-conversion-path-fork__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-conversion-path-fork__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-conversion-path-fork__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-conversion-path-fork__paths">
+        <a:layout.grid cols="{data.columns}" class="g-conversion-path-fork__paths">
             <f:for each="{data.paths}" as="path">
-                <li class="astryx-card g-conversion-path-fork__path {f:if(condition: path.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card class="g-conversion-path-fork__path {f:if(condition: path.link.url, then: 'astryx-clickable-card')}">
                     <f:if condition="{path.icon}">
                         <span class="astryx-feature-icon" data-icon="{path.icon}" aria-hidden="true"><g:icon name="{path.icon}"/></span>
                     </f:if>
 
-                    <h3 class="astryx-card-title">
+                    <a:molecule.cardTitle>
                         <f:if condition="{path.link.url}">
                             <f:then><f:link.typolink parameter="{path.link}">{path.title}</f:link.typolink></f:then>
                             <f:else>{path -> f:render.text(field: 'title')}</f:else>
                         </f:if>
-                    </h3>
+                    </a:molecule.cardTitle>
 
                     <f:if condition="{path.description}">
-                        <p class="astryx-card-body">{path -> f:render.text(field: 'description')}</p>
+                        <a:molecule.cardBody>{path -> f:render.text(field: 'description')}</a:molecule.cardBody>
                     </f:if>
-                </li>
+                </a:molecule.card>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-conversion-path-fork__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-conversion-path-fork__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

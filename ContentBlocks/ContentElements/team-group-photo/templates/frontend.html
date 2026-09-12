@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-team-group-photo" href="{cb:assetPath()}/frontend.css"/>
@@ -19,21 +20,21 @@
     which every band in the catalog already answers to.
 </f:comment>
 
-<section class="astryx-section g-team-group-photo {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-team-group-photo">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-team-group-photo__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-team-group-photo__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-team-group-photo__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -47,10 +48,10 @@
                 <f:if condition="{data.caption} || {data.note}">
                     <figcaption class="g-team-group-photo__caption">
                         <f:if condition="{data.caption}">
-                            <span class="astryx-text body g-team-group-photo__caption-text">{data -> f:render.text(field: 'caption')}</span>
+                            <a:atom.text type="body" as="span" class="g-team-group-photo__caption-text">{data -> f:render.text(field: 'caption')}</a:atom.text>
                         </f:if>
                         <f:if condition="{data.note}">
-                            <span class="astryx-text supporting g-team-group-photo__key">{data -> f:render.text(field: 'note')}</span>
+                            <a:atom.text type="supporting" as="span" class="g-team-group-photo__key">{data -> f:render.text(field: 'note')}</a:atom.text>
                         </f:if>
                     </figcaption>
                 </f:if>
@@ -59,11 +60,11 @@
 
         <f:if condition="{data.cta_label}">
             <p class="g-team-group-photo__actions">
-                <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </p>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

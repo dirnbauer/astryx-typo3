@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-sticky-list" href="{cb:assetPath()}/frontend.css"/>
@@ -10,29 +11,29 @@
     is being read in.
 </f:comment>
 
-<section class="astryx-section g-feature-sticky-list {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-sticky-list">
+    <a:layout.container size="{data.width}">
         <div class="g-feature-sticky-list__grid {f:if(condition: data.reverse, then: 'reversed')}">
 
             <div class="g-feature-sticky-list__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-feature-sticky-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-feature-sticky-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
                     <p class="g-feature-sticky-list__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </p>
                 </f:if>
             </div>
 
-            <ul class="astryx-list with-dividers spacious g-feature-sticky-list__items">
+            <a:molecule.list dividers="with-dividers" density="spacious" class="g-feature-sticky-list__items">
                 <f:for each="{data.items}" as="item">
                     <li class="g-feature-sticky-list__item {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
                         <f:if condition="{item.icon}">
@@ -40,23 +41,23 @@
                         </f:if>
 
                         <div class="g-feature-sticky-list__body">
-                            <h3 class="astryx-heading level-4">
+                            <a:atom.heading level="4">
                                 <f:if condition="{item.link.url}">
                                     <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
                                     <f:else>{item -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
-                            </h3>
+                            </a:atom.heading>
 
                             <f:if condition="{item.text}">
-                                <p class="astryx-text supporting">{item -> f:render.text(field: 'text')}</p>
+                                <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
                         </div>
                     </li>
                 </f:for>
-            </ul>
+            </a:molecule.list>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

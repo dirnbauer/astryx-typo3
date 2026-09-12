@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-brand-newsletter" href="{cb:assetPath()}/frontend.css"/>
@@ -16,10 +17,10 @@
 
 <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-brand-newsletter/language/labels.xlf:nav.label', default: 'Footer links')}"/>
 
-<section class="astryx-section g-footer-brand-newsletter {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-footer-brand-newsletter">
+    <a:layout.container size="{data.width}">
 
-        <div class="astryx-split g-footer-brand-newsletter__grid {f:if(condition: data.reverse, then: 'media-first')}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-footer-brand-newsletter__grid">
 
             <div class="g-footer-brand-newsletter__brand">
                 <f:if condition="{data.image}">
@@ -28,40 +29,40 @@
                     </f:for>
                 </f:if>
 
-                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </div>
 
             <div class="g-footer-brand-newsletter__signup">
                 <f:if condition="{data.text}">
-                    <p class="astryx-text large g-footer-brand-newsletter__prompt">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="large" class="g-footer-brand-newsletter__prompt">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <div class="astryx-button-group">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
-                    </div>
+                    <a:molecule.buttonGroup>
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </a:molecule.buttonGroup>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-footer-brand-newsletter__small-print">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-footer-brand-newsletter__small-print">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
-        </div>
+        </a:layout.split>
 
         <f:if condition="{data.links}">
             <nav class="g-footer-brand-newsletter__nav" aria-label="{navLabel}">
                 <ul class="g-footer-brand-newsletter__links">
                     <f:for each="{data.links}" as="item">
                         <li class="g-footer-brand-newsletter__link">
-                            <f:link.typolink parameter="{item.link}" class="astryx-link quiet">{item.title}</f:link.typolink>
+                            <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
                         </li>
                     </f:for>
                 </ul>
             </nav>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

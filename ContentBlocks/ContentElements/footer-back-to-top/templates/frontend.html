@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-back-to-top" href="{cb:assetPath()}/frontend.css"/>
@@ -20,25 +21,25 @@
     <f:variable name="label" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-back-to-top/language/labels.xlf:link.label', default: 'Back to top')}"/>
 </f:if>
 
-<section class="astryx-section g-footer-back-to-top {data.tone} {f:if(condition: data.compact, then: 'flush', else: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footer-back-to-top" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-back-to-top__bar">
 
             <f:if condition="{data.text}">
-                <p class="astryx-text supporting g-footer-back-to-top__text">{data -> f:render.text(field: 'text')}</p>
+                <a:atom.text type="supporting" class="g-footer-back-to-top__text">{data -> f:render.text(field: 'text')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.cta_link.url}">
                 <f:then>
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button ghost g-footer-back-to-top__link">{label}</f:link.typolink>
+                    <a:atom.button variant="ghost" class="g-footer-back-to-top__link" parameter="{data.cta_link}">{label}</a:atom.button>
                 </f:then>
                 <f:else>
-                    <a href="#main-content" class="astryx-button ghost g-footer-back-to-top__link">{label}</a>
+                    <a:atom.button variant="ghost" class="g-footer-back-to-top__link" href="#main-content">{label}</a:atom.button>
                 </f:else>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,27 +1,28 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-category" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-category {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-category">
+    <a:layout.container size="{data.width}">
         <div class="g-hero-category__band {f:if(condition: data.image, then: 'has-media')}">
 
             <div class="g-hero-category__copy {data.align}">
                 <p class="g-hero-category__flags">
                     <f:if condition="{data.eyebrow}">
-                        <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                        <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                     </f:if>
                     <f:if condition="{data.badge_text}">
-                        <span class="astryx-badge neutral g-hero-category__count">{data.badge_text}</span>
+                        <a:atom.badge variant="neutral" as="span" class="g-hero-category__count">{data.badge_text}</a:atom.badge>
                     </f:if>
                 </p>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-hero-category__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-hero-category__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
 
@@ -34,7 +35,7 @@
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

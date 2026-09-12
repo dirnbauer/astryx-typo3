@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-office-people" href="{cb:assetPath()}/frontend.css"/>
@@ -19,55 +20,55 @@
     heading is a place, and an unnamed face there belongs to nobody.
 </f:comment>
 
-<section class="astryx-section g-office-people {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-office-people">
+    <a:layout.container size="{data.width}">
 
         <div class="g-office-people__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-office-people__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-office-people__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-office-people__offices">
+        <a:layout.grid cols="{data.columns}" class="g-office-people__offices">
             <f:for each="{data.contacts}" as="office">
-                <li class="astryx-card g-office-people__office">
+                <a:molecule.card class="g-office-people__office">
 
                     <f:if condition="{office.role}">
-                        <h3 class="astryx-card-title g-office-people__place">{office -> f:render.text(field: 'role')}</h3>
+                        <a:molecule.cardTitle class="g-office-people__place">{office -> f:render.text(field: 'role')}</a:molecule.cardTitle>
                     </f:if>
 
                     <f:if condition="{office.text}">
-                        <address class="astryx-text body g-office-people__address">{office -> f:render.text(field: 'text')}</address>
+                        <a:atom.text type="body" as="address" class="g-office-people__address">{office -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
 
                     <div class="g-office-people__contact">
                         <f:if condition="{office.image}">
-                            <span class="astryx-avatar md g-office-people__portrait">
+                            <a:atom.avatar size="md" class="g-office-people__portrait">
                                 <f:for each="{office.image}" as="image">
                                     <f:image image="{image}" alt="{office.title}" width="96c" height="96c" loading="lazy"/>
                                 </f:for>
-                            </span>
+                            </a:atom.avatar>
                         </f:if>
 
-                        <p class="astryx-text supporting g-office-people__person">
+                        <a:atom.text type="supporting" class="g-office-people__person">
                             <f:if condition="{office.link.url}">
-                                <f:then><f:link.typolink parameter="{office.link}" class="astryx-link">{office.title}</f:link.typolink></f:then>
+                                <f:then><a:atom.link parameter="{office.link}">{office.title}</a:atom.link></f:then>
                                 <f:else>{office -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </p>
+                        </a:atom.text>
                     </div>
 
-                </li>
+                </a:molecule.card>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

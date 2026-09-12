@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-survey-invite" href="{cb:assetPath()}/frontend.css"/>
@@ -10,16 +11,16 @@
     the reader the click.
 </f:comment>
 
-<section class="astryx-section g-conversion-survey-invite {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout md">
-        <div class="astryx-banner g-conversion-survey-invite__invite">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-conversion-survey-invite" data-align="{data.align}">
+    <a:layout.container size="md">
+        <a:molecule.banner class="g-conversion-survey-invite__invite">
 
             <f:if condition="{data.icon}">
                 <span class="astryx-feature-icon g-conversion-survey-invite__icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
             </f:if>
 
             <div class="astryx-banner-content g-conversion-survey-invite__copy">
-                <h2 class="astryx-heading level-4">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.value}">
                     <p class="g-conversion-survey-invite__figure">
@@ -28,26 +29,26 @@
                 </f:if>
 
                 <f:if condition="{data.subheader}">
-                    <p class="astryx-text body g-conversion-survey-invite__subheader">{data -> f:render.text(field: 'subheader')}</p>
+                    <a:atom.text type="body" class="g-conversion-survey-invite__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-conversion-survey-invite__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-conversion-survey-invite__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <div class="astryx-button-group g-conversion-survey-invite__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
-                    </div>
+                    <a:molecule.buttonGroup class="g-conversion-survey-invite__actions">
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </a:molecule.buttonGroup>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-conversion-survey-invite__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-survey-invite__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
-        </div>
-    </div>
-</section>
+        </a:molecule.banner>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

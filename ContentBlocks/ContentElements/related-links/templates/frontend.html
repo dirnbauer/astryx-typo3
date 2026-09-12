@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-related-links" href="{cb:assetPath()}/frontend.css"/>
@@ -14,40 +15,40 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.related" default="Related pages"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-related-links {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-related-links">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-related-links__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-related-links__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-related-links__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
         <nav class="g-related-links__nav" aria-label="{navLabel}">
-            <ul class="astryx-grid cols-{data.columns} g-related-links__items">
+            <a:layout.grid cols="{data.columns}" class="g-related-links__items">
                 <f:for each="{data.links}" as="link">
-                    <li class="astryx-card flat astryx-clickable-card g-related-links__item">
-                        <h3 class="astryx-card-title g-related-links__title">
+                    <a:molecule.card variant="flat" class="astryx-clickable-card g-related-links__item">
+                        <a:molecule.cardTitle class="g-related-links__title">
                             <f:if condition="{link.link.url}">
                                 <f:then><f:link.typolink parameter="{link.link}">{link.title}</f:link.typolink></f:then>
                                 <f:else>{link -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </h3>
+                        </a:molecule.cardTitle>
 
                         <f:if condition="{link.description}">
-                            <p class="astryx-card-body">{link -> f:render.text(field: 'description')}</p>
+                            <a:molecule.cardBody>{link -> f:render.text(field: 'description')}</a:molecule.cardBody>
                         </f:if>
-                    </li>
+                    </a:molecule.card>
                 </f:for>
-            </ul>
+            </a:layout.grid>
         </nav>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

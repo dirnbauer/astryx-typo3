@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-conversion-cta-sticky" href="{cb:assetPath()}/frontend.css"/>
@@ -11,33 +12,33 @@
     the foot of the content instead of sitting on top of the page footer.
 </f:comment>
 
-<section class="astryx-section g-conversion-cta-sticky {data.tone}">
-    <div class="astryx-layout">
-        <div class="astryx-toolbar lg g-conversion-cta-sticky__bar">
+<a:layout.section surface="{data.tone}" class="g-conversion-cta-sticky">
+    <a:layout.container>
+        <a:molecule.toolbar size="lg" class="g-conversion-cta-sticky__bar">
 
             <div class="astryx-toolbar-start g-conversion-cta-sticky__copy">
-                <h2 class="astryx-heading level-5">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="5">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 <f:if condition="{data.text}">
-                    <p class="astryx-text supporting g-conversion-cta-sticky__text">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-cta-sticky__text">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-conversion-cta-sticky__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-conversion-cta-sticky__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
                 <div class="astryx-toolbar-end g-conversion-cta-sticky__actions">
                     <f:if condition="{data.secondary_label}">
-                        <f:link.typolink parameter="{data.secondary_link}" class="astryx-link cta g-conversion-cta-sticky__secondary">{data.secondary_label}</f:link.typolink>
+                        <a:atom.link variant="cta" class="g-conversion-cta-sticky__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
                     </f:if>
                     <f:if condition="{data.cta_label}">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary g-conversion-cta-sticky__action">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" class="g-conversion-cta-sticky__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                 </div>
             </f:if>
 
-        </div>
-    </div>
-</section>
+        </a:molecule.toolbar>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

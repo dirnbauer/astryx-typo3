@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-questions-band" href="{cb:assetPath()}/frontend.css"/>
@@ -14,34 +15,34 @@
     footer stays where it is and is not affected.
 </f:comment>
 
-<section class="astryx-section g-footer-questions-band {data.tone}" data-align="{data.align}" data-media="{f:if(condition: data.image, then: 'yes', else: 'no')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-footer-questions-band" data-align="{data.align}" data-media="{f:if(condition: data.image, then: 'yes', else: 'no')}">
+    <a:layout.container size="{data.width}">
         <div class="g-footer-questions-band__grid">
 
             <div class="g-footer-questions-band__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-footer-questions-band__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-footer-questions-band__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <div class="astryx-button-group g-footer-questions-band__actions">
+                    <a:molecule.buttonGroup class="g-footer-questions-band__actions">
                         <f:if condition="{data.cta_label}">
-                            <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
+                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
                         <f:if condition="{data.secondary_label}">
-                            <f:link.typolink parameter="{data.secondary_link}" class="astryx-button ghost lg">{data.secondary_label}</f:link.typolink>
+                            <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                         </f:if>
-                    </div>
+                    </a:molecule.buttonGroup>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-footer-questions-band__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-footer-questions-band__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </div>
 
@@ -54,7 +55,7 @@
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

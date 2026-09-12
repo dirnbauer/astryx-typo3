@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-rich-text" href="{cb:assetPath()}/frontend.css"/>
@@ -10,18 +11,18 @@
     and one shared rule is the only way that stays true across the catalog.
 </f:comment>
 
-<section class="astryx-section g-rich-text {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-rich-text">
+    <a:layout.container size="{data.width}">
         <div class="g-rich-text__body align-{data.align}">
 
             <f:if condition="{data.header}">
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
             <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

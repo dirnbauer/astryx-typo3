@@ -1,36 +1,37 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-logos" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-logos {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-logos">
+    <a:layout.container size="{data.width}">
         <div class="g-hero-logos__copy">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-hero-logos__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-hero-logos__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.cta_label}">
-                <div class="astryx-button-group g-hero-logos__actions">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary lg">{data.cta_label}</f:link.typolink>
-                </div>
+                <a:molecule.buttonGroup class="g-hero-logos__actions">
+                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
             </f:if>
         </div>
 
         <f:if condition="{data.logos}">
             <div class="g-hero-logos__proof">
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-hero-logos__note" id="g-hero-logos-note-{data.uid}">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-hero-logos__note" id="g-hero-logos-note-{data.uid}">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
 
-                <ul class="astryx-overflow-list multi-row g-hero-logos__row" aria-labelledby="g-hero-logos-note-{data.uid}">
+                <a:molecule.overflowList wrap="multi-row" class="g-hero-logos__row" aria-labelledby="g-hero-logos-note-{data.uid}">
                     <f:for each="{data.logos}" as="logo">
                         <li class="g-hero-logos__mark">
                             <f:if condition="{logo.link.url}">
@@ -45,11 +46,11 @@
                             </f:if>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.overflowList>
             </div>
         </f:if>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 <f:comment>
     A mark is either artwork or, when nobody has uploaded any, the customer's

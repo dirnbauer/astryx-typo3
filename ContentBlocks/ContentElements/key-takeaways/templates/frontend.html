@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-key-takeaways" href="{cb:assetPath()}/frontend.css"/>
@@ -10,33 +11,33 @@
     nowhere. The optional explanation sits under the point in the same item.
 </f:comment>
 
-<section class="astryx-section g-key-takeaways {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-card {f:if(condition: data.compact, then: 'tight')} g-key-takeaways__box">
+<a:layout.section surface="{data.tone}" class="g-key-takeaways">
+    <a:layout.container size="{data.width}">
+        <a:molecule.card density="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-key-takeaways__box">
 
             <f:if condition="{data.header}">
-                <h2 class="astryx-heading level-3 g-key-takeaways__title">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3" class="g-key-takeaways__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-key-takeaways__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-key-takeaways__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
-            <ul class="astryx-list g-key-takeaways__list">
+            <a:molecule.list class="g-key-takeaways__list">
                 <f:for each="{data.points}" as="item">
                     <li class="g-key-takeaways__point">
                         <span class="g-key-takeaways__body">
-                            <span class="astryx-text body g-key-takeaways__lineLabel">{item -> f:render.text(field: 'title')}</span>
+                            <a:atom.text type="body" as="span" class="g-key-takeaways__lineLabel">{item -> f:render.text(field: 'title')}</a:atom.text>
                             <f:if condition="{item.text}">
-                                <span class="astryx-text supporting">{item -> f:render.text(field: 'text')}</span>
+                                <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
                         </span>
                     </li>
                 </f:for>
-            </ul>
+            </a:molecule.list>
 
-        </div>
-    </div>
-</section>
+        </a:molecule.card>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-person-interview" href="{cb:assetPath()}/frontend.css"/>
@@ -17,35 +18,35 @@
     sits in the standfirst rather than beside a printed name.
 </f:comment>
 
-<section class="astryx-section g-person-interview {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-person-interview">
+    <a:layout.container size="{data.width}">
 
         <div class="g-person-interview__standfirst">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-person-interview__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-person-interview__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.image} || {data.author}">
                 <div class="g-person-interview__who">
                     <f:if condition="{data.image}">
-                        <span class="astryx-avatar lg g-person-interview__portrait">
+                        <a:atom.avatar size="lg" class="g-person-interview__portrait">
                             <f:for each="{data.image}" as="image">
                                 <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
                             </f:for>
-                        </span>
+                        </a:atom.avatar>
                     </f:if>
 
                     <f:if condition="{data.author}">
                         <p class="g-person-interview__credit">
-                            <span class="astryx-text label g-person-interview__name">{data -> f:render.text(field: 'author')}</span>
+                            <a:atom.text type="label" as="span" class="g-person-interview__name">{data -> f:render.text(field: 'author')}</a:atom.text>
                             <f:if condition="{data.role}">
-                                <span class="astryx-text supporting g-person-interview__role">{data -> f:render.text(field: 'role')}</span>
+                                <a:atom.text type="supporting" as="span" class="g-person-interview__role">{data -> f:render.text(field: 'role')}</a:atom.text>
                             </f:if>
                         </p>
                     </f:if>
@@ -56,13 +57,13 @@
         <div class="g-person-interview__conversation">
             <f:for each="{data.questions}" as="pair">
                 <article class="g-person-interview__pair">
-                    <h3 class="astryx-heading level-3 g-person-interview__question">{pair -> f:render.text(field: 'title')}</h3>
+                    <a:atom.heading level="3" class="g-person-interview__question">{pair -> f:render.text(field: 'title')}</a:atom.heading>
                     <div class="astryx-prose g-person-interview__answer"><f:format.html>{pair.bodytext}</f:format.html></div>
                 </article>
             </f:for>
         </div>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

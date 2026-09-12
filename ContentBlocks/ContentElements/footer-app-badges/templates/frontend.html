@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-footer-app-badges" href="{cb:assetPath()}/frontend.css"/>
@@ -14,20 +15,20 @@
     the band a reader cannot use at all.
 </f:comment>
 
-<section class="astryx-section g-footer-app-badges {data.tone} {f:if(condition: data.compact, then: 'tight')}" data-align="{data.align}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-app-badges" data-align="{data.align}">
+    <a:layout.container size="{data.width}">
 
         <div class="g-footer-app-badges__inner">
 
             <div class="g-footer-app-badges__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-text body g-footer-app-badges__lead">{data -> f:render.text(field: 'text')}</p>
+                    <a:atom.text type="body" class="g-footer-app-badges__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <ul class="g-footer-app-badges__stores">
@@ -59,7 +60,7 @@
 
         </div>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-team-grid" href="{cb:assetPath()}/frontend.css"/>
@@ -20,24 +21,24 @@
     for people whose biography matters.
 </f:comment>
 
-<section class="astryx-section g-team-grid {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-team-grid">
+    <a:layout.container size="{data.width}">
 
         <div class="g-team-grid__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-team-grid__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-team-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-team-grid__people">
+        <a:layout.grid cols="{data.columns}" class="g-team-grid__people">
             <f:for each="{data.people}" as="person">
-                <li class="astryx-card {f:if(condition: person.image, then: 'media-top')} {f:if(condition: person.link.url, then: 'astryx-clickable-card')} g-team-grid__person">
+                <a:molecule.card media="{f:if(condition: person.image, then: 'top', else: 'default')}" class="{f:if(condition: person.link.url, then: 'astryx-clickable-card')} g-team-grid__person">
 
                     <f:if condition="{person.image}">
                         <div class="g-team-grid__portrait">
@@ -47,22 +48,22 @@
                         </div>
                     </f:if>
 
-                    <h3 class="astryx-card-title g-team-grid__name">
+                    <a:molecule.cardTitle class="g-team-grid__name">
                         <f:if condition="{person.link.url}">
                             <f:then><f:link.typolink parameter="{person.link}">{person.title}</f:link.typolink></f:then>
                             <f:else>{person -> f:render.text(field: 'title')}</f:else>
                         </f:if>
-                    </h3>
+                    </a:molecule.cardTitle>
 
                     <f:if condition="{person.role}">
-                        <p class="astryx-card-body g-team-grid__role">{person -> f:render.text(field: 'role')}</p>
+                        <a:molecule.cardBody class="g-team-grid__role">{person -> f:render.text(field: 'role')}</a:molecule.cardBody>
                     </f:if>
 
-                </li>
+                </a:molecule.card>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

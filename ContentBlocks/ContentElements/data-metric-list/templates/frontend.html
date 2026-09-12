@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-data-metric-list" href="{cb:assetPath()}/frontend.css"/>
@@ -10,17 +11,17 @@
     first thing to break there.
 </f:comment>
 
-<section class="astryx-section g-data-metric-list {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-metric-list">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-data-metric-list__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-3">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-data-metric-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-data-metric-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -31,17 +32,17 @@
                     <dt class="g-data-metric-list__label">{metric -> f:render.text(field: 'title')}</dt>
                     <dd class="g-data-metric-list__value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
                     <f:if condition="{metric.text}">
-                        <dd class="astryx-text supporting g-data-metric-list__detail">{metric -> f:render.text(field: 'text')}</dd>
+                        <a:atom.text type="supporting" as="dd" class="g-data-metric-list__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
                 </div>
             </f:for>
         </dl>
 
         <f:if condition="{data.note}">
-            <p class="astryx-text supporting g-data-metric-list__note">{data -> f:render.text(field: 'note')}</p>
+            <a:atom.text type="supporting" class="g-data-metric-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

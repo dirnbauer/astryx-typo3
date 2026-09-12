@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-proof" href="{cb:assetPath()}/frontend.css"/>
@@ -10,16 +11,16 @@
     also why the field is stored without them.
 </f:comment>
 
-<section class="astryx-section g-feature-proof {data.tone}">
-    <div class="astryx-layout {data.width}">
-        <div class="astryx-split g-feature-proof__grid {f:if(condition: data.reverse, then: 'media-first')}">
+<a:layout.section surface="{data.tone}" class="g-feature-proof">
+    <a:layout.container size="{data.width}">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-feature-proof__grid">
 
             <div class="g-feature-proof__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
-                <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.bodytext}">
                     <div class="astryx-prose g-feature-proof__body"><f:format.html>{data.bodytext}</f:format.html></div>
@@ -27,36 +28,36 @@
 
                 <f:if condition="{data.cta_label}">
                     <p class="g-feature-proof__actions">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-button primary">{data.cta_label}</f:link.typolink>
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </p>
                 </f:if>
             </div>
 
-            <figure class="astryx-card raised g-feature-proof__proof">
-                <blockquote class="astryx-blockquote g-feature-proof__quote">
+            <a:molecule.card variant="raised" class="g-feature-proof__proof">
+                <a:molecule.blockquote class="g-feature-proof__quote">
                     <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </blockquote>
+                </a:molecule.blockquote>
 
                 <figcaption class="g-feature-proof__attribution">
                     <f:if condition="{data.image}">
-                        <span class="astryx-avatar lg g-feature-proof__portrait">
+                        <a:atom.avatar size="lg" class="g-feature-proof__portrait">
                             <f:for each="{data.image}" as="image">
                                 <f:image image="{image}" alt="{image.alternative}" width="96" height="96" loading="lazy"/>
                             </f:for>
-                        </span>
+                        </a:atom.avatar>
                     </f:if>
 
                     <span class="g-feature-proof__who">
-                        <span class="astryx-text label">{data -> f:render.text(field: 'author')}</span>
+                        <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
                         <f:if condition="{data.role}">
-                            <span class="astryx-text supporting">{data -> f:render.text(field: 'role')}</span>
+                            <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
                         </f:if>
                     </span>
                 </figcaption>
-            </figure>
+            </a:molecule.card>
 
-        </div>
-    </div>
-</section>
+        </a:layout.split>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

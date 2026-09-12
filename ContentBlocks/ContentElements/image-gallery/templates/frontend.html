@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-image-gallery" href="{cb:assetPath()}/frontend.css"/>
@@ -11,16 +12,16 @@
     script does not load.
 </f:comment>
 
-<section class="astryx-section g-image-gallery {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-image-gallery">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-image-gallery__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-image-gallery__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-image-gallery__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -37,14 +38,14 @@
                             <f:image image="{image}" alt="{image.alternative}" width="640c" height="480c" loading="lazy" class="g-image-gallery__image"/>
                         </a>
                         <f:if condition="{image.description}">
-                            <figcaption class="astryx-text supporting">{image.description}</figcaption>
+                            <a:atom.text type="supporting" as="figcaption">{image.description}</a:atom.text>
                         </f:if>
                     </figure>
                 </li>
             </f:for>
         </ul>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-pricing-addon-list" href="{cb:assetPath()}/frontend.css"/>
@@ -10,68 +11,68 @@
     rows keep twenty readable, which a grid of twenty cards never is.
 </f:comment>
 
-<section class="astryx-section g-pricing-addon-list {data.tone}" data-variant="{data.variant}" data-columns="{data.columns}">
-    <div class="astryx-layout lg">
+<a:layout.section surface="{data.tone}" class="g-pricing-addon-list" data-variant="{data.variant}" data-columns="{data.columns}">
+    <a:layout.container size="lg">
 
         <div class="g-pricing-addon-list__intro">
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.subheader}">
-                <p class="astryx-text large g-pricing-addon-list__scope">{data -> f:render.text(field: 'subheader')}</p>
+                <a:atom.text type="large" class="g-pricing-addon-list__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
             </f:if>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text body g-pricing-addon-list__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="body" class="g-pricing-addon-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
         <f:if condition="{data.variant} == 'cards'">
             <f:then>
-                <ul class="astryx-grid cols-{data.columns} g-pricing-addon-list__addons">
+                <a:layout.grid cols="{data.columns}" class="g-pricing-addon-list__addons">
                     <f:for each="{data.addons}" as="addon">
-                        <li class="astryx-card g-pricing-addon-list__addon">
-                            <h3 class="astryx-card-title g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</h3>
+                        <a:molecule.card class="g-pricing-addon-list__addon">
+                            <a:molecule.cardTitle class="g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                             <p class="g-pricing-addon-list__price">
-                                <span class="astryx-text display-3 g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</span>
+                                <a:atom.text type="display-3" as="span" class="g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</a:atom.text>
                             </p>
                             <f:if condition="{addon.text}">
-                                <p class="astryx-card-body g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</p>
+                                <a:molecule.cardBody class="g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</a:molecule.cardBody>
                             </f:if>
-                        </li>
+                        </a:molecule.card>
                     </f:for>
-                </ul>
+                </a:layout.grid>
             </f:then>
             <f:else>
-                <ul class="astryx-list with-dividers spacious g-pricing-addon-list__addons">
+                <a:molecule.list dividers="with-dividers" density="spacious" class="g-pricing-addon-list__addons">
                     <f:for each="{data.addons}" as="addon">
                         <li class="g-pricing-addon-list__addon">
                             <div class="g-pricing-addon-list__body">
-                                <h3 class="astryx-heading level-4 g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</h3>
+                                <a:atom.heading level="4" class="g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</a:atom.heading>
                                 <f:if condition="{addon.text}">
-                                    <p class="astryx-text body g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</p>
+                                    <a:atom.text type="body" class="g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</a:atom.text>
                                 </f:if>
                             </div>
                             <p class="g-pricing-addon-list__price">
-                                <span class="astryx-text label g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</span>
+                                <a:atom.text type="label" as="span" class="g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</a:atom.text>
                             </p>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.list>
             </f:else>
         </f:if>
 
         <f:if condition="{data.note} || {data.cta_label}">
             <div class="g-pricing-addon-list__foot">
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-pricing-addon-list__note">{data -> f:render.text(field: 'note')}</p>
+                    <a:atom.text type="supporting" class="g-pricing-addon-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
                 <f:if condition="{data.cta_label}">
-                    <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </f:if>
             </div>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

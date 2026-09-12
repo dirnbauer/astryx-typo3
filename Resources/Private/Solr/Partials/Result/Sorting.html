@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -21,54 +22,44 @@
         astryx.js only adds the click-outside close that the platform lacks.
     </f:comment>
     <details id="tx-solr-sorting" class="g-search__sorting" data-g-menu>
-        <summary class="astryx-button secondary md g-search__sorting-toggle">
+        <a:atom.button variant="secondary" size="md" class="g-search__sorting-toggle">
             <f:translate key="{labels}:search.sortBy" default="Sort"/>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                 <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-        </summary>
+        </a:atom.button>
 
         <div class="astryx-popover g-search__sorting-menu">
             <div class="astryx-popover-body">
                 <f:for each="{resultSet.sortings}" as="sorting">
                     <f:if condition="{sorting.isResetOption}">
                         <f:then>
-                            <a
-                                class="astryx-item compact interactive{f:if(condition: sorting.selected, then: ' selected')} solr-ajaxified"
-                                href="{s:uri.sorting.removeSorting()}"
-                            >
-                                <span class="astryx-item-content"><span class="astryx-item-label">{sorting.label}</span></span>
-                            </a>
+                            <a:molecule.item density="compact" class="interactive{f:if(condition: sorting.selected, then: ' selected')} solr-ajaxified" href="{s:uri.sorting.removeSorting()}">
+                                <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
+                            </a:molecule.item>
                         </f:then>
                         <f:else>
                             <f:if condition="{sorting.selected}">
                                 <f:then>
-                                    <a
-                                        class="astryx-item compact interactive selected solr-ajaxified"
-                                        href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}"
-                                        aria-current="true"
-                                    >
-                                        <span class="astryx-item-content"><span class="astryx-item-label">{sorting.label}</span></span>
+                                    <a:molecule.item density="compact" interactive="interactive" selected="selected" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}" aria-current="true">
+                                        <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
                                         <span class="astryx-item-end">
                                             <svg class="g-search__sorting-arrow {f:if(condition: sorting.isAscDirection, then: 'asc', else: 'desc')}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                                                 <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
                                             </svg>
-                                            <span class="astryx-visually-hidden">
+                                            <a:atom.visuallyHidden as="span">
                                                 <f:if condition="{sorting.isAscDirection}">
                                                     <f:then><f:translate key="{labels}:search.sortAscending" default="ascending"/></f:then>
                                                     <f:else><f:translate key="{labels}:search.sortDescending" default="descending"/></f:else>
                                                 </f:if>
-                                            </span>
+                                            </a:atom.visuallyHidden>
                                         </span>
-                                    </a>
+                                    </a:molecule.item>
                                 </f:then>
                                 <f:else>
-                                    <a
-                                        class="astryx-item compact interactive solr-ajaxified"
-                                        href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.direction)}"
-                                    >
-                                        <span class="astryx-item-content"><span class="astryx-item-label">{sorting.label}</span></span>
-                                    </a>
+                                    <a:molecule.item density="compact" interactive="interactive" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.direction)}">
+                                        <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
+                                    </a:molecule.item>
                                 </f:else>
                             </f:if>
                         </f:else>

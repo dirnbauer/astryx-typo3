@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-video-embed" href="{cb:assetPath()}/frontend.css"/>
@@ -12,16 +13,16 @@
 
 <f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
 
-<section class="astryx-section g-video-embed {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-video-embed">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.header} || {data.lead}">
             <div class="g-video-embed__intro">
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-video-embed__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-video-embed__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
@@ -29,7 +30,7 @@
         <figure class="g-video-embed__figure">
             <f:if condition="{data.cta_link.url}">
                 <f:then>
-                    <div class="astryx-aspect-ratio g-video-embed__frame">
+                    <a:atom.aspectRatio class="g-video-embed__frame">
                         <f:for each="{data.image}" as="poster">
                             <span class="g-video-embed__poster" style="--g-poster: url('{f:uri.image(image: poster, width: 1280)}')"></span>
                         </f:for>
@@ -40,7 +41,7 @@
                                 referrerpolicy="strict-origin-when-cross-origin"
                                 allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
                                 allowfullscreen></iframe>
-                    </div>
+                    </a:atom.aspectRatio>
                 </f:then>
                 <f:else>
                     <f:for each="{data.image}" as="poster">
@@ -52,16 +53,16 @@
             <f:if condition="{data.caption} || {data.note}">
                 <figcaption class="g-video-embed__caption">
                     <f:if condition="{data.caption}">
-                        <span class="astryx-text body">{data -> f:render.text(field: 'caption')}</span>
+                        <a:atom.text type="body" as="span">{data -> f:render.text(field: 'caption')}</a:atom.text>
                     </f:if>
                     <f:if condition="{data.note}">
-                        <span class="astryx-text supporting">{data -> f:render.text(field: 'note')}</span>
+                        <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
                 </figcaption>
             </f:if>
         </figure>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

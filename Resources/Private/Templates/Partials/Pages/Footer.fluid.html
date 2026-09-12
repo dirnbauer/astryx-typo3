@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
 <f:variable name="wordmark" value="{site.configuration.settings.astryx.brand.wordmark}"/>
 <f:if condition="!{wordmark}">
@@ -6,7 +6,7 @@
 </f:if>
 
 <footer class="astryx-footer">
-    <div class="astryx-layout">
+    <a:layout.container>
 
         <div class="astryx-footer__top">
             <div class="astryx-footer__brand">
@@ -70,7 +70,7 @@
             </f:if>
         </div>
 
-    </div>
+    </a:layout.container>
 </footer>
 
 </html>

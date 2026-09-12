@@ -1,67 +1,68 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-docs" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-docs {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-docs">
+    <a:layout.container size="{data.width}">
         <div class="g-hero-docs__copy">
             <p class="g-hero-docs__flags">
                 <f:if condition="{data.eyebrow}">
-                    <span class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</span>
+                    <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.badge_text}">
-                    <span class="astryx-badge outline g-hero-docs__version">{data.badge_text}</span>
+                    <a:atom.badge variant="outline" as="span" class="g-hero-docs__version">{data.badge_text}</a:atom.badge>
                 </f:if>
             </p>
 
-            <h2 class="astryx-heading level-1">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-hero-docs__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-hero-docs__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
             <f:comment>
                 A GET form pointed at the results page: the query arrives as "q"
                 on a full page load, so search works before any script does.
             </f:comment>
-            <form class="astryx-field g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
-                <label class="astryx-visually-hidden" for="g-hero-docs-q-{data.uid}">
+            <a:molecule.field class="g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+                <a:atom.visuallyHidden as="label" for="g-hero-docs-q-{data.uid}">
                     <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
-                </label>
-                <div class="astryx-input-group lg">
+                </a:atom.visuallyHidden>
+                <a:molecule.inputGroup size="lg">
                     <input class="astryx-text-input lg" type="search" name="q" id="g-hero-docs-q-{data.uid}"
                            placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchPlaceholder', default: 'Search the documentation')}"/>
-                    <button class="astryx-button primary lg g-hero-docs__submit" type="submit">
+                    <a:atom.button variant="primary" size="lg" class="g-hero-docs__submit" type="submit">
                         <f:if condition="{data.cta_label}">
                             <f:then>{data.cta_label}</f:then>
                             <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
                         </f:if>
-                    </button>
-                </div>
-            </form>
+                    </a:atom.button>
+                </a:molecule.inputGroup>
+            </a:molecule.field>
         </div>
 
         <f:if condition="{data.links}">
             <nav class="g-hero-docs__quick" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.quickLinks', default: 'Quick links')}">
-                <ul class="astryx-list g-hero-docs__list">
+                <a:molecule.list class="g-hero-docs__list">
                     <f:for each="{data.links}" as="link">
                         <li>
-                            <f:link.typolink parameter="{link.link}" class="astryx-item interactive g-hero-docs__link">
-                                <span class="astryx-item-content">
-                                    <span class="astryx-item-label g-hero-docs__link-title">{link.title}</span>
+                            <a:molecule.item interactive="interactive" class="g-hero-docs__link" parameter="{link.link}">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel class="g-hero-docs__link-title">{link.title}</a:molecule.itemLabel>
                                     <f:if condition="{link.description}">
-                                        <span class="astryx-item-description">{link.description}</span>
+                                        <a:molecule.itemDescription>{link.description}</a:molecule.itemDescription>
                                     </f:if>
-                                </span>
-                            </f:link.typolink>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
                         </li>
                     </f:for>
-                </ul>
+                </a:molecule.list>
             </nav>
         </f:if>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

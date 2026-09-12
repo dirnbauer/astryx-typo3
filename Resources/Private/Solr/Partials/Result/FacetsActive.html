@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -23,30 +24,27 @@
             nothing about what is about to happen.
         </f:comment>
         <div id="tx-solr-facets-in-use" class="g-search__active">
-            <span class="astryx-text supporting g-search__active-label">
+            <a:atom.text type="supporting" as="span" class="g-search__active-label">
                 <f:translate key="{labels}:search.filteredBy" default="Filtered by"/>
-            </span>
+            </a:atom.text>
 
             <f:for each="{resultSet.facets.used}" as="facet">
                 <f:for each="{facet.allFacetItems.selected}" as="item">
-                    <a
-                        href="{s:uri.facet.removeFacetItem(facet: facet, facetItem: item)}"
-                        class="astryx-token g-search__active-token facet remove-facet-option solr-ajaxified"
-                    >
-                        <span class="astryx-visually-hidden">
+                    <a:atom.token class="g-search__active-token facet remove-facet-option solr-ajaxified" href="{s:uri.facet.removeFacetItem(facet: facet, facetItem: item)}">
+                        <a:atom.visuallyHidden as="span">
                             <f:translate key="{labels}:search.filterRemove" default="Remove filter"/>:
-                        </span>
+                        </a:atom.visuallyHidden>
                         <span>{facet.label}: {item.label}</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                             <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
                         </svg>
-                    </a>
+                    </a:atom.token>
                 </f:for>
             </f:for>
 
-            <a href="{s:uri.facet.removeAllFacets()}" class="astryx-link quiet g-search__active-clear solr-ajaxified">
+            <a:atom.link variant="quiet" class="g-search__active-clear solr-ajaxified" href="{s:uri.facet.removeAllFacets()}">
                 <f:translate key="{labels}:search.filterRemoveAll" default="Clear all"/>
-            </a>
+            </a:atom.link>
         </div>
     </f:if>
 </f:section>

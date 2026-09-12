@@ -1,6 +1,7 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
     xmlns:s="http://typo3.org/ns/ApacheSolrForTypo3/Solr/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -45,7 +46,7 @@
         </select>
 
         <noscript>
-            <button class="astryx-button secondary sm" type="submit"><f:translate key="{labels}:search.perPageApply" default="Apply"/></button>
+            <a:atom.button variant="secondary" size="sm" type="submit"><f:translate key="{labels}:search.perPageApply" default="Apply"/></a:atom.button>
         </noscript>
     </form>
 </f:section>

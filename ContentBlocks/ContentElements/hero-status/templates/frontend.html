@@ -1,16 +1,17 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-hero-status" href="{cb:assetPath()}/frontend.css"/>
 
-<section class="astryx-section g-hero-status {data.tone} {f:if(condition: data.compact, then: 'tight')}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-status">
+    <a:layout.container size="{data.width}">
         <div class="g-hero-status__band">
 
             <div class="g-hero-status__copy">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
                 <f:comment>
@@ -18,21 +19,21 @@
                     colour alone would leave the state unreadable to anyone who
                     cannot tell green from amber.
                 </f:comment>
-                <h2 class="astryx-heading level-2 g-hero-status__headline">
-                    <span class="astryx-statusdot accent g-hero-status__dot" aria-hidden="true"></span>
+                <a:atom.heading level="2" class="g-hero-status__headline">
+                    <a:atom.statusDot variant="accent" class="g-hero-status__dot" aria-hidden="true"></a:atom.statusDot>
                     <span>{data -> f:render.text(field: 'header')}</span>
-                </h2>
+                </a:atom.heading>
 
                 <f:if condition="{data.badge_text}">
-                    <p class="g-hero-status__flag"><span class="astryx-badge accent">{data.badge_text}</span></p>
+                    <p class="g-hero-status__flag"><a:atom.badge variant="accent" as="span">{data.badge_text}</a:atom.badge></p>
                 </f:if>
 
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text body g-hero-status__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="body" class="g-hero-status__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <p class="astryx-text supporting g-hero-status__note"><span class="astryx-timestamp">{data -> f:render.text(field: 'note')}</span></p>
+                    <a:atom.text type="supporting" class="g-hero-status__note"><a:atom.timestamp>{data -> f:render.text(field: 'note')}</a:atom.timestamp></a:atom.text>
                 </f:if>
             </div>
 
@@ -45,13 +46,13 @@
                     </f:if>
 
                     <f:if condition="{data.cta_label}">
-                        <f:link.typolink parameter="{data.cta_link}" class="astryx-link cta g-hero-status__history">{data.cta_label}</f:link.typolink>
+                        <a:atom.link variant="cta" class="g-hero-status__history" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                     </f:if>
                 </div>
             </f:if>
 
         </div>
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
 <f:comment>
     The single-column shell, used by the standalone search box, the frequent
@@ -8,9 +8,9 @@
 </f:comment>
 
 <div class="tx_solr astryx-section tight g-search">
-    <div class="astryx-layout lg">
+    <a:layout.container size="lg">
         <f:render section="content"/>
-    </div>
+    </a:layout.container>
 </div>
 
 </html>

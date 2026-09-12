@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-nav-carousel" href="{cb:assetPath()}/frontend.css"/>
@@ -18,49 +19,49 @@
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.destinations" default="Destinations"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<section class="astryx-section g-nav-carousel {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-nav-carousel">
+    <a:layout.container size="{data.width}">
 
         <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
             <div class="g-nav-carousel__intro">
                 <f:if condition="{data.eyebrow}">
-                    <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 </f:if>
                 <f:if condition="{data.lead}">
-                    <p class="astryx-text large g-nav-carousel__lead">{data -> f:render.text(field: 'lead')}</p>
+                    <a:atom.text type="large" class="g-nav-carousel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
             </div>
         </f:if>
 
-        <nav class="astryx-carousel gap-4 g-nav-carousel__carousel" aria-label="{navLabel}">
+        <a:molecule.carousel gap="4" class="g-nav-carousel__carousel" aria-label="{navLabel}">
             <ul class="astryx-carousel-track g-nav-carousel__track" tabindex="0">
                 <f:for each="{data.items}" as="item">
                     <li class="astryx-carousel-item g-nav-carousel__item">
-                        <div class="astryx-card astryx-clickable-card g-nav-carousel__card">
+                        <a:molecule.card class="astryx-clickable-card g-nav-carousel__card">
                             <f:if condition="{item.icon}">
                                 <span class="astryx-feature-icon g-nav-carousel__icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
                             </f:if>
 
-                            <h3 class="astryx-card-title g-nav-carousel__title">
+                            <a:molecule.cardTitle class="g-nav-carousel__title">
                                 <f:if condition="{item.link.url}">
                                     <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
                                     <f:else>{item -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
-                            </h3>
+                            </a:molecule.cardTitle>
 
                             <f:if condition="{item.description}">
-                                <p class="astryx-card-body g-nav-carousel__text">{item -> f:render.text(field: 'description')}</p>
+                                <a:molecule.cardBody class="g-nav-carousel__text">{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
                             </f:if>
-                        </div>
+                        </a:molecule.card>
                     </li>
                 </f:for>
             </ul>
-        </nav>
+        </a:molecule.carousel>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>

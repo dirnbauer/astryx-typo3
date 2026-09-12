@@ -1,5 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
 <f:asset.css identifier="g-feature-usecases" href="{cb:assetPath()}/frontend.css"/>
@@ -10,46 +11,46 @@
     stop per use case rather than two.
 </f:comment>
 
-<section class="astryx-section g-feature-usecases {data.tone}">
-    <div class="astryx-layout {data.width}">
+<a:layout.section surface="{data.tone}" class="g-feature-usecases">
+    <a:layout.container size="{data.width}">
 
         <div class="g-feature-usecases__intro">
             <f:if condition="{data.eyebrow}">
-                <p class="astryx-eyebrow">{data -> f:render.text(field: 'eyebrow')}</p>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <h2 class="astryx-heading level-2">{data -> f:render.text(field: 'header')}</h2>
+            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
-                <p class="astryx-text large g-feature-usecases__lead">{data -> f:render.text(field: 'lead')}</p>
+                <a:atom.text type="large" class="g-feature-usecases__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
         </div>
 
-        <ul class="astryx-grid cols-{data.columns} g-feature-usecases__cases">
+        <a:layout.grid cols="{data.columns}" class="g-feature-usecases__cases">
             <f:for each="{data.cases}" as="case">
-                <li class="astryx-card astryx-clickable-card g-feature-usecases__card">
+                <a:molecule.card class="astryx-clickable-card g-feature-usecases__card">
                     <f:if condition="{case.icon}">
                         <span class="astryx-feature-icon" data-icon="{case.icon}" aria-hidden="true"><g:icon name="{case.icon}"/></span>
                     </f:if>
 
-                    <h3 class="astryx-card-title">
+                    <a:molecule.cardTitle>
                         <f:link.typolink parameter="{case.link}">{case.title}</f:link.typolink>
-                    </h3>
+                    </a:molecule.cardTitle>
 
                     <f:if condition="{case.description}">
-                        <p class="astryx-card-body g-feature-usecases__description">{case -> f:render.text(field: 'description')}</p>
+                        <a:molecule.cardBody class="g-feature-usecases__description">{case -> f:render.text(field: 'description')}</a:molecule.cardBody>
                     </f:if>
-                </li>
+                </a:molecule.card>
             </f:for>
-        </ul>
+        </a:layout.grid>
 
         <f:if condition="{data.cta_label}">
             <p class="g-feature-usecases__actions">
-                <f:link.typolink parameter="{data.cta_link}" class="astryx-button secondary">{data.cta_label}</f:link.typolink>
+                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </p>
         </f:if>
 
-    </div>
-</section>
+    </a:layout.container>
+</a:layout.section>
 
 </html>
