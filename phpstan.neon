@@ -1,0 +1,32 @@
+# Static analysis for Astryx for TYPO3. Run: composer phpstan
+#
+# The two PHPStan extensions are wired by hand rather than through
+# phpstan/extension-installer: that package is a Composer plugin, and this
+# repository keeps its allow-plugins list to the three plugins TYPO3 itself
+# needs. `includes:` does exactly the same job and states the dependency where
+# a reader will look for it.
+#
+# saschaegerer/phpstan-typo3 brings its own bootstrapFiles entry
+# (vendor/saschaegerer/phpstan-typo3/phpstan.bootstrap.php, which defines the
+# TYPO3 constants the core classes read at load time), so this file adds none.
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/saschaegerer/phpstan-typo3/extension.neon
+
+parameters:
+    level: 8
+    phpVersion:
+        min: 80400
+        max: 80599
+    paths:
+        - Classes
+        - Tests
+    tmpDir: var/phpstan
+    # A PHPDoc type is documentation, not proof. Keep the runtime checks that
+    # "cannot" fail according to a docblock — the data this extension reads
+    # comes out of JSON and YAML files, where the docblock is a hope.
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: true
+    # No baseline. Everything this reports is either fixed or ignored here with
+    # a reason next to it.

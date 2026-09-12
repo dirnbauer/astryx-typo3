@@ -1,0 +1,83 @@
+<f:comment>
+    IconButton — a square control whose whole label is its glyph.
+
+    The label is the argument that matters. A glyph has no accessible name of
+    its own, and the icon inside is drawn `aria-hidden`, so without
+    `ariaLabel` this control is announced as "button" and nothing else. It is
+    required in practice even though Fluid cannot make it so here.
+
+    `position` is for the pair that sits at the two ends of something it
+    controls — the previous and next handles of a carousel — and is what the
+    surrounding component reads to place and to point them.
+
+    Like Button, `parameter` or `href` turns the control into an `<a>`,
+    because an icon that navigates is still a link and has to keep
+    middle-click and the screen reader's link list.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="ghost" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="position" type="string" optional="{true}" default="default" />
+<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="type" type="string" optional="{true}" default="button" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+
+<f:if condition="{parameter}">
+    <f:then>
+        <f:link.typolink
+            parameter="{parameter}"
+            class="astryx-icon-button {class}"
+            data-variant="{variant}"
+            data-size="{size}"
+            data-position="{position}"
+            target="{target}"
+            title="{title}"
+            aria-label="{ariaLabel}"><f:slot /></f:link.typolink>
+    </f:then>
+    <f:else>
+        <f:if condition="{href}">
+            <f:then>
+                <a
+                    href="{href}"
+                    class="astryx-icon-button {class}"
+                    data-variant="{variant}"
+                    data-size="{size}"
+                    data-position="{position}"
+                    target="{target}"
+                    rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"
+                    title="{title}"
+                    aria-label="{ariaLabel}"><f:slot /></a>
+            </f:then>
+            <f:else>
+                <f:if condition="{disabled}">
+                    <f:then>
+                        <button
+                            type="{type}"
+                            class="astryx-icon-button {class}"
+                            data-variant="{variant}"
+                            data-size="{size}"
+                            data-position="{position}"
+                            title="{title}"
+                            aria-label="{ariaLabel}"
+                            disabled="disabled"><f:slot /></button>
+                    </f:then>
+                    <f:else>
+                        <button
+                            type="{type}"
+                            class="astryx-icon-button {class}"
+                            data-variant="{variant}"
+                            data-size="{size}"
+                            data-position="{position}"
+                            title="{title}"
+                            aria-label="{ariaLabel}"><f:slot /></button>
+                    </f:else>
+                </f:if>
+            </f:else>
+        </f:if>
+    </f:else>
+</f:if>

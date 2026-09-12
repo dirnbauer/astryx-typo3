@@ -1,0 +1,18 @@
+<f:comment>
+    Eyebrow — the short uppercase line that names the band a heading belongs
+    to, sitting above it.
+
+    It is deliberately not a heading. An eyebrow is a label for the section
+    that follows, not a level in the document outline, and promoting it to an
+    `h2` or `h3` would put a second entry in the outline for every band on the
+    page. It stays a paragraph, or a `span` where it has to sit inside one.
+</f:comment>
+
+<f:argument name="as" type="string" optional="{true}" default="p" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:switch expression="{as}">
+    <f:case value="span"><span class="astryx-eyebrow {class}"><f:slot /></span></f:case>
+    <f:case value="div"><div class="astryx-eyebrow {class}"><f:slot /></div></f:case>
+    <f:defaultCase><p class="astryx-eyebrow {class}"><f:slot /></p></f:defaultCase>
+</f:switch>

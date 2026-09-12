@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Unit test suite. Run: composer test:unit
+
+    Shaped after typo3/testing-framework's own
+    Resources/Core/Build/UnitTests.xml, with the bootstrap copied into
+    Build/UnitTestsBootstrap.php as the framework asks extensions to do.
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+         backupGlobals="true"
+         bootstrap="../UnitTestsBootstrap.php"
+         cacheDirectory="../../var/phpunit/unit"
+         cacheResult="false"
+         colors="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         failOnDeprecation="true"
+         failOnNotice="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         requireCoverageMetadata="false"
+>
+    <testsuites>
+        <testsuite name="Unit tests">
+            <directory>../../Tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <ini name="display_errors" value="1"/>
+        <env name="TYPO3_CONTEXT" value="Testing"/>
+    </php>
+
+    <source>
+        <include>
+            <directory>../../Classes</directory>
+            <file>../../ext_emconf.php</file>
+            <file>../../ext_localconf.php</file>
+        </include>
+    </source>
+</phpunit>

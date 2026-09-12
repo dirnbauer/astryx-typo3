@@ -1,0 +1,22 @@
+<f:comment>
+    Split — the two-column band, copy beside media.
+
+    The reversal is a visual one only. `variant="media-first"` reorders the
+    columns in CSS and leaves the source order alone, so the copy is still
+    read first by a screen reader and still the first tab stop, which is what
+    a visitor who cannot see the arrangement expects. Swapping the children in
+    the template instead would move the reading order too, and that is a
+    different and usually wrong decision.
+
+    Below the medium breakpoint the two columns become one, and the order
+    argument stops applying: one column has nothing to reverse.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="ratio" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-split {class}"
+    data-variant="{variant}"
+    data-ratio="{ratio}"><f:slot /></div>

@@ -1,0 +1,17 @@
+<f:comment>
+    Center — one thing in the middle of the space it has.
+
+    Two kinds of centring that look alike and are not: the default is a flex
+    box that centres a child on both axes, which is what a play button over a
+    poster frame needs, while `variant="text"` centres the text inside the box
+    and the box itself in its parent, which is what a centred heading and lead
+    paragraph need. Using the first where the second was meant collapses the
+    children onto one line, so the distinction is worth the argument.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-center {class}"
+    data-variant="{variant}"><f:slot /></div>

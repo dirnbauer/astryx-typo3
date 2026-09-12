@@ -1,0 +1,24 @@
+<f:comment>
+    Stack — children in one direction with one gap between them.
+
+    The gap is a step on the spacing scale rather than a length, which is what
+    keeps a stack in the neutral theme and the same stack in the gothic theme
+    in proportion: the themes redefine the scale, not the components.
+
+    `orientation="horizontal"` also turns wrapping on and centres the items on
+    their cross axis, because a row of pills that cannot wrap is a row that
+    overflows on a phone.
+</f:comment>
+
+<f:argument name="gap" type="string" optional="{true}" default="default" />
+<f:argument name="orientation" type="string" optional="{true}" default="vertical" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="justify" type="string" optional="{true}" default="default" />
+<f:argument name="as" type="string" optional="{true}" default="div" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:switch expression="{as}">
+    <f:case value="ul"><ul class="astryx-stack {class}" data-gap="{gap}" data-orientation="{orientation}" data-align="{align}" data-justify="{justify}"><f:slot /></ul></f:case>
+    <f:case value="ol"><ol class="astryx-stack {class}" data-gap="{gap}" data-orientation="{orientation}" data-align="{align}" data-justify="{justify}"><f:slot /></ol></f:case>
+    <f:defaultCase><div class="astryx-stack {class}" data-gap="{gap}" data-orientation="{orientation}" data-align="{align}" data-justify="{justify}"><f:slot /></div></f:defaultCase>
+</f:switch>

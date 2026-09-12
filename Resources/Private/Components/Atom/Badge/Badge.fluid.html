@@ -1,0 +1,20 @@
+<f:comment>
+    Badge — a small pill that classifies or states.
+
+    Colour alone is never the message. The variants borrow the theme's
+    categorical quartet — background, border, icon and text tuned together and
+    checked for contrast — rather than a status colour over its own tint,
+    because in several themes the muted tint resolves to the same value as the
+    colour it tints, and the label is then painted onto itself. Whatever the
+    variant, the badge still carries its meaning as words.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="neutral" />
+<f:argument name="as" type="string" optional="{true}" default="span" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:switch expression="{as}">
+    <f:case value="li"><li class="astryx-badge {class}" data-variant="{variant}"><f:slot /></li></f:case>
+    <f:case value="div"><div class="astryx-badge {class}" data-variant="{variant}"><f:slot /></div></f:case>
+    <f:defaultCase><span class="astryx-badge {class}" data-variant="{variant}"><f:slot /></span></f:defaultCase>
+</f:switch>

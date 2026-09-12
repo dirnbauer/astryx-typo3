@@ -1,0 +1,54 @@
+<f:comment>
+    Text — one run of body copy at a chosen role in the type scale.
+
+    `type` is the role, not the size: `supporting` is smaller AND quieter in
+    colour, `code` changes family as well as size, and the display steps
+    borrow the heading family. Asking for a size directly would get one of the
+    three and miss the other two.
+
+    `as` is separate from `type` for the same reason Heading keeps `level` and
+    `type` apart. A definition term, a table caption and a figure caption all
+    read as supporting text, but each has an element the browser and the
+    screen reader already understand, and styling a `div` to look like them
+    throws that away. The default is a paragraph because most text is one.
+</f:comment>
+
+<f:argument name="type" type="string" optional="{true}" default="body" />
+<f:argument name="size" type="string" optional="{true}" default="default" />
+<f:argument name="color" type="string" optional="{true}" default="default" />
+<f:argument name="as" type="string" optional="{true}" default="p" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then>
+        <f:switch expression="{as}">
+            <f:case value="span"><span id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></span></f:case>
+            <f:case value="div"><div id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></div></f:case>
+            <f:case value="dt"><dt id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></dt></f:case>
+            <f:case value="dd"><dd id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></dd></f:case>
+            <f:case value="li"><li id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></li></f:case>
+            <f:case value="figcaption"><figcaption id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></figcaption></f:case>
+            <f:case value="caption"><caption id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></caption></f:case>
+            <f:case value="address"><address id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></address></f:case>
+            <f:case value="h2"><h2 id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></h2></f:case>
+            <f:case value="h3"><h3 id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></h3></f:case>
+            <f:defaultCase><p id="{id}" class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></p></f:defaultCase>
+        </f:switch>
+    </f:then>
+    <f:else>
+        <f:switch expression="{as}">
+            <f:case value="span"><span class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></span></f:case>
+            <f:case value="div"><div class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></div></f:case>
+            <f:case value="dt"><dt class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></dt></f:case>
+            <f:case value="dd"><dd class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></dd></f:case>
+            <f:case value="li"><li class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></li></f:case>
+            <f:case value="figcaption"><figcaption class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></figcaption></f:case>
+            <f:case value="caption"><caption class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></caption></f:case>
+            <f:case value="address"><address class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></address></f:case>
+            <f:case value="h2"><h2 class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></h2></f:case>
+            <f:case value="h3"><h3 class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></h3></f:case>
+            <f:defaultCase><p class="astryx-text {class}" data-type="{type}" data-size="{size}" data-color="{color}"><f:slot /></p></f:defaultCase>
+        </f:switch>
+    </f:else>
+</f:if>

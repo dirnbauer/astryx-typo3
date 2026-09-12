@@ -1,0 +1,410 @@
+{
+  "_comment": "Every Astryx component the element matrix names, and the Fluid component that renders it here. Generated intent, checked by Tests/Unit/AtomicDesignConformanceTest.php: a matrix row may not name an Astryx component that is absent from this map, and this map may not name one that is absent from Build/astryx/components.json.",
+  "_upstream": "v0.6.0",
+  "components": {
+    "AspectRatio": {
+      "upstream": "AspectRatio",
+      "package": "@astryxdesign/core",
+      "component": "atom.aspectRatio",
+      "tag": "a:atom.aspectRatio",
+      "rootClass": "astryx-aspect-ratio",
+      "referencedByMatrix": true
+    },
+    "Avatar": {
+      "upstream": "Avatar",
+      "package": "@astryxdesign/core",
+      "component": "atom.avatar",
+      "tag": "a:atom.avatar",
+      "rootClass": "astryx-avatar",
+      "referencedByMatrix": true
+    },
+    "AvatarGroup": {
+      "upstream": "AvatarGroup",
+      "package": "@astryxdesign/core",
+      "component": "atom.avatar",
+      "tag": "a:atom.avatar",
+      "rootClass": "astryx-avatar",
+      "referencedByMatrix": true,
+      "note": "Upstream splits the group from the avatar; here one Avatar with a group wrapper covers the catalog rows that reference it."
+    },
+    "Badge": {
+      "upstream": "Badge",
+      "package": "@astryxdesign/core",
+      "component": "atom.badge",
+      "tag": "a:atom.badge",
+      "rootClass": "astryx-badge",
+      "referencedByMatrix": true
+    },
+    "Banner": {
+      "upstream": "Banner",
+      "package": "@astryxdesign/core",
+      "component": "molecule.banner",
+      "tag": "a:molecule.banner",
+      "rootClass": "astryx-banner",
+      "referencedByMatrix": true
+    },
+    "Blockquote": {
+      "upstream": "Blockquote",
+      "package": "@astryxdesign/core",
+      "component": "molecule.blockquote",
+      "tag": "a:molecule.blockquote",
+      "rootClass": "astryx-blockquote",
+      "referencedByMatrix": true
+    },
+    "Breadcrumbs": {
+      "upstream": "Breadcrumbs",
+      "package": "@astryxdesign/core",
+      "component": "molecule.breadcrumbs",
+      "tag": "a:molecule.breadcrumbs",
+      "rootClass": "astryx-breadcrumbs",
+      "referencedByMatrix": true
+    },
+    "Button": {
+      "upstream": "Button",
+      "package": "@astryxdesign/core",
+      "component": "atom.button",
+      "tag": "a:atom.button",
+      "rootClass": "astryx-button",
+      "referencedByMatrix": true
+    },
+    "ButtonGroup": {
+      "upstream": "ButtonGroup",
+      "package": "@astryxdesign/core",
+      "component": "molecule.buttonGroup",
+      "tag": "a:molecule.buttonGroup",
+      "rootClass": "astryx-button-group",
+      "referencedByMatrix": true
+    },
+    "Card": {
+      "upstream": "Card",
+      "package": "@astryxdesign/core",
+      "component": "molecule.card",
+      "tag": "a:molecule.card",
+      "rootClass": "astryx-card",
+      "referencedByMatrix": true
+    },
+    "Carousel": {
+      "upstream": "Carousel",
+      "package": "@astryxdesign/core",
+      "component": "molecule.carousel",
+      "tag": "a:molecule.carousel",
+      "rootClass": "astryx-carousel",
+      "referencedByMatrix": true
+    },
+    "Center": {
+      "upstream": "Center",
+      "package": "@astryxdesign/core",
+      "component": "layout.center",
+      "tag": "a:layout.center",
+      "rootClass": "astryx-center",
+      "referencedByMatrix": true
+    },
+    "Citation": {
+      "upstream": "Citation",
+      "package": "@astryxdesign/core",
+      "component": "molecule.citation",
+      "tag": "a:molecule.citation",
+      "rootClass": "astryx-citation",
+      "referencedByMatrix": true
+    },
+    "ClickableCard": {
+      "upstream": "ClickableCard",
+      "package": "@astryxdesign/core",
+      "component": "molecule.clickableCard",
+      "tag": "a:molecule.clickableCard",
+      "rootClass": "astryx-clickable-card",
+      "referencedByMatrix": true
+    },
+    "CodeBlock": {
+      "upstream": "CodeBlock",
+      "package": "@astryxdesign/core",
+      "component": "molecule.codeBlock",
+      "tag": "a:molecule.codeBlock",
+      "rootClass": "astryx-codeblock",
+      "referencedByMatrix": true
+    },
+    "Collapsible": {
+      "upstream": "Collapsible",
+      "package": "@astryxdesign/core",
+      "component": "molecule.collapsible",
+      "tag": "a:molecule.collapsible",
+      "rootClass": "astryx-collapsible",
+      "referencedByMatrix": true
+    },
+    "Dialog": {
+      "upstream": "Dialog",
+      "package": "@astryxdesign/core",
+      "component": "molecule.dialog",
+      "tag": "a:molecule.dialog",
+      "rootClass": "astryx-dialog",
+      "referencedByMatrix": true
+    },
+    "Divider": {
+      "upstream": "Divider",
+      "package": "@astryxdesign/core",
+      "component": "atom.divider",
+      "tag": "a:atom.divider",
+      "rootClass": "astryx-divider",
+      "referencedByMatrix": true
+    },
+    "Field": {
+      "upstream": "Field",
+      "package": "@astryxdesign/core",
+      "component": "molecule.field",
+      "tag": "a:molecule.field",
+      "rootClass": "astryx-field",
+      "referencedByMatrix": true
+    },
+    "Grid": {
+      "upstream": "Grid",
+      "package": "@astryxdesign/core",
+      "component": "layout.grid",
+      "tag": "a:layout.grid",
+      "rootClass": "astryx-grid",
+      "referencedByMatrix": true
+    },
+    "Icon": {
+      "upstream": "Icon",
+      "package": "@astryxdesign/core",
+      "component": "atom.icon",
+      "tag": "a:atom.icon",
+      "rootClass": "astryx-icon",
+      "referencedByMatrix": true
+    },
+    "IconButton": {
+      "upstream": "IconButton",
+      "package": "@astryxdesign/core",
+      "component": "atom.iconButton",
+      "tag": "a:atom.iconButton",
+      "rootClass": "astryx-icon-button",
+      "referencedByMatrix": true
+    },
+    "InputGroup": {
+      "upstream": "InputGroup",
+      "package": "@astryxdesign/core",
+      "component": "molecule.inputGroup",
+      "tag": "a:molecule.inputGroup",
+      "rootClass": "astryx-input-group",
+      "referencedByMatrix": true
+    },
+    "Item": {
+      "upstream": "Item",
+      "package": "@astryxdesign/core",
+      "component": "molecule.item",
+      "tag": "a:molecule.item",
+      "rootClass": "astryx-item",
+      "referencedByMatrix": true
+    },
+    "Kbd": {
+      "upstream": "Kbd",
+      "package": "@astryxdesign/core",
+      "component": "atom.kbd",
+      "tag": "a:atom.kbd",
+      "rootClass": "astryx-kbd",
+      "referencedByMatrix": true
+    },
+    "Layout": {
+      "upstream": "Layout",
+      "package": "@astryxdesign/core",
+      "component": "layout.container",
+      "tag": "a:layout.container",
+      "rootClass": "astryx-layout",
+      "referencedByMatrix": true,
+      "note": "Upstream calls the measure-and-gutters box Layout. The Fluid component keeps its historical root class astryx-layout but is named Container, because Layout is also the name of a whole layer here."
+    },
+    "Link": {
+      "upstream": "Link",
+      "package": "@astryxdesign/core",
+      "component": "atom.link",
+      "tag": "a:atom.link",
+      "rootClass": "astryx-link",
+      "referencedByMatrix": true
+    },
+    "List": {
+      "upstream": "List",
+      "package": "@astryxdesign/core",
+      "component": "molecule.list",
+      "tag": "a:molecule.list",
+      "rootClass": "astryx-list",
+      "referencedByMatrix": true
+    },
+    "Markdown": {
+      "upstream": "Markdown",
+      "package": "@astryxdesign/core",
+      "component": "molecule.codeBlock",
+      "tag": "a:molecule.codeBlock",
+      "rootClass": "astryx-codeblock",
+      "referencedByMatrix": true,
+      "note": "No catalog element renders Markdown as such: the two rows naming it render fenced code, which is CodeBlock."
+    },
+    "MetadataList": {
+      "upstream": "MetadataList",
+      "package": "@astryxdesign/core",
+      "component": "molecule.metadataList",
+      "tag": "a:molecule.metadataList",
+      "rootClass": "astryx-metadata-list",
+      "referencedByMatrix": true
+    },
+    "Outline": {
+      "upstream": "Outline",
+      "package": "@astryxdesign/core",
+      "component": "molecule.outline",
+      "tag": "a:molecule.outline",
+      "rootClass": "astryx-outline",
+      "referencedByMatrix": true
+    },
+    "OverflowList": {
+      "upstream": "OverflowList",
+      "package": "@astryxdesign/core",
+      "component": "molecule.overflowList",
+      "tag": "a:molecule.overflowList",
+      "rootClass": "astryx-overflow-list",
+      "referencedByMatrix": true
+    },
+    "Overlay": {
+      "upstream": "Overlay",
+      "package": "@astryxdesign/core",
+      "component": "molecule.overlay",
+      "tag": "a:molecule.overlay",
+      "rootClass": "astryx-overlay",
+      "referencedByMatrix": true
+    },
+    "Pagination": {
+      "upstream": "Pagination",
+      "package": "@astryxdesign/core",
+      "component": "molecule.pagination",
+      "tag": "a:molecule.pagination",
+      "rootClass": "astryx-pagination",
+      "referencedByMatrix": true
+    },
+    "ProgressBar": {
+      "upstream": "ProgressBar",
+      "package": "@astryxdesign/core",
+      "component": "atom.progressBar",
+      "tag": "a:atom.progressBar",
+      "rootClass": "astryx-progressbar",
+      "referencedByMatrix": true
+    },
+    "Section": {
+      "upstream": "Section",
+      "package": "@astryxdesign/core",
+      "component": "layout.section",
+      "tag": "a:layout.section",
+      "rootClass": "astryx-section",
+      "referencedByMatrix": true,
+      "note": "The root of every content element."
+    },
+    "SegmentedControl": {
+      "upstream": "SegmentedControl",
+      "package": "@astryxdesign/core",
+      "component": "molecule.segmentedControl",
+      "tag": "a:molecule.segmentedControl",
+      "rootClass": "astryx-segmented-control",
+      "referencedByMatrix": true
+    },
+    "Stack": {
+      "upstream": "Stack",
+      "package": "@astryxdesign/core",
+      "component": "layout.stack",
+      "tag": "a:layout.stack",
+      "rootClass": "astryx-stack",
+      "referencedByMatrix": true
+    },
+    "StatusDot": {
+      "upstream": "StatusDot",
+      "package": "@astryxdesign/core",
+      "component": "atom.statusDot",
+      "tag": "a:atom.statusDot",
+      "rootClass": "astryx-statusdot",
+      "referencedByMatrix": true
+    },
+    "TabList": {
+      "upstream": "TabList",
+      "package": "@astryxdesign/core",
+      "component": "molecule.tabList",
+      "tag": "a:molecule.tabList",
+      "rootClass": "astryx-tab-list",
+      "referencedByMatrix": true
+    },
+    "Table": {
+      "upstream": "Table",
+      "package": "@astryxdesign/core",
+      "component": "molecule.table",
+      "tag": "a:molecule.table",
+      "rootClass": "astryx-table",
+      "referencedByMatrix": true
+    },
+    "Text": {
+      "upstream": "Text",
+      "package": "@astryxdesign/core",
+      "component": "atom.text",
+      "tag": "a:atom.text",
+      "rootClass": "astryx-text",
+      "referencedByMatrix": true
+    },
+    "TextInput": {
+      "upstream": "TextInput",
+      "package": "@astryxdesign/core",
+      "component": "molecule.textInput",
+      "tag": "a:molecule.textInput",
+      "rootClass": "astryx-text-input",
+      "referencedByMatrix": true
+    },
+    "Thumbnail": {
+      "upstream": "Thumbnail",
+      "package": "@astryxdesign/core",
+      "component": "atom.thumbnail",
+      "tag": "a:atom.thumbnail",
+      "rootClass": "astryx-thumbnail",
+      "referencedByMatrix": true
+    },
+    "Timestamp": {
+      "upstream": "Timestamp",
+      "package": "@astryxdesign/core",
+      "component": "atom.timestamp",
+      "tag": "a:atom.timestamp",
+      "rootClass": "astryx-timestamp",
+      "referencedByMatrix": true
+    },
+    "Token": {
+      "upstream": "Token",
+      "package": "@astryxdesign/core",
+      "component": "atom.token",
+      "tag": "a:atom.token",
+      "rootClass": "astryx-token",
+      "referencedByMatrix": true
+    },
+    "Toolbar": {
+      "upstream": "Toolbar",
+      "package": "@astryxdesign/core",
+      "component": "molecule.toolbar",
+      "tag": "a:molecule.toolbar",
+      "rootClass": "astryx-toolbar",
+      "referencedByMatrix": true
+    },
+    "Tooltip": {
+      "upstream": "Tooltip",
+      "package": "@astryxdesign/core",
+      "component": "molecule.tooltip",
+      "tag": "a:molecule.tooltip",
+      "rootClass": "astryx-tooltip",
+      "referencedByMatrix": true
+    },
+    "TreeList": {
+      "upstream": "TreeList",
+      "package": "@astryxdesign/core",
+      "component": "molecule.treeList",
+      "tag": "a:molecule.treeList",
+      "rootClass": "astryx-tree-list",
+      "referencedByMatrix": true
+    },
+    "VisuallyHidden": {
+      "upstream": "VisuallyHidden",
+      "package": "@astryxdesign/core",
+      "component": "atom.visuallyHidden",
+      "tag": "a:atom.visuallyHidden",
+      "rootClass": "astryx-visually-hidden",
+      "referencedByMatrix": true
+    }
+  }
+}
