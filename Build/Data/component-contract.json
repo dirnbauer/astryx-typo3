@@ -1,0 +1,1403 @@
+{
+  "_comment": "The component contract. One row per Fluid component: which layer it lives in, the single root class it renders, and how a bare modifier token from the 1.x templates maps onto a data attribute. Build/Scripts/refactor-templates-to-components.php, Build/Scripts/migrate-component-css.mjs, Build/Scripts/build-astryx-css.mjs and Tests/Unit/AtomicDesignConformanceTest.php all read this file and nothing else, so the vocabulary is stated once.",
+  "_upstream": "data-variant, data-size, data-type, data-color, data-status, data-level, data-weight and data-selected are Astryx v0.6.0 attribute names, taken from the compiled theme rules in Build/astryx/tokens.json. The remaining names are this extension's, for modifiers upstream has no equivalent for.",
+  "attributes": [
+    "align",
+    "density",
+    "dividers",
+    "fill",
+    "gap",
+    "hoverable",
+    "interactive",
+    "level",
+    "marker",
+    "media",
+    "orientation",
+    "placement",
+    "position",
+    "ratio",
+    "reveal",
+    "selected",
+    "shape",
+    "size",
+    "spacing",
+    "state",
+    "status",
+    "surface",
+    "tone",
+    "truncate",
+    "type",
+    "variant",
+    "width",
+    "wrap"
+  ],
+  "components": {
+    "layout.section": {
+      "layer": "Layout",
+      "name": "Section",
+      "rootClass": "astryx-section",
+      "modifiers": {
+        "tight": {
+          "attribute": "spacing",
+          "value": "tight"
+        },
+        "flush": {
+          "attribute": "spacing",
+          "value": "flush"
+        },
+        "roomy": {
+          "attribute": "spacing",
+          "value": "roomy"
+        },
+        "surface": {
+          "attribute": "surface",
+          "value": "surface"
+        },
+        "muted": {
+          "attribute": "surface",
+          "value": "muted"
+        },
+        "inverted": {
+          "attribute": "surface",
+          "value": "inverted"
+        }
+      },
+      "note": "The root of every content element. Owns vertical rhythm and surface."
+    },
+    "layout.container": {
+      "layer": "Layout",
+      "name": "Container",
+      "rootClass": "astryx-layout",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        },
+        "xl": {
+          "attribute": "size",
+          "value": "xl"
+        },
+        "full": {
+          "attribute": "size",
+          "value": "full"
+        }
+      },
+      "note": "Measure and gutters. `astryx-layout` is the historical root class."
+    },
+    "layout.grid": {
+      "layer": "Layout",
+      "name": "Grid",
+      "rootClass": "astryx-grid",
+      "modifiers": {
+        "align-start": {
+          "attribute": "align",
+          "value": "start"
+        },
+        "align-center": {
+          "attribute": "align",
+          "value": "center"
+        },
+        "align-end": {
+          "attribute": "align",
+          "value": "end"
+        }
+      },
+      "note": "cols/fixed are numeric arguments, not tokens: data-cols / data-fixed."
+    },
+    "layout.split": {
+      "layer": "Layout",
+      "name": "Split",
+      "rootClass": "astryx-split",
+      "modifiers": {
+        "reverse": {
+          "attribute": "variant",
+          "value": "reverse"
+        },
+        "media-first": {
+          "attribute": "variant",
+          "value": "media-first"
+        },
+        "balanced": {
+          "attribute": "ratio",
+          "value": "balanced"
+        },
+        "wide-start": {
+          "attribute": "ratio",
+          "value": "wide-start"
+        },
+        "wide-end": {
+          "attribute": "ratio",
+          "value": "wide-end"
+        }
+      },
+      "note": ""
+    },
+    "layout.stack": {
+      "layer": "Layout",
+      "name": "Stack",
+      "rootClass": "astryx-stack",
+      "modifiers": {
+        "gap-0": {
+          "attribute": "gap",
+          "value": "0"
+        },
+        "gap-1": {
+          "attribute": "gap",
+          "value": "1"
+        },
+        "gap-2": {
+          "attribute": "gap",
+          "value": "2"
+        },
+        "gap-3": {
+          "attribute": "gap",
+          "value": "3"
+        },
+        "gap-4": {
+          "attribute": "gap",
+          "value": "4"
+        },
+        "gap-5": {
+          "attribute": "gap",
+          "value": "5"
+        },
+        "gap-6": {
+          "attribute": "gap",
+          "value": "6"
+        },
+        "gap-8": {
+          "attribute": "gap",
+          "value": "8"
+        }
+      },
+      "note": ""
+    },
+    "layout.center": {
+      "layer": "Layout",
+      "name": "Center",
+      "rootClass": "astryx-center",
+      "modifiers": {},
+      "note": ""
+    },
+    "atom.text": {
+      "layer": "Atom",
+      "name": "Text",
+      "rootClass": "astryx-text",
+      "modifiers": {
+        "body": {
+          "attribute": "type",
+          "value": "body"
+        },
+        "label": {
+          "attribute": "type",
+          "value": "label"
+        },
+        "supporting": {
+          "attribute": "type",
+          "value": "supporting"
+        },
+        "large": {
+          "attribute": "type",
+          "value": "large"
+        },
+        "code": {
+          "attribute": "type",
+          "value": "code"
+        },
+        "display-1": {
+          "attribute": "type",
+          "value": "display-1"
+        },
+        "display-2": {
+          "attribute": "type",
+          "value": "display-2"
+        },
+        "display-3": {
+          "attribute": "type",
+          "value": "display-3"
+        }
+      },
+      "note": "Upstream keys Text off data-type, with data-size and data-color beside it."
+    },
+    "atom.heading": {
+      "layer": "Atom",
+      "name": "Heading",
+      "rootClass": "astryx-heading",
+      "modifiers": {
+        "level-1": {
+          "attribute": "level",
+          "value": "1"
+        },
+        "level-2": {
+          "attribute": "level",
+          "value": "2"
+        },
+        "level-3": {
+          "attribute": "level",
+          "value": "3"
+        },
+        "level-4": {
+          "attribute": "level",
+          "value": "4"
+        },
+        "level-5": {
+          "attribute": "level",
+          "value": "5"
+        },
+        "level-6": {
+          "attribute": "level",
+          "value": "6"
+        },
+        "display-1": {
+          "attribute": "type",
+          "value": "display-1"
+        },
+        "display-2": {
+          "attribute": "type",
+          "value": "display-2"
+        },
+        "display-3": {
+          "attribute": "type",
+          "value": "display-3"
+        }
+      },
+      "note": ""
+    },
+    "atom.eyebrow": {
+      "layer": "Atom",
+      "name": "Eyebrow",
+      "rootClass": "astryx-eyebrow",
+      "modifiers": {},
+      "note": ""
+    },
+    "atom.button": {
+      "layer": "Atom",
+      "name": "Button",
+      "rootClass": "astryx-button",
+      "modifiers": {
+        "primary": {
+          "attribute": "variant",
+          "value": "primary"
+        },
+        "secondary": {
+          "attribute": "variant",
+          "value": "secondary"
+        },
+        "ghost": {
+          "attribute": "variant",
+          "value": "ghost"
+        },
+        "outline": {
+          "attribute": "variant",
+          "value": "outline"
+        },
+        "destructive": {
+          "attribute": "variant",
+          "value": "destructive"
+        },
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "atom.iconButton": {
+      "layer": "Atom",
+      "name": "IconButton",
+      "rootClass": "astryx-icon-button",
+      "modifiers": {
+        "primary": {
+          "attribute": "variant",
+          "value": "primary"
+        },
+        "secondary": {
+          "attribute": "variant",
+          "value": "secondary"
+        },
+        "ghost": {
+          "attribute": "variant",
+          "value": "ghost"
+        },
+        "outline": {
+          "attribute": "variant",
+          "value": "outline"
+        },
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        },
+        "start": {
+          "attribute": "position",
+          "value": "start"
+        },
+        "end": {
+          "attribute": "position",
+          "value": "end"
+        }
+      },
+      "note": ""
+    },
+    "atom.link": {
+      "layer": "Atom",
+      "name": "Link",
+      "rootClass": "astryx-link",
+      "modifiers": {
+        "quiet": {
+          "attribute": "variant",
+          "value": "quiet"
+        },
+        "cta": {
+          "attribute": "variant",
+          "value": "cta"
+        }
+      },
+      "note": ""
+    },
+    "atom.badge": {
+      "layer": "Atom",
+      "name": "Badge",
+      "rootClass": "astryx-badge",
+      "modifiers": {
+        "neutral": {
+          "attribute": "variant",
+          "value": "neutral"
+        },
+        "accent": {
+          "attribute": "variant",
+          "value": "accent"
+        },
+        "outline": {
+          "attribute": "variant",
+          "value": "outline"
+        },
+        "success": {
+          "attribute": "variant",
+          "value": "success"
+        },
+        "warning": {
+          "attribute": "variant",
+          "value": "warning"
+        },
+        "error": {
+          "attribute": "variant",
+          "value": "error"
+        },
+        "info": {
+          "attribute": "variant",
+          "value": "info"
+        },
+        "blue": {
+          "attribute": "variant",
+          "value": "blue"
+        },
+        "green": {
+          "attribute": "variant",
+          "value": "green"
+        },
+        "red": {
+          "attribute": "variant",
+          "value": "red"
+        },
+        "orange": {
+          "attribute": "variant",
+          "value": "orange"
+        },
+        "purple": {
+          "attribute": "variant",
+          "value": "purple"
+        },
+        "pink": {
+          "attribute": "variant",
+          "value": "pink"
+        },
+        "teal": {
+          "attribute": "variant",
+          "value": "teal"
+        },
+        "cyan": {
+          "attribute": "variant",
+          "value": "cyan"
+        },
+        "yellow": {
+          "attribute": "variant",
+          "value": "yellow"
+        },
+        "gray": {
+          "attribute": "variant",
+          "value": "gray"
+        }
+      },
+      "note": ""
+    },
+    "atom.icon": {
+      "layer": "Atom",
+      "name": "Icon",
+      "rootClass": "astryx-icon",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "atom.avatar": {
+      "layer": "Atom",
+      "name": "Avatar",
+      "rootClass": "astryx-avatar",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        },
+        "xl": {
+          "attribute": "size",
+          "value": "xl"
+        }
+      },
+      "note": ""
+    },
+    "atom.divider": {
+      "layer": "Atom",
+      "name": "Divider",
+      "rootClass": "astryx-divider",
+      "modifiers": {
+        "with-label": {
+          "attribute": "variant",
+          "value": "with-label"
+        },
+        "vertical": {
+          "attribute": "orientation",
+          "value": "vertical"
+        }
+      },
+      "note": ""
+    },
+    "atom.token": {
+      "layer": "Atom",
+      "name": "Token",
+      "rootClass": "astryx-token",
+      "modifiers": {
+        "current": {
+          "attribute": "selected",
+          "value": "selected"
+        },
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        }
+      },
+      "note": ""
+    },
+    "atom.kbd": {
+      "layer": "Atom",
+      "name": "Kbd",
+      "rootClass": "astryx-kbd",
+      "modifiers": {},
+      "note": ""
+    },
+    "atom.statusDot": {
+      "layer": "Atom",
+      "name": "StatusDot",
+      "rootClass": "astryx-statusdot",
+      "modifiers": {
+        "accent": {
+          "attribute": "variant",
+          "value": "accent"
+        },
+        "success": {
+          "attribute": "variant",
+          "value": "success"
+        },
+        "warning": {
+          "attribute": "variant",
+          "value": "warning"
+        },
+        "error": {
+          "attribute": "variant",
+          "value": "error"
+        },
+        "neutral": {
+          "attribute": "variant",
+          "value": "neutral"
+        }
+      },
+      "note": ""
+    },
+    "atom.timestamp": {
+      "layer": "Atom",
+      "name": "Timestamp",
+      "rootClass": "astryx-timestamp",
+      "modifiers": {},
+      "note": ""
+    },
+    "atom.visuallyHidden": {
+      "layer": "Atom",
+      "name": "VisuallyHidden",
+      "rootClass": "astryx-visually-hidden",
+      "modifiers": {},
+      "note": ""
+    },
+    "atom.thumbnail": {
+      "layer": "Atom",
+      "name": "Thumbnail",
+      "rootClass": "astryx-thumbnail",
+      "modifiers": {
+        "interactive": {
+          "attribute": "interactive",
+          "value": "interactive"
+        },
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "atom.aspectRatio": {
+      "layer": "Atom",
+      "name": "AspectRatio",
+      "rootClass": "astryx-aspect-ratio",
+      "modifiers": {},
+      "note": ""
+    },
+    "atom.progressBar": {
+      "layer": "Atom",
+      "name": "ProgressBar",
+      "rootClass": "astryx-progressbar",
+      "modifiers": {
+        "accent": {
+          "attribute": "variant",
+          "value": "accent"
+        },
+        "success": {
+          "attribute": "variant",
+          "value": "success"
+        },
+        "warning": {
+          "attribute": "variant",
+          "value": "warning"
+        },
+        "error": {
+          "attribute": "variant",
+          "value": "error"
+        },
+        "indeterminate": {
+          "attribute": "state",
+          "value": "indeterminate"
+        },
+        "disabled": {
+          "attribute": "state",
+          "value": "disabled"
+        }
+      },
+      "note": ""
+    },
+    "atom.spinner": {
+      "layer": "Atom",
+      "name": "Spinner",
+      "rootClass": "astryx-spinner",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "atom.skeleton": {
+      "layer": "Atom",
+      "name": "Skeleton",
+      "rootClass": "astryx-skeleton",
+      "modifiers": {
+        "text": {
+          "attribute": "shape",
+          "value": "text"
+        },
+        "circle": {
+          "attribute": "shape",
+          "value": "circle"
+        },
+        "block": {
+          "attribute": "shape",
+          "value": "block"
+        }
+      },
+      "note": ""
+    },
+    "molecule.card": {
+      "layer": "Molecule",
+      "name": "Card",
+      "rootClass": "astryx-card",
+      "modifiers": {
+        "flat": {
+          "attribute": "variant",
+          "value": "flat"
+        },
+        "raised": {
+          "attribute": "variant",
+          "value": "raised"
+        },
+        "muted": {
+          "attribute": "variant",
+          "value": "muted"
+        },
+        "tight": {
+          "attribute": "density",
+          "value": "tight"
+        },
+        "roomy": {
+          "attribute": "density",
+          "value": "roomy"
+        },
+        "media-top": {
+          "attribute": "media",
+          "value": "top"
+        },
+        "media-start": {
+          "attribute": "media",
+          "value": "start"
+        },
+        "media-end": {
+          "attribute": "media",
+          "value": "end"
+        }
+      },
+      "note": ""
+    },
+    "molecule.cardTitle": {
+      "layer": "Molecule",
+      "name": "CardTitle",
+      "rootClass": "astryx-card-title",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.cardBody": {
+      "layer": "Molecule",
+      "name": "CardBody",
+      "rootClass": "astryx-card-body",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.cardFooter": {
+      "layer": "Molecule",
+      "name": "CardFooter",
+      "rootClass": "astryx-card-footer",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.clickableCard": {
+      "layer": "Molecule",
+      "name": "ClickableCard",
+      "rootClass": "astryx-clickable-card",
+      "modifiers": {
+        "flat": {
+          "attribute": "variant",
+          "value": "flat"
+        },
+        "raised": {
+          "attribute": "variant",
+          "value": "raised"
+        }
+      },
+      "note": ""
+    },
+    "molecule.buttonGroup": {
+      "layer": "Molecule",
+      "name": "ButtonGroup",
+      "rootClass": "astryx-button-group",
+      "modifiers": {
+        "attached": {
+          "attribute": "variant",
+          "value": "attached"
+        },
+        "align-center": {
+          "attribute": "align",
+          "value": "center"
+        },
+        "align-end": {
+          "attribute": "align",
+          "value": "end"
+        }
+      },
+      "note": ""
+    },
+    "molecule.item": {
+      "layer": "Molecule",
+      "name": "Item",
+      "rootClass": "astryx-item",
+      "modifiers": {
+        "interactive": {
+          "attribute": "interactive",
+          "value": "interactive"
+        },
+        "compact": {
+          "attribute": "density",
+          "value": "compact"
+        },
+        "spacious": {
+          "attribute": "density",
+          "value": "spacious"
+        },
+        "align-start": {
+          "attribute": "align",
+          "value": "start"
+        },
+        "selected": {
+          "attribute": "selected",
+          "value": "selected"
+        }
+      },
+      "note": ""
+    },
+    "molecule.itemLabel": {
+      "layer": "Molecule",
+      "name": "ItemLabel",
+      "rootClass": "astryx-item-label",
+      "modifiers": {
+        "truncate": {
+          "attribute": "truncate",
+          "value": "truncate"
+        }
+      },
+      "note": ""
+    },
+    "molecule.itemContent": {
+      "layer": "Molecule",
+      "name": "ItemContent",
+      "rootClass": "astryx-item-content",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.itemDescription": {
+      "layer": "Molecule",
+      "name": "ItemDescription",
+      "rootClass": "astryx-item-description",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.list": {
+      "layer": "Molecule",
+      "name": "List",
+      "rootClass": "astryx-list",
+      "modifiers": {
+        "with-dividers": {
+          "attribute": "dividers",
+          "value": "with-dividers"
+        },
+        "compact": {
+          "attribute": "density",
+          "value": "compact"
+        },
+        "spacious": {
+          "attribute": "density",
+          "value": "spacious"
+        },
+        "balanced": {
+          "attribute": "density",
+          "value": "balanced"
+        },
+        "marker-dot": {
+          "attribute": "marker",
+          "value": "dot"
+        },
+        "marker-decimal": {
+          "attribute": "marker",
+          "value": "decimal"
+        },
+        "marker-circle": {
+          "attribute": "marker",
+          "value": "circle"
+        }
+      },
+      "note": ""
+    },
+    "molecule.metadataList": {
+      "layer": "Molecule",
+      "name": "MetadataList",
+      "rootClass": "astryx-metadata-list",
+      "modifiers": {
+        "horizontal": {
+          "attribute": "orientation",
+          "value": "horizontal"
+        }
+      },
+      "note": ""
+    },
+    "molecule.metadataListItem": {
+      "layer": "Molecule",
+      "name": "MetadataListItem",
+      "rootClass": "astryx-metadata-list-item",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.feature": {
+      "layer": "Molecule",
+      "name": "Feature",
+      "rootClass": "astryx-feature",
+      "modifiers": {
+        "align-center": {
+          "attribute": "align",
+          "value": "center"
+        }
+      },
+      "note": ""
+    },
+    "molecule.sectionIntro": {
+      "layer": "Molecule",
+      "name": "SectionIntro",
+      "rootClass": "astryx-section-intro",
+      "modifiers": {
+        "align-center": {
+          "attribute": "align",
+          "value": "center"
+        },
+        "align-end": {
+          "attribute": "align",
+          "value": "end"
+        }
+      },
+      "note": ""
+    },
+    "molecule.blockquote": {
+      "layer": "Molecule",
+      "name": "Blockquote",
+      "rootClass": "astryx-blockquote",
+      "modifiers": {
+        "large": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "molecule.citation": {
+      "layer": "Molecule",
+      "name": "Citation",
+      "rootClass": "astryx-citation",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.banner": {
+      "layer": "Molecule",
+      "name": "Banner",
+      "rootClass": "astryx-banner",
+      "modifiers": {
+        "info": {
+          "attribute": "status",
+          "value": "info"
+        },
+        "success": {
+          "attribute": "status",
+          "value": "success"
+        },
+        "warning": {
+          "attribute": "status",
+          "value": "warning"
+        },
+        "error": {
+          "attribute": "status",
+          "value": "error"
+        }
+      },
+      "note": ""
+    },
+    "molecule.collapsible": {
+      "layer": "Molecule",
+      "name": "Collapsible",
+      "rootClass": "astryx-collapsible",
+      "modifiers": {
+        "compact": {
+          "attribute": "density",
+          "value": "compact"
+        },
+        "balanced": {
+          "attribute": "density",
+          "value": "balanced"
+        },
+        "spacious": {
+          "attribute": "density",
+          "value": "spacious"
+        }
+      },
+      "note": ""
+    },
+    "molecule.collapsibleGroup": {
+      "layer": "Molecule",
+      "name": "CollapsibleGroup",
+      "rootClass": "astryx-collapsible-group",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.table": {
+      "layer": "Molecule",
+      "name": "Table",
+      "rootClass": "astryx-table",
+      "modifiers": {
+        "compact": {
+          "attribute": "density",
+          "value": "compact"
+        },
+        "spacious": {
+          "attribute": "density",
+          "value": "spacious"
+        },
+        "hoverable": {
+          "attribute": "hoverable",
+          "value": "hoverable"
+        }
+      },
+      "note": ""
+    },
+    "molecule.tabs": {
+      "layer": "Molecule",
+      "name": "Tabs",
+      "rootClass": "astryx-tabs",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.tabList": {
+      "layer": "Molecule",
+      "name": "TabList",
+      "rootClass": "astryx-tab-list",
+      "modifiers": {
+        "divided": {
+          "attribute": "variant",
+          "value": "divided"
+        },
+        "fill": {
+          "attribute": "variant",
+          "value": "fill"
+        }
+      },
+      "note": ""
+    },
+    "molecule.breadcrumbs": {
+      "layer": "Molecule",
+      "name": "Breadcrumbs",
+      "rootClass": "astryx-breadcrumbs",
+      "modifiers": {
+        "supporting": {
+          "attribute": "type",
+          "value": "supporting"
+        }
+      },
+      "note": ""
+    },
+    "molecule.pagination": {
+      "layer": "Molecule",
+      "name": "Pagination",
+      "rootClass": "astryx-pagination",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        }
+      },
+      "note": ""
+    },
+    "molecule.toolbar": {
+      "layer": "Molecule",
+      "name": "Toolbar",
+      "rootClass": "astryx-toolbar",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "molecule.tooltip": {
+      "layer": "Molecule",
+      "name": "Tooltip",
+      "rootClass": "astryx-tooltip",
+      "modifiers": {
+        "top": {
+          "attribute": "placement",
+          "value": "top"
+        },
+        "bottom": {
+          "attribute": "placement",
+          "value": "bottom"
+        },
+        "start": {
+          "attribute": "placement",
+          "value": "start"
+        },
+        "end": {
+          "attribute": "placement",
+          "value": "end"
+        }
+      },
+      "note": ""
+    },
+    "molecule.field": {
+      "layer": "Molecule",
+      "name": "Field",
+      "rootClass": "astryx-field",
+      "modifiers": {
+        "horizontal": {
+          "attribute": "orientation",
+          "value": "horizontal"
+        },
+        "success": {
+          "attribute": "status",
+          "value": "success"
+        },
+        "warning": {
+          "attribute": "status",
+          "value": "warning"
+        },
+        "error": {
+          "attribute": "status",
+          "value": "error"
+        }
+      },
+      "note": ""
+    },
+    "molecule.textInput": {
+      "layer": "Molecule",
+      "name": "TextInput",
+      "rootClass": "astryx-text-input",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        },
+        "success": {
+          "attribute": "status",
+          "value": "success"
+        },
+        "warning": {
+          "attribute": "status",
+          "value": "warning"
+        },
+        "error": {
+          "attribute": "status",
+          "value": "error"
+        }
+      },
+      "note": ""
+    },
+    "molecule.inputGroup": {
+      "layer": "Molecule",
+      "name": "InputGroup",
+      "rootClass": "astryx-input-group",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": ""
+    },
+    "molecule.carousel": {
+      "layer": "Molecule",
+      "name": "Carousel",
+      "rootClass": "astryx-carousel",
+      "modifiers": {
+        "gap-2": {
+          "attribute": "gap",
+          "value": "2"
+        },
+        "gap-3": {
+          "attribute": "gap",
+          "value": "3"
+        },
+        "gap-4": {
+          "attribute": "gap",
+          "value": "4"
+        },
+        "gap-6": {
+          "attribute": "gap",
+          "value": "6"
+        }
+      },
+      "note": ""
+    },
+    "molecule.dialog": {
+      "layer": "Molecule",
+      "name": "Dialog",
+      "rootClass": "astryx-dialog",
+      "modifiers": {
+        "fullscreen": {
+          "attribute": "variant",
+          "value": "fullscreen"
+        }
+      },
+      "note": ""
+    },
+    "molecule.overlay": {
+      "layer": "Molecule",
+      "name": "Overlay",
+      "rootClass": "astryx-overlay",
+      "modifiers": {
+        "fill": {
+          "attribute": "fill",
+          "value": "fill"
+        },
+        "always": {
+          "attribute": "reveal",
+          "value": "always"
+        },
+        "hover-reveal": {
+          "attribute": "reveal",
+          "value": "hover"
+        },
+        "focus-reveal": {
+          "attribute": "reveal",
+          "value": "focus"
+        },
+        "dark": {
+          "attribute": "tone",
+          "value": "dark"
+        },
+        "align-center": {
+          "attribute": "align",
+          "value": "center"
+        }
+      },
+      "note": ""
+    },
+    "molecule.emptyState": {
+      "layer": "Molecule",
+      "name": "EmptyState",
+      "rootClass": "astryx-empty-state",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.stepper": {
+      "layer": "Molecule",
+      "name": "Stepper",
+      "rootClass": "astryx-stepper",
+      "modifiers": {
+        "vertical": {
+          "attribute": "orientation",
+          "value": "vertical"
+        }
+      },
+      "note": "Promoted to @astryxdesign/core at v0.6.0."
+    },
+    "molecule.step": {
+      "layer": "Molecule",
+      "name": "Step",
+      "rootClass": "astryx-step",
+      "modifiers": {
+        "complete": {
+          "attribute": "status",
+          "value": "complete"
+        },
+        "current": {
+          "attribute": "status",
+          "value": "current"
+        },
+        "upcoming": {
+          "attribute": "status",
+          "value": "upcoming"
+        }
+      },
+      "note": "Promoted to @astryxdesign/core at v0.6.0."
+    },
+    "molecule.segmentedControl": {
+      "layer": "Molecule",
+      "name": "SegmentedControl",
+      "rootClass": "astryx-segmented-control",
+      "modifiers": {
+        "fill": {
+          "attribute": "variant",
+          "value": "fill"
+        },
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        }
+      },
+      "note": ""
+    },
+    "molecule.overflowList": {
+      "layer": "Molecule",
+      "name": "OverflowList",
+      "rootClass": "astryx-overflow-list",
+      "modifiers": {
+        "multi-row": {
+          "attribute": "wrap",
+          "value": "multi-row"
+        }
+      },
+      "note": ""
+    },
+    "molecule.codeBlock": {
+      "layer": "Molecule",
+      "name": "CodeBlock",
+      "rootClass": "astryx-codeblock",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.treeList": {
+      "layer": "Molecule",
+      "name": "TreeList",
+      "rootClass": "astryx-tree-list",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.outline": {
+      "layer": "Molecule",
+      "name": "Outline",
+      "rootClass": "astryx-outline",
+      "modifiers": {},
+      "note": ""
+    },
+    "molecule.figure": {
+      "layer": "Molecule",
+      "name": "Figure",
+      "rootClass": "astryx-figure",
+      "modifiers": {
+        "align-center": {
+          "attribute": "align",
+          "value": "center"
+        },
+        "full": {
+          "attribute": "width",
+          "value": "full"
+        }
+      },
+      "note": ""
+    },
+    "organism.siteHeader": {
+      "layer": "Organism",
+      "name": "SiteHeader",
+      "rootClass": "astryx-header",
+      "modifiers": {},
+      "note": ""
+    },
+    "organism.siteFooter": {
+      "layer": "Organism",
+      "name": "SiteFooter",
+      "rootClass": "astryx-footer",
+      "modifiers": {},
+      "note": ""
+    },
+    "organism.breadcrumb": {
+      "layer": "Organism",
+      "name": "Breadcrumb",
+      "rootClass": "astryx-breadcrumb",
+      "modifiers": {},
+      "note": ""
+    },
+    "organism.pageHeader": {
+      "layer": "Organism",
+      "name": "PageHeader",
+      "rootClass": "astryx-page-header",
+      "modifiers": {},
+      "note": ""
+    },
+    "organism.searchForm": {
+      "layer": "Organism",
+      "name": "SearchForm",
+      "rootClass": "astryx-search",
+      "modifiers": {},
+      "note": ""
+    },
+    "organism.themeSwitcher": {
+      "layer": "Organism",
+      "name": "ThemeSwitcher",
+      "rootClass": "astryx-scheme-toggle",
+      "modifiers": {},
+      "note": ""
+    }
+  }
+}

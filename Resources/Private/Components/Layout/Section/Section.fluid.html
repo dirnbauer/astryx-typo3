@@ -1,0 +1,42 @@
+<f:comment>
+    Section — the root of every content element.
+
+    Owns two things and nothing else: the vertical rhythm between one element
+    and the next (`spacing`), and the surface the element sits on (`surface`).
+    Everything inside it is somebody else's job.
+
+    `frame` is the EDITOR's surface choice (tt_content.frame_class). It wins
+    over the template's own `surface` default, so an element may ship an opinion
+    and an editor may still override it from the backend form.
+</f:comment>
+
+<f:argument name="spacing" type="string" optional="{true}" default="default" />
+<f:argument name="surface" type="string" optional="{true}" default="default" />
+<f:argument name="frame" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:variable
+    name="effectiveSurface"
+    value="{f:if(condition: '{frame} && {frame} != \'default\'', then: frame, else: surface)}" />
+
+<f:comment>
+    The id branch is not duplication for its own sake: `id=""` is not a
+    conforming HTML id, and anchor navigation is the one thing on this component
+    a visitor can actually land on.
+</f:comment>
+<f:if condition="{id}">
+    <f:then>
+        <section
+            id="{id}"
+            class="astryx-section {class}"
+            data-spacing="{spacing}"
+            data-surface="{effectiveSurface}"><f:slot /></section>
+    </f:then>
+    <f:else>
+        <section
+            class="astryx-section {class}"
+            data-spacing="{spacing}"
+            data-surface="{effectiveSurface}"><f:slot /></section>
+    </f:else>
+</f:if>

@@ -1,0 +1,63 @@
+<f:comment>
+    Button — an action, as a <button> or, when it navigates, as an <a>.
+
+    A link that looks like a button is still a link: it must be an <a> so that
+    middle-click, "open in new tab" and the screen reader's link list all behave.
+    Passing `href` is what decides the element; there is no `as` argument,
+    because the two are never a free choice.
+
+    `data-variant` and `data-size` are upstream's own attribute names since
+    Astryx v0.6.0, where `.astryx-button.primary` became
+    `.astryx-button[data-variant="primary"]`.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="primary" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="type" type="string" optional="{true}" default="button" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+
+<f:if condition="{href}">
+    <f:then>
+        <f:comment>
+            rel="noopener noreferrer" only where it means something: a target
+            that opens a new browsing context.
+        </f:comment>
+        <a
+            href="{href}"
+            class="astryx-button {class}"
+            data-variant="{variant}"
+            data-size="{size}"
+            target="{target}"
+            rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"
+            title="{title}"
+            aria-label="{ariaLabel}"><f:slot /></a>
+    </f:then>
+    <f:else>
+        <f:if condition="{disabled}">
+            <f:then>
+                <button
+                    type="{type}"
+                    class="astryx-button {class}"
+                    data-variant="{variant}"
+                    data-size="{size}"
+                    title="{title}"
+                    aria-label="{ariaLabel}"
+                    disabled="disabled"><f:slot /></button>
+            </f:then>
+            <f:else>
+                <button
+                    type="{type}"
+                    class="astryx-button {class}"
+                    data-variant="{variant}"
+                    data-size="{size}"
+                    title="{title}"
+                    aria-label="{ariaLabel}"><f:slot /></button>
+            </f:else>
+        </f:if>
+    </f:else>
+</f:if>

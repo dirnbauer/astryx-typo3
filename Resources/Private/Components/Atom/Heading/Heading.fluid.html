@@ -1,0 +1,42 @@
+<f:comment>
+    Heading — one heading, at a chosen outline level and a chosen visual size.
+
+    The two are deliberately separate arguments. `level` decides which element is
+    emitted, and therefore what a screen reader announces and where the heading
+    lands in the document outline; `type` decides only how big it looks. A page
+    that needs an h2 to read as display-sized says level="2" type="display-2"
+    rather than lying about its level, which is the single most common way a
+    design system breaks heading structure.
+
+    data-level is upstream's own attribute name since Astryx v0.6.0.
+</f:comment>
+
+<f:argument name="level" type="string" optional="{true}" default="2" />
+<f:argument name="type" type="string" optional="{true}" default="default" />
+<f:argument name="weight" type="string" optional="{true}" default="default" />
+<f:argument name="color" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then>
+        <f:switch expression="{level}">
+            <f:case value="1"><h1 id="{id}" class="astryx-heading {class}" data-level="1" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h1></f:case>
+            <f:case value="3"><h3 id="{id}" class="astryx-heading {class}" data-level="3" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h3></f:case>
+            <f:case value="4"><h4 id="{id}" class="astryx-heading {class}" data-level="4" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5 id="{id}" class="astryx-heading {class}" data-level="5" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6 id="{id}" class="astryx-heading {class}" data-level="6" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h6></f:case>
+            <f:defaultCase><h2 id="{id}" class="astryx-heading {class}" data-level="2" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h2></f:defaultCase>
+        </f:switch>
+    </f:then>
+    <f:else>
+        <f:switch expression="{level}">
+            <f:case value="1"><h1 class="astryx-heading {class}" data-level="1" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h1></f:case>
+            <f:case value="3"><h3 class="astryx-heading {class}" data-level="3" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h3></f:case>
+            <f:case value="4"><h4 class="astryx-heading {class}" data-level="4" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5 class="astryx-heading {class}" data-level="5" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6 class="astryx-heading {class}" data-level="6" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h6></f:case>
+            <f:defaultCase><h2 class="astryx-heading {class}" data-level="2" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h2></f:defaultCase>
+        </f:switch>
+    </f:else>
+</f:if>
