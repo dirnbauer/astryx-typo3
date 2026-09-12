@@ -57,7 +57,7 @@ final class ContentElementAuditTest extends TestCase
         );
         sort($names);
 
-        return array_values($names);
+        return $names;
     }
 
     private static function path(string $element, string $relative = ''): string

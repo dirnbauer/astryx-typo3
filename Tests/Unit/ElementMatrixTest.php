@@ -66,7 +66,7 @@ final class ElementMatrixTest extends TestCase
             );
         }
 
-        self::assertCount(self::GROUPS === [] ? 0 : count(self::GROUPS) * self::ELEMENTS_PER_GROUP, self::allElements());
+        self::assertCount(count(self::GROUPS) * self::ELEMENTS_PER_GROUP, self::allElements());
     }
 
     public function testEveryIdentifierIsUniqueAndUrlSafe(): void

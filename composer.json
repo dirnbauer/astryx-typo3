@@ -72,14 +72,14 @@
         "lint": "find Classes Tests -name '*.php' -print0 | xargs -0 -n1 php -l",
         "cgl": "php-cs-fixer fix --diff",
         "cgl:check": "php-cs-fixer fix --dry-run --diff",
-        "phpstan": "phpstan analyse --configuration=phpstan.neon --no-progress",
-        "test:unit": "phpunit --configuration=Build/phpunit/UnitTests.xml",
-        "test:functional": "phpunit --configuration=Build/phpunit/FunctionalTests.xml",
+        "phpstan": "@php -d memory_limit=-1 vendor/bin/phpstan analyse --configuration=phpstan.neon --no-progress",
+        "test:unit": "@php -d memory_limit=-1 vendor/bin/phpunit --configuration=Build/phpunit/UnitTests.xml",
+        "test:functional": "@php -d memory_limit=-1 vendor/bin/phpunit --configuration=Build/phpunit/FunctionalTests.xml",
         "test": [
             "@test:unit",
             "@test:functional"
         ],
-        "audit-elements": "vendor/bin/phpunit --configuration=Build/phpunit/UnitTests.xml --filter ContentElementAuditTest"
+        "audit-elements": "@php -d memory_limit=-1 vendor/bin/phpunit --configuration=Build/phpunit/UnitTests.xml --filter ContentElementAuditTest"
     },
     "scripts-descriptions": {
         "lint": "Syntax-check every PHP file in Classes/ and Tests/.",

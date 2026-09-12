@@ -229,8 +229,8 @@ function buildDerivedFiles(string $root, array $matrix, array $recordTypes): arr
             $synonyms = implode(' | ', $element[$synonymKey] ?? []);
             $units[] = unit(cType($element['id']), $keywords . ' || ' . $synonyms, $prefix !== '');
         }
-        $files[$root . '/Resources/Private/Language/' . $prefix . 'library_keywords.xlf'] =
-            xliff('library_keywords', $units, $prefix !== '');
+        $files[$root . '/Resources/Private/Language/' . $prefix . 'library_keywords.xlf']
+            = xliff('library_keywords', $units, $prefix !== '');
     }
 
     // The one-line blurb on a picker card.
@@ -239,8 +239,8 @@ function buildDerivedFiles(string $root, array $matrix, array $recordTypes): arr
         foreach ($elements as $element) {
             $units[] = unit(cType($element['id']), (string)($element[$key] ?? ''), $prefix !== '');
         }
-        $files[$root . '/Resources/Private/Language/' . $prefix . 'library_short.xlf'] =
-            xliff('library_short', $units, $prefix !== '');
+        $files[$root . '/Resources/Private/Language/' . $prefix . 'library_short.xlf']
+            = xliff('library_short', $units, $prefix !== '');
     }
 
     // What the site seeder puts on each chapter page, in matrix order.
@@ -254,8 +254,8 @@ function buildDerivedFiles(string $root, array $matrix, array $recordTypes): arr
             ),
         ];
     }
-    $files[$root . '/Resources/Private/Data/astryx-content-groups.json'] =
-        json_encode(['groups' => $groups], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n";
+    $files[$root . '/Resources/Private/Data/astryx-content-groups.json']
+        = json_encode(['groups' => $groups], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . "\n";
 
     // Shared child tables.
     foreach (collectUsedRecordTypes($elements, $recordTypes) as $key => $definition) {

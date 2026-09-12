@@ -16,19 +16,18 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use Webconsulting\Desiderio\Data\ContentBlockDefinitionRegistry;
+use Webconsulting\AstryxTypo3\Data\AstryxSiteDefinitions;
 use Webconsulting\Desiderio\Library\ElementCatalog;
 use Webconsulting\Desiderio\Seeding\CollectionCleanupService;
 use Webconsulting\Desiderio\Seeding\ContentBlockCollectionMap;
 use Webconsulting\Desiderio\Seeding\ContentElementSeeder;
+use Webconsulting\Desiderio\Seeding\DatabaseSchemaHelper;
 use Webconsulting\Desiderio\Seeding\DesiderioContentCleaner;
+use Webconsulting\Desiderio\Seeding\LiveWorkspaceQueryHelper;
+use Webconsulting\Desiderio\Seeding\SeedPageUpserter;
 use Webconsulting\Desiderio\Seeding\StyleguideCollectionAliasPolicy;
 use Webconsulting\Desiderio\Seeding\StyleguideDemoValueGenerator;
 use Webconsulting\Desiderio\Seeding\StyleguideFixtureResolver;
-use Webconsulting\Desiderio\Seeding\DatabaseSchemaHelper;
-use Webconsulting\Desiderio\Seeding\LiveWorkspaceQueryHelper;
-use Webconsulting\Desiderio\Seeding\SeedPageUpserter;
-use Webconsulting\AstryxTypo3\Data\AstryxSiteDefinitions;
 
 /**
  * Build (or bring up to date) the page tree of the Astryx showcase site.
@@ -358,7 +357,6 @@ final class SeedAstryxSiteCommand extends Command
                     $sorting,
                     $now,
                     $columns,
-                    ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
                 );
                 $seeder->insert($pageUid, $now, $contentData);
                 $seeded++;
@@ -413,10 +411,10 @@ final class SeedAstryxSiteCommand extends Command
 
             // The links are written against page roles, not uids, because the
             // uids only exist once this run has created the pages.
-            $fixture = json_decode(strtr(json_encode($block['fixture']), [
+            $fixture = json_decode(strtr(json_encode($block['fixture'], JSON_THROW_ON_ERROR), [
                 '__HUB__' => (string)$hubUid,
                 '__THEMES__' => (string)($themesUid ?: $hubUid),
-            ]), true);
+            ]), true, 512, JSON_THROW_ON_ERROR);
 
             $sorting += self::SORTING_STEP;
             $seeder->insert($rootUid, $now, $resolver->buildContentInsert(
@@ -427,7 +425,6 @@ final class SeedAstryxSiteCommand extends Command
                 $sorting,
                 $now,
                 $columns,
-                ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
             ));
             $placed++;
         }
@@ -471,8 +468,6 @@ final class SeedAstryxSiteCommand extends Command
             $io->warning(sprintf('Support pages need %s, which is not in the catalog.', $cType));
             return;
         }
-        $definition = ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']);
-
         $placed = 0;
         foreach (AstryxSiteDefinitions::supportContent() as $slug => $copy) {
             $pageUid = $supportUids[$slug] ?? 0;
@@ -501,7 +496,6 @@ final class SeedAstryxSiteCommand extends Command
                 self::SORTING_STEP,
                 $now,
                 $columns,
-                $definition,
             ));
             $placed++;
         }
@@ -576,7 +570,6 @@ final class SeedAstryxSiteCommand extends Command
                 self::SORTING_STEP,
                 $now,
                 $columns,
-                ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
             ));
         }
 
@@ -637,7 +630,7 @@ final class SeedAstryxSiteCommand extends Command
         }
 
         $showcase = AstryxSiteDefinitions::themeShowcaseElements();
-        $missing = array_values(array_filter($showcase, static fn (string $cType): bool => !isset($catalog[$cType])));
+        $missing = array_values(array_filter($showcase, static fn(string $cType): bool => !isset($catalog[$cType])));
         if ($missing !== []) {
             $io->warning(sprintf('Showcase elements not in the catalog: %s', implode(', ', $missing)));
         }
@@ -663,7 +656,6 @@ final class SeedAstryxSiteCommand extends Command
                     $sorting,
                     $now,
                     $columns,
-                    ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
                 ));
                 $placed++;
             }
@@ -855,7 +847,6 @@ final class SeedAstryxSiteCommand extends Command
             self::SORTING_STEP,
             $now,
             $columns,
-            ContentBlockDefinitionRegistry::buildDefinitionFromConfig($record['config']),
         ));
 
         $io->writeln(sprintf('  %-28s %d chapter cards', 'Components hub', count($items)));

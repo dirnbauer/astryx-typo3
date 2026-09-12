@@ -27,8 +27,6 @@ use Webconsulting\Desiderio\Icon\IconRegistry;
  */
 final class IconViewHelper extends AbstractViewHelper
 {
-    protected $escapeOutput = false;
-
     /**
      * Which of Desiderio's five icon sets this theme draws.
      *
@@ -38,6 +36,7 @@ final class IconViewHelper extends AbstractViewHelper
      * icon vocabularies is not one design system.
      */
     private const LIBRARY = 'lucide';
+    protected $escapeOutput = false;
 
     public function initializeArguments(): void
     {

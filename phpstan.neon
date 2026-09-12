@@ -16,9 +16,10 @@ includes:
 
 parameters:
     level: 8
-    phpVersion:
-        min: 80400
-        max: 80599
+    # A single version, not a min/max range: the range form configures the
+    # ANALYSIS target but leaves the parser on the running interpreter, so
+    # PHP 8.4 syntax (`new Foo()->bar()`) is a parse error on an 8.3 CLI.
+    phpVersion: 80400
     paths:
         - Classes
         - Tests

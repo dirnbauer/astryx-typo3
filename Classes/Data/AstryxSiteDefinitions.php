@@ -182,9 +182,30 @@ final class AstryxSiteDefinitions
         }
 
         $decoded = json_decode((string)file_get_contents($path), true);
-        $themes = is_array($decoded) ? ($decoded['themes'] ?? []) : [];
+        $rows = is_array($decoded) ? ($decoded['themes'] ?? []) : [];
+        if (!is_array($rows)) {
+            return [];
+        }
 
-        return is_array($themes) ? array_values(array_filter($themes, 'is_array')) : [];
+        // The registry carries more per theme than this (package, provenance,
+        // upstream description); the five keys below are the ones the site
+        // seeder needs, and projecting them here is what makes the promise in
+        // the return type above true rather than hopeful.
+        $themes = [];
+        foreach ($rows as $row) {
+            if (!is_array($row)) {
+                continue;
+            }
+            $themes[] = [
+                'id' => is_string($row['id'] ?? null) ? $row['id'] : '',
+                'name' => is_string($row['name'] ?? null) ? $row['name'] : '',
+                'character' => is_string($row['character'] ?? null) ? $row['character'] : '',
+                'use' => is_string($row['use'] ?? null) ? $row['use'] : '',
+                'family' => is_string($row['family'] ?? null) ? $row['family'] : '',
+            ];
+        }
+
+        return $themes;
     }
 
     /**
@@ -303,7 +324,6 @@ final class AstryxSiteDefinitions
             ],
         ];
     }
-
 
     /**
      * The home page, assembled from the catalog's own elements.

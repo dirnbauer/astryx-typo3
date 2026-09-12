@@ -25,10 +25,6 @@ $config->getFinder()
     ->in(__DIR__ . '/Classes')
     ->in(__DIR__ . '/Tests')
     ->in(__DIR__ . '/Build/Scripts')
-    ->append([
-        __FILE__,
-        __DIR__ . '/ext_emconf.php',
-        __DIR__ . '/ext_localconf.php',
-    ]);
+    ->append([__FILE__]);
 
 return $config;

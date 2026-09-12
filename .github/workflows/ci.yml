@@ -11,9 +11,12 @@ on:
 permissions:
   contents: read
 
+env:
+  PHP_EXTENSIONS: intl, mbstring, pdo_sqlite, gd, zip
+
 jobs:
-  php:
-    name: PHP 8.4
+  lint:
+    name: Lint and Composer metadata
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,6 +26,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
+          extensions: ${{ env.PHP_EXTENSIONS }}
           coverage: none
           tools: composer:v2
 
@@ -32,14 +36,156 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --no-progress --prefer-dist
 
-      - name: Run unit tests
-        run: composer test
+      - name: Lint PHP sources
+        run: composer lint
 
       - name: Audit Composer dependencies
         run: composer audit
 
+  cgl:
+    name: Coding standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Check coding standards
+        run: composer cgl:check
+
+  phpstan:
+    name: Static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Run PHPStan
+        run: composer phpstan
+
+  unit:
+    name: Unit tests (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.4'
+            experimental: false
+          # A look-ahead leg. TYPO3 14.3 does not claim PHP 8.5 support yet, so
+          # this one reports without being allowed to block a merge.
+          - php: '8.5'
+            experimental: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      # composer.json pins config.platform.php to 8.4.0 so that resolution is
+      # identical on every leg; --ignore-platform-req=php lets the 8.5 runner
+      # install that same set.
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist --ignore-platform-req=php
+
+      - name: Run unit tests
+        run: composer test:unit
+
+  functional:
+    name: Functional tests (MariaDB 10.11)
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:10.11
+        env:
+          MARIADB_ROOT_PASSWORD: funcp
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    env:
+      # Build/phpunit/FunctionalTests.xml defaults to pdo_sqlite and its <env>
+      # entries carry no force="true", so PHPUnit leaves variables that are
+      # already in the environment alone: exporting these is all it takes to
+      # move the suite onto MariaDB.
+      typo3DatabaseDriver: mysqli
+      typo3DatabaseName: astryx_func
+      typo3DatabaseHost: 127.0.0.1
+      typo3DatabasePort: '3306'
+      typo3DatabaseUsername: root
+      typo3DatabasePassword: funcp
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ${{ env.PHP_EXTENSIONS }}, mysqli
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Run functional tests
+        run: composer test:functional
+
+  catalog:
+    name: Generated catalog is current
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Verify the derived catalog matches the element matrix
+        run: php Build/Scripts/scaffold-content-elements.php --check
+
   frontend:
-    name: Node 24
+    name: Frontend build (Node 24)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
