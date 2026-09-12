@@ -29,7 +29,9 @@ requirement rises to Desiderio 4.1.
   (commit `82d4dab`) to v0.6.0 (commit `1e63a51`). `--transition-fast` and
   `--transition-normal` are removed — they were never upstream — and
   `--border-width` and the four `--focus-outline-*` tokens are added.
-  `--color-syntax-punctuation` now resolves to `--color-text-secondary`.
+  `--color-syntax-punctuation` now resolves to `--color-text-secondary`. The
+  full comparison is in
+  [Build/Reports/astryx-0.3.0-to-0.6.0.md](Build/Reports/astryx-0.3.0-to-0.6.0.md).
 - **Requires `webconsulting/desiderio` ^4.1** and `typo3/cms-*` ^14.3.7.
 - `scripts/audit-content-elements.php` is gone. Its rules are
   `Tests/Unit/ContentElementAuditTest.php`, and CI runs them.
