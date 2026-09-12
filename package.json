@@ -11,6 +11,10 @@
     "build:css": "node Build/Scripts/build-astryx-css.mjs",
     "build:fonts": "node Build/Scripts/sync-fonts.mjs",
     "audit:contrast": "node Build/Scripts/audit-contrast.mjs",
+    "audit:css": "node Build/Scripts/migrate-component-css.mjs --check",
+    "review": "node Build/Scripts/design-review.mjs --harness",
+    "upstream:fetch": "node Build/Scripts/fetch-astryx-manifest.mjs",
+    "upstream:diff": "node Build/Scripts/diff-astryx-manifest.mjs",
     "build:themes": "node Build/Scripts/build-astryx-themes.mjs",
     "build:overview": "node Build/Scripts/build-theme-overview.mjs"
   },
