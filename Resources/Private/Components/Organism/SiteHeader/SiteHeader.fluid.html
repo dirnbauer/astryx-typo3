@@ -1,0 +1,107 @@
+<f:comment>
+    SiteHeader — the bar at the top of every page: the brand, the main
+    navigation, and whatever controls belong beside them.
+
+    The navigation is written twice, once for the desktop row and once inside
+    the mobile panel. That is not duplication for its own sake: the two are
+    different landmarks at different breakpoints, and collapsing them into one
+    list that moves between containers would need script to do what a media
+    query already does.
+
+    The panel is a native `details`, so it opens, closes and answers Escape
+    with no JavaScript at all; astryx.js binds `data-g-menu` only to add the
+    click-outside and the close-on-widen that the platform has no answer for.
+
+    Everything this used to read out of the site configuration is now an
+    argument, and the search field and scheme toggle arrive through the slot —
+    both are conditional on settings, and a component that asked the global
+    configuration what to render could not be rendered anywhere else.
+</f:comment>
+
+<f:argument name="homeUrl" type="string" optional="{true}" default="" />
+<f:argument name="wordmark" type="string" optional="{true}" default="" />
+<f:argument name="menu" type="array" optional="{true}" />
+<f:argument name="navigationLabel" type="string" optional="{true}" default="" />
+<f:argument name="menuLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<header class="astryx-header {class}">
+    <div class="astryx-layout astryx-header__inner">
+
+        <a href="{homeUrl}" class="astryx-header__brand">
+            <f:comment>
+                The mark is drawn from currentColor, so it takes the theme's
+                accent in every scheme without a second asset.
+            </f:comment>
+            <svg class="astryx-header__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                <path d="M12 2 3 20h4l5-10 5 10h4L12 2Z" fill="currentColor"/>
+                <circle cx="12" cy="15" r="2.5" fill="currentColor" opacity=".45"/>
+            </svg>
+            <span class="astryx-header__wordmark">{wordmark}</span>
+        </a>
+
+        <nav class="astryx-header__nav" aria-label="{navigationLabel}">
+            <ul class="astryx-nav__list">
+                <f:for each="{menu}" as="item">
+                    <li class="astryx-nav__item">
+                        <a
+                            href="{item.link}"
+                            class="astryx-nav__link"
+                            target="{item.target}"
+                            aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
+                        >{item.title}</a>
+                        <f:if condition="{item.children}">
+                            <ul class="astryx-nav__sub">
+                                <f:for each="{item.children}" as="child">
+                                    <li>
+                                        <a href="{child.link}" class="astryx-nav__link" target="{child.target}">{child.title}</a>
+                                    </li>
+                                </f:for>
+                            </ul>
+                        </f:if>
+                    </li>
+                </f:for>
+            </ul>
+        </nav>
+
+        <div class="astryx-header__actions">
+            <f:slot />
+
+            <details class="astryx-menu" data-g-menu>
+                <summary class="astryx-menu__toggle" aria-label="{menuLabel}">
+                    <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                        <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                    </svg>
+                </summary>
+
+                <div class="astryx-menu__panel">
+                    <nav aria-label="{navigationLabel}">
+                        <ul class="astryx-nav__list">
+                            <f:for each="{menu}" as="item">
+                                <li class="astryx-nav__item">
+                                    <a
+                                        href="{item.link}"
+                                        class="astryx-nav__link"
+                                        target="{item.target}"
+                                        aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
+                                    >{item.title}</a>
+                                    <f:if condition="{item.children}">
+                                        <ul class="astryx-nav__sub">
+                                            <f:for each="{item.children}" as="child">
+                                                <li><a href="{child.link}" class="astryx-nav__link">{child.title}</a></li>
+                                            </f:for>
+                                        </ul>
+                                    </f:if>
+                                </li>
+                            </f:for>
+                        </ul>
+                    </nav>
+                </div>
+            </details>
+        </div>
+
+    </div>
+</header>

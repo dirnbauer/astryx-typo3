@@ -1,0 +1,22 @@
+<f:comment>
+    ButtonGroup — two or more buttons that belong to the same decision.
+
+    A plain div and no role. The buttons are already in the tab order in the
+    order they are written, and a `role="group"` without an accessible name
+    tells a screen reader nothing it did not already know while adding a
+    boundary it has to announce. A set of controls that genuinely needs naming
+    and arrow-key navigation is a Toolbar, not this.
+
+    `data-variant="attached"` welds the buttons into one segmented control by
+    collapsing the gap and squaring the inner corners, which is why the group
+    rather than the button owns that decision.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-button-group {class}"
+    data-variant="{variant}"
+    data-align="{align}"><f:slot /></div>

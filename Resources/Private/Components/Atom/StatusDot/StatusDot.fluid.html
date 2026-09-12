@@ -1,0 +1,34 @@
+<f:comment>
+    StatusDot — the small coloured disc that marks a state.
+
+    Colour is the whole of what this draws, and colour alone is not a message:
+    anyone who cannot tell green from amber is told nothing by it. The dot is
+    therefore hidden from assistive technology by default, on the assumption
+    that the words beside it already say "operational" or "degraded" — which
+    is how every status element in the theme uses it.
+
+    Where there genuinely is no such label, `ariaLabel` promotes the dot to an
+    image with a name of its own. That is the exception, and stating it
+    explicitly is what keeps it one.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="neutral" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaHidden" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then>
+        <span
+            class="astryx-statusdot {class}" aria-hidden="{ariaHidden}"
+            data-variant="{variant}"
+            role="img"
+            aria-label="{ariaLabel}"></span>
+    </f:then>
+    <f:else>
+        <span
+            class="astryx-statusdot {class}" aria-hidden="{ariaHidden}"
+            data-variant="{variant}"
+            aria-hidden="true"></span>
+    </f:else>
+</f:if>

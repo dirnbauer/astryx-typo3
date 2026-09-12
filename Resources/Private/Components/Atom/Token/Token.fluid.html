@@ -1,0 +1,35 @@
+<f:comment>
+    Token — a chip that names a thing: a tag, a subject, a filter, a category.
+
+    A badge states, a token names, and the difference shows in what a token
+    does: it is often the one the visitor is currently on, and often a link to
+    the others. `selected` therefore says so twice, once as the data attribute
+    the stylesheet reads and once in ARIA, because a chip that is only
+    highlighted in colour tells a screen reader nothing about where the
+    visitor is. `ariaCurrent` carries which kind of "current" it is — `page`
+    for a set of category links, `true` where there is nothing more specific
+    to say — and stays empty, and therefore false, on the others.
+
+    A token in a list of tags is an `<li>`, which is what lets a screen reader
+    count them; a token that navigates is a link, which is what makes it
+    openable in a new tab. Both matter, so both are here, and `parameter` or
+    `href` wins over `as` when the two disagree.
+</f:comment>
+
+<f:argument name="selected" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="as" type="string" optional="{true}" default="span" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+
+<f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: as)}')}</f:variable>
+
+<f:switch expression="{mode}">
+    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></a></f:case>
+    <f:case value="li"><li class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></li></f:case>
+    <f:case value="div"><div class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></div></f:case>
+    <f:defaultCase><span class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></span></f:defaultCase>
+</f:switch>

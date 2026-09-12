@@ -1,0 +1,20 @@
+<f:comment>
+    Blockquote — a quotation set apart from the text around it.
+
+    Only the words go in here. The person who said them is a Citation, placed
+    after this element inside a Figure, because HTML is explicit that an
+    attribution is not part of the quotation: putting the name inside the
+    <blockquote> makes a screen reader read it as something the speaker said
+    about themselves.
+
+    The accent rule down the inline start edge is the quotation mark. There is
+    no decorative glyph, so a quote still reads as a quote when the stylesheet
+    fails and when it is copied into plain text.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<blockquote
+    class="astryx-blockquote {class}"
+    data-size="{size}"><f:slot /></blockquote>

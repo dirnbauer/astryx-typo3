@@ -18,6 +18,7 @@
 <f:argument name="align" type="string" optional="{true}" default="" />
 <f:argument name="columns" type="string" optional="{true}" default="" />
 <f:argument name="variant" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 
 <f:variable
     name="effectiveSurface"
@@ -40,7 +41,7 @@
     <f:then>
         <section
             id="{id}"
-            class="astryx-section {class}"
+            class="astryx-section {class}" aria-labelledby="{ariaLabelledby}"
             data-spacing="{spacing}"
             data-surface="{effectiveSurface}"
             data-align="{align}"
@@ -49,7 +50,7 @@
     </f:then>
     <f:else>
         <section
-            class="astryx-section {class}"
+            class="astryx-section {class}" aria-labelledby="{ariaLabelledby}"
             data-spacing="{spacing}"
             data-surface="{effectiveSurface}"
             data-align="{align}"

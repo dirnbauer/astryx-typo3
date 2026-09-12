@@ -1,0 +1,39 @@
+<f:comment>
+    Divider — a thematic break between two runs of content.
+
+    A plain divider is an `<hr>`, which already means separator and needs no
+    role. A labelled one cannot be: `<hr>` is a void element and has nowhere
+    to put the label, so that variant becomes a `<div role="separator">` with
+    the two rules drawn either side of the text by the stylesheet. This is the
+    one case in the theme where a role is justified, because the element
+    chosen for its ability to hold children has lost the meaning the `<hr>`
+    carried for free.
+
+    A vertical divider says so in ARIA as well as in the data attribute, since
+    the orientation is part of what it separates, not only how it looks.
+</f:comment>
+
+<f:argument name="orientation" type="string" optional="{true}" default="horizontal" />
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="emphasis" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{variant} == 'with-label'">
+    <f:then>
+        <div
+            class="astryx-divider {class}"
+            data-variant="with-label"
+            data-orientation="{orientation}"
+            data-emphasis="{emphasis}"
+            role="separator"
+            aria-orientation="{orientation}"><span class="astryx-divider-label"><f:slot /></span></div>
+    </f:then>
+    <f:else>
+        <hr
+            class="astryx-divider {class}"
+            data-variant="{variant}"
+            data-orientation="{orientation}"
+            data-emphasis="{emphasis}"
+            aria-orientation="{orientation}" />
+    </f:else>
+</f:if>

@@ -1,0 +1,22 @@
+<f:comment>
+    AspectRatio — a box that keeps its proportions whatever width it is given.
+
+    It exists for embedded media. An `<iframe>` from a video host has no
+    intrinsic size, so without a box of a known shape it either collapses or
+    is given a hard-coded height that is wrong at every other width. The box
+    also clips, which is what lets an image of the wrong proportions be
+    cropped to the shape rather than distorted to it.
+
+    The shape is expressed as a named ratio rather than as a number, because
+    the ratios that appear in a design are a small closed set — the video
+    frame, the square, the portrait, the cinematic band — and the stylesheet
+    resolves each name to the `--aspect` custom property the box is built on.
+    The default, and therefore the value of `default`, is sixteen to nine.
+</f:comment>
+
+<f:argument name="ratio" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-aspect-ratio {class}"
+    data-ratio="{ratio}"><f:slot /></div>

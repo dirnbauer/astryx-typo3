@@ -1,0 +1,34 @@
+<f:comment>
+    VisuallyHidden — text that is read aloud but never drawn.
+
+    It is clipped rather than hidden. `display: none` and `visibility: hidden`
+    both take the text out of the accessibility tree as well as off the
+    screen, which would defeat the entire purpose; the stylesheet instead
+    shrinks the box to a single clipped pixel, so the text stays in the tree
+    and stays available to a screen reader.
+
+    `as` is not decoration. The elements this becomes are chosen for what they
+    mean in their context and not for how they look, since none of them looks
+    like anything: a `<caption>` gives a data table the name it must have and
+    a `<label for>` names a search field whose placeholder is not a label. The
+    `for` attribute is emitted for the label only, where it is what binds the
+    two together; anywhere else it would be meaningless.
+</f:comment>
+
+<f:argument name="as" type="string" optional="{true}" default="span" />
+<f:argument name="for" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:switch expression="{as}">
+    <f:case value="div"><div class="astryx-visually-hidden {class}"><f:slot /></div></f:case>
+    <f:case value="label"><label for="{for}" class="astryx-visually-hidden {class}"><f:slot /></label></f:case>
+    <f:case value="caption"><caption class="astryx-visually-hidden {class}"><f:slot /></caption></f:case>
+    <f:case value="legend"><legend class="astryx-visually-hidden {class}"><f:slot /></legend></f:case>
+    <f:case value="h1"><h1 class="astryx-visually-hidden {class}"><f:slot /></h1></f:case>
+    <f:case value="h2"><h2 class="astryx-visually-hidden {class}"><f:slot /></h2></f:case>
+    <f:case value="h3"><h3 class="astryx-visually-hidden {class}"><f:slot /></h3></f:case>
+    <f:case value="h4"><h4 class="astryx-visually-hidden {class}"><f:slot /></h4></f:case>
+    <f:case value="h5"><h5 class="astryx-visually-hidden {class}"><f:slot /></h5></f:case>
+    <f:case value="h6"><h6 class="astryx-visually-hidden {class}"><f:slot /></h6></f:case>
+    <f:defaultCase><span class="astryx-visually-hidden {class}"><f:slot /></span></f:defaultCase>
+</f:switch>

@@ -1,0 +1,36 @@
+<f:comment>
+    List — a vertical run of rows: bullets, steps, links, Items.
+
+    `marker="decimal"` renders an <ol> rather than a <ul>, because a numbered
+    list is an ordered list and the number is the meaning, not the decoration.
+    Every other marker leaves the list unordered. The markers themselves are
+    drawn by the CSS rather than left to `list-style-type`, so that a bullet can
+    take the text colour and line up with the first line of an item that wraps.
+
+    `dividers` and `density` are separate on purpose: a rule between rows
+    replaces the gap entirely, and the padding that gives that rule its air is
+    the density's job.
+</f:comment>
+
+<f:argument name="marker" type="string" optional="{true}" default="default" />
+<f:argument name="dividers" type="string" optional="{true}" default="default" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:if condition="{marker} == 'decimal'">
+    <f:then>
+        <ol
+            class="astryx-list {class}" id="{id}"
+            data-marker="{marker}"
+            data-dividers="{dividers}"
+            data-density="{density}"><f:slot /></ol>
+    </f:then>
+    <f:else>
+        <ul
+            class="astryx-list {class}" id="{id}"
+            data-marker="{marker}"
+            data-dividers="{dividers}"
+            data-density="{density}"><f:slot /></ul>
+    </f:else>
+</f:if>

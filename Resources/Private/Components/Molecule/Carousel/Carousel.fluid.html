@@ -1,0 +1,28 @@
+<f:comment>
+    Carousel — a row that scrolls sideways and snaps.
+
+    The scrolling, the snapping, the drag and the momentum are CSS and the
+    browser; the two arrows are an enhancement on top of a control that already
+    works, and astryx.js disables them at either end so they never lie about
+    what they will do. `data-g-carousel` is therefore emitted unconditionally:
+    with no arrows in the markup the script finds nothing to wire, and a rail
+    that later grows a pair of them needs no change here.
+
+    The track and the arrows are the caller's. The track carries the element's
+    own class beside `astryx-carousel-track`, and every rail labels it
+    differently — some by a heading already on the page, some by a phrase of
+    their own — so the scroll region is written where that decision is made.
+
+    `ariaLabel` decides the element, as it does for Toolbar: a rail of links
+    that moves a visitor around the site is navigation and needs a named `nav`
+    landmark; an unnamed rail of cards is a plain `div`.
+</f:comment>
+
+<f:argument name="gap" type="string" optional="{true}" default="1" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then><nav class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel aria-label="{ariaLabel}"><f:slot /></nav></f:then>
+    <f:else><div class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel><f:slot /></div></f:else>
+</f:if>

@@ -1,0 +1,16 @@
+<f:comment>
+    EmptyState — what a list says when it has nothing in it.
+
+    An empty state that only reports "0 results" leaves a visitor with no move
+    to make, so this is shaped around saying what is missing and what to try
+    next: an icon, a line naming what was looked for, and a hint.
+
+    All three go in the one slot, without a wrapper of their own. The
+    stylesheet sizes and tints the icon through `astryx-empty-state > svg`, so
+    the icon has to be a direct child — putting it in a region of its own would
+    leave it at whatever size it was drawn.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-empty-state {class}"><f:slot /></div>

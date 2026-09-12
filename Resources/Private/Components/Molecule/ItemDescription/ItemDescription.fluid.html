@@ -1,0 +1,11 @@
+<f:comment>
+    ItemDescription — the quieter second line under an ItemLabel.
+
+    Smaller and in the secondary text colour, which is the whole of it. It sits
+    inside ItemContent so that the label and the description stack as one
+    column while the row's leading and trailing regions stay beside them.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span class="astryx-item-description {class}"><f:slot /></span>

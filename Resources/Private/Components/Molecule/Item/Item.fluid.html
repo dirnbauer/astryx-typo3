@@ -1,0 +1,69 @@
+<f:comment>
+    Item — one row of a list, a menu or a result set.
+
+    Three regions in one line: something leading (an avatar, a status dot, an
+    icon), the label and its description in the middle, and something trailing
+    (a badge, a timestamp, an action). `start` and `end` are named slots because
+    they are genuinely separate regions with their own flex behaviour — the end
+    region carries `margin-inline-start: auto` and pushes itself to the far
+    edge — while the middle is ordinary content and stays the default slot.
+
+    Passing `href` makes the whole row the link, exactly as the 1.x downloads
+    list did: the row is then an <a> and the hover, the pressed state and the
+    focus ring belong to it. Without `href` the row is an <li>, and any link or
+    button inside it gets the focus ring drawn around the whole row on its
+    behalf. Those are the two shapes the CSS is written for, and which one you
+    get is decided by whether the row navigates, never by an `as` argument.
+</f:comment>
+
+<f:argument name="interactive" type="string" optional="{true}" default="default" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="selected" type="string" optional="{true}" default="default" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="parameter" type="string" optional="{true}" default="" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+
+<f:comment>
+    A selected row says so in ARIA as well as in the data attribute. The empty
+    string is ARIA's own "not current", so the unselected case needs no branch.
+</f:comment>
+<f:variable
+    name="current"
+    value="{f:if(condition: '{selected} == \'selected\'', then: 'true')}" />
+
+<f:if condition="{href}">
+    <f:then>
+        <a
+            href="{href}"
+            class="astryx-item {class}" aria-current="{ariaCurrent}"
+            data-interactive="{interactive}"
+            data-density="{density}"
+            data-align="{align}"
+            data-selected="{selected}"
+            aria-current="{current}"
+            aria-label="{ariaLabel}"
+            target="{target}"
+            rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}">
+            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start"><f:slot name="start" /></span></f:if>
+            <f:slot />
+            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end"><f:slot name="end" /></span></f:if>
+        </a>
+    </f:then>
+    <f:else>
+        <li
+            class="astryx-item {class}" aria-current="{ariaCurrent}"
+            data-interactive="{interactive}"
+            data-density="{density}"
+            data-align="{align}"
+            data-selected="{selected}"
+            aria-current="{current}">
+            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start"><f:slot name="start" /></span></f:if>
+            <f:slot />
+            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end"><f:slot name="end" /></span></f:if>
+        </li>
+    </f:else>
+</f:if>

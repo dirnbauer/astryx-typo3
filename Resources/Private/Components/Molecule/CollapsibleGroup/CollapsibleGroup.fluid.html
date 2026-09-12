@@ -1,0 +1,21 @@
+<f:comment>
+    CollapsibleGroup — several Collapsibles stacked as one panel, hairlines
+    between them and no edges of its own.
+
+    Mutual exclusivity is the `name` attribute on the disclosures themselves,
+    not something this element can impose: a component cannot reach into its
+    slot and set an attribute on what a caller put there. So `name` is passed to
+    each Collapsible as well, and is recorded here as `data-name` so that the
+    group and its rows can be seen to agree. Key it to the record's uid, or two
+    accordions on one page will close each other's rows.
+
+    The group draws no border round itself. Whatever wraps it — a card, a
+    section — owns its outer edge, and a border here would double up with it.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-collapsible-group {class}"
+    data-name="{name}"><f:slot /></div>

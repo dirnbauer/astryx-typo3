@@ -1,0 +1,21 @@
+<f:comment>
+    Citation — who said the quotation above it, and where.
+
+    A <figcaption>, which means it belongs inside a Figure, beside the
+    Blockquote it attributes. That pairing is the one HTML sanctions for a
+    quotation with an attribution, and it is what every quote element in the
+    catalogue already builds: figure, then blockquote, then the credit.
+
+    The name is not wrapped in a <cite>. A <cite> is the title of a work, and
+    HTML says in as many words that a person's name is not one; the element
+    would announce the speaker as if they were a book.
+
+    A figcaption may be the first or the last child of its figure and nothing
+    else, so a Citation placed after a Blockquote inside Figure's default slot
+    is where it has to go — Figure's own `caption` slot is for the other case,
+    a picture with a caption.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<figcaption class="astryx-citation {class}"><f:slot /></figcaption>

@@ -1,0 +1,30 @@
+<f:comment>
+    Step — one stage of a Stepper.
+
+    Three states, upstream's own since v0.6.0: complete, current, upcoming. The
+    current one carries aria-current="step" as well as the data attribute,
+    because the attribute is for the stylesheet and aria-current is for the
+    reader who cannot see it. The other two spell the state out in
+    `statusLabel`, rendered visually hidden — a tick and a hollow circle are a
+    distinction only a sighted reader can make.
+
+    The indicator takes upstream's colour vocabulary rather than the step's
+    own: the compiled themes tint `astryx-step-indicator` through
+    data-status="accent" and data-status="success", so "current" and "complete"
+    are translated on the way in. What the circle holds is a slot, because
+    whether that is a number, a tick or nothing is a decision about the
+    sequence and not about the step.
+</f:comment>
+
+<f:argument name="status" type="string" optional="{true}" default="upcoming" />
+<f:argument name="statusLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="indicatorTone" value="default" />
+<f:if condition="{status} == 'current'"><f:variable name="indicatorTone" value="accent" /></f:if>
+<f:if condition="{status} == 'complete'"><f:variable name="indicatorTone" value="success" /></f:if>
+
+<li
+    class="astryx-step {class}"
+    data-status="{status}"
+    aria-current="{f:if(condition: '{status} == \'current\'', then: 'step', else: 'false')}"><span class="astryx-step-indicator" data-status="{indicatorTone}" aria-hidden="true"><f:slot name="indicator" /></span><f:if condition="{statusLabel}"><span class="astryx-visually-hidden">{statusLabel}</span></f:if><f:slot /></li>

@@ -1,0 +1,23 @@
+<f:comment>
+    Tooltip — the small panel that explains the control it is attached to.
+
+    It renders the tip and nothing else. The wrapper that reveals it,
+    `astryx-tooltip-anchor`, stays with whatever is being described: the
+    stylesheet opens the tip from the anchor's :hover *and* its :focus-within,
+    and a tip that answered only the pointer would be a tip a keyboard can
+    never bring up. Wrapping the trigger is therefore the caller's job, because
+    only the caller has the trigger.
+
+    A tip is also not announced by being near something. The trigger has to
+    point at it with aria-describedby, which is the one thing an `id` is for
+    here — and an empty id is not an id, so it is rendered or it is absent.
+</f:comment>
+
+<f:argument name="placement" type="string" optional="{true}" default="bottom" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then><span id="{id}" class="astryx-tooltip {class}" role="tooltip" data-placement="{placement}"><f:slot /></span></f:then>
+    <f:else><span class="astryx-tooltip {class}" role="tooltip" data-placement="{placement}"><f:slot /></span></f:else>
+</f:if>

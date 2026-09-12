@@ -1,0 +1,21 @@
+<f:comment>
+    Avatar — the round frame a portrait or a pair of initials sits in.
+
+    The picture itself comes from the caller, because only the caller knows
+    whether it has a file reference to process, at what crop, and what the
+    alternative text should be. The frame crops to a circle and clips
+    whatever it is given, so a rectangular portrait needs no special handling.
+
+    The size is set on the frame rather than on the image because the initials
+    fallback, the status dot and an avatar group's overlap are all derived
+    from the same single dimension; an image with its own width would put the
+    two out of step.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaHidden" type="string" optional="{true}" default="" />
+
+<span
+    class="astryx-avatar {class}" aria-hidden="{ariaHidden}"
+    data-size="{size}"><f:slot /></span>

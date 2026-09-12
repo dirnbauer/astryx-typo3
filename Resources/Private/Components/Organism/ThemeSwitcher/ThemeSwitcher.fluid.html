@@ -1,0 +1,33 @@
+<f:comment>
+    ThemeSwitcher — the light/dark control that sits with the header actions.
+
+    Both icons are always in the markup and the stylesheet shows whichever one
+    matches the scheme on screen, so the button never has to be re-rendered and
+    never flashes the wrong glyph between paint and script. The scheme itself
+    is a class on the document element, set before first paint by an inline
+    script in the head; astryx.js binds to `data-g-scheme-toggle` here and
+    writes the current scheme back onto this button as
+    `data-g-scheme-state`, which is the hook the stylesheet and any future
+    three-way label would read.
+
+    The icons are decorative — the button's meaning is in its label, not in
+    which of the two is visible — so they are hidden from assistive technology
+    and the accessible name is carried by `ariaLabel` alone.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<button
+    type="button"
+    class="astryx-scheme-toggle {class}"
+    data-g-scheme-toggle
+    aria-label="{ariaLabel}">
+    <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/>
+    </svg>
+    <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke-linejoin="round"/>
+    </svg>
+</button>

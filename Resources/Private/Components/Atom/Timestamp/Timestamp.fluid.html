@@ -1,0 +1,36 @@
+<f:comment>
+    Timestamp — a moment in time, written the way a reader expects it.
+
+    `datetime` is what decides the element, and the reason is validity rather
+    than taste. A `<time>` element without a machine-readable `datetime` is
+    only conforming when its own text is itself a valid date or time, and the
+    text here is usually neither — "two years", "updated last spring", an
+    editor's free note. Given a `datetime` the element becomes `<time>` and
+    the moment is machine-readable; without one it stays a `<span>` and is
+    merely styled like a timestamp, which is honest.
+
+    The stylesheet resets the element to inherit its surroundings, so a
+    timestamp inside supporting text stays supporting text rather than
+    reverting to the browser's idea of what a `<time>` looks like.
+</f:comment>
+
+<f:argument name="datetime" type="string" optional="{true}" default="" />
+<f:argument name="color" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+
+<f:if condition="{datetime}">
+    <f:then>
+        <time
+            datetime="{datetime}"
+            class="astryx-timestamp {class}"
+            data-color="{color}"
+            title="{title}"><f:slot /></time>
+    </f:then>
+    <f:else>
+        <span
+            class="astryx-timestamp {class}"
+            data-color="{color}"
+            title="{title}"><f:slot /></span>
+    </f:else>
+</f:if>

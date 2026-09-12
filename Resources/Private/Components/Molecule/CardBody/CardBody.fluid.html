@@ -1,0 +1,12 @@
+<f:comment>
+    CardBody — the one paragraph of prose a card carries under its title.
+
+    A paragraph element, not a div, because that is what every card body in the
+    catalogue actually holds: a single run of text. Anything that needs more
+    than one paragraph is rich text and belongs in a prose container, which has
+    its own margins and would fight this component's `margin: 0`.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<p class="astryx-card-body {class}"><f:slot /></p>

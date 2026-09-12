@@ -1,0 +1,18 @@
+<f:comment>
+    TreeList — a nested list of rows: a file tree, a page tree, a taxonomy.
+
+    role="tree" is claimed only when the list is given a name, and that is
+    deliberate. The role brings the whole tree keyboard contract with it —
+    arrow keys, one tab stop, an expanded state on every branch — and a
+    server-rendered list of links honours none of it. Named, this is a widget
+    somebody has wired up; unnamed, it stays an ordinary nested list, which
+    every browser and screen reader already handles correctly.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then><ul class="astryx-tree-list {class}" role="tree" aria-label="{ariaLabel}"><f:slot /></ul></f:then>
+    <f:else><ul class="astryx-tree-list {class}"><f:slot /></ul></f:else>
+</f:if>

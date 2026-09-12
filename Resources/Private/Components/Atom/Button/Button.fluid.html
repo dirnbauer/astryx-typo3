@@ -29,20 +29,21 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="title" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
 
 <f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: \'button\')}')}</f:variable>
 
 <f:switch expression="{mode}">
-    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-button {class}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}"><f:slot /></f:link.typolink></f:case>
     <f:comment>
         rel="noopener noreferrer" only where it means something: a target that
         opens a new browsing context.
     </f:comment>
-    <f:case value="link"><a href="{href}" class="astryx-button {class}" data-variant="{variant}" data-size="{size}" data-width="{width}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:case>
     <f:defaultCase>
         <f:if condition="{disabled}">
-            <f:then><button type="{type}" class="astryx-button {class}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" disabled="disabled"><f:slot /></button></f:then>
-            <f:else><button type="{type}" class="astryx-button {class}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}"><f:slot /></button></f:else>
+            <f:then><button type="{type}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" disabled="disabled"><f:slot /></button></f:then>
+            <f:else><button type="{type}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}"><f:slot /></button></f:else>
         </f:if>
     </f:defaultCase>
 </f:switch>

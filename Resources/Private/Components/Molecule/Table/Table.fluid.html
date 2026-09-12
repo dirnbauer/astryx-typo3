@@ -1,0 +1,35 @@
+<f:comment>
+    Table — rows of data.
+
+    Astryx v0.6.0 gave TableHeader, TableBody and TableFooter components of
+    their own. Server-side they earn nothing: a template writes its rows
+    straight into `thead`, `tbody` and `tfoot`, and the stylesheet already
+    reaches those bare tags. They are named slots here instead, so a caller can
+    still fill one region at a time without three more components to resolve.
+
+    The default slot comes first, before any of them, and that ordering is the
+    one real decision in this file. A table's `caption` has to be its first
+    child or it is not the table's accessible name, and a template that hands
+    this component a whole table body writes its own caption at the top of that
+    markup. Putting the raw slot first means both spellings — whole markup, or
+    region by region — produce a conforming table.
+
+    The horizontal scroll container stays outside. It carries
+    `astryx-table-wrap`, a second root class this component may not render, so
+    a table in a narrow column is wrapped by whoever places it.
+</f:comment>
+
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="layout" type="string" optional="{true}" default="auto" />
+<f:argument name="hoverable" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="striped" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="bordered" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<table
+    class="astryx-table {class}"
+    data-density="{density}"
+    data-layout="{layout}"
+    data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
+    data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
+    data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table>

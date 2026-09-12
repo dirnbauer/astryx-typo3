@@ -1,0 +1,14 @@
+<f:comment>
+    Tabs — the wrapper that makes a tab list and its panels one control.
+
+    It draws nothing. What it carries is `data-g-tabs`, the attribute
+    astryx.js binds roving focus and the arrow keys to, and the boundary that
+    tells the script which triggers and which panels belong together. Nothing
+    here hides a panel: with the script absent every panel stays in the page,
+    so the band degrades into a longer document rather than a broken one, and
+    the text is still indexed, printed and found by the browser's own search.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-tabs {class}" data-g-tabs><f:slot /></div>

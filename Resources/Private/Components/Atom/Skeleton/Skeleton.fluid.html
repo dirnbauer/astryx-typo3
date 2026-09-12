@@ -1,0 +1,22 @@
+<f:comment>
+    Skeleton — the grey shape standing in for content that has not arrived.
+
+    It is always hidden from assistive technology, with no argument to say
+    otherwise. A skeleton has no content to announce: read aloud it is an
+    empty box, and a screenful of them would be a screenful of nothing. The
+    fact that something is loading belongs on the region that is waiting, as
+    `aria-busy`, where it is said once instead of once per placeholder.
+
+    `shape` matters more than it looks. A text skeleton takes its height from
+    the line height of the body text rather than from a fixed number, so a run
+    of them occupies exactly the space the sentences will, and the page does
+    not jump when the real text replaces them.
+</f:comment>
+
+<f:argument name="shape" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span
+    class="astryx-skeleton {class}"
+    data-shape="{shape}"
+    aria-hidden="true"></span>

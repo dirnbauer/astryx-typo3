@@ -1,16 +1,22 @@
 <f:comment>
     Link — an inline link, in the three weights the theme draws: underlined by
-    default, `quiet` where the surrounding text already says it is a link, and
-    `cta` where it reads as an action and grows an arrow.
+    default, `quiet` where the surrounding prose already makes it obvious that
+    the words are a link, and `cta` where it reads as an action and grows an
+    arrow.
 
-    `parameter` and `href` are both here because a TYPO3 link and a web
-    address are not the same thing. Editors store `t3://page?uid=42`, which
-    only TypoLink can resolve into a URL, a title and — for an external target
-    — the right `rel`; hard-coded addresses out of a template have nothing to
-    resolve. `parameter` wins when both are given.
+    Which element is rendered follows from what the caller gives it, exactly
+    as it does for Button:
 
-    `rel="noopener noreferrer"` is emitted only for a target that opens a new
-    browsing context, where it means something, rather than on every link.
+      parameter   a TYPO3 link field ("13 _blank - title", a mail address, an
+                  external URL). Resolved with f:link.typolink, which is the
+                  only thing that can turn "t3://page?uid=42" into a URL, and
+                  which also supplies the target and title the editor chose.
+      href        a plain URL the template has already resolved.
+
+    `target` and `rel` therefore belong to the `href` form alone; in the
+    TypoLink form the link field carries them. `rel="noopener noreferrer"` is
+    emitted only for a target that opens a new browsing context, where it
+    means something, rather than on every link.
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
@@ -26,24 +32,6 @@
 <f:variable name="effectiveRel" value="{f:if(condition: rel, then: rel, else: targetRel)}" />
 
 <f:if condition="{parameter}">
-    <f:then>
-        <f:link.typolink
-            parameter="{parameter}"
-            class="astryx-link {class}"
-            data-variant="{variant}"
-            target="{target}"
-            title="{title}"
-            aria-label="{ariaLabel}"
-            additionalAttributes="{rel: effectiveRel}"><f:slot /></f:link.typolink>
-    </f:then>
-    <f:else>
-        <a
-            href="{href}"
-            class="astryx-link {class}"
-            data-variant="{variant}"
-            target="{target}"
-            rel="{effectiveRel}"
-            title="{title}"
-            aria-label="{ariaLabel}"><f:slot /></a>
-    </f:else>
+    <f:then><f:link.typolink parameter="{parameter}" class="astryx-link {class}" data-variant="{variant}" title="{title}" aria-label="{ariaLabel}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-link {class}" data-variant="{variant}" target="{target}" rel="{effectiveRel}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:else>
 </f:if>

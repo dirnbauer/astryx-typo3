@@ -1,0 +1,21 @@
+<f:comment>
+    Breadcrumbs — the trail from the site root down to the page being read.
+
+    The list inside belongs to the caller, not to this component: the
+    stylesheet reaches it as `astryx-breadcrumbs :where(ol, ul)`, and a trail
+    that carries schema.org's BreadcrumbList has itemscope on that list and an
+    itemprop on every crumb, which only the caller can write. Emitting an `ol`
+    here would either lose the microdata or nest a second list inside it.
+
+    The separator between crumbs is drawn by the stylesheet rather than written
+    into the markup, so it is never announced as a stray slash and never comes
+    along when the trail is copied. The last crumb carries aria-current="page"
+    and no link, because a link to the page you are already on is one more
+    entry in a screen reader's link list and nowhere to go.
+</f:comment>
+
+<f:argument name="type" type="string" optional="{true}" default="default" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<nav class="astryx-breadcrumbs {class}" data-type="{type}" aria-label="{ariaLabel}"><f:slot /></nav>

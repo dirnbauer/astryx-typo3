@@ -1,0 +1,16 @@
+<f:comment>
+    Kbd — one key on a keyboard, as the reader would press it.
+
+    The element is `<kbd>` and not a styled `<span>`, because the meaning
+    "this is user input from a keyboard" is precisely what `<kbd>` exists to
+    carry, and a shortcut written in prose is one of the few places where that
+    distinction reaches the reader.
+
+    A chord is several of these side by side inside an
+    `astryx-kbd-group` — the group is the caller's arrangement, not the key's
+    business, which is why there is nothing here about separators.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<kbd class="astryx-kbd {class}"><f:slot /></kbd>

@@ -1,0 +1,26 @@
+<f:comment>
+    Feature — an icon over a short title and one paragraph: the most repeated
+    shape in the whole catalogue.
+
+    The glyph is decorative and says so. It never carries information the title
+    beside it does not already give, so it is `aria-hidden` and the tinted
+    square around it is the only thing a screen reader could have announced —
+    which is nothing worth announcing.
+
+    `icon` is a key from the shared icon vocabulary rather than a slot, because
+    the CSS sizes the glyph through `.astryx-feature-icon > svg` and a caller
+    passing its own markup would have to reproduce that contract exactly.
+</f:comment>
+
+<f:argument name="icon" type="string" optional="{true}" default="" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-feature {class}"
+    data-align="{align}">
+    <f:if condition="{icon}">
+        <span class="astryx-feature-icon" data-icon="{icon}" aria-hidden="true"><g:icon name="{icon}"/></span>
+    </f:if>
+    <f:slot />
+</div>

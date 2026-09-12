@@ -1,0 +1,19 @@
+<f:comment>
+    InputGroup — an input welded to whatever sits either side of it: a leading
+    icon, a trailing submit button.
+
+    The stylesheet gives every direct child `flex: 1`, which is right for the
+    field and wrong for a loupe or a button; both search forms correct it in
+    their own sheet. Nothing here can make that call, because nothing here
+    knows which child is the field — so the group stays a plain row and the
+    correction stays where the knowledge is.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-input-group {class}"
+    data-size="{size}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:slot /></div>

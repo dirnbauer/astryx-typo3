@@ -1,0 +1,78 @@
+<f:comment>
+    ProgressBar — how far along something is, as a figure and as a bar.
+
+    The bar itself is decoration; the numbers are the content. `role`,
+    `aria-valuenow`, `aria-valuemin` and `aria-valuemax` are what make the
+    progress readable to anyone who cannot see the fill, and they are on the
+    root rather than on the track because the whole component — label, figure
+    and bar together — is the one thing being measured.
+
+    An indeterminate bar deliberately renders no `aria-valuenow` at all. That
+    is the ARIA convention for "progress is being made but the amount is not
+    known", and it is not the same as zero: a bar that announces nought per
+    cent while it slides back and forth is actively misleading. For the same
+    reason the fill gets no inline width in that state, which would otherwise
+    override the width the animation is built on.
+
+    The fill's width is set inline because it is a continuous value and there
+    is no other way to express it in CSS; `--value` is set beside it on the
+    root so that an element's own stylesheet can read the same figure.
+
+    Note that the root carries `role="progressbar"`, which replaces whatever
+    the element would otherwise have meant. A progress bar inside a list is a
+    `<div>` within the `<li>`, never the `<li>`, or the list loses its item.
+</f:comment>
+
+<f:argument name="value" type="integer" optional="{true}" default="0" />
+<f:argument name="min" type="integer" optional="{true}" default="0" />
+<f:argument name="max" type="integer" optional="{true}" default="100" />
+<f:argument name="variant" type="string" optional="{true}" default="accent" />
+<f:argument name="state" type="string" optional="{true}" default="default" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="valueLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+
+<f:variable name="accessibleName" value="{f:if(condition: ariaLabel, then: ariaLabel, else: label)}" />
+
+<f:if condition="{state} == 'indeterminate'">
+    <f:then>
+        <div
+            class="astryx-progressbar {class}"
+            data-variant="{variant}"
+            data-state="indeterminate"
+            style="--value: {value}"
+            role="progressbar"
+            aria-valuemin="{min}"
+            aria-valuemax="{max}"
+            aria-label="{accessibleName}">
+            <f:if condition="{label}">
+                <div class="astryx-progressbar-header">
+                    <span class="astryx-progressbar-label">{label}</span>
+                    <f:if condition="{valueLabel}"><span class="astryx-progressbar-value">{valueLabel}</span></f:if>
+                </div>
+            </f:if>
+            <div class="astryx-progressbar-track"><span class="astryx-progressbar-fill"></span></div>
+        </div>
+    </f:then>
+    <f:else>
+        <div
+            class="astryx-progressbar {class}"
+            data-variant="{variant}"
+            data-state="{state}"
+            style="--value: {value}"
+            role="progressbar"
+            aria-valuenow="{value}"
+            aria-valuemin="{min}"
+            aria-valuemax="{max}"
+            aria-label="{accessibleName}">
+            <f:if condition="{label}">
+                <div class="astryx-progressbar-header">
+                    <span class="astryx-progressbar-label">{label}</span>
+                    <f:if condition="{valueLabel}"><span class="astryx-progressbar-value">{valueLabel}</span></f:if>
+                </div>
+            </f:if>
+            <div class="astryx-progressbar-track"><span class="astryx-progressbar-fill" style="width: {value}%"></span></div>
+        </div>
+    </f:else>
+</f:if>

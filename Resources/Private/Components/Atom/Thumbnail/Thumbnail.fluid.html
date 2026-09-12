@@ -1,0 +1,27 @@
+<f:comment>
+    Thumbnail — a small square preview of a file, an image or a record.
+
+    The frame draws an inset ring rather than a border, because a pale image
+    on a pale surface otherwise has no visible edge, and a real border would
+    change the size of the box and push the neighbouring thumbnails around.
+
+    `interactive` is a statement about appearance only: it makes the frame
+    respond to the pointer. It does not make the thumbnail operable, and it
+    must not be used on its own — the caller puts the real `<a>` or `<button>`
+    inside, which is why the stylesheet draws the focus ring from
+    `:has(:focus-visible)` on the frame rather than from the frame itself. A
+    div that merely looks clickable is unreachable by keyboard.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="elevation" type="string" optional="{true}" default="default" />
+<f:argument name="interactive" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span
+    class="astryx-thumbnail {class}"
+    data-size="{size}"
+    data-elevation="{elevation}"
+    data-interactive="{f:if(condition: interactive, then: 'interactive', else: 'default')}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'default')}"><f:slot /></span>

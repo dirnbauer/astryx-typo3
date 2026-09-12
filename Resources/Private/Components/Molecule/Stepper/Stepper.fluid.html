@@ -1,0 +1,22 @@
+<f:comment>
+    Stepper — the progress a visitor has made through a sequence: a checkout,
+    a multi-page form, an onboarding path.
+
+    An ordered list, because the steps are in an order and that order is the
+    whole meaning; rendering them as `div`s would leave a screen reader with
+    four unrelated words. Which step is current is said by the step itself
+    rather than by this element, so a stepper split across two columns or
+    re-rendered on the server still agrees with itself.
+
+    Promoted to @astryxdesign/core at v0.6.0, which is where its data-status
+    vocabulary — complete, current, upcoming — comes from.
+</f:comment>
+
+<f:argument name="orientation" type="string" optional="{true}" default="horizontal" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ol
+    class="astryx-stepper {class}"
+    data-orientation="{orientation}"
+    aria-label="{ariaLabel}"><f:slot /></ol>

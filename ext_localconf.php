@@ -30,3 +30,10 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['desiderio']['recordTypePaths'] = arra
 // The g: namespace, so element templates can call <g:icon name="…"/> without
 // each of them declaring an xmlns.
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['g'][] = 'Webconsulting\\AstryxTypo3\\ViewHelpers';
+
+// The a: namespace, globally, because a component template has no <html> tag to
+// hang an xmlns on — and without this registration one component cannot compose
+// another, which is the whole point of having four layers. Element templates
+// still declare the xmlns themselves so they read as self-contained.
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['a'][] =
+    \Webconsulting\AstryxTypo3\Components\ComponentCollection::class;

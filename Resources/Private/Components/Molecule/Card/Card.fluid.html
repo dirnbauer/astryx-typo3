@@ -1,0 +1,33 @@
+<f:comment>
+    Card — the surface a self-contained piece of content sits on.
+
+    It owns the box and nothing else. The title, the prose and the action row
+    are CardTitle, CardBody and CardFooter, so a card can be assembled in any
+    order and a caller can leave any of the three out without this component
+    having to know what a card is made of.
+
+    The media region is a slot of its own rather than simply the first thing in
+    the default slot, because `data-media="top"` bleeds the media out to the
+    card's padding with a negative margin on the first child. That rule needs a
+    first child it can rely on, and a default slot cannot promise one.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="media" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="align" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-card {class}" data-align="{align}" aria-labelledby="{ariaLabelledby}"
+    data-variant="{variant}"
+    data-density="{density}"
+    data-media="{media}">
+    <f:comment>
+        An unfilled slot renders as null, so the media region costs nothing
+        when a caller has no media to give it.
+    </f:comment>
+    <f:if condition="{f:slot(name: 'media')}"><f:slot name="media" /></f:if>
+    <f:slot />
+</div>

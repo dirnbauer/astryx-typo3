@@ -1,0 +1,94 @@
+<f:comment>
+    SiteFooter — the foot of every page: the brand again, the languages the
+    page exists in, the copyright line and the legal links.
+
+    The active language is a `span` and not a link, for the same reason the
+    last breadcrumb is: a link to the page a reader is already on adds an entry
+    to a screen reader's link list and goes nowhere. Each alternative carries
+    `lang` and `hreflang`, so the text is pronounced in its own language rather
+    than in the page's.
+
+    The year is taken from the clock rather than typed into a setting, because
+    a hard-coded year in a footer is wrong for eleven months and nobody
+    notices. `copyrightText` only replaces the name beside it.
+</f:comment>
+
+<f:argument name="homeUrl" type="string" optional="{true}" default="" />
+<f:argument name="wordmark" type="string" optional="{true}" default="" />
+<f:argument name="tagline" type="string" optional="{true}" default="" />
+<f:argument name="copyrightText" type="string" optional="{true}" default="" />
+<f:argument name="languages" type="array" optional="{true}" />
+<f:argument name="languageLabel" type="string" optional="{true}" default="" />
+<f:argument name="legalMenu" type="array" optional="{true}" />
+<f:argument name="legalLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<footer class="astryx-footer {class}">
+    <div class="astryx-layout">
+
+        <div class="astryx-footer__top">
+            <div class="astryx-footer__brand">
+                <a href="{homeUrl}" class="astryx-footer__wordmark">
+                    <svg class="astryx-footer__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                        <path d="M12 2 3 20h4l5-10 5 10h4L12 2Z" fill="currentColor"/>
+                        <circle cx="12" cy="15" r="2.5" fill="currentColor" opacity=".45"/>
+                    </svg>
+                    <span>{wordmark}</span>
+                </a>
+                <f:if condition="{tagline}">
+                    <p class="astryx-footer__tagline">{tagline}</p>
+                </f:if>
+            </div>
+
+            <f:if condition="{languages}">
+                <nav aria-label="{languageLabel}">
+                    <ul class="astryx-footer__list">
+                        <f:for each="{languages}" as="language">
+                            <f:if condition="{language.available}">
+                                <li>
+                                    <f:if condition="{language.active}">
+                                        <f:then>
+                                            <span class="astryx-language__current" lang="{language.twoLetterIsoCode}">{language.navigationTitle}</span>
+                                        </f:then>
+                                        <f:else>
+                                            <a href="{language.link}" class="astryx-footer__link" lang="{language.twoLetterIsoCode}" hreflang="{language.hreflang}">{language.navigationTitle}</a>
+                                        </f:else>
+                                    </f:if>
+                                </li>
+                            </f:if>
+                        </f:for>
+                    </ul>
+                </nav>
+            </f:if>
+
+            <f:slot />
+        </div>
+
+        <div class="astryx-footer__bottom">
+            <p class="astryx-footer__copyright">
+                &copy; <f:format.date format="Y">now</f:format.date>
+                <f:if condition="{copyrightText}">
+                    <f:then>{copyrightText}</f:then>
+                    <f:else>{wordmark}</f:else>
+                </f:if>
+            </p>
+
+            <f:if condition="{legalMenu}">
+                <nav aria-label="{legalLabel}">
+                    <ul class="astryx-footer__list">
+                        <f:for each="{legalMenu}" as="item">
+                            <li>
+                                <a
+                                    href="{item.link}"
+                                    class="astryx-footer__link"
+                                    aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
+                                >{item.title}</a>
+                            </li>
+                        </f:for>
+                    </ul>
+                </nav>
+            </f:if>
+        </div>
+
+    </div>
+</footer>

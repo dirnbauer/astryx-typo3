@@ -1,0 +1,107 @@
+<f:comment>
+    SearchForm — the site search in the header: a field, a submit, and the
+    loupe that collapses the pair.
+
+    A real form that gets to the results page on its own, not a button that
+    reveals one. It is visible by default and astryx.js collapses it on load,
+    which is the order that matters: with the script absent a visitor gets a
+    working search box rather than an icon that does nothing, and that is why
+    the trigger only appears once the script has put `data-g-search-ready` on
+    the form.
+
+    `data-suggest` carries the tx_solr_suggest endpoint and is the single
+    attribute the typeahead binds to — the same one EXT:solr's own search form
+    emits, so this field and the one on the results page share an
+    implementation without either knowing about the other. The dropdown hangs
+    from `astryx-search__field` rather than from the input group, so it never
+    becomes a flex item of the group and never inherits the seam rules that
+    weld the group's segments together.
+
+    `inputId` has a real default because three things point at it: the label's
+    `for`, the trigger's `aria-controls`, and the script that moves focus into
+    the field when it opens. An empty id would silently break all three.
+</f:comment>
+
+<f:argument name="action" type="string" optional="{true}" default="" />
+<f:argument name="queryParameter" type="string" optional="{true}" default="q" />
+<f:argument name="inputId" type="string" optional="{true}" default="astryx-header-search" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="submitLabel" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="sm" />
+<f:argument name="suggestUrl" type="string" optional="{true}" default="" />
+<f:argument name="suggestHeading" type="string" optional="{true}" default="" />
+<f:argument name="suggestEmpty" type="string" optional="{true}" default="" />
+<f:argument name="suggestMinChars" type="integer" optional="{true}" default="2" />
+<f:argument name="suggestMaxItems" type="integer" optional="{true}" default="6" />
+<f:argument name="labelPages" type="string" optional="{true}" default="" />
+<f:argument name="labelNews" type="string" optional="{true}" default="" />
+<f:argument name="labelAddresses" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<form
+    class="astryx-search {class}"
+    role="search"
+    method="get"
+    action="{action}"
+    data-g-search
+    data-g-suggest="1"
+    data-suggest="{suggestUrl}"
+    data-g-suggest-min-chars="{suggestMinChars}"
+    data-g-suggest-max-items="{suggestMaxItems}"
+    data-g-suggest-header="{suggestHeading}"
+    data-g-suggest-label-pages="{labelPages}"
+    data-g-suggest-label-news="{labelNews}"
+    data-g-suggest-label-addresses="{labelAddresses}"
+    data-g-suggest-empty="{suggestEmpty}">
+
+    <div class="astryx-search__field" data-g-suggest-anchor>
+        <div class="astryx-input-group" data-size="{size}" data-disabled="false">
+            <label class="astryx-visually-hidden" for="{inputId}">{label}</label>
+            <input
+                id="{inputId}"
+                class="astryx-text-input astryx-search__input"
+                type="search"
+                name="{queryParameter}"
+                placeholder="{placeholder}"
+                autocomplete="off"
+                data-size="{size}"
+                data-status="default"
+                data-g-suggest-input
+            />
+            <button
+                type="submit"
+                class="astryx-button astryx-icon-button astryx-search__submit"
+                data-variant="ghost"
+                data-size="{size}">
+                <span class="astryx-visually-hidden">{submitLabel}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <f:comment>
+        Last in the row on purpose. Collapsed, this is the only thing visible,
+        so it has to sit where the loupe belongs — the end of the header. Open,
+        it turns into the cross that closes the field it follows, rather than a
+        stray control floating to the left of it.
+    </f:comment>
+    <button
+        type="button"
+        class="astryx-search__trigger"
+        data-g-search-toggle
+        aria-expanded="false"
+        aria-controls="{inputId}"
+        aria-label="{label}">
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+            <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+        </svg>
+    </button>
+</form>

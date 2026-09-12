@@ -1,0 +1,23 @@
+<f:comment>
+    OverflowList — a row of small items that refuses to grow: logos, payment
+    marks, tags. Whatever does not fit is clipped, or, with `wrap="multi-row"`,
+    allowed onto a second line.
+
+    A list rather than a row of `div`s, because "eleven customer logos" is
+    something a screen reader should be able to count and skip. It therefore
+    needs a name: `labelledBy` points at a heading or a note already on the
+    page, which is what the 1.x elements do, and `ariaLabel` is for the case
+    where there is no such text to point at.
+</f:comment>
+
+<f:argument name="wrap" type="string" optional="{true}" default="default" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="labelledBy" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+
+<ul
+    class="astryx-overflow-list {class}" aria-labelledby="{ariaLabelledby}"
+    data-wrap="{wrap}"
+    aria-label="{ariaLabel}"
+    aria-labelledby="{labelledBy}"><f:slot /></ul>

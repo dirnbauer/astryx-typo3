@@ -1,0 +1,43 @@
+<f:comment>
+    CardTitle — the heading of a card.
+
+    `level` picks the element and nothing else. A card is almost never the top
+    of a page's outline, so the default is h3: a grid of cards under one h2
+    section heading then reads as a flat list of siblings rather than as a
+    nest of sections. Callers that place a card under a deeper heading say so
+    with level="4" instead of leaving the outline wrong.
+
+    No data attribute goes with it. The contract gives CardTitle no modifiers,
+    and the card's own type scale is what sets the size; a title that needs a
+    different size is an Atom/Heading, not a card title.
+</f:comment>
+
+<f:argument name="level" type="string" optional="{true}" default="3" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:comment>
+    The id branch exists because `id=""` is not a conforming HTML id, and a
+    card title is the natural target of an aria-labelledby on whatever region
+    the card sits in.
+</f:comment>
+<f:if condition="{id}">
+    <f:then>
+        <f:switch expression="{level}">
+            <f:case value="2"><h2 id="{id}" class="astryx-card-title {class}"><f:slot /></h2></f:case>
+            <f:case value="4"><h4 id="{id}" class="astryx-card-title {class}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5 id="{id}" class="astryx-card-title {class}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6 id="{id}" class="astryx-card-title {class}"><f:slot /></h6></f:case>
+            <f:defaultCase><h3 id="{id}" class="astryx-card-title {class}"><f:slot /></h3></f:defaultCase>
+        </f:switch>
+    </f:then>
+    <f:else>
+        <f:switch expression="{level}">
+            <f:case value="2"><h2 class="astryx-card-title {class}"><f:slot /></h2></f:case>
+            <f:case value="4"><h4 class="astryx-card-title {class}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5 class="astryx-card-title {class}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6 class="astryx-card-title {class}"><f:slot /></h6></f:case>
+            <f:defaultCase><h3 class="astryx-card-title {class}"><f:slot /></h3></f:defaultCase>
+        </f:switch>
+    </f:else>
+</f:if>

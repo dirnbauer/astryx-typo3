@@ -1,0 +1,30 @@
+<f:comment>
+    SegmentedControl — a small track of mutually exclusive choices sitting on a
+    tinted rail: a view switcher, a filter, a row of jump links.
+
+    The one control in this set that swaps selection without a page load, so it
+    must not reflow while it does: the stylesheet holds the label weight steady
+    and signals the selected segment with a raised surface instead. Selection
+    reaches the CSS through aria-selected, aria-checked or a checked radio
+    inside the segment, so a build with no script, where the browser owns the
+    state, still looks right.
+
+    A list, because the segments arrive as `li` elements from the templates
+    that use it and because a rail of eight jump links is something a screen
+    reader should be able to count and skip. Note that the stylesheet sets no
+    `list-style` on this class, so a caller with no sheet of its own will see
+    the markers — the anchor bar removes them through the class it passes in.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ul
+    class="astryx-segmented-control {class}"
+    data-variant="{variant}"
+    data-size="{size}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
+    aria-label="{ariaLabel}"><f:slot /></ul>

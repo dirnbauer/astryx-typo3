@@ -1,0 +1,20 @@
+<f:comment>
+    Pagination — the row of page links under a list of results.
+
+    The controls row and the "page 3 of 9" line are two different things: one
+    is a set of destinations, the other is a sentence about where the reader
+    has got to. The sentence is a slot of its own so it never lands inside the
+    flex row that spaces the buttons, and `astryx-pagination-controls` is left
+    to the caller, which is where every existing pagination already writes it.
+
+    The current page belongs in the markup as a `span` carrying
+    aria-current="page" rather than as a link to itself; the stylesheet paints
+    it from that attribute, pairing a tint with a weight so it stays findable
+    in a theme whose accent sits close to the text colour.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<nav class="astryx-pagination {class}" data-size="{size}" aria-label="{ariaLabel}"><f:slot /><f:if condition="{f:slot(name: 'info')}"><p class="astryx-pagination-info"><f:slot name="info" /></p></f:if></nav>

@@ -237,8 +237,16 @@ final class AtomicDesignConformanceTest extends TestCase
         foreach (glob(self::EXT_ROOT . '/ContentBlocks/ContentElements/*/templates/frontend.html') ?: [] as $file) {
             $source = (string)file_get_contents($file);
 
-            // The first tag that is neither a Fluid instruction nor the <html>
-            // wrapper is the element's own root.
+            /*
+             * Comments first. Three elements explain in prose why they do NOT
+             * use a <time>, an <address> or an <article>, and a scan that reads
+             * the comment finds the tag name in the explanation.
+             */
+            $source = (string)preg_replace('#<f:comment>.*?</f:comment>#s', '', $source);
+
+            // The first tag that is neither a ViewHelper nor the <html> wrapper
+            // is the element's own root. A ViewHelper before it is setting up a
+            // variable, not opening the markup.
             if (!preg_match_all('#<((?:[a-z]+:)?[a-zA-Z][a-zA-Z0-9.]*)#', $source, $matches)) {
                 $offences[] = self::relative($file) . '  (no tag at all)';
                 continue;
@@ -246,7 +254,10 @@ final class AtomicDesignConformanceTest extends TestCase
 
             $root = null;
             foreach ($matches[1] as $tag) {
-                if ($tag === 'html' || str_starts_with($tag, 'f:') || str_starts_with($tag, 'cb:')) {
+                if ($tag === 'html') {
+                    continue;
+                }
+                if (str_contains($tag, ':') && !str_starts_with($tag, 'a:')) {
                     continue;
                 }
                 $root = $tag;
@@ -469,7 +480,7 @@ final class AtomicDesignConformanceTest extends TestCase
         self::assertSame(
             [],
             array_values(array_unique($unknownUpstream)),
-            "A matrix row names an Astryx component that is not in the vendored inventory for "
+            'A matrix row names an Astryx component that is not in the vendored inventory for '
             . self::readJson('Build/astryx/components.json')['release'] . ".\n"
             . implode("\n", array_unique($unknownUpstream)),
         );

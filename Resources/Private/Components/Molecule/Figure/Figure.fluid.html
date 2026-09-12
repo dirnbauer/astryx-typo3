@@ -1,0 +1,28 @@
+<f:comment>
+    Figure — a picture, a chart or a quotation with the words that belong to it.
+
+    The media is the default slot and the caption is its own, because a
+    <figcaption> is allowed to be only the first or the last child of a figure;
+    leaving it to the default slot would let a caller put it in the middle and
+    quietly write invalid markup. The caption renders only when that slot is
+    filled, so a figure with nothing to say has no empty caption element.
+
+    A quotation is the other shape this takes: a Blockquote and a Citation both
+    in the default slot, the Citation being itself a figcaption and therefore
+    the last child. Do not fill the `caption` slot as well, or the figure ends
+    up with two of them.
+</f:comment>
+
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="width" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<figure
+    class="astryx-figure {class}"
+    data-align="{align}"
+    data-width="{width}">
+    <f:slot />
+    <f:if condition="{f:slot(name: 'caption')}">
+        <figcaption><f:slot name="caption" /></figcaption>
+    </f:if>
+</figure>

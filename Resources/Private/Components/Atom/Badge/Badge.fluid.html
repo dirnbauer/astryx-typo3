@@ -12,9 +12,10 @@
 <f:argument name="variant" type="string" optional="{true}" default="neutral" />
 <f:argument name="as" type="string" optional="{true}" default="span" />
 <f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaHidden" type="string" optional="{true}" default="" />
 
 <f:switch expression="{as}">
-    <f:case value="li"><li class="astryx-badge {class}" data-variant="{variant}"><f:slot /></li></f:case>
-    <f:case value="div"><div class="astryx-badge {class}" data-variant="{variant}"><f:slot /></div></f:case>
-    <f:defaultCase><span class="astryx-badge {class}" data-variant="{variant}"><f:slot /></span></f:defaultCase>
+    <f:case value="li"><li class="astryx-badge {class}" aria-hidden="{ariaHidden}" data-variant="{variant}"><f:slot /></li></f:case>
+    <f:case value="div"><div class="astryx-badge {class}" aria-hidden="{ariaHidden}" data-variant="{variant}"><f:slot /></div></f:case>
+    <f:defaultCase><span class="astryx-badge {class}" aria-hidden="{ariaHidden}" data-variant="{variant}"><f:slot /></span></f:defaultCase>
 </f:switch>

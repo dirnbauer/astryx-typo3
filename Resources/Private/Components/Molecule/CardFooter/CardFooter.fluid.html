@@ -1,0 +1,12 @@
+<f:comment>
+    CardFooter — the action row at the bottom of a card.
+
+    Its `margin-block-start: auto` is the reason it exists as a component at
+    all: it pushes itself to the bottom of the card's flex column so that a row
+    of cards with bodies of different lengths still ends with its buttons on
+    one line. Putting the buttons loose in the card loses that.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-card-footer {class}"><f:slot /></div>

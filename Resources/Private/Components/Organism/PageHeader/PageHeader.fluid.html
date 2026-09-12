@@ -1,0 +1,35 @@
+<f:comment>
+    PageHeader — the band that carries a content page's h1.
+
+    Every content element heads its own section with an h2, so this is the
+    single h1 on the page and it always says what the page is: the title in the
+    page tree, the title in the browser tab, the title on screen.
+
+    The 1.x partial put `astryx-page-header` and `astryx-layout` on one element.
+    A component renders exactly one root class, so the two are now nested — the
+    band owns the vertical padding, the measure sits inside it. Nothing moves
+    on screen: one rule is block padding, the other is inline width.
+</f:comment>
+
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then>
+        <div id="{id}" class="astryx-page-header {class}">
+            <div class="astryx-layout">
+                <h1 class="astryx-page-title">{title}</h1>
+                <f:slot />
+            </div>
+        </div>
+    </f:then>
+    <f:else>
+        <div class="astryx-page-header {class}">
+            <div class="astryx-layout">
+                <h1 class="astryx-page-title">{title}</h1>
+                <f:slot />
+            </div>
+        </div>
+    </f:else>
+</f:if>

@@ -1,0 +1,47 @@
+<f:comment>
+    Field — one labelled control, together with its hint and its validation
+    message.
+
+    The control arrives through the slot, and a Fluid component cannot reach
+    into slotted content to annotate it. So the wiring is made explicit rather
+    than magical: `inputId` names the control, the hint and the message take
+    ids derived from it, and the caller hands those ids straight back to the
+    input as `describedBy`. TextInput turns `status="error"` into aria-invalid
+    at its own end. Deriving both ids from one argument is what keeps the two
+    halves of the pair in step when a field is copied.
+
+    The message is a polite live region: a validation error that appears after
+    the page has settled has to be said, not merely painted red.
+</f:comment>
+
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="inputId" type="string" optional="{true}" default="" />
+<f:argument name="description" type="string" optional="{true}" default="" />
+<f:argument name="message" type="string" optional="{true}" default="" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="orientation" type="string" optional="{true}" default="vertical" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="requiredLabel" type="string" optional="{true}" default="" />
+<f:argument name="optionalLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-field {class}" data-orientation="{orientation}" data-status="{status}">
+    <f:if condition="{label}">
+        <label class="astryx-field-label" for="{inputId}">{label}<f:if condition="{required}"><f:then><f:if condition="{requiredLabel}"><span class="required">{requiredLabel}</span></f:if></f:then><f:else><f:if condition="{optionalLabel}"><span class="optional">{optionalLabel}</span></f:if></f:else></f:if></label>
+    </f:if>
+
+    <f:slot />
+
+    <f:if condition="{description}">
+        <p class="astryx-field-description" id="{inputId}-description">{description}</p>
+    </f:if>
+
+    <f:comment>
+        The status word stays a class on this inner element because that is
+        what the stylesheet's FieldStatus tints are written against; the
+        component's own modifier, on the root, is the data attribute.
+    </f:comment>
+    <f:if condition="{message}">
+        <p class="astryx-field-status {f:if(condition: '{status} != \'default\'', then: status)}" id="{inputId}-message" aria-live="polite">{message}</p>
+    </f:if>
+</div>

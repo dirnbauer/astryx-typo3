@@ -1,0 +1,24 @@
+<f:comment>
+    MetadataList — label and value pairs: specifications, opening hours, the
+    facts panel beside an event.
+
+    A description list, and a grid rather than a stack of flex rows, so that
+    every value starts on the same column however long the labels get. That
+    alignment is the entire reason to reach for this instead of a list of
+    sentences; a flex row would let each pair choose its own indent and the
+    column would wander.
+
+    `columns` is a number, not a token, and follows Grid's convention of a
+    numeric data attribute. Above one column the grid stops aligning values
+    across the whole list and packs the pairs instead, which is why each pair
+    has to be a MetadataListItem to stay one unbreakable cell.
+</f:comment>
+
+<f:argument name="orientation" type="string" optional="{true}" default="default" />
+<f:argument name="columns" type="integer" optional="{true}" default="1" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<dl
+    class="astryx-metadata-list {class}"
+    data-orientation="{orientation}"
+    data-columns="{columns}"><f:slot /></dl>

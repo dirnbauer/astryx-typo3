@@ -1,0 +1,72 @@
+<f:comment>
+    Dialog — the native `dialog`, opened with showModal().
+
+    The element does everything a React modal needs a library for: the top
+    layer, the focus trap, the Escape key and a real ::backdrop are all the
+    browser's. The only script left is the click that opens it, and that script
+    finds the dialog by id — which is why `id` is required here rather than
+    optional.
+
+    Naming it is the part worth spelling out. A dialog with a visible title is
+    named by that title, so passing `title` writes the header and points
+    aria-labelledby at it; a dialog that is nothing but a video has no heading
+    to point at, so it takes `ariaLabel` instead. Both attributes are always
+    emitted and the unused one is empty, which assistive technology ignores —
+    branching the element would have meant two copies of everything inside it.
+
+    The body wrapper is the caller's, because a dialog that scrolls and one
+    that holds a single fixed-ratio frame want different things inside the same
+    frame, and `astryx-dialog-body` is what makes only the first of them
+    scroll.
+
+    Overlay is a separate component and stays separate: a scrim over a picture
+    is a decoration, a dialog is a mode. Sharing markup between the two would
+    put a focus trap around a caption.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+
+<dialog
+    id="{id}"
+    class="astryx-dialog {class}" aria-labelledby="{ariaLabelledby}"
+    data-variant="{variant}"
+    aria-labelledby="{f:if(condition: title, then: '{id}-title')}"
+    aria-label="{ariaLabel}">
+    <f:if condition="{title} || {closeLabel}">
+        <div class="astryx-dialog-header">
+            <f:if condition="{title}">
+                <h2 class="astryx-dialog-title" id="{id}-title">{title}</h2>
+            </f:if>
+            <f:comment>
+                The close button appears only once it has a name. An icon-only
+                control with nothing to announce is read out as "button", which
+                is no way out of a modal.
+            </f:comment>
+            <f:if condition="{closeLabel}">
+                <button
+                    type="button"
+                    class="astryx-button astryx-icon-button"
+                    data-variant="ghost"
+                    data-size="sm"
+                    data-g-dialog-close
+                    aria-label="{closeLabel}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                        <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </f:if>
+        </div>
+    </f:if>
+
+    <f:slot />
+
+    <f:if condition="{f:slot(name: 'footer')}">
+        <div class="astryx-dialog-footer"><f:slot name="footer" /></div>
+    </f:if>
+</dialog>

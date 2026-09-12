@@ -1,0 +1,20 @@
+<f:comment>
+    MetadataListItem — one label-and-value pair of a MetadataList.
+
+    The div around the <dt> and the <dd> is deliberate and is allowed inside a
+    description list: it makes the pair a single grid child, so that a
+    multi-column MetadataList moves the label and its value together instead of
+    breaking them across a column boundary. Without it the two are separate
+    grid items and a pair can end up split.
+
+    The term is a named slot rather than a string because it often carries an
+    icon or a link beside the word, and the value is the default slot because
+    it is the part callers always fill.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-metadata-list-item {class}">
+    <dt><f:slot name="term" /></dt>
+    <dd><f:slot /></dd>
+</div>

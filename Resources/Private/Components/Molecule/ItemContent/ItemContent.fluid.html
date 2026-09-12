@@ -1,0 +1,16 @@
+<f:comment>
+    ItemContent — the middle column of an Item: the label and its description
+    stacked, and the only part of the row that is allowed to grow.
+
+    A span rather than a div, because an Item whose row is a link renders as an
+    <a> and a div inside a link is not phrasing content. The CSS gives it
+    `display: flex`, so the element name costs the layout nothing.
+
+    `min-inline-size: 0` on it is what lets a truncated label actually truncate:
+    a flex child's default minimum is its content, and without that override the
+    row would simply get wider than the list.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span class="astryx-item-content {class}"><f:slot /></span>

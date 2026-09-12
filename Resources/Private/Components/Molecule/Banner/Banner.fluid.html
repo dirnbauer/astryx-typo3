@@ -1,0 +1,69 @@
+<f:comment>
+    Banner — a tinted message set beside the main flow: a note, a caveat, an
+    offer, an invitation to a survey.
+
+    An <aside>, because that is what it is — content related to what surrounds
+    it but not part of it. Give it an `ariaLabelledby` pointing at its own title
+    where the landmark deserves a name.
+
+    `data-status` is upstream's own attribute name since Astryx v0.6.0. The
+    tinted background carries the meaning on its own, so a banner never depends
+    on an icon to say whether it is a warning: the icon slot is decoration and
+    the status is the message.
+
+    The content wrapper appears only when this component renders the title.
+    `astryx-banner-content` exists to hold the title and the body together as
+    one column against the icon and the dismiss button on either side; with no
+    title there is nothing to group, and wrapping a caller's own markup in it
+    would swallow an icon they placed beside the text.
+</f:comment>
+
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
+<f:argument name="dismissible" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="dismissLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    An icon-only control needs an accessible name whatever the caller does, so
+    the translated "Close" stands in when no label is passed.
+</f:comment>
+<f:variable name="dismissFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:conversion.dismiss" default="Close"/></f:variable>
+<f:variable name="dismissName" value="{f:if(condition: dismissLabel, then: dismissLabel, else: dismissFallback)}" />
+
+<aside
+    class="astryx-banner {class}"
+    data-status="{status}"
+    aria-label="{ariaLabel}"
+    aria-labelledby="{ariaLabelledby}">
+    <f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if>
+    <f:if condition="{title}">
+        <f:then>
+            <div class="astryx-banner-content">
+                <f:switch expression="{titleLevel}">
+                    <f:case value="3"><h3 class="astryx-banner-title">{title}</h3></f:case>
+                    <f:case value="4"><h4 class="astryx-banner-title">{title}</h4></f:case>
+                    <f:case value="5"><h5 class="astryx-banner-title">{title}</h5></f:case>
+                    <f:case value="6"><h6 class="astryx-banner-title">{title}</h6></f:case>
+                    <f:defaultCase><h2 class="astryx-banner-title">{title}</h2></f:defaultCase>
+                </f:switch>
+                <div class="astryx-banner-body"><f:slot /></div>
+            </div>
+        </f:then>
+        <f:else><f:slot /></f:else>
+    </f:if>
+    <f:if condition="{dismissible}">
+        <f:comment>
+            `data-g-dismiss` is the hook the theme's own script listens for; it
+            hides the nearest `[data-g-dismissible]` ancestor. Without the
+            script the button simply does nothing and the message stays, which
+            is the right failure for a message.
+        </f:comment>
+        <button type="button" class="astryx-banner-dismiss" aria-label="{dismissName}" data-g-dismiss="1">
+            <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+    </f:if>
+</aside>

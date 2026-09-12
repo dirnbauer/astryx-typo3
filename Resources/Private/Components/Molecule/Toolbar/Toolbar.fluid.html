@@ -1,0 +1,43 @@
+<f:comment>
+    Toolbar — a row with a start, a centre and an end: the bar above a list, a
+    sticky call to action, a strip of page links.
+
+    `ariaLabel` decides the element, the way `href` decides Button's. A row of
+    links that moves a visitor around the site is navigation and belongs in a
+    `nav`; a `nav` with no accessible name is worse than no landmark at all,
+    because a screen reader then lists an anonymous region. So naming the row
+    is exactly what makes it one, and an unnamed row stays a plain `div`. There
+    is no `as` argument, because the two are never a free choice.
+
+    The three regions — `astryx-toolbar-start`, `-center`, `-end` — are the
+    caller's own elements rather than slots here. They carry the element's
+    class alongside the toolbar's, every existing bar already writes them, and
+    a component that emitted them unconditionally would double each one.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="orientation" type="string" optional="{true}" default="horizontal" />
+<f:argument name="dividers" type="string" optional="{true}" default="default" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then>
+        <nav
+            class="astryx-toolbar {class}"
+            data-size="{size}"
+            data-align="{align}"
+            data-orientation="{orientation}"
+            data-dividers="{dividers}"
+            aria-label="{ariaLabel}"><f:slot /></nav>
+    </f:then>
+    <f:else>
+        <div
+            class="astryx-toolbar {class}"
+            data-size="{size}"
+            data-align="{align}"
+            data-orientation="{orientation}"
+            data-dividers="{dividers}"><f:slot /></div>
+    </f:else>
+</f:if>

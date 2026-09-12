@@ -1,0 +1,36 @@
+<f:comment>
+    Breadcrumb — the page chrome's own trail, rendered above the content.
+
+    Distinct from Molecule/Breadcrumbs, and deliberately so: this one takes the
+    rootline and writes the crumbs itself, because the page templates always
+    have the same array to give it and nothing in a site's chrome varies. The
+    molecule is the one to reach for when the crumbs are something else — a
+    filter path, a folder trail typed by an editor.
+
+    The last item is the page being read: text rather than a link, and marked
+    aria-current="page" so assistive technology announces the position instead
+    of offering a link to where the reader already is.
+</f:comment>
+
+<f:argument name="items" type="array" optional="{true}" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<nav class="astryx-breadcrumb {class}" aria-label="{ariaLabel}">
+    <div class="astryx-layout">
+        <ol class="astryx-breadcrumb__list">
+            <f:for each="{items}" as="item" iteration="i">
+                <li class="astryx-breadcrumb__item">
+                    <f:if condition="{i.isLast}">
+                        <f:then>
+                            <span class="astryx-breadcrumb__current" aria-current="page">{item.title}</span>
+                        </f:then>
+                        <f:else>
+                            <a href="{item.link}" class="astryx-breadcrumb__link">{item.title}</a>
+                        </f:else>
+                    </f:if>
+                </li>
+            </f:for>
+        </ol>
+    </div>
+</nav>

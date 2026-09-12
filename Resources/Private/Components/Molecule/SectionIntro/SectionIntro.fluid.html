@@ -1,0 +1,50 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+      data-namespace-typo3-fluid="true">
+
+<f:comment>
+    SectionIntro — the eyebrow, heading and lead that open almost every content
+    element.
+
+    The three parts are one component because the spacing between them is a
+    relationship, not three independent margins, and because every element in
+    the catalogue was repeating the same conditional cluster with its own class
+    name. Each part is still its own atom underneath, so the type scale, the
+    colours and the heading levels stay in one place.
+
+    `headingLevel` defaults to 2 because the page title is the document's only
+    h1 and a section heading sits directly under it. An element that really is
+    the top of its page, such as an article header, says level="1" rather than
+    styling an h2 to look like one.
+
+    Everything is optional: an element with only a heading renders only the
+    heading, and the default slot carries whatever else belongs to the
+    introduction — a byline, a date, a link back to the parent page.
+</f:comment>
+
+<f:argument name="eyebrow" type="string" optional="{true}" default="" />
+<f:argument name="heading" type="string" optional="{true}" default="" />
+<f:argument name="headingLevel" type="string" optional="{true}" default="2" />
+<f:argument name="headingType" type="string" optional="{true}" default="default" />
+<f:argument name="headingId" type="string" optional="{true}" default="" />
+<f:argument name="lead" type="string" optional="{true}" default="" />
+<f:argument name="leadType" type="string" optional="{true}" default="large" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-section-intro {class}"
+    data-align="{align}">
+    <f:if condition="{eyebrow}">
+        <a:atom.eyebrow>{eyebrow}</a:atom.eyebrow>
+    </f:if>
+    <f:if condition="{heading}">
+        <a:atom.heading level="{headingLevel}" type="{headingType}" id="{headingId}">{heading}</a:atom.heading>
+    </f:if>
+    <f:if condition="{lead}">
+        <a:atom.text type="{leadType}">{lead}</a:atom.text>
+    </f:if>
+    <f:slot />
+</div>
+
+</html>

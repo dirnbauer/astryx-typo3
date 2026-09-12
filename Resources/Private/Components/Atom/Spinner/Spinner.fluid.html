@@ -1,0 +1,36 @@
+<f:comment>
+    Spinner — a ring that turns while something is being waited for.
+
+    A spinner beside the word "Loading" is decoration and says nothing a
+    screen reader has not already been told, so by default it is hidden from
+    assistive technology. A spinner that is the only indication that anything
+    is happening is not decoration: `ariaLabel` turns it into a live status
+    region with a name, so the wait is announced rather than silent.
+
+    The ring is drawn with one side transparent rather than as a full circle,
+    because a complete ring looks identical at every angle and would appear
+    static however fast it turned.
+</f:comment>
+
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="color" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then>
+        <span
+            class="astryx-spinner {class}"
+            data-size="{size}"
+            data-color="{color}"
+            role="status"
+            aria-label="{ariaLabel}"></span>
+    </f:then>
+    <f:else>
+        <span
+            class="astryx-spinner {class}"
+            data-size="{size}"
+            data-color="{color}"
+            aria-hidden="true"></span>
+    </f:else>
+</f:if>

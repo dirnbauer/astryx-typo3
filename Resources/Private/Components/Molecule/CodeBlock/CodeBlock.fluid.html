@@ -1,0 +1,27 @@
+<f:comment>
+    CodeBlock — a fenced block of source, on the theme's syntax surface.
+
+    The listing itself stays with the caller, and for once that is not about
+    wrappers. Code has to be escaped rather than rendered, and in TYPO3 it has
+    to be escaped differently depending on who is looking: in the frontend the
+    text is left exactly as typed, while in the editor the same field goes
+    through `f:render.text` so the block becomes inline-editable — and that
+    turns every newline into a break, which inside preformatted text is a line
+    the reader would copy. Only the template knows which of the two it is in,
+    so `pre` and `code` belong to it.
+
+    What is left here is the frame and, when it is given one, the header strip:
+    a file name, a language, a copy button. It is written only when it is
+    filled, because an empty header still draws its rule across the top.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="wrap" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-codeblock {class}"
+    data-variant="{variant}"
+    data-wrap="{wrap}"
+    data-size="{size}"><f:if condition="{f:slot(name: 'header')}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:slot /></div>

@@ -1,0 +1,38 @@
+<f:comment>
+    Icon — one of Desiderio's semantic glyphs, sized by the box around it.
+
+    The drawing is not this component's work and deliberately so: `g:icon`
+    already owns the vocabulary of keys, picks the single icon library this
+    theme draws, and emits the glyph as an inline SVG in `currentColor` with
+    `aria-hidden` and `focusable="false"` set. Re-implementing any of that
+    here would give the theme a second icon mechanism that could drift from
+    the first. This component adds only what a glyph cannot carry itself: the
+    box that decides how big it is and, where the icon is the only label
+    present, a name for it.
+
+    An icon beside text is decoration and stays hidden from assistive
+    technology, because the text already says what the icon says. Passing
+    `ariaLabel` is the explicit statement that this one is not decoration, and
+    it is then exposed as an image with that name.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then>
+        <span
+            class="astryx-icon {class}"
+            data-size="{size}"
+            role="img"
+            aria-label="{ariaLabel}"><g:icon name="{name}" /></span>
+    </f:then>
+    <f:else>
+        <span
+            class="astryx-icon {class}"
+            data-size="{size}"
+            aria-hidden="true"><g:icon name="{name}" /></span>
+    </f:else>
+</f:if>

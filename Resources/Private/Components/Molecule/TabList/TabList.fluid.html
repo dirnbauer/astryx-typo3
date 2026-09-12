@@ -1,0 +1,28 @@
+<f:comment>
+    TabList — the strip of triggers above a set of panels.
+
+    role="tablist" is not redundant on a `div`: the element means nothing on
+    its own, and astryx.js reads the buttons inside rather than the row itself,
+    so the role is the only thing that tells assistive technology what this is.
+    The accessible name matters for the same reason — a page with two unnamed
+    tablists offers a reader two identical rows and no way to tell them apart.
+
+    aria-orientation is emitted alongside `data-orientation` because the arrow
+    keys a screen reader announces have to agree with the axis the stylesheet
+    lays the tabs out on.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="orientation" type="string" optional="{true}" default="horizontal" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-tab-list {class}"
+    role="tablist"
+    data-variant="{variant}"
+    data-size="{size}"
+    data-orientation="{orientation}"
+    aria-orientation="{orientation}"
+    aria-label="{ariaLabel}"><f:slot /></div>
