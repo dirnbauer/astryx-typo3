@@ -1,49 +1,40 @@
 # Astryx for TYPO3
 
-Meta's [Astryx](https://github.com/facebook/astryx) design system, server-rendered for TYPO3 14.
+Meta's [Astryx](https://github.com/facebook/astryx) design system, server-rendered
+for TYPO3 14.
 
 Astryx ships as React components styled with StyleX. This extension ships the
-same design system as **Fluid templates and plain CSS**: no React, no StyleX, no
-build step between an editor pressing save and a visitor seeing the page. What
-comes from upstream is the part that matters — the token vocabulary and the
-seven official themes, taken from Astryx `v0.3.0` rather than from a moving
-branch. Eighteen webconsulting themes use the same stable token contract.
+same design system as **Fluid components and plain CSS**: no React, no StyleX,
+no build step between an editor pressing save and a visitor seeing the page.
+What comes from upstream is the part that matters — the token vocabulary and the
+seven official themes, pinned to release `v0.6.0` rather than to a moving branch.
 
-It is a sibling of [Desiderio](https://github.com/dirnbauer/desiderio), not a
-fork: Desiderio remains the engine underneath (page rendering, the element
-library, the seeding services), and a site chooses one theme or the other.
-
-**New here?** [Documentation/Astryx.md](Documentation/Astryx.md) explains what
-Astryx is, how to use the themes as an editor or integrator, and how this
-extension uses it internally — the token pipeline, the class-name contract, and
-the contrast gate.
+[Desiderio](https://github.com/dirnbauer/desiderio) is the **rendering engine**
+underneath, not the design system: page rendering, the element library and the
+seeding services. This extension supplies all of its own design.
 
 ## What it gives you
 
 - **250 content elements** in the ten wizard groups Desiderio already uses, so
   editors read the same shelf labels across both themes.
-- **Seven themes** — neutral, butter, chocolate, matcha, stone, gothic, y2k —
-  switchable per site and per page. Switching is a repaint: every value is a CSS
-  custom property, nothing is rebuilt and no content changes.
-- **Light and dark from one set of values.** Every colour token is a
-  `light-dark()` pair resolved against `color-scheme`, so the scheme switch and
-  the theme switch are genuinely independent.
-- **A page shell** — header with brand and navigation, footer with legal and
-  language rows, breadcrumb, error pages — driven by site settings.
-- **Almost no JavaScript.** One small bundle handles the four behaviours the
-  platform has no element for; everything else is `<details>`, `<dialog>`, the
-  popover attribute and CSS scroll-snap.
-- **Self-hosted fonts.** All ten families the themes ask for, latin subsets, no
-  third-party request from a visitor's browser.
+- **74 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
+  reached through one namespace: `<a:atom.button variant="primary">`. No
+  template applies a CSS class.
+- **Twenty-five themes**, switchable per site and per page. Switching is a
+  repaint: every value is a custom property, nothing is rebuilt, no content
+  changes. Every colour token is a `light-dark()` pair resolved against
+  `color-scheme`, so light/dark and the theme are genuinely independent.
+- **A page shell** — header, footer, breadcrumb, error pages — driven by site
+  settings, with almost no JavaScript and self-hosted fonts.
 
 ## Requirements
 
-TYPO3 14.3+, PHP 8.4+, `friendsoftypo3/content-blocks` 2.2+,
-`praetorius/vite-asset-collector` 1.18+ and `webconsulting/desiderio` 4.x.
+TYPO3 14.3.7+, PHP 8.4+, `friendsoftypo3/content-blocks` 2.2+,
+`praetorius/vite-asset-collector` 1.18+ and `webconsulting/desiderio` 4.1+.
 
 ## Setting up a site
 
-Add the two sets to `config/sites/<site>/config.yaml`:
+Add the sets to `config/sites/<site>/config.yaml`:
 
 ```yaml
 dependencies:
@@ -54,185 +45,76 @@ dependencies:
 Then in `settings.yaml`:
 
 ```yaml
-astryx.theme.default: neutral        # or butter, chocolate, matcha, stone, gothic, y2k
-astryx.theme.colorScheme: system     # system | light | dark
+astryx.theme.default: neutral
+astryx.theme.colorScheme: system
 astryx.brand.wordmark: 'Your name'
 astryx.footer.legalPageIds: '12,13,14'
 elementLibrary.hosts: 'astryx_typo3,core'
 ```
 
-`elementLibrary.hosts` offers only this theme's elements in the picker.
-Without it, a site with both themes installed lists both catalogs in one
-wizard.
+`elementLibrary.hosts` offers only this theme's elements in the picker; without
+it a site with both themes installed lists both catalogs in one wizard. A page
+overrides the theme for itself and everything below it through the **Astryx
+theme** field in its page properties. Search is a third set,
+`webconsulting/astryx-typo3-search`, kept separate because it needs Solr.
 
-A page can override the theme for itself and everything below it through the
-**Astryx theme** field in its page properties.
-
-### Search
-
-Search is a third set, kept separate because it needs Apache Solr and most
-sites will not want the loupe in the header until they have a results page for
-it to point at.
-
-```yaml
-dependencies:
-  - webconsulting/astryx-typo3
-  - webconsulting/astryx-typo3-content-elements
-  - webconsulting/astryx-typo3-search
-solr_enabled_read: true
-solr_host_read: typo3-solr
-solr_port_read: '8983'
-solr_scheme_read: http
-solr_path_read: /
-solr_use_write_connection: false
-languages:
-  - languageId: 0
-    # …
-    solr_core_read: core_en          # one core per language, not one per site
-```
-
-Then in `settings.yaml`:
-
-```yaml
-astryx.search.enabled: true
-astryx.search.targetPageId: '1308'   # the page carrying the Solr results plugin
-```
-
-`astryx-typo3:site:seed --content` creates that page — a hidden-from-navigation,
-no-indexed `/search` carrying a lead paragraph and EXT:solr's results plugin — and
-prints its uid with the rest of the site YAML. The page is seeded whether or not
-Solr is configured; without a connection the plugin renders the "search
-unavailable" notice, which this theme skins.
-
-The set brings in `webconsulting/solr-defaults` — Desiderio's EXT:solr stack,
-including the `tx_solr_suggest` page type (typeNum 7384) the dropdown fetches
-from — and replaces only the templates, under
-`Resources/Private/Solr/{Templates,Partials,Layouts}`.
-
-Two surfaces come out of it, and they share one implementation:
-
-- **The header field.** A loupe in the top-right corner that opens a real
-  `<form>` submitting `?q=…` to the results page. It is markup that works on
-  its own: `astryx.js` adds the collapse, so with the script absent the field is
-  simply visible rather than an icon that does nothing.
-- **The results page.** Drop the *Apache Solr — Search: Results* plugin on a
-  page. Filters sit beside the results on a wide screen and above them on a
-  narrow one; each result is an Astryx `Item` with the matched words marked, and
-  the suggest dropdown is the same Astryx `Typeahead` the header uses.
-
-Set `astryx.search.queryParameter` only for a non-Solr backend —
-EXT:solr reads a plain `q` on any page, which is why that is the default.
-
-### The showcase site
+## Seeding a showcase
 
 ```bash
-ddev exec vendor/bin/typo3 astryx-typo3:site:seed --dry-run
 ddev exec vendor/bin/typo3 astryx-typo3:site:seed --content
-```
-
-Creates the site root, a `/components` hub, one chapter page per group and the
-legal and error pages, then prints the uids to put into the site YAML.
-`--content` additionally places every non-video element on its chapter page
-from its own `fixture.json`. Pass `--include-video` only when a deliberate video
-demo is wanted. Both are idempotent, and the content pass replaces only what a
-previous run seeded — anything an editor added by hand stays.
-
-Each chapter wears a different one of the seven themes, so walking the hub is
-also the fastest way to see that switching a theme changes nothing but paint.
-
-### The element library
-
-```bash
 ddev exec vendor/bin/typo3 desiderio:library:seed --parent=<root uid> --hosts=astryx_typo3,core
-ddev exec vendor/bin/typo3 desiderio:library:warm
 ```
 
-Seeds one demo record per element into the site's library folder, so the
-plus-button picker shows a live preview, keyword chips and the "when to use"
-description for every element.
+The first creates the site root, a `/components` hub, one chapter page per group
+and the legal and error pages, then places every element on its chapter page
+from its own fixture. The second seeds one demo record per element, so the
+plus-button picker shows a live preview for all 250.
 
 ## Working on the catalog
 
-Everything about an element starts as a row in `Build/Data/matrix/<group>.json`.
-The row carries its title, its description in both languages, its keywords, the
-fields it uses and the Astryx components it composes. Nothing is invented in the
-generated files.
+Everything about an element starts as a row in `Build/Data/matrix/<group>.json`:
+its title, its descriptions, its keywords, the fields it uses and the Astryx
+components it composes. Nothing is invented in the generated files.
 
 ```bash
 php Build/Scripts/scaffold-content-elements.php --scaffold --group=hero
 php Build/Scripts/scaffold-content-elements.php --derive
 php Build/Scripts/scaffold-content-elements.php --check
+npm run build
 ```
 
-`--scaffold` creates the file set for rows that have no directory yet.
-`--derive` regenerates everything derived from the matrix: the wizard
-allow-list, the keyword and short-description catalogs, the record types and
-the seeder's group manifest. `--check` fails if the derived files no longer
-match the matrix.
-
 Two files per element are authored by hand and never overwritten:
-`templates/frontend.html` and `assets/frontend.css`.
+`templates/frontend.html` and `assets/frontend.css`. The template composes
+components and may not write an `astryx-*` class; the stylesheet may only speak
+in tokens. Both rules are enforced by the test suite rather than reviewed.
 
-### Getting the columns into the database
+Getting the columns into the database needs the extension's own migrator —
+`extension:setup` reports success and applies nothing once `tt_content` is large:
 
 ```bash
 ddev exec php packages/astryx_typo3/Build/Scripts/apply-schema.php --apply
 ```
 
-`extension:setup` will report success and apply nothing. `tt_content` in a lab
-this size carries hundreds of columns, and InnoDB checks at ALTER time whether a
-row could exceed half a page — counting every variable-length column's worst
-case. Past that line MariaDB refuses to add any column at all, including a
-two-byte integer. The script above runs TYPO3's own migrator with
-`innodb_strict_mode` off for the duration, which is the documented behaviour for
-`ROW_FORMAT=DYNAMIC` rows: variable columns overflow off-page at runtime, so the
-real rows fit. It applies additive statements only.
-
-The same limit is why every single-line text field here is a `Textarea` with one
-row rather than a `Text`: `TEXT` is stored off-page for about twenty bytes,
-while a `VARCHAR(255)` in utf8mb4 costs over a kilobyte of the row budget.
-
-### Gates
+## Gates
 
 ```bash
-php scripts/audit-content-elements.php     # per-element rules
-vendor/bin/phpunit -c phpunit.xml.dist     # matrix invariants
+composer lint && composer cgl:check && composer phpstan && composer test
+npm run build && git diff --exit-code
+node Build/Scripts/design-review.mjs --harness
 ```
 
-The audit is what keeps 250 elements consistent: file completeness, explicit
-`typeName`, description shape, collection flags, the icon contract, and the
-stylesheet rules — no raw colour, no `light-dark()`, no `prefers-color-scheme`,
-no literal font family, one shared set of breakpoints. An element's CSS may only
-speak in tokens, which is precisely why a theme switch reaches all 250 of them.
+## Documentation
 
-### Assets
-
-```bash
-npm install
-npm run build            # theme tokens, component CSS, chrome CSS, fonts
-```
-
-- `Build/Scripts/build-astryx-theme.mjs` — `Build/astryx/tokens.json` →
-  `Resources/Public/Css/astryx-theme.css`. The payload is what Astryx's own
-  `generateThemeRulesSplit()` produced for the seven shipped themes (upstream
-  commit recorded in the file); the script re-scopes the rules to plain
-  attribute selectors and orders the cascade with layers.
-- `Build/Scripts/build-astryx-css.mjs` — concatenates the manifest-ordered
-  partials into `astryx-components.css` and `astryx.css`.
-- `Build/Scripts/sync-fonts.mjs` — copies the woff2 subsets and writes the
-  `@font-face` partial.
+[Documentation/Index.rst](Documentation/Index.rst) — the component contract, the
+upstream sync, accessibility, the commands, authoring elements and the design
+review checklist.
 
 ## Licence
 
 GPL-2.0-or-later, like TYPO3.
 
-Astryx is MIT, © Meta Platforms, Inc. and affiliates. This extension vendors its
-design tokens (`Build/astryx/tokens.json`) and the exact component inventory
-(`Build/astryx/components.json`) from official release `v0.3.0`, commit
-`82d4dab3d05b9314a76ab0bda296491a65f69c88`; no React or StyleX runtime is
-redistributed. The bundled fonts are licensed under the SIL Open Font License.
-
-Our sincere thanks to the Astryx team, Meta Open Source, the Facebook design
-systems community and every upstream contributor for publishing the design
-language under MIT. The exact upstream notice is preserved in
-`THIRD_PARTY_NOTICES.md`.
+Astryx is MIT, © Meta Platforms, Inc. This extension vendors its design tokens
+and component inventory from official release `v0.6.0`; no React or StyleX
+runtime is redistributed. The exact notice and what is vendored are in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The bundled fonts are licensed
+under the SIL Open Font License.

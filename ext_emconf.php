@@ -8,10 +8,10 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'templates',
     'author' => 'webconsulting studio',
     'state' => 'beta',
-    'version' => '1.0.2',
+    'version' => '2.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '14.3.0-14.99.99',
+            'typo3' => '14.3.7-14.99.99',
             'content_blocks' => '2.2.0-2.99.99',
             'desiderio' => '4.0.0-4.99.99',
         ],
