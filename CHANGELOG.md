@@ -40,8 +40,8 @@ requirement rises to Desiderio 4.1.
 
 ### Added
 
-- **74 Fluid components** in four layers — 6 Layout, 20 Atom, 42 Molecule,
-  6 Organism — each declaring every attribute it accepts with `<f:argument>`
+- **89 Fluid components** in four layers — 6 Layout, 22 Atom, 53 Molecule,
+  8 Organism — each declaring every attribute it accepts with `<f:argument>`
   and rendering exactly one root class.
 - `Build/Data/component-contract.json`, the modifier vocabulary, read by the
   codemod, the CSS migration, the tree-shake and the conformance test, so the
@@ -76,7 +76,9 @@ requirement rises to Desiderio 4.1.
   if a theme claims upstream provenance the vendored payload does not support.
 - One global answer to `prefers-reduced-motion`, emitted outside every cascade
   layer so it needs no `!important`. It replaces nine per-partial guards, one of
-  which had been forgotten.
+  which had been forgotten — 704 elements kept their transition.
+- The contrast audit gained the link-on-card and link-on-muted pairs: 1,600
+  pairs across 25 themes and both colour schemes, with no failure.
 - `astryx-icon-button` carries its own shape, hover, press and focus ring. It
   used to borrow them from `astryx-button` on the same element, which a
   one-root-class component cannot do.
@@ -88,6 +90,18 @@ requirement rises to Desiderio 4.1.
 - `.astryx-link` and `.astryx-clickable-card` gained an `:active` state. On a
   touch screen the hover state never happens, so a card-sized tap target gave no
   feedback at all.
+- A link inside any of the fifteen tinted card variants, inside a banner, or
+  inside a tooltip kept `--color-text-accent` — blue type on a yellow callout,
+  and near-black on black in a tooltip, at 1.21:1. Those surfaces decide the
+  colour now.
+- Both arrow carousels rendered empty buttons with no
+  `data-g-carousel-prev`/`-next`, so the arrows did nothing. Three accordions
+  rendered an empty `<summary>`. `MetadataListItem` nested a `<dt>`/`<dd>` pair
+  inside another on all ten call sites. `Dialog` and `Item` each wrote one ARIA
+  attribute twice, so a titled dialog had no accessible name.
+- 866 selectors across 223 element stylesheets stopped matching when the section
+  stopped wearing the editor's tone as a class. They select `[data-surface="…"]`
+  now.
 - `.astryx-link`'s colour transition survived `prefers-reduced-motion: reduce`,
   along with 703 other elements.
 - README comment lines inside fenced code blocks no longer read as headings in

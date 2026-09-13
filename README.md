@@ -17,7 +17,7 @@ seeding services. This extension supplies all of its own design.
 
 - **250 content elements** in the ten wizard groups Desiderio already uses, so
   editors read the same shelf labels across both themes.
-- **74 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
+- **89 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
   reached through one namespace: `<a:atom.button variant="primary">`. No
   template applies a CSS class.
 - **Twenty-five themes**, switchable per site and per page. Switching is a
