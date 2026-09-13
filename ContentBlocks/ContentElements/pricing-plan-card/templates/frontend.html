@@ -17,7 +17,11 @@
 
 <a:layout.section surface="{data.tone}" class="g-pricing-plan-card">
     <a:layout.container size="md">
-        <article class="astryx-card g-pricing-plan-card__card {f:if(condition: data.featured, then: 'raised')}" data-featured="{f:if(condition: data.featured, then: 'yes', else: 'no')}">
+        <a:molecule.card
+            as="article"
+            variant="{f:if(condition: data.featured, then: 'raised', else: 'default')}"
+            featured="{f:if(condition: data.featured, then: 'yes', else: 'no')}"
+            class="g-pricing-plan-card__card">
 
             <header class="g-pricing-plan-card__head">
                 <f:if condition="{data.badge_text}">
@@ -74,7 +78,7 @@
                 <a:atom.text type="supporting" class="g-pricing-plan-card__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </article>
+        </a:molecule.card>
     </a:layout.container>
 </a:layout.section>
 

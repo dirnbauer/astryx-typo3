@@ -51,11 +51,11 @@
   background-color: color-mix(in srgb, var(--color-overlay) 45%, transparent);
 }
 
-.g-hero-slideshow.accent .g-hero-slideshow__scrim {
+.g-hero-slideshow[data-surface="accent"] .g-hero-slideshow__scrim {
   background-color: color-mix(in srgb, var(--color-accent) 65%, transparent);
 }
 
-.g-hero-slideshow.muted .g-hero-slideshow__scrim {
+.g-hero-slideshow[data-surface="muted"] .g-hero-slideshow__scrim {
   background-color: color-mix(in srgb, var(--color-overlay) 30%, transparent);
 }
 

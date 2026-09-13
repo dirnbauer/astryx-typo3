@@ -10,7 +10,7 @@
   flex-wrap: wrap;
 }
 
-.g-conversion-cta-inline.tight .g-conversion-cta-inline__strip {
+.g-conversion-cta-inline[data-spacing="tight"] .g-conversion-cta-inline__strip {
   padding: var(--spacing-3);
 }
 
@@ -36,12 +36,12 @@
   flex: 0 0 auto;
 }
 
-.g-conversion-cta-inline.accent .astryx-banner {
+.g-conversion-cta-inline[data-surface="accent"] .astryx-banner {
   background-color: transparent;
   color: currentColor;
 }
 
-.g-conversion-cta-inline.accent .g-conversion-cta-inline__text {
+.g-conversion-cta-inline[data-surface="accent"] .g-conversion-cta-inline__text {
   color: currentColor;
   opacity: 0.85;
 }

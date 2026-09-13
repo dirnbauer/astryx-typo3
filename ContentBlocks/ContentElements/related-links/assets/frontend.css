@@ -47,7 +47,7 @@
   color: var(--color-text-accent);
 }
 
-.g-related-links.accent .g-related-links__lead {
+.g-related-links[data-surface="accent"] .g-related-links__lead {
   color: currentColor;
   opacity: 0.85;
 }

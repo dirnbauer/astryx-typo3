@@ -65,11 +65,11 @@
   justify-content: center;
 }
 
-.g-pricing-offer-price.accent .g-pricing-offer-price__lead,
-.g-pricing-offer-price.accent .g-pricing-offer-price__was-amount,
-.g-pricing-offer-price.accent .g-pricing-offer-price__period,
-.g-pricing-offer-price.accent .astryx-eyebrow,
-.g-pricing-offer-price.accent .astryx-text[data-type="supporting"] {
+.g-pricing-offer-price[data-surface="accent"] .g-pricing-offer-price__lead,
+.g-pricing-offer-price[data-surface="accent"] .g-pricing-offer-price__was-amount,
+.g-pricing-offer-price[data-surface="accent"] .g-pricing-offer-price__period,
+.g-pricing-offer-price[data-surface="accent"] .astryx-eyebrow,
+.g-pricing-offer-price[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -86,7 +86,7 @@
   color: var(--color-text-secondary);
 }
 
-.g-feature-steps.accent .g-feature-steps__text {
+.g-feature-steps[data-surface="accent"] .g-feature-steps__text {
   color: currentColor;
   opacity: 0.85;
 }
@@ -97,9 +97,9 @@
   grid-template-columns: 1fr;
 }
 
-.g-feature-steps.accent .g-feature-steps__lead,
-.g-feature-steps.accent .astryx-eyebrow,
-.g-feature-steps.accent .astryx-text[data-type="supporting"] {
+.g-feature-steps[data-surface="accent"] .g-feature-steps__lead,
+.g-feature-steps[data-surface="accent"] .astryx-eyebrow,
+.g-feature-steps[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

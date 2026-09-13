@@ -26,7 +26,7 @@
             <f:for each="{data.items}" as="item">
                 <li class="g-feature-ribbon__item">
                     <f:if condition="{item.icon}">
-                        <span class="astryx-feature-icon g-feature-ribbon__icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
+                        <a:atom.featureIcon icon="{item.icon}" class="g-feature-ribbon__icon" />
                     </f:if>
 
                     <a:atom.text type="label" as="span" class="g-feature-ribbon__label">{item -> f:render.text(field: 'title')}</a:atom.text>

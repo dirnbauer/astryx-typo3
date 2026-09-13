@@ -14,6 +14,18 @@
     button inside it gets the focus ring drawn around the whole row on its
     behalf. Those are the two shapes the CSS is written for, and which one you
     get is decided by whether the row navigates, never by an `as` argument.
+
+    The two flanking regions take a class of the caller's, because what sits in
+    them varies in ways the row cannot know: a search result's trailing badges
+    want their own gap and a top alignment, a download row's do not. What stays
+    the component's is the region itself — the class that pushes it to the far
+    edge is not something a caller should have to remember.
+
+    One trap comes with the named slots, and it is Fluid's rather than this
+    component's: a call that contains even one `<f:fragment name="…">` stops
+    collecting its loose children as the default slot. Content meant for
+    `<f:slot />` has to be spelled `<f:fragment>` too, or it renders as nothing
+    and nothing warns you.
 </f:comment>
 
 <f:argument name="interactive" type="string" optional="{true}" default="default" />
@@ -26,6 +38,8 @@
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="parameter" type="mixed" optional="{true}" default="" />
 <f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+<f:argument name="startClass" type="string" optional="{true}" default="" />
+<f:argument name="endClass" type="string" optional="{true}" default="" />
 
 <f:comment>
     A selected row says so in ARIA as well as in the data attribute. The empty
@@ -54,9 +68,9 @@
             aria-label="{ariaLabel}"
             target="{target}"
             rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}">
-            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start"><f:slot name="start" /></span></f:if>
+            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start {startClass}"><f:slot name="start" /></span></f:if>
             <f:slot />
-            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end"><f:slot name="end" /></span></f:if>
+            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end {endClass}"><f:slot name="end" /></span></f:if>
         </a>
     </f:then>
     <f:else>
@@ -67,9 +81,9 @@
             data-align="{align}"
             data-selected="{selected}"
             aria-current="{current}">
-            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start"><f:slot name="start" /></span></f:if>
+            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start {startClass}"><f:slot name="start" /></span></f:if>
             <f:slot />
-            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end"><f:slot name="end" /></span></f:if>
+            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end {endClass}"><f:slot name="end" /></span></f:if>
         </li>
     </f:else>
 </f:if>

@@ -57,17 +57,17 @@
   max-inline-size: 44rem;
 }
 
-.g-conversion-partner-enquiry.accent .g-conversion-partner-enquiry__subheader,
-.g-conversion-partner-enquiry.accent .g-conversion-partner-enquiry__lead,
-.g-conversion-partner-enquiry.accent .g-conversion-partner-enquiry__note,
-.g-conversion-partner-enquiry.accent .g-conversion-partner-enquiry__secondary,
-.g-conversion-partner-enquiry.accent .astryx-card-body,
-.g-conversion-partner-enquiry.accent .astryx-eyebrow {
+.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__subheader,
+.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__lead,
+.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__note,
+.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__secondary,
+.g-conversion-partner-enquiry[data-surface="accent"] .astryx-card-body,
+.g-conversion-partner-enquiry[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-partner-enquiry.accent .astryx-prose :where(a) {
+.g-conversion-partner-enquiry[data-surface="accent"] .astryx-prose :where(a) {
   color: currentColor;
 }
 

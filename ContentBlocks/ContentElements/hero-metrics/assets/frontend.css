@@ -77,11 +77,11 @@
   color: var(--color-text-secondary);
 }
 
-.g-hero-metrics.accent .g-hero-metrics__lead,
-.g-hero-metrics.accent .g-hero-metrics__label,
-.g-hero-metrics.accent .g-hero-metrics__unit,
-.g-hero-metrics.accent .g-hero-metrics__note,
-.g-hero-metrics.accent .astryx-eyebrow {
+.g-hero-metrics[data-surface="accent"] .g-hero-metrics__lead,
+.g-hero-metrics[data-surface="accent"] .g-hero-metrics__label,
+.g-hero-metrics[data-surface="accent"] .g-hero-metrics__unit,
+.g-hero-metrics[data-surface="accent"] .g-hero-metrics__note,
+.g-hero-metrics[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

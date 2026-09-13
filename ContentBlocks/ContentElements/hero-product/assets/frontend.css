@@ -59,8 +59,8 @@
 
 /* On an accent band the lead and the eyebrow would otherwise reach for colours
    tuned for the page background. */
-.g-hero-product.accent .g-hero-product__lead,
-.g-hero-product.accent .astryx-eyebrow {
+.g-hero-product[data-surface="accent"] .g-hero-product__lead,
+.g-hero-product[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

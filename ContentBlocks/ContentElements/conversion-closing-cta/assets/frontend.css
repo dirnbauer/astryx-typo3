@@ -36,11 +36,11 @@
 
 /* On the accent band the secondary text colour is tuned for the page
    background and would fall out of contrast. */
-.g-conversion-closing-cta.accent .g-conversion-closing-cta__subheader,
-.g-conversion-closing-cta.accent .g-conversion-closing-cta__lead,
-.g-conversion-closing-cta.accent .g-conversion-closing-cta__note,
-.g-conversion-closing-cta.accent .g-conversion-closing-cta__secondary,
-.g-conversion-closing-cta.accent .astryx-eyebrow {
+.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__subheader,
+.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__lead,
+.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__note,
+.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__secondary,
+.g-conversion-closing-cta[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

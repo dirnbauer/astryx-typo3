@@ -59,9 +59,9 @@
   max-inline-size: 44rem;
 }
 
-.g-contributor-wall.accent .g-contributor-wall__lead,
-.g-contributor-wall.accent .g-contributor-wall__note,
-.g-contributor-wall.accent .astryx-eyebrow {
+.g-contributor-wall[data-surface="accent"] .g-contributor-wall__lead,
+.g-contributor-wall[data-surface="accent"] .g-contributor-wall__note,
+.g-contributor-wall[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

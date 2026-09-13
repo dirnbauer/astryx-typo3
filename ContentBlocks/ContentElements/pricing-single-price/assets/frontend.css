@@ -79,15 +79,15 @@
   text-align: start;
 }
 
-.g-pricing-single-price.accent .g-pricing-single-price__lead,
-.g-pricing-single-price.accent .g-pricing-single-price__period,
-.g-pricing-single-price.accent .astryx-eyebrow,
-.g-pricing-single-price.accent .astryx-text[data-type="supporting"] {
+.g-pricing-single-price[data-surface="accent"] .g-pricing-single-price__lead,
+.g-pricing-single-price[data-surface="accent"] .g-pricing-single-price__period,
+.g-pricing-single-price[data-surface="accent"] .astryx-eyebrow,
+.g-pricing-single-price[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-pricing-single-price.accent .g-pricing-single-price__included {
+.g-pricing-single-price[data-surface="accent"] .g-pricing-single-price__included {
   border-color: currentColor;
 }
 

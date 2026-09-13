@@ -22,7 +22,7 @@
     <a:layout.container size="{data.width}">
         <div class="g-team-facepile__band align-{data.align} {f:if(condition: data.compact, then: 'compact')}">
 
-            <span class="astryx-avatar-group {f:if(condition: data.compact, then: 'md', else: 'lg')} g-team-facepile__pile" aria-hidden="true">
+            <a:atom.avatarGroup size="{f:if(condition: data.compact, then: 'md', else: 'lg')}" class="g-team-facepile__pile" ariaHidden="true">
                 <f:for each="{data.people}" as="person">
                     <f:if condition="{person.image}">
                         <a:atom.avatar>
@@ -32,7 +32,7 @@
                         </a:atom.avatar>
                     </f:if>
                 </f:for>
-            </span>
+            </a:atom.avatarGroup>
 
             <div class="g-team-facepile__copy">
                 <f:if condition="{data.value}">

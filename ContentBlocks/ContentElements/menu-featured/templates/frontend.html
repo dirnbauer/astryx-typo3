@@ -31,7 +31,7 @@
 
         <div class="g-menu-featured__grid {f:if(condition: data.reverse, then: 'reversed')}">
 
-            <a:molecule.card media="top" class="astryx-clickable-card g-menu-featured__lead">
+            <a:molecule.card clickable="{true}" media="top" class="g-menu-featured__lead">
                 <f:if condition="{data.image}">
                     <figure class="g-menu-featured__media">
                         <f:for each="{data.image}" as="image">

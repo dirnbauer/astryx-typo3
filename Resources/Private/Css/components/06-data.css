@@ -470,9 +470,16 @@
 /* ---------------------------------------------------------- OverflowList */
 /* Items on one line, the rest clipped: the count indicator is supplied by the
    markup, so all this owes is a row that refuses to wrap or grow. */
+/* A <ul> everywhere it is used, so it has to undo the three things the user
+   agent gives a list: the block margin, the 40px indent, and the marker. A
+   flex container blockifies its children and the markers go with them, but the
+   margin and the indent stay and push the row off its own left edge. */
 .astryx-overflow-list {
   display: flex;
   align-items: center;
+  list-style: none;
+  margin: 0;
+  padding-inline-start: 0;
   gap: var(--spacing-2);
   min-inline-size: 0;
   overflow: hidden;
@@ -925,15 +932,15 @@
 }
 
 .astryx-avatar[data-size="xsm"],
-.astryx-avatar-group.xsm { --_avatar-size: 20px; }
+.astryx-avatar-group[data-size="xsm"] { --_avatar-size: 20px; }
 .astryx-avatar[data-size="sm"],
-.astryx-avatar-group.sm { --_avatar-size: 24px; }
+.astryx-avatar-group[data-size="sm"] { --_avatar-size: 24px; }
 .astryx-avatar[data-size="md"],
-.astryx-avatar-group.md { --_avatar-size: 36px; }
+.astryx-avatar-group[data-size="md"] { --_avatar-size: 36px; }
 .astryx-avatar[data-size="lg"],
-.astryx-avatar-group.lg { --_avatar-size: 48px; }
+.astryx-avatar-group[data-size="lg"] { --_avatar-size: 48px; }
 .astryx-avatar[data-size="xl"],
-.astryx-avatar-group.xl { --_avatar-size: 128px; }
+.astryx-avatar-group[data-size="xl"] { --_avatar-size: 128px; }
 
 .astryx-avatar > img {
   inline-size: 100%;

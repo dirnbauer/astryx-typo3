@@ -48,16 +48,16 @@
   margin: 0;
 }
 
-.g-data-method-note.accent .g-data-method-note__box,
-.g-data-method-note.accent .g-data-method-note__pairs {
+.g-data-method-note[data-surface="accent"] .g-data-method-note__box,
+.g-data-method-note[data-surface="accent"] .g-data-method-note__pairs {
   border-color: currentColor;
 }
 
-.g-data-method-note.accent .g-data-method-note__summary,
-.g-data-method-note.accent .g-data-method-note__term,
-.g-data-method-note.accent .astryx-eyebrow,
-.g-data-method-note.accent .astryx-link,
-.g-data-method-note.accent .astryx-text[data-type="supporting"] {
+.g-data-method-note[data-surface="accent"] .g-data-method-note__summary,
+.g-data-method-note[data-surface="accent"] .g-data-method-note__term,
+.g-data-method-note[data-surface="accent"] .astryx-eyebrow,
+.g-data-method-note[data-surface="accent"] .astryx-link,
+.g-data-method-note[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -69,8 +69,8 @@
   min-inline-size: 0;
 }
 
-.g-testimonial-grid.accent .g-testimonial-grid__lead,
-.g-testimonial-grid.accent .astryx-eyebrow {
+.g-testimonial-grid[data-surface="accent"] .g-testimonial-grid__lead,
+.g-testimonial-grid[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

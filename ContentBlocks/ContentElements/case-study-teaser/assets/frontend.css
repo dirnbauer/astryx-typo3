@@ -74,14 +74,14 @@
   max-inline-size: 34ch;
 }
 
-.g-case-study-teaser.accent .g-case-study-teaser__figure {
+.g-case-study-teaser[data-surface="accent"] .g-case-study-teaser__figure {
   color: currentColor;
 }
 
-.g-case-study-teaser.accent .g-case-study-teaser__lead,
-.g-case-study-teaser.accent .g-case-study-teaser__unit,
-.g-case-study-teaser.accent .astryx-eyebrow,
-.g-case-study-teaser.accent .astryx-text[data-type="supporting"] {
+.g-case-study-teaser[data-surface="accent"] .g-case-study-teaser__lead,
+.g-case-study-teaser[data-surface="accent"] .g-case-study-teaser__unit,
+.g-case-study-teaser[data-surface="accent"] .astryx-eyebrow,
+.g-case-study-teaser[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

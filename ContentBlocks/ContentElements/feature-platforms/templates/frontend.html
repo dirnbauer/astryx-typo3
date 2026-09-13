@@ -29,22 +29,22 @@
         <a:layout.grid cols="{data.columns}" class="g-feature-platforms__platforms {f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.platforms}" as="platform">
                 <a:molecule.item align="start" interactive="{f:if(condition: platform.link.url, then: 'interactive', else: 'default')}" class="g-feature-platforms__platform">
-                    <f:if condition="{platform.icon}">
-                        <span class="astryx-item-start astryx-feature-icon" data-icon="{platform.icon}" aria-hidden="true"><g:icon name="{platform.icon}"/></span>
-                    </f:if>
+                    <f:fragment name="start"><f:if condition="{platform.icon}"><a:atom.featureIcon icon="{platform.icon}" /></f:if></f:fragment>
 
-                    <a:molecule.itemContent>
-                        <a:molecule.itemLabel class="g-feature-platforms__name">
-                            <f:if condition="{platform.link.url}">
-                                <f:then><f:link.typolink parameter="{platform.link}">{platform.title}</f:link.typolink></f:then>
-                                <f:else>{platform -> f:render.text(field: 'title')}</f:else>
+                    <f:fragment>
+                        <a:molecule.itemContent>
+                            <a:molecule.itemLabel class="g-feature-platforms__name">
+                                <f:if condition="{platform.link.url}">
+                                    <f:then><f:link.typolink parameter="{platform.link}">{platform.title}</f:link.typolink></f:then>
+                                    <f:else>{platform -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.itemLabel>
+
+                            <f:if condition="{platform.description}">
+                                <a:molecule.itemDescription>{platform -> f:render.text(field: 'description')}</a:molecule.itemDescription>
                             </f:if>
-                        </a:molecule.itemLabel>
-
-                        <f:if condition="{platform.description}">
-                            <a:molecule.itemDescription>{platform -> f:render.text(field: 'description')}</a:molecule.itemDescription>
-                        </f:if>
-                    </a:molecule.itemContent>
+                        </a:molecule.itemContent>
+                    </f:fragment>
                 </a:molecule.item>
             </f:for>
         </a:layout.grid>

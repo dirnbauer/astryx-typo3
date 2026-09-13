@@ -1,5 +1,13 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
+<f:comment>
+    What is left in this partial is the site configuration and nothing else:
+    which page the field posts to, what the brand is called, whether there is a
+    scheme toggle at all. The markup is SiteHeader's, and the two controls that
+    depend on a setting reach it through its slot — which is what lets the
+    component be rendered somewhere that has no site configuration to ask.
+</f:comment>
+
 <f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
 
 <f:variable name="wordmark" value="{site.configuration.settings.astryx.brand.wordmark}"/>
@@ -16,192 +24,40 @@
 <f:variable name="searchAction" value="{f:uri.page(pageUid: '{searchTarget ?: site.rootPageId}')}"/>
 <f:variable name="searchParam" value="{site.configuration.settings.astryx.search.queryParameter ?: 'q'}"/>
 
-<header class="astryx-header">
-    <a:layout.container class="astryx-header__inner">
+<a:organism.siteHeader
+    homeUrl="{f:uri.page(pageUid: site.rootPageId)}"
+    wordmark="{wordmark}"
+    menu="{mainMenu}"
+    navigationLabel="{f:translate(key: '{labels}:chrome.mainNavigation', default: 'Main navigation')}"
+    menuLabel="{f:translate(key: '{labels}:chrome.openMenu', default: 'Open menu')}"
+    skipLinkTarget="#main-content"
+    skipLinkLabel="{f:translate(key: '{labels}:chrome.skipToContent', default: 'Skip to main content')}"
+>
+    <f:comment>
+        The suggest endpoint is the tx_solr_suggest page type, and it is
+        resolved here rather than inside the component because which page type
+        carries it is this site's arrangement, not the search field's business.
+    </f:comment>
+    <f:if condition="{site.configuration.settings.astryx.search.enabled}">
+        <a:organism.searchForm
+            action="{searchAction}"
+            queryParameter="{searchParam}"
+            inputId="astryx-header-search"
+            label="{f:translate(key: '{labels}:search.label', default: 'Search this site')}"
+            placeholder="{f:translate(key: '{labels}:search.placeholder', default: 'Search this site')}"
+            submitLabel="{f:translate(key: '{labels}:search.submit', default: 'Search')}"
+            suggestUrl="{f:uri.page(pageType: 7384)}"
+            suggestHeading="{f:translate(key: '{labels}:search.suggest.topResults', default: 'Top results')}"
+            suggestEmpty="{f:translate(key: '{labels}:search.suggest.empty', default: 'No suggestions')}"
+            labelPages="{f:translate(key: '{labels}:search.type.pages', default: 'Page')}"
+            labelNews="{f:translate(key: '{labels}:search.type.news', default: 'News')}"
+            labelAddresses="{f:translate(key: '{labels}:search.type.addresses', default: 'Address')}"
+        />
+    </f:if>
 
-        <a href="{f:uri.page(pageUid: site.rootPageId)}" class="astryx-header__brand">
-            <f:comment>
-                The mark is drawn from currentColor so it takes the theme's
-                accent in every scheme without a second asset.
-            </f:comment>
-            <svg class="astryx-header__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-                <path d="M12 2 3 20h4l5-10 5 10h4L12 2Z" fill="currentColor"/>
-                <circle cx="12" cy="15" r="2.5" fill="currentColor" opacity=".45"/>
-            </svg>
-            <span class="astryx-header__wordmark">{wordmark}</span>
-        </a>
-
-        <nav class="astryx-header__nav" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
-            <ul class="astryx-nav__list">
-                <f:for each="{mainMenu}" as="item">
-                    <li class="astryx-nav__item">
-                        <a
-                            href="{item.link}"
-                            class="astryx-nav__link"
-                            target="{item.target}"
-                            aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
-                        >{item.title}</a>
-                        <f:if condition="{item.children}">
-                            <ul class="astryx-nav__sub">
-                                <f:for each="{item.children}" as="child">
-                                    <li>
-                                        <a href="{child.link}" class="astryx-nav__link" target="{child.target}">{child.title}</a>
-                                    </li>
-                                </f:for>
-                            </ul>
-                        </f:if>
-                    </li>
-                </f:for>
-            </ul>
-        </nav>
-
-        <div class="astryx-header__actions">
-            <f:if condition="{site.configuration.settings.astryx.search.enabled}">
-                <f:comment>
-                    A real form, not a button that reveals one: with the script
-                    absent the field is simply visible and submits to the results
-                    page. The loupe is the collapse control, and astryx.js is
-                    what turns "always visible" into "opens on click" — so the
-                    degraded state is a working search, never a dead icon.
-
-                    data-suggest carries the tx_solr_suggest endpoint (page type
-                    7384) and is the single attribute the dropdown binds to, the
-                    same one EXT:solr's own search form emits.
-                </f:comment>
-                <form
-                    class="astryx-search"
-                    role="search"
-                    method="get"
-                    action="{searchAction}"
-                    data-g-search
-                    data-g-suggest="1"
-                    data-suggest="{f:uri.page(pageType: 7384)}"
-                    data-g-suggest-min-chars="2"
-                    data-g-suggest-max-items="6"
-                    data-g-suggest-header="{f:translate(key: '{labels}:search.suggest.topResults', default: 'Top results')}"
-                    data-g-suggest-label-pages="{f:translate(key: '{labels}:search.type.pages', default: 'Page')}"
-                    data-g-suggest-label-news="{f:translate(key: '{labels}:search.type.news', default: 'News')}"
-                    data-g-suggest-label-addresses="{f:translate(key: '{labels}:search.type.addresses', default: 'Address')}"
-                    data-g-suggest-empty="{f:translate(key: '{labels}:search.suggest.empty', default: 'No suggestions')}"
-                >
-                    <f:comment>
-                        The dropdown is positioned against this wrapper rather
-                        than against the input group, so it never becomes a flex
-                        item of the group and never inherits the seam rules that
-                        weld the group's segments together.
-                    </f:comment>
-                    <div class="astryx-search__field" data-g-suggest-anchor>
-                        <a:molecule.inputGroup size="sm">
-                            <a:atom.visuallyHidden as="label" for="astryx-header-search">
-                                <f:translate key="{labels}:search.label" default="Search this site"/>
-                            </a:atom.visuallyHidden>
-                            <input
-                                id="astryx-header-search"
-                                class="astryx-text-input sm astryx-search__input"
-                                type="search"
-                                name="{searchParam}"
-                                placeholder="{f:translate(key: '{labels}:search.placeholder', default: 'Search this site')}"
-                                autocomplete="off"
-                                data-g-suggest-input
-                            />
-                            <a:atom.button variant="ghost" size="sm" class="astryx-icon-button astryx-search__submit" type="submit">
-                                <a:atom.visuallyHidden as="span"><f:translate key="{labels}:search.submit" default="Search"/></a:atom.visuallyHidden>
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                                    <circle cx="11" cy="11" r="7"/>
-                                    <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
-                                </svg>
-                            </a:atom.button>
-                        </a:molecule.inputGroup>
-                    </div>
-
-                    <f:comment>
-                        Last in the row on purpose. Collapsed, this is the only
-                        thing visible, so it has to sit where the loupe belongs —
-                        the end of the header. Open, it turns into the ✕ that
-                        closes the field it follows, rather than a stray control
-                        floating to the left of it.
-                    </f:comment>
-                    <button
-                        type="button"
-                        class="astryx-search__trigger"
-                        data-g-search-toggle
-                        aria-expanded="false"
-                        aria-controls="astryx-header-search"
-                        aria-label="{f:translate(key: '{labels}:search.label', default: 'Search this site')}"
-                    >
-                        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                            <circle cx="11" cy="11" r="7"/>
-                            <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
-                        </svg>
-                        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                            <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                </form>
-            </f:if>
-
-            <f:if condition="{site.configuration.settings.astryx.theme.schemeToggle}">
-                <button
-                    type="button"
-                    class="astryx-scheme-toggle"
-                    data-g-scheme-toggle
-                    aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.toggleScheme', default: 'Switch between light and dark')}"
-                >
-                    <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                        <circle cx="12" cy="12" r="4"/>
-                        <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/>
-                    </svg>
-                    <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </f:if>
-
-            <f:comment>
-                A native disclosure, so the menu opens, closes and traps the
-                Escape key without any script. astryx.js only adds the
-                click-outside and resize behaviours the platform lacks.
-            </f:comment>
-            <details class="astryx-menu" data-g-menu>
-                <summary
-                    class="astryx-menu__toggle"
-                    aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.openMenu', default: 'Open menu')}"
-                >
-                    <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
-                    </svg>
-                    <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
-                        <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
-                    </svg>
-                </summary>
-
-                <div class="astryx-menu__panel">
-                    <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
-                        <ul class="astryx-nav__list">
-                            <f:for each="{mainMenu}" as="item">
-                                <li class="astryx-nav__item">
-                                    <a
-                                        href="{item.link}"
-                                        class="astryx-nav__link"
-                                        target="{item.target}"
-                                        aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
-                                    >{item.title}</a>
-                                    <f:if condition="{item.children}">
-                                        <ul class="astryx-nav__sub">
-                                            <f:for each="{item.children}" as="child">
-                                                <li><a href="{child.link}" class="astryx-nav__link">{child.title}</a></li>
-                                            </f:for>
-                                        </ul>
-                                    </f:if>
-                                </li>
-                            </f:for>
-                        </ul>
-                    </nav>
-                </div>
-            </details>
-        </div>
-
-    </a:layout.container>
-</header>
+    <f:if condition="{site.configuration.settings.astryx.theme.schemeToggle}">
+        <a:organism.themeSwitcher ariaLabel="{f:translate(key: '{labels}:chrome.toggleScheme', default: 'Switch between light and dark')}"/>
+    </f:if>
+</a:organism.siteHeader>
 
 </html>

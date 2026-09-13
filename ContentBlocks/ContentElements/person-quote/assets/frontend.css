@@ -52,9 +52,9 @@
   margin: 0;
 }
 
-.g-person-quote.accent .g-person-quote__framing,
-.g-person-quote.accent .g-person-quote__name,
-.g-person-quote.accent .g-person-quote__credit {
+.g-person-quote[data-surface="accent"] .g-person-quote__framing,
+.g-person-quote[data-surface="accent"] .g-person-quote__name,
+.g-person-quote[data-surface="accent"] .g-person-quote__credit {
   color: currentColor;
 }
 

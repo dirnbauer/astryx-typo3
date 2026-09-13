@@ -70,8 +70,8 @@
   color: var(--color-icon-secondary);
 }
 
-.g-menu-featured.accent .astryx-eyebrow,
-.g-menu-featured.accent .astryx-item-description {
+.g-menu-featured[data-surface="accent"] .astryx-eyebrow,
+.g-menu-featured[data-surface="accent"] .astryx-item-description {
   color: currentColor;
   opacity: 0.85;
 }

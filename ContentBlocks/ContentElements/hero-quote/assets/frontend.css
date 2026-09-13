@@ -78,9 +78,9 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.g-hero-quote.accent .g-hero-quote__header,
-.g-hero-quote.accent .g-hero-quote__role,
-.g-hero-quote.accent .astryx-eyebrow {
+.g-hero-quote[data-surface="accent"] .g-hero-quote__header,
+.g-hero-quote[data-surface="accent"] .g-hero-quote__role,
+.g-hero-quote[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

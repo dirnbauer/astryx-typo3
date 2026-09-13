@@ -99,8 +99,8 @@
   opacity: 0.4;
 }
 
-.g-testimonial-carousel.accent .g-testimonial-carousel__lead,
-.g-testimonial-carousel.accent .astryx-eyebrow {
+.g-testimonial-carousel[data-surface="accent"] .g-testimonial-carousel__lead,
+.g-testimonial-carousel[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

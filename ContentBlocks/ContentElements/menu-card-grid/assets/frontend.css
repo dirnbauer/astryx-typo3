@@ -41,8 +41,8 @@
   text-decoration: none;
 }
 
-.g-menu-card-grid.accent .g-menu-card-grid__lead,
-.g-menu-card-grid.accent .astryx-eyebrow {
+.g-menu-card-grid[data-surface="accent"] .g-menu-card-grid__lead,
+.g-menu-card-grid[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

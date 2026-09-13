@@ -22,7 +22,7 @@
         <f:if condition="{data.routes}">
             <a:layout.grid fixed="{data.columns}" class="g-hero-portal__routes">
                 <f:for each="{data.routes}" as="route">
-                    <a:molecule.card class="astryx-clickable-card g-hero-portal__card">
+                    <a:molecule.card clickable="{true}" class="g-hero-portal__card">
                         <f:comment>
                             The whole card is the target, so the title is a plain
                             heading and the single link inside it spreads over the

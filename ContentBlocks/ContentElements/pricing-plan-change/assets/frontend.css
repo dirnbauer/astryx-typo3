@@ -34,9 +34,9 @@
   margin-block-start: var(--spacing-8);
 }
 
-.g-pricing-plan-change.accent .g-pricing-plan-change__scope,
-.g-pricing-plan-change.accent .g-pricing-plan-change__lead,
-.g-pricing-plan-change.accent .astryx-text[data-type="supporting"] {
+.g-pricing-plan-change[data-surface="accent"] .g-pricing-plan-change__scope,
+.g-pricing-plan-change[data-surface="accent"] .g-pricing-plan-change__lead,
+.g-pricing-plan-change[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

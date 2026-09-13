@@ -67,9 +67,9 @@
   max-inline-size: 60ch;
 }
 
-.g-review-score-row.accent .g-review-score-row__lead,
-.g-review-score-row.accent .astryx-eyebrow,
-.g-review-score-row.accent .astryx-text[data-type="supporting"] {
+.g-review-score-row[data-surface="accent"] .g-review-score-row__lead,
+.g-review-score-row[data-surface="accent"] .astryx-eyebrow,
+.g-review-score-row[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

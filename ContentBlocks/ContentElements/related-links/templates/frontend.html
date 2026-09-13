@@ -32,7 +32,7 @@
         <nav class="g-related-links__nav" aria-label="{navLabel}">
             <a:layout.grid cols="{data.columns}" class="g-related-links__items">
                 <f:for each="{data.links}" as="link">
-                    <a:molecule.card variant="flat" class="astryx-clickable-card g-related-links__item">
+                    <a:molecule.card clickable="{true}" variant="flat" class="g-related-links__item">
                         <a:molecule.cardTitle class="g-related-links__title">
                             <f:if condition="{link.link.url}">
                                 <f:then><f:link.typolink parameter="{link.link}">{link.title}</f:link.typolink></f:then>

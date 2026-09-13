@@ -32,27 +32,25 @@
             </f:if>
         </div>
 
-        <div class="astryx-table-wrap g-pricing-seat-bands__wrap">
-            <a:molecule.table density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-seat-bands__table">
-                <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
-                <thead>
+        <a:molecule.table scroll="{true}" scrollClass="g-pricing-seat-bands__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-seat-bands__table">
+            <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
+            <thead>
+                <tr>
+                    <th scope="col" class="g-pricing-seat-bands__col-band"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.band" default="Seats"/></th>
+                    <th scope="col" class="g-pricing-seat-bands__col-rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.rate" default="Price per seat"/></th>
+                    <th scope="col" class="g-pricing-seat-bands__col-note"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.note" default="Note"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{data.bands}" as="band">
                     <tr>
-                        <th scope="col" class="g-pricing-seat-bands__col-band"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.band" default="Seats"/></th>
-                        <th scope="col" class="g-pricing-seat-bands__col-rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.rate" default="Price per seat"/></th>
-                        <th scope="col" class="g-pricing-seat-bands__col-note"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.note" default="Note"/></th>
+                        <th scope="row" class="g-pricing-seat-bands__band">{band -> f:render.text(field: 'title')}</th>
+                        <td class="g-pricing-seat-bands__rate">{band -> f:render.text(field: 'value')}</td>
+                        <td class="g-pricing-seat-bands__band-note">{band -> f:render.text(field: 'text')}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <f:for each="{data.bands}" as="band">
-                        <tr>
-                            <th scope="row" class="g-pricing-seat-bands__band">{band -> f:render.text(field: 'title')}</th>
-                            <td class="g-pricing-seat-bands__rate">{band -> f:render.text(field: 'value')}</td>
-                            <td class="g-pricing-seat-bands__band-note">{band -> f:render.text(field: 'text')}</td>
-                        </tr>
-                    </f:for>
-                </tbody>
-            </a:molecule.table>
-        </div>
+                </f:for>
+            </tbody>
+        </a:molecule.table>
 
         <f:if condition="{data.note} || {data.cta_label}">
             <div class="g-pricing-seat-bands__foot">

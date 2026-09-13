@@ -45,7 +45,7 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-person-profile.accent .g-person-profile__role {
+.g-person-profile[data-surface="accent"] .g-person-profile__role {
   color: currentColor;
   opacity: 0.85;
 }

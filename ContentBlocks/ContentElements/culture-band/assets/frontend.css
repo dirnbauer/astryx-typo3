@@ -58,7 +58,7 @@
   aspect-ratio: 16 / 9;
 }
 
-.g-culture-band.accent .g-culture-band__lead {
+.g-culture-band[data-surface="accent"] .g-culture-band__lead {
   color: currentColor;
   opacity: 0.85;
 }

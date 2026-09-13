@@ -18,12 +18,12 @@
         <a:molecule.banner class="g-footer-accessibility-note__box" ariaLabelledby="g-footer-accessibility-note-{data.uid}">
 
             <f:if condition="{data.icon}">
-                <span class="astryx-feature-icon g-footer-accessibility-note__icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
+                <a:atom.featureIcon icon="{data.icon}" class="g-footer-accessibility-note__icon" />
             </f:if>
 
-            <div class="astryx-banner-content">
+            <a:molecule.bannerContent>
                 <div class="g-footer-accessibility-note__head">
-                    <h2 class="astryx-banner-title g-footer-accessibility-note__title" id="g-footer-accessibility-note-{data.uid}">{data -> f:render.text(field: 'header')}</h2>
+                    <a:molecule.bannerTitle level="2" id="g-footer-accessibility-note-{data.uid}" class="g-footer-accessibility-note__title">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
 
                     <f:if condition="{data.badge_text}">
                         <a:atom.badge variant="outline" as="span" class="g-footer-accessibility-note__level">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
@@ -31,7 +31,7 @@
                 </div>
 
                 <f:if condition="{data.text}">
-                    <p class="astryx-banner-body g-footer-accessibility-note__body">{data -> f:render.text(field: 'text')}</p>
+                    <a:molecule.bannerBody class="g-footer-accessibility-note__body">{data -> f:render.text(field: 'text')}</a:molecule.bannerBody>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
@@ -48,7 +48,7 @@
                 <f:if condition="{data.note}">
                     <a:atom.text type="supporting" class="g-footer-accessibility-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:molecule.bannerContent>
 
         </a:molecule.banner>
     </a:layout.container>

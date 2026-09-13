@@ -48,8 +48,8 @@
   flex: 0 0 auto;
 }
 
-.g-feature-demo.accent .astryx-eyebrow,
-.g-feature-demo.accent .astryx-text[data-type="supporting"] {
+.g-feature-demo[data-surface="accent"] .astryx-eyebrow,
+.g-feature-demo[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

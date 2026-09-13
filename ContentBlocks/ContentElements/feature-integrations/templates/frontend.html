@@ -29,7 +29,7 @@
         <a:layout.grid cols="{data.columns}" class="g-feature-integrations__logos {f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.logos}" as="logo">
                 <li class="g-feature-integrations__cell">
-                    <a:molecule.card variant="flat" class="g-feature-integrations__tile {f:if(condition: logo.link.url, then: 'astryx-clickable-card')}">
+                    <a:molecule.card clickable="{logo.link.url}" variant="flat" class="g-feature-integrations__tile">
                         <f:for each="{logo.image}" as="image">
                             <f:image image="{image}" alt="{image.alternative}" width="200" loading="lazy" class="g-feature-integrations__mark"/>
                         </f:for>

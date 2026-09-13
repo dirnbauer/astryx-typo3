@@ -64,7 +64,7 @@
                 <f:for each="{data.benefits}" as="benefit">
                     <a:molecule.feature class="g-conversion-partner-enquiry__benefit">
                         <f:if condition="{benefit.icon}">
-                            <span class="astryx-feature-icon" data-icon="{benefit.icon}" aria-hidden="true"><g:icon name="{benefit.icon}"/></span>
+                            <a:atom.featureIcon icon="{benefit.icon}" />
                         </f:if>
                         <a:molecule.cardTitle>{benefit -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                         <f:if condition="{benefit.text}">

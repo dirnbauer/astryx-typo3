@@ -67,9 +67,9 @@
   max-inline-size: 40rem;
 }
 
-.g-conversion-community-join.accent .g-conversion-community-join__lead,
-.g-conversion-community-join.accent .g-conversion-community-join__note,
-.g-conversion-community-join.accent .astryx-eyebrow {
+.g-conversion-community-join[data-surface="accent"] .g-conversion-community-join__lead,
+.g-conversion-community-join[data-surface="accent"] .g-conversion-community-join__note,
+.g-conversion-community-join[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

@@ -1,76 +1,28 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
+<f:comment>
+    The wordmark falls back to the site title, because a site that never set
+    one still has a name and a nameless footer is worse than a repeated one.
+    Everything else is handed straight to SiteFooter: the two menus come from
+    data processors, the rest from site settings.
+</f:comment>
+
+<f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
+
 <f:variable name="wordmark" value="{site.configuration.settings.astryx.brand.wordmark}"/>
 <f:if condition="!{wordmark}">
     <f:variable name="wordmark" value="{site.configuration.websiteTitle}"/>
 </f:if>
 
-<footer class="astryx-footer">
-    <a:layout.container>
-
-        <div class="astryx-footer__top">
-            <div class="astryx-footer__brand">
-                <a href="{f:uri.page(pageUid: site.rootPageId)}" class="astryx-footer__wordmark">
-                    <svg class="astryx-footer__mark" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
-                        <path d="M12 2 3 20h4l5-10 5 10h4L12 2Z" fill="currentColor"/>
-                        <circle cx="12" cy="15" r="2.5" fill="currentColor" opacity=".45"/>
-                    </svg>
-                    <span>{wordmark}</span>
-                </a>
-                <f:if condition="{site.configuration.settings.astryx.brand.tagline}">
-                    <p class="astryx-footer__tagline">{site.configuration.settings.astryx.brand.tagline}</p>
-                </f:if>
-            </div>
-
-            <f:if condition="{languageNavigation}">
-                <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.languageNavigation', default: 'Language')}">
-                    <ul class="astryx-footer__list">
-                        <f:for each="{languageNavigation}" as="language">
-                            <f:if condition="{language.available}">
-                                <li>
-                                    <f:if condition="{language.active}">
-                                        <f:then>
-                                            <span class="astryx-language__current" lang="{language.twoLetterIsoCode}">{language.navigationTitle}</span>
-                                        </f:then>
-                                        <f:else>
-                                            <a href="{language.link}" class="astryx-footer__link" lang="{language.twoLetterIsoCode}" hreflang="{language.hreflang}">{language.navigationTitle}</a>
-                                        </f:else>
-                                    </f:if>
-                                </li>
-                            </f:if>
-                        </f:for>
-                    </ul>
-                </nav>
-            </f:if>
-        </div>
-
-        <div class="astryx-footer__bottom">
-            <p class="astryx-footer__copyright">
-                &copy; <f:format.date format="Y">now</f:format.date>
-                <f:if condition="{site.configuration.settings.astryx.footer.copyrightText}">
-                    <f:then>{site.configuration.settings.astryx.footer.copyrightText}</f:then>
-                    <f:else>{wordmark}</f:else>
-                </f:if>
-            </p>
-
-            <f:if condition="{legalMenu}">
-                <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.legalNavigation', default: 'Legal')}">
-                    <ul class="astryx-footer__list">
-                        <f:for each="{legalMenu}" as="item">
-                            <li>
-                                <a
-                                    href="{item.link}"
-                                    class="astryx-footer__link"
-                                    aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
-                                >{item.title}</a>
-                            </li>
-                        </f:for>
-                    </ul>
-                </nav>
-            </f:if>
-        </div>
-
-    </a:layout.container>
-</footer>
+<a:organism.siteFooter
+    homeUrl="{f:uri.page(pageUid: site.rootPageId)}"
+    wordmark="{wordmark}"
+    tagline="{site.configuration.settings.astryx.brand.tagline}"
+    copyrightText="{site.configuration.settings.astryx.footer.copyrightText}"
+    languages="{languageNavigation}"
+    languageLabel="{f:translate(key: '{labels}:chrome.languageNavigation', default: 'Language')}"
+    legalMenu="{legalMenu}"
+    legalLabel="{f:translate(key: '{labels}:chrome.legalNavigation', default: 'Legal')}"
+/>
 
 </html>

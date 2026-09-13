@@ -23,7 +23,7 @@
                  aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.pageMoves', default: 'Previous and next page')}">
 
                 <f:if condition="{data.secondary_label}">
-                    <a:molecule.card class="astryx-clickable-card g-prev-next__half previous">
+                    <a:molecule.card clickable="{true}" class="g-prev-next__half previous">
                         <a:atom.text type="supporting" class="g-prev-next__direction">
                             <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>
                         </a:atom.text>
@@ -34,7 +34,7 @@
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <a:molecule.card class="astryx-clickable-card g-prev-next__half next">
+                    <a:molecule.card clickable="{true}" class="g-prev-next__half next">
                         <a:atom.text type="supporting" class="g-prev-next__direction">
                             <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>
                         </a:atom.text>

@@ -55,11 +55,11 @@
   text-align: center;
 }
 
-.g-conversion-trial-signup.accent .g-conversion-trial-signup__lead,
-.g-conversion-trial-signup.accent .g-conversion-trial-signup__note,
-.g-conversion-trial-signup.accent .g-conversion-trial-signup__secondary,
-.g-conversion-trial-signup.accent .astryx-card-body,
-.g-conversion-trial-signup.accent .astryx-eyebrow {
+.g-conversion-trial-signup[data-surface="accent"] .g-conversion-trial-signup__lead,
+.g-conversion-trial-signup[data-surface="accent"] .g-conversion-trial-signup__note,
+.g-conversion-trial-signup[data-surface="accent"] .g-conversion-trial-signup__secondary,
+.g-conversion-trial-signup[data-surface="accent"] .astryx-card-body,
+.g-conversion-trial-signup[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

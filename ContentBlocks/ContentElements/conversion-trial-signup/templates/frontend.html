@@ -54,7 +54,7 @@
                 <f:for each="{data.reassurances}" as="reassurance">
                     <a:molecule.feature class="g-conversion-trial-signup__reassurance">
                         <f:if condition="{reassurance.icon}">
-                            <span class="astryx-feature-icon" data-icon="{reassurance.icon}" aria-hidden="true"><g:icon name="{reassurance.icon}"/></span>
+                            <a:atom.featureIcon icon="{reassurance.icon}" />
                         </f:if>
                         <a:molecule.cardTitle>{reassurance -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                         <f:if condition="{reassurance.text}">

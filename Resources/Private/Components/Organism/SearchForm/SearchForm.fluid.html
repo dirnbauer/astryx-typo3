@@ -68,18 +68,18 @@
                 size="{size}"
                 suggestInput="{true}" />
             <f:comment>
-                Both button classes, as in 1.x: the icon recipe draws the square
-                and the loupe inside it, and `astryx-button` is what the search
-                stylesheet's `.astryx-search .astryx-input-group > .astryx-button`
-                rule needs to stop the group stretching this to half the field.
+                An IconButton and not a Button carrying the icon class beside
+                it. Until 2.0 the two were written together and the square
+                inherited its shape from the button; the icon recipe says all of
+                it on its own now, which is also why the search stylesheet stops
+                the group stretching this one by its own class.
             </f:comment>
-            <a:atom.button variant="ghost" size="{size}" type="submit" class="astryx-icon-button astryx-search__submit">
-                <a:atom.visuallyHidden as="span">{submitLabel}</a:atom.visuallyHidden>
+            <a:atom.iconButton variant="ghost" size="{size}" type="submit" class="astryx-search__submit" ariaLabel="{submitLabel}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                     <circle cx="11" cy="11" r="7"/>
                     <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
                 </svg>
-            </a:atom.button>
+            </a:atom.iconButton>
         </a:molecule.inputGroup>
     </div>
 

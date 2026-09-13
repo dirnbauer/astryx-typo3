@@ -85,9 +85,9 @@
   opacity: 1;
 }
 
-.g-logo-cloud.accent .g-logo-cloud__lead,
-.g-logo-cloud.accent .g-logo-cloud__wordmark,
-.g-logo-cloud.accent .astryx-eyebrow {
+.g-logo-cloud[data-surface="accent"] .g-logo-cloud__lead,
+.g-logo-cloud[data-surface="accent"] .g-logo-cloud__wordmark,
+.g-logo-cloud[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

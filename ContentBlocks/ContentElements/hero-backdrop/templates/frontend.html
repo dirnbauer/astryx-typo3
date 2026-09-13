@@ -6,17 +6,21 @@
 <f:asset.css identifier="g-hero-backdrop" href="{cb:assetPath()}/frontend.css"/>
 
 <a:layout.section spacing="flush" surface="{data.tone}" variant="{data.variant}" class="g-hero-backdrop">
-    <a:molecule.overlay class="g-hero-backdrop__frame">
-        <f:for each="{data.image}" as="image">
-            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="eager" class="g-hero-backdrop__image"/>
-        </f:for>
+    <f:comment>
+        The scrim is what makes the type legible, so its strength follows the
+        tone rather than the photograph: an editor picks a mood, not an
+        opacity, and never has to darken the file before uploading it. It is
+        Overlay's own region now, which is what keeps the scrim's classes and
+        the overlay's attributes saying the same thing.
+    </f:comment>
+    <a:molecule.overlay class="g-hero-backdrop__frame" scrimClass="g-hero-backdrop__scrim">
+        <f:fragment>
+            <f:for each="{data.image}" as="image">
+                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="eager" class="g-hero-backdrop__image"/>
+            </f:for>
+        </f:fragment>
 
-        <f:comment>
-            The scrim is what makes the type legible, so its strength follows the
-            tone rather than the photograph: an editor picks a mood, not an
-            opacity, and never has to darken the file before uploading it.
-        </f:comment>
-        <div class="astryx-overlay-scrim fill dark always g-hero-backdrop__scrim">
+        <f:fragment name="scrim">
             <a:layout.container size="{data.width}" align="{data.align}" class="g-hero-backdrop__copy">
                 <f:if condition="{data.eyebrow}">
                     <a:atom.eyebrow class="g-hero-backdrop__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
@@ -39,7 +43,7 @@
                     </a:molecule.buttonGroup>
                 </f:if>
             </a:layout.container>
-        </div>
+        </f:fragment>
     </a:molecule.overlay>
 </a:layout.section>
 

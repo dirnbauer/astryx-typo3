@@ -84,16 +84,16 @@
   opacity: 0.75;
 }
 
-.g-conversion-cta-proof.accent .g-conversion-cta-proof__lead,
-.g-conversion-cta-proof.accent .g-conversion-cta-proof__note,
-.g-conversion-cta-proof.accent .g-conversion-cta-proof__wordmark,
-.g-conversion-cta-proof.accent .g-conversion-cta-proof__secondary,
-.g-conversion-cta-proof.accent .astryx-eyebrow {
+.g-conversion-cta-proof[data-surface="accent"] .g-conversion-cta-proof__lead,
+.g-conversion-cta-proof[data-surface="accent"] .g-conversion-cta-proof__note,
+.g-conversion-cta-proof[data-surface="accent"] .g-conversion-cta-proof__wordmark,
+.g-conversion-cta-proof[data-surface="accent"] .g-conversion-cta-proof__secondary,
+.g-conversion-cta-proof[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-cta-proof.accent .g-conversion-cta-proof__rule {
+.g-conversion-cta-proof[data-surface="accent"] .g-conversion-cta-proof__rule {
   background-color: currentColor;
   opacity: 0.3;
 }

@@ -27,20 +27,26 @@
                 A GET form pointed at the results page: the query arrives as "q"
                 on a full page load, so search works before any script does.
             </f:comment>
-            <form class="astryx-field g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
-                <a:atom.visuallyHidden as="label" for="g-hero-docs-q-{data.uid}">
-                    <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
-                </a:atom.visuallyHidden>
-                <a:molecule.inputGroup size="lg">
-                    <input class="astryx-text-input lg" type="search" name="q" id="g-hero-docs-q-{data.uid}"
-                           placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchPlaceholder', default: 'Search the documentation')}"/>
-                    <a:atom.button variant="primary" size="lg" class="g-hero-docs__submit" type="submit">
-                        <f:if condition="{data.cta_label}">
-                            <f:then>{data.cta_label}</f:then>
-                            <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
-                        </f:if>
-                    </a:atom.button>
-                </a:molecule.inputGroup>
+            <form class="g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+                <a:molecule.field>
+                    <a:atom.visuallyHidden as="label" for="g-hero-docs-q-{data.uid}">
+                        <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
+                    </a:atom.visuallyHidden>
+                    <a:molecule.inputGroup size="lg">
+                        <a:molecule.textInput
+                            size="lg"
+                            type="search"
+                            name="q"
+                            id="g-hero-docs-q-{data.uid}"
+                            placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchPlaceholder', default: 'Search the documentation')}" />
+                        <a:atom.button variant="primary" size="lg" class="g-hero-docs__submit" type="submit">
+                            <f:if condition="{data.cta_label}">
+                                <f:then>{data.cta_label}</f:then>
+                                <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
+                            </f:if>
+                        </a:atom.button>
+                    </a:molecule.inputGroup>
+                </a:molecule.field>
             </form>
         </div>
 

@@ -28,8 +28,8 @@
   inline-size: 100%;
 }
 
-.g-outline-rail.accent .g-outline-rail__title,
-.g-outline-rail.accent .g-outline-rail__link {
+.g-outline-rail[data-surface="accent"] .g-outline-rail__title,
+.g-outline-rail[data-surface="accent"] .g-outline-rail__link {
   color: currentColor;
 }
 

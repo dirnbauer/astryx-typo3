@@ -64,11 +64,11 @@
   line-height: var(--text-heading-5-leading);
 }
 
-.g-chapter-list.accent .g-chapter-list__lead,
-.g-chapter-list.accent .astryx-eyebrow,
-.g-chapter-list.accent .astryx-text[data-type="supporting"],
-.g-chapter-list.accent .g-chapter-list__title,
-.g-chapter-list.accent .g-chapter-list__chapter::before {
+.g-chapter-list[data-surface="accent"] .g-chapter-list__lead,
+.g-chapter-list[data-surface="accent"] .astryx-eyebrow,
+.g-chapter-list[data-surface="accent"] .astryx-text[data-type="supporting"],
+.g-chapter-list[data-surface="accent"] .g-chapter-list__title,
+.g-chapter-list[data-surface="accent"] .g-chapter-list__chapter::before {
   color: currentColor;
 }
 

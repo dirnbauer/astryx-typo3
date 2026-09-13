@@ -69,15 +69,15 @@
   filter: drop-shadow(var(--shadow-med));
 }
 
-.g-hero-app.accent .g-hero-app__lead,
-.g-hero-app.accent .g-hero-app__note,
-.g-hero-app.accent .astryx-eyebrow,
-.g-hero-app.accent .astryx-item-description {
+.g-hero-app[data-surface="accent"] .g-hero-app__lead,
+.g-hero-app[data-surface="accent"] .g-hero-app__note,
+.g-hero-app[data-surface="accent"] .astryx-eyebrow,
+.g-hero-app[data-surface="accent"] .astryx-item-description {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-hero-app.accent .g-hero-app__store {
+.g-hero-app[data-surface="accent"] .g-hero-app__store {
   border-color: currentColor;
 }
 

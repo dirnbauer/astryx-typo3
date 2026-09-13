@@ -44,12 +44,12 @@
   padding-block: var(--spacing-1);
 }
 
-.g-link-grid.accent .g-link-grid__lead {
+.g-link-grid[data-surface="accent"] .g-link-grid__lead {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-link-grid.accent .g-link-grid__link {
+.g-link-grid[data-surface="accent"] .g-link-grid__link {
   color: currentColor;
 }
 

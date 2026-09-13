@@ -1,28 +1,15 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
 
 <f:comment>
-    The last item is the current page: rendered as text, not a link, and
-    marked aria-current so assistive technology announces the position
-    instead of offering a link to where the reader already is.
+    The rootline arrives as `breadcrumb` from the page layout's data processor.
+    Whether there is a trail at all, and whether it is long enough to be worth
+    showing, is decided in the layout; all this does is name the landmark and
+    hand the array over.
 </f:comment>
 
-<nav class="astryx-breadcrumb" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.breadcrumb', default: 'Breadcrumb')}">
-    <a:layout.container>
-        <ol class="astryx-breadcrumb__list">
-            <f:for each="{breadcrumb}" as="item" iteration="i">
-                <li class="astryx-breadcrumb__item">
-                    <f:if condition="{i.isLast}">
-                        <f:then>
-                            <span class="astryx-breadcrumb__current" aria-current="page">{item.title}</span>
-                        </f:then>
-                        <f:else>
-                            <a href="{item.link}" class="astryx-breadcrumb__link">{item.title}</a>
-                        </f:else>
-                    </f:if>
-                </li>
-            </f:for>
-        </ol>
-    </a:layout.container>
-</nav>
+<a:organism.breadcrumb
+    items="{breadcrumb}"
+    ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.breadcrumb', default: 'Breadcrumb')}"
+/>
 
 </html>

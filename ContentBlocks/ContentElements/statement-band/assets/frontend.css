@@ -30,7 +30,7 @@
 
 /* On an accent band the supporting line would otherwise reach for a secondary
    text colour that is tuned for the page background. */
-.g-statement-band.accent .g-statement-band__support {
+.g-statement-band[data-surface="accent"] .g-statement-band__support {
   color: currentColor;
   opacity: 0.85;
 }

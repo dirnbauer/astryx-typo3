@@ -85,8 +85,8 @@
   margin-block-start: var(--spacing-4);
 }
 
-.g-hero-video.accent .g-hero-video__lead,
-.g-hero-video.accent .astryx-eyebrow {
+.g-hero-video[data-surface="accent"] .g-hero-video__lead,
+.g-hero-video[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

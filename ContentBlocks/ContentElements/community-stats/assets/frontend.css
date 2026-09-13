@@ -83,15 +83,15 @@
   text-align: center;
 }
 
-.g-community-stats.accent .g-community-stats__number {
+.g-community-stats[data-surface="accent"] .g-community-stats__number {
   color: currentColor;
 }
 
-.g-community-stats.accent .g-community-stats__lead,
-.g-community-stats.accent .g-community-stats__label,
-.g-community-stats.accent .g-community-stats__unit,
-.g-community-stats.accent .astryx-eyebrow,
-.g-community-stats.accent .astryx-text[data-type="supporting"] {
+.g-community-stats[data-surface="accent"] .g-community-stats__lead,
+.g-community-stats[data-surface="accent"] .g-community-stats__label,
+.g-community-stats[data-surface="accent"] .g-community-stats__unit,
+.g-community-stats[data-surface="accent"] .astryx-eyebrow,
+.g-community-stats[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

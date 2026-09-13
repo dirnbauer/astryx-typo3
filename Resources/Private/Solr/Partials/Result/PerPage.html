@@ -20,30 +20,35 @@
         The select submits its form on change, which is the whole control — so
         the submit button is there for anyone whose JavaScript never arrives,
         and hidden from everyone else by the stylesheet.
-    </f:comment>
-    <f:comment>
-        Not .astryx-field.horizontal: that variant is display:contents, which
-        would dissolve the form's box and drop the label and the select straight
-        into the footer row beside the pagination.
+
+        `orientation="horizontal"` is the point of the Field here, not an
+        afterthought: that variant is display:contents, so the Field box
+        dissolves and the label and the select land straight in the form's flex
+        row, side by side, exactly as they did when the label was written by
+        hand. The select stays a bare `select` because a Field paints one for
+        free — `.astryx-field :where(select)` is the shell and the chevron — and
+        the theme has no Select component to reach for.
     </f:comment>
     <form id="results-per-page" method="post" action="{s:uri.search.currentSearch()}" class="g-search__per-page">
-        <label class="astryx-field-label" for="results-per-page-select">
-            <f:translate key="{labels}:search.perPage" default="Per page"/>
-        </label>
-
-        <select
-            id="results-per-page-select"
-            class="astryx-selector sm g-search__per-page-select"
-            name="{resultSet.usedSearchRequest.argumentNameSpace}[resultsPerPage]"
-            onchange="this.form.submit()"
+        <a:molecule.field
+            orientation="horizontal"
+            inputId="results-per-page-select"
+            label="{f:translate(key: '{labels}:search.perPage', default: 'Per page')}"
         >
-            <f:for each="{resultSet.usedSearchRequest.contextTypoScriptConfiguration.searchResultsPerPageSwitchOptionsAsArray}" as="perPage">
-                <f:if condition="{perPage} == {resultSet.usedResultsPerPage}">
-                    <f:then><option value="{perPage}" selected="selected">{perPage}</option></f:then>
-                    <f:else><option value="{perPage}">{perPage}</option></f:else>
-                </f:if>
-            </f:for>
-        </select>
+            <select
+                id="results-per-page-select"
+                class="g-search__per-page-select"
+                name="{resultSet.usedSearchRequest.argumentNameSpace}[resultsPerPage]"
+                onchange="this.form.submit()"
+            >
+                <f:for each="{resultSet.usedSearchRequest.contextTypoScriptConfiguration.searchResultsPerPageSwitchOptionsAsArray}" as="perPage">
+                    <f:if condition="{perPage} == {resultSet.usedResultsPerPage}">
+                        <f:then><option value="{perPage}" selected="selected">{perPage}</option></f:then>
+                        <f:else><option value="{perPage}">{perPage}</option></f:else>
+                    </f:if>
+                </f:for>
+            </select>
+        </a:molecule.field>
 
         <noscript>
             <a:atom.button variant="secondary" size="sm" type="submit"><f:translate key="{labels}:search.perPageApply" default="Apply"/></a:atom.button>

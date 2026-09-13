@@ -81,9 +81,9 @@
   justify-content: center;
 }
 
-.g-footer-certifications.accent .g-footer-certifications__lead,
-.g-footer-certifications.accent .astryx-eyebrow,
-.g-footer-certifications.accent .astryx-text[data-type="supporting"] {
+.g-footer-certifications[data-surface="accent"] .g-footer-certifications__lead,
+.g-footer-certifications[data-surface="accent"] .astryx-eyebrow,
+.g-footer-certifications[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

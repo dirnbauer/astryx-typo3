@@ -57,13 +57,13 @@
   margin: 0;
 }
 
-.g-leader-letter.accent .g-leader-letter__sign-off {
+.g-leader-letter[data-surface="accent"] .g-leader-letter__sign-off {
   border-block-start-color: currentColor;
 }
 
-.g-leader-letter.accent .g-leader-letter__role,
-.g-leader-letter.accent .g-leader-letter__note,
-.g-leader-letter.accent .astryx-eyebrow {
+.g-leader-letter[data-surface="accent"] .g-leader-letter__role,
+.g-leader-letter[data-surface="accent"] .g-leader-letter__note,
+.g-leader-letter[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

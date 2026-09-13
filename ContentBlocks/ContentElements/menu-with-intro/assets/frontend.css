@@ -48,9 +48,9 @@
   color: var(--color-icon-secondary);
 }
 
-.g-menu-with-intro.accent .g-menu-with-intro__body,
-.g-menu-with-intro.accent .astryx-eyebrow,
-.g-menu-with-intro.accent .astryx-item-description {
+.g-menu-with-intro[data-surface="accent"] .g-menu-with-intro__body,
+.g-menu-with-intro[data-surface="accent"] .astryx-eyebrow,
+.g-menu-with-intro[data-surface="accent"] .astryx-item-description {
   color: currentColor;
   opacity: 0.85;
 }

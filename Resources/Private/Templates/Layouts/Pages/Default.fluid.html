@@ -9,10 +9,11 @@
 <vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Main.entry.css"/>
 <vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Components.entry.js"/>
 
-<a href="#main-content" class="astryx-skip-link">
-    <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.skipToContent">Skip to main content</f:translate>
-</a>
-
+<f:comment>
+    The header partial brings the skip link with it — it is the first thing
+    SiteHeader renders, ahead of the bar itself, because a link that skips the
+    navigation has to come before the navigation to be worth anything.
+</f:comment>
 <f:render partial="Pages/Header" arguments="{_all}"/>
 
 <main id="main-content" tabindex="-1">

@@ -4,10 +4,12 @@
     The page-level h1. Every content element heads its own band with an h2, so
     this is the single h1 on a content page and it always says what the page
     is — the title in the page tree, the title in the tab, the title on screen.
+
+    Three page templates render this partial rather than the organism directly,
+    because the title is read off the page record and none of them should have
+    to know that path.
 </f:comment>
 
-<a:layout.container class="astryx-page-header">
-    <h1 class="astryx-page-title">{page.pageRecord.title}</h1>
-</a:layout.container>
+<a:organism.pageHeader title="{page.pageRecord.title}"/>
 
 </html>

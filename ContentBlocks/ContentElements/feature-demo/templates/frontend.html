@@ -34,16 +34,14 @@
             </div>
 
             <figure class="g-feature-demo__media">
-                <a:molecule.overlay class="g-feature-demo__poster">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-demo__image"/>
-                    </f:for>
+                <a:molecule.overlay align="center" class="g-feature-demo__poster" scrimClass="g-feature-demo__scrim">
+                    <f:fragment>
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-demo__image"/>
+                        </f:for>
+                    </f:fragment>
 
-                    <f:if condition="{data.cta_label} && {data.cta_link}">
-                        <span class="astryx-overlay-scrim fill align-center always g-feature-demo__scrim">
-                            <button type="button" class="astryx-button primary lg g-feature-demo__play" data-g-dialog-open="g-feature-demo-{data.uid}">{data.cta_label}</button>
-                        </span>
-                    </f:if>
+                    <f:fragment name="scrim"><f:if condition="{data.cta_label} && {data.cta_link}"><a:atom.button variant="primary" size="lg" class="g-feature-demo__play" dialogOpen="g-feature-demo-{data.uid}">{data.cta_label}</a:atom.button></f:if></f:fragment>
                 </a:molecule.overlay>
 
                 <f:if condition="{data.caption}">
@@ -55,20 +53,18 @@
     </a:layout.container>
 
     <f:if condition="{data.cta_link.url}">
-        <a:molecule.dialog class="g-feature-demo__dialog" id="g-feature-demo-{data.uid}" ariaLabelledby="g-feature-demo-{data.uid}-title">
-            <div class="astryx-dialog-header">
-                <h3 class="astryx-dialog-title" id="g-feature-demo-{data.uid}-title">{data.header}</h3>
-
-                <a:atom.button variant="ghost" class="astryx-icon-button g-feature-demo__close" type="button" ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}">
-                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                </a:atom.button>
-            </div>
-
-            <div class="astryx-dialog-body">
+        <a:molecule.dialog
+            class="g-feature-demo__dialog"
+            id="g-feature-demo-{data.uid}"
+            title="{data.header}"
+            titleLevel="3"
+            closeLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}"
+            closeClass="g-feature-demo__close">
+            <f:fragment name="body">
                 <a:atom.aspectRatio class="g-feature-demo__frame">
                     <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </a:atom.aspectRatio>
-            </div>
+            </f:fragment>
         </a:molecule.dialog>
     </f:if>
 </a:layout.section>

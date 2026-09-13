@@ -73,9 +73,9 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-pricing-compare-matrix.accent .g-pricing-compare-matrix__lead,
-.g-pricing-compare-matrix.accent .g-pricing-compare-matrix__caption,
-.g-pricing-compare-matrix.accent .astryx-text[data-type="supporting"] {
+.g-pricing-compare-matrix[data-surface="accent"] .g-pricing-compare-matrix__lead,
+.g-pricing-compare-matrix[data-surface="accent"] .g-pricing-compare-matrix__caption,
+.g-pricing-compare-matrix[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

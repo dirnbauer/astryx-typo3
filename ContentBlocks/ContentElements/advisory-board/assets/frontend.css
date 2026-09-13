@@ -50,9 +50,9 @@
   max-inline-size: 44rem;
 }
 
-.g-advisory-board.accent .g-advisory-board__lead,
-.g-advisory-board.accent .g-advisory-board__note,
-.g-advisory-board.accent .astryx-eyebrow {
+.g-advisory-board[data-surface="accent"] .g-advisory-board__lead,
+.g-advisory-board[data-surface="accent"] .g-advisory-board__note,
+.g-advisory-board[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

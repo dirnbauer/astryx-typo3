@@ -42,9 +42,9 @@
   border-radius: var(--radius-inner);
 }
 
-.g-up-next.accent .g-up-next__text,
-.g-up-next.accent .g-up-next__cue,
-.g-up-next.accent .astryx-eyebrow {
+.g-up-next[data-surface="accent"] .g-up-next__text,
+.g-up-next[data-surface="accent"] .g-up-next__cue,
+.g-up-next[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

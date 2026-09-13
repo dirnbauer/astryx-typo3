@@ -64,12 +64,12 @@
   justify-content: center;
 }
 
-.g-footer-page-meta.accent .g-footer-page-meta__bar {
+.g-footer-page-meta[data-surface="accent"] .g-footer-page-meta__bar {
   border-block-start-color: currentColor;
 }
 
-.g-footer-page-meta.accent .astryx-text[data-type="supporting"],
-.g-footer-page-meta.accent .g-footer-page-meta__term {
+.g-footer-page-meta[data-surface="accent"] .astryx-text[data-type="supporting"],
+.g-footer-page-meta[data-surface="accent"] .g-footer-page-meta__term {
   color: currentColor;
   opacity: 0.85;
 }

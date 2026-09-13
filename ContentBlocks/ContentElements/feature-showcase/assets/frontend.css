@@ -48,13 +48,13 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-feature-showcase.accent .astryx-eyebrow,
-.g-feature-showcase.accent .astryx-text[data-type="supporting"] {
+.g-feature-showcase[data-surface="accent"] .astryx-eyebrow,
+.g-feature-showcase[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-feature-showcase.accent .astryx-prose :where(p, li) {
+.g-feature-showcase[data-surface="accent"] .astryx-prose :where(p, li) {
   color: currentColor;
 }
 

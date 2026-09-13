@@ -54,6 +54,9 @@ function pairs(scheme) {
     ['secondary text on card', '--color-text-secondary', '--color-background-card', 4.5],
     ['link text', '--color-text-accent', '--color-background-body', 4.5],
     ['link text on surface', '--color-text-accent', '--color-background-surface', 4.5],
+    // A link inside a card is ordinary: every teaser in the catalog has one.
+    ['link text on card', '--color-text-accent', '--color-background-card', 4.5],
+    ['link text on muted', '--color-text-accent', '--color-background-muted', 4.5],
     ['primary button label', '--color-on-accent', '--color-accent', 4.5],
     // A section with tone=accent redefines the text tokens to
     // --color-on-accent (00-primitives.css), so all of its copy — heading

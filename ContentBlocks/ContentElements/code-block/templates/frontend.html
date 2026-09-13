@@ -22,14 +22,14 @@
         </f:if>
 
         <a:molecule.codeBlock class="g-code-block__panel">
-            <f:if condition="{data.caption}">
-                <div class="astryx-codeblock-header">{data -> f:render.text(field: 'caption')}</div>
-            </f:if>
+            <f:fragment name="header"><f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if></f:fragment>
 
-            <f:editMode>
-                <f:then><pre class="g-code-block__pre"><code>{data -> f:render.text(field: 'text')}</code></pre></f:then>
-                <f:else><pre class="g-code-block__pre" tabindex="0"><code>{data.text -> f:format.htmlspecialchars()}</code></pre></f:else>
-            </f:editMode>
+            <f:fragment>
+                <f:editMode>
+                    <f:then><pre class="g-code-block__pre"><code>{data -> f:render.text(field: 'text')}</code></pre></f:then>
+                    <f:else><pre class="g-code-block__pre" tabindex="0"><code>{data.text -> f:format.htmlspecialchars()}</code></pre></f:else>
+                </f:editMode>
+            </f:fragment>
         </a:molecule.codeBlock>
 
         <f:if condition="{data.note}">

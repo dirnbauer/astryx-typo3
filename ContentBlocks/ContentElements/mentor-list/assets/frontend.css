@@ -67,9 +67,9 @@
   margin: 0;
 }
 
-.g-mentor-list.accent .g-mentor-list__lead,
-.g-mentor-list.accent .g-mentor-list__note,
-.g-mentor-list.accent .astryx-eyebrow {
+.g-mentor-list[data-surface="accent"] .g-mentor-list__lead,
+.g-mentor-list[data-surface="accent"] .g-mentor-list__note,
+.g-mentor-list[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

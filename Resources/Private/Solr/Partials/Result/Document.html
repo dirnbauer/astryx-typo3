@@ -21,59 +21,69 @@
     <f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
 
     <f:comment>
-        One result is an Astryx Item: label, description, trailing badge. The
-        title's link covers the whole row (see .g-search__result-title a::after),
-        so the row is clickable without a second link competing for focus —
-        exactly one tab stop per result.
+        One result is an Astryx Item, and it is the `li` of the results list
+        rather than an `article` inside one: Item renders the row itself, which
+        is what gives the list its dividers and the row its three regions.
+
+        The title's link covers the whole row (see .g-search__result-title
+        a::after), so the row is clickable without a second link competing for
+        focus — exactly one tab stop per result.
 
         d:searchSnippet crops around the match and wraps the hit in <mark>, so
         the visitor can see *why* a result is in the list.
     </f:comment>
-    <article
-        class="astryx-item align-start g-search__result{f:if(condition: document.isElevated, then: ' elevated')}"
-        data-document-score="{document.score}"
-        data-document-id="{document.id}"
+    <a:molecule.item
+        align="start"
+        class="g-search__result{f:if(condition: document.isElevated, then: ' elevated')}"
+        endClass="g-search__result-meta"
     >
-        <a:molecule.itemContent>
-            <a:molecule.itemLabel class="g-search__result-title">
-                <a href="{s:uri.result.addSearchWordList(url: document.url, searchWords: resultSet.usedQuery.query)}">
-                    <d:searchSnippet text="{document.title}" query="{resultSet.usedQuery.rawSearchTerm}" maxCharacters="140" highlightClass="g-search__mark"/>
-                </a>
-            </a:molecule.itemLabel>
+        <f:comment>
+            Wrapped in a fragment of its own, and it has to be: the moment a
+            component call contains one named fragment, Fluid stops collecting
+            the loose children as the default slot and they render as nothing.
+        </f:comment>
+        <f:fragment>
+            <a:molecule.itemContent>
+                <a:molecule.itemLabel class="g-search__result-title">
+                    <a href="{s:uri.result.addSearchWordList(url: document.url, searchWords: resultSet.usedQuery.query)}">
+                        <d:searchSnippet text="{document.title}" query="{resultSet.usedQuery.rawSearchTerm}" maxCharacters="140" highlightClass="g-search__mark"/>
+                    </a>
+                </a:molecule.itemLabel>
 
-            <f:if condition="{document.url}">
-                <p class="g-search__result-url">{document.url}</p>
-            </f:if>
-
-            <f:if condition="{document.content}">
-                <a:molecule.itemDescription class="g-search__result-snippet">
-                    <d:searchSnippet text="{document.content}" query="{resultSet.usedQuery.rawSearchTerm}" maxCharacters="220" highlightClass="g-search__mark"/>
-                </a:molecule.itemDescription>
-            </f:if>
-
-            <f:if condition="{document.type} == 'tx_solr_file'">
-                <div class="g-search__result-file">
-                    <a:atom.text type="supporting">{document.fileMimeType}</a:atom.text>
-                    <a:molecule.list density="compact">
-                        <f:if condition="{document.fileReferenceUrl}">
-                            <li><a:atom.link parameter="{document.fileReferenceUrl}">{document.fileReferenceTitle}</a:atom.link></li>
-                        </f:if>
-                        <f:for each="{document.variants}" as="variant">
-                            <li><a:atom.link parameter="{variant.fileReferenceUrl}">{variant.fileReferenceTitle}</a:atom.link></li>
-                        </f:for>
-                    </a:molecule.list>
-                </div>
-            </f:if>
-
-            <f:if condition="{settings.logging.debugOutput} || {logging.debugOutput}">
-                <f:variable name="scoreAnalysis"><f:render partial="Debug/Explain" section="Explain" arguments="{document: document, resultSet: resultSet}"/></f:variable>
-                <f:if condition="{scoreAnalysis}">
-                    <div class="g-search__result-debug"><f:format.raw>{scoreAnalysis}</f:format.raw></div>
+                <f:if condition="{document.url}">
+                    <p class="g-search__result-url">{document.url}</p>
                 </f:if>
-            </f:if>
-        </a:molecule.itemContent>
 
-        <div class="astryx-item-end g-search__result-meta">
+                <f:if condition="{document.content}">
+                    <a:molecule.itemDescription class="g-search__result-snippet">
+                        <d:searchSnippet text="{document.content}" query="{resultSet.usedQuery.rawSearchTerm}" maxCharacters="220" highlightClass="g-search__mark"/>
+                    </a:molecule.itemDescription>
+                </f:if>
+
+                <f:if condition="{document.type} == 'tx_solr_file'">
+                    <div class="g-search__result-file">
+                        <a:atom.text type="supporting">{document.fileMimeType}</a:atom.text>
+                        <a:molecule.list density="compact">
+                            <f:if condition="{document.fileReferenceUrl}">
+                                <li><a:atom.link parameter="{document.fileReferenceUrl}">{document.fileReferenceTitle}</a:atom.link></li>
+                            </f:if>
+                            <f:for each="{document.variants}" as="variant">
+                                <li><a:atom.link parameter="{variant.fileReferenceUrl}">{variant.fileReferenceTitle}</a:atom.link></li>
+                            </f:for>
+                        </a:molecule.list>
+                    </div>
+                </f:if>
+
+                <f:if condition="{settings.logging.debugOutput} || {logging.debugOutput}">
+                    <f:variable name="scoreAnalysis"><f:render partial="Debug/Explain" section="Explain" arguments="{document: document, resultSet: resultSet}"/></f:variable>
+                    <f:if condition="{scoreAnalysis}">
+                        <div class="g-search__result-debug"><f:format.raw>{scoreAnalysis}</f:format.raw></div>
+                    </f:if>
+                </f:if>
+            </a:molecule.itemContent>
+        </f:fragment>
+
+        <f:fragment name="end">
             <f:if condition="{document.isElevated}">
                 <a:atom.badge variant="accent" as="span"><f:translate key="{labels}:search.promoted" default="Promoted"/></a:atom.badge>
             </f:if>
@@ -89,8 +99,8 @@
                     </f:switch>
                 </a:atom.badge>
             </f:if>
-        </div>
-    </article>
+        </f:fragment>
+    </a:molecule.item>
 </f:section>
 
 </html>

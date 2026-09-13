@@ -36,13 +36,13 @@
         <nav class="g-menu-card-grid__nav" aria-label="{navLabel}">
             <a:layout.grid cols="{data.columns}" class="g-menu-card-grid__items">
                 <f:for each="{data.items}" as="item">
-                    <a:molecule.card class="astryx-clickable-card g-menu-card-grid__item">
+                    <a:molecule.card clickable="{true}" class="g-menu-card-grid__item">
                         <f:if condition="{item.icon}">
                             <f:comment>
                                 The tile carries the semantic key rather than a glyph, so the
                                 day a renderer lands no template has to change.
                             </f:comment>
-                            <span class="astryx-feature-icon g-menu-card-grid__icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
+                            <a:atom.featureIcon icon="{item.icon}" class="g-menu-card-grid__icon" />
                         </f:if>
 
                         <a:molecule.cardTitle>

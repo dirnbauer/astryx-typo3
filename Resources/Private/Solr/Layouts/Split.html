@@ -14,7 +14,12 @@
 <f:variable name="aside"><f:render section="extra"/></f:variable>
 <f:variable name="asidePlain" value="{aside -> f:format.stripTags() -> f:format.trim()}"/>
 
-<div class="tx_solr astryx-section tight g-search">
+<f:comment>
+    `tx_solr` stays on the band. It is EXT:solr's own wrapper class and its
+    AJAX layer finds the plugin through it, so it travels with the element
+    whatever the element turns out to be.
+</f:comment>
+<a:layout.section spacing="tight" class="tx_solr g-search">
     <a:layout.container size="xl">
         <div class="g-search__grid{f:if(condition: asidePlain, else: ' single')}">
 
@@ -33,6 +38,6 @@
 
         </div>
     </a:layout.container>
-</div>
+</a:layout.section>
 
 </html>

@@ -43,9 +43,9 @@
   margin-block-start: var(--spacing-8);
 }
 
-.g-feature-usecases.accent .g-feature-usecases__lead,
-.g-feature-usecases.accent .astryx-eyebrow,
-.g-feature-usecases.accent .astryx-text[data-type="supporting"] {
+.g-feature-usecases[data-surface="accent"] .g-feature-usecases__lead,
+.g-feature-usecases[data-surface="accent"] .astryx-eyebrow,
+.g-feature-usecases[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

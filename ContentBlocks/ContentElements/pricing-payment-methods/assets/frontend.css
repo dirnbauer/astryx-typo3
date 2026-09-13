@@ -73,9 +73,9 @@
   text-align: center;
 }
 
-.g-pricing-payment-methods.accent .g-pricing-payment-methods__lead,
-.g-pricing-payment-methods.accent .g-pricing-payment-methods__wordmark,
-.g-pricing-payment-methods.accent .astryx-text[data-type="supporting"] {
+.g-pricing-payment-methods[data-surface="accent"] .g-pricing-payment-methods__lead,
+.g-pricing-payment-methods[data-surface="accent"] .g-pricing-payment-methods__wordmark,
+.g-pricing-payment-methods[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

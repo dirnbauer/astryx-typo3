@@ -81,9 +81,9 @@
   min-inline-size: 0;
 }
 
-.g-feature-callouts.accent .g-feature-callouts__lead,
-.g-feature-callouts.accent .astryx-eyebrow,
-.g-feature-callouts.accent .astryx-text[data-type="supporting"] {
+.g-feature-callouts[data-surface="accent"] .g-feature-callouts__lead,
+.g-feature-callouts[data-surface="accent"] .astryx-eyebrow,
+.g-feature-callouts[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

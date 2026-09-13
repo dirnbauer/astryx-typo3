@@ -57,10 +57,10 @@
   margin: 0;
 }
 
-.g-pricing-calculator.accent .g-pricing-calculator__lead,
-.g-pricing-calculator.accent .g-pricing-calculator__how,
-.g-pricing-calculator.accent .astryx-eyebrow,
-.g-pricing-calculator.accent .astryx-text[data-type="supporting"] {
+.g-pricing-calculator[data-surface="accent"] .g-pricing-calculator__lead,
+.g-pricing-calculator[data-surface="accent"] .g-pricing-calculator__how,
+.g-pricing-calculator[data-surface="accent"] .astryx-eyebrow,
+.g-pricing-calculator[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

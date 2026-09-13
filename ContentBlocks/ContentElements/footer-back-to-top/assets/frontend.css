@@ -39,11 +39,11 @@
   text-align: center;
 }
 
-.g-footer-back-to-top.accent .g-footer-back-to-top__bar {
+.g-footer-back-to-top[data-surface="accent"] .g-footer-back-to-top__bar {
   border-block-start-color: currentColor;
 }
 
-.g-footer-back-to-top.accent .g-footer-back-to-top__text {
+.g-footer-back-to-top[data-surface="accent"] .g-footer-back-to-top__text {
   color: currentColor;
   opacity: 0.85;
 }

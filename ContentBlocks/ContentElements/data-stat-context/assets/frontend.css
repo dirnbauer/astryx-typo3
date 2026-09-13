@@ -49,17 +49,17 @@
   margin: 0;
 }
 
-.g-data-stat-context.accent .g-data-stat-context__figure {
+.g-data-stat-context[data-surface="accent"] .g-data-stat-context__figure {
   color: currentColor;
 }
 
-.g-data-stat-context.accent .g-data-stat-context__note {
+.g-data-stat-context[data-surface="accent"] .g-data-stat-context__note {
   border-block-start-color: currentColor;
 }
 
-.g-data-stat-context.accent .g-data-stat-context__unit,
-.g-data-stat-context.accent .astryx-eyebrow,
-.g-data-stat-context.accent .astryx-text[data-type="supporting"] {
+.g-data-stat-context[data-surface="accent"] .g-data-stat-context__unit,
+.g-data-stat-context[data-surface="accent"] .astryx-eyebrow,
+.g-data-stat-context[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

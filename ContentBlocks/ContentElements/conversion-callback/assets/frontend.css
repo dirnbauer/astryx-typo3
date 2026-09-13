@@ -15,7 +15,7 @@
   text-align: center;
 }
 
-.g-conversion-callback.tight .g-conversion-callback__card {
+.g-conversion-callback[data-spacing="tight"] .g-conversion-callback__card {
   --card-padding: var(--spacing-4);
   gap: var(--spacing-3);
 }
@@ -39,15 +39,15 @@
   margin: 0;
 }
 
-.g-conversion-callback.accent .astryx-card {
+.g-conversion-callback[data-surface="accent"] .astryx-card {
   background-color: transparent;
   box-shadow: none;
   color: currentColor;
 }
 
-.g-conversion-callback.accent .g-conversion-callback__subheader,
-.g-conversion-callback.accent .g-conversion-callback__lead,
-.g-conversion-callback.accent .g-conversion-callback__note {
+.g-conversion-callback[data-surface="accent"] .g-conversion-callback__subheader,
+.g-conversion-callback[data-surface="accent"] .g-conversion-callback__lead,
+.g-conversion-callback[data-surface="accent"] .g-conversion-callback__note {
   color: currentColor;
   opacity: 0.85;
 }

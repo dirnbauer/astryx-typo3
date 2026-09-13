@@ -60,9 +60,9 @@
   max-inline-size: 70ch;
 }
 
-.g-footer-credits.accent .g-footer-credits__lead,
-.g-footer-credits.accent .g-footer-credits__holder,
-.g-footer-credits.accent .astryx-text[data-type="supporting"] {
+.g-footer-credits[data-surface="accent"] .g-footer-credits__lead,
+.g-footer-credits[data-surface="accent"] .g-footer-credits__holder,
+.g-footer-credits[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

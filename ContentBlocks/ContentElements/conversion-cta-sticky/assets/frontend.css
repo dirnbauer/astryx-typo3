@@ -38,9 +38,9 @@
   gap: var(--spacing-4);
 }
 
-.g-conversion-cta-sticky.accent .g-conversion-cta-sticky__text,
-.g-conversion-cta-sticky.accent .g-conversion-cta-sticky__note,
-.g-conversion-cta-sticky.accent .g-conversion-cta-sticky__secondary {
+.g-conversion-cta-sticky[data-surface="accent"] .g-conversion-cta-sticky__text,
+.g-conversion-cta-sticky[data-surface="accent"] .g-conversion-cta-sticky__note,
+.g-conversion-cta-sticky[data-surface="accent"] .g-conversion-cta-sticky__secondary {
   color: currentColor;
   opacity: 0.85;
 }

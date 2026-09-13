@@ -36,29 +36,31 @@
             </div>
         </f:if>
 
-        <a:molecule.carousel gap="4" class="g-nav-carousel__carousel" ariaLabel="{navLabel}">
-            <ul class="astryx-carousel-track g-nav-carousel__track" tabindex="0">
-                <f:for each="{data.items}" as="item">
-                    <li class="astryx-carousel-item g-nav-carousel__item">
-                        <a:molecule.card class="astryx-clickable-card g-nav-carousel__card">
-                            <f:if condition="{item.icon}">
-                                <span class="astryx-feature-icon g-nav-carousel__icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
-                            </f:if>
+        <a:molecule.carousel
+            gap="4"
+            class="g-nav-carousel__carousel"
+            ariaLabel="{navLabel}"
+            trackClass="g-nav-carousel__track">
+            <f:for each="{data.items}" as="item">
+                <a:molecule.carouselItem class="g-nav-carousel__item">
+                    <a:molecule.card clickable="{true}" class="g-nav-carousel__card">
+                        <f:if condition="{item.icon}">
+                            <a:atom.featureIcon icon="{item.icon}" class="g-nav-carousel__icon" />
+                        </f:if>
 
-                            <a:molecule.cardTitle class="g-nav-carousel__title">
-                                <f:if condition="{item.link.url}">
-                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
-                                </f:if>
-                            </a:molecule.cardTitle>
-
-                            <f:if condition="{item.description}">
-                                <a:molecule.cardBody class="g-nav-carousel__text">{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                        <a:molecule.cardTitle class="g-nav-carousel__title">
+                            <f:if condition="{item.link.url}">
+                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </a:molecule.card>
-                    </li>
-                </f:for>
-            </ul>
+                        </a:molecule.cardTitle>
+
+                        <f:if condition="{item.description}">
+                            <a:molecule.cardBody class="g-nav-carousel__text">{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                        </f:if>
+                    </a:molecule.card>
+                </a:molecule.carouselItem>
+            </f:for>
         </a:molecule.carousel>
 
     </a:layout.container>

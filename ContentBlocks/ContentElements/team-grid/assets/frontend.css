@@ -49,8 +49,8 @@
 
 /* On an accent band the role would otherwise reach for the secondary text
    colour, which is tuned for the page background. */
-.g-team-grid.accent .g-team-grid__lead,
-.g-team-grid.accent .astryx-eyebrow {
+.g-team-grid[data-surface="accent"] .g-team-grid__lead,
+.g-team-grid[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

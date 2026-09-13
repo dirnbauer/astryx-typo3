@@ -52,14 +52,14 @@
   margin: 0;
 }
 
-.g-feature-tabs.accent .g-feature-tabs__text {
+.g-feature-tabs[data-surface="accent"] .g-feature-tabs__text {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-feature-tabs.accent .g-feature-tabs__lead,
-.g-feature-tabs.accent .astryx-eyebrow,
-.g-feature-tabs.accent .astryx-text[data-type="supporting"] {
+.g-feature-tabs[data-surface="accent"] .g-feature-tabs__lead,
+.g-feature-tabs[data-surface="accent"] .astryx-eyebrow,
+.g-feature-tabs[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -70,13 +70,13 @@
   max-inline-size: 70ch;
 }
 
-.g-footer-sitemap.accent .g-footer-sitemap__lead,
-.g-footer-sitemap.accent .astryx-text[data-type="supporting"] {
+.g-footer-sitemap[data-surface="accent"] .g-footer-sitemap__lead,
+.g-footer-sitemap[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-footer-sitemap.accent .g-footer-sitemap__link {
+.g-footer-sitemap[data-surface="accent"] .g-footer-sitemap__link {
   color: currentColor;
 }
 

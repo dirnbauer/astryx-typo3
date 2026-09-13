@@ -43,14 +43,14 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-feature-versus.accent .g-feature-versus__old,
-.g-feature-versus.accent .g-feature-versus__new {
+.g-feature-versus[data-surface="accent"] .g-feature-versus__old,
+.g-feature-versus[data-surface="accent"] .g-feature-versus__new {
   color: currentColor;
 }
 
-.g-feature-versus.accent .g-feature-versus__lead,
-.g-feature-versus.accent .astryx-eyebrow,
-.g-feature-versus.accent .astryx-text[data-type="supporting"] {
+.g-feature-versus[data-surface="accent"] .g-feature-versus__lead,
+.g-feature-versus[data-surface="accent"] .astryx-eyebrow,
+.g-feature-versus[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

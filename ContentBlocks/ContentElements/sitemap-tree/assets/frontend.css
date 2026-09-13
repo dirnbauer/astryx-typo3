@@ -108,13 +108,13 @@
   vertical-align: middle;
 }
 
-.g-sitemap-tree.accent .g-sitemap-tree__lead,
-.g-sitemap-tree.accent .g-sitemap-tree__link {
+.g-sitemap-tree[data-surface="accent"] .g-sitemap-tree__lead,
+.g-sitemap-tree[data-surface="accent"] .g-sitemap-tree__link {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-sitemap-tree.accent .g-sitemap-tree__top {
+.g-sitemap-tree[data-surface="accent"] .g-sitemap-tree__top {
   color: currentColor;
 }
 

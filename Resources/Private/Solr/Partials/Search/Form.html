@@ -45,31 +45,47 @@
 
         <div class="g-search__anchor" data-g-suggest-anchor>
             <a:molecule.inputGroup size="lg" class="g-search__group">
-                <span class="astryx-input-group-text g-search__icon" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" focusable="false">
+                <f:comment>
+                    The loupe fills the group's `addon` slot, which is what puts
+                    it in `astryx-input-group-text` — the segment recipe that
+                    welds it to the field beside it. It is decoration, so the
+                    svg is the thing hidden from assistive technology; the
+                    field's own label is what names the control.
+                </f:comment>
+                <f:fragment name="addon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <circle cx="11" cy="11" r="7"/>
                         <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
                     </svg>
-                </span>
+                </f:fragment>
 
+                <f:comment>
+                    The field and its submit go in a fragment of their own, and
+                    they have to: the moment a component call contains one named
+                    fragment, Fluid stops collecting the loose children as the
+                    default slot and they render as nothing at all.
+                </f:comment>
+                <f:fragment>
                 <a:atom.visuallyHidden as="label" for="tx-solr-q">
                     <f:translate key="{labels}:search.label" default="Search this site"/>
                 </a:atom.visuallyHidden>
-                <input
+                <a:molecule.textInput
                     id="tx-solr-q"
-                    class="astryx-text-input lg g-search__input"
+                    class="g-search__input"
+                    size="lg"
                     type="search"
                     name="{pluginNamespace}[q]"
                     value="{q}"
                     maxlength="80"
                     autocomplete="off"
                     placeholder="{f:translate(key: '{labels}:search.placeholder', default: 'Search this site')}"
-                    data-g-suggest-input
+                    suggestInput="{true}"
                 />
 
                 <a:atom.button variant="primary" size="lg" class="g-search__submit" type="submit">
                     <f:translate key="{labels}:search.submit" default="Search"/>
                 </a:atom.button>
+                </f:fragment>
             </a:molecule.inputGroup>
         </div>
     </s:searchForm>

@@ -65,16 +65,16 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-data-comparison-matrix.accent .g-data-comparison-matrix__alternative,
-.g-data-comparison-matrix.accent .g-data-comparison-matrix__mark[data-included='no'] {
+.g-data-comparison-matrix[data-surface="accent"] .g-data-comparison-matrix__alternative,
+.g-data-comparison-matrix[data-surface="accent"] .g-data-comparison-matrix__mark[data-included='no'] {
   color: currentColor;
   opacity: 0.7;
 }
 
-.g-data-comparison-matrix.accent .g-data-comparison-matrix__lead,
-.g-data-comparison-matrix.accent .g-data-comparison-matrix__caption,
-.g-data-comparison-matrix.accent .astryx-eyebrow,
-.g-data-comparison-matrix.accent .astryx-text[data-type="supporting"] {
+.g-data-comparison-matrix[data-surface="accent"] .g-data-comparison-matrix__lead,
+.g-data-comparison-matrix[data-surface="accent"] .g-data-comparison-matrix__caption,
+.g-data-comparison-matrix[data-surface="accent"] .astryx-eyebrow,
+.g-data-comparison-matrix[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

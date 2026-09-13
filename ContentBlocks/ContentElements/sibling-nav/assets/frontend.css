@@ -48,22 +48,22 @@
 
 /* Weight and a bar on the inline edge: on a page where the accent sits close
    to the text colour, the bar is what still says "you are here". */
-.g-sibling-nav__link.current {
+.g-sibling-nav__link--current {
   border-inline-start-color: var(--color-accent);
   font-weight: var(--font-weight-semibold);
   cursor: default;
 }
 
-.g-sibling-nav.accent .g-sibling-nav__title {
+.g-sibling-nav[data-surface="accent"] .g-sibling-nav__title {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-sibling-nav.accent .g-sibling-nav__link {
+.g-sibling-nav[data-surface="accent"] .g-sibling-nav__link {
   color: currentColor;
 }
 
-.g-sibling-nav.accent .g-sibling-nav__link.current {
+.g-sibling-nav[data-surface="accent"] .g-sibling-nav__link--current {
   border-inline-start-color: currentColor;
 }
 

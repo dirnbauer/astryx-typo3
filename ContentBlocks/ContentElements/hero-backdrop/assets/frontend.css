@@ -39,16 +39,16 @@
   background-color: color-mix(in srgb, var(--color-overlay) var(--scrim), transparent);
 }
 
-.g-hero-backdrop.muted .g-hero-backdrop__scrim {
+.g-hero-backdrop[data-surface="muted"] .g-hero-backdrop__scrim {
   --scrim: 30%;
 }
 
-.g-hero-backdrop.surface .g-hero-backdrop__scrim {
+.g-hero-backdrop[data-surface="surface"] .g-hero-backdrop__scrim {
   --scrim: 60%;
 }
 
 /* The accent tone tints the photograph rather than only darkening it. */
-.g-hero-backdrop.accent .g-hero-backdrop__scrim {
+.g-hero-backdrop[data-surface="accent"] .g-hero-backdrop__scrim {
   background-color: color-mix(in srgb, var(--color-accent) 65%, transparent);
 }
 

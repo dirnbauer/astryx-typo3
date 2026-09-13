@@ -28,9 +28,9 @@
 
         <ul class="g-feature-bento__tiles">
             <f:for each="{data.tiles}" as="tile">
-                <a:molecule.card class="astryx-feature g-feature-bento__tile {f:if(condition: tile.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card clickable="{tile.link.url}" class="g-feature-bento__tile">
                     <f:if condition="{tile.icon}">
-                        <span class="astryx-feature-icon" data-icon="{tile.icon}" aria-hidden="true"><g:icon name="{tile.icon}"/></span>
+                        <a:atom.featureIcon icon="{tile.icon}" />
                     </f:if>
 
                     <a:molecule.cardTitle>

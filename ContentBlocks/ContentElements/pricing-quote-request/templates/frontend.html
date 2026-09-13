@@ -53,7 +53,7 @@
                                     The tile carries the semantic key rather than a glyph, so swapping
                                     icon library never reaches into a template.
                                 </f:comment>
-                                <span class="astryx-feature-icon" data-icon="{step.icon}" aria-hidden="true"><g:icon name="{step.icon}"/></span>
+                                <a:atom.featureIcon icon="{step.icon}" />
                             </f:if>
 
                             <a:molecule.cardTitle>{step -> f:render.text(field: 'title')}</a:molecule.cardTitle>

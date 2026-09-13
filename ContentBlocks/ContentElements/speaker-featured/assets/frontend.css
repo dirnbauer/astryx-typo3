@@ -49,21 +49,21 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-speaker-featured.accent .g-speaker-featured__abstract,
-.g-speaker-featured.accent .astryx-eyebrow,
-.g-speaker-featured.accent .g-speaker-featured__affiliation {
+.g-speaker-featured[data-surface="accent"] .g-speaker-featured__abstract,
+.g-speaker-featured[data-surface="accent"] .astryx-eyebrow,
+.g-speaker-featured[data-surface="accent"] .g-speaker-featured__affiliation {
   color: currentColor;
   opacity: 0.85;
 }
 
 /* On an accent band the accent badge would be invisible against its own
    background, so it swaps to the surface it is sitting on. */
-.g-speaker-featured.accent .g-speaker-featured__slot {
+.g-speaker-featured[data-surface="accent"] .g-speaker-featured__slot {
   background-color: var(--color-on-accent);
   color: var(--color-accent);
 }
 
-.g-speaker-featured.accent .g-speaker-featured__credit {
+.g-speaker-featured[data-surface="accent"] .g-speaker-featured__credit {
   border-block-start-color: currentColor;
 }
 

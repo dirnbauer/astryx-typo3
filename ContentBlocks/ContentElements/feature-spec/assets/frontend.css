@@ -60,9 +60,9 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-feature-spec.accent .g-feature-spec__lead,
-.g-feature-spec.accent .astryx-eyebrow,
-.g-feature-spec.accent .astryx-text[data-type="supporting"] {
+.g-feature-spec[data-surface="accent"] .g-feature-spec__lead,
+.g-feature-spec[data-surface="accent"] .astryx-eyebrow,
+.g-feature-spec[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

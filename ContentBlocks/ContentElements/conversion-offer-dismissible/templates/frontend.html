@@ -8,20 +8,24 @@
 <f:comment>
     The only behaviour in the group, and it is two attributes: the runtime in
     astryx.js removes whatever carries data-g-dismissible when a
-    data-g-dismiss control inside it is pressed. The close control gets its
-    accessible name from real text rather than an aria-label, so it is
-    translated with the rest of the page.
+    data-g-dismiss control inside it is pressed. Both are the components' —
+    Section's `dismissible` writes the first and Banner's the second — so the
+    pair can never drift apart in a template that copies only one of them.
 </f:comment>
 
-<section class="astryx-section g-conversion-offer-dismissible {data.tone}" data-variant="{data.variant}" data-g-dismissible="1">
+<a:layout.section surface="{data.tone}" variant="{data.variant}" dismissible="{true}" class="g-conversion-offer-dismissible">
     <a:layout.container>
-        <a:molecule.banner class="g-conversion-offer-dismissible__offer">
+        <a:molecule.banner
+            class="g-conversion-offer-dismissible__offer"
+            dismissible="{true}"
+            dismissClass="g-conversion-offer-dismissible__close"
+            dismissLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:conversion.dismiss', default: 'Close')}">
 
             <f:if condition="{data.icon}">
-                <span class="astryx-feature-icon g-conversion-offer-dismissible__icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
+                <a:atom.featureIcon icon="{data.icon}" class="g-conversion-offer-dismissible__icon" />
             </f:if>
 
-            <div class="astryx-banner-content g-conversion-offer-dismissible__copy">
+            <a:molecule.bannerContent class="g-conversion-offer-dismissible__copy">
                 <f:if condition="{data.badge_text} || {data.eyebrow}">
                     <p class="g-conversion-offer-dismissible__flags">
                         <f:if condition="{data.badge_text}">
@@ -42,19 +46,14 @@
                 <f:if condition="{data.note}">
                     <a:atom.text type="supporting" class="g-conversion-offer-dismissible__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:molecule.bannerContent>
 
             <f:if condition="{data.cta_label}">
                 <a:atom.button variant="primary" class="g-conversion-offer-dismissible__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </f:if>
 
-            <button type="button" class="astryx-banner-dismiss g-conversion-offer-dismissible__close" data-g-dismiss="1">
-                <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:conversion.dismiss" default="Close"/></a:atom.visuallyHidden>
-                <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </button>
-
         </a:molecule.banner>
     </a:layout.container>
-</section>
+</a:layout.section>
 
 </html>

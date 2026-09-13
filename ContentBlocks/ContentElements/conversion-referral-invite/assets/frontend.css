@@ -71,9 +71,9 @@
   max-inline-size: 40rem;
 }
 
-.g-conversion-referral-invite.accent .g-conversion-referral-invite__lead,
-.g-conversion-referral-invite.accent .g-conversion-referral-invite__note,
-.g-conversion-referral-invite.accent .astryx-eyebrow {
+.g-conversion-referral-invite[data-surface="accent"] .g-conversion-referral-invite__lead,
+.g-conversion-referral-invite[data-surface="accent"] .g-conversion-referral-invite__note,
+.g-conversion-referral-invite[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

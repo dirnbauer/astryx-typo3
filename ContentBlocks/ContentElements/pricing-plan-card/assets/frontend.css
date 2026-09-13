@@ -90,7 +90,7 @@
   margin-block-start: calc(var(--spacing-2) * -1);
 }
 
-.g-pricing-plan-card.accent .g-pricing-plan-card__card {
+.g-pricing-plan-card[data-surface="accent"] .g-pricing-plan-card__card {
   color: var(--color-text-primary);
 }
 

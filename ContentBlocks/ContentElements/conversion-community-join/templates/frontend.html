@@ -36,9 +36,9 @@
 
         <a:layout.grid cols="{data.columns}" class="g-conversion-community-join__places">
             <f:for each="{data.places}" as="place">
-                <a:molecule.card class="g-conversion-community-join__place {f:if(condition: place.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card clickable="{place.link.url}" class="g-conversion-community-join__place">
                     <f:if condition="{place.icon}">
-                        <span class="astryx-feature-icon" data-icon="{place.icon}" aria-hidden="true"><g:icon name="{place.icon}"/></span>
+                        <a:atom.featureIcon icon="{place.icon}" />
                     </f:if>
 
                     <a:molecule.cardTitle>

@@ -17,7 +17,7 @@
         <a:molecule.card class="g-conversion-callback__card">
 
             <f:if condition="{data.icon}">
-                <span class="astryx-feature-icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
+                <a:atom.featureIcon icon="{data.icon}" />
             </f:if>
 
             <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>

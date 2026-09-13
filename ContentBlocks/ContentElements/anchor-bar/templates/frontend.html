@@ -31,7 +31,7 @@
                 <a:molecule.segmentedControl class="g-anchor-bar__track">
                     <f:for each="{data.anchors}" as="anchor">
                         <li class="g-anchor-bar__item">
-                            <f:link.typolink parameter="{anchor.link}" class="astryx-segmented-control-item sm g-anchor-bar__link">{anchor.title}</f:link.typolink>
+                            <a:molecule.segmentedControlItem parameter="{anchor.link}" size="sm" class="g-anchor-bar__link">{anchor.title}</a:molecule.segmentedControlItem>
                         </li>
                     </f:for>
                 </a:molecule.segmentedControl>

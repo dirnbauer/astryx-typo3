@@ -48,8 +48,8 @@
             <a:atom.heading level="4" class="g-pagination__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
         </f:if>
 
-        <a:molecule.pagination class="g-pagination__nav" ariaLabel="{navLabel}">
-            <div class="astryx-pagination-controls g-pagination__controls">
+        <a:molecule.pagination class="g-pagination__nav" ariaLabel="{navLabel}" controlsClass="g-pagination__controls" infoClass="g-pagination__note">
+            <f:fragment>
 
                 <f:if condition="{currentIndex} > -1">
                     <f:for each="{data.pages}" as="part" iteration="step">
@@ -88,11 +88,9 @@
                     </f:for>
                 </f:if>
 
-            </div>
+            </f:fragment>
 
-            <f:if condition="{data.note}">
-                <p class="astryx-pagination-info g-pagination__note">{data -> f:render.text(field: 'note')}</p>
-            </f:if>
+            <f:fragment name="info"><f:if condition="{data.note}">{data -> f:render.text(field: 'note')}</f:if></f:fragment>
         </a:molecule.pagination>
 
     </a:layout.container>

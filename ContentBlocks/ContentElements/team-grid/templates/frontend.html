@@ -38,7 +38,7 @@
 
         <a:layout.grid cols="{data.columns}" class="g-team-grid__people">
             <f:for each="{data.people}" as="person">
-                <a:molecule.card media="{f:if(condition: person.image, then: 'top', else: 'default')}" class="{f:if(condition: person.link.url, then: 'astryx-clickable-card')} g-team-grid__person">
+                <a:molecule.card clickable="{person.link.url}" media="{f:if(condition: person.image, then: 'top', else: 'default')}" class="g-team-grid__person">
 
                     <f:if condition="{person.image}">
                         <div class="g-team-grid__portrait">

@@ -43,7 +43,8 @@
 
 <f:comment>
     Built as a fragment of attribute source, so the hook is absent rather than
-    empty on the 249 sections that are not dismissible.
+    empty on the 249 sections that are not dismissible. It is a literal: there
+    is nothing in it for a fragment's raw output to let through.
 </f:comment>
 <f:variable name="hooks"><f:if condition="{dismissible}">data-g-dismissible="1"</f:if></f:variable>
 

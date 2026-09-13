@@ -26,27 +26,25 @@
             </f:if>
         </div>
 
-        <div class="astryx-table-wrap g-pricing-onetime-fees__wrap">
-            <a:molecule.table density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-onetime-fees__table">
-                <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
-                <thead>
+        <a:molecule.table scroll="{true}" scrollClass="g-pricing-onetime-fees__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-onetime-fees__table">
+            <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
+            <thead>
+                <tr>
+                    <th scope="col" class="g-pricing-onetime-fees__col-service"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.service" default="Service"/></th>
+                    <th scope="col" class="g-pricing-onetime-fees__col-fee"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.fee" default="Fee"/></th>
+                    <th scope="col" class="g-pricing-onetime-fees__col-covers"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.covers" default="What the fee covers"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{data.fees}" as="fee">
                     <tr>
-                        <th scope="col" class="g-pricing-onetime-fees__col-service"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.service" default="Service"/></th>
-                        <th scope="col" class="g-pricing-onetime-fees__col-fee"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.fee" default="Fee"/></th>
-                        <th scope="col" class="g-pricing-onetime-fees__col-covers"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.covers" default="What the fee covers"/></th>
+                        <th scope="row" class="g-pricing-onetime-fees__service">{fee -> f:render.text(field: 'title')}</th>
+                        <td class="g-pricing-onetime-fees__fee">{fee -> f:render.text(field: 'value')}</td>
+                        <td class="g-pricing-onetime-fees__covers">{fee -> f:render.text(field: 'text')}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <f:for each="{data.fees}" as="fee">
-                        <tr>
-                            <th scope="row" class="g-pricing-onetime-fees__service">{fee -> f:render.text(field: 'title')}</th>
-                            <td class="g-pricing-onetime-fees__fee">{fee -> f:render.text(field: 'value')}</td>
-                            <td class="g-pricing-onetime-fees__covers">{fee -> f:render.text(field: 'text')}</td>
-                        </tr>
-                    </f:for>
-                </tbody>
-            </a:molecule.table>
-        </div>
+                </f:for>
+            </tbody>
+        </a:molecule.table>
 
         <f:if condition="{data.note}">
             <a:atom.text type="supporting" class="g-pricing-onetime-fees__note">{data -> f:render.text(field: 'note')}</a:atom.text>

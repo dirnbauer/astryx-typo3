@@ -58,8 +58,8 @@
   line-height: var(--text-heading-5-leading);
 }
 
-.g-partner-grid.accent .g-partner-grid__lead,
-.g-partner-grid.accent .astryx-eyebrow {
+.g-partner-grid[data-surface="accent"] .g-partner-grid__lead,
+.g-partner-grid[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

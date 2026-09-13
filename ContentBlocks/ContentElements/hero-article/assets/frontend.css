@@ -69,11 +69,11 @@
   border-radius: var(--radius-container, var(--radius-element));
 }
 
-.g-hero-article.accent .g-hero-article__standfirst,
-.g-hero-article.accent .g-hero-article__role,
-.g-hero-article.accent .astryx-eyebrow,
-.g-hero-article.accent .astryx-timestamp,
-.g-hero-article.accent .astryx-text[data-type="supporting"] {
+.g-hero-article[data-surface="accent"] .g-hero-article__standfirst,
+.g-hero-article[data-surface="accent"] .g-hero-article__role,
+.g-hero-article[data-surface="accent"] .astryx-eyebrow,
+.g-hero-article[data-surface="accent"] .astryx-timestamp,
+.g-hero-article[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

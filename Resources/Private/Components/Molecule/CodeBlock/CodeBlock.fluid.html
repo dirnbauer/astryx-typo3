@@ -12,7 +12,9 @@
 
     What is left here is the frame and, when it is given one, the header strip:
     a file name, a language, a copy button. It is written only when it is
-    filled, because an empty header still draws its rule across the top.
+    filled, because an empty header still draws its rule across the top — and
+    the test trims first, since a fragment written over several lines is never
+    empty: it holds its own newlines.
 
     `scroll` puts the listing in its own scroll container. A block beside a
     column of prose has a width the source does not fit in, and something has
@@ -31,4 +33,4 @@
     class="astryx-codeblock {class}"
     data-variant="{variant}"
     data-wrap="{wrap}"
-    data-size="{size}"><f:if condition="{f:slot(name: 'header')}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:if condition="{scroll}"><f:then><div class="astryx-codeblock-scroll"><f:slot /></div></f:then><f:else><f:slot /></f:else></f:if></div>
+    data-size="{size}"><f:if condition="{f:slot(name: 'header') -> f:format.trim()}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:if condition="{scroll}"><f:then><div class="astryx-codeblock-scroll"><f:slot /></div></f:then><f:else><f:slot /></f:else></f:if></div>

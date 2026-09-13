@@ -64,14 +64,14 @@
   --_avatar-size: min(18rem, 60vw);
 }
 
-.g-hero-profile.accent .g-hero-profile__role,
-.g-hero-profile.accent .g-hero-profile__lead,
-.g-hero-profile.accent .astryx-eyebrow,
-.g-hero-profile.accent .astryx-link {
+.g-hero-profile[data-surface="accent"] .g-hero-profile__role,
+.g-hero-profile[data-surface="accent"] .g-hero-profile__lead,
+.g-hero-profile[data-surface="accent"] .astryx-eyebrow,
+.g-hero-profile[data-surface="accent"] .astryx-link {
   color: currentColor;
 }
 
-.g-hero-profile.accent .g-hero-profile__lead {
+.g-hero-profile[data-surface="accent"] .g-hero-profile__lead {
   opacity: 0.85;
 }
 

@@ -28,9 +28,9 @@
 
         <a:layout.grid cols="{data.columns}" class="g-feature-usecases__cases">
             <f:for each="{data.cases}" as="case">
-                <a:molecule.card class="astryx-clickable-card g-feature-usecases__card">
+                <a:molecule.card clickable="{true}" class="g-feature-usecases__card">
                     <f:if condition="{case.icon}">
-                        <span class="astryx-feature-icon" data-icon="{case.icon}" aria-hidden="true"><g:icon name="{case.icon}"/></span>
+                        <a:atom.featureIcon icon="{case.icon}" />
                     </f:if>
 
                     <a:molecule.cardTitle>

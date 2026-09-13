@@ -51,14 +51,14 @@
   margin-block-start: var(--spacing-2);
 }
 
-.g-data-metric-trend.accent .g-data-metric-trend__figure,
-.g-data-metric-trend.accent .g-data-metric-trend__name {
+.g-data-metric-trend[data-surface="accent"] .g-data-metric-trend__figure,
+.g-data-metric-trend[data-surface="accent"] .g-data-metric-trend__name {
   color: currentColor;
 }
 
-.g-data-metric-trend.accent .g-data-metric-trend__unit,
-.g-data-metric-trend.accent .astryx-eyebrow,
-.g-data-metric-trend.accent .astryx-text[data-type="supporting"] {
+.g-data-metric-trend[data-surface="accent"] .g-data-metric-trend__unit,
+.g-data-metric-trend[data-surface="accent"] .astryx-eyebrow,
+.g-data-metric-trend[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

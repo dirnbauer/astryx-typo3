@@ -128,19 +128,19 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-data-benchmark-compare.accent .g-data-benchmark-compare__track {
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__track {
   background-color: var(--color-overlay-hover);
 }
 
-.g-data-benchmark-compare.accent .g-data-benchmark-compare__swatch.is-ours,
-.g-data-benchmark-compare.accent .g-data-benchmark-compare__series.is-ours .g-data-benchmark-compare__bar {
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__swatch.is-ours,
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__series.is-ours .g-data-benchmark-compare__bar {
   background-color: currentColor;
 }
 
-.g-data-benchmark-compare.accent .g-data-benchmark-compare__lead,
-.g-data-benchmark-compare.accent .g-data-benchmark-compare__legend,
-.g-data-benchmark-compare.accent .astryx-eyebrow,
-.g-data-benchmark-compare.accent .astryx-text[data-type="supporting"] {
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__lead,
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__legend,
+.g-data-benchmark-compare[data-surface="accent"] .astryx-eyebrow,
+.g-data-benchmark-compare[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

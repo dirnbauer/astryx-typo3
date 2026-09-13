@@ -85,15 +85,15 @@
   max-inline-size: 32ch;
 }
 
-.g-testimonial-metric.accent .astryx-citation,
-.g-testimonial-metric.accent .g-testimonial-metric__unit,
-.g-testimonial-metric.accent .g-testimonial-metric__method {
+.g-testimonial-metric[data-surface="accent"] .astryx-citation,
+.g-testimonial-metric[data-surface="accent"] .g-testimonial-metric__unit,
+.g-testimonial-metric[data-surface="accent"] .g-testimonial-metric__method {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-testimonial-metric.accent .g-testimonial-metric__value,
-.g-testimonial-metric.accent .g-testimonial-metric__name {
+.g-testimonial-metric[data-surface="accent"] .g-testimonial-metric__value,
+.g-testimonial-metric[data-surface="accent"] .g-testimonial-metric__name {
   color: currentColor;
 }
 

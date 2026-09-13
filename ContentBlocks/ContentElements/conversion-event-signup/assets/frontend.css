@@ -56,21 +56,21 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-conversion-event-signup.accent .g-conversion-event-signup__subheader,
-.g-conversion-event-signup.accent .g-conversion-event-signup__lead,
-.g-conversion-event-signup.accent .g-conversion-event-signup__note,
-.g-conversion-event-signup.accent .g-conversion-event-signup__fact-note,
-.g-conversion-event-signup.accent .astryx-metadata-list :where(dt),
-.g-conversion-event-signup.accent .astryx-eyebrow {
+.g-conversion-event-signup[data-surface="accent"] .g-conversion-event-signup__subheader,
+.g-conversion-event-signup[data-surface="accent"] .g-conversion-event-signup__lead,
+.g-conversion-event-signup[data-surface="accent"] .g-conversion-event-signup__note,
+.g-conversion-event-signup[data-surface="accent"] .g-conversion-event-signup__fact-note,
+.g-conversion-event-signup[data-surface="accent"] .astryx-metadata-list :where(dt),
+.g-conversion-event-signup[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-event-signup.accent .astryx-metadata-list :where(dd) {
+.g-conversion-event-signup[data-surface="accent"] .astryx-metadata-list :where(dd) {
   color: currentColor;
 }
 
-.g-conversion-event-signup.accent .g-conversion-event-signup__facts {
+.g-conversion-event-signup[data-surface="accent"] .g-conversion-event-signup__facts {
   border-color: currentColor;
 }
 

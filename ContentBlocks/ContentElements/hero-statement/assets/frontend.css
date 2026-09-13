@@ -38,13 +38,13 @@
   margin: 0;
 }
 
-.g-hero-statement.accent .g-hero-statement__subheader,
-.g-hero-statement.accent .astryx-eyebrow,
-.g-hero-statement.accent .astryx-link {
+.g-hero-statement[data-surface="accent"] .g-hero-statement__subheader,
+.g-hero-statement[data-surface="accent"] .astryx-eyebrow,
+.g-hero-statement[data-surface="accent"] .astryx-link {
   color: currentColor;
 }
 
-.g-hero-statement.accent .g-hero-statement__subheader {
+.g-hero-statement[data-surface="accent"] .g-hero-statement__subheader {
   opacity: 0.85;
 }
 

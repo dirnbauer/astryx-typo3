@@ -32,9 +32,9 @@
 
         <a:layout.grid cols="{data.columns}" class="g-conversion-path-fork__paths">
             <f:for each="{data.paths}" as="path">
-                <a:molecule.card class="g-conversion-path-fork__path {f:if(condition: path.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card clickable="{path.link.url}" class="g-conversion-path-fork__path">
                     <f:if condition="{path.icon}">
-                        <span class="astryx-feature-icon" data-icon="{path.icon}" aria-hidden="true"><g:icon name="{path.icon}"/></span>
+                        <a:atom.featureIcon icon="{path.icon}" />
                     </f:if>
 
                     <a:molecule.cardTitle>

@@ -56,12 +56,12 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-testimonial-portrait.accent .astryx-citation {
+.g-testimonial-portrait[data-surface="accent"] .astryx-citation {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-testimonial-portrait.accent .g-testimonial-portrait__name {
+.g-testimonial-portrait[data-surface="accent"] .g-testimonial-portrait__name {
   color: currentColor;
 }
 

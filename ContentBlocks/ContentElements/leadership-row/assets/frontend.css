@@ -55,10 +55,10 @@
   max-inline-size: 34rem;
 }
 
-.g-leadership-row.accent .g-leadership-row__lead,
-.g-leadership-row.accent .g-leadership-row__bio,
-.g-leadership-row.accent .g-leadership-row__role,
-.g-leadership-row.accent .astryx-eyebrow {
+.g-leadership-row[data-surface="accent"] .g-leadership-row__lead,
+.g-leadership-row[data-surface="accent"] .g-leadership-row__bio,
+.g-leadership-row[data-surface="accent"] .g-leadership-row__role,
+.g-leadership-row[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

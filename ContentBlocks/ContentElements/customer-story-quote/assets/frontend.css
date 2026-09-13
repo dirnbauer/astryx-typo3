@@ -58,13 +58,13 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-customer-story-quote.accent .astryx-eyebrow,
-.g-customer-story-quote.accent .astryx-citation {
+.g-customer-story-quote[data-surface="accent"] .astryx-eyebrow,
+.g-customer-story-quote[data-surface="accent"] .astryx-citation {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-customer-story-quote.accent .g-customer-story-quote__name {
+.g-customer-story-quote[data-surface="accent"] .g-customer-story-quote__name {
   color: currentColor;
 }
 

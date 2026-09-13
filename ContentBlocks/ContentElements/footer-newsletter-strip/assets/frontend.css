@@ -64,9 +64,9 @@
   text-align: center;
 }
 
-.g-footer-newsletter-strip.accent .g-footer-newsletter-strip__lead,
-.g-footer-newsletter-strip.accent .astryx-eyebrow,
-.g-footer-newsletter-strip.accent .astryx-text[data-type="supporting"] {
+.g-footer-newsletter-strip[data-surface="accent"] .g-footer-newsletter-strip__lead,
+.g-footer-newsletter-strip[data-surface="accent"] .astryx-eyebrow,
+.g-footer-newsletter-strip[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

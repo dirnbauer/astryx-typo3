@@ -52,14 +52,14 @@
   max-inline-size: 44rem;
 }
 
-.g-team-list.accent .g-team-list__row {
+.g-team-list[data-surface="accent"] .g-team-list__row {
   border-block-end-color: currentColor;
 }
 
-.g-team-list.accent .g-team-list__lead,
-.g-team-list.accent .g-team-list__role,
-.g-team-list.accent .g-team-list__note,
-.g-team-list.accent .astryx-eyebrow {
+.g-team-list[data-surface="accent"] .g-team-list__lead,
+.g-team-list[data-surface="accent"] .g-team-list__role,
+.g-team-list[data-surface="accent"] .g-team-list__note,
+.g-team-list[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

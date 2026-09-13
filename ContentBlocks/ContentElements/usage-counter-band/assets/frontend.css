@@ -93,14 +93,14 @@
   justify-content: center;
 }
 
-.g-usage-counter-band.accent .g-usage-counter-band__number {
+.g-usage-counter-band[data-surface="accent"] .g-usage-counter-band__number {
   color: currentColor;
 }
 
-.g-usage-counter-band.accent .g-usage-counter-band__unit,
-.g-usage-counter-band.accent .g-usage-counter-band__lead,
-.g-usage-counter-band.accent .g-usage-counter-band__wordmark,
-.g-usage-counter-band.accent .astryx-eyebrow {
+.g-usage-counter-band[data-surface="accent"] .g-usage-counter-band__unit,
+.g-usage-counter-band[data-surface="accent"] .g-usage-counter-band__lead,
+.g-usage-counter-band[data-surface="accent"] .g-usage-counter-band__wordmark,
+.g-usage-counter-band[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

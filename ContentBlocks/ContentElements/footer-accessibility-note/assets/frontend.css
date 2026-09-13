@@ -50,14 +50,14 @@
   max-inline-size: 70ch;
 }
 
-.g-footer-accessibility-note.accent .g-footer-accessibility-note__box {
+.g-footer-accessibility-note[data-surface="accent"] .g-footer-accessibility-note__box {
   background-color: transparent;
   border: var(--border-width) solid currentColor;
   color: currentColor;
 }
 
-.g-footer-accessibility-note.accent .g-footer-accessibility-note__box .astryx-link,
-.g-footer-accessibility-note.accent .astryx-text[data-type="supporting"] {
+.g-footer-accessibility-note[data-surface="accent"] .g-footer-accessibility-note__box .astryx-link,
+.g-footer-accessibility-note[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
 }
 

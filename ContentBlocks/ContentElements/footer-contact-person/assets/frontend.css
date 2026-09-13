@@ -59,10 +59,10 @@
   align-items: center;
 }
 
-.g-footer-contact-person.accent .g-footer-contact-person__role,
-.g-footer-contact-person.accent .astryx-eyebrow,
-.g-footer-contact-person.accent .astryx-card-body,
-.g-footer-contact-person.accent .astryx-text[data-type="supporting"] {
+.g-footer-contact-person[data-surface="accent"] .g-footer-contact-person__role,
+.g-footer-contact-person[data-surface="accent"] .astryx-eyebrow,
+.g-footer-contact-person[data-surface="accent"] .astryx-card-body,
+.g-footer-contact-person[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

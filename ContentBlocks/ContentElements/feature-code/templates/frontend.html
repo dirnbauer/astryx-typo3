@@ -38,14 +38,12 @@
                 </f:if>
             </div>
 
-            <a:molecule.codeBlock class="g-feature-code__block">
-                <f:if condition="{data.caption}">
-                    <div class="astryx-codeblock-header">{data -> f:render.text(field: 'caption')}</div>
-                </f:if>
+            <a:molecule.codeBlock scroll="{true}" class="g-feature-code__block">
+                <f:fragment name="header"><f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if></f:fragment>
 
-                <div class="astryx-codeblock-scroll">
+                <f:fragment>
                     <pre><code><f:editMode><f:then>{data -> f:render.text(field: 'text')}</f:then><f:else>{data.text}</f:else></f:editMode></code></pre>
-                </div>
+                </f:fragment>
             </a:molecule.codeBlock>
 
         </a:layout.split>

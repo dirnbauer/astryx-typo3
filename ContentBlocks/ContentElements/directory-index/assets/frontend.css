@@ -93,13 +93,13 @@
   white-space: nowrap;
 }
 
-.g-directory-index.accent .g-directory-index__lead {
+.g-directory-index[data-surface="accent"] .g-directory-index__lead {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-directory-index.accent .g-directory-index__link,
-.g-directory-index.accent .g-directory-index__letter {
+.g-directory-index[data-surface="accent"] .g-directory-index__link,
+.g-directory-index[data-surface="accent"] .g-directory-index__letter {
   color: currentColor;
 }
 

@@ -37,7 +37,7 @@
         <a:layout.grid cols="{data.columns}" class="g-conversion-referral-invite__steps">
             <f:for each="{data.steps}" as="step" iteration="position">
                 <a:molecule.card class="g-conversion-referral-invite__step">
-                    <span class="astryx-feature-icon g-conversion-referral-invite__number" data-icon="{step.icon}" aria-hidden="true">{position.cycle}</span>
+                    <a:atom.featureIcon icon="{step.icon}" class="g-conversion-referral-invite__number">{position.cycle}</a:atom.featureIcon>
                     <a:molecule.cardTitle>{step -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                     <f:if condition="{step.text}">
                         <a:molecule.cardBody>{step -> f:render.text(field: 'text')}</a:molecule.cardBody>

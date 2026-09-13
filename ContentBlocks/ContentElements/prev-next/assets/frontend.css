@@ -78,7 +78,7 @@
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
-.g-prev-next.accent .g-prev-next__direction {
+.g-prev-next[data-surface="accent"] .g-prev-next__direction {
   color: currentColor;
   opacity: 0.85;
 }

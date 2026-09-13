@@ -60,9 +60,9 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-hero-signup.accent .g-hero-signup__lead,
-.g-hero-signup.accent .g-hero-signup__note,
-.g-hero-signup.accent .astryx-eyebrow {
+.g-hero-signup[data-surface="accent"] .g-hero-signup__lead,
+.g-hero-signup[data-surface="accent"] .g-hero-signup__note,
+.g-hero-signup[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

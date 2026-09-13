@@ -87,8 +87,8 @@
   justify-content: center;
 }
 
-.g-footer-payment-row.accent .g-footer-payment-row__lead,
-.g-footer-payment-row.accent .astryx-text[data-type="supporting"] {
+.g-footer-payment-row[data-surface="accent"] .g-footer-payment-row__lead,
+.g-footer-payment-row[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

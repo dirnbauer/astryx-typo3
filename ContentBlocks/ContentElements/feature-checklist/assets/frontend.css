@@ -63,9 +63,9 @@
   margin-block-start: var(--spacing-8);
 }
 
-.g-feature-checklist.accent .g-feature-checklist__lead,
-.g-feature-checklist.accent .astryx-eyebrow,
-.g-feature-checklist.accent .astryx-text[data-type="supporting"] {
+.g-feature-checklist[data-surface="accent"] .g-feature-checklist__lead,
+.g-feature-checklist[data-surface="accent"] .astryx-eyebrow,
+.g-feature-checklist[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

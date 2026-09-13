@@ -78,13 +78,13 @@
   gap: var(--spacing-3);
 }
 
-.g-endorsement-single.accent .astryx-eyebrow,
-.g-endorsement-single.accent .astryx-citation {
+.g-endorsement-single[data-surface="accent"] .astryx-eyebrow,
+.g-endorsement-single[data-surface="accent"] .astryx-citation {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-endorsement-single.accent .g-endorsement-single__name {
+.g-endorsement-single[data-surface="accent"] .g-endorsement-single__name {
   color: currentColor;
 }
 

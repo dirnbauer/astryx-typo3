@@ -69,15 +69,15 @@
   max-inline-size: 44rem;
 }
 
-.g-alumni-list.accent .g-alumni-list__row {
+.g-alumni-list[data-surface="accent"] .g-alumni-list__row {
   border-block-end-color: currentColor;
 }
 
-.g-alumni-list.accent .g-alumni-list__lead,
-.g-alumni-list.accent .g-alumni-list__where,
-.g-alumni-list.accent .g-alumni-list__years,
-.g-alumni-list.accent .g-alumni-list__note,
-.g-alumni-list.accent .astryx-eyebrow {
+.g-alumni-list[data-surface="accent"] .g-alumni-list__lead,
+.g-alumni-list[data-surface="accent"] .g-alumni-list__where,
+.g-alumni-list[data-surface="accent"] .g-alumni-list__years,
+.g-alumni-list[data-surface="accent"] .g-alumni-list__note,
+.g-alumni-list[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

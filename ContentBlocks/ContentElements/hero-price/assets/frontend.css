@@ -74,15 +74,15 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-hero-price.accent .g-hero-price__lead,
-.g-hero-price.accent .g-hero-price__period,
-.g-hero-price.accent .g-hero-price__note,
-.g-hero-price.accent .astryx-eyebrow {
+.g-hero-price[data-surface="accent"] .g-hero-price__lead,
+.g-hero-price[data-surface="accent"] .g-hero-price__period,
+.g-hero-price[data-surface="accent"] .g-hero-price__note,
+.g-hero-price[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-hero-price.accent .g-hero-price__anchor {
+.g-hero-price[data-surface="accent"] .g-hero-price__anchor {
   border-color: currentColor;
 }
 

@@ -38,13 +38,15 @@
                 <f:for each="{data.links}" as="profile">
                     <li class="g-footer-social-row__item">
                         <a:molecule.item interactive="interactive" class="g-footer-social-row__link" parameter="{profile.link}">
-                            <span class="astryx-item-start astryx-feature-icon g-footer-social-row__icon" data-icon="{profile.icon}" aria-hidden="true"><g:icon name="{profile.icon}"/></span>
-                            <a:molecule.itemContent>
-                                <a:molecule.itemLabel class="g-footer-social-row__name">{profile.title}</a:molecule.itemLabel>
-                                <f:if condition="{profile.description}">
-                                    <a:molecule.itemDescription>{profile.description}</a:molecule.itemDescription>
-                                </f:if>
-                            </a:molecule.itemContent>
+                            <f:fragment name="start"><a:atom.featureIcon icon="{profile.icon}" class="g-footer-social-row__icon" /></f:fragment>
+                            <f:fragment>
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel class="g-footer-social-row__name">{profile.title}</a:molecule.itemLabel>
+                                    <f:if condition="{profile.description}">
+                                        <a:molecule.itemDescription>{profile.description}</a:molecule.itemDescription>
+                                    </f:if>
+                                </a:molecule.itemContent>
+                            </f:fragment>
                         </a:molecule.item>
                     </li>
                 </f:for>

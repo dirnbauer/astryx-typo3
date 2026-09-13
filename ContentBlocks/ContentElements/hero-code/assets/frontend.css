@@ -47,13 +47,13 @@
   padding-block: var(--spacing-4);
 }
 
-.g-hero-code.accent .g-hero-code__lead,
-.g-hero-code.accent .astryx-eyebrow {
+.g-hero-code[data-surface="accent"] .g-hero-code__lead,
+.g-hero-code[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-hero-code.accent .g-hero-code__version {
+.g-hero-code[data-surface="accent"] .g-hero-code__version {
   border-color: currentColor;
   color: currentColor;
 }

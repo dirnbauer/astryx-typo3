@@ -30,16 +30,16 @@
                     <f:for each="{trail}" as="crumb" iteration="step">
                         <f:if condition="{step.isLast}">
                             <f:then>
-                                <li class="astryx-breadcrumb-item" aria-current="page" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                <a:molecule.breadcrumbItem current="{true}" microdata="{true}">
                                     <span itemprop="name">{crumb.title}</span>
                                     <meta itemprop="position" content="{step.cycle}"/>
-                                </li>
+                                </a:molecule.breadcrumbItem>
                             </f:then>
                             <f:else>
-                                <li class="astryx-breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                                <a:molecule.breadcrumbItem microdata="{true}">
                                     <a href="{crumb.link}" itemprop="item"><span itemprop="name">{crumb.title}</span></a>
                                     <meta itemprop="position" content="{step.cycle}"/>
-                                </li>
+                                </a:molecule.breadcrumbItem>
                             </f:else>
                         </f:if>
                     </f:for>

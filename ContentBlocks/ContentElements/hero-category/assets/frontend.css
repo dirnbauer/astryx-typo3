@@ -59,8 +59,8 @@
   border-radius: var(--radius-element);
 }
 
-.g-hero-category.accent .g-hero-category__lead,
-.g-hero-category.accent .astryx-eyebrow {
+.g-hero-category[data-surface="accent"] .g-hero-category__lead,
+.g-hero-category[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

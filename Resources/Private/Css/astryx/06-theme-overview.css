@@ -92,6 +92,17 @@
 }
 
 /* ------------------------------------------------------------ the table */
+/* Twenty-five rows by eight columns does not fit a phone, and the choice is
+   between a box that scrolls and a page that does. This is the same pair of
+   declarations `.astryx-table-wrap` carries, written here rather than borrowed:
+   Table leaves the scroll container to whoever places the table, and this page
+   is the only thing placing this one. */
+.g-themes__scroll {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
 .g-themes__matrix {
   inline-size: 100%;
 }

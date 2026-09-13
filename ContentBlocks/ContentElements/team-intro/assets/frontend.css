@@ -37,8 +37,8 @@
   margin-block-start: var(--spacing-2);
 }
 
-.g-team-intro.accent .g-team-intro__lead,
-.g-team-intro.accent .astryx-eyebrow {
+.g-team-intro[data-surface="accent"] .g-team-intro__lead,
+.g-team-intro[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

@@ -57,15 +57,15 @@
   border-radius: var(--radius-container, var(--radius-element));
 }
 
-.g-founder-story.accent .g-founder-story__lead,
-.g-founder-story.accent .g-founder-story__role,
-.g-founder-story.accent .astryx-eyebrow,
-.g-founder-story.accent .g-founder-story__figure figcaption {
+.g-founder-story[data-surface="accent"] .g-founder-story__lead,
+.g-founder-story[data-surface="accent"] .g-founder-story__role,
+.g-founder-story[data-surface="accent"] .astryx-eyebrow,
+.g-founder-story[data-surface="accent"] .g-founder-story__figure figcaption {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-founder-story.accent .g-founder-story__signature {
+.g-founder-story[data-surface="accent"] .g-founder-story__signature {
   border-block-start-color: currentColor;
 }
 

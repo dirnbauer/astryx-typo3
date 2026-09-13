@@ -7,11 +7,9 @@
     and pulls every child but the first back by a share of it. An avatar sizing
     itself would put the picture and the overlap out of step.
 
-    That size is spelled as a bare class rather than a data attribute, alone
-    among this theme's components. `.astryx-avatar-group.md` is what the
-    stylesheet is written against and the CSS codemod leaves it alone, because
-    the class is not a component root; the contract therefore lists no modifiers
-    for this component and the token stays where the CSS can see it.
+    The size reaches the markup as `data-size`, like every other modifier in
+    this theme; the stylesheet was written against `.astryx-avatar-group.md`
+    until 2.0 and now reads `[data-size="md"]`.
 
     A pile of portraits is usually decoration, with the count written out in
     words beside it. `ariaHidden` is how the caller says so, and most do.
@@ -22,5 +20,6 @@
 <f:argument name="ariaHidden" type="string" optional="{true}" default="" />
 
 <span
-    class="astryx-avatar-group {size} {class}"
+    class="astryx-avatar-group {class}"
+    data-size="{size}"
     aria-hidden="{ariaHidden}"><f:slot /></span>

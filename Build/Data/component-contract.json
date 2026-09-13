@@ -618,6 +618,13 @@
       },
       "note": ""
     },
+    "atom.featureIcon": {
+      "layer": "Atom",
+      "name": "FeatureIcon",
+      "rootClass": "astryx-feature-icon",
+      "modifiers": {},
+      "note": "The tinted square a feature glyph sits in. Six different parents place one, so it belongs to none of them; Feature calls it like anybody else."
+    },
     "atom.avatar": {
       "layer": "Atom",
       "name": "Avatar",
@@ -645,6 +652,34 @@
         }
       },
       "note": ""
+    },
+    "atom.avatarGroup": {
+      "layer": "Atom",
+      "name": "AvatarGroup",
+      "rootClass": "astryx-avatar-group",
+      "modifiers": {
+        "xsm": {
+          "attribute": "size",
+          "value": "xsm"
+        },
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "md": {
+          "attribute": "size",
+          "value": "md"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        },
+        "xl": {
+          "attribute": "size",
+          "value": "xl"
+        }
+      },
+      "note": "A cluster of overlapping portraits. The overlap is derived from the one size set on the group, so an avatar inside it never sizes itself."
     },
     "atom.divider": {
       "layer": "Atom",
@@ -1206,6 +1241,27 @@
       },
       "note": ""
     },
+    "molecule.bannerContent": {
+      "layer": "Molecule",
+      "name": "BannerContent",
+      "rootClass": "astryx-banner-content",
+      "modifiers": {},
+      "note": "The middle column of a banner. It is what shrinks when the message is long, so it has to hold the whole message."
+    },
+    "molecule.bannerTitle": {
+      "layer": "Molecule",
+      "name": "BannerTitle",
+      "rootClass": "astryx-banner-title",
+      "modifiers": {},
+      "note": "A banner heading: body size, heavier weight, a real h2-h6. Not Atom/Heading, which would bring the page type scale into a tinted box."
+    },
+    "molecule.bannerBody": {
+      "layer": "Molecule",
+      "name": "BannerBody",
+      "rootClass": "astryx-banner-body",
+      "modifiers": {},
+      "note": "The message under a banner title. A div rather than a paragraph where it carries editor rich text."
+    },
     "molecule.collapsible": {
       "layer": "Molecule",
       "name": "Collapsible",
@@ -1304,6 +1360,18 @@
       },
       "note": ""
     },
+    "molecule.tab": {
+      "layer": "Molecule",
+      "name": "Tab",
+      "rootClass": "astryx-tab",
+      "modifiers": {
+        "selected": {
+          "attribute": "selected",
+          "value": "selected"
+        }
+      },
+      "note": "One trigger in a tab list. Carries data-g-tab, which is what astryx.js binds the arrow keys to."
+    },
     "molecule.breadcrumbs": {
       "layer": "Molecule",
       "name": "Breadcrumbs",
@@ -1315,6 +1383,13 @@
         }
       },
       "note": ""
+    },
+    "molecule.breadcrumbItem": {
+      "layer": "Molecule",
+      "name": "BreadcrumbItem",
+      "rootClass": "astryx-breadcrumb-item",
+      "modifiers": {},
+      "note": "One crumb. The separator is drawn from crumb-to-crumb adjacency, so the class has to be on the crumb itself."
     },
     "molecule.pagination": {
       "layer": "Molecule",
@@ -1331,6 +1406,25 @@
         }
       },
       "note": ""
+    },
+    "molecule.paginationDots": {
+      "layer": "Molecule",
+      "name": "PaginationDots",
+      "rootClass": "astryx-pagination-dots",
+      "modifiers": {},
+      "note": "The row of dots under a slideshow. Deliberately not a region of Pagination: it moves the reader within one band rather than between documents."
+    },
+    "molecule.paginationDot": {
+      "layer": "Molecule",
+      "name": "PaginationDot",
+      "rootClass": "astryx-pagination-dot",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        }
+      },
+      "note": "One dot, as a link to a fragment, so which view is showing survives a reload and the back button."
     },
     "molecule.toolbar": {
       "layer": "Molecule",
@@ -1496,6 +1590,13 @@
       },
       "note": ""
     },
+    "molecule.carouselItem": {
+      "layer": "Molecule",
+      "name": "CarouselItem",
+      "rootClass": "astryx-carousel-item",
+      "modifiers": {},
+      "note": "One cell of a carousel track. The snap alignment is the cell’s own, so the class cannot be inferred by the track around it."
+    },
     "molecule.dialog": {
       "layer": "Molecule",
       "name": "Dialog",
@@ -1507,6 +1608,18 @@
         }
       },
       "note": ""
+    },
+    "molecule.popover": {
+      "layer": "Molecule",
+      "name": "Popover",
+      "rootClass": "astryx-popover",
+      "modifiers": {
+        "match-trigger": {
+          "attribute": "width",
+          "value": "match-trigger"
+        }
+      },
+      "note": "The surface a menu or filter list opens onto. Where it opens is the caller’s: a native [popover] and a <details> disclosure both use it."
     },
     "molecule.overlay": {
       "layer": "Molecule",
@@ -1603,6 +1716,22 @@
       },
       "note": ""
     },
+    "molecule.segmentedControlItem": {
+      "layer": "Molecule",
+      "name": "SegmentedControlItem",
+      "rootClass": "astryx-segmented-control-item",
+      "modifiers": {
+        "sm": {
+          "attribute": "size",
+          "value": "sm"
+        },
+        "lg": {
+          "attribute": "size",
+          "value": "lg"
+        }
+      },
+      "note": "One segment of a segmented control. Renders as a TypoLink or a plain anchor, the same rule Button follows."
+    },
     "molecule.overflowList": {
       "layer": "Molecule",
       "name": "OverflowList",
@@ -1657,6 +1786,30 @@
         }
       },
       "note": ""
+    },
+    "molecule.outlineItem": {
+      "layer": "Molecule",
+      "name": "OutlineItem",
+      "rootClass": "astryx-outline-item",
+      "modifiers": {
+        "level-1": {
+          "attribute": "level",
+          "value": "1"
+        },
+        "level-2": {
+          "attribute": "level",
+          "value": "2"
+        },
+        "level-3": {
+          "attribute": "level",
+          "value": "3"
+        },
+        "level-4": {
+          "attribute": "level",
+          "value": "4"
+        }
+      },
+      "note": "One line of an on-this-page rail. The current marker is painted from aria-current, never from a class."
     },
     "molecule.figure": {
       "layer": "Molecule",
@@ -1715,6 +1868,20 @@
       "rootClass": "astryx-scheme-toggle",
       "modifiers": {},
       "note": ""
+    },
+    "organism.errorMessage": {
+      "layer": "Organism",
+      "name": "ErrorMessage",
+      "rootClass": "astryx-error",
+      "modifiers": {},
+      "note": "The heading, status number and way home on a 404 or 403 page. An organism because it is the page’s own h1, not an element an editor places."
+    },
+    "organism.pageSidebar": {
+      "layer": "Organism",
+      "name": "PageSidebar",
+      "rootClass": "astryx-sidebar-layout",
+      "modifiers": {},
+      "note": "A content page’s body when sibling links sit beside it: the two-column grid and the nav landmark inside it. Sits inside a Container, like PageHeader."
     }
   }
 }

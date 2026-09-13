@@ -54,13 +54,13 @@
   line-height: var(--text-supporting-leading);
 }
 
-.g-team-function-columns.accent .g-team-function-columns__function {
+.g-team-function-columns[data-surface="accent"] .g-team-function-columns__function {
   color: currentColor;
   border-block-end-color: currentColor;
 }
 
-.g-team-function-columns.accent .g-team-function-columns__lead,
-.g-team-function-columns.accent .astryx-eyebrow {
+.g-team-function-columns[data-surface="accent"] .g-team-function-columns__lead,
+.g-team-function-columns[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

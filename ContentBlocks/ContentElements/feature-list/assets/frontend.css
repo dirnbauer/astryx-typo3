@@ -42,14 +42,14 @@
   max-inline-size: 62ch;
 }
 
-.g-feature-list.accent .g-feature-list__text {
+.g-feature-list[data-surface="accent"] .g-feature-list__text {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-feature-list.accent .g-feature-list__lead,
-.g-feature-list.accent .astryx-eyebrow,
-.g-feature-list.accent .astryx-text[data-type="supporting"] {
+.g-feature-list[data-surface="accent"] .g-feature-list__lead,
+.g-feature-list[data-surface="accent"] .astryx-eyebrow,
+.g-feature-list[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

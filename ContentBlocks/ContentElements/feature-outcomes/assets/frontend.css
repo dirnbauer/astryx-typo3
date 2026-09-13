@@ -65,9 +65,9 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-feature-outcomes.accent .g-feature-outcomes__lead,
-.g-feature-outcomes.accent .astryx-eyebrow,
-.g-feature-outcomes.accent .astryx-text[data-type="supporting"] {
+.g-feature-outcomes[data-surface="accent"] .g-feature-outcomes__lead,
+.g-feature-outcomes[data-surface="accent"] .astryx-eyebrow,
+.g-feature-outcomes[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

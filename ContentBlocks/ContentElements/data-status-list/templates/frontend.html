@@ -30,22 +30,20 @@
         <a:molecule.list dividers="with-dividers" class="g-data-status-list__rows">
             <f:for each="{data.metrics}" as="metric">
                 <a:molecule.item align="start" density="{f:if(condition: data.compact, then: 'compact', else: 'spacious')}" class="g-data-status-list__row">
-                    <span class="astryx-item-start">
+                    <f:fragment name="start">
                         <a:atom.statusDot class="{metric.icon} g-data-status-list__dot" ariaHidden="true"></a:atom.statusDot>
-                    </span>
+                    </f:fragment>
 
-                    <a:molecule.itemContent>
-                        <a:molecule.itemLabel class="g-data-status-list__service">{metric -> f:render.text(field: 'title')}</a:molecule.itemLabel>
-                        <f:if condition="{metric.text}">
-                            <a:molecule.itemDescription>{metric -> f:render.text(field: 'text')}</a:molecule.itemDescription>
-                        </f:if>
-                    </a:molecule.itemContent>
+                    <f:fragment>
+                        <a:molecule.itemContent>
+                            <a:molecule.itemLabel class="g-data-status-list__service">{metric -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                            <f:if condition="{metric.text}">
+                                <a:molecule.itemDescription>{metric -> f:render.text(field: 'text')}</a:molecule.itemDescription>
+                            </f:if>
+                        </a:molecule.itemContent>
+                    </f:fragment>
 
-                    <f:if condition="{metric.value}">
-                        <span class="astryx-item-end">
-                            <a:atom.badge as="span" class="{metric.icon} g-data-status-list__state">{metric -> f:render.text(field: 'value')}</a:atom.badge>
-                        </span>
-                    </f:if>
+                    <f:fragment name="end"><f:if condition="{metric.value}"><a:atom.badge as="span" class="{metric.icon} g-data-status-list__state">{metric -> f:render.text(field: 'value')}</a:atom.badge></f:if></f:fragment>
                 </a:molecule.item>
             </f:for>
         </a:molecule.list>

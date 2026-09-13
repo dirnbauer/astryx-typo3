@@ -31,7 +31,7 @@
 
         <a:layout.grid cols="{data.columns}" class="g-press-mentions__items">
             <f:for each="{data.mentions}" as="mention">
-                <a:molecule.card variant="flat" class="g-press-mentions__item {f:if(condition: mention.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card clickable="{mention.link.url}" variant="flat" class="g-press-mentions__item">
                     <a:molecule.cardTitle class="g-press-mentions__headline">
                         <f:if condition="{mention.link.url}">
                             <f:then><f:link.typolink parameter="{mention.link}">{mention.title}</f:link.typolink></f:then>

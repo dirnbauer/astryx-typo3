@@ -55,9 +55,9 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-team-group-photo.accent .g-team-group-photo__lead,
-.g-team-group-photo.accent .g-team-group-photo__key,
-.g-team-group-photo.accent .astryx-eyebrow {
+.g-team-group-photo[data-surface="accent"] .g-team-group-photo__lead,
+.g-team-group-photo[data-surface="accent"] .g-team-group-photo__key,
+.g-team-group-photo[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

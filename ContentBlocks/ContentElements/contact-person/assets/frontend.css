@@ -45,9 +45,9 @@
   margin-block-start: var(--spacing-1);
 }
 
-.g-contact-person.accent .g-contact-person__role,
-.g-contact-person.accent .g-contact-person__text,
-.g-contact-person.accent .g-contact-person__hours {
+.g-contact-person[data-surface="accent"] .g-contact-person__role,
+.g-contact-person[data-surface="accent"] .g-contact-person__text,
+.g-contact-person[data-surface="accent"] .g-contact-person__hours {
   color: currentColor;
   opacity: 0.85;
 }

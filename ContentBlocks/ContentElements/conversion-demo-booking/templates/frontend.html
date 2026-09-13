@@ -32,7 +32,7 @@
                         <f:for each="{data.agenda}" as="point">
                             <a:molecule.feature class="g-conversion-demo-booking__point">
                                 <f:if condition="{point.icon}">
-                                    <span class="astryx-feature-icon" data-icon="{point.icon}" aria-hidden="true"><g:icon name="{point.icon}"/></span>
+                                    <a:atom.featureIcon icon="{point.icon}" />
                                 </f:if>
                                 <a:molecule.cardTitle>{point -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                                 <f:if condition="{point.text}">

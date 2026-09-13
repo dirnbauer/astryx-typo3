@@ -70,14 +70,14 @@
   text-align: center;
 }
 
-.g-pricing-guarantee-band.accent .g-pricing-guarantee-band__scope,
-.g-pricing-guarantee-band.accent .g-pricing-guarantee-band__lead,
-.g-pricing-guarantee-band.accent .astryx-text[data-type="supporting"] {
+.g-pricing-guarantee-band[data-surface="accent"] .g-pricing-guarantee-band__scope,
+.g-pricing-guarantee-band[data-surface="accent"] .g-pricing-guarantee-band__lead,
+.g-pricing-guarantee-band[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-pricing-guarantee-band.accent .g-pricing-guarantee-band__points {
+.g-pricing-guarantee-band[data-surface="accent"] .g-pricing-guarantee-band__points {
   border-color: currentColor;
 }
 

@@ -55,14 +55,14 @@
   display: none;
 }
 
-.g-team-departments.accent .g-team-departments__intro {
+.g-team-departments[data-surface="accent"] .g-team-departments__intro {
   border-block-end-color: currentColor;
 }
 
-.g-team-departments.accent .g-team-departments__lead,
-.g-team-departments.accent .g-team-departments__role,
-.g-team-departments.accent .g-team-departments__note,
-.g-team-departments.accent .astryx-eyebrow {
+.g-team-departments[data-surface="accent"] .g-team-departments__lead,
+.g-team-departments[data-surface="accent"] .g-team-departments__role,
+.g-team-departments[data-surface="accent"] .g-team-departments__note,
+.g-team-departments[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

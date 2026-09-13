@@ -39,7 +39,7 @@
 
         <f:if condition="{data.logos}">
             <div class="g-conversion-cta-proof__proof">
-                <hr class="astryx-divider g-conversion-cta-proof__rule"/>
+                <a:atom.divider class="g-conversion-cta-proof__rule" />
 
                 <f:if condition="{data.note}">
                     <a:atom.text type="supporting" class="g-conversion-cta-proof__note" id="g-conversion-cta-proof-note-{data.uid}">{data -> f:render.text(field: 'note')}</a:atom.text>

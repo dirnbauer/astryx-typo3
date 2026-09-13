@@ -65,9 +65,9 @@
   max-inline-size: 60ch;
 }
 
-.g-social-mentions.accent .g-social-mentions__lead,
-.g-social-mentions.accent .astryx-eyebrow,
-.g-social-mentions.accent .astryx-text[data-type="supporting"] {
+.g-social-mentions[data-surface="accent"] .g-social-mentions__lead,
+.g-social-mentions[data-surface="accent"] .astryx-eyebrow,
+.g-social-mentions[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

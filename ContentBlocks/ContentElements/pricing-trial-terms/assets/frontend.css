@@ -51,15 +51,15 @@
   margin: 0;
 }
 
-.g-pricing-trial-terms.accent .g-pricing-trial-terms__lead,
-.g-pricing-trial-terms.accent .g-pricing-trial-terms__label,
-.g-pricing-trial-terms.accent .astryx-eyebrow,
-.g-pricing-trial-terms.accent .astryx-text[data-type="supporting"] {
+.g-pricing-trial-terms[data-surface="accent"] .g-pricing-trial-terms__lead,
+.g-pricing-trial-terms[data-surface="accent"] .g-pricing-trial-terms__label,
+.g-pricing-trial-terms[data-surface="accent"] .astryx-eyebrow,
+.g-pricing-trial-terms[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-pricing-trial-terms.accent .g-pricing-trial-terms__term {
+.g-pricing-trial-terms[data-surface="accent"] .g-pricing-trial-terms__term {
   border-color: currentColor;
 }
 

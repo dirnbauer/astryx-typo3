@@ -37,9 +37,9 @@
   min-inline-size: 0;
 }
 
-.g-feature-sticky-list.accent .g-feature-sticky-list__lead,
-.g-feature-sticky-list.accent .astryx-eyebrow,
-.g-feature-sticky-list.accent .astryx-text[data-type="supporting"] {
+.g-feature-sticky-list[data-surface="accent"] .g-feature-sticky-list__lead,
+.g-feature-sticky-list[data-surface="accent"] .astryx-eyebrow,
+.g-feature-sticky-list[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

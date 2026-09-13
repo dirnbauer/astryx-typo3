@@ -11,7 +11,7 @@
   --section-gap: var(--astryx-band-tight);
 }
 
-.g-hero-page-header.tight {
+.g-hero-page-header[data-spacing="tight"] {
   --section-gap: var(--spacing-6);
 }
 
@@ -46,13 +46,13 @@
   margin-block-start: var(--spacing-5);
 }
 
-.g-hero-page-header.accent .g-hero-page-header__subheader,
-.g-hero-page-header.accent .astryx-eyebrow {
+.g-hero-page-header[data-surface="accent"] .g-hero-page-header__subheader,
+.g-hero-page-header[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-hero-page-header.accent .g-hero-page-header__rule {
+.g-hero-page-header[data-surface="accent"] .g-hero-page-header__rule {
   background-color: currentColor;
   opacity: 0.3;
 }

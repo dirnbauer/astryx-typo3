@@ -91,11 +91,11 @@
   text-align: center;
 }
 
-.g-logo-wall-claim.accent .g-logo-wall-claim__figure,
-.g-logo-wall-claim.accent .g-logo-wall-claim__unit,
-.g-logo-wall-claim.accent .g-logo-wall-claim__lead,
-.g-logo-wall-claim.accent .g-logo-wall-claim__wordmark,
-.g-logo-wall-claim.accent .astryx-eyebrow {
+.g-logo-wall-claim[data-surface="accent"] .g-logo-wall-claim__figure,
+.g-logo-wall-claim[data-surface="accent"] .g-logo-wall-claim__unit,
+.g-logo-wall-claim[data-surface="accent"] .g-logo-wall-claim__lead,
+.g-logo-wall-claim[data-surface="accent"] .g-logo-wall-claim__wordmark,
+.g-logo-wall-claim[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

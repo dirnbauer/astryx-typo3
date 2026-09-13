@@ -30,6 +30,7 @@
 <f:argument name="titleLevel" type="string" optional="{true}" default="2" />
 <f:argument name="dismissible" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="dismissLabel" type="string" optional="{true}" default="" />
+<f:argument name="dismissClass" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 <f:argument name="ariaLive" type="string" optional="{true}" default="" />
@@ -71,7 +72,7 @@
             script the button simply does nothing and the message stays, which
             is the right failure for a message.
         </f:comment>
-        <button type="button" class="astryx-banner-dismiss" aria-label="{dismissName}" data-g-dismiss="1">
+        <button type="button" class="astryx-banner-dismiss {dismissClass}" aria-label="{dismissName}" data-g-dismiss="1">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
     </f:if>

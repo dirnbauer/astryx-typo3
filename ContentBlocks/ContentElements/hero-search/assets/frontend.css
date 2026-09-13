@@ -52,8 +52,8 @@
   color: inherit;
 }
 
-.g-hero-search.accent .g-hero-search__lead,
-.g-hero-search.accent .astryx-eyebrow {
+.g-hero-search[data-surface="accent"] .g-hero-search__lead,
+.g-hero-search[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

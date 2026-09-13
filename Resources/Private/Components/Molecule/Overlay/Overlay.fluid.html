@@ -20,6 +20,12 @@
     does: a control that only appears when a pointer arrives is a control a
     keyboard can never reach. That is also why the two spellings differ — the
     argument says when it comes back, the class says which rule draws it.
+
+    The scrim is drawn only when its slot has something in it, and that test
+    trims first. A fragment written over several lines is never empty — it
+    holds its own newlines — so without the trim a caller whose scrim is one
+    conditional control would get a full-bleed dark panel over the picture on
+    every record where the condition is false, and the clicks with it.
 </f:comment>
 
 <f:argument name="position" type="string" optional="{true}" default="fill" />
@@ -37,4 +43,4 @@
     data-fill="{f:if(condition: '{position} == \'fill\'', then: 'fill', else: 'false')}"
     data-align="{align}"
     data-tone="{tone}"
-    data-reveal="{reveal}"><f:slot /><f:if condition="{f:slot(name: 'scrim')}"><div class="astryx-overlay-scrim {position} align-{align} {tone} {scrimReveal} {scrimClass}"><f:slot name="scrim" /></div></f:if></div>
+    data-reveal="{reveal}"><f:slot /><f:if condition="{f:slot(name: 'scrim') -> f:format.trim()}"><div class="astryx-overlay-scrim {position} align-{align} {tone} {scrimReveal} {scrimClass}"><f:slot name="scrim" /></div></f:if></div>

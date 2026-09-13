@@ -278,7 +278,7 @@
   outline-offset: 2px;
 }
 
-.astryx-tab.selected,
+.astryx-tab[data-selected="selected"],
 .astryx-tab[aria-selected='true'],
 .astryx-tab[aria-current='page'],
 .astryx-tab-menu.selected {
@@ -308,7 +308,7 @@
 }
 
 .astryx-tab-indicator.selected,
-.astryx-tab.selected > .astryx-tab-indicator,
+.astryx-tab[data-selected="selected"] > .astryx-tab-indicator,
 .astryx-tab-menu.selected > .astryx-tab-indicator {
   background-color: var(--color-accent);
   opacity: 1;
@@ -375,9 +375,14 @@
    not reflow: the weight stays put and the raised surface plus shadow do the
    signalling. The item radius is concentric with the track's — inner radius
    minus the track padding — so the two curves stay parallel at any radius. */
+/* A <ul>, so the user agent's list margin, indent and marker all have to go —
+   see the note on .astryx-overflow-list. The padding below is the track's own
+   and must not be inherited from the list's indent. */
 .astryx-segmented-control {
   display: inline-flex;
   align-items: center;
+  list-style: none;
+  margin: 0;
   gap: var(--spacing-0-5);
   padding: var(--_segmented-control-padding, var(--spacing-0-5));
   border-radius: var(--_segmented-control-radius, var(--radius-element));
@@ -424,13 +429,13 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-segmented-control-item.sm {
+.astryx-segmented-control-item[data-size="sm"] {
   block-size: calc(var(--size-element-sm) - var(--spacing-1));
   padding-inline: var(--spacing-2);
   font-size: var(--text-supporting-size);
 }
 
-.astryx-segmented-control-item.lg {
+.astryx-segmented-control-item[data-size="lg"] {
   block-size: calc(var(--size-element-lg) - var(--spacing-1));
 }
 
@@ -452,7 +457,7 @@
 
 /* :has(input:checked) covers the no-JS build, where the segments are a radio
    group and the browser owns the state. */
-.astryx-segmented-control-item.selected,
+.astryx-segmented-control-item[data-selected="selected"],
 .astryx-segmented-control-item[aria-checked='true'],
 .astryx-segmented-control-item[aria-selected='true'],
 .astryx-segmented-control-item:has(input:checked) {
@@ -461,7 +466,7 @@
   box-shadow: var(--shadow-low);
 }
 
-.astryx-segmented-control-item.disabled,
+.astryx-segmented-control-item[data-disabled="disabled"],
 .astryx-segmented-control-item[aria-disabled='true'] {
   color: var(--color-text-disabled);
   cursor: default;
@@ -1177,10 +1182,10 @@
 
 /* Depth is expressed as indent alone — a heading three levels down is still a
    link of the same size, only further from the rail. */
-.astryx-outline-item.level-1 { padding-inline-start: var(--spacing-3); }
-.astryx-outline-item.level-2 { padding-inline-start: var(--spacing-7); }
-.astryx-outline-item.level-3 { padding-inline-start: var(--spacing-11); }
-.astryx-outline-item.level-4 { padding-inline-start: var(--spacing-12); }
+.astryx-outline-item[data-level="1"] { padding-inline-start: var(--spacing-3); }
+.astryx-outline-item[data-level="2"] { padding-inline-start: var(--spacing-7); }
+.astryx-outline-item[data-level="3"] { padding-inline-start: var(--spacing-11); }
+.astryx-outline-item[data-level="4"] { padding-inline-start: var(--spacing-12); }
 
 .astryx-outline-item > span {
   overflow: hidden;
@@ -1317,7 +1322,7 @@
   transition: background-color var(--duration-fast) var(--ease-standard);
 }
 
-.astryx-pagination-dot.sm {
+.astryx-pagination-dot[data-size="sm"] {
   inline-size: var(--spacing-1-5);
   block-size: var(--spacing-1-5);
 }

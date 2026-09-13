@@ -88,9 +88,9 @@
   color: var(--color-text-secondary);
 }
 
-.g-step-nav.accent .g-step-nav__lead,
-.g-step-nav.accent .astryx-text[data-type="supporting"],
-.g-step-nav.accent .g-step-nav__title {
+.g-step-nav[data-surface="accent"] .g-step-nav__lead,
+.g-step-nav[data-surface="accent"] .astryx-text[data-type="supporting"],
+.g-step-nav[data-surface="accent"] .g-step-nav__title {
   color: currentColor;
 }
 

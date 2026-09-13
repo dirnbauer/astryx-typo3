@@ -117,27 +117,27 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-data-scorecard.accent .g-data-scorecard__overall {
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__overall {
   color: currentColor;
 }
 
-.g-data-scorecard.accent .g-data-scorecard__pip {
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__pip {
   background-color: var(--color-overlay-hover);
 }
 
-.g-data-scorecard.accent .g-data-scorecard__pip::after {
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__pip::after {
   background-color: currentColor;
 }
 
-.g-data-scorecard.accent .g-data-scorecard__criteria,
-.g-data-scorecard.accent .g-data-scorecard__criterion {
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__criteria,
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__criterion {
   border-color: currentColor;
 }
 
-.g-data-scorecard.accent .g-data-scorecard__lead,
-.g-data-scorecard.accent .g-data-scorecard__scale,
-.g-data-scorecard.accent .astryx-eyebrow,
-.g-data-scorecard.accent .astryx-text[data-type="supporting"] {
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__lead,
+.g-data-scorecard[data-surface="accent"] .g-data-scorecard__scale,
+.g-data-scorecard[data-surface="accent"] .astryx-eyebrow,
+.g-data-scorecard[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

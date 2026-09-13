@@ -12,8 +12,11 @@
             line on a wide screen, which is what keeps this band shorter than
             everything else in the group.
         </f:comment>
-        <a:molecule.toolbar class="g-hero-page-header__bar">
-            <div class="astryx-toolbar-start g-hero-page-header__titles {data.align}">
+        <a:molecule.toolbar
+            class="g-hero-page-header__bar"
+            startClass="g-hero-page-header__titles {data.align}"
+            endClass="g-hero-page-header__action">
+            <f:fragment name="start">
                 <f:if condition="{data.eyebrow}">
                     <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
@@ -23,16 +26,12 @@
                 <f:if condition="{data.subheader}">
                     <a:atom.text type="body" class="g-hero-page-header__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                 </f:if>
-            </div>
+            </f:fragment>
 
-            <f:if condition="{data.cta_label}">
-                <div class="astryx-toolbar-end g-hero-page-header__action">
-                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </div>
-            </f:if>
+            <f:fragment name="end"><f:if condition="{data.cta_label}"><a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button></f:if></f:fragment>
         </a:molecule.toolbar>
 
-        <hr class="astryx-divider g-hero-page-header__rule"/>
+        <a:atom.divider class="g-hero-page-header__rule" />
     </a:layout.container>
 </a:layout.section>
 

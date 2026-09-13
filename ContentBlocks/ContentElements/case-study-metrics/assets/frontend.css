@@ -74,14 +74,14 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-case-study-metrics.accent .g-case-study-metrics__value {
+.g-case-study-metrics[data-surface="accent"] .g-case-study-metrics__value {
   color: currentColor;
 }
 
-.g-case-study-metrics.accent .g-case-study-metrics__lead,
-.g-case-study-metrics.accent .g-case-study-metrics__unit,
-.g-case-study-metrics.accent .astryx-eyebrow,
-.g-case-study-metrics.accent .astryx-text[data-type="supporting"] {
+.g-case-study-metrics[data-surface="accent"] .g-case-study-metrics__lead,
+.g-case-study-metrics[data-surface="accent"] .g-case-study-metrics__unit,
+.g-case-study-metrics[data-surface="accent"] .astryx-eyebrow,
+.g-case-study-metrics[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

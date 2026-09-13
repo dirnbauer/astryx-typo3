@@ -29,27 +29,25 @@
             </f:if>
         </div>
 
-        <div class="astryx-table-wrap g-pricing-usage-table__wrap">
-            <a:molecule.table density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-usage-table__table">
-                <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
-                <thead>
+        <a:molecule.table scroll="{true}" scrollClass="g-pricing-usage-table__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-usage-table__table">
+            <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
+            <thead>
+                <tr>
+                    <th scope="col" class="g-pricing-usage-table__col-unit"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.unit" default="Unit"/></th>
+                    <th scope="col" class="g-pricing-usage-table__col-rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.rate" default="Rate"/></th>
+                    <th scope="col" class="g-pricing-usage-table__col-counted"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.counted" default="How it is counted"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <f:for each="{data.rates}" as="rate">
                     <tr>
-                        <th scope="col" class="g-pricing-usage-table__col-unit"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.unit" default="Unit"/></th>
-                        <th scope="col" class="g-pricing-usage-table__col-rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.rate" default="Rate"/></th>
-                        <th scope="col" class="g-pricing-usage-table__col-counted"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.counted" default="How it is counted"/></th>
+                        <th scope="row" class="g-pricing-usage-table__unit">{rate -> f:render.text(field: 'title')}</th>
+                        <td class="g-pricing-usage-table__rate">{rate -> f:render.text(field: 'value')}</td>
+                        <td class="g-pricing-usage-table__counted">{rate -> f:render.text(field: 'text')}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <f:for each="{data.rates}" as="rate">
-                        <tr>
-                            <th scope="row" class="g-pricing-usage-table__unit">{rate -> f:render.text(field: 'title')}</th>
-                            <td class="g-pricing-usage-table__rate">{rate -> f:render.text(field: 'value')}</td>
-                            <td class="g-pricing-usage-table__counted">{rate -> f:render.text(field: 'text')}</td>
-                        </tr>
-                    </f:for>
-                </tbody>
-            </a:molecule.table>
-        </div>
+                </f:for>
+            </tbody>
+        </a:molecule.table>
 
         <f:if condition="{data.note} || {data.cta_label}">
             <div class="g-pricing-usage-table__foot">

@@ -48,10 +48,10 @@
   margin: 0;
 }
 
-.g-pricing-usage-table.accent .g-pricing-usage-table__lead,
-.g-pricing-usage-table.accent .g-pricing-usage-table__counted,
-.g-pricing-usage-table.accent .astryx-eyebrow,
-.g-pricing-usage-table.accent .astryx-text[data-type="supporting"] {
+.g-pricing-usage-table[data-surface="accent"] .g-pricing-usage-table__lead,
+.g-pricing-usage-table[data-surface="accent"] .g-pricing-usage-table__counted,
+.g-pricing-usage-table[data-surface="accent"] .astryx-eyebrow,
+.g-pricing-usage-table[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

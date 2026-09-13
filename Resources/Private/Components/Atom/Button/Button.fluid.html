@@ -13,6 +13,13 @@
       href        a plain URL already resolved by the template.
       neither     a real <button>, for something that submits or toggles.
 
+    `as="summary"` is the one exception to that, and it exists because a native
+    disclosure has exactly one possible trigger. `<details>` opens when its own
+    `<summary>` is activated and nothing else will do — a `<button>` in that
+    position is not a trigger, it is content that the closed disclosure hides.
+    The 2.0 codemod rewrote two such summaries into buttons and the menus
+    stopped opening, which is what this argument is for.
+
     `data-variant` and `data-size` are upstream's own attribute names since
     Astryx v0.6.0, where `.astryx-button.primary` became
     `.astryx-button[data-variant="primary"]`.
@@ -39,17 +46,19 @@
 <f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
 <f:argument name="ariaHidden" type="string" optional="{true}" default="" />
 <f:argument name="tabindex" type="string" optional="{true}" default="" />
+<f:argument name="as" type="string" optional="{true}" default="button" />
 <f:argument name="dialogOpen" type="string" optional="{true}" default="" />
 
 <f:comment>
     Built as a fragment of attribute source rather than as an attribute with an
     f:if inside it, so that the attribute is absent — not empty — when no dialog
-    is named. Captured output is escaped on the way in, which keeps the id safe,
-    and printed raw on the way out, which is what lets the attribute exist.
+    is named: an empty one still matches the script's selector. A fragment is
+    printed raw, and Fluid does not escape what it captures, so the id escapes
+    itself on the way in. Nothing else in here comes from outside the template.
 </f:comment>
-<f:variable name="hooks"><f:if condition="{dialogOpen}">data-g-dialog-open="{dialogOpen}"</f:if></f:variable>
+<f:variable name="hooks"><f:if condition="{dialogOpen}">data-g-dialog-open="{dialogOpen -> f:format.htmlspecialchars()}"</f:if></f:variable>
 
-<f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: \'button\')}')}</f:variable>
+<f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: as)}')}</f:variable>
 
 <f:switch expression="{mode}">
 <f:comment>
@@ -65,6 +74,7 @@
         opens a new browsing context.
     </f:comment>
     <f:case value="link"><a href="{href}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}" tabindex="{tabindex}"><f:slot /></a></f:case>
+    <f:case value="summary"><summary class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}"><f:slot /></summary></f:case>
     <f:defaultCase>
         <f:if condition="{disabled}">
             <f:then><button type="{type}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}" tabindex="{tabindex}" {hooks -> f:format.raw()} disabled="disabled"><f:slot /></button></f:then>

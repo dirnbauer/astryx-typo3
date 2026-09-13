@@ -1,0 +1,42 @@
+<f:comment>
+    BannerTitle — the heading of a Banner.
+
+    A real heading, at the level the surrounding document calls for, so that it
+    appears where a reader expects it in the outline rather than being a bold
+    line a screen reader walks straight past. The level is therefore an argument
+    with no default worth guessing at: 2 is what a band-level note wants and is
+    what Banner's own shortcut writes.
+
+    Deliberately not Atom/Heading. A banner title sits at body size with a
+    heavier weight, because it names a note rather than a section of the page,
+    and a heading atom would bring the page's own type scale into a tinted box.
+
+    `id` is the one attribute a caller reaches for here: a banner that names
+    itself through `ariaLabelledby` needs its title to have something to point
+    at, and an empty id is not a conforming one.
+</f:comment>
+
+<f:argument name="level" type="string" optional="{true}" default="2" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then>
+        <f:switch expression="{level}">
+            <f:case value="3"><h3 class="astryx-banner-title {class}" id="{id}"><f:slot /></h3></f:case>
+            <f:case value="4"><h4 class="astryx-banner-title {class}" id="{id}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5 class="astryx-banner-title {class}" id="{id}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6 class="astryx-banner-title {class}" id="{id}"><f:slot /></h6></f:case>
+            <f:defaultCase><h2 class="astryx-banner-title {class}" id="{id}"><f:slot /></h2></f:defaultCase>
+        </f:switch>
+    </f:then>
+    <f:else>
+        <f:switch expression="{level}">
+            <f:case value="3"><h3 class="astryx-banner-title {class}"><f:slot /></h3></f:case>
+            <f:case value="4"><h4 class="astryx-banner-title {class}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5 class="astryx-banner-title {class}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6 class="astryx-banner-title {class}"><f:slot /></h6></f:case>
+            <f:defaultCase><h2 class="astryx-banner-title {class}"><f:slot /></h2></f:defaultCase>
+        </f:switch>
+    </f:else>
+</f:if>

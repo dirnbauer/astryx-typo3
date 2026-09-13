@@ -98,18 +98,18 @@
   margin-block-start: var(--spacing-8);
 }
 
-.g-data-bar-comparison.accent .g-data-bar-comparison__bar {
+.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__bar {
   background-color: currentColor;
 }
 
-.g-data-bar-comparison.accent .g-data-bar-comparison__plot {
+.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__plot {
   background-color: var(--color-overlay-hover);
 }
 
-.g-data-bar-comparison.accent .g-data-bar-comparison__lead,
-.g-data-bar-comparison.accent .g-data-bar-comparison__caption,
-.g-data-bar-comparison.accent .astryx-eyebrow,
-.g-data-bar-comparison.accent .astryx-text[data-type="supporting"] {
+.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__lead,
+.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__caption,
+.g-data-bar-comparison[data-surface="accent"] .astryx-eyebrow,
+.g-data-bar-comparison[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

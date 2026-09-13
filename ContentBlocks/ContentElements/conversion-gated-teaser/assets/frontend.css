@@ -11,9 +11,9 @@
   --gate-fade: var(--color-background-body);
 }
 
-.g-conversion-gated-teaser.surface { --gate-fade: var(--color-background-surface); }
-.g-conversion-gated-teaser.muted { --gate-fade: var(--color-background-muted); }
-.g-conversion-gated-teaser.accent { --gate-fade: var(--color-accent); }
+.g-conversion-gated-teaser[data-surface="surface"] { --gate-fade: var(--color-background-surface); }
+.g-conversion-gated-teaser[data-surface="muted"] { --gate-fade: var(--color-background-muted); }
+.g-conversion-gated-teaser[data-surface="accent"] { --gate-fade: var(--color-accent); }
 
 .g-conversion-gated-teaser__intro {
   display: flex;
@@ -82,22 +82,22 @@
   gap: var(--spacing-5);
 }
 
-.g-conversion-gated-teaser.accent .astryx-card {
+.g-conversion-gated-teaser[data-surface="accent"] .astryx-card {
   background-color: transparent;
   box-shadow: none;
   color: currentColor;
   border: var(--border-width) solid currentColor;
 }
 
-.g-conversion-gated-teaser.accent .g-conversion-gated-teaser__subheader,
-.g-conversion-gated-teaser.accent .g-conversion-gated-teaser__note,
-.g-conversion-gated-teaser.accent .g-conversion-gated-teaser__secondary,
-.g-conversion-gated-teaser.accent .astryx-eyebrow {
+.g-conversion-gated-teaser[data-surface="accent"] .g-conversion-gated-teaser__subheader,
+.g-conversion-gated-teaser[data-surface="accent"] .g-conversion-gated-teaser__note,
+.g-conversion-gated-teaser[data-surface="accent"] .g-conversion-gated-teaser__secondary,
+.g-conversion-gated-teaser[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-gated-teaser.accent .astryx-prose :where(a) {
+.g-conversion-gated-teaser[data-surface="accent"] .astryx-prose :where(a) {
   color: currentColor;
 }
 

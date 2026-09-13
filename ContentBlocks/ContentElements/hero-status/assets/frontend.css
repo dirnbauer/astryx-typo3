@@ -75,21 +75,21 @@
   color: var(--color-text-secondary);
 }
 
-.g-hero-status.accent .g-hero-status__dot {
+.g-hero-status[data-surface="accent"] .g-hero-status__dot {
   background-color: currentColor;
 }
 
-.g-hero-status.accent .g-hero-status__lead,
-.g-hero-status.accent .g-hero-status__note,
-.g-hero-status.accent .g-hero-status__unit,
-.g-hero-status.accent .astryx-eyebrow,
-.g-hero-status.accent .astryx-timestamp,
-.g-hero-status.accent .astryx-link {
+.g-hero-status[data-surface="accent"] .g-hero-status__lead,
+.g-hero-status[data-surface="accent"] .g-hero-status__note,
+.g-hero-status[data-surface="accent"] .g-hero-status__unit,
+.g-hero-status[data-surface="accent"] .astryx-eyebrow,
+.g-hero-status[data-surface="accent"] .astryx-timestamp,
+.g-hero-status[data-surface="accent"] .astryx-link {
   color: currentColor;
 }
 
-.g-hero-status.accent .g-hero-status__lead,
-.g-hero-status.accent .g-hero-status__note {
+.g-hero-status[data-surface="accent"] .g-hero-status__lead,
+.g-hero-status[data-surface="accent"] .g-hero-status__note {
   opacity: 0.85;
 }
 

@@ -97,6 +97,16 @@ const px = value => {
  * the base defaults would report every themed radius and every themed type step
  * as a violation. The page knows what the active theme resolved them to.
  */
+/**
+ * Components whose type is derived from their own geometry rather than chosen
+ * from the scale, with the reason. An avatar's initials are 40% of the circle,
+ * so a 48px avatar sets 19.2px and a 128px one sets 51.2px; both are correct
+ * and neither is a step.
+ */
+const DERIVED_TYPE = {
+  'astryx-avatar': 'the initials are a fixed share of the circle',
+};
+
 const TOKEN_NAMES = {
   typeScale: [
     ...Object.keys(tokens.defaults.textSize),
@@ -124,6 +134,55 @@ const RTL_SENSITIVE = ['carousel', 'breadcrumbs', 'stepper', 'split', 'toolbar']
  * contract the components render means a probe failure points at the CSS rather
  * than at a disagreement between two generators.
  */
+/**
+ * What to put inside a component so it has something to lay out.
+ *
+ * An atom is indivisible: filling one with a paragraph and a button is not a
+ * smaller version of the real thing, it is markup that never occurs — and it
+ * produced every remaining finding in the first runs, a paragraph overflowing a
+ * nowrap button in RTL and text inheriting a colour from a surface it would
+ * never sit on. An atom gets a few words; anything that composes gets a real
+ * sentence with a link in it, because that is the shape axe's target-size rule
+ * is written for.
+ */
+/**
+ * Components that hold no text at all. A status dot is a coloured dot with its
+ * label beside it, a spinner and a skeleton stand in for content that is not
+ * there yet, a divider is a line. Putting a word inside one and then measuring
+ * that word's contrast against the dot is measuring something that never
+ * happens - and it was the last 288 findings in this report.
+ */
+const GRAPHIC_ONLY = new Set([
+  'astryx-statusdot',
+  'astryx-spinner',
+  'astryx-skeleton',
+  'astryx-divider',
+  'astryx-progressbar',
+  'astryx-progressbar-track',
+  'astryx-progressbar-fill',
+  'astryx-aspect-ratio',
+  'astryx-icon',
+  'astryx-feature-icon',
+  'astryx-pagination-dot',
+  'astryx-thumbnail',
+]);
+
+function sample(layer, rootClass) {
+  if (GRAPHIC_ONLY.has(rootClass)) return '';
+  if (layer === 'Atom') return 'Sample';
+  /*
+   * Short on purpose. Several molecules are leaf controls that set
+   * `white-space: nowrap` - a tab, a segment, a breadcrumb crumb - and a
+   * paragraph inside one is 1400px wide and reports itself as an RTL overflow
+   * that a real page would never have. A few words with a link in them is
+   * enough for every probe here, including axe's target-size rule, which is
+   * written for a link in running text rather than a link on its own.
+   */
+  return '<p class="astryx-text" data-type="body">Sample with '
+    + '<a class="astryx-link" href="#">a link</a> in it.</p>'
+    + '<button class="astryx-button" type="button" data-variant="primary" data-size="md">Button</button>';
+}
+
 function buildHarness() {
   const sections = [];
 
@@ -137,10 +196,7 @@ function buildHarness() {
       const attrs = Object.entries(attributes).map(([name, value]) => ` ${name}="${value}"`).join('');
       return `<div class="probe" data-probe="${key}" data-case="${label}">
         <span class="probe__label" data-harness-chrome>${label}</span>
-        <div class="${component.rootClass}"${attrs}>
-          <p class="astryx-text" data-type="body">Sample copy with <a class="astryx-link" href="#">a link inside a sentence</a>, because a bare standalone link is not the shape axe's target-size rule is written for.</p>
-          <button class="astryx-button" type="button" data-variant="primary" data-size="md">A button</button>
-        </div>
+        <div class="${component.rootClass}"${attrs}>${sample(component.layer, component.rootClass)}</div>
       </div>`;
     }).join('\n');
 
@@ -217,7 +273,7 @@ function serveHarness() {
  * Every probe runs in the page. They are written as one function so the page is
  * only walked once per viewport/scheme, which matters at 250 x 3 x 2.
  */
-const PROBE_SOURCE = ({tokenNames, tolerance}) => {
+const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
   const findings = [];
 
   /*
@@ -246,7 +302,23 @@ const PROBE_SOURCE = ({tokenNames, tolerance}) => {
 
   const typeScale = resolve(tokenNames.typeScale);
   const spacing = resolve(tokenNames.spacing);
-  const radii = resolve(tokenNames.radius);
+  const radiusTokens = resolve(tokenNames.radius);
+
+  /*
+   * A nested corner is a derived radius, not a loose number. The inner corner
+   * of something inset by `p` inside a box rounded by `r` has to be `r - p` or
+   * the two curves do not sit concentric — a segmented control's item inside
+   * its rail, a card's media inside the card. Those values are legitimate and
+   * are not in the token list, so they are added to it rather than reported
+   * 192 times.
+   */
+  const radii = [...radiusTokens];
+  for (const radius of radiusTokens) {
+    for (const step of spacing) {
+      const inner = radius - step;
+      if (inner > 0) radii.push(inner);
+    }
+  }
   const record = (rule, element, detail) => {
     findings.push({
       rule,
@@ -281,17 +353,35 @@ const PROBE_SOURCE = ({tokenNames, tolerance}) => {
      * measuring it reports the parent's value twice and, in a harness that
      * nests sample content inside every component, hundreds of times.
      */
+    /*
+     * The two are judged separately, and only where the element decides them.
+     * An avatar that sets `line-height: 1` and inherits its font size is not
+     * making a type-scale decision, and judging it on the inherited value
+     * reports the parent's size on the child - which is what conflating the two
+     * conditions did, 32 times.
+     */
     const parentStyle = element.parentElement ? getComputedStyle(element.parentElement) : null;
-    const setsOwnType = parentStyle === null
-      || style.fontSize !== parentStyle.fontSize
-      || style.lineHeight !== parentStyle.lineHeight;
+    const setsOwnSize = parentStyle === null || style.fontSize !== parentStyle.fontSize;
+    const setsOwnLeading = parentStyle === null || style.lineHeight !== parentStyle.lineHeight;
 
-    // --- the type scale ---------------------------------------------------
-    if (hasOwnText && setsOwnType) {
+    const derived = derivedType.some(
+      name => typeof element.className === 'string' && element.className.trim().split(/\s+/).includes(name),
+    );
+
+    if (hasOwnText && setsOwnSize && !derived) {
       const fontSize = parseFloat(style.fontSize);
       if (!near(fontSize, typeScale)) {
         record('type-scale', element, `font-size ${fontSize}px is not in the scale`);
       }
+    }
+
+    /*
+     * A line-height under the font size is only wrong for text that wraps. A
+     * badge, a token or a button centres one line inside a fixed height and
+     * sets its leading to do exactly that.
+     */
+    if (hasOwnText && setsOwnLeading && style.whiteSpace !== 'nowrap' && style.display.includes('block')) {
+      const fontSize = parseFloat(style.fontSize);
       const lineHeight = style.lineHeight === 'normal' ? null : parseFloat(style.lineHeight);
       if (lineHeight !== null && lineHeight < fontSize * 1.1) {
         record('line-height', element, `line-height ${lineHeight}px is under 1.1x the font size`);
@@ -376,8 +466,30 @@ const PROBE_SOURCE = ({tokenNames, tolerance}) => {
   if (document.documentElement.dir === 'rtl') {
     const docWidth = document.documentElement.clientWidth;
     if (document.documentElement.scrollWidth > docWidth + 2) {
-      record('rtl-overflow', document.documentElement,
-        `the page scrolls ${Math.round(document.documentElement.scrollWidth - docWidth)}px sideways in RTL`);
+      /*
+       * "The page scrolls sideways" is true and useless. The element that is
+       * wider than the box holding it is the thing to fix, and comparing an
+       * element against its own parent is frame-independent — which matters in
+       * RTL, where the document's origin has moved.
+       */
+      const culprits = elements
+        .filter(element => element.parentElement)
+        .map(element => ({
+          element,
+          overflow: element.scrollWidth - element.parentElement.clientWidth,
+        }))
+        .filter(entry => entry.overflow > 2)
+        .sort((a, b) => b.overflow - a.overflow)
+        .slice(0, 5);
+
+      if (culprits.length === 0) {
+        record('rtl-overflow', document.documentElement,
+          `the page scrolls ${Math.round(document.documentElement.scrollWidth - docWidth)}px sideways in RTL, `
+          + 'and no single element is wider than its parent');
+      }
+      for (const {element, overflow} of culprits) {
+        record('rtl-overflow', element, `${Math.round(overflow)}px wider than its parent in RTL`);
+      }
     }
 
     for (const element of elements) {
@@ -594,6 +706,7 @@ try {
           const findings = await page.evaluate(PROBE_SOURCE, {
             tokenNames: TOKEN_NAMES,
             tolerance: 0.6,
+            derivedType: Object.keys(DERIVED_TYPE),
           });
 
           if (!reducedMotion) {
@@ -603,15 +716,38 @@ try {
           let violations = [];
           if (AxeBuilder && !reducedMotion) {
             try {
-              const axe = await new AxeBuilder({page})
-                .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'])
-                .analyze();
+              /*
+               * In harness mode the deliberately-muted tokens are rendered as
+               * ordinary text, so axe reads `data-color="disabled"` as a
+               * contrast failure. WCAG 2.2 exempts disabled controls from 1.4.3
+               * and the token exists precisely to look unavailable; excluding
+               * them here keeps the report about the text a visitor is meant to
+               * read. Nothing is excluded in --base-url mode, where the same
+               * token only ever appears on something actually disabled.
+               */
+              let builder = new AxeBuilder({page})
+                .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice']);
+              if (args.harness) {
+                builder = builder
+                  .exclude('[data-color="disabled"]')
+                  .exclude('[data-color="placeholder"]')
+                  .exclude('[data-disabled="disabled"]')
+                  .exclude('[data-harness-chrome]');
+              }
+              const axe = await builder.analyze();
               violations = axe.violations.map(violation => ({
                 id: violation.id,
                 impact: violation.impact,
                 help: violation.help,
                 nodes: violation.nodes.length,
                 sample: violation.nodes[0]?.html?.slice(0, 160) ?? null,
+                // The element alone rarely says enough: a link fails against
+                // the surface BEHIND it, so the failing node's own selector
+                // path is what names the component at fault.
+                where: violation.nodes.slice(0, 6).map(node => ({
+                  target: node.target?.join(' ') ?? null,
+                  summary: node.any?.[0]?.message ?? node.failureSummary?.split('\n')[1] ?? null,
+                })),
               }));
             } catch (error) {
               violations = [{id: 'axe-failed', impact: 'unknown', help: String(error.message ?? error), nodes: 0}];

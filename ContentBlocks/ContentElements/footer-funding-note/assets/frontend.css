@@ -80,10 +80,10 @@
   justify-content: center;
 }
 
-.g-footer-funding-note.accent .g-footer-funding-note__statement,
-.g-footer-funding-note.accent .g-footer-funding-note__wordmark,
-.g-footer-funding-note.accent .astryx-eyebrow,
-.g-footer-funding-note.accent .astryx-text[data-type="supporting"] {
+.g-footer-funding-note[data-surface="accent"] .g-footer-funding-note__statement,
+.g-footer-funding-note[data-surface="accent"] .g-footer-funding-note__wordmark,
+.g-footer-funding-note[data-surface="accent"] .astryx-eyebrow,
+.g-footer-funding-note[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

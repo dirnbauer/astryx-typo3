@@ -71,13 +71,13 @@
   justify-content: center;
 }
 
-.g-awards-row.accent .g-awards-row__lead,
-.g-awards-row.accent .astryx-eyebrow {
+.g-awards-row[data-surface="accent"] .g-awards-row__lead,
+.g-awards-row[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-awards-row.accent .g-awards-row__name {
+.g-awards-row[data-surface="accent"] .g-awards-row__name {
   color: currentColor;
 }
 

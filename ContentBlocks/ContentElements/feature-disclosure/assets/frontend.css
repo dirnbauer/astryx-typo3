@@ -36,13 +36,13 @@
   padding-block-end: var(--spacing-4);
 }
 
-.g-feature-disclosure.accent .g-feature-disclosure__body :where(p, li) {
+.g-feature-disclosure[data-surface="accent"] .g-feature-disclosure__body :where(p, li) {
   color: currentColor;
 }
 
-.g-feature-disclosure.accent .g-feature-disclosure__lead,
-.g-feature-disclosure.accent .astryx-eyebrow,
-.g-feature-disclosure.accent .astryx-text[data-type="supporting"] {
+.g-feature-disclosure[data-surface="accent"] .g-feature-disclosure__lead,
+.g-feature-disclosure[data-surface="accent"] .astryx-eyebrow,
+.g-feature-disclosure[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

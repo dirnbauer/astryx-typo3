@@ -92,12 +92,52 @@ const unmapped = new Map();
 let rewritten = 0;
 let touchedFiles = 0;
 
+/**
+ * The element's own root class wore the section's modifier too.
+ *
+ * 1.x wrote `class="astryx-section g-hero-app {data.tone}"`, so an element
+ * stylesheet could say `.g-hero-app.accent` and mean "this element, on an
+ * accent surface". The section renders `data-surface="accent"` now, and 866
+ * such selectors across 223 element stylesheets stopped matching the moment the
+ * templates were converted — silently, because a selector that matches nothing
+ * looks exactly like a selector for a state you have not reached.
+ *
+ * Only a root class is rewritten: `.g-hero-app.accent` is the element on a
+ * surface, `.g-hero-app__panel.accent` is a class of the element's own, and
+ * guessing which is which by name would be guessing.
+ */
+const SECTION_MODIFIERS = new Map(
+  Object.entries(components['layout.section'].modifiers)
+    .map(([token, {attribute, value}]) => [token, `[data-${attribute}="${value}"]`]),
+);
+
+function migrateElementRootModifiers(css) {
+  return css.replace(
+    /\.(g-[a-z0-9]+(?:-[a-z0-9]+)*)((?:\.[a-zA-Z][a-zA-Z0-9_-]*)+)/g,
+    (match, root, chain) => {
+      if (root.includes('__')) return match;
+      let out = `.${root}`;
+      let touched = false;
+      for (const token of chain.split('.').filter(Boolean)) {
+        if (SECTION_MODIFIERS.has(token)) {
+          out += SECTION_MODIFIERS.get(token);
+          rewritten++;
+          touched = true;
+        } else {
+          out += `.${token}`;
+        }
+      }
+      return touched ? out : match;
+    },
+  );
+}
+
 for (const file of files) {
   const before = fs.readFileSync(file, 'utf8');
 
   // `.astryx-root.modifier` — the modifier must directly follow a known root
   // class, so `.astryx-card .astryx-badge` (a descendant) is never touched.
-  const after = before.replace(
+  const after = migrateElementRootModifiers(before).replace(
     /(\.astryx-[a-z0-9-]+)((?:\.[a-zA-Z][a-zA-Z0-9_-]*)+)/g,
     (match, root, chain) => {
       const map = byRoot.get(root);

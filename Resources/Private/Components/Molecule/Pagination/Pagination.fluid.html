@@ -25,6 +25,12 @@
     aria-current="page" rather than as a link to itself; the stylesheet paints
     it from that attribute, pairing a tint with a weight so it stays findable
     in a theme whose accent sits close to the text colour.
+
+    One trap comes with the named slots, and it is Fluid's rather than this
+    component's: a call that contains even one `<f:fragment name="…">` stops
+    collecting its loose children as the default slot. Content meant for
+    `<f:slot />` has to be spelled `<f:fragment>` too, or it renders as nothing
+    and nothing warns you.
 </f:comment>
 
 <f:argument name="size" type="string" optional="{true}" default="md" />

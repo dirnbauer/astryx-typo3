@@ -111,16 +111,16 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-data-roadmap-progress.accent .g-data-roadmap-progress__stage:not(:last-child)::before,
-.g-data-roadmap-progress.accent .g-data-roadmap-progress__marker {
+.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__stage:not(:last-child)::before,
+.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__marker {
   border-color: currentColor;
   background-color: currentColor;
 }
 
-.g-data-roadmap-progress.accent .g-data-roadmap-progress__lead,
-.g-data-roadmap-progress.accent .g-data-roadmap-progress__share,
-.g-data-roadmap-progress.accent .astryx-eyebrow,
-.g-data-roadmap-progress.accent .astryx-text[data-type="supporting"] {
+.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__lead,
+.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__share,
+.g-data-roadmap-progress[data-surface="accent"] .astryx-eyebrow,
+.g-data-roadmap-progress[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

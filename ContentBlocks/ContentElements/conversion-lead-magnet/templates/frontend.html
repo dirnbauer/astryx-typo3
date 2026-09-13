@@ -32,7 +32,7 @@
                         <f:for each="{data.takeaways}" as="takeaway">
                             <a:molecule.feature class="g-conversion-lead-magnet__takeaway">
                                 <f:if condition="{takeaway.icon}">
-                                    <span class="astryx-feature-icon" data-icon="{takeaway.icon}" aria-hidden="true"><g:icon name="{takeaway.icon}"/></span>
+                                    <a:atom.featureIcon icon="{takeaway.icon}" />
                                 </f:if>
                                 <a:molecule.cardTitle>{takeaway -> f:render.text(field: 'title')}</a:molecule.cardTitle>
                                 <f:if condition="{takeaway.text}">

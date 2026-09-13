@@ -82,11 +82,11 @@
   text-align: center;
 }
 
-.g-footer-opening-hours.accent .g-footer-opening-hours__lead,
-.g-footer-opening-hours.accent .astryx-eyebrow,
-.g-footer-opening-hours.accent .g-footer-opening-hours__state,
-.g-footer-opening-hours.accent .g-footer-opening-hours__struck,
-.g-footer-opening-hours.accent .astryx-text[data-type="supporting"] {
+.g-footer-opening-hours[data-surface="accent"] .g-footer-opening-hours__lead,
+.g-footer-opening-hours[data-surface="accent"] .astryx-eyebrow,
+.g-footer-opening-hours[data-surface="accent"] .g-footer-opening-hours__state,
+.g-footer-opening-hours[data-surface="accent"] .g-footer-opening-hours__struck,
+.g-footer-opening-hours[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

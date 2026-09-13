@@ -101,15 +101,15 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-pricing-plan-spotlight.accent .g-pricing-plan-spotlight__scope,
-.g-pricing-plan-spotlight.accent .g-pricing-plan-spotlight__period,
-.g-pricing-plan-spotlight.accent .astryx-eyebrow,
-.g-pricing-plan-spotlight.accent .astryx-text[data-type="supporting"] {
+.g-pricing-plan-spotlight[data-surface="accent"] .g-pricing-plan-spotlight__scope,
+.g-pricing-plan-spotlight[data-surface="accent"] .g-pricing-plan-spotlight__period,
+.g-pricing-plan-spotlight[data-surface="accent"] .astryx-eyebrow,
+.g-pricing-plan-spotlight[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-pricing-plan-spotlight.accent .g-pricing-plan-spotlight__anchor {
+.g-pricing-plan-spotlight[data-surface="accent"] .g-pricing-plan-spotlight__anchor {
   border-color: currentColor;
 }
 

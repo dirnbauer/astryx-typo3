@@ -32,7 +32,7 @@
 
         <a:layout.grid cols="{data.columns}" class="g-speaker-lineup__speakers">
             <f:for each="{data.speakers}" as="speaker">
-                <a:molecule.card class="{f:if(condition: speaker.link.url, then: 'astryx-clickable-card')} g-speaker-lineup__speaker">
+                <a:molecule.card clickable="{speaker.link.url}" class="g-speaker-lineup__speaker">
 
                     <f:if condition="{speaker.image}">
                         <a:atom.avatar size="lg" class="g-speaker-lineup__portrait">

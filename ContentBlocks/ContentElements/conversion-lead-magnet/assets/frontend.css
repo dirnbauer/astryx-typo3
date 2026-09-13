@@ -54,10 +54,10 @@
   box-shadow: var(--shadow-med);
 }
 
-.g-conversion-lead-magnet.accent .g-conversion-lead-magnet__lead,
-.g-conversion-lead-magnet.accent .g-conversion-lead-magnet__note,
-.g-conversion-lead-magnet.accent .astryx-card-body,
-.g-conversion-lead-magnet.accent .astryx-eyebrow {
+.g-conversion-lead-magnet[data-surface="accent"] .g-conversion-lead-magnet__lead,
+.g-conversion-lead-magnet[data-surface="accent"] .g-conversion-lead-magnet__note,
+.g-conversion-lead-magnet[data-surface="accent"] .astryx-card-body,
+.g-conversion-lead-magnet[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

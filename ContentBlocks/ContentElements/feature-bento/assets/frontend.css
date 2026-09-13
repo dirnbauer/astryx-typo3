@@ -37,9 +37,9 @@
   gap: var(--spacing-3);
 }
 
-.g-feature-bento.accent .g-feature-bento__lead,
-.g-feature-bento.accent .astryx-eyebrow,
-.g-feature-bento.accent .astryx-text[data-type="supporting"] {
+.g-feature-bento[data-surface="accent"] .g-feature-bento__lead,
+.g-feature-bento[data-surface="accent"] .astryx-eyebrow,
+.g-feature-bento[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

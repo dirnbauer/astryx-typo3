@@ -48,10 +48,10 @@
   text-align: center;
 }
 
-.g-conversion-path-fork.accent .g-conversion-path-fork__subheader,
-.g-conversion-path-fork.accent .g-conversion-path-fork__lead,
-.g-conversion-path-fork.accent .g-conversion-path-fork__note,
-.g-conversion-path-fork.accent .astryx-eyebrow {
+.g-conversion-path-fork[data-surface="accent"] .g-conversion-path-fork__subheader,
+.g-conversion-path-fork[data-surface="accent"] .g-conversion-path-fork__lead,
+.g-conversion-path-fork[data-surface="accent"] .g-conversion-path-fork__note,
+.g-conversion-path-fork[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

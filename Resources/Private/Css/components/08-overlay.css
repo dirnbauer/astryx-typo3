@@ -71,7 +71,7 @@
 }
 
 /* Match the trigger's width — the usual want for a select-like menu. */
-.astryx-popover.match-trigger {
+.astryx-popover[data-width="match-trigger"] {
   min-inline-size: anchor-size(width);
 }
 
@@ -570,9 +570,14 @@
 .astryx-carousel[data-gap="4"] { --carousel-gap: var(--spacing-4); }
 .astryx-carousel[data-gap="6"] { --carousel-gap: var(--spacing-6); }
 
+/* A <ul>, so the user agent's list margin, indent and marker all have to go —
+   see the note on .astryx-overflow-list. The indent matters more here than
+   anywhere: it would offset the first slide from its own scroll-snap origin. */
 .astryx-carousel-track {
   display: flex;
   align-items: stretch;
+  list-style: none;
+  margin: 0;
   gap: var(--carousel-gap);
   inline-size: 100%;
   overflow-x: auto;
@@ -815,4 +820,16 @@
       transition-duration: 0s;
     }
   }
+}
+
+/*
+ * A tooltip is an inverted surface.
+ *
+ * It paints a near-black background and its own light text, but any component
+ * placed inside it re-asserted its own colour — the design review measured a
+ * link inside a tooltip at 1.21:1, near-black on black, in every theme and both
+ * schemes. Inside a tooltip, the tooltip decides the colour.
+ */
+.astryx-tooltip :where(.astryx-link, .astryx-text, .astryx-heading, .astryx-eyebrow) {
+  color: inherit;
 }

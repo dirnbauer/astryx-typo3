@@ -65,8 +65,8 @@
   }
 }
 
-.g-hero-portal.accent .g-hero-portal__lead,
-.g-hero-portal.accent .astryx-eyebrow {
+.g-hero-portal[data-surface="accent"] .g-hero-portal__lead,
+.g-hero-portal[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

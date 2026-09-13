@@ -11,30 +11,17 @@
 
 <f:section name="Main">
     <f:render partial="Pages/PageTitle" arguments="{_all}"/>
-    <a:layout.container class="astryx-sidebar-layout">
-        <div>
+    <a:layout.container>
+        <a:organism.pageSidebar
+            items="{subMenu}"
+            ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.sectionNavigation', default: 'In this section')}"
+        >
             <!--TYPO3SEARCH_begin-->
             <f:if condition="{content.main}">
                 <f:render.contentArea contentArea="{content.main}"/>
             </f:if>
             <!--TYPO3SEARCH_end-->
-        </div>
-
-        <f:if condition="{subMenu}">
-            <nav class="astryx-sidebar" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:chrome.mainNavigation', default: 'Main navigation')}">
-                <ul class="astryx-nav__list">
-                    <f:for each="{subMenu}" as="item">
-                        <li>
-                            <a
-                                href="{item.link}"
-                                class="astryx-nav__link"
-                                aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
-                            >{item.title}</a>
-                        </li>
-                    </f:for>
-                </ul>
-            </nav>
-        </f:if>
+        </a:organism.pageSidebar>
     </a:layout.container>
 </f:section>
 

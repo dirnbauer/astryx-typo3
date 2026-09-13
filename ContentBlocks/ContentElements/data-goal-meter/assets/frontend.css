@@ -59,12 +59,12 @@
   margin-block-start: var(--spacing-3);
 }
 
-.g-data-goal-meter.accent .g-data-goal-meter__reading {
+.g-data-goal-meter[data-surface="accent"] .g-data-goal-meter__reading {
   color: currentColor;
 }
 
-.g-data-goal-meter.accent .astryx-eyebrow,
-.g-data-goal-meter.accent .astryx-text[data-type="supporting"] {
+.g-data-goal-meter[data-surface="accent"] .astryx-eyebrow,
+.g-data-goal-meter[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

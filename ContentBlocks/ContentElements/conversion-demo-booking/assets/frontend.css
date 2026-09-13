@@ -58,16 +58,16 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-conversion-demo-booking.accent .g-conversion-demo-booking__lead,
-.g-conversion-demo-booking.accent .g-conversion-demo-booking__note,
-.g-conversion-demo-booking.accent .g-conversion-demo-booking__secondary,
-.g-conversion-demo-booking.accent .astryx-card-body,
-.g-conversion-demo-booking.accent .astryx-eyebrow {
+.g-conversion-demo-booking[data-surface="accent"] .g-conversion-demo-booking__lead,
+.g-conversion-demo-booking[data-surface="accent"] .g-conversion-demo-booking__note,
+.g-conversion-demo-booking[data-surface="accent"] .g-conversion-demo-booking__secondary,
+.g-conversion-demo-booking[data-surface="accent"] .astryx-card-body,
+.g-conversion-demo-booking[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-demo-booking.accent .g-conversion-demo-booking__agenda {
+.g-conversion-demo-booking[data-surface="accent"] .g-conversion-demo-booking__agenda {
   border-color: currentColor;
 }
 

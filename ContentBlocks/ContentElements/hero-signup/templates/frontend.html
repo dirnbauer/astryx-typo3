@@ -25,20 +25,27 @@
                     sits behind cta_link — a mailing service, a TYPO3 form page —
                     receives "email" and needs no JavaScript from this element.
                 </f:comment>
-                <form class="astryx-field g-hero-signup__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="post">
-                    <a:atom.visuallyHidden as="label" for="g-hero-signup-email-{data.uid}">
-                        <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.email" default="Email address"/>
-                    </a:atom.visuallyHidden>
-                    <a:molecule.inputGroup size="lg">
-                        <input class="astryx-text-input lg" type="email" name="email" id="g-hero-signup-email-{data.uid}" required="required"
-                               placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.emailPlaceholder', default: 'name@company.com')}"/>
-                        <a:atom.button variant="primary" size="lg" class="g-hero-signup__submit" type="submit">
-                            <f:if condition="{data.cta_label}">
-                                <f:then>{data.cta_label}</f:then>
-                                <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.subscribe" default="Sign up"/></f:else>
-                            </f:if>
-                        </a:atom.button>
-                    </a:molecule.inputGroup>
+                <form class="g-hero-signup__form" action="{f:uri.typolink(parameter: data.cta_link)}" method="post">
+                    <a:molecule.field>
+                        <a:atom.visuallyHidden as="label" for="g-hero-signup-email-{data.uid}">
+                            <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.email" default="Email address"/>
+                        </a:atom.visuallyHidden>
+                        <a:molecule.inputGroup size="lg">
+                            <a:molecule.textInput
+                                size="lg"
+                                type="email"
+                                name="email"
+                                id="g-hero-signup-email-{data.uid}"
+                                required="{true}"
+                                placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.emailPlaceholder', default: 'name@company.com')}" />
+                            <a:atom.button variant="primary" size="lg" class="g-hero-signup__submit" type="submit">
+                                <f:if condition="{data.cta_label}">
+                                    <f:then>{data.cta_label}</f:then>
+                                    <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.subscribe" default="Sign up"/></f:else>
+                                </f:if>
+                            </a:atom.button>
+                        </a:molecule.inputGroup>
+                    </a:molecule.field>
                 </form>
 
                 <f:if condition="{data.note}">

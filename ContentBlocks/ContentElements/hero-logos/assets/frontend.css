@@ -62,15 +62,15 @@
 
 /* On the muted band the row is background, not content: colour in the marks
    would pull the eye away from the headline above them. */
-.g-hero-logos.muted .g-hero-logos__image {
+.g-hero-logos[data-surface="muted"] .g-hero-logos__image {
   filter: grayscale(1);
   opacity: 0.75;
 }
 
-.g-hero-logos.accent .g-hero-logos__lead,
-.g-hero-logos.accent .g-hero-logos__note,
-.g-hero-logos.accent .g-hero-logos__wordmark,
-.g-hero-logos.accent .astryx-eyebrow {
+.g-hero-logos[data-surface="accent"] .g-hero-logos__lead,
+.g-hero-logos[data-surface="accent"] .g-hero-logos__note,
+.g-hero-logos[data-surface="accent"] .g-hero-logos__wordmark,
+.g-hero-logos[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

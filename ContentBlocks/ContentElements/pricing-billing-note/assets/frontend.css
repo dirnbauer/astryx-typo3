@@ -62,14 +62,14 @@
   justify-content: center;
 }
 
-.g-pricing-billing-note.accent .g-pricing-billing-note__lead,
-.g-pricing-billing-note.accent .g-pricing-billing-note__term,
-.g-pricing-billing-note.accent .astryx-text[data-type="supporting"] {
+.g-pricing-billing-note[data-surface="accent"] .g-pricing-billing-note__lead,
+.g-pricing-billing-note[data-surface="accent"] .g-pricing-billing-note__term,
+.g-pricing-billing-note[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-pricing-billing-note.accent .g-pricing-billing-note__slot {
+.g-pricing-billing-note[data-surface="accent"] .g-pricing-billing-note__slot {
   border-color: currentColor;
 }
 

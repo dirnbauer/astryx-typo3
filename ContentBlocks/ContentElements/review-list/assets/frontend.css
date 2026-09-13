@@ -92,14 +92,14 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-review-list.accent .g-review-list__stars {
+.g-review-list[data-surface="accent"] .g-review-list__stars {
   --g-star-on: currentColor;
   --g-star-off: transparent;
 }
 
-.g-review-list.accent .g-review-list__lead,
-.g-review-list.accent .astryx-eyebrow,
-.g-review-list.accent .astryx-text[data-type="supporting"] {
+.g-review-list[data-surface="accent"] .g-review-list__lead,
+.g-review-list[data-surface="accent"] .astryx-eyebrow,
+.g-review-list[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

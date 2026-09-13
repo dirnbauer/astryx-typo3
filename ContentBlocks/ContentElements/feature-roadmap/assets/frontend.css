@@ -56,9 +56,9 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-feature-roadmap.accent .g-feature-roadmap__lead,
-.g-feature-roadmap.accent .astryx-eyebrow,
-.g-feature-roadmap.accent .astryx-text[data-type="supporting"] {
+.g-feature-roadmap[data-surface="accent"] .g-feature-roadmap__lead,
+.g-feature-roadmap[data-surface="accent"] .astryx-eyebrow,
+.g-feature-roadmap[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

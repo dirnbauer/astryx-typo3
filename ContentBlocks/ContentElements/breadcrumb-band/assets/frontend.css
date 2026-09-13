@@ -22,13 +22,13 @@
 
 /* On an accent band the crumbs would otherwise reach for the secondary text
    colour, which is tuned for the page background. */
-.g-breadcrumb-band.accent .astryx-breadcrumb-item,
-.g-breadcrumb-band.accent .astryx-breadcrumb-item a {
+.g-breadcrumb-band[data-surface="accent"] .astryx-breadcrumb-item,
+.g-breadcrumb-band[data-surface="accent"] .astryx-breadcrumb-item a {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-breadcrumb-band.accent .astryx-breadcrumb-item[aria-current='page'] {
+.g-breadcrumb-band[data-surface="accent"] .astryx-breadcrumb-item[aria-current='page'] {
   color: currentColor;
   opacity: 1;
 }

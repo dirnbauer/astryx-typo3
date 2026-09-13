@@ -193,3 +193,37 @@
   block-size: var(--spacing-10);
   color: var(--color-icon-disabled);
 }
+
+/*
+ * A link inside a tinted card.
+ *
+ * The fifteen tinted variants are upstream theming targets: a theme paints the
+ * card's background and its text colour, and until 2.0 a link inside one kept
+ * --color-text-accent regardless — blue type on a yellow or a red callout, which
+ * the design review measured at well under 4.5:1 in every theme. The link takes
+ * the card's own text colour now and leans on its underline for the affordance,
+ * which is what a link inside a coloured callout should do anyway.
+ *
+ * The list is explicit rather than `[data-variant]`, because flat, raised,
+ * muted and the media positions are this extension's own variants and do not
+ * repaint the text.
+ */
+.astryx-card[data-variant='blue'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='cyan'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='error'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='gray'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='green'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='info'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='orange'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='pink'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='purple'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='red'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='success'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='teal'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='warning'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+.astryx-card[data-variant='yellow'] :where(.astryx-link, .astryx-button[data-variant='ghost']),
+/* A banner is the same problem in a different component: the status paints
+   the surface and the text, and a link inside kept the accent colour. */
+.astryx-banner[data-status] :where(.astryx-link, .astryx-button[data-variant='ghost']) {
+  color: inherit;
+}

@@ -56,14 +56,14 @@
   font-weight: var(--font-weight-medium);
 }
 
-.g-hero-docs.accent .g-hero-docs__lead,
-.g-hero-docs.accent .astryx-eyebrow,
-.g-hero-docs.accent .astryx-item-description {
+.g-hero-docs[data-surface="accent"] .g-hero-docs__lead,
+.g-hero-docs[data-surface="accent"] .astryx-eyebrow,
+.g-hero-docs[data-surface="accent"] .astryx-item-description {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-hero-docs.accent .g-hero-docs__version {
+.g-hero-docs[data-surface="accent"] .g-hero-docs__version {
   border-color: currentColor;
   color: currentColor;
 }

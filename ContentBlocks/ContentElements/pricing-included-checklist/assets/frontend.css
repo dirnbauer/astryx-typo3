@@ -84,9 +84,9 @@
   text-align: center;
 }
 
-.g-pricing-included-checklist.accent .g-pricing-included-checklist__scope,
-.g-pricing-included-checklist.accent .g-pricing-included-checklist__lead,
-.g-pricing-included-checklist.accent .astryx-text[data-type="supporting"] {
+.g-pricing-included-checklist[data-surface="accent"] .g-pricing-included-checklist__scope,
+.g-pricing-included-checklist[data-surface="accent"] .g-pricing-included-checklist__lead,
+.g-pricing-included-checklist[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

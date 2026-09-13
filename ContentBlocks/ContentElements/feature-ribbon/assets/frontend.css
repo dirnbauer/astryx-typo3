@@ -56,7 +56,7 @@
   block-size: var(--spacing-7);
 }
 
-.g-feature-ribbon.accent .astryx-eyebrow {
+.g-feature-ribbon[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

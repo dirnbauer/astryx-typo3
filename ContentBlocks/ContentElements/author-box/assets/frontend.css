@@ -55,12 +55,12 @@
   margin-block-start: var(--spacing-2);
 }
 
-.g-author-box.accent .g-author-box__box.boxed {
+.g-author-box[data-surface="accent"] .g-author-box__box.boxed {
   border-block-start-color: currentColor;
 }
 
-.g-author-box.accent .g-author-box__role,
-.g-author-box.accent .g-author-box__text {
+.g-author-box[data-surface="accent"] .g-author-box__role,
+.g-author-box[data-surface="accent"] .g-author-box__text {
   color: currentColor;
   opacity: 0.85;
 }

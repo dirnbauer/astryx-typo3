@@ -66,16 +66,16 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-conversion-contact-person.accent .g-conversion-contact-person__lead,
-.g-conversion-contact-person.accent .g-conversion-contact-person__note,
-.g-conversion-contact-person.accent .astryx-eyebrow {
+.g-conversion-contact-person[data-surface="accent"] .g-conversion-contact-person__lead,
+.g-conversion-contact-person[data-surface="accent"] .g-conversion-contact-person__note,
+.g-conversion-contact-person[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-contact-person.accent .astryx-blockquote,
-.g-conversion-contact-person.accent .g-conversion-contact-person__name,
-.g-conversion-contact-person.accent .astryx-citation {
+.g-conversion-contact-person[data-surface="accent"] .astryx-blockquote,
+.g-conversion-contact-person[data-surface="accent"] .g-conversion-contact-person__name,
+.g-conversion-contact-person[data-surface="accent"] .astryx-citation {
   color: currentColor;
   border-color: currentColor;
 }

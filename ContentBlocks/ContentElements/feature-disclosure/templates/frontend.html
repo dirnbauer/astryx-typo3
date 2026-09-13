@@ -28,12 +28,12 @@
 
         <a:molecule.collapsibleGroup class="g-feature-disclosure__entries">
             <f:for each="{data.entries}" as="entry">
-                <a:molecule.collapsible density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-feature-disclosure__entry">
-                    <summary>
+                <a:molecule.collapsible density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-feature-disclosure__entry" contentClass="astryx-prose g-feature-disclosure__body">
+                    <f:fragment name="summary">
                         <a:atom.heading level="3" class="g-feature-disclosure__title">{entry -> f:render.text(field: 'title')}</a:atom.heading>
-                    </summary>
+                    </f:fragment>
 
-                    <div class="astryx-collapsible-content astryx-prose g-feature-disclosure__body"><f:format.html>{entry.bodytext}</f:format.html></div>
+                    <f:fragment><f:format.html>{entry.bodytext}</f:format.html></f:fragment>
                 </a:molecule.collapsible>
             </f:for>
         </a:molecule.collapsibleGroup>

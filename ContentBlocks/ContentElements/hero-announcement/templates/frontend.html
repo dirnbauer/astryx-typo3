@@ -19,14 +19,14 @@
                     <f:if condition="{data.badge_text}">
                         <a:atom.badge variant="accent" as="span" class="g-hero-announcement__badge">{data.badge_text}</a:atom.badge>
                     </f:if>
-                    <span class="astryx-banner-content">
+                    <a:molecule.bannerContent>
                         <f:if condition="{data.header_link.url}">
                             <f:then>
                                 <a:atom.link class="g-hero-announcement__link" parameter="{data.header_link}">{data -> f:render.text(field: 'note')}</a:atom.link>
                             </f:then>
                             <f:else>{data -> f:render.text(field: 'note')}</f:else>
                         </f:if>
-                    </span>
+                    </a:molecule.bannerContent>
                 </a:molecule.banner>
             </a:layout.container>
         </div>

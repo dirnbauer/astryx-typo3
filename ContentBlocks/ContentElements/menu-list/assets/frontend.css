@@ -64,12 +64,12 @@
   }
 }
 
-.g-menu-list.accent .g-menu-list__lead {
+.g-menu-list[data-surface="accent"] .g-menu-list__lead {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-menu-list.accent .astryx-item-description {
+.g-menu-list[data-surface="accent"] .astryx-item-description {
   color: currentColor;
   opacity: 0.85;
 }

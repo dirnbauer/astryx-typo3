@@ -7,7 +7,14 @@
 <vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Main.entry.css"/>
 <vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Components.entry.js"/>
 
-<main class="astryx-element-preview">
+<f:comment>
+    The harness the element library screenshots one content element in. The
+    class is a handle for whatever is driving the browser, not a component:
+    nothing in any stylesheet has ever painted it, so it carries the theme's
+    own `g-` prefix rather than borrowing the design system's and implying a
+    recipe that does not exist.
+</f:comment>
+<main class="g-element-preview">
     {content -> f:format.raw()}
 </main>
 

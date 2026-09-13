@@ -73,10 +73,10 @@
   block-size: auto;
 }
 
-.g-conversion-app-badges.accent .g-conversion-app-badges__lead,
-.g-conversion-app-badges.accent .g-conversion-app-badges__note,
-.g-conversion-app-badges.accent .astryx-eyebrow,
-.g-conversion-app-badges.accent .astryx-link {
+.g-conversion-app-badges[data-surface="accent"] .g-conversion-app-badges__lead,
+.g-conversion-app-badges[data-surface="accent"] .g-conversion-app-badges__note,
+.g-conversion-app-badges[data-surface="accent"] .astryx-eyebrow,
+.g-conversion-app-badges[data-surface="accent"] .astryx-link {
   color: currentColor;
   opacity: 0.85;
 }

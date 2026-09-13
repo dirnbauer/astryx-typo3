@@ -46,9 +46,9 @@
   color: var(--color-text-secondary);
 }
 
-.g-tabbed-sections.accent .g-tabbed-sections__lead,
-.g-tabbed-sections.accent .g-tabbed-sections__body,
-.g-tabbed-sections.accent .astryx-eyebrow {
+.g-tabbed-sections[data-surface="accent"] .g-tabbed-sections__lead,
+.g-tabbed-sections[data-surface="accent"] .g-tabbed-sections__body,
+.g-tabbed-sections[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

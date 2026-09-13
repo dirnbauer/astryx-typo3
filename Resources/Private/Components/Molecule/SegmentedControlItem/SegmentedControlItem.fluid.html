@@ -7,10 +7,10 @@
     anchor either way. A segment that toggles something without leaving the page
     is a `button`, and that is what neither argument means.
 
-    The size is a bare class because `.astryx-segmented-control-item.sm` is what
-    the stylesheet is written against; the class is not a component root, so the
-    CSS codemod never moved it to a data attribute and the contract lists no
-    modifiers here. Passing nothing leaves the segment at its default height.
+    The size reaches the markup as `data-size`, like every other modifier in
+    this theme; the stylesheet was written against
+    `.astryx-segmented-control-item.sm` until 2.0 and reads `[data-size="sm"]`
+    now. Passing nothing leaves the segment at its default height.
 </f:comment>
 
 <f:argument name="parameter" type="mixed" optional="{true}" default="" />
@@ -20,6 +20,6 @@
 <f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
 
 <f:if condition="{parameter}">
-    <f:then><f:link.typolink parameter="{parameter}" class="astryx-segmented-control-item {size} {class}" additionalAttributes="{'aria-current': ariaCurrent}"><f:slot /></f:link.typolink></f:then>
-    <f:else><a href="{href}" class="astryx-segmented-control-item {size} {class}" aria-current="{ariaCurrent}"><f:slot /></a></f:else>
+    <f:then><f:link.typolink parameter="{parameter}" class="astryx-segmented-control-item {class}" additionalAttributes="{'aria-current': ariaCurrent, 'data-size': size}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-segmented-control-item {class}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></a></f:else>
 </f:if>

@@ -160,15 +160,17 @@
    its `> *` rule gives every segment flex: 1, which would stretch the loupe
    button to half the field. Both fields need the same correction. */
 .g-search__group > .astryx-button,
-.astryx-search .astryx-input-group > .astryx-button {
+.astryx-search .astryx-input-group > .astryx-icon-button {
   flex: 0 0 auto;
 }
 
-.g-search__icon {
+/* The leading loupe is InputGroup's `addon` segment, so it is reached through
+   the segment class the group writes rather than through one of ours. */
+.g-search__group > .astryx-input-group-text {
   color: var(--color-icon-secondary);
 }
 
-.g-search__icon > svg {
+.g-search__group > .astryx-input-group-text > svg {
   inline-size: var(--spacing-5);
   block-size: var(--spacing-5);
 }
@@ -360,6 +362,27 @@
   padding-inline: var(--spacing-2);
 }
 
+/* The show-all toggle is the one control on this page that is not a component:
+   EXT:solr's script swaps its text and reads both labels off the element, and
+   an Atom has no business carrying another extension's vocabulary. So it is a
+   bare anchor, and this is the quiet-link recipe written out for it. */
+.g-search__facet-more > a {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .g-search__facet-more > a:hover {
+    color: var(--color-text-accent);
+  }
+}
+
+.g-search__facet-more > a:active {
+  opacity: 0.7;
+}
+
 /* Active filters, above the results: each is a token that removes itself. */
 .g-search__active {
   display: flex;
@@ -449,8 +472,17 @@
   gap: var(--spacing-2);
 }
 
+/* A bare <select> inside a Field takes the shell and the drawn chevron from
+   `.astryx-field :where(select)`. What it does not take is the metrics the
+   standalone `.astryx-selector` recipe carried here before: the small height
+   that keeps the footer row level with the pagination beside it, the label type
+   scale, and a width that follows a two-digit number rather than the row. */
 .g-search__per-page-select {
   inline-size: auto;
+  block-size: var(--size-element-sm);
+  padding-inline: var(--spacing-3) var(--spacing-8);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
 }
 
 /* --------------------------------------------------------------- chip rows */

@@ -29,7 +29,10 @@
 
 <f:comment>
     An unfilled slot renders as null, so a bar with only a start region pays
-    for nothing else — the same rule Card's media region follows.
+    for nothing else — the same rule Card's media region follows. The test
+    trims first, because a fragment written over several lines is never empty:
+    it holds its own newlines, and an end region with nothing in it still takes
+    the auto margin that pushes everything else off the far edge.
 </f:comment>
 <f:if condition="{ariaLabel}">
     <f:then>
@@ -39,7 +42,7 @@
             data-align="{align}"
             data-orientation="{orientation}"
             data-dividers="{dividers}"
-            aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'start')}"><div class="astryx-toolbar-start {startClass}"><f:slot name="start" /></div></f:if><f:slot /><f:if condition="{f:slot(name: 'end')}"><div class="astryx-toolbar-end {endClass}"><f:slot name="end" /></div></f:if></nav>
+            aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'start') -> f:format.trim()}"><div class="astryx-toolbar-start {startClass}"><f:slot name="start" /></div></f:if><f:slot /><f:if condition="{f:slot(name: 'end') -> f:format.trim()}"><div class="astryx-toolbar-end {endClass}"><f:slot name="end" /></div></f:if></nav>
     </f:then>
     <f:else>
         <div
@@ -47,6 +50,6 @@
             data-size="{size}"
             data-align="{align}"
             data-orientation="{orientation}"
-            data-dividers="{dividers}"><f:if condition="{f:slot(name: 'start')}"><div class="astryx-toolbar-start {startClass}"><f:slot name="start" /></div></f:if><f:slot /><f:if condition="{f:slot(name: 'end')}"><div class="astryx-toolbar-end {endClass}"><f:slot name="end" /></div></f:if></div>
+            data-dividers="{dividers}"><f:if condition="{f:slot(name: 'start') -> f:format.trim()}"><div class="astryx-toolbar-start {startClass}"><f:slot name="start" /></div></f:if><f:slot /><f:if condition="{f:slot(name: 'end') -> f:format.trim()}"><div class="astryx-toolbar-end {endClass}"><f:slot name="end" /></div></f:if></div>
     </f:else>
 </f:if>

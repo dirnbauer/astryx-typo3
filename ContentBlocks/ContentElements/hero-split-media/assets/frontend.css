@@ -52,8 +52,8 @@
 
 /* On an accent band the lead would otherwise reach for a secondary text colour
    that is tuned for the page background. */
-.g-hero-split-media.accent .g-hero-split-media__lead,
-.g-hero-split-media.accent .astryx-eyebrow {
+.g-hero-split-media[data-surface="accent"] .g-hero-split-media__lead,
+.g-hero-split-media[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

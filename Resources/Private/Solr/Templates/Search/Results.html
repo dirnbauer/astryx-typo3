@@ -90,8 +90,15 @@
                 <f:if condition="{resultSet.hasSpellCheckingSuggestions}">
                     <a:atom.text type="supporting" class="g-search__didyoumean">
                         <f:translate key="{labels}:search.didYouMean" default="Did you mean"/>
+                        <f:comment>
+                            The URI is resolved first and handed to Link as an
+                            href. Link takes a TypoLink or a URL, not the query
+                            parameters a page link is built from, and building
+                            the one to pass the other is a template's job.
+                        </f:comment>
                         <f:for each="{resultSet.spellCheckingSuggestions}" as="suggestion">
-                            <f:link.page additionalParams="{q: suggestion.suggestion}" class="astryx-link">{suggestion.suggestion}</f:link.page>
+                            <f:variable name="suggestionUri" value="{f:uri.page(additionalParams: '{q: suggestion.suggestion}')}"/>
+                            <a:atom.link href="{suggestionUri}">{suggestion.suggestion}</a:atom.link>
                         </f:for>?
                     </a:atom.text>
                 </f:if>
@@ -112,11 +119,14 @@
                                         <a:atom.badge variant="neutral" as="span">{groupItem.allResultCount}</a:atom.badge>
                                     </a:atom.text>
                                     <s:groupItemPaginate groupItem="{groupItem}" resultSet="{resultSet}">
+                                        <f:comment>
+                                            No `li` here: the Document partial
+                                            renders the row as an Item, and an
+                                            Item with no href is the `li`.
+                                        </f:comment>
                                         <ol class="g-search__list" start="{pagination.resultCountStart}">
                                             <f:for each="{documents}" as="document">
-                                                <li>
-                                                    <f:render partial="Result/Document" section="Document" arguments="{resultSet: resultSet, document: document}"/>
-                                                </li>
+                                                <f:render partial="Result/Document" section="Document" arguments="{resultSet: resultSet, document: document}"/>
                                             </f:for>
                                         </ol>
                                     </s:groupItemPaginate>
@@ -131,9 +141,7 @@
 
                     <ol class="g-search__list" start="{pagination.startRecordNumber}">
                         <f:for each="{resultSet.searchResults}" as="document">
-                            <li>
-                                <f:render partial="Result/Document" section="Document" arguments="{resultSet: resultSet, document: document}"/>
-                            </li>
+                            <f:render partial="Result/Document" section="Document" arguments="{resultSet: resultSet, document: document}"/>
                         </f:for>
                     </ol>
 

@@ -20,15 +20,15 @@
                     The tile carries the semantic key rather than a glyph, so
                     swapping icon library never reaches into a template.
                 </f:comment>
-                <span class="astryx-feature-icon g-conversion-cta-inline__icon" data-icon="{data.icon}" aria-hidden="true"><g:icon name="{data.icon}"/></span>
+                <a:atom.featureIcon icon="{data.icon}" class="g-conversion-cta-inline__icon" />
             </f:if>
 
-            <div class="astryx-banner-content g-conversion-cta-inline__copy">
+            <a:molecule.bannerContent class="g-conversion-cta-inline__copy">
                 <a:atom.heading level="5">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 <f:if condition="{data.text}">
                     <a:atom.text type="supporting" class="g-conversion-cta-inline__text">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:molecule.bannerContent>
 
             <f:if condition="{data.cta_label}">
                 <a:atom.button variant="primary" class="g-conversion-cta-inline__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>

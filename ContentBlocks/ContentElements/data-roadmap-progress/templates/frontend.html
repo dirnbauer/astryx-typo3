@@ -33,19 +33,21 @@
                 <li class="g-data-roadmap-progress__stage" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <span class="g-data-roadmap-progress__marker {metric.icon}" aria-hidden="true"></span>
 
-                    <a:atom.progressBar class="g-data-roadmap-progress__body">
-                        <div class="astryx-progressbar-header">
-                            <h3 class="astryx-progressbar-label g-data-roadmap-progress__name">{metric -> f:render.text(field: 'title')}</h3>
-                            <span class="astryx-progressbar-value g-data-roadmap-progress__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
-                        </div>
+                    <a:atom.progressBar
+                        decorative="{true}"
+                        labelAs="h3"
+                        labelClass="g-data-roadmap-progress__name"
+                        valueClass="g-data-roadmap-progress__share"
+                        fillClass="g-data-roadmap-progress__fill"
+                        class="g-data-roadmap-progress__body">
+                        <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
+                        <f:fragment name="value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></f:fragment>
 
-                        <div class="astryx-progressbar-track" aria-hidden="true">
-                            <span class="astryx-progressbar-fill g-data-roadmap-progress__fill"></span>
-                        </div>
-
-                        <f:if condition="{metric.text}">
-                            <a:atom.text type="supporting" class="g-data-roadmap-progress__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
+                        <f:fragment>
+                            <f:if condition="{metric.text}">
+                                <a:atom.text type="supporting" class="g-data-roadmap-progress__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </f:fragment>
                     </a:atom.progressBar>
                 </li>
             </f:for>

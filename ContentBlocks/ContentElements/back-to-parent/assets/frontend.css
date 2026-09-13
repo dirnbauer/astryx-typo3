@@ -61,12 +61,12 @@
   }
 }
 
-.g-back-to-parent.accent .g-back-to-parent__nav.boxed {
+.g-back-to-parent[data-surface="accent"] .g-back-to-parent__nav.boxed {
   background-color: transparent;
   box-shadow: inset 0 0 0 var(--border-width) currentColor;
 }
 
-.g-back-to-parent.accent .g-back-to-parent__link {
+.g-back-to-parent[data-surface="accent"] .g-back-to-parent__link {
   color: currentColor;
 }
 

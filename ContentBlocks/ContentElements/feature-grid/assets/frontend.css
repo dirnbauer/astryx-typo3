@@ -43,14 +43,14 @@
 
 /* Without the card surface the cell text sits straight on the accent band, so
    the secondary colour tuned for the page background has to give way. */
-.g-feature-grid.accent[data-variant='plain'] .astryx-card-body {
+.g-feature-grid[data-surface="accent"][data-variant='plain'] .astryx-card-body {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-feature-grid.accent .g-feature-grid__lead,
-.g-feature-grid.accent .astryx-eyebrow,
-.g-feature-grid.accent .astryx-text[data-type="supporting"] {
+.g-feature-grid[data-surface="accent"] .g-feature-grid__lead,
+.g-feature-grid[data-surface="accent"] .astryx-eyebrow,
+.g-feature-grid[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

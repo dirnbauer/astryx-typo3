@@ -63,16 +63,16 @@
   margin: 0;
 }
 
-.g-conversion-waitlist.accent .astryx-card {
+.g-conversion-waitlist[data-surface="accent"] .astryx-card {
   background-color: transparent;
   box-shadow: none;
   color: currentColor;
 }
 
-.g-conversion-waitlist.accent .g-conversion-waitlist__lead,
-.g-conversion-waitlist.accent .g-conversion-waitlist__unit,
-.g-conversion-waitlist.accent .g-conversion-waitlist__note,
-.g-conversion-waitlist.accent .astryx-eyebrow {
+.g-conversion-waitlist[data-surface="accent"] .g-conversion-waitlist__lead,
+.g-conversion-waitlist[data-surface="accent"] .g-conversion-waitlist__unit,
+.g-conversion-waitlist[data-surface="accent"] .g-conversion-waitlist__note,
+.g-conversion-waitlist[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

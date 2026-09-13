@@ -26,29 +26,31 @@
             </f:if>
         </div>
 
-        <a:molecule.carousel gap="4" class="g-feature-rail__rail">
-            <ul class="astryx-carousel-track g-feature-rail__track {f:if(condition: data.compact, then: 'compact')}" tabindex="0" aria-labelledby="g-feature-rail-{data.uid}-heading">
-                <f:for each="{data.items}" as="item">
-                    <li class="astryx-carousel-item g-feature-rail__item">
-                        <a:molecule.card class="astryx-feature g-feature-rail__card {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
-                            <f:if condition="{item.icon}">
-                                <span class="astryx-feature-icon" data-icon="{item.icon}" aria-hidden="true"><g:icon name="{item.icon}"/></span>
-                            </f:if>
+        <a:molecule.carousel
+            gap="4"
+            class="g-feature-rail__rail"
+            trackClass="g-feature-rail__track {f:if(condition: data.compact, then: 'compact')}"
+            trackLabelledby="g-feature-rail-{data.uid}-heading">
+            <f:for each="{data.items}" as="item">
+                <a:molecule.carouselItem class="g-feature-rail__item">
+                    <a:molecule.card clickable="{item.link.url}" class="g-feature-rail__card">
+                        <f:if condition="{item.icon}">
+                            <a:atom.featureIcon icon="{item.icon}" />
+                        </f:if>
 
-                            <a:molecule.cardTitle>
-                                <f:if condition="{item.link.url}">
-                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
-                                </f:if>
-                            </a:molecule.cardTitle>
-
-                            <f:if condition="{item.text}">
-                                <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                        <a:molecule.cardTitle>
+                            <f:if condition="{item.link.url}">
+                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
                             </f:if>
-                        </a:molecule.card>
-                    </li>
-                </f:for>
-            </ul>
+                        </a:molecule.cardTitle>
+
+                        <f:if condition="{item.text}">
+                            <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                        </f:if>
+                    </a:molecule.card>
+                </a:molecule.carouselItem>
+            </f:for>
         </a:molecule.carousel>
 
         <f:if condition="{data.cta_label}">

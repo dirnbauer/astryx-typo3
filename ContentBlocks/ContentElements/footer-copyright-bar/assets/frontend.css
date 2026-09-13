@@ -46,12 +46,12 @@
   text-align: center;
 }
 
-.g-footer-copyright-bar.accent .g-footer-copyright-bar__bar {
+.g-footer-copyright-bar[data-surface="accent"] .g-footer-copyright-bar__bar {
   border-block-start-color: currentColor;
 }
 
-.g-footer-copyright-bar.accent .astryx-text[data-type="supporting"],
-.g-footer-copyright-bar.accent .g-footer-copyright-bar__links a {
+.g-footer-copyright-bar[data-surface="accent"] .astryx-text[data-type="supporting"],
+.g-footer-copyright-bar[data-surface="accent"] .g-footer-copyright-bar__links a {
   color: currentColor;
   opacity: 0.85;
 }

@@ -117,14 +117,14 @@
   justify-content: center;
 }
 
-.g-footer-app-badges.accent .g-footer-app-badges__lead,
-.g-footer-app-badges.accent .astryx-eyebrow,
-.g-footer-app-badges.accent .g-footer-app-badges__kicker {
+.g-footer-app-badges[data-surface="accent"] .g-footer-app-badges__lead,
+.g-footer-app-badges[data-surface="accent"] .astryx-eyebrow,
+.g-footer-app-badges[data-surface="accent"] .g-footer-app-badges__kicker {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-footer-app-badges.accent .g-footer-app-badges__badge {
+.g-footer-app-badges[data-surface="accent"] .g-footer-app-badges__badge {
   border-color: currentColor;
 }
 

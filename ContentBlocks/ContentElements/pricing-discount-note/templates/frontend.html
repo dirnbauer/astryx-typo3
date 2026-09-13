@@ -28,13 +28,13 @@
 
         <a:layout.grid cols="{data.columns}" class="g-pricing-discount-note__programmes">
             <f:for each="{data.programmes}" as="programme">
-                <a:molecule.feature class="astryx-card g-pricing-discount-note__programme {f:if(condition: programme.link.url, then: 'astryx-clickable-card')}">
+                <a:molecule.card clickable="{programme.link.url}" class="g-pricing-discount-note__programme">
                     <f:if condition="{programme.icon}">
                         <f:comment>
                             The tile carries the semantic key rather than a glyph, so swapping
                             icon library never reaches into a template.
                         </f:comment>
-                        <span class="astryx-feature-icon" data-icon="{programme.icon}" aria-hidden="true"><g:icon name="{programme.icon}"/></span>
+                        <a:atom.featureIcon icon="{programme.icon}" />
                     </f:if>
 
                     <a:molecule.cardTitle>
@@ -47,7 +47,7 @@
                     <f:if condition="{programme.text}">
                         <a:molecule.cardBody>{programme -> f:render.text(field: 'text')}</a:molecule.cardBody>
                     </f:if>
-                </a:molecule.feature>
+                </a:molecule.card>
             </f:for>
         </a:layout.grid>
 

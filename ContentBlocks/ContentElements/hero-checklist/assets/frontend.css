@@ -71,10 +71,10 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-hero-checklist.accent .g-hero-checklist__lead,
-.g-hero-checklist.accent .astryx-eyebrow,
-.g-hero-checklist.accent .astryx-text[data-type="supporting"],
-.g-hero-checklist.accent .g-hero-checklist__tick {
+.g-hero-checklist[data-surface="accent"] .g-hero-checklist__lead,
+.g-hero-checklist[data-surface="accent"] .astryx-eyebrow,
+.g-hero-checklist[data-surface="accent"] .astryx-text[data-type="supporting"],
+.g-hero-checklist[data-surface="accent"] .g-hero-checklist__tick {
   color: currentColor;
   opacity: 0.85;
 }

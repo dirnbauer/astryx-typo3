@@ -50,8 +50,8 @@
   margin-block-start: var(--spacing-8);
 }
 
-.g-speaker-lineup.accent .g-speaker-lineup__lead,
-.g-speaker-lineup.accent .astryx-eyebrow {
+.g-speaker-lineup[data-surface="accent"] .g-speaker-lineup__lead,
+.g-speaker-lineup[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

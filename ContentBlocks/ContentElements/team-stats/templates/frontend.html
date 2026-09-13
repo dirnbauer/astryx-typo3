@@ -37,7 +37,7 @@
             <f:for each="{data.stats}" as="stat">
                 <div class="g-team-stats__figure">
                     <f:if condition="{stat.icon}">
-                        <span class="astryx-feature-icon g-team-stats__icon" data-icon="{stat.icon}" aria-hidden="true"><g:icon name="{stat.icon}"/></span>
+                        <a:atom.featureIcon icon="{stat.icon}" class="g-team-stats__icon" />
                     </f:if>
 
                     <a:atom.text type="display-3" as="dt" class="g-team-stats__value">

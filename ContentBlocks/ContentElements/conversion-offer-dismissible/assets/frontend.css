@@ -103,14 +103,14 @@
   flex: 1 0 100%;
 }
 
-.g-conversion-offer-dismissible.accent .g-conversion-offer-dismissible__text,
-.g-conversion-offer-dismissible.accent .g-conversion-offer-dismissible__note,
-.g-conversion-offer-dismissible.accent .astryx-eyebrow {
+.g-conversion-offer-dismissible[data-surface="accent"] .g-conversion-offer-dismissible__text,
+.g-conversion-offer-dismissible[data-surface="accent"] .g-conversion-offer-dismissible__note,
+.g-conversion-offer-dismissible[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-offer-dismissible.accent .astryx-banner {
+.g-conversion-offer-dismissible[data-surface="accent"] .astryx-banner {
   background-color: transparent;
   color: currentColor;
 }

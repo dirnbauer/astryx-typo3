@@ -28,19 +28,18 @@
             </f:if>
         </div>
 
-        <div class="g-tabbed-sections__tabs" data-g-tabs>
-            <div class="astryx-tab-list divided g-tabbed-sections__list" role="tablist"
-                 aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.tabs', default: 'Sections')}">
+        <a:molecule.tabs class="g-tabbed-sections__tabs">
+            <a:molecule.tabList
+                variant="divided"
+                class="g-tabbed-sections__list"
+                ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.tabs', default: 'Sections')}">
                 <f:for each="{data.panels}" as="panel" iteration="position">
-                    <button type="button"
-                            class="astryx-tab"
-                            role="tab"
-                            data-g-tab
-                            id="g-tabbed-sections-{data.uid}-tab-{position.index}"
-                            aria-controls="g-tabbed-sections-{data.uid}-panel-{position.index}"
-                            aria-selected="{f:if(condition: position.isFirst, then: 'true', else: 'false')}">{panel.title}</button>
+                    <a:molecule.tab
+                        id="g-tabbed-sections-{data.uid}-tab-{position.index}"
+                        controls="g-tabbed-sections-{data.uid}-panel-{position.index}"
+                        selected="{position.isFirst}">{panel.title}</a:molecule.tab>
                 </f:for>
-            </div>
+            </a:molecule.tabList>
 
             <f:for each="{data.panels}" as="panel" iteration="position">
                 <section class="g-tabbed-sections__panel"
@@ -55,7 +54,7 @@
                     </f:if>
                 </section>
             </f:for>
-        </div>
+        </a:molecule.tabs>
 
     </a:layout.container>
 </a:layout.section>

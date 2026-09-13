@@ -34,7 +34,7 @@
             <f:for each="{data.items}" as="office">
                 <a:molecule.card class="g-footer-office-list__office">
                     <f:if condition="{office.icon}">
-                        <span class="astryx-feature-icon g-footer-office-list__pin" data-icon="{office.icon}" aria-hidden="true"><g:icon name="{office.icon}"/></span>
+                        <a:atom.featureIcon icon="{office.icon}" class="g-footer-office-list__pin" />
                     </f:if>
 
                     <a:molecule.cardTitle>{office -> f:render.text(field: 'title')}</a:molecule.cardTitle>

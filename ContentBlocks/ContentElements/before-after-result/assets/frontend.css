@@ -92,16 +92,16 @@
   max-inline-size: 60ch;
 }
 
-.g-before-after-result.accent .g-before-after-result__to {
+.g-before-after-result[data-surface="accent"] .g-before-after-result__to {
   color: currentColor;
 }
 
-.g-before-after-result.accent .g-before-after-result__lead,
-.g-before-after-result.accent .g-before-after-result__from,
-.g-before-after-result.accent .g-before-after-result__unit,
-.g-before-after-result.accent .g-before-after-result__name,
-.g-before-after-result.accent .astryx-eyebrow,
-.g-before-after-result.accent .astryx-text[data-type="supporting"] {
+.g-before-after-result[data-surface="accent"] .g-before-after-result__lead,
+.g-before-after-result[data-surface="accent"] .g-before-after-result__from,
+.g-before-after-result[data-surface="accent"] .g-before-after-result__unit,
+.g-before-after-result[data-surface="accent"] .g-before-after-result__name,
+.g-before-after-result[data-surface="accent"] .astryx-eyebrow,
+.g-before-after-result[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

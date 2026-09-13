@@ -26,6 +26,7 @@
 <f:argument name="chevronPosition" type="string" optional="{true}" default="end" />
 <f:argument name="name" type="string" optional="{true}" default="" />
 <f:argument name="open" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="contentClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:if condition="{name}">
@@ -37,14 +38,14 @@
                     class="astryx-collapsible {class}"
                     data-density="{density}"
                     data-chevron-position="{chevronPosition}"
-                    open="open"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content"><f:slot /></div></details>
+                    open="open"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content {contentClass}"><f:slot /></div></details>
             </f:then>
             <f:else>
                 <details
                     name="{name}"
                     class="astryx-collapsible {class}"
                     data-density="{density}"
-                    data-chevron-position="{chevronPosition}"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content"><f:slot /></div></details>
+                    data-chevron-position="{chevronPosition}"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content {contentClass}"><f:slot /></div></details>
             </f:else>
         </f:if>
     </f:then>
@@ -55,13 +56,13 @@
                     class="astryx-collapsible {class}"
                     data-density="{density}"
                     data-chevron-position="{chevronPosition}"
-                    open="open"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content"><f:slot /></div></details>
+                    open="open"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content {contentClass}"><f:slot /></div></details>
             </f:then>
             <f:else>
                 <details
                     class="astryx-collapsible {class}"
                     data-density="{density}"
-                    data-chevron-position="{chevronPosition}"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content"><f:slot /></div></details>
+                    data-chevron-position="{chevronPosition}"><summary><f:slot name="summary" /></summary><div class="astryx-collapsible-content {contentClass}"><f:slot /></div></details>
             </f:else>
         </f:if>
     </f:else>

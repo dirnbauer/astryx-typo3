@@ -54,17 +54,17 @@
   color: var(--color-text-accent);
 }
 
-.g-person-interview.accent .g-person-interview__question {
+.g-person-interview[data-surface="accent"] .g-person-interview__question {
   color: currentColor;
 }
 
-.g-person-interview.accent .g-person-interview__standfirst {
+.g-person-interview[data-surface="accent"] .g-person-interview__standfirst {
   border-block-end-color: currentColor;
 }
 
-.g-person-interview.accent .g-person-interview__lead,
-.g-person-interview.accent .g-person-interview__role,
-.g-person-interview.accent .astryx-eyebrow {
+.g-person-interview[data-surface="accent"] .g-person-interview__lead,
+.g-person-interview[data-surface="accent"] .g-person-interview__role,
+.g-person-interview[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

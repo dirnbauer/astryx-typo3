@@ -62,12 +62,12 @@
   justify-content: center;
 }
 
-.g-footer-legal-links.accent .g-footer-legal-links__link,
-.g-footer-legal-links.accent .astryx-text[data-type="supporting"] {
+.g-footer-legal-links[data-surface="accent"] .g-footer-legal-links__link,
+.g-footer-legal-links[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
 }
 
-.g-footer-legal-links.accent .g-footer-legal-links__item + .g-footer-legal-links__item::before {
+.g-footer-legal-links[data-surface="accent"] .g-footer-legal-links__item + .g-footer-legal-links__item::before {
   background-color: currentColor;
   opacity: 0.5;
 }

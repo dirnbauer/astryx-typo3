@@ -23,9 +23,11 @@
 
             <a:atom.text type="display-2" class="g-data-goal-meter__reading">{data -> f:render.text(field: 'value')}</a:atom.text>
 
-            <div class="astryx-progressbar-track g-data-goal-meter__track" aria-hidden="true">
-                <span class="astryx-progressbar-fill g-data-goal-meter__fill"></span>
-            </div>
+            <a:atom.progressBar
+                decorative="{true}"
+                trackClass="g-data-goal-meter__track"
+                fillClass="g-data-goal-meter__fill"
+                class="g-data-goal-meter__meter" />
 
             <f:if condition="{data.text}">
                 <a:atom.text type="large" class="g-data-goal-meter__figures">{data -> f:render.text(field: 'text')}</a:atom.text>

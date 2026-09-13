@@ -1,5 +1,6 @@
 <html
     xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
     data-namespace-typo3-fluid="true"
 >
 
@@ -20,12 +21,25 @@
     </f:comment>
     <f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
 
-    <div class="astryx-banner warning g-search__banner" role="status">
-        <div class="astryx-banner-body">
-            <p class="astryx-banner-title"><f:translate key="{labels}:search.unavailable" default="Search is unavailable right now"/></p>
-            <p class="astryx-banner-content"><f:translate key="{labels}:search.unavailableHint" default="The search service is not responding. Please try again in a moment."/></p>
-        </div>
-    </div>
+    <f:comment>
+        Banner writes its own title and body wrapper once it is given a title,
+        so all that is left here is the two strings and the tone.
+
+        `ariaLive` rather than the role="status" this carried before: the
+        results page replaces itself over AJAX, so a banner that arrives after
+        the page did has to be announced — but the element is already a
+        complementary landmark, and a role would take that away to say the same
+        thing. The title is a real heading for the same reason: it is the one
+        thing on the page at that moment, and it should be reachable as one.
+    </f:comment>
+    <a:molecule.banner
+        status="warning"
+        class="g-search__banner"
+        ariaLive="polite"
+        title="{f:translate(key: '{labels}:search.unavailable', default: 'Search is unavailable right now')}"
+    >
+        <f:translate key="{labels}:search.unavailableHint" default="The search service is not responding. Please try again in a moment."/>
+    </a:molecule.banner>
 </f:section>
 
 </html>

@@ -40,9 +40,9 @@
   white-space: nowrap;
 }
 
-.g-feature-index.accent .g-feature-index__lead,
-.g-feature-index.accent .astryx-eyebrow,
-.g-feature-index.accent .astryx-text[data-type="supporting"] {
+.g-feature-index[data-surface="accent"] .g-feature-index__lead,
+.g-feature-index[data-surface="accent"] .astryx-eyebrow,
+.g-feature-index[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

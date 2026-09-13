@@ -6,21 +6,23 @@
 <f:asset.css identifier="g-hero-slideshow" href="{cb:assetPath()}/frontend.css"/>
 
 <a:layout.section spacing="flush" surface="{data.tone}" class="g-hero-slideshow">
-    <a:molecule.overlay class="g-hero-slideshow__frame">
+    <f:comment>
+        The backdrops are the images field rather than a collection because
+        the copy never changes with the picture: one headline, several views
+        behind it. Which one shows is a fragment of the URL, so the dots below
+        need no script and survive a reload.
+    </f:comment>
+    <a:molecule.overlay class="g-hero-slideshow__frame" scrimClass="g-hero-slideshow__scrim">
 
-        <f:comment>
-            The backdrops are the images field rather than a collection because
-            the copy never changes with the picture: one headline, several views
-            behind it. Which one shows is a fragment, so the dots below need no
-            script and survive a reload.
-        </f:comment>
-        <f:for each="{data.images}" as="image" iteration="slide">
-            <figure id="g-hero-slideshow-{data.uid}-{slide.cycle}" class="g-hero-slideshow__slide">
-                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="{f:if(condition: slide.isFirst, then: 'eager', else: 'lazy')}" class="g-hero-slideshow__image"/>
-            </figure>
-        </f:for>
+        <f:fragment>
+            <f:for each="{data.images}" as="image" iteration="slide">
+                <figure id="g-hero-slideshow-{data.uid}-{slide.cycle}" class="g-hero-slideshow__slide">
+                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="{f:if(condition: slide.isFirst, then: 'eager', else: 'lazy')}" class="g-hero-slideshow__image"/>
+                </figure>
+            </f:for>
+        </f:fragment>
 
-        <div class="astryx-overlay-scrim fill dark always g-hero-slideshow__scrim">
+        <f:fragment name="scrim">
             <a:layout.container size="{data.width}" align="{data.align}" class="g-hero-slideshow__copy">
                 <f:if condition="{data.eyebrow}">
                     <a:atom.eyebrow class="g-hero-slideshow__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
@@ -39,18 +41,18 @@
                 </f:if>
 
                 <f:if condition="{f:count(subject: data.images)} > 1">
-                    <ul class="astryx-pagination-dots g-hero-slideshow__dots">
+                    <a:molecule.paginationDots class="g-hero-slideshow__dots">
                         <f:for each="{data.images}" as="image" iteration="slide">
                             <li>
-                                <a class="astryx-pagination-dot g-hero-slideshow__dot" href="#g-hero-slideshow-{data.uid}-{slide.cycle}">
+                                <a:molecule.paginationDot href="#g-hero-slideshow-{data.uid}-{slide.cycle}" class="g-hero-slideshow__dot">
                                     <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.showImage" default="Show image"/> {slide.cycle}</a:atom.visuallyHidden>
-                                </a>
+                                </a:molecule.paginationDot>
                             </li>
                         </f:for>
-                    </ul>
+                    </a:molecule.paginationDots>
                 </f:if>
             </a:layout.container>
-        </div>
+        </f:fragment>
     </a:molecule.overlay>
 </a:layout.section>
 

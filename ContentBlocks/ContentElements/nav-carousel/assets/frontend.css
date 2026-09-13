@@ -48,8 +48,8 @@
   text-decoration: none;
 }
 
-.g-nav-carousel.accent .g-nav-carousel__lead,
-.g-nav-carousel.accent .astryx-eyebrow {
+.g-nav-carousel[data-surface="accent"] .g-nav-carousel__lead,
+.g-nav-carousel[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

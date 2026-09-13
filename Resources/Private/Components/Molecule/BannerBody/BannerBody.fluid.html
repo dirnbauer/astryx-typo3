@@ -1,0 +1,21 @@
+<f:comment>
+    BannerBody — the message of a Banner, under its title.
+
+    It carries no type of its own: the banner already sets the size and the
+    colour of everything in it, and the only thing left to say is that this
+    paragraph does not add a margin the tinted box would then have to absorb.
+
+    `as` is here because the message is sometimes one sentence and sometimes a
+    field of editor rich text. A paragraph cannot legally hold the headings and
+    lists that come out of the second, so a body carrying prose is a `div`. That
+    is a question about the content, not about the look, which is why it is an
+    argument rather than two components.
+</f:comment>
+
+<f:argument name="as" type="string" optional="{true}" default="p" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{as} == 'div'">
+    <f:then><div class="astryx-banner-body {class}"><f:slot /></div></f:then>
+    <f:else><p class="astryx-banner-body {class}"><f:slot /></p></f:else>
+</f:if>

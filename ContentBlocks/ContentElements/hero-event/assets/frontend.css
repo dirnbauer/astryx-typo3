@@ -59,21 +59,21 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-hero-event.accent .g-hero-event__lead,
-.g-hero-event.accent .g-hero-event__note,
-.g-hero-event.accent .astryx-eyebrow,
-.g-hero-event.accent .astryx-metadata-list :where(dt, dd),
-.g-hero-event.accent .astryx-text[data-type="supporting"] {
+.g-hero-event[data-surface="accent"] .g-hero-event__lead,
+.g-hero-event[data-surface="accent"] .g-hero-event__note,
+.g-hero-event[data-surface="accent"] .astryx-eyebrow,
+.g-hero-event[data-surface="accent"] .astryx-metadata-list :where(dt, dd),
+.g-hero-event[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
 }
 
-.g-hero-event.accent .g-hero-event__lead,
-.g-hero-event.accent .g-hero-event__note,
-.g-hero-event.accent .astryx-metadata-list :where(dt) {
+.g-hero-event[data-surface="accent"] .g-hero-event__lead,
+.g-hero-event[data-surface="accent"] .g-hero-event__note,
+.g-hero-event[data-surface="accent"] .astryx-metadata-list :where(dt) {
   opacity: 0.85;
 }
 
-.g-hero-event.accent .g-hero-event__facts {
+.g-hero-event[data-surface="accent"] .g-hero-event__facts {
   border-color: currentColor;
 }
 

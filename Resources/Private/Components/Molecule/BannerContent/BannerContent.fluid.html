@@ -1,0 +1,21 @@
+<f:comment>
+    BannerContent — the middle column of a Banner: everything between the icon
+    and the dismiss control, held together as one block.
+
+    It exists because a banner is a three-part row and only the middle part
+    wraps. `flex: 1 1 auto` with `min-inline-size: 0` is what lets a long
+    message shrink instead of pushing the close button off the end, and that
+    only works on an element that holds the whole message rather than on each
+    paragraph of it.
+
+    Banner writes one of these itself for the simple case — a title and a line
+    of text passed as `title` and a slot. This is the other case: a heading with
+    a badge beside it, a body, a row of links and a footnote, in an order the
+    element decides. It is CardTitle's relationship to Card, and the same
+    reason: a component that knows what its content is made of is a component
+    every new arrangement has to be added to.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-banner-content {class}"><f:slot /></div>

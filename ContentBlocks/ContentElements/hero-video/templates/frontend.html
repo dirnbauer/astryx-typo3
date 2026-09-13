@@ -23,21 +23,22 @@
 
         <f:if condition="{data.image}">
             <figure class="g-hero-video__figure">
-                <a:molecule.overlay class="g-hero-video__frame">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1440" loading="eager" class="g-hero-video__poster"/>
-                    </f:for>
+                <a:molecule.overlay align="center" class="g-hero-video__frame" scrimClass="g-hero-video__scrim">
+                    <f:fragment>
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1440" loading="eager" class="g-hero-video__poster"/>
+                        </f:for>
+                    </f:fragment>
 
-                    <span class="astryx-overlay-scrim fill dark always align-center g-hero-video__scrim">
-                        <f:if condition="{data.cta_link.url}">
-                            <f:then>
-                                <button type="button" class="astryx-button primary lg astryx-icon-button g-hero-video__play" data-g-dialog-open="g-hero-video-{data.uid}">
-                                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5 19 12 8 18.5Z" fill="currentColor"/></svg>
-                                    <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.play" default="Play the film"/><f:if condition="{data.cta_label}">: {data.cta_label}</f:if></a:atom.visuallyHidden>
-                                </button>
-                            </f:then>
-                        </f:if>
-                    </span>
+                    <f:comment>
+                        On one line, and deliberately: an unfilled slot is what
+                        tells Overlay not to draw the scrim, and a fragment
+                        broken over several lines is never unfilled — it holds
+                        the newlines. With no film to play there is no control
+                        here, and a scrim with nothing in it would darken the
+                        poster and swallow the clicks.
+                    </f:comment>
+                    <f:fragment name="scrim"><f:if condition="{data.cta_link.url}"><a:atom.iconButton variant="primary" size="lg" class="g-hero-video__play" dialogOpen="g-hero-video-{data.uid}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5 19 12 8 18.5Z" fill="currentColor"/></svg><a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.play" default="Play the film"/><f:if condition="{data.cta_label}">: {data.cta_label}</f:if></a:atom.visuallyHidden></a:atom.iconButton></f:if></f:fragment>
                 </a:molecule.overlay>
 
                 <f:if condition="{data.note}">
@@ -49,12 +50,13 @@
 </a:layout.section>
 
 <f:if condition="{data.cta_link.url}">
-    <a:molecule.dialog variant="fullscreen" class="g-hero-video__dialog" id="g-hero-video-{data.uid}" ariaLabel="{data.header}">
-        <button type="button" class="astryx-button ghost astryx-icon-button g-hero-video__close" data-g-dialog-close="close">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18"/></svg>
-            <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.close" default="Close"/></a:atom.visuallyHidden>
-        </button>
-
+    <a:molecule.dialog
+        variant="fullscreen"
+        class="g-hero-video__dialog"
+        id="g-hero-video-{data.uid}"
+        ariaLabel="{data.header}"
+        closeLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.close', default: 'Close')}"
+        closeClass="g-hero-video__close">
         <a:atom.aspectRatio class="g-hero-video__player">
             <f:comment>
                 A lazy iframe inside a closed dialog is never fetched, so the

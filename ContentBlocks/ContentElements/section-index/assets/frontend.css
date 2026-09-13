@@ -49,14 +49,14 @@
   white-space: nowrap;
 }
 
-.g-section-index.accent .g-section-index__lead,
-.g-section-index.accent .astryx-eyebrow,
-.g-section-index.accent .astryx-text[data-type="supporting"] {
+.g-section-index[data-surface="accent"] .g-section-index__lead,
+.g-section-index[data-surface="accent"] .astryx-eyebrow,
+.g-section-index[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-section-index.accent .g-section-index__title {
+.g-section-index[data-surface="accent"] .g-section-index__title {
   color: currentColor;
 }
 

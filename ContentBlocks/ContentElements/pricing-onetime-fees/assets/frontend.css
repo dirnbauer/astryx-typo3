@@ -39,10 +39,10 @@
   margin-block-start: var(--spacing-6);
 }
 
-.g-pricing-onetime-fees.accent .g-pricing-onetime-fees__scope,
-.g-pricing-onetime-fees.accent .g-pricing-onetime-fees__lead,
-.g-pricing-onetime-fees.accent .g-pricing-onetime-fees__covers,
-.g-pricing-onetime-fees.accent .astryx-text[data-type="supporting"] {
+.g-pricing-onetime-fees[data-surface="accent"] .g-pricing-onetime-fees__scope,
+.g-pricing-onetime-fees[data-surface="accent"] .g-pricing-onetime-fees__lead,
+.g-pricing-onetime-fees[data-surface="accent"] .g-pricing-onetime-fees__covers,
+.g-pricing-onetime-fees[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

@@ -53,12 +53,12 @@
 <f:comment>
     The hooks are built as a fragment of attribute source rather than as
     attributes with an f:if inside them, because `data-g-carousel-prev` has no
-    value at all: the script tests for the attribute's presence. Captured
-    output is escaped on the way in, which is what keeps the id in
-    `data-g-dialog-open` safe, and printed raw on the way out, which is what
-    lets the attribute exist.
+    value at all: the script tests for the attribute's presence. A fragment is
+    printed raw, and Fluid does not escape what it captures, so the id in
+    `data-g-dialog-open` escapes itself on the way in. The other two are
+    literals with nothing to escape.
 </f:comment>
-<f:variable name="hooks"><f:if condition="{carousel} == 'previous'">data-g-carousel-prev</f:if><f:if condition="{carousel} == 'next'">data-g-carousel-next</f:if><f:if condition="{dialogOpen}"> data-g-dialog-open="{dialogOpen}"</f:if></f:variable>
+<f:variable name="hooks"><f:if condition="{carousel} == 'previous'">data-g-carousel-prev</f:if><f:if condition="{carousel} == 'next'">data-g-carousel-next</f:if><f:if condition="{dialogOpen}"> data-g-dialog-open="{dialogOpen -> f:format.htmlspecialchars()}"</f:if></f:variable>
 
 <f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: \'button\')}')}</f:variable>
 

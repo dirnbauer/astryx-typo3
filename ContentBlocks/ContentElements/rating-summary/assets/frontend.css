@@ -90,19 +90,19 @@
 
 /* Accent on accent would be invisible, so both halves of the star move to the
    band's own ink and separate on opacity instead. */
-.g-rating-summary.accent .g-rating-summary__stars {
+.g-rating-summary[data-surface="accent"] .g-rating-summary__stars {
   --g-star-on: currentColor;
   --g-star-off: transparent;
 }
 
-.g-rating-summary.accent .g-rating-summary__number {
+.g-rating-summary[data-surface="accent"] .g-rating-summary__number {
   color: currentColor;
 }
 
-.g-rating-summary.accent .g-rating-summary__unit,
-.g-rating-summary.accent .g-rating-summary__count,
-.g-rating-summary.accent .astryx-eyebrow,
-.g-rating-summary.accent .astryx-text[data-type="supporting"] {
+.g-rating-summary[data-surface="accent"] .g-rating-summary__unit,
+.g-rating-summary[data-surface="accent"] .g-rating-summary__count,
+.g-rating-summary[data-surface="accent"] .astryx-eyebrow,
+.g-rating-summary[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }

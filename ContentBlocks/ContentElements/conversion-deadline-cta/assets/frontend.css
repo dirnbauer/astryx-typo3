@@ -66,21 +66,21 @@
   inline-size: 100%;
 }
 
-.g-conversion-deadline-cta.accent .astryx-card {
+.g-conversion-deadline-cta[data-surface="accent"] .astryx-card {
   background-color: transparent;
   box-shadow: none;
   color: currentColor;
 }
 
-.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__value,
-.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__unit,
-.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__lead,
-.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__note,
-.g-conversion-deadline-cta.accent .astryx-eyebrow {
+.g-conversion-deadline-cta[data-surface="accent"] .g-conversion-deadline-cta__value,
+.g-conversion-deadline-cta[data-surface="accent"] .g-conversion-deadline-cta__unit,
+.g-conversion-deadline-cta[data-surface="accent"] .g-conversion-deadline-cta__lead,
+.g-conversion-deadline-cta[data-surface="accent"] .g-conversion-deadline-cta__note,
+.g-conversion-deadline-cta[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
 }
 
-.g-conversion-deadline-cta.accent .g-conversion-deadline-cta__note {
+.g-conversion-deadline-cta[data-surface="accent"] .g-conversion-deadline-cta__note {
   border-color: currentColor;
   opacity: 0.85;
 }

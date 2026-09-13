@@ -31,13 +31,11 @@
             </a:atom.heading>
 
             <a:molecule.outline class="g-outline-rail__outline">
-                <ul class="astryx-outline-list">
-                    <f:for each="{data.entries}" as="entry">
-                        <li class="g-outline-rail__entry">
-                            <f:link.typolink parameter="{entry.link}" class="astryx-outline-item g-outline-rail__link"><span>{entry.title}</span></f:link.typolink>
-                        </li>
-                    </f:for>
-                </ul>
+                <f:for each="{data.entries}" as="entry">
+                    <li class="g-outline-rail__entry">
+                        <a:molecule.outlineItem parameter="{entry.link}" class="g-outline-rail__link"><span>{entry.title}</span></a:molecule.outlineItem>
+                    </li>
+                </f:for>
             </a:molecule.outline>
 
         </nav>

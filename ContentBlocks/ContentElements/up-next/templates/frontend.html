@@ -18,7 +18,7 @@
 <a:layout.section spacing="tight" surface="{data.tone}" class="g-up-next">
     <a:layout.container size="{data.width}">
         <nav class="g-up-next__nav" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.upNext', default: 'Read next')}">
-            <a:molecule.card class="astryx-clickable-card g-up-next__card {f:if(condition: data.image, then: 'with-image')}">
+            <a:molecule.card clickable="{true}" class="g-up-next__card {f:if(condition: data.image, then: 'with-image')}">
 
                 <div class="g-up-next__copy">
                     <f:if condition="{data.eyebrow}">

@@ -32,40 +32,39 @@
             </div>
         </f:if>
 
-        <a:molecule.carousel gap="4" class="g-testimonial-carousel__carousel">
-            <a:atom.iconButton position="start" class="astryx-carousel-control g-testimonial-carousel__control" type="button" ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.previous', default: 'Previous quote')}"></a:atom.iconButton>
+        <a:molecule.carousel
+            gap="4"
+            class="g-testimonial-carousel__carousel"
+            trackClass="g-testimonial-carousel__track"
+            trackLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.region', default: 'Quotes')}"
+            controlClass="g-testimonial-carousel__control"
+            previousLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.previous', default: 'Previous quote')}"
+            nextLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.next', default: 'Next quote')}">
+            <f:for each="{data.quotes}" as="item">
+                <a:molecule.carouselItem class="g-testimonial-carousel__item">
+                    <a:molecule.card variant="raised" class="g-testimonial-carousel__card">
+                        <f:if condition="{item.image}">
+                            <a:atom.avatar size="lg" class="g-testimonial-carousel__portrait">
+                                <f:for each="{item.image}" as="portrait">
+                                    <f:image image="{portrait}" alt="" width="96c" height="96c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.avatar>
+                        </f:if>
 
-            <ul class="astryx-carousel-track g-testimonial-carousel__track"
-                data-g-carousel-track
-                tabindex="0"
-                aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.region', default: 'Quotes')}">
-                <f:for each="{data.quotes}" as="item">
-                    <li class="astryx-carousel-item g-testimonial-carousel__item">
-                        <a:molecule.card variant="raised" class="g-testimonial-carousel__card">
-                            <f:if condition="{item.image}">
-                                <a:atom.avatar size="lg" class="g-testimonial-carousel__portrait">
-                                    <f:for each="{item.image}" as="portrait">
-                                        <f:image image="{portrait}" alt="" width="96c" height="96c" loading="lazy"/>
-                                    </f:for>
-                                </a:atom.avatar>
+                        <blockquote class="g-testimonial-carousel__quote">
+                            <p>{item -> f:render.text(field: 'quote_text')}</p>
+                        </blockquote>
+
+                        <figcaption class="g-testimonial-carousel__credit">
+                            <a:atom.text type="label" as="span" class="g-testimonial-carousel__name">{item -> f:render.text(field: 'author')}</a:atom.text>
+                            <f:if condition="{item.role}">
+                                <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
                             </f:if>
+                        </figcaption>
+                    </a:molecule.card>
+                </a:molecule.carouselItem>
+            </f:for>
 
-                            <blockquote class="g-testimonial-carousel__quote">
-                                <p>{item -> f:render.text(field: 'quote_text')}</p>
-                            </blockquote>
-
-                            <figcaption class="g-testimonial-carousel__credit">
-                                <a:atom.text type="label" as="span" class="g-testimonial-carousel__name">{item -> f:render.text(field: 'author')}</a:atom.text>
-                                <f:if condition="{item.role}">
-                                    <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
-                                </f:if>
-                            </figcaption>
-                        </a:molecule.card>
-                    </li>
-                </f:for>
-            </ul>
-
-            <a:atom.iconButton position="end" class="astryx-carousel-control g-testimonial-carousel__control" type="button" ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.next', default: 'Next quote')}"></a:atom.iconButton>
         </a:molecule.carousel>
 
     </a:layout.container>

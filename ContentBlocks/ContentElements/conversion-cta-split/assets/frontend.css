@@ -54,16 +54,16 @@
   margin: 0;
 }
 
-.g-conversion-cta-split.accent .g-conversion-cta-split__lead,
-.g-conversion-cta-split.accent .g-conversion-cta-split__note,
-.g-conversion-cta-split.accent .g-conversion-cta-split__secondary,
-.g-conversion-cta-split.accent .astryx-eyebrow,
-.g-conversion-cta-split.accent .astryx-text[data-type="supporting"] {
+.g-conversion-cta-split[data-surface="accent"] .g-conversion-cta-split__lead,
+.g-conversion-cta-split[data-surface="accent"] .g-conversion-cta-split__note,
+.g-conversion-cta-split[data-surface="accent"] .g-conversion-cta-split__secondary,
+.g-conversion-cta-split[data-surface="accent"] .astryx-eyebrow,
+.g-conversion-cta-split[data-surface="accent"] .astryx-text[data-type="supporting"] {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-cta-split.accent .astryx-prose :where(a) {
+.g-conversion-cta-split[data-surface="accent"] .astryx-prose :where(a) {
   color: currentColor;
 }
 

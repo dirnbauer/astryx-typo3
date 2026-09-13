@@ -69,12 +69,12 @@
 
 /* On the accent band the muted strip disappears into the background, so it
    takes a translucent layer of the band's own text colour instead. */
-.g-hero-announcement.accent .g-hero-announcement__strip {
+.g-hero-announcement[data-surface="accent"] .g-hero-announcement__strip {
   background-color: color-mix(in srgb, var(--color-on-accent) 15%, transparent);
 }
 
-.g-hero-announcement.accent .g-hero-announcement__lead,
-.g-hero-announcement.accent .astryx-eyebrow {
+.g-hero-announcement[data-surface="accent"] .g-hero-announcement__lead,
+.g-hero-announcement[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

@@ -25,12 +25,12 @@
   min-inline-size: 0;
 }
 
-.g-feature-code.accent .astryx-eyebrow {
+.g-feature-code[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-feature-code.accent .astryx-prose :where(p, li) {
+.g-feature-code[data-surface="accent"] .astryx-prose :where(p, li) {
   color: currentColor;
 }
 

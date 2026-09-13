@@ -34,11 +34,11 @@
 
         <a:molecule.collapsibleGroup class="g-accordion-faq__group">
             <f:for each="{data.questions}" as="item">
-                <a:molecule.collapsible density="spacious" class="g-accordion-faq__item" name="g-accordion-faq-{data.uid}">
-                    <summary>
+                <a:molecule.collapsible density="spacious" class="g-accordion-faq__item" name="g-accordion-faq-{data.uid}" contentClass="astryx-prose g-accordion-faq__answer">
+                    <f:fragment name="summary">
                         <h3 class="g-accordion-faq__question">{item -> f:render.text(field: 'title')}</h3>
-                    </summary>
-                    <div class="astryx-collapsible-content astryx-prose g-accordion-faq__answer"><f:format.html>{item.bodytext}</f:format.html></div>
+                    </f:fragment>
+                    <f:fragment><f:format.html>{item.bodytext}</f:format.html></f:fragment>
                 </a:molecule.collapsible>
             </f:for>
         </a:molecule.collapsibleGroup>

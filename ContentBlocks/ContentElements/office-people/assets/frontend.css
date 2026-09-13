@@ -51,8 +51,8 @@
   min-inline-size: 0;
 }
 
-.g-office-people.accent .g-office-people__lead,
-.g-office-people.accent .astryx-eyebrow {
+.g-office-people[data-surface="accent"] .g-office-people__lead,
+.g-office-people[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

@@ -19,15 +19,15 @@
 <a:layout.section surface="{data.tone}" class="g-callout-note">
     <a:layout.container size="{data.width}">
         <a:molecule.banner class="g-callout-note__box {f:if(condition: data.compact, then: 'compact')}">
-            <div class="astryx-banner-content">
+            <a:molecule.bannerContent>
 
                 <f:if condition="{data.header}">
-                    <h2 class="astryx-banner-title g-callout-note__title">{data -> f:render.text(field: 'header')}</h2>
+                    <a:molecule.bannerTitle level="2" class="g-callout-note__title">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
                 </f:if>
 
-                <div class="astryx-prose astryx-banner-body"><f:format.html>{data.bodytext}</f:format.html></div>
+                <a:molecule.bannerBody as="div" class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></a:molecule.bannerBody>
 
-            </div>
+            </a:molecule.bannerContent>
         </a:molecule.banner>
     </a:layout.container>
 </a:layout.section>

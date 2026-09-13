@@ -28,17 +28,17 @@
   max-inline-size: 38rem;
 }
 
-.g-hero-split-text.accent .g-hero-split-text__prose,
-.g-hero-split-text.accent .astryx-eyebrow {
+.g-hero-split-text[data-surface="accent"] .g-hero-split-text__prose,
+.g-hero-split-text[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
 }
 
-.g-hero-split-text.accent .g-hero-split-text__prose :where(p, li) {
+.g-hero-split-text[data-surface="accent"] .g-hero-split-text__prose :where(p, li) {
   color: currentColor;
   opacity: 0.9;
 }
 
-.g-hero-split-text.accent .g-hero-split-text__prose :where(a) {
+.g-hero-split-text[data-surface="accent"] .g-hero-split-text__prose :where(a) {
   color: currentColor;
 }
 

@@ -56,9 +56,9 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-conversion-newsletter.accent .g-conversion-newsletter__lead,
-.g-conversion-newsletter.accent .g-conversion-newsletter__note,
-.g-conversion-newsletter.accent .astryx-eyebrow {
+.g-conversion-newsletter[data-surface="accent"] .g-conversion-newsletter__lead,
+.g-conversion-newsletter[data-surface="accent"] .g-conversion-newsletter__note,
+.g-conversion-newsletter[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }

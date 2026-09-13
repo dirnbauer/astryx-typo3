@@ -53,7 +53,7 @@
   background-color: var(--color-accent-muted);
 }
 
-.g-quick-links.accent .g-quick-links__title {
+.g-quick-links[data-surface="accent"] .g-quick-links__title {
   color: currentColor;
   opacity: 0.85;
 }

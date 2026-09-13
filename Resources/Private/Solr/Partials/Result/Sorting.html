@@ -20,53 +20,76 @@
         A native <details> disclosure, like every other menu in this theme:
         open state, Escape and keyboard traversal come from the browser, and
         astryx.js only adds the click-outside close that the platform lacks.
+
+        The trigger is `as="summary"` and has to be. A <details> opens when its
+        own <summary> is activated; a <button> in that position is not a
+        trigger, it is content the closed disclosure hides, and the 2.0 codemod
+        turning the summary into one left this menu unopenable.
     </f:comment>
     <details id="tx-solr-sorting" class="g-search__sorting" data-g-menu>
-        <a:atom.button variant="secondary" size="md" class="g-search__sorting-toggle">
+        <a:atom.button as="summary" variant="secondary" size="md" class="g-search__sorting-toggle">
             <f:translate key="{labels}:search.sortBy" default="Sort"/>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
                 <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </a:atom.button>
 
-        <div class="astryx-popover g-search__sorting-menu">
-            <div class="astryx-popover-body">
-                <f:for each="{resultSet.sortings}" as="sorting">
-                    <f:if condition="{sorting.isResetOption}">
-                        <f:then>
-                            <a:molecule.item density="compact" class="interactive{f:if(condition: sorting.selected, then: ' selected')} solr-ajaxified" href="{s:uri.sorting.removeSorting()}">
-                                <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
-                            </a:molecule.item>
-                        </f:then>
-                        <f:else>
-                            <f:if condition="{sorting.selected}">
-                                <f:then>
-                                    <a:molecule.item density="compact" interactive="interactive" selected="selected" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}" ariaCurrent="true">
-                                        <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
-                                        <span class="astryx-item-end">
-                                            <svg class="g-search__sorting-arrow {f:if(condition: sorting.isAscDirection, then: 'asc', else: 'desc')}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
-                                                <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-                                            </svg>
-                                            <a:atom.visuallyHidden as="span">
-                                                <f:if condition="{sorting.isAscDirection}">
-                                                    <f:then><f:translate key="{labels}:search.sortAscending" default="ascending"/></f:then>
-                                                    <f:else><f:translate key="{labels}:search.sortDescending" default="descending"/></f:else>
-                                                </f:if>
-                                            </a:atom.visuallyHidden>
-                                        </span>
-                                    </a:molecule.item>
-                                </f:then>
-                                <f:else>
-                                    <a:molecule.item density="compact" interactive="interactive" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.direction)}">
-                                        <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
-                                    </a:molecule.item>
-                                </f:else>
-                            </f:if>
-                        </f:else>
-                    </f:if>
-                </f:for>
-            </div>
-        </div>
+        <a:molecule.popover class="g-search__sorting-menu">
+            <f:for each="{resultSet.sortings}" as="sorting">
+                <f:if condition="{sorting.isResetOption}">
+                    <f:then>
+                        <a:molecule.item
+                            density="compact"
+                            interactive="interactive"
+                            selected="{f:if(condition: sorting.selected, then: 'selected', else: 'default')}"
+                            class="solr-ajaxified"
+                            href="{s:uri.sorting.removeSorting()}"
+                        >
+                            <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
+                        </a:molecule.item>
+                    </f:then>
+                    <f:else>
+                        <f:if condition="{sorting.selected}">
+                            <f:then>
+                                <f:comment>
+                                    The selected sorting links to its own
+                                    opposite direction, which is why it is the
+                                    one row carrying an arrow — and why the
+                                    arrow's direction is said in words as well,
+                                    since a rotation is not something a screen
+                                    reader can read.
+                                </f:comment>
+                                <a:molecule.item density="compact" interactive="interactive" selected="selected" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.oppositeDirection)}">
+                                    <f:comment>
+                                        A fragment of its own, and it has to be:
+                                        the moment a component call contains one
+                                        named fragment, Fluid stops collecting
+                                        the loose children as the default slot.
+                                    </f:comment>
+                                    <f:fragment><a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent></f:fragment>
+                                    <f:fragment name="end">
+                                        <svg class="g-search__sorting-arrow {f:if(condition: sorting.isAscDirection, then: 'asc', else: 'desc')}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+                                            <path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <a:atom.visuallyHidden as="span">
+                                            <f:if condition="{sorting.isAscDirection}">
+                                                <f:then><f:translate key="{labels}:search.sortAscending" default="ascending"/></f:then>
+                                                <f:else><f:translate key="{labels}:search.sortDescending" default="descending"/></f:else>
+                                            </f:if>
+                                        </a:atom.visuallyHidden>
+                                    </f:fragment>
+                                </a:molecule.item>
+                            </f:then>
+                            <f:else>
+                                <a:molecule.item density="compact" interactive="interactive" class="solr-ajaxified" href="{s:uri.sorting.setSorting(sortingName: sorting.name, sortingDirection: sorting.direction)}">
+                                    <a:molecule.itemContent><a:molecule.itemLabel>{sorting.label}</a:molecule.itemLabel></a:molecule.itemContent>
+                                </a:molecule.item>
+                            </f:else>
+                        </f:if>
+                    </f:else>
+                </f:if>
+            </f:for>
+        </a:molecule.popover>
     </details>
 </f:section>
 

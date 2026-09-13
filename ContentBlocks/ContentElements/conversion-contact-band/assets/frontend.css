@@ -46,15 +46,15 @@
   box-shadow: var(--shadow-low);
 }
 
-.g-conversion-contact-band.accent .g-conversion-contact-band__subheader,
-.g-conversion-contact-band.accent .g-conversion-contact-band__lead,
-.g-conversion-contact-band.accent .g-conversion-contact-band__note,
-.g-conversion-contact-band.accent .astryx-eyebrow {
+.g-conversion-contact-band[data-surface="accent"] .g-conversion-contact-band__subheader,
+.g-conversion-contact-band[data-surface="accent"] .g-conversion-contact-band__lead,
+.g-conversion-contact-band[data-surface="accent"] .g-conversion-contact-band__note,
+.g-conversion-contact-band[data-surface="accent"] .astryx-eyebrow {
   color: currentColor;
   opacity: 0.85;
 }
 
-.g-conversion-contact-band.accent .astryx-prose :where(a) {
+.g-conversion-contact-band[data-surface="accent"] .astryx-prose :where(a) {
   color: currentColor;
 }
 
