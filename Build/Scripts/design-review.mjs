@@ -1029,14 +1029,19 @@ try {
               } else {
                 /*
                  * An element-library preview is one content element on an
-                 * otherwise empty page, so the three rules that are about a
+                 * otherwise empty page, so the four rules that are about a
                  * PAGE cannot say anything true here: there is no h1 because
                  * there is no page, and adding one turns every element that
                  * correctly starts at h3 into a heading-order violation against
-                 * a heading the harness invented. Heading order WITHIN the
-                 * element is still checked, and found fifteen real skips.
+                 * a heading the harness invented; an anchor bar exists to jump
+                 * to sections of the page it was placed on, and on a page
+                 * holding only the anchor bar there are none. Heading order
+                 * WITHIN the element is still checked, and found fifteen real
+                 * skips.
                  */
-                builder = builder.disableRules(['page-has-heading-one', 'region', 'landmark-one-main']);
+                builder = builder.disableRules([
+                  'page-has-heading-one', 'region', 'landmark-one-main', 'skip-link',
+                ]);
               }
               const axe = await builder.analyze();
               violations = axe.violations.map(violation => ({

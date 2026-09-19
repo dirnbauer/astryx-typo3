@@ -408,7 +408,15 @@
   font-size: var(--text-label-size);
   font-weight: var(--font-weight-medium);
   line-height: var(--text-label-leading);
-  color: var(--color-text-secondary);
+  /*
+   * Primary, not secondary. The rail is `--color-neutral`, a translucent wash
+   * that darkens whatever it sits on, and secondary text on it came to 4.11:1
+   * in dark mode — under AA for a 12px label, which is what `data-size="sm"`
+   * renders. Nothing is lost by raising it: the selected segment is told apart
+   * by its own surface and shadow, not by the colour of its words, which is
+   * why the selected rule below sets a background rather than a weight.
+   */
+  color: var(--color-text-primary);
   white-space: nowrap;
   cursor: pointer;
   transition-property: color, background-color, box-shadow;

@@ -52,6 +52,11 @@ function pairs(scheme) {
     ['secondary text', '--color-text-secondary', '--color-background-body', 4.5],
     ['secondary text on surface', '--color-text-secondary', '--color-background-surface', 4.5],
     ['secondary text on card', '--color-text-secondary', '--color-background-card', 4.5],
+    // --color-neutral is a translucent wash, so what a label on it actually
+    // resolves to depends on the surface underneath. This audit measures token
+    // pairs and cannot composite; the segmented control therefore writes its
+    // labels in --color-text-primary rather than relying on a number this file
+    // is not able to check. A design review of real pages is what found it.
     ['link text', '--color-text-accent', '--color-background-body', 4.5],
     ['link text on surface', '--color-text-accent', '--color-background-surface', 4.5],
     // A link inside a card is ordinary: every teaser in the catalog has one.

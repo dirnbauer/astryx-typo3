@@ -22,13 +22,23 @@ Building the assets
     npm install
     npm run build
 
-`npm run build` is a chain of six generators followed by the contrast gate, and
-the order is the dependency order:
+`npm run build` is a chain of seven generators followed by the contrast gate,
+and the order is the dependency order:
 
 ..  code-block:: json
     :caption: package.json
 
-    "build": "npm run build:themes && npm run build:theme && npm run build:contrast && npm run build:css && npm run build:fonts && npm run build:overview && npm run audit:contrast",
+    "build": "npm run build:contract && npm run build:themes && npm run build:theme && npm run build:contrast && npm run build:css && npm run build:fonts && npm run build:overview && npm run audit:contrast",
+
+`build:contract`
+    :file:`Build/Scripts/sync-component-contract.mjs`. Writes
+    :file:`Build/Data/component-contract.json` and
+    :file:`Build/Data/component-map.json` from
+    :file:`Resources/Private/Components/`. It comes first because the CSS
+    tree-shake and the design review both read them, and it fails rather than
+    writes when a component renders a root class its name does not predict or
+    an upstream component is neither rendered nor recorded as unrenderable.
+    See :ref:`developer-component-contract-generated`.
 
 `build:themes`
     :file:`Build/Scripts/build-astryx-themes.mjs`. Expands the eighteen theme
