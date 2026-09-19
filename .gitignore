@@ -16,8 +16,11 @@
 /.phpunit.cache/
 composer.lock
 
-# Generated reports and build intermediates
-/Build/Reports/
+# Generated reports and build intermediates. The pattern ends in `*` rather
+# than `/`: git does not descend into an ignored DIRECTORY, so a negation
+# inside one never matches — which is how the v0.6.2 report stayed untracked
+# while the line re-including it sat right below.
+/Build/Reports/*
 # …except the upstream migration report. A design-review run is ephemeral;
 # a record of what changed between two pinned Astryx releases is part of the
 # release, and the CHANGELOG points at it.
