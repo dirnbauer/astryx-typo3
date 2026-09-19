@@ -148,12 +148,6 @@ hr {
   padding-block: var(--spacing-12) 0;
 }
 
-/* Content elements are stacked by the content area, so the gap lives there
-   rather than on every element's own margin. */
-.astryx-content > * + * {
-  margin-block-start: 0;
-}
-
 /*
  * Ink artwork — a signature, a stamp — is drawn in dark ink on transparency,
  * and dark ink on a dark surface is nothing at all. An element's own stylesheet

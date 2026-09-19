@@ -350,32 +350,11 @@
   cursor: not-allowed;
 }
 
-/* Track and thumb for the drawn form. */
-.astryx-slider-track {
-  position: relative;
-  flex-grow: 1;
-  block-size: 4px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-}
-
-.astryx-slider-thumb {
-  position: absolute;
-  inline-size: 20px;
-  block-size: 20px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-  transform: translate(-50%, -50%);
-  cursor: grab;
-  transition-property: background-color, box-shadow;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-slider-thumb:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
+/* A drawn track and thumb used to be written here for the cases a range input
+   cannot express — two thumbs, a non-linear scale. They were a pair of divs
+   that only move when a script moves them, and there is no script, so nothing
+   ever rendered them. Whoever brings the script brings the rules with it; the
+   vendor pseudo-elements below paint the control that does work. */
 
 /* Native range. The vendor track/thumb pseudo-elements are the only reachable
    parts, and they must be declared in separate rules — a browser drops the
@@ -686,7 +665,6 @@
   .astryx-radio,
   .astryx-switch,
   .astryx-switch-thumb,
-  .astryx-slider-thumb,
   .astryx-toggle-button,
   .astryx-selectable-card {
     transition-duration: 0s;

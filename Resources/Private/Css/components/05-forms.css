@@ -125,10 +125,12 @@
 
 /* Attached: the message slides up under the input and completes its shape, so
    the negative margin has to swallow the field gap and the padding has to give
-   it back below the seam. */
+   it back below the seam. The gap is --spacing-1, which is what this swallows;
+   it used to pull --spacing-1-5, which over-closed the seam by two pixels and
+   left a 14px top padding that is on no step of the spacing scale. */
 .astryx-field-status[data-placement="attached"] {
-  margin-block-start: calc(-1 * var(--spacing-1-5));
-  padding-block-start: calc(var(--spacing-1-5) + var(--spacing-2));
+  margin-block-start: calc(-1 * var(--spacing-1));
+  padding-block-start: calc(var(--spacing-1) + var(--spacing-2));
   padding-block-end: var(--spacing-2);
   border-start-start-radius: 0;
   border-start-end-radius: 0;
@@ -428,19 +430,11 @@
   padding-block: var(--spacing-2);
 }
 
-/* Character counter under the box. */
-.astryx-text-area-counter {
-  display: flex;
-  justify-content: flex-end;
-  margin-block-start: var(--spacing-1);
-  font-family: var(--font-family-body);
-  font-size: var(--text-supporting-size);
-  color: var(--color-text-secondary);
-}
-
-.astryx-text-area-counter[data-status="error"] {
-  color: var(--color-error);
-}
+/* There is no character counter. A counter is a number that changes while you
+   type, and a server-rendered one is right until the first keystroke — so
+   TextArea emits `maxlength` and lets the browser enforce it instead. The
+   rules that used to sit here styled an element no component could honestly
+   render. */
 
 /* -------------------------------------------------------------- Selector */
 /* A native <select> cannot carry a pseudo-element for the chevron, so it is

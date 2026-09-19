@@ -185,6 +185,14 @@ function sample(layer, rootClass) {
   if (GRAPHIC_ONLY.has(rootClass)) return '';
   if (layer === 'Atom') return 'Sample';
   /*
+   * Some molecules and organisms are leaf controls rather than containers: a
+   * collapse handle and a scheme toggle are square boxes with a fixed
+   * inline-size, and a paragraph and a button inside one report an overflow a
+   * real page could never produce. Which those are is read out of the CSS
+   * rather than listed here, so a control added tomorrow is treated the same.
+   */
+  if (fixedWidth.has(rootClass)) return 'Sample';
+  /*
    * Short on purpose. Several molecules are leaf controls that set
    * `white-space: nowrap` - a tab, a segment, a breadcrumb crumb - and a
    * paragraph inside one is 1400px wide and reports itself as an RTL overflow
@@ -224,7 +232,64 @@ function casesFromStylesheet() {
   return byRootClass;
 }
 
+/**
+ * Which components the stylesheet takes out of normal flow.
+ *
+ * A dialog, a lightbox, a toast viewport and a typeahead dropdown are
+ * `position: fixed` or `absolute` against a page. Rendered in the harness as a
+ * div in normal flow they are markup that never occurs, and what they produce
+ * is not a finding about themselves: they push the document sideways in RTL,
+ * and the probe then names whatever paragraph or button happens to be inside
+ * them. Each one is given a containing block of its own below, which is the
+ * same argument this file already makes for filling an atom with a paragraph.
+ */
+function outOfFlowRootClasses() {
+  const css = ['astryx-components.css', 'astryx.css']
+    .map(name => path.join(EXT_ROOT, 'Resources/Public/Css', name))
+    .filter(file => fs.existsSync(file))
+    .map(file => fs.readFileSync(file, 'utf8'))
+    .join('\n');
+
+  const found = new Set();
+  // The prelude is a selector LIST: `.astryx-dialog,.astryx-alert-dialog{…}`
+  // positions two components, and reading only the last one misses the first.
+  for (const match of css.matchAll(/([^{}]*)\{([^}]*)\}/g)) {
+    if (!/position:\s*(fixed|absolute)/.test(match[2])) continue;
+    for (const selector of match[1].split(',')) {
+      const root = /^\s*\.(astryx-[a-z0-9-]+)(?:\[[^\]]*\])*\s*$/.exec(selector);
+      if (root) found.add(root[1]);
+    }
+  }
+  return found;
+}
+
+/**
+ * Components whose stylesheet pins their inline size to a fixed length.
+ *
+ * A square toggle cannot hold a paragraph, and filling one with the sample
+ * content measures the sample rather than the component.
+ */
+function fixedWidthRootClasses() {
+  const css = ['astryx-components.css', 'astryx.css']
+    .map(name => path.join(EXT_ROOT, 'Resources/Public/Css', name))
+    .filter(file => fs.existsSync(file))
+    .map(file => fs.readFileSync(file, 'utf8'))
+    .join('\n');
+
+  const found = new Set();
+  for (const match of css.matchAll(/([^{}]*)\{([^}]*)\}/g)) {
+    if (!/(?:^|;)\s*inline-size:\s*(?:\d+px|var\(--size-element)/.test(match[2])) continue;
+    for (const selector of match[1].split(',')) {
+      const root = /^\s*\.(astryx-[a-z0-9-]+)(?:\[[^\]]*\])*\s*$/.exec(selector);
+      if (root) found.add(root[1]);
+    }
+  }
+  return found;
+}
+
 const stylesheetCases = casesFromStylesheet();
+const outOfFlow = outOfFlowRootClasses();
+const fixedWidth = fixedWidthRootClasses();
 
 function buildHarness() {
   const sections = [];
@@ -237,14 +302,15 @@ function buildHarness() {
 
     const rendered = cases.map(([label, attributes]) => {
       const attrs = Object.entries(attributes).map(([name, value]) => ` ${name}="${value}"`).join('');
-      return `<div class="probe" data-probe="${key}" data-case="${label}">
+      const contained = outOfFlow.has(component.rootClass) ? ' data-contained' : '';
+      return `<div class="probe${contained ? ' probe--contained' : ''}"${contained} data-probe="${key}" data-case="${label}">
         <span class="probe__label" data-harness-chrome>${label}</span>
         <div class="${component.rootClass}"${attrs}>${sample(component.layer, component.rootClass)}</div>
       </div>`;
     }).join('\n');
 
     sections.push(`<section class="probe-group" data-component="${key}" data-layer="${component.layer}">
-      <h2 class="astryx-heading" data-level="2">${key}</h2>
+      <h2 class="astryx-heading" data-level="2" data-harness-chrome>${key}</h2>
       ${rendered}
     </section>`);
   }
@@ -260,12 +326,24 @@ function buildHarness() {
   <link rel="stylesheet" href="/css/astryx.css">
   <style>
     .probe-group { padding: 1rem 0; }
-    .probe { padding: 0.5rem 0; }
+    /* Inline padding, because several components bleed into their container's
+       padding by design — a menu divider reaching the panel edges, a card's
+       media reaching the card's. A probe with none gives them nothing to bleed
+       into and the bleed reaches the document instead. */
+    .probe { padding: 0.5rem 1.5rem; }
+    /* A containing block for the components the stylesheet positions against a
+       page, so a fixed child is measured inside its probe rather than against
+       the document. Containment is what establishes one for position: fixed;
+       position: relative alone does not. */
+    .probe--contained { contain: layout paint; min-block-size: 6rem; }
     .probe__label { display: block; font-size: 11px; opacity: 0.6; }
   </style>
 </head>
 <body data-astryx-theme="${args.theme}">
   <main class="astryx-layout" data-size="lg">
+    <!-- Not harness chrome: a page of headings with no h1 is an axe violation
+         of its own, and a harness that reports one is reporting on itself. -->
+    <h1 class="astryx-visually-hidden">Astryx component harness</h1>
     ${sections.join('\n')}
   </main>
 </body>
@@ -363,12 +441,24 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
     }
   }
   const record = (rule, element, detail) => {
+    /*
+     * The element alone is rarely enough to act on: "a paragraph is wider than
+     * its parent" names the sample text, not the component whose layout let it
+     * happen. In the harness every probe carries which component and which case
+     * it is, and on a real page the nearest content element does the same job.
+     */
+    const owner = element?.closest?.('[data-probe], [class*="g-"]');
+    const context = owner?.dataset?.probe
+      ? `${owner.dataset.probe} (${owner.dataset.case})`
+      : owner?.className?.split?.(/\s+/).find(name => name.startsWith('g-')) ?? null;
+
     findings.push({
       rule,
       selector: element ? (element.tagName.toLowerCase()
         + (element.className && typeof element.className === 'string'
           ? '.' + element.className.trim().split(/\s+/).slice(0, 2).join('.')
           : '')) : null,
+      in: context,
       detail,
     });
   };
@@ -434,10 +524,17 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
     // --- spacing ----------------------------------------------------------
     for (const side of ['Top', 'Right', 'Bottom', 'Left']) {
       for (const box of ['padding', 'margin']) {
-        // An auto margin is a centring instruction, not a measurement.
-        if (box === 'margin' && element.style[`margin${side}`] === 'auto') continue;
-        const computedAuto = getComputedStyle(element).getPropertyValue(`margin-${side.toLowerCase()}`);
-        if (box === 'margin' && computedAuto === 'auto') continue;
+        /*
+         * An auto margin is a centring instruction, not a measurement.
+         * getComputedStyle resolves it to the used pixel value, so it cannot
+         * tell the two apart — a 70ch prose column inside a wide probe centres
+         * to 22px and reads as a hand-typed number. computedStyleMap returns
+         * the COMPUTED value, where `auto` is still the keyword.
+         */
+        if (box === 'margin' && element.computedStyleMap) {
+          const computed = element.computedStyleMap().get(`margin-${side.toLowerCase()}`);
+          if (String(computed) === 'auto') continue;
+        }
         const value = parseFloat(style[`${box}${side}`]);
         if (!value || value < 0) continue;
         // Centring inside a container resolves to a large, meaningless number.
@@ -516,7 +613,46 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
        * RTL, where the document's origin has moved.
        */
       const culprits = elements
-        .filter(element => element.parentElement)
+        .filter(element => {
+          const parent = element.parentElement;
+          if (!parent) return false;
+          /*
+           * A parent with `display: contents` has no box, so its clientWidth is
+           * zero and every child "overflows" it by its own width. Field's
+           * horizontal orientation is exactly that, and it was four of the five
+           * loudest findings in the run before this test existed.
+           */
+          if (getComputedStyle(parent).display === 'contents') return false;
+          /*
+           * A component the stylesheet positions against the viewport is not in
+           * the flow it is being compared with. In the harness it sits inside a
+           * probe that gave it a containing block, so both it and the probe
+           * report an overflow against a page the component never sits in.
+           */
+          if (element.closest('[data-contained]')) return false;
+          /*
+           * A negative inline margin is a deliberate bleed — a menu divider
+           * reaching the panel's edges through its padding — and measuring it
+           * as an overflow reports the feature.
+           */
+          const bleeds = candidate => {
+            const style = getComputedStyle(candidate);
+            return parseFloat(style.marginInlineStart) < 0 || parseFloat(style.marginInlineEnd) < 0;
+          };
+          if (bleeds(element)) return false;
+          // …and neither is an ancestor that is only as wide as that bleed.
+          if ([...element.querySelectorAll('*')].some(bleeds)) return false;
+          /*
+           * Content wider than a box that clips it is not an overflow: it is
+           * what `overflow: hidden` and `text-overflow: ellipsis` are for. A
+           * truncating table cell is the case, and nothing it holds can push
+           * the page sideways.
+           */
+          for (let box = parent; box && box !== document.body; box = box.parentElement) {
+            if (/hidden|clip|auto|scroll/.test(getComputedStyle(box).overflowX)) return false;
+          }
+          return true;
+        })
         .map(element => ({
           element,
           overflow: element.scrollWidth - element.parentElement.clientWidth,
@@ -526,9 +662,39 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
         .slice(0, 5);
 
       if (culprits.length === 0) {
-        record('rtl-overflow', document.documentElement,
-          `the page scrolls ${Math.round(document.documentElement.scrollWidth - docWidth)}px sideways in RTL, `
-          + 'and no single element is wider than its parent');
+        /*
+         * "The page scrolls and nothing is wider than its parent" is true and
+         * useless on its own. What is left is an element positioned past the
+         * inline edge rather than one too wide for its box, so the three that
+         * reach furthest past it are named instead.
+         */
+        const reach = elements
+          .filter(element => !element.closest('[data-contained]'))
+          .map(element => {
+            const box = element.getBoundingClientRect();
+            return {element, past: Math.max(-box.left, box.right - docWidth)};
+          })
+          .filter(entry => entry.past > 2)
+          .sort((a, b) => b.past - a.past)
+          .slice(0, 3);
+
+        /*
+         * Nothing in flow reaches past the edge, so what moved the page is out
+         * of flow. On a real page that is worth saying even without a name; in
+         * the harness it is the containing block this file gave a dialog, a
+         * lightbox and a mobile nav so they could be measured at all — an
+         * element sized to the viewport inside a padded box sticks out by
+         * exactly that padding, which is a fact about the harness rather than
+         * about the design.
+         */
+        if (reach.length === 0 && !document.querySelector('[data-contained]')) {
+          record('rtl-overflow', document.documentElement,
+            `the page scrolls ${Math.round(document.documentElement.scrollWidth - docWidth)}px sideways in RTL, `
+            + 'and nothing in flow reaches past its edge — look for a fixed or absolute element');
+        }
+        for (const {element, past} of reach) {
+          record('rtl-overflow', element, `sits ${Math.round(past)}px past the inline edge in RTL`);
+        }
       }
       for (const {element, overflow} of culprits) {
         record('rtl-overflow', element, `${Math.round(overflow)}px wider than its parent in RTL`);
@@ -895,19 +1061,19 @@ if (byRule.size === 0) {
   lines.push('| rule | findings | example |', '| --- | --- | --- |');
   for (const [rule, findings] of [...byRule].sort((a, b) => b[1].length - a[1].length)) {
     const example = findings[0];
-    lines.push(`| \`${rule}\` | ${findings.length} | ${example.selector ?? '—'}: ${example.detail} |`);
+    lines.push(`| \`${rule}\` | ${findings.length} | ${example.in ?? example.selector ?? '—'}: ${example.detail} |`);
   }
   lines.push('');
   for (const [rule, findings] of byRule) {
     lines.push(`### ${rule} (${findings.length})`, '');
     const unique = new Map();
     for (const finding of findings) {
-      const key = `${finding.selector}|${finding.detail}`;
+      const key = `${finding.in ?? '—'}\u0000${finding.selector}\u0000${finding.detail}`;
       unique.set(key, (unique.get(key) ?? 0) + 1);
     }
-    for (const [key, count] of [...unique].sort((a, b) => b[1] - a[1]).slice(0, 20)) {
-      const [selector, detail] = key.split('|');
-      lines.push(`- \`${selector}\` — ${detail}${count > 1 ? ` (${count}x)` : ''}`);
+    for (const [key, count] of [...unique].sort((a, b) => b[1] - a[1]).slice(0, 30)) {
+      const [context, selector, detail] = key.split('\u0000');
+      lines.push(`- **${context}** \`${selector}\` — ${detail}${count > 1 ? ` (${count}x)` : ''}`);
     }
     lines.push('');
   }

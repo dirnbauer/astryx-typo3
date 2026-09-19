@@ -380,8 +380,15 @@
 }
 
 /* ----------------------------------------------------------------- Toast */
-/* The viewport is itself a manual [popover], which is what lifts toasts above
-   an open dialog: the top layer stacks by open order, not by z-index. */
+/* A plain fixed strip, not the manual [popover] this was drafted as. A manual
+   popover is display:none until something calls showPopover(), and there is no
+   script here to call it, so the region and every toast in it would simply not
+   be on screen. What that costs is the top layer: toasts sit under an open
+   <dialog> rather than above it, which is the right trade against not
+   appearing at all.
+
+   pointer-events:none is what keeps the strip from swallowing clicks on the
+   page behind its empty half; each toast turns them back on for itself. */
 .astryx-toast-viewport {
   position: fixed;
   inset: auto;
@@ -389,11 +396,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-  margin: 0;
   padding: var(--spacing-4);
-  border: none;
-  background: none;
-  overflow: visible;
   pointer-events: none;
 }
 
@@ -717,17 +720,12 @@
   color: var(--color-on-dark);
 }
 
-.astryx-lightbox-prev,
-.astryx-lightbox-next {
-  position: absolute;
-  inset-block-start: 50%;
-  z-index: 1;
-  translate: 0 -50%;
-  color: var(--color-on-dark);
-}
-
-.astryx-lightbox-prev { inset-inline-start: var(--spacing-3); }
-.astryx-lightbox-next { inset-inline-end: var(--spacing-3); }
+/* There is no previous and no next. A modal dialog is in the top layer, where
+   `:target` cannot reach it, so every scriptless way of stepping a gallery
+   belongs to a different element than this one — and a pair of arrows that
+   render, take focus and do nothing is worse than no arrows. The rules for
+   them used to sit here; stepping happens in the gallery on the page, where it
+   is a list of links. */
 
 /* --------------------------------------------------------------- Overlay */
 /* Content laid over media — a caption strip, a play button, a hover scrim.

@@ -1,0 +1,25 @@
+<f:comment>
+    ToastViewport — the fixed strip in a corner of the page that Toasts sit in.
+
+    Rendered once, by the page chrome, holding none or many of them. That is
+    the whole reason it is a component and not something each toast brings with
+    it: both toast roles announce their element when it *appears*, so a message
+    has to arrive inside a region that was already on the page.
+
+    It is a plain fixed strip rather than the manual popover it was drawn as.
+    A manual popover is display:none until something calls showPopover(), and
+    this theme ships no script to call it — the region and every toast in it
+    would simply never be on screen. What that costs is the top layer: toasts
+    stack under an open `dialog` instead of over it. Not appearing at all is
+    the worse of the two.
+
+    No `aria-live` here. Each Toast carries its own `role="status"` or
+    `role="alert"`, and a live region wrapped around live regions is one
+    announcement made twice.
+</f:comment>
+
+<f:argument name="placement" type="string" optional="{true}" default="bottom-end" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-toast-viewport {class}" data-placement="{placement}" id="{id}"><f:slot /></div>

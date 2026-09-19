@@ -35,9 +35,10 @@
     <f:comment>
         The rows go in the `menu` slot, and Item is what they are: a compact
         interactive row with an href and, on the one the visitor is on,
-        `ariaCurrent="page"`. `.astryx-tab-menu-item` is the same row written
-        by hand before there were components, and it is not spelled out again
-        here — two ways to write one row is how a design system starts drifting.
+        `ariaCurrent="page"`. A `.astryx-tab-menu-item` rule used to describe
+        the same row a second time, written by hand before there were
+        components; it has been deleted, because two ways to write one row is
+        how a design system starts drifting.
     </f:comment>
     <div id="{id}" class="astryx-tab-menu-dropdown" popover="auto"><f:slot name="menu" /></div>
 </div>

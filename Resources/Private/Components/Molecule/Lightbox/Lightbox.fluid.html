@@ -14,8 +14,8 @@
     gallery, the scroll-snap rail — is a different element to the `dialog` this
     stylesheet is written for, and a pair of arrows that render, take focus and
     do nothing is the one thing a component here may never ship. The prev and
-    next rules in the stylesheet therefore stay unrendered — the CSS build
-    drops them and reports them — until something can honestly use them.
+    next rules are gone from the stylesheet with them, rather than sitting
+    there styling a control nothing can honestly render.
 
     So what a server-rendered lightbox can do: open one figure at full size,
     name it with a caption, say where it sits in the set with a counter, close

@@ -5,9 +5,8 @@
  * TopNav moved to 07b-top-nav.css and SideNav with MobileNav to
  * 07c-side-nav.css when this file passed fourteen hundred lines. What stayed
  * is what more than one navigation uses: the .astryx-nav-item row a SideNav
- * entry and a TopNav drawer entry both wear, the .astryx-nav-heading-menu a
- * heading in either bar opens, and the tab strip. The manifest lists the three
- * files consecutively, so splitting them changed no cascade.
+ * entry and a TopNav drawer entry both wear, and the tab strip. The manifest
+ * lists the three files consecutively, so splitting them changed no cascade.
  *
  * Two rules shape all of it. The current item never signals itself with colour
  * alone: every selected state pairs its tone with a weight bump, an indicator
@@ -304,31 +303,12 @@
   block-size: var(--spacing-4);
 }
 
-.astryx-tab-indicator {
-  position: absolute;
-  inset-block-end: var(--_tab-indicator-bottom, -1px);
-  inset-inline: var(--spacing-3);
-  block-size: 2px;
-  border-radius: var(--radius-full);
-  background-color: transparent;
-  opacity: 0;
-  pointer-events: none;
-  transition-property: opacity, background-color;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-tab-indicator[data-selected="selected"],
-.astryx-tab[data-selected="selected"] > .astryx-tab-indicator,
-.astryx-tab-menu[data-selected="selected"] > .astryx-tab-indicator {
-  background-color: var(--color-accent);
-  opacity: 1;
-}
-
-/* Markup that omits the indicator element still gets the bar. The underline
-   is the cue that survives a theme with no colour to spare, so it is not
-   left to whether the template happened to render an extra span. */
-.astryx-tab:not(:has(.astryx-tab-indicator)):is(.selected, [aria-selected='true'], [aria-current='page'])::after {
+/* The underline under the selected tab. It is a pseudo-element rather than a
+   span Tab would have to render: the bar is the cue that survives a theme with
+   no colour to spare, so it may not depend on a caller remembering an extra
+   element — and an indicator that travels between tabs instead of being drawn
+   per tab needs a measurement, which is script. */
+.astryx-tab:is(.selected, [aria-selected='true'], [aria-current='page'])::after {
   content: '';
   position: absolute;
   inset-block-end: var(--_tab-indicator-bottom, -1px);
@@ -343,42 +323,6 @@
   flex-direction: column;
   gap: var(--spacing-0-5);
   padding: var(--spacing-1);
-}
-
-.astryx-tab-menu-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-2);
-  padding-block: var(--spacing-2);
-  padding-inline: var(--spacing-3);
-  border: 0;
-  border-radius: var(--radius-element);
-  background-color: transparent;
-  font-family: inherit;
-  font-size: var(--text-label-size);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--text-label-leading);
-  color: var(--color-text-primary);
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard);
-}
-
-@media (hover: hover) {
-  .astryx-tab-menu-item:hover {
-    background-color: var(--color-overlay-hover);
-  }
-}
-
-.astryx-tab-menu-item:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-tab-menu-item[data-selected="selected"],
-.astryx-tab-menu-item[aria-current='page'] {
-  font-weight: var(--font-weight-medium);
 }
 
 /* The trigger and its panel have to stay siblings: the trigger reads its own
@@ -516,67 +460,6 @@
   block-size: var(--spacing-4);
 }
 
-/* --------------------------------------------------------------- NavMenu */
-.astryx-nav-heading-menu {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-  min-inline-size: 12.5rem;
-}
-
-.astryx-nav-heading-menu[data-size="sm"] { min-inline-size: 10rem; }
-.astryx-nav-heading-menu[data-size="lg"] { min-inline-size: 15rem; }
-
-.astryx-nav-heading-menu-item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  box-sizing: border-box;
-  inline-size: 100%;
-  padding-block: var(--spacing-2);
-  padding-inline: var(--spacing-2);
-  border: 0;
-  border-radius: var(--radius-element);
-  background-color: transparent;
-  font-family: var(--font-family-body);
-  font-size: var(--text-label-size);
-  color: var(--color-text-primary);
-  text-align: start;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.astryx-nav-heading-menu-item[data-size="sm"] { padding-block: var(--spacing-1); }
-.astryx-nav-heading-menu-item[data-size="lg"] { padding-block: var(--spacing-3); padding-inline: var(--spacing-3); }
-
-/* Upstream tints on :focus as well as :hover — the menu is opened by keyboard
-   as often as by pointer and the row has to follow the caret either way. */
-.astryx-nav-heading-menu-item:focus {
-  background-color: var(--color-overlay-hover);
-}
-
-@media (hover: hover) {
-  .astryx-nav-heading-menu-item:hover {
-    background-color: var(--color-overlay-hover);
-  }
-}
-
-.astryx-nav-heading-menu-item:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-nav-heading-menu-item[data-selected="selected"],
-.astryx-nav-heading-menu-item[aria-current='page'] {
-  font-weight: var(--font-weight-semibold);
-}
-
-.astryx-nav-heading-menu-item[data-disabled="disabled"],
-.astryx-nav-heading-menu-item[aria-disabled='true'] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 /* --------------------------------------------------------------- Outline */
 /* Page-contents rail. The hairline runs the full list; the active entry paints
    its own segment of it, so the marker needs neither JS nor measurement. */
@@ -671,9 +554,12 @@
   font-weight: var(--font-weight-semibold);
 }
 
-/* The active segment of the rail. Skipped when the markup ships a real
-   .astryx-outline-indicator, which slides between entries instead. */
-.astryx-outline:not(:has(.astryx-outline-indicator)) :is(.astryx-outline-item[data-state="active"], .astryx-outline-item[aria-current='true'])::before {
+/* The active segment of the rail: each entry paints its own piece of the
+   hairline, so the marker needs neither measurement nor script. A single
+   indicator travelling the rail between entries would need both — it used to
+   be written here against anchor positioning and no component ever rendered
+   it, which made it a rule for markup that could not exist. */
+.astryx-outline :is(.astryx-outline-item[data-state="active"], .astryx-outline-item[aria-current='true'])::before {
   content: '';
   position: absolute;
   inset-block: 0;
@@ -681,36 +567,6 @@
   inline-size: 2px;
   border-radius: var(--radius-full);
   background-color: var(--color-icon-primary);
-}
-
-/* Anchor positioning lets one indicator travel the rail: the active item
-   names itself as the anchor and the bar takes its top and height. Browsers
-   without it fall back to the per-item segment above. */
-.astryx-outline-indicator {
-  position: absolute;
-  inset-inline-start: 0;
-  inline-size: 2px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-icon-primary);
-  pointer-events: none;
-  z-index: 1;
-  position-anchor: --outline-active;
-  inset-block-start: anchor(--outline-active start, 0px);
-  block-size: anchor-size(--outline-active block, 0px);
-  transition-property: inset-block-start, block-size;
-  transition-duration: var(--duration-fast-min);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-outline-item[data-state="active"],
-.astryx-outline-item[aria-current='true'] {
-  anchor-name: --outline-active;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .astryx-outline-indicator {
-    transition: none;
-  }
 }
 
 /* ------------------------------------------------------------ Pagination */
@@ -832,20 +688,15 @@
 .astryx-toolbar[data-size="sm"] { --toolbar-gap: var(--spacing-1); }
 .astryx-toolbar[data-size="lg"] { --toolbar-gap: var(--spacing-3); }
 
+/* Two regions, not three. `data-align="center"` still lays the bar out as
+   1fr auto 1fr, so a middle column is there for whatever the default slot puts
+   between the two; there is no `-center` element, because Toolbar renders no
+   centre region for one to style. */
 .astryx-toolbar-start,
-.astryx-toolbar-center,
 .astryx-toolbar-end {
   display: flex;
   align-items: center;
   gap: var(--toolbar-gap);
-}
-
-/* The centre slot is the one that must be allowed to shrink: it usually holds
-   a title, and the two action groups either side have fixed-width contents. */
-.astryx-toolbar-center {
-  justify-content: center;
-  min-inline-size: 0;
-  overflow: hidden;
 }
 
 .astryx-toolbar-end {
@@ -919,8 +770,6 @@
   .astryx-nav-item,
   .astryx-tab,
   .astryx-tab-menu,
-  .astryx-tab-indicator,
-  .astryx-tab-menu-item,
   .astryx-segmented-control-item,
   .astryx-outline-item,
   .astryx-pagination-dot {

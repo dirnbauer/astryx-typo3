@@ -56,6 +56,9 @@ system is a test rather than a convention.
     :caption: Overview
 
     Introduction/Index
+    Installation/Index
+    Configuration/Index
+    Usage/Index
 
 ..  toctree::
     :maxdepth: 2
@@ -67,4 +70,5 @@ system is a test rather than a convention.
     :maxdepth: 1
     :caption: Reference
 
+    Changelog/Index
     Sitemap

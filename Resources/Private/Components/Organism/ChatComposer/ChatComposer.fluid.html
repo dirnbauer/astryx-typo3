@@ -49,7 +49,7 @@
 <f:argument name="variant" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<f:variable name="resolvedFieldId" value="{f:if(condition: fieldId, then: fieldId, else: 'astryx-chat-composer-field')}" />
+<f:variable name="resolvedFieldId" value="{f:if(condition: fieldId, then: fieldId, else: 'astryx-chat-message-field')}" />
 <f:variable name="hintId" value="{f:if(condition: hint, then: '{resolvedFieldId}-hint')}" />
 
 <form

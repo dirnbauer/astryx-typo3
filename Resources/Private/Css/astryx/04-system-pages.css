@@ -85,25 +85,6 @@
   margin: 0;
 }
 
-/* --------------------------------------------------------- legal pages */
-/* Long-form documents: a capped measure and generous leading, because these
-   are read start to finish rather than scanned. */
-.astryx-legal {
-  max-inline-size: 70ch;
-}
-
-.astryx-legal :where(h2) {
-  margin-block: var(--spacing-10) var(--spacing-3);
-}
-
-.astryx-legal :where(h3) {
-  margin-block: var(--spacing-6) var(--spacing-2);
-}
-
-.astryx-legal :where(p, ul, ol) {
-  margin-block: 0 var(--spacing-4);
-}
-
 /* ------------------------------------------------------------- sidebar */
 .astryx-sidebar-layout {
   display: grid;

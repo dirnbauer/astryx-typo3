@@ -12,11 +12,12 @@
     parser, but the second one is not, and every save would then add a blank
     line to the top of the field.
 
-    There is no character counter. `.astryx-text-area-counter` exists in the
-    stylesheet, and a counter is a number that changes while you type; a
-    server-rendered one would be right for exactly as long as the visitor did
-    nothing. `maxlength` is emitted instead and the browser enforces it. If a
-    count has to be shown, it needs script, and this extension has none.
+    There is no character counter. A counter is a number that changes while you
+    type, and a server-rendered one is right for exactly as long as the visitor
+    does nothing. `maxlength` is emitted instead and the browser enforces it. A
+    live count needs script, and this extension has none — so the counter's
+    rules are out of the stylesheet too, rather than waiting there for markup
+    that cannot honestly be written.
 
     `status="error"` also renders aria-invalid, because a red border is a
     colour and a colour is not a message.

@@ -16,6 +16,12 @@
     the test trims first, since a fragment written over several lines is never
     empty: it holds its own newlines.
 
+    A listing is plain text, and there is nothing here to highlight it with —
+    no script, and no server-side highlighter in the extension. The token
+    colours and the highlighted-line rule that used to sit in the stylesheet
+    styled spans nothing emitted, so they are gone; the syntax tokens stay in
+    the theme for whoever brings a highlighter.
+
     `scroll` puts the listing in its own scroll container. A block beside a
     column of prose has a width the source does not fit in, and something has
     to take the overflow; without the container the widest line of code decides

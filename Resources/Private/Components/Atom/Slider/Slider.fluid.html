@@ -1,14 +1,14 @@
 <f:comment>
     Slider — a value picked along a line.
 
-    The native `<input type="range">`, not the drawn track and thumb the
-    stylesheet also carries. The drawn pair is for the case a range input
-    cannot express — two thumbs, a non-linear scale — and it is a pair of
-    `<div>`s that only move when a script moves them. A range input already
+    The native `<input type="range">`, and only that. A drawn track and thumb
+    would cover the cases a range input cannot express — two thumbs, a
+    non-linear scale — but they are a pair of `<div>`s that move only when a
+    script moves them, and there is no script here. A range input already
     drags, answers the arrow keys, Home and End, announces its value and its
-    bounds, and posts. Choosing the one that works is not a close call; the
-    drawn parts stay in the stylesheet for whoever writes the two-thumb case
-    and brings script with it.
+    bounds, and posts. Choosing the one that works is not a close call, and the
+    rules for the drawn pair are gone from the stylesheet rather than sitting
+    there styling markup nothing renders.
 
     The vendor track and thumb pseudo-elements were only reachable inside a
     Field until now; the stylesheet reaches `.astryx-slider > input` too, so a

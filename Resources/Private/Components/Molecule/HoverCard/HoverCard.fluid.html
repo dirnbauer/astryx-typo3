@@ -1,30 +1,37 @@
 <f:comment>
-    HoverCard — the preview panel that opens from a name or a link.
+    HoverCard — the preview panel that opens from a name, an avatar or a link.
 
-    Tooltip's bigger sibling, and it renders the panel and nothing else for the
-    same reason: the wrapper that reveals it, `astryx-hover-card-anchor`, has
-    to go around the trigger, and only the caller has the trigger. The
-    stylesheet opens the card from that wrapper's `:hover` *and* its
-    `:focus-within`, so pointer and keyboard get it from one rule.
+    Tooltip's bigger sibling, and like Tooltip it renders the whole
+    arrangement: the anchor, the trigger and the card. Leaving the anchor to
+    the caller was the old answer and it could not work — a caller is a
+    template, templates may not write `astryx-` classes, and the reveal in the
+    stylesheet is written entirely against `.astryx-hover-card-anchor`.
 
-    It is not `role="tooltip"`. A tooltip may not contain anything interactive,
-    and the whole point of a hover card is that it holds an avatar, a line of
-    prose and a link to the profile — content a reader has to be able to move
-    into. It has no role at all, therefore, and is announced because the
-    trigger points at it with `aria-describedby`. That reference is why `id` is
-    required rather than optional: a card nothing points at is a card a screen
-    reader never mentions.
+    The anchor is a `div` and not a `span`, which is the one concession here:
+    the card holds an avatar, a line of prose and a link, so the card is a
+    `div`, and a `div` inside a `span` is not valid. `display: inline-flex`
+    keeps the anchor sitting in its line either way. The cost is that a hover
+    card does not belong in the middle of a paragraph of editor text.
+
+    It is not `role="tooltip"`. A tooltip may not contain anything
+    interactive, and a reader has to be able to move into this one. It has no
+    role at all, therefore, and is announced through the trigger's
+    `aria-describedby` — which is why `id` is required: a card nothing points
+    at is a card a screen reader never mentions.
 
     `popover` chooses between the two mechanisms the stylesheet supports. As a
-    popover it gets the top layer, light dismiss and anchor positioning, and it
-    needs a `popovertarget` button to open it — a hover card opened by a click,
-    which is the right answer on a touch screen. Without it, it is a plain
-    panel the anchor reveals on hover or focus, which costs no interaction at
-    all. Neither is the default for both cases, so the caller says which.
+    popover the card gets the top layer, light dismiss and anchor positioning,
+    and the trigger is a real button that opens it — which is the answer on a
+    touch screen, where there is no hover. Without it the trigger is a
+    focusable wrapper and the anchor reveals the card on hover or focus, at no
+    interaction cost at all. Neither is right for both cases, so the caller
+    says which; in both, the trigger slot takes a name or a glyph rather than a
+    control, since a control inside would be a second tab stop.
 </f:comment>
 
 <f:argument name="id" type="string" />
 <f:argument name="popover" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="triggerClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:comment>
@@ -33,6 +40,10 @@
     written without it.
 </f:comment>
 <f:if condition="{popover}">
-    <f:then><div id="{id}" popover class="astryx-hover-card {class}"><f:slot /></div></f:then>
-    <f:else><div id="{id}" class="astryx-hover-card {class}"><f:slot /></div></f:else>
+    <f:then>
+        <div class="astryx-hover-card-anchor {class}"><button type="button" class="astryx-hover-card-trigger {triggerClass}" popovertarget="{id}" aria-describedby="{id}"><f:slot name="trigger" /></button><div id="{id}" popover class="astryx-hover-card"><f:slot /></div></div>
+    </f:then>
+    <f:else>
+        <div class="astryx-hover-card-anchor {class}"><span class="astryx-hover-card-trigger {triggerClass}" tabindex="0" aria-describedby="{id}"><f:slot name="trigger" /></span><div id="{id}" class="astryx-hover-card"><f:slot /></div></div>
+    </f:else>
 </f:if>

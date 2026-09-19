@@ -198,6 +198,8 @@ final class AtomicDesignConformanceTest extends TestCase
      * variable and interpolate the result, which is the same thing as writing
      * the classes — and it slipped past this scan for a year, long enough for
      * every modifier in those strings to stop matching anything.
+     *
+     * @return list<array{0: string, 1: string}>
      */
     private static function classAttributes(string $source): array
     {

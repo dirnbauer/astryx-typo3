@@ -14,8 +14,11 @@
     carry the bar's own class beside the toolbar's; every bar in the catalogue
     then wrote the same two divs by hand. They are rendered here now, only when
     something fills them, and `startClass` and `endClass` are how a bar keeps
-    the class it styles its own halves with. `-center` has no call site and so
-    has no slot: a region nothing fills is a region nobody has thought about.
+    the class it styles its own halves with. There is no centre region and no
+    `-center` element to go with it: `align="center"` still lays the bar out in
+    three columns, so whatever the default slot holds sits in the middle of
+    them, and a third named region nothing ever filled is one nobody had
+    thought about.
 </f:comment>
 
 <f:argument name="size" type="string" optional="{true}" default="md" />

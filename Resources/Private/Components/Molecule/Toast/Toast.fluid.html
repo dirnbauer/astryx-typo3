@@ -12,11 +12,9 @@
 
     Both roles announce the element when it *appears*, which is the one thing
     that matters for the markup: a toast has to be added to a live region that
-    was already on the page, not printed with the page and revealed later. The
-    region is `astryx-toast-viewport` — a fixed strip with
-    `data-placement="top-start|top-end|bottom-start|bottom-end"`, itself a
-    manual popover so that toasts stack above an open dialog — and it belongs
-    to the page chrome, rendered once, holding none or many of these.
+    was already on the page, not printed with the page and revealed later. That
+    region is ToastViewport, which belongs to the page chrome and is rendered
+    once, holding none or many of these.
 
     Dismissal is the theme's existing pair: `data-g-dismissible` here,
     `data-g-dismiss` on the button, and astryx.js removes the message. The

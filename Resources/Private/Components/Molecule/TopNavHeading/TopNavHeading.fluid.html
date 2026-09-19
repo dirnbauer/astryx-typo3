@@ -41,9 +41,9 @@
         A heading that opens something takes `popovertarget`, which is the
         browser's own invoker: it opens the panel, closes it on a second click,
         closes it on Escape and on a click outside, and needs no script. The
-        panel is the caller's — a `.astryx-nav-heading-menu` inside a Popover —
-        because what a workspace switcher lists is not something the bar's
-        title can know.
+        panel is the caller's — a column of Items inside a Popover — because
+        what a workspace switcher lists is not something the bar's title can
+        know.
     </f:comment>
     <f:case value="button">
         <button type="button" class="astryx-top-nav-heading {class}" data-interactive="interactive" popovertarget="{popovertarget}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></button>
