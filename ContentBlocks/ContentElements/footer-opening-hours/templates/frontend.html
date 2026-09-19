@@ -33,7 +33,7 @@
 
         <a:molecule.metadataList class="g-footer-opening-hours__rows">
             <f:for each="{data.rows}" as="row">
-                <a:molecule.metadataListItem class="g-footer-opening-hours__row {f:if(condition: row.included, then: 'is-open', else: 'is-closed')}">
+                <a:molecule.metadataListItem class="g-footer-opening-hours__row">
                     <dt class="g-footer-opening-hours__day">{row -> f:render.text(field: 'title')}</dt>
 
                     <dd class="g-footer-opening-hours__hours">

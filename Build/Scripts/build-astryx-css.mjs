@@ -86,6 +86,13 @@ function minifyCss(css) {
 function collectUsedClasses() {
   const used = new Set();
   const add = text => {
+    /*
+     * Comments first. Every component explains itself in an <f:comment>, and
+     * several name a class to say who is expected to render it — so prose
+     * about `astryx-tooltip-anchor` kept the rules for a class no component
+     * renders, which is precisely the state this scan exists to find.
+     */
+    text = text.replace(/<f:comment>[\s\S]*?<\/f:comment>/g, '').replace(/\/\*[\s\S]*?\*\//g, '');
     for (const match of text.matchAll(/astryx-[a-z0-9]+(?:-[a-z0-9]+)*(?:__[a-z0-9-]+)?/g)) {
       used.add(match[0]);
     }

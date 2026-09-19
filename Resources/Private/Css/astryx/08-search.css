@@ -52,10 +52,10 @@
   display: inline-flex;
 }
 
-.astryx-search__trigger .icon-close { display: none; }
+.astryx-search__trigger [data-glyph="close"] { display: none; }
 
-.astryx-search[data-g-search-open] .astryx-search__trigger .icon-open { display: none; }
-.astryx-search[data-g-search-open] .astryx-search__trigger .icon-close { display: block; }
+.astryx-search[data-g-search-open] .astryx-search__trigger [data-glyph="open"] { display: none; }
+.astryx-search[data-g-search-open] .astryx-search__trigger [data-glyph="close"] { display: block; }
 
 .astryx-search__field {
   min-inline-size: 14rem;
@@ -133,7 +133,7 @@
    below that they stack above the results, where they are still the first
    thing after the field — which is where someone narrowing a search looks. */
 @media (min-width: 1024px) {
-  .g-search__grid:not(.single) {
+  .g-search__grid:not([data-layout="single"]) {
     grid-template-columns: 17rem minmax(0, 1fr);
   }
 }
@@ -449,7 +449,7 @@
   color: inherit;
 }
 
-.g-search__sorting-arrow.asc {
+.g-search__sorting-arrow[data-direction="asc"] {
   rotate: 180deg;
 }
 

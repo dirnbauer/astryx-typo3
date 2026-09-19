@@ -26,12 +26,10 @@
         </div>
 
         <a:molecule.table scroll="{true}" scrollClass="g-pricing-compare-matrix__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-compare-matrix__table">
-            <a:atom.text type="label" as="caption" class="g-pricing-compare-matrix__caption {f:if(condition: data.subheader, then: '', else: 'astryx-visually-hidden')}">
-                <f:if condition="{data.subheader}">
-                    <f:then>{data -> f:render.text(field: 'subheader')}</f:then>
-                    <f:else>{data -> f:render.text(field: 'header')}</f:else>
-                </f:if>
-            </a:atom.text>
+            <f:if condition="{data.subheader}">
+                <f:then><a:atom.text type="label" as="caption" class="g-pricing-compare-matrix__caption">{data -> f:render.text(field: 'subheader')}</a:atom.text></f:then>
+                <f:else><a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden></f:else>
+            </f:if>
             <thead>
                 <tr>
                     <th scope="col" class="g-pricing-compare-matrix__col-feature"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-compare-matrix/language/labels.xlf:column.feature" default="Feature"/></th>

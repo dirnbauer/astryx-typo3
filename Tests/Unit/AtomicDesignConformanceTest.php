@@ -60,6 +60,7 @@ final class AtomicDesignConformanceTest extends TestCase
     private const FOREIGN_CLASSES = [
         'tx_solr' => 'EXT:solr scopes its own JavaScript to this wrapper.',
         'tx-solr-facet-hidden' => 'EXT:solr hides the options past the limit with this class.',
+        'tx-solr-facet-show-all' => 'EXT:solr binds the “show all options” toggle to this class.',
         'solr-ajaxified' => 'EXT:solr replaces the result list in place for links carrying it.',
         'facet' => 'EXT:solr’s facet JavaScript selects on it.',
         'facet-option' => 'EXT:solr’s facet JavaScript selects on it.',
@@ -162,6 +163,30 @@ final class AtomicDesignConformanceTest extends TestCase
             $tokens[] = $current;
         }
 
+        /*
+         * A class an inline f:if chooses is still a class. `{f:if(condition: …,
+         * then: 'asc', else: 'desc')}` is one token by the rule above, and
+         * `asc` and `desc` were hiding inside it — so every single-quoted
+         * literal in an expression is split out and judged as well. A literal
+         * that is not a class name (a label, a link target) is harmless: it is
+         * checked against the same prefixes and a sentence is not a class.
+         */
+        foreach ($tokens as $token) {
+            if (!str_starts_with($token, '{') && !str_contains($token, '{')) {
+                continue;
+            }
+            if (!preg_match_all("#'([^']*)'#", $token, $literals)) {
+                continue;
+            }
+            foreach ($literals[1] as $literal) {
+                foreach (preg_split('#\s+#', trim($literal)) ?: [] as $word) {
+                    if ($word !== '' && preg_match('#^[a-zA-Z][a-zA-Z0-9_-]*$#', $word) === 1) {
+                        $tokens[] = $word;
+                    }
+                }
+            }
+        }
+
         return $tokens;
     }
 
@@ -225,7 +250,6 @@ final class AtomicDesignConformanceTest extends TestCase
             [],
             $offences,
             "A template applied an Astryx class directly instead of composing a component.\n"
-            . "Run: php Build/Scripts/refactor-templates-to-components.php\n"
             . implode("\n", array_slice($offences, 0, 40))
             . (count($offences) > 40 ? sprintf("\n… and %d more", count($offences) - 40) : ''),
         );

@@ -27,7 +27,24 @@
 
         <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-list__items">
             <f:for each="{data.items}" as="item">
-                <li class="g-feature-list__row {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
+                <f:if condition="{item.link.url}">
+                    <f:then><a:molecule.clickableCard as="li" class="g-feature-list__row"><f:render section="row" arguments="{item: item}" /></a:molecule.clickableCard></f:then>
+                    <f:else><li class="g-feature-list__row"><f:render section="row" arguments="{item: item}" /></li></f:else>
+                </f:if>
+            </f:for>
+        </a:molecule.list>
+
+    </a:layout.container>
+</a:layout.section>
+
+
+<f:comment>
+    The row body, rendered from both branches of the link test above. A row
+    that goes somewhere is a ClickableCard so the whole row is the link
+    target; one that does not is a plain list item. Only the wrapper differs,
+    so only the wrapper is written twice.
+</f:comment>
+<f:section name="row">
                     <f:if condition="{item.icon}">
                         <a:atom.featureIcon icon="{item.icon}" />
                     </f:if>
@@ -44,11 +61,6 @@
                             <a:atom.text type="body" class="g-feature-list__text">{item -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
                     </div>
-                </li>
-            </f:for>
-        </a:molecule.list>
-
-    </a:layout.container>
-</a:layout.section>
+</f:section>
 
 </html>

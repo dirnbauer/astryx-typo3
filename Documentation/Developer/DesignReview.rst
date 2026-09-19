@@ -39,16 +39,21 @@ Harness mode
 
 `--harness` builds a static page from
 :file:`Build/Data/component-contract.json` and the built CSS: every component,
-in every modifier the contract declares, each one wrapped around the same sample
-paragraph, inline link and button. It serves that page and the three built
-stylesheets from an ephemeral local HTTP server, so the browser sees real
+in every state the stylesheet defines for it, each one wrapped around the same
+sample paragraph, inline link and button. It serves that page and the three
+built stylesheets from an ephemeral local HTTP server, so the browser sees real
 `@font-face` rules and real cascade layers.
 
-The markup is generated from the contract rather than from the Fluid components
-on purpose. This page exists to measure what the *stylesheet* does with a root
-class and a data attribute, and generating it from the same contract the
-components render means a probe failure points at the CSS rather than at a
-disagreement between two generators.
+The cases come from the CSS, by scanning it for `.astryx-x[data-y="z"]`. The
+stylesheet is the authority: a case it does not define paints nothing, and a
+case it defines that nobody wrote down is exactly the one that would go
+unreviewed. It also means a component added tomorrow is probed in all of its
+states without a second list of them to maintain.
+
+The markup is generated rather than rendered through Fluid on purpose. This page
+exists to measure what the *stylesheet* does with a root class and a data
+attribute, so a probe failure points at the CSS rather than at a disagreement
+between two generators.
 
 It needs no database and no site, which is what makes it runnable in CI — and it
 is also how the icon button was caught rendering with no shape, no hover, no

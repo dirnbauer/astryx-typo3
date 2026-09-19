@@ -161,13 +161,11 @@ has `media`, Dialog has `footer`, Item has `start` and `end`, and Pagination has
 Adding a component
 ==================
 
-#.  Add a row to :file:`Build/Data/component-contract.json` with its `layer`,
-    its `name`, its `rootClass` and its `modifiers`. The row is what the tests
-    check against, so it comes first.
 #.  Create
     :file:`Resources/Private/Components/<Layer>/<Name>/<Name>.fluid.html`.
-    Declare every attribute with `<f:argument>`, render exactly the root class
-    from the contract, and put the modifiers on data attributes.
+    Declare every attribute with `<f:argument>`, render one root class —
+    `astryx-` plus the kebab-case of the component's name — and put the
+    modifiers on data attributes.
 #.  Write a `<f:comment>` at the top saying *why* the component is shaped the
     way it is. Every component in the repository does, and it is where the
     accessibility decisions live.
@@ -177,8 +175,13 @@ Adding a component
     :file:`Build/Scripts/build-astryx-css.mjs` drops rules whose selectors name
     only classes nothing renders, so a partial written before its call site will
     not survive the build.
-#.  If the component stands in for an upstream Astryx component that the element
-    matrix names, add the mapping to :file:`Build/Data/component-map.json`.
+#.  Run `npm run build:contract`. It writes the component's row into
+    :file:`Build/Data/component-contract.json` and, if upstream Astryx has a
+    component of the same name, its entry in
+    :file:`Build/Data/component-map.json`. Neither file is edited by hand. If
+    the root class is deliberately not the kebab-case of the name, or the
+    upstream component is called something else here, the script refuses and
+    tells you which of its two tables to add the reason to.
 #.  Run `composer test:unit` and `composer test:functional`.
 
 ..  _developer-component-contract-tests:
@@ -190,30 +193,32 @@ What the conformance test checks
 are written to tell you what to do, so read them rather than the test.
 
 *   **No template applies an Astryx class directly.** Reported per file and
-    line, with the codemod to run. Templates here means all 250 element
-    templates, the page templates, partials and layouts, and every Solr
-    template.
-*   **No template carries a bare modifier token**, where "modifier" is any token
-    the contract knows. This is the v0.6.0 rule.
+    line. Templates here means all 250 element templates, the page templates,
+    partials and layouts, and every Solr template. `f:variable` bodies whose
+    name ends in `Class` count as class attributes: assembling
+    `astryx-grid cols-3` into a variable and interpolating it is the same thing
+    written somewhere a naive scan does not look, and two elements did exactly
+    that for a year.
+*   **No template writes a class with no owner.** A class is `astryx-` (the
+    design system), `g-` (an element's own namespace), or one of nine EXT:solr
+    names that are that extension's API and are listed with the reason. A bare
+    word is a class nobody can name the owner of.
 *   **Every content element roots in** `a:layout.section`. Comments are stripped
     before the scan, because three elements explain in prose why they do *not*
     use a `<time>`, an `<address>` or an `<article>`, and a scan that reads the
     comment finds the tag name in the explanation.
 *   **The layer graph is one-way**, as above.
-*   **Every component named in a template exists on disk**, and every component
-    the contract promises exists on disk, and the contract and the disk agree
-    about which components are in each layer — that last one per layer, so a
-    failure names the layer and lists both directions of the difference.
-*   **Every component renders its own root class**, checked against the
-    contract.
+*   **Every component named in a template exists on disk.**
 *   **Every matrix reference is mapped.** A matrix row may not name an Astryx
     component that :file:`Build/Data/component-map.json` does not map, nor one
     that is absent from the vendored inventory for the pinned release. The
     second half is what makes an upstream refresh visible in the catalogue
     rather than only in the token file.
-*   **The component map points at real components**, with matching root classes.
-*   **No stylesheet still selects a modifier as a class**, checked over the
-    component partials, the page chrome and all 250 element stylesheets.
+*   **No stylesheet selects a modifier as a class**, checked over the component
+    partials, the page chrome and all 250 element stylesheets. It matches the
+    shape `.astryx-x.foo`, not a list of known modifiers: the list is what let a
+    hundred and fifty 1.x selectors survive in components that had CSS but no
+    Fluid component yet.
 
 ..  _developer-component-contract-allowlist:
 
@@ -230,10 +235,6 @@ One class is still allowed in a template, with its reason attached:
             . 'so it is a stylesheet hook rather than a component with a call site.',
     ];
 
-The entry is mirrored in
-:file:`Build/Scripts/refactor-templates-to-components.php`, which must not
-rewrite what the test permits.
-
 The allowlist has one rule of its own, and it is the unusual one: **an entry
 that stops matching must fail.** The test counts hits per entry and asserts that
 each count is greater than zero, with a message telling you to delete the entry.
@@ -241,43 +242,36 @@ An allowlist nobody has read in a year is an allowlist that will eventually
 excuse something it was never meant to, so the test treats a stale exception as
 a defect rather than as harmless.
 
-..  _developer-component-contract-codemod:
+..  _developer-component-contract-generated:
 
-The codemod
-===========
+What is generated
+=================
 
-The migration from classes to components was done by
-:file:`Build/Scripts/refactor-templates-to-components.php`, and it is still the
-tool the conformance test's failure message points at.
+:file:`Build/Data/component-contract.json` and
+:file:`Build/Data/component-map.json` are both written by
+:file:`Build/Scripts/sync-component-contract.mjs` from
+:file:`Resources/Private/Components/`, as the first step of `npm run build`. CI
+runs the build and then `git diff --exit-code`, so a component added without
+regenerating them fails there.
+
+Almost nothing in either file is a decision. The layer is the directory, the
+name is the directory below it, and the root class is `astryx-` plus the
+kebab-case of the name — checked against the component's own markup, so a
+component that renders something else fails the sync rather than being recorded
+as rendering it. Two small tables in the script hold what cannot be derived:
+`ROOT_CLASS`, for eight page-chrome classes that predate the Astryx vocabulary
+and would break a site's own stylesheet if renamed, and `ALIASES` /
+`NOT_RENDERED`, for the handful of upstream components this library renders
+under another name or cannot render at all.
+
+`NOT_RENDERED` is the honest half of the coverage claim. Five upstream
+components are React context providers that render no DOM of their own —
+`Theme`, `MediaTheme`, `LinkProvider`, `InternationalizationProvider` and
+`AppShell` — and a server-rendered library cannot have them. Each is recorded
+with the reason, and any upstream component that is neither rendered nor listed
+fails the sync, so the gap cannot grow quietly.
 
 ..  code-block:: bash
-    :caption: Rewriting templates
+    :caption: Regenerating
 
-    php Build/Scripts/refactor-templates-to-components.php --dry-run
-    php Build/Scripts/refactor-templates-to-components.php --only=accordion-faq
-    php Build/Scripts/refactor-templates-to-components.php --group=hero
-    php Build/Scripts/refactor-templates-to-components.php --pages --solr
-
-It is deliberately not a parser. A Fluid template is not XML and does not
-survive being treated as XML: `<f:if>` around half an opening tag, a condition
-containing `||` inside an attribute, an `<f:for>` wrapping an `<li>` that closes
-in a different branch. So the rewrite matches one opening tag at a time by its
-class attribute and finds that tag's own closing tag by counting depth over the
-same tag name, leaves alone anything it is not certain about, and reports what
-it left. Passes run outer-first — section and container, then the arrangement
-components, then blocks, then typography, then the inline atoms — because
-rewriting an inner tag first would leave the outer tag's depth count looking at
-tags that no longer exist. Organisms are never rewritten automatically: their
-markup carries JavaScript hooks and site settings that no regular expression
-should be trusted with.
-
-The matching CSS migration is
-:file:`Build/Scripts/migrate-component-css.mjs`, which turns
-`.astryx-button.primary` into `.astryx-button[data-variant="primary"]` using the
-same contract. Specificity is unchanged by the move — a class and an attribute
-selector weigh the same — so nothing in the cascade shifts. A handful of state
-classes stay classes on purpose, listed in `RUNTIME_STATE`: they are toggled by
-:file:`Resources/Public/Js/astryx.js` at runtime and have no authoring surface
-to drift from. Selectors whose modifier is not in the contract are left alone
-and listed, so a gap is visible rather than silently rewritten into something
-plausible.
+    npm run build:contract

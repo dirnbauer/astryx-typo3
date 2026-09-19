@@ -11,11 +11,18 @@
     itself rather than "read more", and keeps the markup one honest link instead
     of a div with a click handler. A second link inside would get its own
     overlay and the two would fight, so put any further links outside the card.
+
+    `as="li"` exists because two feature lists wanted a clickable row and reached
+    for the class instead of the component — a `div` between a `ul` and its `li`
+    is not a list any more, so the affordance had to become the list item rather
+    than wrap it.
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="as" type="string" optional="{true}" default="div" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div
-    class="astryx-clickable-card {class}"
-    data-variant="{variant}"><f:slot /></div>
+<f:switch expression="{as}">
+    <f:case value="li"><li class="astryx-clickable-card {class}" data-variant="{variant}"><f:slot /></li></f:case>
+    <f:defaultCase><div class="astryx-clickable-card {class}" data-variant="{variant}"><f:slot /></div></f:defaultCase>
+</f:switch>
