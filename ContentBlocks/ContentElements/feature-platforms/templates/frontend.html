@@ -11,7 +11,7 @@
     is read, and one read as a suffix is not.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-platforms">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-feature-platforms">
     <a:layout.container size="{data.width}">
 
         <div class="g-feature-platforms__intro">
@@ -26,7 +26,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-feature-platforms__platforms {f:if(condition: data.compact, then: 'compact')}">
+        <a:layout.grid cols="{data.columns}" class="g-feature-platforms__platforms">
             <f:for each="{data.platforms}" as="platform">
                 <a:molecule.item align="start" interactive="{f:if(condition: platform.link.url, then: 'interactive', else: 'default')}" class="g-feature-platforms__platform">
                     <f:fragment name="start"><f:if condition="{platform.icon}"><a:atom.featureIcon icon="{platform.icon}" /></f:if></f:fragment>

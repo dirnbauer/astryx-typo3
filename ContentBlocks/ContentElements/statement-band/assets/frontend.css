@@ -23,7 +23,7 @@
   color: var(--color-text-secondary);
 }
 
-.g-statement-band__inner.align-center {
+.g-statement-band__inner[data-align="center"] {
   align-items: center;
   text-align: center;
 }

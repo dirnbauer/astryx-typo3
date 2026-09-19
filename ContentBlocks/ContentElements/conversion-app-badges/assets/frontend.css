@@ -21,7 +21,7 @@
   max-inline-size: 34rem;
 }
 
-.g-conversion-app-badges__copy.center {
+.g-conversion-app-badges__copy[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -43,7 +43,7 @@
   gap: var(--spacing-4);
 }
 
-.g-conversion-app-badges__copy.center .g-conversion-app-badges__stores {
+.g-conversion-app-badges__copy[data-align="center"] .g-conversion-app-badges__stores {
   justify-content: center;
 }
 

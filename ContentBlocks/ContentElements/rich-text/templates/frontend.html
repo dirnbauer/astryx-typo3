@@ -13,7 +13,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-rich-text">
     <a:layout.container size="{data.width}">
-        <div class="g-rich-text__body align-{data.align}">
+        <div class="g-rich-text__body" data-align="{data.align}">
 
             <f:if condition="{data.header}">
                 <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>

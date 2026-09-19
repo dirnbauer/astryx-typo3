@@ -1,0 +1,39 @@
+<f:comment>
+    ChatLayoutScrollButton — the control that returns to the newest message.
+
+    It is a link to an anchor, not a button, and that is the only way a
+    scroll-to-bottom can work here. Scrolling a box is `scrollTo()`, which is
+    script; following a fragment link is the browser, and the browser will
+    scroll the nearest scrolling ancestor of the target on its own. The target
+    is the empty marker ChatLayout renders at the foot of the transcript, so
+    `target` defaults to that component's default `endId` and the two agree
+    without a caller naming both. `scroll-behavior: smooth` on the transcript
+    makes the jump glide, and prefers-reduced-motion turns that off.
+
+    Because it navigates it is an `a` rather than a `button`, so it opens in a
+    new tab on a middle click and shows a real target in the status bar, both
+    of which a scripted scroll button silently breaks.
+
+    What it cannot do is hide itself when the transcript is already at the
+    bottom, which is what upstream does — whether a box is scrolled is not
+    something a selector can ask today outside a scroll-state container query,
+    and this theme cannot rely on that yet. So it is always rendered. A
+    control that is visible and works is the better half of that trade.
+
+    `ariaLabel` carries the whole meaning; the arrow is drawn `aria-hidden`.
+</f:comment>
+
+<f:argument name="target" type="string" optional="{true}" default="astryx-chat-end" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="secondary" />
+<f:argument name="size" type="string" optional="{true}" default="sm" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<a:atom.iconButton
+    href="#{target}"
+    class="astryx-chat-layout-scroll-button {class}"
+    variant="{variant}"
+    size="{size}"
+    title="{title}"
+    ariaLabel="{ariaLabel}"><f:if condition="{f:slot(name: 'default') -> f:format.trim()}"><f:then><f:slot /></f:then><f:else><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M12 5v14" stroke-linecap="round"/><path d="m19 12-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/></svg></f:else></f:if></a:atom.iconButton>

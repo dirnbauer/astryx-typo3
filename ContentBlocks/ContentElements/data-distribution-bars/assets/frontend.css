@@ -54,7 +54,7 @@
   padding: 0;
 }
 
-.g-data-distribution-bars__buckets.compact {
+.g-data-distribution-bars__buckets[data-density="compact"] {
   gap: var(--spacing-2);
 }
 

@@ -1,0 +1,35 @@
+<f:comment>
+    ContextMenu — the menu of commands that belong to one row or one card.
+
+    Upstream this opens on right-click. That is not something a server-rendered
+    theme can offer: replacing the browser's own context menu means listening
+    for `contextmenu` and calling preventDefault, which is script, and it was
+    never the accessible half of the pattern either — a menu that only answers
+    a right-click is a menu a touch screen and a keyboard can never reach. So
+    this is the same panel opened from a visible trigger, and the right-click
+    is left to the browser, which has a perfectly good menu of its own.
+
+    Which makes it a `[popover]` with `role="menu"`, like DropdownMenu, and it
+    stays a component of its own rather than an argument on that one because
+    the two are positioned differently: a dropdown hangs under the button that
+    opened it, a context menu belongs to the row it acts on and is anchored to
+    that. The stylesheet is where the difference lives; the markup is
+    deliberately the same shape so a row of commands reads identically in both.
+
+    Everything inside is a command, so there is no `type` to choose here: a
+    context menu of links would be a navigation panel, and that is what
+    DropdownMenu's `type="links"` is for.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="placement" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    id="{id}"
+    popover
+    class="astryx-context-menu {class}"
+    role="menu"
+    aria-label="{ariaLabel}"
+    data-placement="{placement}"><f:slot /></div>

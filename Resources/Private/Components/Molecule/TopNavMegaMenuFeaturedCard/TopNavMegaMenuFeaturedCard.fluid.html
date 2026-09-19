@@ -1,0 +1,38 @@
+<f:comment>
+    TopNavMegaMenuFeaturedCard — the promoted block at the end of a mega menu:
+    an image over a short pitch, usually linking to one thing the site wants
+    read next.
+
+    A link when it has an href and a plain block when it has not, because a
+    card that goes nowhere is a panel of text and should not be announced as a
+    link or sit in the tab order. Its own component rather than Card, even
+    though both are a picture over some words: this one's proportions come from
+    the menu panel it lives in — a 12rem column that flexes with its
+    neighbours, an image cropped to a fixed strip — and a Card in that slot
+    brings a surface, a border and a padding scale that belong to the page.
+
+    The image is a direct child and the text is in the block beside it, because
+    that is how the stylesheet tells them apart: `> img` is bled to the card's
+    edges, `> :not(img)` is the padded part. Nothing may come between them.
+
+    `imageAlt` defaults to empty, which is the right answer when the card's own
+    heading already says what the picture shows — an alt repeating the title is
+    read out twice. Where the picture carries information the words do not, say
+    so by passing one.
+</f:comment>
+
+<f:argument name="image" type="string" optional="{true}" default="" />
+<f:argument name="imageAlt" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{href}">
+    <f:then>
+        <a href="{href}" class="astryx-top-nav-mega-menu-featured-card {class}" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{image}"><img src="{image}" alt="{imageAlt}" loading="lazy" decoding="async" /></f:if><span><f:slot /></span></a>
+    </f:then>
+    <f:else>
+        <div class="astryx-top-nav-mega-menu-featured-card {class}"><f:if condition="{image}"><img src="{image}" alt="{imageAlt}" loading="lazy" decoding="async" /></f:if><span><f:slot /></span></div>
+    </f:else>
+</f:if>

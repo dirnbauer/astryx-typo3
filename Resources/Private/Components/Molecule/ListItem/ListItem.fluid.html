@@ -1,0 +1,25 @@
+<f:comment>
+    ListItem — one entry of a List: the `li` that carries the list's marker.
+
+    It is deliberately thin, and the reason is Item. Item is a row — leading
+    media, a label and a description, a trailing action, hover, pressed,
+    selected, and an `href` that turns the whole row into a link. ListItem is a
+    bullet point. Both render an `li`, so the choice is about what the entry is,
+    not about what it looks like: a list of sentences takes ListItems, a list of
+    people or search results or menu entries takes Items.
+
+    The markers are the concrete difference. List draws them as pseudo-elements
+    on its direct children, matching `li` as well as `.astryx-list-item`, so an
+    Item dropped into a `marker="dot"` list gets a bullet in front of its
+    avatar — which is why a marked list wants these and an interactive list
+    wants Items. Nothing stops the two being mixed in one list; it just rarely
+    means anything.
+
+    No `href` argument, and that is the point rather than an omission: an entry
+    that navigates is a row, and a row is Item.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li class="astryx-list-item {class}" id="{id}"><f:slot /></li>

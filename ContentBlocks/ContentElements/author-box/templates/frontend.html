@@ -21,7 +21,7 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-author-box">
     <a:layout.container size="{data.width}">
-        <div class="g-author-box__box {f:if(condition: data.compact, then: 'compact', else: 'boxed')}">
+        <div class="g-author-box__box" data-variant="{f:if(condition: data.compact, then: 'compact', else: 'boxed')}">
 
             <f:if condition="{data.image}">
                 <a:atom.avatar size="lg" class="g-author-box__portrait">

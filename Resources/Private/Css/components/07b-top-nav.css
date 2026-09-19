@@ -1,0 +1,383 @@
+/*
+ * TopNav — the application bar and everything that hangs off it: the heading,
+ * the flat items, the two kinds of menu trigger and the mega-menu panel.
+ *
+ * Split out of 07-navigation.css, which had grown past fourteen hundred lines
+ * and three unrelated navigations. Nothing here changed in the move; the
+ * manifest lists this file immediately after 07-navigation.css so the cascade
+ * is exactly what it was. The shared .astryx-nav-item row these drawer items
+ * wear, and the .astryx-nav-heading-menu they open, stayed behind in 07.
+ */
+
+/* ---------------------------------------------------------------- TopNav */
+.astryx-top-nav {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--spacing-2);
+  gap: var(--spacing-4);
+}
+
+/* Three slots need a grid, not flex: the centre stays optically centred on
+   the bar even when the two sides carry different amounts of content. */
+.astryx-top-nav[data-align="center"] {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.astryx-top-nav[data-layout="mobile-bar"] {
+  gap: var(--spacing-2);
+}
+
+.astryx-top-nav-start,
+.astryx-top-nav-center,
+.astryx-top-nav-end {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.astryx-top-nav-start {
+  flex: 1 1 0%;
+  min-inline-size: 0;
+  gap: var(--spacing-4);
+}
+
+.astryx-top-nav-center {
+  justify-content: center;
+}
+
+.astryx-top-nav-end {
+  justify-content: flex-end;
+  margin-inline-start: auto;
+  flex-shrink: 0;
+}
+
+.astryx-top-nav-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  min-block-size: var(--spacing-8);
+  padding-inline: var(--spacing-2);
+  padding-block: 0;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  cursor: default;
+}
+
+/* A NavIcon already carries its own optical inset, so the heading drops the
+   leading padding when one is present and the logo lines up with the gutter. */
+.astryx-top-nav-heading:has(.astryx-nav-icon) {
+  padding-inline-start: 0;
+}
+
+.astryx-top-nav-heading[data-interactive="interactive"] {
+  cursor: pointer;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font: inherit;
+  font-weight: var(--font-weight-normal);
+  text-align: start;
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-heading[data-interactive="interactive"]:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-top-nav-heading:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-top-nav-heading-text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.astryx-top-nav-heading-title {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-top-nav-heading-super,
+.astryx-top-nav-heading-sub {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-top-nav-item,
+.astryx-top-nav-menu,
+.astryx-top-nav-mega-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-1-5);
+  padding-inline: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-item:hover,
+  .astryx-top-nav-menu:hover,
+  .astryx-top-nav-mega-menu:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-top-nav-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-top-nav-item:focus-visible,
+.astryx-top-nav-menu:focus-visible,
+.astryx-top-nav-mega-menu:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Tinted pill plus semibold: the pill can vanish in a theme where
+   --color-neutral is nearly the bar's own background, the weight cannot. */
+.astryx-top-nav-item[data-selected="selected"],
+.astryx-top-nav-item[aria-current='page'] {
+  background-color: var(--color-neutral);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-item[data-selected="selected"]:hover,
+  .astryx-top-nav-item[aria-current='page']:hover {
+    background-color: var(--color-neutral);
+  }
+}
+
+.astryx-top-nav-item[data-variant="icon-only"] {
+  padding-inline: var(--spacing-2);
+}
+
+/* A menu trigger reads as pressed while its panel is up. The popover API does
+   not write aria-expanded onto the invoker, so a trigger whose panel is its
+   next sibling asks the panel directly — no script keeping a flag in sync.
+   Markup that does set aria-expanded is honoured too. [popover] itself is
+   styled in the overlay partial. */
+.astryx-top-nav-menu[aria-expanded='true'],
+.astryx-top-nav-mega-menu[aria-expanded='true'],
+.astryx-top-nav-menu:has(+ [popover]:popover-open),
+.astryx-top-nav-mega-menu:has(+ [popover]:popover-open) {
+  background-color: var(--color-overlay-hover);
+  color: var(--color-text-primary);
+}
+
+.astryx-top-nav-menu > svg:last-child,
+.astryx-top-nav-mega-menu > svg:last-child {
+  transition: rotate var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-top-nav-menu[aria-expanded='true'] > svg:last-child,
+.astryx-top-nav-mega-menu[aria-expanded='true'] > svg:last-child,
+.astryx-top-nav-menu:has(+ [popover]:popover-open) > svg:last-child,
+.astryx-top-nav-mega-menu:has(+ [popover]:popover-open) > svg:last-child {
+  rotate: 180deg;
+}
+
+/* Drawer mode reuses the NavItem row shape, so only the indent differs. */
+.astryx-top-nav-item[data-layout="drawer"],
+.astryx-top-nav-mega-menu-item[data-layout="drawer"] {
+  inline-size: 100%;
+  padding-inline-start: var(--spacing-6);
+}
+
+/* A trigger and its panel have to stay siblings — the trigger reads its open
+   state off `:has(+ [popover]:popover-open)` — and one component renders one
+   root, so TopNavMenu and TopNavMegaMenu root in a wrapper around the pair.
+   display:contents keeps the wrapper out of the bar's own layout: the flex row
+   lays out the button, not a box around it. */
+.astryx-top-nav-menu-group,
+.astryx-top-nav-mega-menu-group {
+  display: contents;
+}
+
+/* The overlay partial gives both panels their surface, but its [popover] reset
+   and its anchor-positioning block name .astryx-popover and its three siblings
+   rather than these. Without the four declarations below, a panel opened by
+   popovertarget keeps the user agent's centred inset and opens in the middle
+   of the viewport instead of under the entry that opened it. */
+.astryx-top-nav-menu-panel[popover],
+.astryx-top-nav-mega-menu-panel[popover] {
+  inset: auto;
+}
+
+@supports (position-anchor: --a) {
+  .astryx-top-nav-menu-panel[popover],
+  .astryx-top-nav-mega-menu-panel[popover] {
+    position-anchor: var(--popover-anchor, auto);
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+    margin-block-start: var(--spacing-1);
+  }
+}
+
+/* The small panel is a column of rows, where the mega panel is a wrapping row
+   of columns. Its width is left to its contents, with a floor so that a menu
+   of three short words is not narrower than the entry that opened it. */
+.astryx-top-nav-menu-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  padding: var(--spacing-1);
+  min-inline-size: 12.5rem;
+}
+
+.astryx-top-nav-mega-menu-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-6);
+  padding: var(--spacing-3);
+  max-inline-size: 60rem;
+}
+
+.astryx-top-nav-mega-menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  box-sizing: border-box;
+  inline-size: 100%;
+  padding: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  color: inherit;
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .astryx-top-nav-mega-menu-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-top-nav-mega-menu-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-top-nav-mega-menu-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-top-nav-mega-menu-item > svg,
+.astryx-top-nav-menu-item > svg {
+  display: block;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: var(--spacing-10);
+  block-size: var(--spacing-10);
+  padding: var(--spacing-2);
+  border-radius: var(--radius-element);
+  background-color: var(--color-neutral);
+  color: var(--color-icon-secondary);
+}
+
+.astryx-top-nav-mega-menu-item-title,
+.astryx-top-nav-menu-item-title {
+  display: block;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-top-nav-mega-menu-item-body,
+.astryx-top-nav-menu-item-body {
+  display: block;
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* The item is a flex row — icon beside words — so the title and the line under
+   it need a column of their own or they sit side by side. The heading in the
+   bar above has had one since 2.0 (.astryx-top-nav-heading-text); the menu
+   item never got one, because nothing rendered a menu item until now. */
+.astryx-top-nav-mega-menu-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+}
+
+.astryx-top-nav-mega-menu-featured-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 12rem;
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-muted);
+  overflow: hidden;
+}
+
+.astryx-top-nav-mega-menu-featured-card > img {
+  display: block;
+  inline-size: 100%;
+  block-size: var(--spacing-12);
+  object-fit: cover;
+}
+
+.astryx-top-nav-mega-menu-featured-card > :not(img) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-4);
+}
+
+/* The card is usually a link and was the one thing in this panel with no
+   keyboard ring: a visitor tabbing through the menu reached it and saw
+   nothing move. */
+.astryx-top-nav-mega-menu-featured-card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- motion */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-top-nav-item,
+  .astryx-top-nav-menu,
+  .astryx-top-nav-mega-menu,
+  .astryx-top-nav-mega-menu-item,
+  .astryx-top-nav-menu > svg:last-child,
+  .astryx-top-nav-mega-menu > svg:last-child {
+    transition: none;
+  }
+}

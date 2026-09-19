@@ -27,7 +27,7 @@
             </f:if>
         </div>
 
-        <ul class="g-data-progress-bars__rows {f:if(condition: data.compact, then: 'compact')}">
+        <ul class="g-data-progress-bars__rows" data-density="{f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.metrics}" as="metric">
                 <li class="g-data-progress-bars__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <a:atom.progressBar decorative="{true}" valueClass="g-data-progress-bars__reading" fillClass="g-data-progress-bars__fill">

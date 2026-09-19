@@ -33,7 +33,7 @@
 
         <ol class="g-data-trend-strip__strip">
             <f:for each="{data.metrics}" as="metric" iteration="period">
-                <li class="g-data-trend-strip__col {f:if(condition: '{period.isFirst} || {period.isLast}', then: 'is-edge', else: 'is-mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                <li class="g-data-trend-strip__col" data-position="{f:if(condition: '{period.isFirst} || {period.isLast}', then: 'edge', else: 'mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <span class="g-data-trend-strip__bar" aria-hidden="true"></span>
                     <span class="g-data-trend-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
                     <span class="g-data-trend-strip__period">{metric -> f:render.text(field: 'title')}</span>

@@ -7,9 +7,9 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-category">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-category__band {f:if(condition: data.image, then: 'has-media')}">
+        <div class="g-hero-category__band" data-variant="{f:if(condition: data.image, then: 'has-media')}">
 
-            <div class="g-hero-category__copy {data.align}">
+            <div class="g-hero-category__copy" data-align="{data.align}">
                 <p class="g-hero-category__flags">
                     <f:if condition="{data.eyebrow}">
                         <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>

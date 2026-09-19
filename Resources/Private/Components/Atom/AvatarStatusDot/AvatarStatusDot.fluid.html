@@ -1,0 +1,42 @@
+<f:comment>
+    AvatarStatusDot — the small disc pinned to an avatar's edge.
+
+    Not Atom/StatusDot with different coordinates. StatusDot is a dot in a line
+    of text, sized in its own right and placed by whatever is around it; this
+    one is positioned against the avatar it sits in — the stylesheet derives its
+    diameter, its inset and its surface-coloured ring from `--_avatar-size`, so
+    it only means anything inside an `.astryx-avatar`. Put it in the Avatar's
+    slot, after the picture.
+
+    Colour is the whole of what it draws, and colour alone is not a message:
+    the avatar's own label is what says "online", and this repeats it in green.
+    So it is `aria-hidden="true"` by default, and `ariaLabel` is the same escape
+    hatch StatusDot has for the rare case where there is genuinely no label
+    beside it — it promotes the dot to an image with a name of its own.
+
+    The variants upstream styles are `success` and `error`; `neutral` is this
+    extension's, and it is hollow, so it needs the glyph slot to be legible
+    against the surface. The glyph belongs to the caller because an Atom cannot
+    compose Atom/Icon — pass an inline `svg`, `aria-hidden` like the dot around
+    it.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="success" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then>
+        <span
+            class="astryx-avatar-status-dot {class}"
+            data-variant="{variant}"
+            role="img"
+            aria-label="{ariaLabel}"><f:if condition="{f:slot() -> f:format.trim()}"><span class="astryx-avatar-status-dot-glyph"><f:slot /></span></f:if></span>
+    </f:then>
+    <f:else>
+        <span
+            class="astryx-avatar-status-dot {class}"
+            data-variant="{variant}"
+            aria-hidden="true"><f:if condition="{f:slot() -> f:format.trim()}"><span class="astryx-avatar-status-dot-glyph"><f:slot /></span></f:if></span>
+    </f:else>
+</f:if>

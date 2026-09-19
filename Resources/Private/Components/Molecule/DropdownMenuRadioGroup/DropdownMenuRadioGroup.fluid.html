@@ -1,0 +1,26 @@
+<f:comment>
+    DropdownMenuRadioGroup — the run of a menu where exactly one row wins.
+
+    A `fieldset` with a `legend`, which is already `role="group"` with that
+    legend as its name — and `group` is one of the roles a `role="menu"` is
+    allowed to own, so the grouping survives inside the menu instead of being
+    flattened into the run of commands around it. Writing `role="group"` on a
+    div and `aria-label` beside it would produce the same tree and lose the
+    thing a fieldset gives for free: the legend is a visible heading as well as
+    an accessible name, so the reason these three rows belong together is on
+    the screen and not only in the accessibility tree.
+
+    The legend is rendered only when it has words. An empty `legend` is a box
+    the stylesheet still has to reserve space around and a name that announces
+    nothing, and a group of radios with no name at all is better than a group
+    named "".
+
+    A fieldset comes with a UA border, a UA padding and a `min-inline-size` of
+    min-content that refuses to shrink inside a flex column. All three are
+    cleared in the stylesheet, which is the price of the right element.
+</f:comment>
+
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<fieldset class="astryx-dropdown-menu-radio-group {class}"><f:if condition="{label}"><legend>{label}</legend></f:if><f:slot /></fieldset>

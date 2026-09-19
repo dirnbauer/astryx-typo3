@@ -1,0 +1,41 @@
+<f:comment>
+    ChatDictationButton — the microphone beside the composer.
+
+    It is disabled by default, and that is the honest shape rather than a
+    caution. Dictation is the Web Speech API: it needs a script to start
+    recognition, a script to stream the transcript into the field and a script
+    to stop. This extension ships no JavaScript, so an enabled microphone here
+    would be a control that lights up, takes a click and does nothing — which
+    is worse than a control that says plainly it is unavailable. A site that
+    supplies its own recogniser passes `disabled="{false}"` and binds to the
+    button's class.
+
+    For the same reason there is no `aria-pressed` and no listening state.
+    Recording is a state that changes while the page is open, a server-rendered
+    page has exactly one state, and announcing "not pressed" for a control that
+    can never become pressed is a lie with extra steps.
+
+    Otherwise it is Atom/IconButton with a microphone in it: `type="button"`,
+    because a microphone inside a form that defaults to submit would post the
+    half-written message on the first click. `ariaLabel` is the only label the
+    control has; the glyph is drawn `aria-hidden` and can be replaced through
+    the slot. It is drawn here rather than taken from `g:icon` because
+    Desiderio's icon vocabulary has no microphone key and an unknown key
+    silently falls back to the sparkles glyph.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="ghost" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{true}" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<a:atom.iconButton
+    type="button"
+    class="astryx-chat-dictation-button {class}"
+    variant="{variant}"
+    size="{size}"
+    disabled="{disabled}"
+    title="{title}"
+    ariaLabel="{ariaLabel}"><f:if condition="{f:slot(name: 'default') -> f:format.trim()}"><f:then><f:slot /></f:then><f:else><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke-linecap="round"/></svg></f:else></f:if></a:atom.iconButton>

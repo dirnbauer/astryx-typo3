@@ -1,0 +1,22 @@
+<f:comment>
+    LayoutFooter — the bottom region of an application shell: a status bar, a
+    row of secondary actions, the small print under a tool.
+
+    A `footer` element, which at the top level of a document is the contentinfo
+    landmark. That is the point of the component, the same way LayoutHeader's
+    point is the banner: the region is reachable by name instead of only by
+    tabbing to the end of the page.
+
+    It is deliberately not SiteFooter. SiteFooter is a marketing page's foot —
+    columns of links, a newsletter form, a legal row — and it carries its own
+    layout and spacing. This is a strip at the bottom of an app shell with no
+    opinion at all about what goes in it.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then><footer id="{id}" class="astryx-layout-footer {class}"><f:slot /></footer></f:then>
+    <f:else><footer class="astryx-layout-footer {class}"><f:slot /></footer></f:else>
+</f:if>

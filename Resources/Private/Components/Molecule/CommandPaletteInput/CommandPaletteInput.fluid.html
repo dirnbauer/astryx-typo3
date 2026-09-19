@@ -1,0 +1,62 @@
+<f:comment>
+    CommandPaletteInput — the query row at the top of a command palette: a
+    loupe, the field, and nothing else.
+
+    The field is a bare `input` rather than Molecule/TextInput, and the reason
+    is the ARIA rather than the styling. A combobox carries role="combobox",
+    aria-autocomplete, aria-controls, aria-expanded and aria-activedescendant;
+    TextInput declares none of them, Fluid drops any attribute a component has
+    not declared, and a combobox missing aria-controls is a combobox a screen
+    reader cannot follow. Borrowing the input and losing half its contract would
+    have been worse than writing eight lines of input here.
+
+    Two of those five are the server's and three are not. role="combobox",
+    aria-autocomplete="list" and aria-controls describe how the widget is built
+    and never change, so they are written outright. aria-expanded and
+    aria-activedescendant describe what the widget is doing right now — they are
+    declared as arguments with the values a closed, unhighlighted palette has,
+    and a script is what keeps them honest afterwards. An aria-expanded that is
+    written once and never updated is worse than none: it tells a screen reader
+    the menu is shut while the reader is looking at it.
+
+    The row has no border of its own and the field has no box: inside a palette
+    the dialog's own edge is the frame, and a field drawn inside a frame inside
+    a frame is what made the first version look like a form in a modal rather
+    than a palette.
+
+    The label is visually hidden rather than absent. The placeholder disappears
+    the moment the visitor types, which leaves a voice-control user with nothing
+    to say the field's name.
+</f:comment>
+
+<f:argument name="inputId" type="string" optional="{true}" default="astryx-command-palette-query" />
+<f:argument name="listId" type="string" optional="{true}" default="" />
+<f:argument name="name" type="string" optional="{true}" default="q" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="expanded" type="string" optional="{true}" default="false" />
+<f:argument name="activeDescendant" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-command-palette-input {class}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+    </svg>
+    <a:atom.visuallyHidden as="label" for="{inputId}">{label}</a:atom.visuallyHidden>
+    <input
+        id="{inputId}"
+        type="text"
+        name="{name}"
+        value="{value}"
+        placeholder="{placeholder}"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="{expanded}"
+        aria-controls="{listId}"
+        aria-activedescendant="{activeDescendant}" />
+</div>

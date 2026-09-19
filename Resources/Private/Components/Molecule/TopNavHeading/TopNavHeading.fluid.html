@@ -1,0 +1,54 @@
+<f:comment>
+    TopNavHeading — what the bar is called: a mark, a title, and up to two
+    lines of smaller text around it.
+
+    Which element it becomes follows from what it does, not from an `as`
+    argument. With an href it is a link home; with `interactive` and no href it
+    is a button — the trigger of a menu or a workspace switcher the caller
+    opens; with neither it is a plain `div`, because a title that goes nowhere
+    should not be in the tab order at all. `data-interactive` is what the
+    stylesheet's cursor and hover tint hang off, and it is only ever written on
+    the two forms that really react.
+
+    The three lines of text sit in a wrapper of their own rather than directly
+    in the heading. The heading is a flex row — the mark beside the words — so
+    without that wrapper a super, a title and a sub would lay themselves out
+    side by side instead of stacking.
+
+    The mark goes in the `icon` slot and is expected to be a NavIcon: the
+    heading drops its leading padding when it contains one, so that the round
+    tile lines up with the bar's gutter instead of being pushed in by a padding
+    the tile already carries itself.
+</f:comment>
+
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="super" type="string" optional="{true}" default="" />
+<f:argument name="sub" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="interactive" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="popovertarget" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="mode">{f:if(condition: href, then: 'link', else: '{f:if(condition: interactive, then: \'button\', else: \'plain\')}')}</f:variable>
+
+<f:switch expression="{mode}">
+    <f:case value="link">
+        <a href="{href}" class="astryx-top-nav-heading {class}" data-interactive="interactive" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></a>
+    </f:case>
+    <f:comment>
+        A heading that opens something takes `popovertarget`, which is the
+        browser's own invoker: it opens the panel, closes it on a second click,
+        closes it on Escape and on a click outside, and needs no script. The
+        panel is the caller's — a `.astryx-nav-heading-menu` inside a Popover —
+        because what a workspace switcher lists is not something the bar's
+        title can know.
+    </f:comment>
+    <f:case value="button">
+        <button type="button" class="astryx-top-nav-heading {class}" data-interactive="interactive" popovertarget="{popovertarget}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></button>
+    </f:case>
+    <f:defaultCase>
+        <div class="astryx-top-nav-heading {class}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></div>
+    </f:defaultCase>
+</f:switch>

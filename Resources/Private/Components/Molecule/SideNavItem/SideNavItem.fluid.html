@@ -1,0 +1,67 @@
+<f:comment>
+    SideNavItem — one row in a SideNav, with or without a branch under it.
+
+    The row itself is `.astryx-nav-item` plus this component's own class, worn
+    together the way an icon button wears the button's class: the height, the
+    hover tint, the focus ring and the truncating label live once on the shared
+    row, and only the rail's own business — the collapsed width, the nesting
+    indent — is written against `.astryx-side-nav-item`.
+
+    Two shapes, and which one you get depends on whether anything was put in
+    the slot. Empty, the row is a link (or a button when it has no href) inside
+    an `li`. Filled, the slot is the branch: the row becomes the `summary` of a
+    native `details` and the children a nested list inside it. That is why the
+    child rows are the default slot rather than an argument — expanding a
+    branch then costs no script at all, survives find-in-page, and prints open.
+
+    A branch row is a `summary`, which means it toggles and does not navigate.
+    A section that is both a page and a parent should be given the page as the
+    first child row rather than made a link here: a control that both follows a
+    link and opens a disclosure is one control with two jobs, and a keyboard
+    user can only ask it for one of them.
+
+    Selection is stated twice — `data-selected` for the tinted row,
+    `aria-current="page"` for the announcement — because the tint says "you are
+    here" only to someone who can see it.
+</f:comment>
+
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="selected" type="string" optional="{true}" default="default" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="" />
+<f:argument name="open" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="current"><f:if condition="{ariaCurrent}"><f:then>{ariaCurrent}</f:then><f:else>{f:if(condition: '{selected} == \'selected\'', then: 'page')}</f:else></f:if></f:variable>
+
+<f:if condition="{f:slot() -> f:format.trim()}">
+    <f:then>
+        <li class="astryx-side-nav-item-group">
+            <f:comment>
+                The chevron is the summary's last child because that is what
+                the stylesheet turns when the branch opens — `details[open] >
+                summary > svg:last-child`. It is hidden from assistive
+                technology: the summary already announces itself as expanded or
+                collapsed, and a second "arrow" in the announcement adds
+                nothing.
+            </f:comment>
+            <details {f:if(condition: open, then: 'open')}>
+                <summary class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}" aria-current="{current}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+                <ul class="astryx-side-nav-item-children"><f:slot /></ul>
+            </details>
+        </li>
+    </f:then>
+    <f:else>
+        <f:if condition="{href}">
+            <f:then>
+                <li><a href="{href}" class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}" aria-current="{current}" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span></a></li>
+            </f:then>
+            <f:else>
+                <li><button type="button" class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}" aria-current="{current}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span></button></li>
+            </f:else>
+        </f:if>
+    </f:else>
+</f:if>

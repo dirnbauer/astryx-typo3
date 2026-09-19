@@ -1,0 +1,21 @@
+<f:comment>
+    InputGroupText — the segment of an InputGroup that is not a control: a
+    currency sign, a fixed URL prefix, a unit.
+
+    InputGroup writes this class itself around whatever fills its `addon` slot,
+    which covers the leading segment. This component is for the other
+    positions, where the caller is composing the group's children in order and
+    the segment happens to fall after the field.
+
+    `ariaHidden` is here because a prefix is very often the label said twice.
+    "https://" in front of a field already labelled "Website address" is
+    decoration for a screen reader, and hiding it is the difference between a
+    name and a name read out as punctuation. It stays a choice, because a
+    currency sign in front of a bare amount is the only place the currency is
+    stated and must be read.
+</f:comment>
+
+<f:argument name="ariaHidden" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span class="astryx-input-group-text {class}" aria-hidden="{ariaHidden}"><f:slot /></span>

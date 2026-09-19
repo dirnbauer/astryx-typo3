@@ -1,0 +1,17 @@
+<f:comment>
+    TableFooter — a table's `tfoot`: the totals row, the sum, the "12 of 340".
+
+    It is heavier than the body and separated by the emphasised border, because
+    a footer that looked like one more row would be read as one more row, and a
+    total is not a data point.
+
+    Written after the body in the markup. `tfoot` used to have to come first and
+    browsers still move it to the bottom either way, but the source order is
+    what a screen reader and a plain-text rendering follow, and the total
+    belongs after the numbers it totals.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<tfoot class="astryx-table-footer {class}" id="{id}"><f:slot /></tfoot>

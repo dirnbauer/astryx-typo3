@@ -1,0 +1,52 @@
+<f:comment>
+    SideNav — the rail down the side of an application: a pinned top, a
+    scrolling middle of sections and items, and a pinned bottom.
+
+    Not PageSidebar under another name. PageSidebar is a content page's body
+    with a column of sibling links beside it: it takes the menu as an array,
+    renders the main content first in the source and moves the links beside it
+    with a grid, and the whole point of it is that reading order stays
+    content-first. It is a layout with a navigation in it. SideNav is only the
+    navigation, and it is a shell part: it knows nothing about menus, fills
+    itself from SideNavSection and SideNavItem, collapses to a rail of icons,
+    and expects a LayoutPanel or a grid around it to decide where the column
+    is. Use PageSidebar on an article with sibling pages; use SideNav when the
+    rail is the application's own navigation and outlives the page in it.
+
+    Three regions, and only the middle one scrolls. The top and the bottom are
+    sticky and inherit the rail's background so rows pass under them instead of
+    showing through, which is why they are regions of this component rather
+    than something a caller stacks inside the scroller.
+
+    `state="collapsed"` is the icon rail. It hides the labels by clipping them,
+    not by removing them, so every row keeps its accessible name — and that is
+    also why a collapsed item needs an icon: with the label clipped it is all
+    that is left to see. The state is server-side; SideNavCollapseButton asks
+    for the other one.
+
+    `ariaLabel` matters here for the same reason it does on TopNav: an unnamed
+    second `nav` is announced as "navigation" and nothing more, and an
+    application usually has at least two.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="state" type="string" optional="{true}" default="" />
+<f:argument name="layout" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    The tag is branched rather than the id emitted empty: `id=""` is not a
+    valid id, and aria-controls on the collapse button has to have something to
+    point at. The three regions are written twice as a result, which is the
+    cheaper of the two prices — a captured fragment printed raw would hide the
+    slots from anyone reading the file for what this component renders.
+</f:comment>
+<f:if condition="{id}">
+    <f:then>
+        <nav id="{id}" class="astryx-side-nav {class}" aria-label="{ariaLabel}" data-state="{state}" data-layout="{layout}"><f:if condition="{f:slot(name: 'top') -> f:format.trim()}"><div class="astryx-side-nav-top"><f:slot name="top" /></div></f:if><div class="astryx-side-nav-scroll"><f:slot /></div><f:if condition="{f:slot(name: 'bottom') -> f:format.trim()}"><div class="astryx-side-nav-bottom"><f:slot name="bottom" /></div></f:if></nav>
+    </f:then>
+    <f:else>
+        <nav class="astryx-side-nav {class}" aria-label="{ariaLabel}" data-state="{state}" data-layout="{layout}"><f:if condition="{f:slot(name: 'top') -> f:format.trim()}"><div class="astryx-side-nav-top"><f:slot name="top" /></div></f:if><div class="astryx-side-nav-scroll"><f:slot /></div><f:if condition="{f:slot(name: 'bottom') -> f:format.trim()}"><div class="astryx-side-nav-bottom"><f:slot name="bottom" /></div></f:if></nav>
+    </f:else>
+</f:if>

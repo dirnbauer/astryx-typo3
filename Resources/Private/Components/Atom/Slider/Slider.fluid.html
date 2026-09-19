@@ -1,0 +1,56 @@
+<f:comment>
+    Slider — a value picked along a line.
+
+    The native `<input type="range">`, not the drawn track and thumb the
+    stylesheet also carries. The drawn pair is for the case a range input
+    cannot express — two thumbs, a non-linear scale — and it is a pair of
+    `<div>`s that only move when a script moves them. A range input already
+    drags, answers the arrow keys, Home and End, announces its value and its
+    bounds, and posts. Choosing the one that works is not a close call; the
+    drawn parts stay in the stylesheet for whoever writes the two-thumb case
+    and brings script with it.
+
+    The vendor track and thumb pseudo-elements were only reachable inside a
+    Field until now; the stylesheet reaches `.astryx-slider > input` too, so a
+    slider on its own is painted rather than left to the platform.
+
+    `valueLabel` prints beside the field, and it is the value the server
+    rendered — it does not follow the thumb, because following it is script.
+    Pass it where the page reloads on change, a filter with a submit button;
+    leave it out anywhere the visitor drags and expects the number to move,
+    where a stuck number is worse than none. The range input announces its own
+    value to a screen reader either way.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="min" type="string" optional="{true}" default="" />
+<f:argument name="max" type="string" optional="{true}" default="" />
+<f:argument name="step" type="string" optional="{true}" default="" />
+<f:argument name="valueLabel" type="string" optional="{true}" default="" />
+<f:argument name="valueText" type="string" optional="{true}" default="" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    aria-valuetext is for a scale whose numbers are not the meaning — "Medium"
+    over 2, "€40–60" over 3. Left empty the browser reads the number, which is
+    right whenever the number is the answer.
+</f:comment>
+<div
+    class="astryx-slider {class}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><input
+        id="{id}"
+        type="range"
+        name="{name}"
+        value="{value}"
+        min="{min}"
+        max="{max}"
+        step="{step}"
+        aria-describedby="{describedBy}"
+        aria-label="{ariaLabel}"
+        aria-valuetext="{valueText}"
+        {f:if(condition: disabled, then: 'disabled')} /><f:if condition="{valueLabel}"><span class="astryx-slider-value">{valueLabel}</span></f:if></div>

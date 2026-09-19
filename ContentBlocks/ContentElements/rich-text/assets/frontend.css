@@ -17,11 +17,11 @@
 /* Centred means the column is centred — the prose inside it is not. Centred
    running text begins every line in a different place, which is the one thing
    a long passage must never do. */
-.g-rich-text__body.align-center {
+.g-rich-text__body[data-align="center"] {
   margin-inline: auto;
 }
 
-.g-rich-text__body.align-center > .astryx-heading {
+.g-rich-text__body[data-align="center"] > .astryx-heading {
   text-align: center;
 }
 

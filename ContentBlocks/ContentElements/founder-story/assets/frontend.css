@@ -78,11 +78,11 @@
 
   /* Reverse puts the picture first without changing the source order, so the
      story is still read before the face. */
-  .g-founder-story__grid.portrait-start {
+  .g-founder-story__grid[data-layout="portrait-start"] {
     grid-template-columns: 18rem minmax(0, 1fr);
   }
 
-  .g-founder-story__grid.portrait-start > .g-founder-story__copy {
+  .g-founder-story__grid[data-layout="portrait-start"] > .g-founder-story__copy {
     order: 2;
   }
 }

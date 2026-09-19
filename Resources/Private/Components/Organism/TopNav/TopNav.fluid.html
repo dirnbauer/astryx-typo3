@@ -1,0 +1,46 @@
+<f:comment>
+    TopNav — the application bar: a row with a start, an optional centre and an
+    end, and whatever the caller puts in each.
+
+    Not a second SiteHeader, and the difference is worth stating because two
+    components that do the same thing under different names is how a design
+    system rots. SiteHeader is the website's header: it takes the page menu as
+    an array, renders the brand, the desktop navigation and a mobile panel from
+    it, emits the skip link, and knows what a TYPO3 menu item looks like. It is
+    the right answer for a content site, and there is one of it per page.
+    TopNav knows nothing about menus. It is three flex regions and a landmark,
+    filled with TopNavHeading, TopNavItem and menu components by whoever places
+    it — the bar an application shell puts above LayoutContent, where the
+    entries are tools rather than pages. Reach for SiteHeader when the header
+    renders the site's navigation; reach for TopNav when you are assembling a
+    bar out of parts, or when a second bar is needed below the first.
+
+    The three regions are always rendered, including the empty ones. Under
+    `align="center"` the bar is a three-column grid whose middle column is what
+    keeps the centre optically centred no matter how uneven the two sides are,
+    and a region that disappeared when its slot was empty would take a column
+    with it. Empty flex boxes cost nothing on screen.
+
+    `ariaLabel` is not optional in practice. Every `nav` on a page is a
+    landmark, and a screen reader lists them by name; a page with a site
+    navigation and an unnamed app bar offers two entries both called
+    "navigation" and no way to tell which is which.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="align" type="string" optional="{true}" default="" />
+<f:argument name="layout" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<nav class="astryx-top-nav {class}" aria-label="{ariaLabel}" data-align="{align}" data-layout="{layout}">
+    <f:comment>
+        The default slot is the start, because that is the region every bar
+        fills: the heading and the entries beside it. `center` and `end` are
+        named, which means a call that fills either of them has to spell the
+        start as `<f:fragment>` too — Fluid stops collecting loose children as
+        the default slot the moment one named fragment appears.
+    </f:comment>
+    <div class="astryx-top-nav-start"><f:slot /></div>
+    <div class="astryx-top-nav-center"><f:slot name="center" /></div>
+    <div class="astryx-top-nav-end"><f:slot name="end" /></div>
+</nav>

@@ -31,7 +31,7 @@
             </f:if>
         </div>
 
-        <a:molecule.metadataList class="g-footer-opening-hours__rows {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.metadataList class="g-footer-opening-hours__rows">
             <f:for each="{data.rows}" as="row">
                 <a:molecule.metadataListItem class="g-footer-opening-hours__row {f:if(condition: row.included, then: 'is-open', else: 'is-closed')}">
                     <dt class="g-footer-opening-hours__day">{row -> f:render.text(field: 'title')}</dt>

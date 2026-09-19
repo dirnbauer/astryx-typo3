@@ -13,7 +13,7 @@
 
 <a:layout.section class="g-image-caption">
     <a:layout.container size="{data.width}">
-        <figure class="g-image-caption__figure align-{data.align}">
+        <figure class="g-image-caption__figure" data-align="{data.align}">
 
             <f:if condition="{data.header}">
                 <a:atom.heading level="3" class="g-image-caption__title">{data -> f:render.text(field: 'header')}</a:atom.heading>

@@ -28,10 +28,10 @@
             </f:if>
         </div>
 
-        <ol class="g-data-roadmap-progress__stages {f:if(condition: data.compact, then: 'compact')}">
+        <ol class="g-data-roadmap-progress__stages" data-density="{f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.metrics}" as="metric">
                 <li class="g-data-roadmap-progress__stage" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <span class="g-data-roadmap-progress__marker {metric.icon}" aria-hidden="true"></span>
+                    <span class="g-data-roadmap-progress__marker" data-shape="{metric.icon}" aria-hidden="true"></span>
 
                     <a:atom.progressBar
                         decorative="{true}"

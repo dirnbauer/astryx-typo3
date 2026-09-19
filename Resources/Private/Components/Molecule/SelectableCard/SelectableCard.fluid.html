@@ -1,0 +1,45 @@
+<f:comment>
+    SelectableCard — a choice that is too big to be a line: a plan, a delivery
+    option, a payment method.
+
+    A `<label>` around a real radio or checkbox, so the whole card is the
+    target and the choice survives a page load without script. `type="radio"`
+    with a shared `name` makes a row of cards exclusive, which is what a pricing
+    table wants; `checkbox` is for the cards that are independent extras.
+
+    The control stays visible in the corner rather than being clipped. On a
+    card the size of a paragraph, the tick is the only thing that says this is
+    a choice at all and not a link — Card is what a caller wants when it is a
+    link — and a card whose selected state is nothing but a border colour is
+    the one place colour really would be carrying the meaning alone.
+
+    The focus ring goes on the card, not on the control. The control is a 20px
+    square in the corner of something the whole of which is clickable, and a
+    ring around the square says nothing about what would be chosen.
+
+    Its border and selected treatment live in 03-card.css next to the card it
+    is a kind of; the box — padding, radius, surface — is in the choice
+    controls partial with the rest of this family.
+</f:comment>
+
+<f:argument name="type" type="string" optional="{true}" default="radio" />
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<label class="astryx-selectable-card {class}"><input
+        id="{id}"
+        type="{type}"
+        name="{name}"
+        value="{value}"
+        aria-describedby="{describedBy}"
+        aria-label="{ariaLabel}"
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: required, then: 'required')} /><span class="astryx-selectable-card-body"><f:slot /></span></label>

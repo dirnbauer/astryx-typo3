@@ -21,7 +21,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-contact-person">
     <a:layout.container size="{data.width}">
-        <a:molecule.card density="roomy" class="g-contact-person__panel {f:if(condition: data.reverse, then: 'portrait-end')}">
+        <a:molecule.card density="roomy" variant="{f:if(condition: data.reverse, then: 'portrait-end', else: 'default')}" class="g-contact-person__panel">
 
             <f:if condition="{data.image}">
                 <a:atom.avatar size="xl" class="g-contact-person__portrait">

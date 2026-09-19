@@ -13,7 +13,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-feature-sticky-list">
     <a:layout.container size="{data.width}">
-        <div class="g-feature-sticky-list__grid {f:if(condition: data.reverse, then: 'reversed')}">
+        <div class="g-feature-sticky-list__grid" data-layout="{f:if(condition: data.reverse, then: 'reversed')}">
 
             <div class="g-feature-sticky-list__intro">
                 <f:if condition="{data.eyebrow}">

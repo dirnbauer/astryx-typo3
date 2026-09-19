@@ -1,0 +1,48 @@
+<f:comment>
+    BottomSheet — the panel that rises from the bottom edge of a phone.
+
+    A `dialog` again, pinned to the block-end edge and as wide as the viewport,
+    so everything a modal needs is the element's: the top layer, the backdrop,
+    Escape, and focus that cannot wander into the page behind it. What is
+    different is only where it comes from and where it stops, and both are
+    stylesheet.
+
+    The entry is a translate under `@starting-style`, which is what lets it
+    slide in from `display: none` without a class being toggled at the right
+    moment — and the whole slide is switched off under prefers-reduced-motion
+    at the foot of the partial, where the sheet simply appears. "Switched off"
+    means the duration goes to zero, never that the sheet stops opening: a
+    reader who asked for less motion still gets the panel.
+
+    There is no drag handle. The grabber pill is the affordance every native
+    sheet has, and dragging it needs pointer events and script; a pill that
+    invites a drag and ignores it is worse than no pill. The sheet is dismissed
+    by Escape, by the backdrop and by the cross in its header, all of which
+    work as drawn.
+
+    The header, the body and the footer are the dialog family's own classes
+    rather than three new ones. A sheet is a dialog that arrives from a
+    different direction, and giving it a second recipe for a title row is how
+    the two stop looking alike.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="titleId"><f:if condition="{title}">{id}-title</f:if></f:variable>
+
+<dialog id="{id}" class="astryx-bottom-sheet {class}" aria-labelledby="{titleId}" aria-label="{ariaLabel}">
+    <f:if condition="{title} || {closeLabel}">
+        <a:molecule.dialogHeader title="{title}" titleLevel="{titleLevel}" titleId="{titleId}" closeLabel="{closeLabel}" />
+    </f:if>
+
+    <div class="astryx-dialog-body"><f:slot /></div>
+
+    <f:if condition="{f:slot(name: 'footer') -> f:format.trim()}">
+        <div class="astryx-dialog-footer"><f:slot name="footer" /></div>
+    </f:if>
+</dialog>

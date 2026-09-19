@@ -50,11 +50,11 @@
     gap: var(--spacing-12);
   }
 
-  .g-feature-sticky-list__grid.reversed {
+  .g-feature-sticky-list__grid[data-layout="reversed"] {
     grid-template-columns: 1fr 22rem;
   }
 
-  .g-feature-sticky-list__grid.reversed > .g-feature-sticky-list__intro {
+  .g-feature-sticky-list__grid[data-layout="reversed"] > .g-feature-sticky-list__intro {
     order: 2;
   }
 

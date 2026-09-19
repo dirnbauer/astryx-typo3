@@ -12,7 +12,7 @@
   flex-wrap: wrap;
 }
 
-.g-team-facepile__band.align-center {
+.g-team-facepile__band[data-align="center"] {
   flex-direction: column;
   justify-content: center;
   text-align: center;
@@ -25,7 +25,7 @@
   row-gap: var(--spacing-2);
 }
 
-.g-team-facepile__band.compact {
+.g-team-facepile__band[data-density="compact"] {
   gap: var(--spacing-3);
 }
 

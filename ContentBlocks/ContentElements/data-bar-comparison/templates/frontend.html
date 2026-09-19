@@ -32,7 +32,7 @@
                 <a:atom.text type="label" as="figcaption" class="g-data-bar-comparison__caption">{data -> f:render.text(field: 'caption')}</a:atom.text>
             </f:if>
 
-            <dl class="g-data-bar-comparison__rows {f:if(condition: data.compact, then: 'compact')}">
+            <dl class="g-data-bar-comparison__rows" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.metrics}" as="metric">
                     <div class="g-data-bar-comparison__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                         <dt class="g-data-bar-comparison__label">{metric -> f:render.text(field: 'title')}</dt>

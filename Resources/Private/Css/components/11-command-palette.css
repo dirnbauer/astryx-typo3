@@ -1,0 +1,203 @@
+/*
+ * CommandPalette — the ⌘K overlay: a field, a grouped listbox and a strip of
+ * keyboard hints, in a modal that sits near the top of the viewport.
+ *
+ * The modal itself is not here. CommandPalette composes Molecule/Dialog, so the
+ * top layer, the focus trap, Escape, the backdrop and the open transition are
+ * all 08-overlay.css's and this file only says where a palette differs: it is
+ * wider, it hangs from the top rather than the middle, and it has no padding of
+ * its own because every strip inside it pads itself. Both partials land in the
+ * astryx-components layer and this one comes second in the manifest, so the
+ * overrides win on source order at equal specificity — no !important, and no
+ * second copy of the dialog.
+ *
+ * A row is an Astryx Item, the same decision the typeahead made one file up:
+ * .astryx-item and its parts paint the row, and this file only adds the
+ * highlight that keyboard traversal moves and the keys at the end of it. A
+ * palette row and a suggestion row are the same object, and the moment either
+ * one grows its own row recipe they begin to drift.
+ *
+ * Nothing here is interactive on its own. Filtering as you type, moving the
+ * highlight and acting on Return all need a script; the markup is correct and
+ * waiting, which is why the active row states its highlight outright instead of
+ * relying on :focus-visible — focus never leaves the field.
+ */
+
+/* ------------------------------------------------------- The palette shell */
+/* Top-aligned rather than centred. A palette opens under the visitor's hands
+   and grows downwards as matches arrive; centring it would move the field
+   itself every time the list got longer or shorter. */
+.astryx-command-palette {
+  --dialog-padding: var(--spacing-0);
+  inline-size: 36rem;
+  max-inline-size: calc(100vw - 2 * var(--spacing-4));
+  max-block-size: min(70vh, 34rem);
+  margin-block-start: 10vh;
+  margin-block-end: auto;
+  margin-inline: auto;
+  padding: var(--spacing-0);
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------- The field */
+/* No border and no background: the dialog's own edge is the frame, and a boxed
+   field inside a boxed modal reads as a form in a dialog rather than a palette.
+   The seam under it is the only line, and it is what keeps the field visually
+   attached to the matches below while the list scrolls under it. */
+.astryx-command-palette-input {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  flex-shrink: 0;
+  padding-inline: var(--spacing-4);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-command-palette-input > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  color: var(--color-icon-secondary);
+}
+
+/* The input is selected by element rather than by a class of its own: it is the
+   only one in here, and the alternative was a class that exists solely to undo
+   the border a shared form rule would otherwise have given it. */
+.astryx-command-palette-input > input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: var(--spacing-4);
+  padding-inline: var(--spacing-0);
+  border: none;
+  background-color: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+}
+
+/* The field is where focus lives for the whole life of the palette, so a ring
+   around it would be permanent furniture. The dialog is the focused thing a
+   visitor sees; the field says so by being the only lit part of it. */
+.astryx-command-palette-input > input:focus,
+.astryx-command-palette-input > input:focus-visible {
+  outline: none;
+}
+
+.astryx-command-palette-input > input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+/* ---------------------------------------------------------------- The list */
+/* Scrolling belongs to the list and not to the dialog, so the hints at the foot
+   stay put while the matches move. overscroll-behavior stops the page behind
+   the modal taking over once the list hits its end. */
+.astryx-command-palette-list {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  margin: 0;
+  padding: var(--spacing-2);
+  list-style: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+/* --------------------------------------------------------------- A group */
+.astryx-command-palette-group + .astryx-command-palette-group {
+  margin-block-start: var(--spacing-1);
+  border-block-start: var(--border-width) solid var(--color-neutral);
+  padding-block-start: var(--spacing-1);
+}
+
+.astryx-command-palette-group-label {
+  display: block;
+  padding-block: var(--spacing-2) var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* role="presentation" strips this list's semantics, not its bullets. */
+.astryx-command-palette-group-list {
+  margin: 0;
+  padding: var(--spacing-0);
+  list-style: none;
+}
+
+/* ----------------------------------------------------------------- A row */
+/* Keyboard traversal moves data-state, not focus — focus stays in the field so
+   the visitor can keep typing — so the highlight cannot be a :focus-visible
+   rule and says itself outright. aria-activedescendant on the field is what
+   tells a screen reader which row this is. */
+.astryx-command-palette-item[data-state="active"] {
+  background-color: var(--color-overlay-hover);
+}
+
+.astryx-command-palette-item[data-state="active"] .astryx-item-label {
+  color: var(--color-text-primary);
+}
+
+/* The keys must not squeeze the label into wrapping, so the trailing group
+   never shrinks and the label truncates instead. */
+.astryx-command-palette-item > .astryx-kbd-group {
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------- Nothing */
+/* EmptyState is written for a page and pads itself twelve units deep. Inside a
+   palette that is three times taller empty than full, so the padding comes back
+   off and only the padding changes — the icon, the copy and the centring are
+   still EmptyState's. */
+.astryx-command-palette-empty {
+  padding-block: var(--spacing-8);
+  padding-inline: var(--spacing-4);
+}
+
+.astryx-command-palette-empty > svg {
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+}
+
+/* ---------------------------------------------------------------- Hints */
+/* Wrapping rather than scrolling. On a narrow screen the hints are the first
+   thing with no room left, and a second line of them is readable where a
+   horizontal scrollbar under a modal is not. */
+.astryx-command-palette-footer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  flex-shrink: 0;
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+  background-color: var(--color-background-muted);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* The keys and the words are one phrase and must not be split across lines. */
+.astryx-command-palette-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  white-space: nowrap;
+}
+
+/* A palette on a phone is the whole screen bar a margin: 10vh of empty space
+   above a list that has nowhere to grow is space the matches needed. */
+@media (max-width: 480px) {
+  .astryx-command-palette {
+    inline-size: 100%;
+    max-block-size: 80vh;
+    margin-block-start: var(--spacing-4);
+  }
+
+  .astryx-command-palette-footer {
+    gap: var(--spacing-2);
+  }
+}

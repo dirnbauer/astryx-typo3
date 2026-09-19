@@ -47,7 +47,7 @@
   padding: 0;
 }
 
-.g-data-bar-comparison__rows.compact {
+.g-data-bar-comparison__rows[data-density="compact"] {
   gap: var(--spacing-3);
 }
 

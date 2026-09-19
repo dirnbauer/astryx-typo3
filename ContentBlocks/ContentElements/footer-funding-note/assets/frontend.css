@@ -25,7 +25,7 @@
   list-style: none;
 }
 
-.g-footer-funding-note__logos.is-compact {
+.g-footer-funding-note__logos[data-density="compact"] {
   gap: var(--spacing-6);
 }
 
@@ -47,7 +47,7 @@
   max-inline-size: 14rem;
 }
 
-.g-footer-funding-note__logos.is-compact .g-footer-funding-note__image {
+.g-footer-funding-note__logos[data-density="compact"] .g-footer-funding-note__image {
   block-size: var(--spacing-9);
 }
 

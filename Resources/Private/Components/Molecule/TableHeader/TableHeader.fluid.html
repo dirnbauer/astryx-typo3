@@ -1,0 +1,25 @@
+<f:comment>
+    TableHeader — a table's `thead`.
+
+    Table renders `thead`, `tbody` and `tfoot` itself from its `head`, `body`
+    and `foot` slots, and for a table whose rows are literal markup that stays
+    the shorter way to write one. These six components are for the other shape:
+    a table built out of an `f:for`, where individual rows and cells carry
+    modifiers of their own — `data-striped` on this row, `data-truncate` on that
+    cell — which a slot on the table cannot express because the slot is one
+    blob of markup and the modifiers are per element.
+
+    Pick one spelling per table. A `TableHeader` inside Table's `head` slot
+    produces a `thead` inside a `thead`, which the HTML parser silently
+    unnests, so it looks like it works and the stylesheet's `:last-child` rules
+    then land on the wrong rows.
+
+    The class adds no rules of its own: `.astryx-table :where(thead th)` already
+    styles the cells inside it. It is rendered so the region is addressable from
+    a theme's overrides, which is what every part class in this file is for.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<thead class="astryx-table-header {class}" id="{id}"><f:slot /></thead>

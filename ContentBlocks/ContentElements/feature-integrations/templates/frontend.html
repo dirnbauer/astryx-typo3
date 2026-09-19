@@ -11,7 +11,7 @@
     but it is not worth a click that does nothing.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-integrations">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-feature-integrations">
     <a:layout.container size="{data.width}">
 
         <div class="g-feature-integrations__intro">
@@ -26,7 +26,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-feature-integrations__logos {f:if(condition: data.compact, then: 'compact')}">
+        <a:layout.grid cols="{data.columns}" class="g-feature-integrations__logos">
             <f:for each="{data.logos}" as="logo">
                 <li class="g-feature-integrations__cell">
                     <a:molecule.card clickable="{logo.link.url}" variant="flat" class="g-feature-integrations__tile">

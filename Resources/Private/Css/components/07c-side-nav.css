@@ -1,0 +1,363 @@
+/*
+ * SideNav and MobileNav — the two navigations that stand beside or in front of
+ * the page rather than above it. They share a file because they are the same
+ * list of destinations at two widths: the rail collapses, the drawer opens
+ * modally, and the rows in both are .astryx-nav-item from 07-navigation.css.
+ *
+ * Split out of 07-navigation.css unchanged, and listed in the manifest right
+ * after 07b-top-nav.css so the cascade order is the one the single file had.
+ */
+
+/* --------------------------------------------------------------- SideNav */
+.astryx-side-nav {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  block-size: 100%;
+  inline-size: 16rem;
+  background-color: inherit;
+  overflow: hidden;
+}
+
+/* Collapsed rail: icons only, so the width is the icon gutter and nothing
+   more. Labels are hidden rather than removed, keeping the accessible name. */
+.astryx-side-nav[data-state="collapsed"] {
+  inline-size: var(--spacing-12);
+  align-items: center;
+}
+
+.astryx-side-nav[data-state="collapsed"] .astryx-nav-item-label,
+.astryx-side-nav[data-state="collapsed"] .astryx-side-nav-section-title {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.astryx-side-nav[data-state="collapsed"] .astryx-side-nav-item {
+  inline-size: var(--size-element-md);
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.astryx-side-nav[data-layout="topbar"] {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  block-size: var(--spacing-12);
+  inline-size: 100%;
+}
+
+.astryx-side-nav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: var(--spacing-2);
+}
+
+/* Sticky top and bottom inherit the nav's background so rows scroll under
+   them instead of showing through. */
+.astryx-side-nav-top,
+.astryx-side-nav-bottom {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: var(--spacing-2);
+  position: sticky;
+  padding-inline: var(--spacing-2);
+  background-color: inherit;
+  z-index: 1;
+}
+
+.astryx-side-nav-top {
+  inset-block-start: 0;
+  padding-block: var(--spacing-2);
+}
+
+.astryx-side-nav-bottom {
+  inset-block-end: 0;
+  margin-block-start: auto;
+  padding-block-start: var(--spacing-1);
+  padding-block-end: var(--spacing-2);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.astryx-side-nav-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  min-block-size: var(--spacing-8);
+  padding-inline: var(--spacing-2);
+  padding-block: 0;
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
+
+.astryx-side-nav-heading:has(.astryx-nav-icon) {
+  padding-inline-start: 0;
+}
+
+.astryx-side-nav-heading[data-interactive="interactive"] {
+  cursor: pointer;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font: inherit;
+  font-weight: var(--font-weight-normal);
+  text-align: start;
+}
+
+@media (hover: hover) {
+  .astryx-side-nav-heading[data-interactive="interactive"]:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-side-nav-heading:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* The heading is a flex row, so a super, a title and a sub stack only if
+   something stacks them. The bar above has had .astryx-top-nav-heading-text
+   since 2.0 and the rail never got the same wrapper — nothing rendered a rail
+   heading until SideNavHeading, so nobody noticed the three lines sitting in a
+   row. */
+.astryx-side-nav-heading-text {
+  display: flex;
+  flex-direction: column;
+  min-inline-size: 0;
+}
+
+.astryx-side-nav-heading-title {
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-large-leading);
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-side-nav-heading-super,
+.astryx-side-nav-heading-sub {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.astryx-side-nav-section {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--spacing-1);
+}
+
+.astryx-side-nav-section-title {
+  padding-inline: var(--spacing-2);
+  padding-block: var(--spacing-1);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.astryx-side-nav-section > ul,
+.astryx-side-nav-section-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* A SideNav item IS a NavItem row: the element wears both classes, the way
+   .astryx-icon-button wears .astryx-button. Everything below is the part the
+   NavItem base has no opinion on — the nesting indent and the group wrapper. */
+.astryx-side-nav-item-group {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+}
+
+.astryx-side-nav-item-group > ul,
+.astryx-side-nav-item-children {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-inline-start: var(--spacing-6);
+}
+
+/* A group with children is a native <details>, so expanding a branch costs no
+   JS. The summary is the row itself and wears .astryx-side-nav-item; all this
+   adds is dropping the UA marker and turning the caller's own chevron. */
+.astryx-side-nav-item-group > details > summary {
+  list-style: none;
+}
+
+.astryx-side-nav-item-group > details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.astryx-side-nav-item-group > details > summary > svg:last-child {
+  margin-inline-start: auto;
+  transition: rotate var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-side-nav-item-group > details[open] > summary > svg:last-child {
+  rotate: 180deg;
+}
+
+/* ---------------------------------------------- SideNavCollapseButton */
+/* The control that asks for the rail to be collapsed or opened out. It is a
+   square of the row's own height so it lines up with the items above it in
+   both states, and it is the one control here that is legible with no label at
+   all — in the collapsed rail there is no room for one, which is why the
+   component insists on an aria-label instead.
+
+   The chevron turns from aria-expanded rather than from a class: that
+   attribute describes the rail and is rendered from the state the server
+   already decided, so the glyph cannot end up pointing the wrong way while a
+   script catches up. */
+.astryx-side-nav-collapse-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+  padding: 0;
+  border-width: 0;
+  border-style: none;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  color: var(--color-icon-secondary);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .astryx-side-nav-collapse-button:hover {
+    background-color: var(--color-overlay-hover);
+    color: var(--color-icon-primary);
+  }
+}
+
+.astryx-side-nav-collapse-button:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+.astryx-side-nav-collapse-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-side-nav-collapse-button > svg {
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  transition: rotate var(--duration-fast) var(--ease-standard);
+}
+
+.astryx-side-nav-collapse-button[aria-expanded='false'] > svg {
+  rotate: 180deg;
+}
+
+/* ------------------------------------------------------------- MobileNav */
+/* A native <dialog> opened modally: the top layer, the backdrop, focus
+   containment and Escape all come from the browser. The only script is the
+   one line that calls showModal() from the trigger — see data-g-mobile-nav. */
+.astryx-mobile-nav {
+  position: fixed;
+  inset: 0;
+  inline-size: 100vw;
+  block-size: 100dvh;
+  max-inline-size: none;
+  max-block-size: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  /* Blocks pull-to-refresh and background scroll behind the drawer; the
+     content pane below opts vertical panning back in. */
+  touch-action: none;
+}
+
+.astryx-mobile-nav::backdrop {
+  background-color: var(--color-overlay);
+}
+
+.astryx-mobile-nav-drawer {
+  position: absolute;
+  inset-block: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  inline-size: 100vw;
+  max-inline-size: 20rem;
+  background-color: var(--color-background-surface);
+  overflow: hidden;
+  transform: translateX(-100%);
+  transition: transform var(--duration-medium) var(--ease-standard);
+}
+
+.astryx-mobile-nav[data-placement="start"] .astryx-mobile-nav-drawer {
+  inset-inline-start: 0;
+  border-inline-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-mobile-nav[data-placement="end"] .astryx-mobile-nav-drawer {
+  inset-inline-end: 0;
+  border-inline-start: var(--border-width) solid var(--color-border);
+  transform: translateX(100%);
+}
+
+.astryx-mobile-nav[open] .astryx-mobile-nav-drawer {
+  transform: translateX(0);
+}
+
+.astryx-mobile-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  block-size: var(--spacing-12);
+  padding-inline: var(--spacing-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-mobile-nav-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  padding: var(--spacing-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .astryx-mobile-nav-drawer {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- motion */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-side-nav-item-group > details > summary > svg:last-child,
+  .astryx-side-nav-collapse-button > svg {
+    transition: none;
+  }
+}

@@ -14,7 +14,7 @@
 
 /* Reverse moves the portrait to the end without touching the source order, so
    the quotation is still read before the face in every case. */
-.g-person-quote__card.portrait-end {
+.g-person-quote__card[data-variant="portrait-end"] {
   flex-direction: row-reverse;
 }
 
@@ -60,7 +60,7 @@
 
 @media (max-width: 639px) {
   .g-person-quote__card,
-  .g-person-quote__card.portrait-end {
+  .g-person-quote__card[data-variant="portrait-end"] {
     flex-direction: column;
     gap: var(--spacing-4);
   }

@@ -1,0 +1,72 @@
+<f:comment>
+    TypeaheadItem — one suggestion row inside a Typeahead.
+
+    This is the same row astryx.js builds, under the name the contract gives it.
+    The script writes `class="astryx-item astryx-typeahead-option"`; this writes
+    `class="astryx-item astryx-typeahead-item"`, and 09-typeahead.css now names
+    both in the three rules that are the row's own. Two names for one row is not
+    pretty, and it is still the lesser evil: a second class with a second recipe
+    behind it is exactly how the script's rows and the template's rows would
+    start to look different, and nobody would notice until a theme landed on one
+    of them and not the other.
+
+    A suggestion row is an Astryx Item — the label, the description and the
+    trailing badge all come from Item's parts. `data-density="compact"` and
+    `data-interactive="interactive"` are what the menu is drawn with, so they are
+    the defaults here rather than something each call site remembers.
+
+    role="option" and a stable id are the server's to write; aria-selected and
+    data-state say which row the arrow keys have reached, which is not something
+    the server knows, so both default to "not this one" and a script moves them.
+    Note what follows from that: without the script the row is inert. A listbox
+    option is chosen by the combobox that owns it and never by a click of its
+    own, and wrapping a link inside it would be invalid content and would hide
+    the link from assistive technology besides. A list of suggestions that has to
+    work without JavaScript is a list of links — Molecule/Item with an `href` —
+    and not this component.
+
+    `count` and `badge` are the two shapes upstream's own suggest response has:
+    a term with a number of hits, and a document with a type. They share one
+    trailing region, and the count adds the class that stops a five-digit number
+    squeezing the term into wrapping.
+
+    Nothing here highlights the matched substring. The mark needs a
+    case-insensitive match against a query string, and in the live menu that
+    query only exists in the browser — `astryx-typeahead-mark` is therefore the
+    script's, and the label arrives here already decided.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="description" type="string" optional="{true}" default="" />
+<f:argument name="count" type="string" optional="{true}" default="" />
+<f:argument name="badge" type="string" optional="{true}" default="" />
+<f:argument name="selected" type="string" optional="{true}" default="false" />
+<f:argument name="state" type="string" optional="{true}" default="" />
+<f:argument name="density" type="string" optional="{true}" default="compact" />
+<f:argument name="interactive" type="string" optional="{true}" default="interactive" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="truncate" type="string" optional="{true}" default="truncate" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li
+    class="astryx-item astryx-typeahead-item {class}"
+    id="{id}"
+    role="option"
+    aria-selected="{selected}"
+    data-state="{state}"
+    data-density="{density}"
+    data-interactive="{interactive}"
+    data-align="{align}">
+    <a:molecule.itemContent>
+        <a:molecule.itemLabel truncate="{truncate}">{label}<f:slot /></a:molecule.itemLabel>
+        <f:if condition="{description}">
+            <a:molecule.itemDescription>{description}</a:molecule.itemDescription>
+        </f:if>
+    </a:molecule.itemContent>
+    <f:if condition="{count} || {badge}">
+        <span class="astryx-item-end{f:if(condition: count, then: ' astryx-typeahead-count')}">
+            <a:atom.badge variant="neutral">{f:if(condition: count, then: count, else: badge)}</a:atom.badge>
+        </span>
+    </f:if>
+</li>

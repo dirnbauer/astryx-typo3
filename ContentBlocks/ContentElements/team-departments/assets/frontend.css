@@ -47,11 +47,11 @@
 /* Compact is for a band that sits between two others: the department still
    gets its heading and its rule, the people just stop taking a full row of
    air each. */
-.g-team-departments__people.compact {
+.g-team-departments[data-spacing="tight"] .g-team-departments__people {
   --grid-gap: var(--spacing-4);
 }
 
-.g-team-departments__people.compact .g-team-departments__note {
+.g-team-departments[data-spacing="tight"] .g-team-departments__people .g-team-departments__note {
   display: none;
 }
 

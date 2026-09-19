@@ -1,134 +1,17 @@
 /*
- * Data display — Table, List, Item, MetadataList, TreeList, OverflowList,
- * Divider, Timestamp, Kbd, Code, CodeBlock, Markdown, ProgressBar, Skeleton,
- * Spinner, Avatar, AvatarGroup, Thumbnail.
+ * Data display — List, Item, MetadataList, TreeList, OverflowList, Divider,
+ * Timestamp, Kbd, Code, CodeBlock, Markdown, ProgressBar, Skeleton, Spinner,
+ * Avatar, AvatarGroup, Thumbnail. Table is next door in 06b-table.css.
  *
  * Two things separate this file from the upstream components it transcribes.
  * The React versions receive their content already wrapped in per-part
- * elements; server-side these are plain <table>, <ul>, <dl> and <pre>, so the
- * part styles also reach the bare tags inside the component root. And the
+ * elements; server-side these are plain <ul>, <dl> and <pre>, so the part
+ * styles also reach the bare tags inside the component root. And the
  * loading states (Skeleton, Spinner, the indeterminate ProgressBar) animate,
  * which means every one of them has to have an off switch — a page of pulsing
  * placeholders is exactly what prefers-reduced-motion is asking about.
  */
 
-/* ----------------------------------------------------------------- Table */
-/* Tables are the one element that cannot be made to fit a narrow column: a
-   five-column table in a 320px viewport either scrolls or breaks the page
-   layout. The wrapper takes the scroll so the page never does. */
-.astryx-table-wrap,
-.astryx-table-scroll-wrapper {
-  overflow-x: auto;
-  max-inline-size: 100%;
-  -webkit-overflow-scrolling: touch;
-}
-
-.astryx-table,
-.astryx-base-table {
-  inline-size: 100%;
-  border-collapse: collapse;
-  border-spacing: 0;
-  font-family: inherit;
-  color: var(--color-text-primary);
-}
-
-/* Auto layout, not upstream's fixed: editors write the cells here and column
-   widths have to follow the content they typed. `.fixed` restores the
-   equal-width behaviour for tables whose columns are known up front. */
-.astryx-table {
-  table-layout: auto;
-}
-
-.astryx-table[data-layout="fixed"] {
-  table-layout: fixed;
-}
-
-.astryx-table :where(th, td),
-.astryx-table-cell,
-.astryx-table-header-cell {
-  box-sizing: border-box;
-  padding-block: var(--spacing-2);
-  padding-inline: var(--spacing-3);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-leading);
-  text-align: start;
-  vertical-align: middle;
-  border-block-end: var(--border-width) solid var(--color-border);
-}
-
-.astryx-table :where(thead th),
-.astryx-table-header-cell {
-  font-size: var(--text-label-size);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-secondary);
-}
-
-/* The last body row's rule would sit directly on top of whatever follows the
-   table, reading as a stray line rather than a cell edge. */
-.astryx-table :where(tbody tr:last-child) :where(th, td),
-.astryx-table-body .astryx-table-row:last-child .astryx-table-cell {
-  border-block-end: 0;
-}
-
-.astryx-table :where(tfoot),
-.astryx-table-footer {
-  font-weight: var(--font-weight-medium);
-  border-block-start: var(--border-width) solid var(--color-border-emphasized);
-}
-
-.astryx-table[data-density="compact"] :where(th, td),
-.astryx-table[data-density="compact"] .astryx-table-cell,
-.astryx-table[data-density="compact"] .astryx-table-header-cell {
-  padding-block: var(--spacing-1);
-  padding-inline: var(--spacing-2);
-}
-
-.astryx-table[data-density="spacious"] :where(th, td),
-.astryx-table[data-density="spacious"] .astryx-table-cell,
-.astryx-table[data-density="spacious"] .astryx-table-header-cell {
-  padding-block: var(--spacing-3);
-  padding-inline: var(--spacing-4);
-}
-
-.astryx-table[data-striped="striped"] :where(tbody tr:nth-child(even)),
-.astryx-table-row[data-striped="striped"]:nth-child(even) {
-  background-color: var(--color-background-muted);
-}
-
-.astryx-table[data-bordered="bordered"] :where(th, td):not(:last-child),
-.astryx-table-cell[data-bordered="bordered"]:not(:last-child) {
-  border-inline-end: var(--border-width) solid var(--color-border);
-}
-
-@media (hover: hover) {
-  .astryx-table[data-hoverable="hoverable"] :where(tbody tr):hover,
-  .astryx-table-row[data-hoverable="hoverable"]:hover {
-    background-color: var(--color-overlay-hover);
-  }
-}
-
-.astryx-table[data-hoverable="hoverable"] :where(tbody tr),
-.astryx-table-row[data-hoverable="hoverable"] {
-  transition-property: background-color;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-/* Truncating cells keep the table's column widths honest instead of letting one
-   long value stretch the whole grid. */
-.astryx-table-cell[data-truncate="truncate"],
-.astryx-table :where(th, td).truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-inline-size: 0;
-}
-
-.astryx-table-cell[data-wrap="wrap"],
-.astryx-table :where(th, td).wrap {
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
 
 /* ------------------------------------------------------------------ List */
 .astryx-list {
@@ -1098,6 +981,74 @@
   pointer-events: none;
 }
 
+/* --------------------------------------------------------------- GridSpan */
+/* A Layout component in the data sheet, because the two v0.6.2 layout parts
+   arrived with this set of components and one partial is easier to follow than
+   a rule stranded in 00-primitives.css with nothing near it.
+
+   `grid-column: span n` on a child of an auto-fit grid spans n of however many
+   columns the grid currently has. Below the width at which Grid stops handing
+   them out the span has to stop too: an item asking for three columns in a
+   one-column grid makes two implicit ones and takes the row out past its
+   container. The breakpoint is Grid's own, for the same reason it is Grid's. */
+.astryx-grid-span {
+  min-inline-size: 0;
+}
+
+.astryx-grid-span[data-cols="2"] { grid-column: span 2; }
+.astryx-grid-span[data-cols="3"] { grid-column: span 3; }
+.astryx-grid-span[data-cols="4"] { grid-column: span 4; }
+
+/* The whole row, whatever the row is — the one spelling that needs no
+   breakpoint, which is why the component recommends it. */
+.astryx-grid-span[data-width="full"] {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .astryx-grid-span[data-cols="2"],
+  .astryx-grid-span[data-cols="3"],
+  .astryx-grid-span[data-cols="4"] {
+    grid-column: auto;
+  }
+}
+
+/* --------------------------------------------------- ScrollableArea */
+/* The box scrolls so the page does not. `overscroll-behavior: contain` is what
+   stops a flick that reaches the bottom of the list from carrying on into the
+   document behind it, which on a phone reads as the page jumping.
+
+   `min-block-size: 0` matters when the area is a flex or grid child: the
+   default minimum of a flex item is its content, so without it the box grows to
+   fit everything and never scrolls at all. The caller sets the actual height —
+   only the caller knows what it is sharing the space with. */
+.astryx-scrollable-area {
+  box-sizing: border-box;
+  overflow: auto;
+  max-inline-size: 100%;
+  min-block-size: 0;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.astryx-scrollable-area[data-orientation="vertical"] {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.astryx-scrollable-area[data-orientation="horizontal"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* The element is a tab stop — that is the whole point of it — so it needs the
+   ring as much as any button does. Focus here changes nothing else on screen,
+   which makes it the only feedback there is. */
+.astryx-scrollable-area:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
 /* --------------------------------------------------------- reduced motion */
 /* Loading indicators are the reason this query exists: a page can carry a dozen
    skeletons at once, and a pulsing grid of them is the exact effect the setting
@@ -1118,9 +1069,7 @@
   .astryx-item[data-interactive="interactive"],
   .astryx-tree-list-item,
   .astryx-tree-list-chevron,
-  .astryx-thumbnail[data-interactive="interactive"],
-  .astryx-table[data-hoverable="hoverable"] :where(tbody tr),
-  .astryx-table-row[data-hoverable="hoverable"] {
+  .astryx-thumbnail[data-interactive="interactive"] {
     transition-duration: 0s;
   }
 }

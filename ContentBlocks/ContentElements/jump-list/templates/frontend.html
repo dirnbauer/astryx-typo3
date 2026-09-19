@@ -17,7 +17,7 @@
 
 <a:layout.section spacing="tight" class="g-jump-list" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <nav class="g-jump-list__nav {f:if(condition: data.compact, then: 'tight')}" aria-label="{navLabel}">
+        <nav class="g-jump-list__nav" data-density="{f:if(condition: data.compact, then: 'compact')}" aria-label="{navLabel}">
 
             <f:if condition="{data.header}">
                 <span class="g-jump-list__lead-in">{data -> f:render.text(field: 'header')}</span>

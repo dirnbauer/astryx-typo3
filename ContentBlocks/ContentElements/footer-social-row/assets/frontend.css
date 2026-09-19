@@ -26,7 +26,7 @@
   list-style: none;
 }
 
-.g-footer-social-row__list.is-compact {
+.g-footer-social-row__list[data-density="compact"] {
   gap: var(--spacing-1);
 }
 
@@ -46,7 +46,7 @@
   block-size: var(--spacing-8);
 }
 
-.g-footer-social-row__list.is-compact .g-footer-social-row__icon {
+.g-footer-social-row__list[data-density="compact"] .g-footer-social-row__icon {
   inline-size: var(--spacing-7);
   block-size: var(--spacing-7);
 }

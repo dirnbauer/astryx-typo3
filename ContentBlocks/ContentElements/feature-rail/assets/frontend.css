@@ -32,7 +32,7 @@
   max-inline-size: 80%;
 }
 
-.g-feature-rail__track.compact .g-feature-rail__item {
+.g-feature-rail[data-spacing="tight"] .g-feature-rail__track .g-feature-rail__item {
   inline-size: 15rem;
 }
 

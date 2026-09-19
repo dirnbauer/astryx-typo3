@@ -1,0 +1,38 @@
+<f:comment>
+    CommandPaletteGroup — a headed run of rows inside a palette's listbox:
+    "Pages", "Actions", "Recent".
+
+    A listbox may contain groups, and a group is the only way to give a heading
+    to part of one without breaking the list apart. The awkward bit is the inner
+    `ul`: a `li` cannot hold `li` children, so the rows need a list of their own,
+    and a second list inside a listbox would otherwise be announced as a second
+    list. `role="presentation"` on it strips exactly that — the rows stay options
+    of the outer listbox and the group keeps its heading.
+
+    The heading is a `span`, not a heading element. It labels a widget, and a
+    palette that dropped four `h3`s into the document outline every time it
+    opened would rewrite the page's heading structure from a modal.
+
+    aria-labelledby is written only when there is a heading to point at. An
+    aria-labelledby aimed at an empty element does not fall back to anything —
+    it names the group the empty string, which is worse than leaving it unnamed.
+    Where the heading has to stay invisible, `ariaLabel` names the group instead.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="heading" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="headingId"><f:if condition="{heading}">{id}-label</f:if></f:variable>
+
+<li
+    class="astryx-command-palette-group {class}"
+    role="group"
+    aria-labelledby="{headingId}"
+    aria-label="{ariaLabel}">
+    <f:if condition="{heading}">
+        <span class="astryx-command-palette-group-label" id="{id}-label">{heading}</span>
+    </f:if>
+    <ul class="astryx-command-palette-group-list" role="presentation"><f:slot /></ul>
+</li>

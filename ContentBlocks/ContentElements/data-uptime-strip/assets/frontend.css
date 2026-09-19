@@ -87,9 +87,9 @@
   background-color: var(--color-text-secondary);
 }
 
-.g-data-uptime-strip__tick.success .g-data-uptime-strip__fill { background-color: var(--color-success); }
-.g-data-uptime-strip__tick.warning .g-data-uptime-strip__fill { background-color: var(--color-warning); }
-.g-data-uptime-strip__tick.error .g-data-uptime-strip__fill { background-color: var(--color-error); }
+.g-data-uptime-strip__tick[data-status="success"] .g-data-uptime-strip__fill { background-color: var(--color-success); }
+.g-data-uptime-strip__tick[data-status="warning"] .g-data-uptime-strip__fill { background-color: var(--color-warning); }
+.g-data-uptime-strip__tick[data-status="error"] .g-data-uptime-strip__fill { background-color: var(--color-error); }
 
 .g-data-uptime-strip__reading {
   font-size: var(--text-supporting-size);
@@ -109,7 +109,7 @@
 /* Nine ticks is where the labels start colliding. Past that the middle ones
    leave the visual layer only: they are still read, still copied and still
    found by a page search. */
-.g-data-uptime-strip__strip:has(> :nth-child(9)) .g-data-uptime-strip__period.is-mid > :where(.g-data-uptime-strip__reading, .g-data-uptime-strip__label) {
+.g-data-uptime-strip__strip:has(> :nth-child(9)) .g-data-uptime-strip__period[data-position="mid"] > :where(.g-data-uptime-strip__reading, .g-data-uptime-strip__label) {
   position: absolute;
   inline-size: 1px;
   block-size: 1px;

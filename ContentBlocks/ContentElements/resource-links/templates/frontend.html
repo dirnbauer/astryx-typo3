@@ -34,7 +34,7 @@
         </f:if>
 
         <nav class="g-resource-links__nav" aria-label="{navLabel}">
-            <ul class="g-resource-links__items {f:if(condition: data.compact, then: 'tight')}">
+            <ul class="g-resource-links__items" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.links}" as="link">
                     <li class="g-resource-links__item">
                         <f:link.typolink parameter="{link.link}" class="g-resource-links__link" additionalAttributes="{rel: 'noopener'}">

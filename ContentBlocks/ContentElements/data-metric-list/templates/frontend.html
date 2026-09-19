@@ -26,7 +26,7 @@
             </div>
         </f:if>
 
-        <dl class="g-data-metric-list__rows {f:if(condition: data.compact, then: 'compact')}">
+        <dl class="g-data-metric-list__rows" data-density="{f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.metrics}" as="metric">
                 <div class="g-data-metric-list__row">
                     <dt class="g-data-metric-list__label">{metric -> f:render.text(field: 'title')}</dt>

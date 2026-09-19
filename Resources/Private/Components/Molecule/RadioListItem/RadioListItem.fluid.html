@@ -1,0 +1,39 @@
+<f:comment>
+    RadioListItem — one option of a RadioList.
+
+    The drawn anatomy, to match the checkbox it sits beside in the same form:
+    the real radio is transparent and stacked over a `<span
+    class="astryx-radio">` holding the dot. The input is first in the source
+    for the same reason it is in CheckboxInput — absolutely positioned, it
+    lands at its static position, which is where the drawn circle ends up.
+
+    The row is the `<label>`, so the words are part of the target. A radio is
+    a 20px circle and aiming at one is the most common small annoyance in a
+    form; making the label click is free.
+
+    The dot is always rendered and hidden until checked, because there is no
+    script to grow one on click. `name` is what ties the option to its
+    siblings — it is required here rather than optional, since a radio without
+    one is a radio that can never be turned off again.
+</f:comment>
+
+<f:argument name="name" type="string" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<label class="astryx-radio-list-item {class}"><input
+        id="{id}"
+        type="radio"
+        name="{name}"
+        value="{value}"
+        aria-describedby="{describedBy}"
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: required, then: 'required')} /><span class="astryx-radio" data-size="{size}"><span class="astryx-radio-dot"></span></span><f:if condition="{label}"><f:then>{label}</f:then><f:else><f:slot /></f:else></f:if></label>

@@ -41,7 +41,7 @@
     order: 2;
   }
 
-  .g-text-media__grid.reverse > .g-text-media__media {
+  .g-text-media__grid[data-variant="reverse"] > .g-text-media__media {
     order: 0;
   }
 }

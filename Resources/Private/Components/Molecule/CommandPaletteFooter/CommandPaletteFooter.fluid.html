@@ -1,0 +1,58 @@
+<f:comment>
+    CommandPaletteFooter — the strip of keyboard hints along the bottom of a
+    palette: arrows to move, Return to run, Escape to leave.
+
+    The hints are arguments rather than slotted markup, and that is the point of
+    the component. A hint is a Kbd or two followed by the words that say what
+    the key does, and a template cannot write `astryx-kbd-group` itself — the
+    class belongs to the design system. Leaving the arrangement to call sites
+    would have meant either an exception in the class rule or four call sites
+    each inventing their own spacing.
+
+    Each hint appears only once it has words. A row of keys with nothing beside
+    them is decoration: the glyph that a screen reader reads as "up arrow"
+    means nothing on its own, and the words are what make the pair a sentence.
+    That is also why the keys are not aria-hidden — read together they say
+    "up arrow down arrow to navigate", which is the whole hint.
+
+    The keys themselves are arguments too, because they are not universal:
+    Escape is labelled Esc in most places and Escape in some, and a palette bound
+    to a different key than Return has to be able to say so.
+
+    The slot is for a hint this component does not know about, and comes last so
+    the three standard ones keep their order.
+</f:comment>
+
+<f:argument name="navigateLabel" type="string" optional="{true}" default="" />
+<f:argument name="selectLabel" type="string" optional="{true}" default="" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="navigateKeys" type="string" optional="{true}" default="↑ ↓" />
+<f:argument name="selectKey" type="string" optional="{true}" default="↵" />
+<f:argument name="closeKey" type="string" optional="{true}" default="Esc" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-command-palette-footer {class}">
+    <f:if condition="{navigateLabel}">
+        <span class="astryx-command-palette-hint">
+            <span class="astryx-kbd-group">
+                <f:for each="{f:split(value: navigateKeys, separator: ' ')}" as="key">
+                    <a:atom.kbd>{key}</a:atom.kbd>
+                </f:for>
+            </span>
+            {navigateLabel}
+        </span>
+    </f:if>
+    <f:if condition="{selectLabel}">
+        <span class="astryx-command-palette-hint">
+            <span class="astryx-kbd-group"><a:atom.kbd>{selectKey}</a:atom.kbd></span>
+            {selectLabel}
+        </span>
+    </f:if>
+    <f:if condition="{closeLabel}">
+        <span class="astryx-command-palette-hint">
+            <span class="astryx-kbd-group"><a:atom.kbd>{closeKey}</a:atom.kbd></span>
+            {closeLabel}
+        </span>
+    </f:if>
+    <f:slot />
+</div>

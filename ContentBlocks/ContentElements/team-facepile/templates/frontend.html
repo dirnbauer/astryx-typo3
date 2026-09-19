@@ -20,7 +20,7 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-team-facepile">
     <a:layout.container size="{data.width}">
-        <div class="g-team-facepile__band align-{data.align} {f:if(condition: data.compact, then: 'compact')}">
+        <div class="g-team-facepile__band" data-align="{data.align}" data-density="{f:if(condition: data.compact, then: 'compact')}">
 
             <a:atom.avatarGroup size="{f:if(condition: data.compact, then: 'md', else: 'lg')}" class="g-team-facepile__pile" ariaHidden="true">
                 <f:for each="{data.people}" as="person">

@@ -12,7 +12,7 @@
   max-inline-size: 46rem;
 }
 
-.g-hero-quote__copy.center {
+.g-hero-quote__copy[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -60,7 +60,7 @@
   gap: var(--spacing-3);
 }
 
-.g-hero-quote__copy.center .g-hero-quote__attribution {
+.g-hero-quote__copy[data-align="center"] .g-hero-quote__attribution {
   justify-content: center;
 }
 

@@ -32,12 +32,12 @@
 /* Centred, the rule on the start edge would sit off to one side of a block
    that is no longer aligned to it, so the drawn marks carry the quotation on
    their own. */
-.g-pull-quote__figure.align-center {
+.g-pull-quote__figure[data-align="center"] {
   margin-inline: auto;
   text-align: center;
 }
 
-.g-pull-quote__figure.align-center .g-pull-quote__quote {
+.g-pull-quote__figure[data-align="center"] .g-pull-quote__quote {
   padding-inline-start: 0;
   border-inline-start: 0;
 }

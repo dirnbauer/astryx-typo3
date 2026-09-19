@@ -1,0 +1,63 @@
+<f:comment>
+    ChatComposerInput — the field the visitor writes their message in.
+
+    A `textarea` with a `label`, and not the contenteditable div every chat UI
+    reaches for. A contenteditable is not a form control: it has no name, no
+    value, it is not submitted with the form, it cannot be `required` or
+    `readonly`, and a screen reader announces it as editable text with no idea
+    what it is for. A textarea is all of those things for free, and the only
+    thing it gives up is styled rich text, which a message box does not need.
+
+    Growing with the text is CSS, not script: `field-sizing: content` on the
+    field lets the browser resize it as the visitor types, and the stylesheet
+    caps it so a pasted essay cannot push the composer off the screen. Where
+    `field-sizing` is not supported `rows` is the floor and the field scrolls,
+    which is the old behaviour and still a working one — that is why `rows`
+    defaults to one line rather than being left to the browser's two.
+
+    The label is real and visually hidden by default. A placeholder is not a
+    label: it disappears the moment there is text in the field, it is not
+    reliably announced, and several translation layers never see it. Pass
+    `hideLabel="{false}"` where the composer is the page's main form and the
+    name should be drawn.
+
+    `id` has a fallback rather than being required, because a page has one
+    composer and the label's `for` has to point somewhere; pass your own the
+    moment there are two on a page.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="name" type="string" optional="{true}" default="message" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="hideLabel" type="boolean" optional="{true}" default="{true}" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="rows" type="string" optional="{true}" default="1" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="readonly" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="fieldId" value="{f:if(condition: id, then: id, else: 'astryx-chat-composer-field')}" />
+
+<div class="astryx-chat-composer-input {class}" data-status="{status}">
+    <f:if condition="{hideLabel}">
+        <f:then><a:atom.visuallyHidden as="label" for="{fieldId}">{label}</a:atom.visuallyHidden></f:then>
+        <f:else><a:atom.fieldLabel inputId="{fieldId}" class="astryx-chat-composer-input-label">{label}</a:atom.fieldLabel></f:else>
+    </f:if>
+
+    <a:atom.textArea
+        id="{fieldId}"
+        class="astryx-chat-composer-input-field"
+        name="{name}"
+        value="{value}"
+        placeholder="{placeholder}"
+        rows="{rows}"
+        status="{status}"
+        disabled="{disabled}"
+        required="{required}"
+        readonly="{readonly}"
+        describedBy="{describedBy}" />
+</div>

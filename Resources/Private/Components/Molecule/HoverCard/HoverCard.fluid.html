@@ -1,0 +1,38 @@
+<f:comment>
+    HoverCard — the preview panel that opens from a name or a link.
+
+    Tooltip's bigger sibling, and it renders the panel and nothing else for the
+    same reason: the wrapper that reveals it, `astryx-hover-card-anchor`, has
+    to go around the trigger, and only the caller has the trigger. The
+    stylesheet opens the card from that wrapper's `:hover` *and* its
+    `:focus-within`, so pointer and keyboard get it from one rule.
+
+    It is not `role="tooltip"`. A tooltip may not contain anything interactive,
+    and the whole point of a hover card is that it holds an avatar, a line of
+    prose and a link to the profile — content a reader has to be able to move
+    into. It has no role at all, therefore, and is announced because the
+    trigger points at it with `aria-describedby`. That reference is why `id` is
+    required rather than optional: a card nothing points at is a card a screen
+    reader never mentions.
+
+    `popover` chooses between the two mechanisms the stylesheet supports. As a
+    popover it gets the top layer, light dismiss and anchor positioning, and it
+    needs a `popovertarget` button to open it — a hover card opened by a click,
+    which is the right answer on a touch screen. Without it, it is a plain
+    panel the anchor reveals on hover or focus, which costs no interaction at
+    all. Neither is the default for both cases, so the caller says which.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="popover" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    The two branches exist because `popover=""` is not an absent popover — the
+    empty value is the `auto` state, so the attribute is written or the tag is
+    written without it.
+</f:comment>
+<f:if condition="{popover}">
+    <f:then><div id="{id}" popover class="astryx-hover-card {class}"><f:slot /></div></f:then>
+    <f:else><div id="{id}" class="astryx-hover-card {class}"><f:slot /></div></f:else>
+</f:if>

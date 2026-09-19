@@ -38,7 +38,7 @@
   list-style: none;
 }
 
-.g-data-roadmap-progress__stages.compact {
+.g-data-roadmap-progress__stages[data-density="compact"] {
   gap: var(--spacing-4);
 }
 
@@ -71,12 +71,12 @@
   background-color: var(--color-background-body);
 }
 
-.g-data-roadmap-progress__marker.check-circle {
+.g-data-roadmap-progress__marker[data-shape="check-circle"] {
   border-color: var(--color-success);
   background-color: var(--color-success);
 }
 
-.g-data-roadmap-progress__marker.clock {
+.g-data-roadmap-progress__marker[data-shape="clock"] {
   border-color: var(--color-accent);
   background-color: var(--color-accent);
 }

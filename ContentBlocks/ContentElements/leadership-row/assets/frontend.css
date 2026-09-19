@@ -13,7 +13,7 @@
   margin-block-end: var(--spacing-10);
 }
 
-.g-leadership-row__intro.align-center {
+.g-leadership-row__intro[data-align="center"] {
   margin-inline: auto;
   text-align: center;
 }
@@ -33,7 +33,7 @@
   align-items: flex-start;
 }
 
-.g-leadership-row__people.align-center .g-leadership-row__person {
+.g-leadership-row__people[data-align="center"] .g-leadership-row__person {
   align-items: center;
   text-align: center;
 }

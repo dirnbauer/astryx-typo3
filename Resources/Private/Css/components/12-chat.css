@@ -1,0 +1,428 @@
+/*
+ * Chat — ChatLayout, ChatMessageList, ChatMessage, ChatMessageBubble,
+ * ChatMessageMetadata, ChatSystemMessage, ChatTokenizedText, ChatToolCalls,
+ * ChatComposer, ChatComposerInput, ChatComposerDrawer, ChatSendButton,
+ * ChatDictationButton and ChatLayoutScrollButton.
+ *
+ * A transcript, a composer, and the chrome around the two. Everything here is
+ * rendered by the server: the conversation already happened, the composer is a
+ * form that posts it and the page comes back one turn longer. There is no
+ * stream, so there is no token-by-token reveal, no typing indicator and no
+ * "scrolled to bottom" state a selector could read.
+ *
+ * Who said what is carried three ways and colour is the least of them. The
+ * author is text inside every turn, the turn states its role in `data-role`,
+ * and only then does the bubble get tinted and pushed to one edge. Strip the
+ * stylesheet and the conversation still reads in order with every speaker
+ * named, which is the test this file is written to pass.
+ *
+ * Two lists here take their markers off, and both components state
+ * `role="list"` to get back what Safari drops from an unmarkered list. That is
+ * a markup decision made because of a rule in this file, which is why it is
+ * mentioned in it.
+ *
+ * The composer's field is deliberately borderless: 05-forms.css gives every
+ * `.astryx-text-area` a frame, the composer already draws one around the whole
+ * row, and two frames read as a form inside a form. This partial comes after
+ * that one in the manifest and both land in the astryx-components layer, so
+ * the override wins on source order at equal specificity — no !important.
+ */
+
+/* --------------------------------------------------------------- The frame */
+/* Two grid rows rather than a sticky composer inside the scroller: a sticky
+   composer sits on top of the last message, and the reader has to scroll past
+   their own turn to read it. The scroll affordance shares the transcript's
+   grid area so it can hover over the foot of the conversation without being
+   taken out of flow. */
+.astryx-chat-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'transcript'
+    'composer';
+  gap: var(--spacing-3);
+  min-block-size: 0;
+  block-size: 100%;
+}
+
+.astryx-chat-layout[data-density='compact'] { gap: var(--spacing-2); }
+.astryx-chat-layout[data-density='spacious'] { gap: var(--spacing-5); }
+
+.astryx-chat-layout-transcript {
+  grid-area: transcript;
+  min-block-size: 0;
+  overflow-y: auto;
+  /* The transcript, not the page, absorbs a flick at the end of the list. */
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  padding-inline: var(--spacing-1);
+}
+
+/* The anchor ChatLayoutScrollButton links to. It has height so the browser has
+   a box to bring into view, and a scroll margin so the newest message does not
+   end up flush against the bottom edge once the jump lands. */
+.astryx-chat-layout-end {
+  block-size: var(--spacing-1);
+  scroll-margin-block-end: var(--spacing-4);
+}
+
+/* It carries tabindex="-1" only to take the focus starting point, exactly as a
+   skip link's target does. It is not a control, so it gets no ring. */
+.astryx-chat-layout-end:focus { outline: none; }
+
+.astryx-chat-layout-affordance {
+  grid-area: transcript;
+  align-self: end;
+  justify-self: center;
+  margin-block-end: var(--spacing-3);
+}
+
+.astryx-chat-layout-composer { grid-area: composer; }
+
+/* ----------------------------------------------------------- The transcript */
+.astryx-chat-message-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  margin: var(--spacing-0);
+  padding: var(--spacing-0);
+  list-style: none;
+}
+
+.astryx-chat-message-list[data-density='compact'] { gap: var(--spacing-3); }
+.astryx-chat-message-list[data-density='spacious'] { gap: var(--spacing-7); }
+
+/* ------------------------------------------------------------------ A turn */
+/* row-reverse and not "float it right": the avatar has to swap sides with the
+   bubble, and a flex direction flips with the writing direction where a
+   hard-coded edge would not. */
+.astryx-chat-message {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+}
+
+.astryx-chat-message[data-role='user'] { flex-direction: row-reverse; }
+
+.astryx-chat-message-avatar {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.astryx-chat-message-turn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+  /* A measure, not a percentage. A line of chat that runs the full width of a
+     desktop window is the same unreadable line a body of text would be. */
+  max-inline-size: 42rem;
+}
+
+.astryx-chat-message[data-role='user'] .astryx-chat-message-turn {
+  align-items: flex-end;
+}
+
+/* The author's name. Quiet, but never absent and never replaced by the tint on
+   the bubble under it. */
+.astryx-chat-message-author {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------- The bubble */
+/* overflow-wrap: anywhere because a pasted URL is the single most common thing
+   to blow a chat bubble out of its column. */
+.astryx-chat-message-bubble {
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  font-weight: var(--text-body-weight);
+  line-height: var(--text-body-leading);
+  overflow-wrap: anywhere;
+}
+
+/* The tint is read off the turn, never set on the bubble, so a bubble cannot
+   be painted as the user's inside an assistant's turn. */
+.astryx-chat-message[data-role='user'] .astryx-chat-message-bubble {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.astryx-chat-message-bubble[data-variant='plain'],
+.astryx-chat-message[data-role='user'] .astryx-chat-message-bubble[data-variant='plain'] {
+  padding-block: var(--spacing-0);
+  padding-inline: var(--spacing-0);
+  border-radius: var(--radius-none);
+  background-color: transparent;
+  color: var(--color-text-primary);
+}
+
+/* ------------------------------------------------------------ The fine print */
+.astryx-chat-message-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-chat-message-metadata-time { color: inherit; }
+
+/* ------------------------------------------------------- A note from the app */
+/* fit-content plus auto margins so the pill is as wide as its sentence and
+   centred between the turns on either side of it. */
+.astryx-chat-system-message {
+  inline-size: fit-content;
+  max-inline-size: 42rem;
+  margin-inline: auto;
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-3);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  text-align: center;
+}
+
+/* The tint only ever agrees with words that are already in the notice. */
+.astryx-chat-system-message[data-status='success'] {
+  background-color: var(--color-background-green);
+  color: var(--color-text-green);
+}
+
+.astryx-chat-system-message[data-status='warning'] {
+  background-color: var(--color-background-orange);
+  color: var(--color-text-orange);
+}
+
+.astryx-chat-system-message[data-status='error'] {
+  background-color: var(--color-background-red);
+  color: var(--color-text-red);
+}
+
+/* -------------------------------------------------------------- Token runs */
+/* pre-wrap is the whole rule. A token carries its own leading space, the
+   component prints the spans with nothing between them, and without pre-wrap
+   the browser collapses that space away and the words run together. */
+.astryx-chat-tokenized-text {
+  white-space: pre-wrap;
+}
+
+/* -------------------------------------------------------------- Tool calls */
+.astryx-chat-tool-calls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  margin: var(--spacing-0);
+  padding: var(--spacing-0);
+  list-style: none;
+  inline-size: 100%;
+}
+
+.astryx-chat-tool-calls-item {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-element);
+  padding-inline: var(--spacing-3);
+  background-color: var(--color-background-surface);
+}
+
+/* A tool call's summary is a label, not a heading. Collapsible's own summary is
+   sized for an FAQ question and reads as a shout in a transcript. */
+.astryx-chat-tool-calls-disclosure > summary {
+  justify-content: flex-start;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+}
+
+/* The chevron sits at the end of the row rather than beside the name. */
+.astryx-chat-tool-calls-disclosure > summary::after { margin-inline-start: auto; }
+
+.astryx-chat-tool-calls-name {
+  font-family: var(--font-family-code);
+  font-size: var(--text-code-size);
+  line-height: var(--text-code-leading);
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+/* Rendered only when the call supplies words for it, so the tint never has to
+   carry the outcome on its own. */
+.astryx-chat-tool-calls-status {
+  flex-shrink: 0;
+  padding-block: var(--spacing-0-5);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-muted);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-supporting-leading);
+}
+
+.astryx-chat-tool-calls-status[data-status='success'] {
+  background-color: var(--color-background-green);
+  color: var(--color-text-green);
+}
+
+.astryx-chat-tool-calls-status[data-status='error'] {
+  background-color: var(--color-background-red);
+  color: var(--color-text-red);
+}
+
+/* A payload is preformatted and can be wider than the column. It scrolls in its
+   own box so the transcript never scrolls sideways. */
+.astryx-chat-tool-calls-detail {
+  margin: var(--spacing-0);
+  padding-block-end: var(--spacing-3);
+  overflow-x: auto;
+  font-family: var(--font-family-code);
+  font-size: var(--text-code-size);
+  line-height: var(--text-code-leading);
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------------------- Composer */
+/* The frame is on the form and not on the field, which is what makes the
+   buttons look like they are inside the input rather than parked beside it.
+   :focus-within is what keeps that illusion honest when focus is in the
+   textarea. */
+.astryx-chat-composer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-card);
+}
+
+.astryx-chat-composer:focus-within { border-color: var(--color-border-accent); }
+
+.astryx-chat-composer[data-status='error'] { border-color: var(--color-error); }
+
+.astryx-chat-composer-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-2);
+}
+
+.astryx-chat-composer-field {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.astryx-chat-composer-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  flex-shrink: 0;
+}
+
+.astryx-chat-composer-hint {
+  margin: var(--spacing-0);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* ------------------------------------------------------------ The field */
+.astryx-chat-composer-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  inline-size: 100%;
+}
+
+.astryx-chat-composer-input-label {
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+}
+
+/* field-sizing is what makes this field grow with the text without a line of
+   script. Where it is unsupported the rows attribute is the floor and the box
+   scrolls, which is the old behaviour and still a working one — so the cap is
+   a max-block-size either way, and resize is off because a drag handle in a
+   box that resizes itself fights the browser. */
+.astryx-chat-composer-input-field {
+  inline-size: 100%;
+  field-sizing: content;
+  min-block-size: var(--size-element-md);
+  max-block-size: 12rem;
+  resize: none;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+/* ------------------------------------------------------------- The drawer */
+.astryx-chat-composer-drawer > summary {
+  justify-content: flex-start;
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-1);
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-chat-composer-drawer > summary::after { margin-inline-start: auto; }
+
+.astryx-chat-composer-drawer-tray {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding-block-start: var(--spacing-2);
+}
+
+/* -------------------------------------------------------------- The controls */
+/* Both are flex items in a row that can be squeezed by a long placeholder, and
+   a squashed square is no longer a square. */
+.astryx-chat-send-button,
+.astryx-chat-dictation-button {
+  flex-shrink: 0;
+}
+
+/* The dictation button ships disabled because nothing here can drive a
+   recogniser. The cursor says so before the click does. */
+.astryx-chat-dictation-button[disabled] { cursor: not-allowed; }
+
+/* It floats over the foot of the transcript, so it needs a ground of its own
+   and a shadow to lift it off the message it covers. */
+.astryx-chat-layout-scroll-button {
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-med);
+}
+
+@media (hover: hover) {
+  .astryx-chat-layout-scroll-button:hover { background-color: var(--color-overlay-hover); }
+}
+
+/* ------------------------------------------------------------ Reduced motion */
+/* The smooth jump to the newest message is the only motion this file adds, and
+   a long transcript makes it a long one. */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-chat-layout-transcript { scroll-behavior: auto; }
+}

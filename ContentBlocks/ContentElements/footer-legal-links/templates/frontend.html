@@ -35,7 +35,7 @@
         </f:if>
 
         <nav aria-label="{navLabel}">
-            <ul class="g-footer-legal-links__list {f:if(condition: data.compact, then: 'is-compact')}">
+            <ul class="g-footer-legal-links__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.links}" as="item">
                     <li class="g-footer-legal-links__item">
                         <a:atom.link variant="quiet" class="g-footer-legal-links__link" parameter="{item.link}" title="{item.description}">{item.title}</a:atom.link>

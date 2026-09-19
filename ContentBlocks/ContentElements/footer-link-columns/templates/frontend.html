@@ -37,7 +37,7 @@
         </f:if>
 
         <nav class="g-footer-link-columns__nav" aria-label="{navLabel}">
-            <ul class="g-footer-link-columns__list {f:if(condition: data.compact, then: 'is-compact')}">
+            <ul class="g-footer-link-columns__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.links}" as="item">
                     <f:if condition="{item.link.url}">
                         <f:then>

@@ -1,0 +1,57 @@
+<f:comment>
+    Typeahead — the suggestion menu that hangs under a search field.
+
+    astryx.js already builds this menu for the site search, and what it builds
+    is what this renders: a `ul.astryx-typeahead[role=listbox]` holding an
+    optional presentational heading, the option rows, and a line of prose when
+    nothing matched. Keeping the two in step is the whole point — the stylesheet
+    is one recipe and it has to fit both the script's menu and a template's.
+
+    What the server can say about a combobox is only half of it. The listbox
+    role, its id and its accessible name are facts about the page and are
+    written here; whether the menu is open and which row the arrow keys have
+    reached are facts about a moment, and they live on the *input* as
+    aria-expanded and aria-activedescendant, where only a script can keep them
+    true. So a server-rendered menu is a visible list of suggestions rather than
+    a working popup, and `hidden` exists so a caller can hand a script a closed
+    menu instead of one that flashes on load.
+
+    The heading and the empty line are rows with role="presentation". Arrow keys
+    step from option to option, and a heading that announced itself as a choice
+    would be a choice that cannot be chosen.
+
+    `width="wider"` lets a menu under a narrow header field spill rightwards
+    past it. The script measures the anchor and sets it; a template that already
+    knows its field is fourteen characters wide can say so outright.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="heading" type="string" optional="{true}" default="" />
+<f:argument name="empty" type="string" optional="{true}" default="" />
+<f:argument name="width" type="string" optional="{true}" default="" />
+<f:argument name="hidden" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ul
+    class="astryx-typeahead {class}"
+    id="{id}"
+    role="listbox"
+    data-width="{width}"
+    aria-label="{ariaLabel}"
+    aria-labelledby="{ariaLabelledby}"
+    {f:if(condition: hidden, then: 'hidden')}>
+    <f:if condition="{heading}">
+        <li class="astryx-typeahead-group" role="presentation">{heading}</li>
+    </f:if>
+    <f:slot />
+    <f:comment>
+        Last, not first. The script appends its empty line after rendering the
+        rows it did not get, and a menu that shows "nothing found" above a
+        suggestion it did find reads as a contradiction.
+    </f:comment>
+    <f:if condition="{empty}">
+        <li class="astryx-typeahead-empty" role="presentation">{empty}</li>
+    </f:if>
+</ul>

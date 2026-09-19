@@ -30,7 +30,7 @@
                 <a:atom.heading level="6" class="g-category-chips__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
             </f:if>
 
-            <ul class="g-category-chips__list {f:if(condition: data.compact, then: 'tight')}">
+            <ul class="g-category-chips__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.chips}" as="chip">
                     <f:variable name="chipCurrent" value="0"/>
                     <f:if condition="!{chip.link.url}"><f:variable name="chipCurrent" value="1"/></f:if>

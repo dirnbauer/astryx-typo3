@@ -27,7 +27,7 @@
             </f:if>
         </div>
 
-        <a:molecule.metadataList class="g-footer-imprint-summary__rows {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.metadataList class="g-footer-imprint-summary__rows">
             <f:for each="{data.rows}" as="row">
                 <a:molecule.metadataListItem class="g-footer-imprint-summary__row">
                     <dt class="g-footer-imprint-summary__term">{row -> f:render.text(field: 'title')}</dt>

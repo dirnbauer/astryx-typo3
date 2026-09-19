@@ -1,0 +1,40 @@
+<f:comment>
+    DropdownMenuRadioItem — one of the rows in a menu's radio group.
+
+    `role="menuitemradio"` on a real `input type="radio"`, for the same reason
+    the checkbox row uses a real checkbox: the exclusivity, the arrow-key
+    traversal within the group and the checked state are all the platform's
+    once the rows share a `name`, and every script-driven version of this
+    pattern is re-implementing those three. `aria-checked` is left off here too
+    — see DropdownMenuCheckboxItem for why a static one is worse than none.
+
+    `name` is what makes the group a group. Radios that do not share it are
+    three independent toggles that happen to be round, and nothing in the
+    markup or the accessibility tree says otherwise, so the argument is the one
+    a caller must not forget even though Fluid cannot insist on it: the row is
+    useless without it, but a row with an empty name is still valid HTML and
+    would fail silently.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="form" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    Raw attribute source, not an empty attribute: `form=""` is an id that
+    matches nothing, and an input whose form attribute matches nothing has no
+    form owner at all — not even the form it is written inside.
+</f:comment>
+<f:variable name="formAttribute"><f:if condition="{form}">form="{form -> f:format.htmlspecialchars()}"</f:if></f:variable>
+
+<label class="astryx-dropdown-menu-radio-item {class}"><input
+        type="radio"
+        role="menuitemradio"
+        name="{name}"
+        value="{value}"
+        {formAttribute -> f:format.raw()}
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')} /><span><f:slot /></span></label>

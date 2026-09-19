@@ -84,7 +84,7 @@
     gap: var(--spacing-10);
   }
 
-  .g-menu-featured__grid.reversed > :first-child {
+  .g-menu-featured__grid[data-layout="reversed"] > :first-child {
     order: 2;
   }
 }

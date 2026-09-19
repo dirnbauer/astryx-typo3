@@ -38,7 +38,7 @@
   list-style: none;
 }
 
-.g-data-progress-bars__rows.compact {
+.g-data-progress-bars__rows[data-density="compact"] {
   gap: var(--spacing-4);
 }
 

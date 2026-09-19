@@ -9,9 +9,18 @@
     A cell that carries a link wraps its own title rather than growing a "read
     more": the title is already the accessible name, and one link per cell is
     what lets the whole card become the target.
-</f:comment>
 
-<f:variable name="cardSurface"><f:if condition="{data.variant} == 'card'">astryx-card</f:if></f:variable>
+    The "card" variant puts a real Card around the Feature rather than pasting
+    `astryx-card` onto it. A molecule wearing a second molecule's root class
+    inherits whatever that class grows next, in a place no one would think to
+    look; nested, each component keeps its own box — the surface, padding and
+    click affordance are the Card's, the icon-over-title-over-prose rhythm is
+    the Feature's, and the pair render the same as the merged node did because
+    both are a flex column with the same gap.
+
+    The tile's own class stays on the Feature in both variants, so the band's
+    centred alignment and the equal-height rule keep addressing the same node.
+</f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-grid" variant="{data.variant}" align="{data.align}">
     <a:layout.container size="{data.width}">
@@ -30,30 +39,47 @@
 
         <a:layout.grid cols="{data.columns}" class="g-feature-grid__items">
             <f:for each="{data.items}" as="item">
-                <a:molecule.feature class="g-feature-grid__item {cardSurface} {f:if(condition: item.link.url, then: 'astryx-clickable-card')}">
-                    <f:if condition="{item.icon}">
-                        <f:comment>
-                            The tile carries the semantic key rather than a glyph, so swapping
-                            icon library never reaches into a template.
-                        </f:comment>
-                        <a:atom.featureIcon icon="{item.icon}" />
-                    </f:if>
-
-                    <a:molecule.cardTitle>
+                <f:if condition="{data.variant} == 'card'">
+                    <f:then>
+                        <a:molecule.card clickable="{item.link.url}" class="g-feature-grid__cell">
+                            <f:render section="tile" arguments="{item: item}"/>
+                        </a:molecule.card>
+                    </f:then>
+                    <f:else>
                         <f:if condition="{item.link.url}">
-                            <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                            <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                            <f:then>
+                                <a:molecule.clickableCard class="g-feature-grid__cell">
+                                    <f:render section="tile" arguments="{item: item}"/>
+                                </a:molecule.clickableCard>
+                            </f:then>
+                            <f:else><f:render section="tile" arguments="{item: item}"/></f:else>
                         </f:if>
-                    </a:molecule.cardTitle>
-
-                    <f:if condition="{item.text}">
-                        <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                    </f:if>
-                </a:molecule.feature>
+                    </f:else>
+                </f:if>
             </f:for>
         </a:layout.grid>
 
     </a:layout.container>
 </a:layout.section>
+
+<f:comment>
+    One tile, rendered into whichever wrapper the variant asked for. The tile
+    carries the semantic key rather than a glyph, so swapping icon library
+    never reaches into a template.
+</f:comment>
+<f:section name="tile">
+    <a:molecule.feature icon="{item.icon}" class="g-feature-grid__item">
+        <a:molecule.cardTitle>
+            <f:if condition="{item.link.url}">
+                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+            </f:if>
+        </a:molecule.cardTitle>
+
+        <f:if condition="{item.text}">
+            <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
+        </f:if>
+    </a:molecule.feature>
+</f:section>
 
 </html>

@@ -22,7 +22,7 @@
    token can show, so the reset is shared rather than repeated per component. */
 .astryx-layer,
 .astryx-popover,
-.astryx-hovercard,
+.astryx-hover-card,
 .astryx-tooltip,
 .astryx-tab-menu-dropdown,
 .astryx-top-nav-menu-panel,
@@ -34,7 +34,7 @@
   font-family: var(--font-family-body);
 }
 
-:where(.astryx-layer, .astryx-popover, .astryx-hovercard, .astryx-tooltip)[popover] {
+:where(.astryx-layer, .astryx-popover, .astryx-hover-card, .astryx-tooltip)[popover] {
   inset: auto;
   padding: 0;
   background-color: transparent;
@@ -47,7 +47,7 @@
    is the right anchor for every menu opened from its own button. Browsers
    without anchor positioning keep the UA's centred placement, still usable. */
 @supports (position-anchor: --a) {
-  :where(.astryx-layer, .astryx-popover, .astryx-hovercard, .astryx-tooltip)[popover] {
+  :where(.astryx-layer, .astryx-popover, .astryx-hover-card, .astryx-tooltip)[popover] {
     position-anchor: var(--popover-anchor, auto);
     position-area: block-end span-inline-end;
     position-try-fallbacks: flip-block, flip-inline;
@@ -108,11 +108,16 @@
 }
 
 /* ------------------------------------------------- HoverCard and Tooltip */
-.astryx-hovercard {
+/* Spelled `hover-card`, not `hovercard`. These rules were written for 2.0 and
+   the component that finally renders them is `astryx-hover-card`; upstream
+   hyphenated the same set of names at v0.6.2, where `progressbar` became
+   `progress-bar` and `textarea` became `text-area`, so the contract follows
+   upstream and the selector follows the contract. */
+.astryx-hover-card {
   box-sizing: border-box;
   max-inline-size: 20rem;
   padding: var(--spacing-3);
-  border-radius: var(--_hovercard-radius, var(--radius-container));
+  border-radius: var(--_hover-card-radius, var(--radius-container));
   background-color: var(--color-background-surface);
   box-shadow: var(--shadow-med);
   color: var(--color-text-primary);
@@ -139,7 +144,7 @@
 /* The element the tip describes gets a dashed underline so the reader knows
    there is something to reveal before hovering. */
 .astryx-tooltip-trigger,
-.astryx-hovercard-trigger {
+.astryx-hover-card-trigger {
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-decoration-color: var(--color-border-emphasized);
@@ -150,13 +155,13 @@
    both :hover and :focus-within, so pointer and keyboard get the tip from the
    same rule — and a tip that only answered :hover would be unreachable. */
 .astryx-tooltip-anchor,
-.astryx-hovercard-anchor {
+.astryx-hover-card-anchor {
   position: relative;
   display: inline-flex;
 }
 
 .astryx-tooltip-anchor > .astryx-tooltip:not([popover]),
-.astryx-hovercard-anchor > .astryx-hovercard:not([popover]) {
+.astryx-hover-card-anchor > .astryx-hover-card:not([popover]) {
   position: absolute;
   inset-block-start: 100%;
   inset-inline-start: 50%;
@@ -170,21 +175,21 @@
 }
 
 .astryx-tooltip-anchor:focus-within > .astryx-tooltip:not([popover]),
-.astryx-hovercard-anchor:focus-within > .astryx-hovercard:not([popover]) {
+.astryx-hover-card-anchor:focus-within > .astryx-hover-card:not([popover]) {
   opacity: 1;
   visibility: visible;
 }
 
 @media (hover: hover) {
   .astryx-tooltip-anchor:hover > .astryx-tooltip:not([popover]),
-  .astryx-hovercard-anchor:hover > .astryx-hovercard:not([popover]) {
+  .astryx-hover-card-anchor:hover > .astryx-hover-card:not([popover]) {
     opacity: 1;
     visibility: visible;
   }
 }
 
 .astryx-tooltip[popover],
-.astryx-hovercard[popover] {
+.astryx-hover-card[popover] {
   opacity: 0;
   transition-property: opacity, overlay, display;
   transition-duration: var(--duration-fast);
@@ -193,13 +198,13 @@
 }
 
 .astryx-tooltip[popover]:popover-open,
-.astryx-hovercard[popover]:popover-open {
+.astryx-hover-card[popover]:popover-open {
   opacity: 1;
 }
 
 @starting-style {
   .astryx-tooltip[popover]:popover-open,
-  .astryx-hovercard[popover]:popover-open {
+  .astryx-hover-card[popover]:popover-open {
     opacity: 0;
   }
 }
@@ -297,14 +302,27 @@
   outline-offset: 2px;
 }
 
+/* --dialog-padding is declared on the dialog above, and the header, body and
+   footer are now components a caller can place anywhere. Outside a dialog the
+   variable resolves to nothing, an unresolved var() makes the whole
+   declaration invalid, and a header with no padding at all is the result — so
+   each of the three names its own fallback. */
 .astryx-dialog-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--spacing-3);
   flex-shrink: 0;
-  padding: var(--dialog-padding);
+  padding: var(--dialog-padding, var(--spacing-6));
   padding-block-end: var(--spacing-3);
+}
+
+/* The close control is a one-button `form method="dialog"`, which is how a
+   dialog closes with scripting off. The form is only there to carry the
+   method, so it is given no box: `display: contents` leaves the button itself
+   as the header's second flex child and the space-between still works. */
+.astryx-dialog-close-form {
+  display: contents;
 }
 
 .astryx-dialog-title {
@@ -321,7 +339,7 @@
   flex: 1 1 auto;
   min-block-size: 0;
   overflow-y: auto;
-  padding-inline: var(--dialog-padding);
+  padding-inline: var(--dialog-padding, var(--spacing-6));
   font-size: var(--text-body-size);
   line-height: var(--text-body-leading);
   color: var(--color-text-secondary);
@@ -336,7 +354,7 @@
   gap: var(--spacing-2);
   flex-shrink: 0;
   flex-wrap: wrap;
-  padding: var(--dialog-padding);
+  padding: var(--dialog-padding, var(--spacing-6));
   padding-block-start: var(--spacing-4);
 }
 
@@ -792,8 +810,8 @@
   .astryx-layer,
   .astryx-popover,
   .astryx-popover[popover],
-  .astryx-hovercard,
-  .astryx-hovercard[popover],
+  .astryx-hover-card,
+  .astryx-hover-card[popover],
   .astryx-tooltip,
   .astryx-tooltip[popover],
   .astryx-dialog,
@@ -831,5 +849,20 @@
  * schemes. Inside a tooltip, the tooltip decides the colour.
  */
 .astryx-tooltip :where(.astryx-link, .astryx-text, .astryx-heading, .astryx-eyebrow) {
+  color: inherit;
+}
+
+/*
+ * So is a toast.
+ *
+ * Same fault, one more surface: the toast paints --color-background-inverted
+ * and its own light text, and anything dropped into it re-asserts its own
+ * colour — the dismiss cross worst of all, since .astryx-icon-button sets
+ * --color-icon-primary and a cross nobody can see is a message nobody can
+ * dismiss. The lightbox needs no rule of its own: the close control there
+ * carries .astryx-lightbox-close, which names the on-dark colour and, being
+ * later in the bundle than 02-button.css at equal specificity, wins.
+ */
+.astryx-toast :where(.astryx-link, .astryx-text, .astryx-heading, .astryx-icon-button) {
   color: inherit;
 }

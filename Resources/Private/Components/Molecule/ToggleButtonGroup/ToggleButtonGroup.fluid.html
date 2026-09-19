@@ -1,0 +1,35 @@
+<f:comment>
+    ToggleButtonGroup — a row of ToggleButtons that belong together.
+
+    A `<div role="group">` rather than a `<fieldset>`, and that is the naive
+    version failing rather than a preference: RadioList's reset is written
+    `.astryx-field fieldset`, a descendant selector that outranks a single
+    class, so a fieldset here turned into a stacked column the moment the group
+    was put inside a Field. `role="group"` with `aria-label` gives the same
+    grouping and accessible name without borrowing an element somebody else's
+    rule already owns.
+
+    Exclusivity is the caller's `name`, passed to each ToggleButton with
+    `type="radio"`. The browser groups radios by name; nothing here enforces
+    anything, which is why there is no `multiple` argument pretending to.
+
+    `variant="joined"` welds the row into one segmented shape, each button
+    pulled back by a border width so neighbours share one line. Only use it
+    where the buttons are the same kind of thing — a joined row reads as one
+    control, and one control with a gap in the middle of its meaning reads as a
+    mistake.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    id="{id}"
+    class="astryx-toggle-button-group {class}"
+    role="group"
+    data-variant="{variant}"
+    aria-label="{ariaLabel}"
+    aria-labelledby="{ariaLabelledby}"><f:slot /></div>

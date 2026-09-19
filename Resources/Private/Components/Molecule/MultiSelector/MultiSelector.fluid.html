@@ -1,0 +1,39 @@
+<f:comment>
+    MultiSelector — choose several things from a list that is too long to show
+    all of at once.
+
+    A `<details>`. Open, closed, Escape and the whole keyboard are the
+    browser's, and the rows inside are real checkboxes — CheckboxListItem is
+    what belongs in the slot — so the choices post with the form and survive a
+    reload with nothing running on the page.
+
+    What it is not is a `role="listbox" aria-multiselectable`. That role is a
+    promise about the arrow keys: one tab stop, focus roving between options,
+    space to select. All three are script. A listbox that does not answer the
+    arrow keys is worse for somebody on a screen reader than a disclosure that
+    behaves exactly as it announces itself, so the disclosure is what is
+    rendered.
+
+    `summaryLabel` is the line on the trigger and is the caller's to compose —
+    "3 selected", "Vienna, Graz, Linz", "Any region". This component cannot
+    count what is in its own slot, and a trigger that said "Select…" over three
+    ticked boxes would be the one part of the control that lies.
+
+    The panel is absolutely positioned so opening it does not push the next
+    field down the form, and it stays in document order so the keyboard walks
+    into it straight after the trigger.
+</f:comment>
+
+<f:argument name="summaryLabel" type="string" optional="{true}" default="" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="open" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<details
+    id="{id}"
+    class="astryx-multi-selector {class}"
+    data-status="{status}"
+    {f:if(condition: open, then: 'open')}><summary class="astryx-multi-selector-trigger" aria-label="{ariaLabel}" aria-describedby="{describedBy}"><span class="astryx-multi-selector-value">{summaryLabel}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="astryx-multi-selector-panel"><f:slot /></div></details>

@@ -1,0 +1,35 @@
+<f:comment>
+    ChatSendButton — the control that submits the composer.
+
+    A real `type="submit"` inside a real form, which is the one part of a chat
+    interface that needs no script at all: the browser posts the field, the
+    server appends the turn and the page comes back with it. It also gets
+    Return-in-the-form and the implicit-submission rules for free, which a
+    div with a click handler does not.
+
+    It composes Atom/IconButton rather than restating a button. The square,
+    the hover, the press and the focus ring all live there, and this file only
+    names the glyph and keeps the send button's own class on the element so
+    the composer's grid can find it.
+
+    `ariaLabel` is the whole label. The arrow is drawn `aria-hidden` — the
+    glyph has no accessible name of its own and without the label the control
+    is announced as "button" and nothing else. The default glyph can be
+    replaced through the slot for a theme with its own send mark.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="primary" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<a:atom.iconButton
+    type="submit"
+    class="astryx-chat-send-button {class}"
+    variant="{variant}"
+    size="{size}"
+    disabled="{disabled}"
+    title="{title}"
+    ariaLabel="{ariaLabel}"><f:if condition="{f:slot(name: 'default') -> f:format.trim()}"><f:then><f:slot /></f:then><f:else><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M12 19V5" stroke-linecap="round"/><path d="m5 12 7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></f:else></f:if></a:atom.iconButton>

@@ -34,7 +34,7 @@
   break-inside: avoid;
 }
 
-.g-footer-link-columns__list.is-compact .g-footer-link-columns__entry {
+.g-footer-link-columns__list[data-density="compact"] .g-footer-link-columns__entry {
   padding-block: var(--spacing-0-5);
 }
 

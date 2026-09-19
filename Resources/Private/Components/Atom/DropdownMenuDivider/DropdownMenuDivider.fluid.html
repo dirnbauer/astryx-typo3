@@ -1,0 +1,17 @@
+<f:comment>
+    DropdownMenuDivider — the hairline that groups a menu's commands.
+
+    An `hr` and nothing else. It already maps to `role="separator"`, which is
+    one of the four roles a `role="menu"` is allowed to own, so writing the
+    role out would only repeat what the element says — and Divider next door
+    explains why the labelled variant has to say it and this one does not.
+
+    It is the one part of the family that is an Atom, which means it may
+    compose nothing: there is no glyph, no label and no state to carry. The
+    menus here are flex columns of controls rather than lists, so an `hr`
+    between two rows needs no `li` around it either.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<hr class="astryx-dropdown-menu-divider {class}" />

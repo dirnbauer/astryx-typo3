@@ -95,7 +95,7 @@
     grid-template-columns: 3fr 2fr;
   }
 
-  .g-feature-callouts__grid.media-first {
+  .g-feature-callouts__grid[data-variant="media-first"] {
     grid-template-columns: 2fr 3fr;
   }
 }

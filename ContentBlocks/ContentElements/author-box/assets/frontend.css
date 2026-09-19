@@ -16,16 +16,16 @@
 
 /* Boxed draws the rule and the padding; compact takes both away and leaves the
    portrait and the two lines to sit straight under the last paragraph. */
-.g-author-box__box.boxed {
+.g-author-box__box[data-variant="boxed"] {
   padding-block-start: var(--spacing-6);
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
-.g-author-box__box.compact {
+.g-author-box__box[data-variant="compact"] {
   gap: var(--spacing-3);
 }
 
-.g-author-box__box.compact .g-author-box__portrait {
+.g-author-box__box[data-variant="compact"] .g-author-box__portrait {
   --_avatar-size: 36px;
 }
 
@@ -45,7 +45,7 @@
   margin-block-start: var(--spacing-1);
 }
 
-.g-author-box__box.compact .g-author-box__text {
+.g-author-box__box[data-variant="compact"] .g-author-box__text {
   font-size: var(--text-supporting-size);
   line-height: var(--text-supporting-leading);
 }
@@ -55,7 +55,7 @@
   margin-block-start: var(--spacing-2);
 }
 
-.g-author-box[data-surface="accent"] .g-author-box__box.boxed {
+.g-author-box[data-surface="accent"] .g-author-box__box[data-variant="boxed"] {
   border-block-start-color: currentColor;
 }
 

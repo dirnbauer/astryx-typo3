@@ -1,0 +1,47 @@
+<f:comment>
+    ToggleButton — a button that stays down.
+
+    A `<label>` around a real checkbox, not a `<button aria-pressed>`. The
+    button spelling looks more like what it is and does nothing at all without
+    script: `aria-pressed` is an attribute, and something has to change it.
+    The checkbox changes itself, keeps the tab stop and the space bar, and
+    arrives in the form post — which is what a row of filters needs to survive
+    a page load. `:has(input:checked)` is what paints the down state, so the
+    look and the state are never out of step.
+
+    `type="radio"` makes it exclusive instead: the browser groups radios that
+    share a `name`, so a ToggleButtonGroup of them behaves as one choice with
+    no extra wiring. That is the argument ToggleButtonGroup's `name` exists to
+    be given.
+
+    The control is clipped, not hidden. `display: none` and
+    `visibility: hidden` both take a control out of the tab order, and a row of
+    toggles that only answers the mouse is not a row of buttons.
+
+    Nothing here changes width when it goes down — the label weight is held
+    steady — so a row of these does not shuffle sideways as they are pressed.
+</f:comment>
+
+<f:argument name="type" type="string" optional="{true}" default="checkbox" />
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<label
+    class="astryx-toggle-button {class}"
+    data-size="{size}"><input
+        id="{id}"
+        class="astryx-toggle-button-control"
+        type="{type}"
+        name="{name}"
+        value="{value}"
+        aria-describedby="{describedBy}"
+        aria-label="{ariaLabel}"
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')} /><f:slot /></label>

@@ -35,7 +35,7 @@
   text-decoration: none;
 }
 
-.g-sibling-nav__list.tight .g-sibling-nav__link {
+.g-sibling-nav__list[data-density="compact"] .g-sibling-nav__link {
   padding-block: var(--spacing-1);
 }
 

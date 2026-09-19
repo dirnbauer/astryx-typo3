@@ -1,0 +1,31 @@
+<f:comment>
+    TopNavMegaMenu — the bar entry that opens the wide panel: columns of
+    described links with a featured card beside them.
+
+    The same machinery as TopNavMenu — a native popover opened by
+    `popovertarget`, with the top layer, Escape, the outside click and the
+    anchoring all coming from the browser, and no `aria-expanded` written by a
+    server that cannot know it. It is a component of its own rather than a
+    `variant` because the panel is a different thing: a wrapping row of columns
+    up to 60rem wide, not a list. The trigger's classes differ too, which is
+    what lets a theme retune one kind of menu without touching the other.
+
+    The root is the wrapper around trigger and panel, because the stylesheet's
+    `:has(+ [popover]:popover-open)` — the tint and the turned chevron — only
+    holds while they are siblings. `display: contents` keeps the wrapper out of
+    the bar's layout.
+
+    The panel lays its children out itself, in a wrapping flex row: give it
+    TopNavMegaMenuItems and a TopNavMegaMenuFeaturedCard and they will sit in
+    columns. There is no column component in between, because the wrap is what
+    decides where the columns break and a wrapper would freeze it.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-top-nav-mega-menu-group">
+    <button type="button" class="astryx-top-nav-mega-menu {class}" popovertarget="{id}" aria-label="{ariaLabel}"><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div id="{id}" class="astryx-top-nav-mega-menu-panel" popover="auto"><f:slot name="menu" /></div>
+</div>

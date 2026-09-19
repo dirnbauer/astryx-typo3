@@ -1,0 +1,29 @@
+<f:comment>
+    TopNavMenu — a bar entry that opens a small panel of links under itself.
+
+    A native popover, opened by `popovertarget`: the top layer, Escape, the
+    click outside and the anchoring to the invoker are all the browser's, and
+    the trigger's expanded state is the browser's too. Nothing here writes
+    `aria-expanded` — a server-rendered `false` on a menu the visitor has just
+    opened is worse than no attribute, and the stylesheet reads the panel's
+    `:popover-open` instead, including for the tint and the chevron it turns.
+
+    That reading is `:has(+ [popover]:popover-open)`, which holds only while
+    the trigger and the panel are siblings — so the root here is a wrapper
+    around the pair rather than the trigger alone. It is `display: contents`,
+    so the bar lays out the button and not a box around it.
+
+    The panel's contents are the caller's, through the `menu` slot: a column of
+    TopNavMegaMenuItems for a menu with descriptions, or Items for a plain list
+    of links. This component decides nothing about them beyond the surface they
+    sit on.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-top-nav-menu-group">
+    <button type="button" class="astryx-top-nav-menu {class}" popovertarget="{id}" aria-label="{ariaLabel}"><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div id="{id}" class="astryx-top-nav-menu-panel" popover="auto"><f:slot name="menu" /></div>
+</div>

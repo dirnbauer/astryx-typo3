@@ -1,0 +1,27 @@
+<f:comment>
+    ChatSystemMessage — a note from the application rather than from either
+    speaker: the model changed, the context was cleared, a request failed.
+
+    It is an `li` for a structural reason and not a stylistic one. It belongs
+    in the same `ol` as the turns, because when it happened is the only thing
+    that makes it readable at all, and an `ol` may only contain `li` — a
+    centred `p` dropped between two list items is a child the list is not
+    allowed to have, and browsers reparent it out of the list where it loses
+    its place in the order.
+
+    `data-status` tints it. The tint is never the message: the notice's own
+    words say what happened, and `status="error"` only colours a sentence that
+    already reads as an error. There is no icon and no coloured dot standing
+    in for the text.
+
+    Deliberately not `role="alert"` or `aria-live`. The page was rendered with
+    this note already on it, and an alert announces something that just
+    happened — on load it would interrupt the reader to tell them about
+    something they have not yet reached.
+</f:comment>
+
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li class="astryx-chat-system-message {class}" id="{id}" data-status="{status}"><f:slot /></li>

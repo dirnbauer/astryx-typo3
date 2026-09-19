@@ -21,7 +21,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-founder-story">
     <a:layout.container size="{data.width}">
-        <div class="g-founder-story__grid {f:if(condition: data.reverse, then: 'portrait-start')}">
+        <div class="g-founder-story__grid" data-layout="{f:if(condition: data.reverse, then: 'portrait-start')}">
 
             <div class="g-founder-story__copy">
                 <f:if condition="{data.eyebrow}">

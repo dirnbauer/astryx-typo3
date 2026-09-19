@@ -1,0 +1,24 @@
+<f:comment>
+    ChatMessageBubble — the surface a turn's words sit on.
+
+    It does not say whose turn it is. The ChatMessage around it already
+    carries `data-role`, and the stylesheet paints the bubble from that
+    ancestor, so a bubble cannot be tinted as the user's while sitting inside
+    an assistant's turn. Restating the role here would be a second copy of one
+    fact and the two would eventually disagree.
+
+    `variant="plain"` drops the fill and the padding for the turns that are not
+    speech — a long answer with its own headings, a table, an error report.
+    Those read worse boxed, and the bubble was never what made them a turn;
+    the list item was.
+
+    No `aria-label`, no role, no landmark. It is the box around text that has
+    already been announced, and an extra name on it would make a screen reader
+    say the turn twice.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-chat-message-bubble {class}" id="{id}" data-variant="{variant}"><f:slot /></div>

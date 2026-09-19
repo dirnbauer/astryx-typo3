@@ -1,0 +1,40 @@
+<f:comment>
+    ChatMessage — one turn of the conversation, as a list item in the
+    transcript.
+
+    An `li`, because ChatMessageList is an `ol` and a conversation's order is
+    part of its meaning: the answer after the question is not the same document
+    as the answer before it. Rendering a turn as a floating div would throw
+    that away and leave a screen reader with no count either.
+
+    `author` is required, and that is the whole accessibility argument of this
+    component. Who said what is carried by a bubble's colour and by which edge
+    it is pushed to, and neither of those reaches a screen reader, a reader in
+    forced-colours mode or anyone who cannot tell the two tints apart. The name
+    is therefore real text in the markup, always rendered, and the alignment in
+    `data-role` is the decoration on top of it rather than the message itself.
+
+    `data-role` is one of `user`, `assistant` or `system`. It is what the
+    stylesheet aligns and tints by, and it is deliberately the only place the
+    role is stated — the bubble inside reads it from this ancestor instead of
+    being told a second time, because two copies of one fact drift.
+
+    The avatar is a slot of its own and is drawn `aria-hidden`: it is a picture
+    of the author whose name is already beside it, so announcing it would read
+    the same turn's author twice.
+</f:comment>
+
+<f:argument name="author" type="string" />
+<f:argument name="role" type="string" optional="{true}" default="assistant" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li class="astryx-chat-message {class}" id="{id}" data-role="{role}">
+    <f:if condition="{f:slot(name: 'avatar') -> f:format.trim()}">
+        <span class="astryx-chat-message-avatar" aria-hidden="true"><f:slot name="avatar" /></span>
+    </f:if>
+    <div class="astryx-chat-message-turn">
+        <span class="astryx-chat-message-author">{author}</span>
+        <f:slot />
+    </div>
+</li>

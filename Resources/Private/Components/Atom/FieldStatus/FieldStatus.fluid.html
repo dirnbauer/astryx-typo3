@@ -1,0 +1,33 @@
+<f:comment>
+    FieldStatus — what went wrong, or what went right, under a control.
+
+    A `<p>` with `aria-live="polite"`. A validation message that appears after
+    the page has settled is new information, and new information that is only
+    painted a colour is not delivered to anyone using a screen reader. Polite
+    rather than assertive: a form usually reports several fields at once, and
+    assertive would interrupt the reading of each with the next.
+
+    The type is `data-type`, which is upstream's own axis for this component —
+    the compiled themes carry `.astryx-field-status[data-type=…]` rules, so the
+    attribute is what lets a theme's own tints land on this markup. Field, for
+    historical reasons, still writes the status as a second class on the same
+    element; both work, and this is the one the contract describes.
+
+    Nothing here is coloured only. The tint says "error" to people who see it,
+    the words in the slot say it to everyone, and the caller points the
+    control's `aria-describedby` at this element's id so the two arrive
+    together.
+</f:comment>
+
+<f:argument name="type" type="string" optional="{true}" default="" />
+<f:argument name="placement" type="string" optional="{true}" default="" />
+<f:argument name="live" type="string" optional="{true}" default="polite" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<p
+    id="{id}"
+    class="astryx-field-status {class}"
+    data-type="{type}"
+    data-placement="{placement}"
+    aria-live="{live}"><f:slot /></p>

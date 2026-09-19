@@ -1,0 +1,43 @@
+<f:comment>
+    TabMenu — the tab that is not a tab: the "More" entry at the end of a tab
+    strip, which opens a list of the entries that did not fit.
+
+    It looks like a Tab and is shaped by the same rules, but it is a `button`
+    with no `role="tab"` and no `aria-selected`, because it does not select a
+    panel. `data-selected` is still there for the case where the entry that is
+    currently open lives inside the menu — the strip then has to show that the
+    selection is in here somewhere, and the weight is what shows it.
+
+    The panel is a native popover, opened by `popovertarget`. The browser gives
+    us the top layer, closing on Escape, closing on a click outside and
+    anchoring the panel to the button that opened it; none of that is script,
+    and the invoker's expanded state is the browser's too — which is why
+    nothing here writes `aria-expanded`, a value no server can keep true.
+
+    That is also why the component's root is a wrapper and not the button. The
+    stylesheet tints the trigger while its panel is up with
+    `:has(+ [popover]:popover-open)`, which only holds while the two are
+    siblings, so the pair cannot be split between a component and its caller.
+    The wrapper is `display: contents`, so the strip still lays out the trigger
+    itself and not a box around it.
+
+    `id` is required because a popover has to be addressable to be opened, and
+    a generated one would change on every render.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="selected" type="string" optional="{true}" default="default" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-tab-menu-group">
+    <button type="button" class="astryx-tab-menu {class}" data-selected="{selected}" popovertarget="{id}" aria-label="{ariaLabel}"><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <f:comment>
+        The rows go in the `menu` slot, and Item is what they are: a compact
+        interactive row with an href and, on the one the visitor is on,
+        `ariaCurrent="page"`. `.astryx-tab-menu-item` is the same row written
+        by hand before there were components, and it is not spelled out again
+        here — two ways to write one row is how a design system starts drifting.
+    </f:comment>
+    <div id="{id}" class="astryx-tab-menu-dropdown" popover="auto"><f:slot name="menu" /></div>
+</div>

@@ -1,0 +1,26 @@
+<f:comment>
+    ChatTokenizedText — a run of assistant text with the token boundaries still
+    visible to CSS.
+
+    Upstream wraps each token so that it can fade in as it arrives off the
+    stream. Nothing arrives here: the message was finished before the page was
+    rendered, so there is no per-token animation and this is only the
+    span-level shape of the text. What survives the difference is worth
+    keeping — a theme that wants to tint a token, or measure one, has something
+    to select.
+
+    The spans are printed with no whitespace at all between them. A token
+    carries its own leading space, so `["Hello", " world"]` is the whole
+    sentence and any newline this template added between the two spans would
+    be a second space in the rendered text. That in turn is why the stylesheet
+    sets `white-space: pre-wrap` on the root: without it the browser collapses
+    a token's own leading space away and the words run together.
+
+    Given no tokens it renders the slot unchanged, which is the honest default
+    for text that was never tokenised.
+</f:comment>
+
+<f:argument name="tokens" type="mixed" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span class="astryx-chat-tokenized-text {class}"><f:if condition="{tokens}"><f:then><f:for each="{tokens}" as="token"><span class="astryx-chat-tokenized-text-token">{token}</span></f:for></f:then><f:else><f:slot /></f:else></f:if></span>

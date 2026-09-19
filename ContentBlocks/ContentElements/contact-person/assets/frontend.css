@@ -13,7 +13,7 @@
 
 /* Reverse moves the portrait to the end without touching the source order, so
    the name is still read before the face in both arrangements. */
-.g-contact-person__panel.portrait-end {
+.g-contact-person__panel[data-variant="portrait-end"] {
   flex-direction: row-reverse;
 }
 
@@ -54,7 +54,7 @@
 
 @media (max-width: 639px) {
   .g-contact-person__panel,
-  .g-contact-person__panel.portrait-end {
+  .g-contact-person__panel[data-variant="portrait-end"] {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-4);

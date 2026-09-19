@@ -1,0 +1,21 @@
+<f:comment>
+    TableBody — a table's `tbody`.
+
+    The counterpart to TableHeader, and it does carry a rule of its own: the
+    last row in the body drops its bottom border, because that line would
+    otherwise sit under the table rather than between two cells and read as a
+    stray rule. The stylesheet spells that as
+    `.astryx-table-body .astryx-table-row:last-child`, so a body of TableRows
+    gets it and a `tbody` of bare `tr`s gets it from the `:where(tbody …)`
+    selector beside it. Both work; do not mix them in one table.
+
+    A table may have more than one `tbody` — that is how a long table is
+    grouped by section — and nothing here prevents it. The last-row rule then
+    applies per body, which is the right answer: each group's final row ends
+    its group.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<tbody class="astryx-table-body {class}" id="{id}"><f:slot /></tbody>

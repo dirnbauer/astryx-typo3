@@ -13,7 +13,7 @@
   max-inline-size: 44rem;
 }
 
-.g-data-big-number__block.center {
+.g-data-big-number__block[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -65,7 +65,7 @@
   margin-block-start: 0;
 }
 
-.g-data-big-number__after.center {
+.g-data-big-number__after[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;

@@ -1,0 +1,67 @@
+<f:comment>
+    TopNavItem — one destination in the top bar.
+
+    An `a` when it has an href and a `button` when it has not, because that is
+    the difference between going somewhere and doing something, and a screen
+    reader announces the two differently. There is no `as` argument: which of
+    the two you get is decided by whether the item navigates.
+
+    The current page is said twice, on purpose. `data-selected` is what the
+    tinted pill and the semibold weight hang off, and `aria-current="page"` is
+    what a screen reader reads out — colour and weight say "you are here" only
+    to someone who can see them. The stylesheet keys off either, so neither can
+    be drawn without the other being announced.
+
+    `layout="drawer"` is the same item inside the mobile drawer, where it stops
+    being a pill in a row and becomes a full-width row in a list. That row
+    shape lives on `.astryx-nav-item`, which a SideNav entry wears too, so the
+    class is added alongside this component's own rather than copied into it —
+    the same trick Card uses for its clickable affordance. The label keeps its
+    own span in both layouts: it is the part that may be truncated, and the row
+    rule that does the truncating needs an element to aim at.
+</f:comment>
+
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="selected" type="string" optional="{true}" default="default" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+<f:argument name="layout" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    A selected item is the current page unless the caller says what kind of
+    current it is. The empty string is ARIA's own "not current", so the
+    ordinary item needs no branch of its own.
+</f:comment>
+<f:variable name="current"><f:if condition="{ariaCurrent}"><f:then>{ariaCurrent}</f:then><f:else>{f:if(condition: '{selected} == \'selected\'', then: 'page')}</f:else></f:if></f:variable>
+<f:variable name="row">{f:if(condition: '{layout} == \'drawer\'', then: 'astryx-nav-item')}</f:variable>
+
+<f:if condition="{href}">
+    <f:then>
+        <a
+            href="{href}"
+            class="astryx-top-nav-item {row} {class}"
+            data-selected="{selected}"
+            data-layout="{layout}"
+            data-variant="{variant}"
+            data-size="{size}"
+            aria-current="{current}"
+            aria-label="{ariaLabel}"
+            target="{target}"
+            rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label"><f:slot /></span></a>
+    </f:then>
+    <f:else>
+        <button
+            type="button"
+            class="astryx-top-nav-item {row} {class}"
+            data-selected="{selected}"
+            data-layout="{layout}"
+            data-variant="{variant}"
+            data-size="{size}"
+            aria-current="{current}"
+            aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label"><f:slot /></span></button>
+    </f:else>
+</f:if>

@@ -29,7 +29,7 @@
   row-gap: var(--spacing-3);
 }
 
-.g-footer-payment-row__marks.is-compact {
+.g-footer-payment-row[data-spacing="tight"] .g-footer-payment-row__marks {
   gap: var(--spacing-3);
   row-gap: var(--spacing-2);
 }

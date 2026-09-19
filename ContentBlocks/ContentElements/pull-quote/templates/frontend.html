@@ -13,7 +13,7 @@
 
 <a:layout.section class="g-pull-quote">
     <a:layout.container size="{data.width}">
-        <figure class="g-pull-quote__figure align-{data.align}">
+        <figure class="g-pull-quote__figure" data-align="{data.align}">
 
             <a:molecule.blockquote class="g-pull-quote__quote">
                 <p>{data -> f:render.text(field: 'quote_text')}</p>

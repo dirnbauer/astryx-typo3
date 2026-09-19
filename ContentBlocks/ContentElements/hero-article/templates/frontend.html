@@ -7,7 +7,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-hero-article">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-article__copy {data.align}">
+        <div class="g-hero-article__copy" data-align="{data.align}">
             <f:if condition="{data.eyebrow}">
                 <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>

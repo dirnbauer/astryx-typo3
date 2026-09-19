@@ -34,7 +34,7 @@
   break-inside: avoid;
 }
 
-.g-footer-credits__rows.is-compact .g-footer-credits__row {
+.g-footer-credits[data-spacing="tight"] .g-footer-credits__rows .g-footer-credits__row {
   padding-block: var(--spacing-1);
 }
 

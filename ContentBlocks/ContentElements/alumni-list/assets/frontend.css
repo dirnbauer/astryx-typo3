@@ -34,11 +34,11 @@
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
-.g-alumni-list__people.compact .g-alumni-list__row {
+.g-alumni-list[data-spacing="tight"] .g-alumni-list__people .g-alumni-list__row {
   padding-block: var(--spacing-2);
 }
 
-.g-alumni-list__people.compact .g-alumni-list__portrait {
+.g-alumni-list[data-spacing="tight"] .g-alumni-list__people .g-alumni-list__portrait {
   --_avatar-size: 24px;
 }
 

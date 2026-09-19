@@ -1,0 +1,63 @@
+<f:comment>
+    Toast — one message in the corner of the page.
+
+    How loudly it interrupts is the caller's call and not this component's,
+    because only the caller knows what happened. "Draft saved" is
+    `role="status"`: polite, queued behind whatever the reader is in the middle
+    of. "Your session expires in one minute" is `role="alert"`: assertive, and
+    it cuts in. Guessing from `status="error"` would be the obvious shortcut
+    and the wrong one — a failed background sync is an error nobody needs
+    interrupted about, and a polite countdown is a countdown that has run out
+    by the time it is read.
+
+    Both roles announce the element when it *appears*, which is the one thing
+    that matters for the markup: a toast has to be added to a live region that
+    was already on the page, not printed with the page and revealed later. The
+    region is `astryx-toast-viewport` — a fixed strip with
+    `data-placement="top-start|top-end|bottom-start|bottom-end"`, itself a
+    manual popover so that toasts stack above an open dialog — and it belongs
+    to the page chrome, rendered once, holding none or many of these.
+
+    Dismissal is the theme's existing pair: `data-g-dismissible` here,
+    `data-g-dismiss` on the button, and astryx.js removes the message. The
+    attribute is written whether or not a dismiss button was asked for — it
+    matches nothing until something inside it is pressed, and it costs one
+    attribute against a second copy of the whole element.
+
+    Auto-dismissal is not offered. A message that disappears on a timer is a
+    message somebody reading slowly never read, and doing it properly means
+    pausing on hover and on focus — both script, and script this theme does not
+    have.
+</f:comment>
+
+<f:argument name="live" type="string" optional="{true}" default="polite" />
+<f:argument name="status" type="string" optional="{true}" default="info" />
+<f:argument name="dismissLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-toast {class}"
+    role="{f:if(condition: '{live} == \'assertive\'', then: 'alert', else: 'status')}"
+    data-status="{status}"
+    data-g-dismissible>
+    <div class="astryx-toast-content"><f:slot /></div>
+
+    <f:comment>
+        The actions row is rendered only when it would hold something. An
+        unfilled slot is whitespace rather than nothing, so it is trimmed
+        before being tested — an empty flex row with a negative margin is not
+        free.
+    </f:comment>
+    <f:if condition="{dismissLabel} || {f:slot(name: 'actions') -> f:format.trim()}">
+        <div class="astryx-toast-actions">
+            <f:slot name="actions" />
+            <f:if condition="{dismissLabel}">
+                <button type="button" class="astryx-icon-button" data-variant="ghost" data-size="sm" data-g-dismiss aria-label="{dismissLabel}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                        <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </f:if>
+        </div>
+    </f:if>
+</div>

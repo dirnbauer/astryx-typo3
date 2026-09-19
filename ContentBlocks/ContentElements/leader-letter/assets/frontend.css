@@ -14,7 +14,7 @@
   max-inline-size: 62ch;
 }
 
-.g-leader-letter__sheet.align-center {
+.g-leader-letter__sheet[data-align="center"] {
   margin-inline: auto;
 }
 
@@ -27,7 +27,7 @@
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
-.g-leader-letter__sheet.align-center .g-leader-letter__sign-off {
+.g-leader-letter__sheet[data-align="center"] .g-leader-letter__sign-off {
   align-items: center;
   text-align: center;
 }

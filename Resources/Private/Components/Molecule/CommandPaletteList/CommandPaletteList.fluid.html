@@ -1,0 +1,32 @@
+<f:comment>
+    CommandPaletteList — the scrolling listbox a command palette's input points
+    at.
+
+    `id` has no default and is what makes the widget work: the input's
+    aria-controls names this element, and a listbox nothing points at is a list
+    a screen reader never learns is connected to the field. The two ids are
+    passed rather than derived because the palette owns both and can keep them
+    in step, while a component cannot reach into a sibling to read one.
+
+    It is named by the same words as the field. A listbox with no accessible
+    name is announced as "list box" and leaves the reader to guess whether they
+    are in the results or somewhere else; naming it after the field they are
+    typing in is the shortest true answer.
+
+    Scrolling lives here and not on the dialog. The palette's footer of keyboard
+    hints has to stay in view while the matches move under it — the first
+    version scrolled the whole dialog and the hints left the screen exactly when
+    a visitor navigating by keyboard needed them.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ul
+    class="astryx-command-palette-list {class}"
+    id="{id}"
+    role="listbox"
+    aria-label="{ariaLabel}"
+    aria-labelledby="{ariaLabelledby}"><f:slot /></ul>

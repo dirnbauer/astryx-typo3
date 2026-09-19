@@ -12,7 +12,7 @@
     is a second value on the same term, not a paragraph of its own.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-data-spec-table">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-spec-table">
     <a:layout.container size="{data.width}">
 
         <div class="g-data-spec-table__intro">
@@ -31,7 +31,7 @@
             <a:atom.text type="label" class="g-data-spec-table__caption">{data -> f:render.text(field: 'caption')}</a:atom.text>
         </f:if>
 
-        <a:molecule.metadataList class="g-data-spec-table__rows {f:if(condition: data.compact, then: 'compact')}">
+        <a:molecule.metadataList class="g-data-spec-table__rows">
             <f:for each="{data.rows}" as="row">
                 <a:molecule.metadataListItem class="g-data-spec-table__row">
                     <dt class="g-data-spec-table__term">{row -> f:render.text(field: 'title')}</dt>

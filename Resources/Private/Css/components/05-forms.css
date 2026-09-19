@@ -1,7 +1,13 @@
 /*
- * Forms — Field, FieldStatus, TextInput, TextArea, Selector, NumberInput,
- * DateInput, FileInput, CheckboxInput, RadioList, Switch, Slider, InputGroup,
- * FormLayout.
+ * Forms — FormLayout, Field, FieldLabel, FieldStatus, TextInput, TextArea,
+ * Selector, SelectorOption, NumberInput, DateInput, DateTimeInput, TimeInput,
+ * DateRangeInput, FileInput, InputGroup, InputGroupText, Tokenizer,
+ * MultiSelector, ComplexSelector, Calendar.
+ *
+ * The controls whose state is a checkbox or a radio — CheckboxInput, the two
+ * lists, Switch, Slider, ToggleButton, SelectableCard — moved to
+ * 05b-choice-controls.css, which follows this file in the manifest and so
+ * keeps the cascade it had.
  *
  * Upstream every input is a wrapper <div> that owns the border and a
  * borderless <input> inside it. TYPO3 emits the bare control instead — one
@@ -157,6 +163,9 @@
 .astryx-selector,
 .astryx-number-input,
 .astryx-date-input,
+.astryx-date-time-input,
+.astryx-time-input,
+.astryx-date-range-input,
 .astryx-field :where(select, textarea),
 .astryx-field :where(input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='submit'], [type='button'], [type='image'], [type='hidden'])) {
   --_field-radius: var(--radius-element);
@@ -188,7 +197,8 @@
 .astryx-text-area:has(> :where(input, select, textarea)),
 .astryx-selector:has(> :where(input, select, textarea, button)),
 .astryx-number-input:has(> :where(input, select, textarea)),
-.astryx-date-input:has(> :where(input, select, textarea)) {
+.astryx-date-input:has(> :where(input, select, textarea)),
+.astryx-date-range-input {
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
@@ -203,6 +213,9 @@
   .astryx-selector,
   .astryx-number-input,
   .astryx-date-input,
+  .astryx-date-time-input,
+  .astryx-time-input,
+  .astryx-date-range-input,
   .astryx-field :where(select, textarea),
   .astryx-field :where(input:not([type='checkbox'], [type='radio'], [type='range'], [type='file'], [type='submit'], [type='button'], [type='image'], [type='hidden'])) {
     font-size: max(1rem, var(--text-body-size));
@@ -215,6 +228,9 @@
   .astryx-selector:hover:not(:focus-within),
   .astryx-number-input:hover:not(:focus-within),
   .astryx-date-input:hover:not(:focus-within),
+  .astryx-date-time-input:hover:not(:focus-within),
+  .astryx-time-input:hover:not(:focus-within),
+  .astryx-date-range-input:hover:not(:focus-within),
   .astryx-field :where(select, textarea):hover:not(:focus),
   .astryx-field :where(input):hover:not(:focus) {
     box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--color-border-emphasized) 30%, transparent);
@@ -229,6 +245,9 @@
 .astryx-selector:focus-within,
 .astryx-number-input:focus-within,
 .astryx-date-input:focus-within,
+.astryx-date-time-input:focus-within,
+.astryx-time-input:focus-within,
+.astryx-date-range-input:focus-within,
 .astryx-field :where(select, textarea):focus,
 .astryx-field :where(input):focus,
 .astryx-field :where(select, textarea):focus-visible,
@@ -239,8 +258,15 @@
 }
 
 /* Nested case: the element is inside a wrapper that already drew the shell, so
-   it becomes the plain text layer again. Must follow the shell rule. */
-:where(.astryx-text-input, .astryx-text-area, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-input-group, .astryx-file-input) :where(input, select, textarea) {
+   it becomes the plain text layer again. Must follow the shell rule.
+
+   `:is()` on the wrapper list, not `:where()`. `:where()` weighs nothing, so
+   inside a Field the shell's own `.astryx-field :where(input…)` outranked this
+   and every wrapper form — DateRangeInput, a NumberInput with units — drew a
+   second border inside its first. `:is()` takes the weight of the heaviest
+   thing in it, which is one class, and that ties with the shell rule; this one
+   is written later, so it wins. */
+:is(.astryx-text-input, .astryx-text-area, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-date-time-input, .astryx-time-input, .astryx-date-range-input, .astryx-tokenizer, .astryx-input-group, .astryx-file-input) :where(input, select, textarea) {
   flex: 1;
   min-inline-size: 0;
   block-size: auto;
@@ -263,7 +289,10 @@
 .astryx-text-area[data-disabled="disabled"],
 .astryx-selector[data-disabled="disabled"],
 .astryx-number-input[data-disabled="disabled"],
-.astryx-date-input[data-disabled="disabled"] {
+.astryx-date-input[data-disabled="disabled"],
+.astryx-date-time-input[data-disabled="disabled"],
+.astryx-time-input[data-disabled="disabled"],
+.astryx-date-range-input[data-disabled="disabled"] {
   cursor: not-allowed;
   opacity: 0.5;
   border-color: var(--color-border-emphasized);
@@ -274,18 +303,27 @@
 .astryx-selector[data-size="sm"],
 .astryx-number-input[data-size="sm"],
 .astryx-date-input[data-size="sm"],
+.astryx-date-time-input[data-size="sm"],
+.astryx-time-input[data-size="sm"],
+.astryx-date-range-input[data-size="sm"],
 .astryx-input-group[data-size="sm"] { block-size: var(--size-element-sm); }
 
 .astryx-text-input[data-size="md"],
 .astryx-selector[data-size="md"],
 .astryx-number-input[data-size="md"],
 .astryx-date-input[data-size="md"],
+.astryx-date-time-input[data-size="md"],
+.astryx-time-input[data-size="md"],
+.astryx-date-range-input[data-size="md"],
 .astryx-input-group[data-size="md"] { block-size: var(--size-element-md); }
 
 .astryx-text-input[data-size="lg"],
 .astryx-selector[data-size="lg"],
 .astryx-number-input[data-size="lg"],
 .astryx-date-input[data-size="lg"],
+.astryx-date-time-input[data-size="lg"],
+.astryx-time-input[data-size="lg"],
+.astryx-date-range-input[data-size="lg"],
 .astryx-input-group[data-size="lg"] { block-size: var(--size-element-lg); }
 
 /* ------------------------------------------------------ status variants */
@@ -296,6 +334,9 @@
 .astryx-selector[data-status="warning"],
 .astryx-number-input[data-status="warning"],
 .astryx-date-input[data-status="warning"],
+.astryx-date-time-input[data-status="warning"],
+.astryx-time-input[data-status="warning"],
+.astryx-date-range-input[data-status="warning"],
 .astryx-file-input[data-status="warning"] {
   border-color: var(--color-warning);
 }
@@ -305,6 +346,9 @@
 .astryx-selector[data-status="error"],
 .astryx-number-input[data-status="error"],
 .astryx-date-input[data-status="error"],
+.astryx-date-time-input[data-status="error"],
+.astryx-time-input[data-status="error"],
+.astryx-date-range-input[data-status="error"],
 .astryx-file-input[data-status="error"],
 .astryx-field :where(input, select, textarea)[aria-invalid='true'] {
   border-color: var(--color-error);
@@ -315,6 +359,9 @@
 .astryx-selector[data-status="success"],
 .astryx-number-input[data-status="success"],
 .astryx-date-input[data-status="success"],
+.astryx-date-time-input[data-status="success"],
+.astryx-time-input[data-status="success"],
+.astryx-date-range-input[data-status="success"],
 .astryx-file-input[data-status="success"] {
   border-color: var(--color-success);
 }
@@ -325,20 +372,29 @@
 .astryx-text-area[data-status="warning"]:focus-within,
 .astryx-selector[data-status="warning"]:focus-within,
 .astryx-number-input[data-status="warning"]:focus-within,
-.astryx-date-input[data-status="warning"]:focus-within { border-color: var(--color-warning); }
+.astryx-date-input[data-status="warning"]:focus-within,
+.astryx-date-time-input[data-status="warning"]:focus-within,
+.astryx-time-input[data-status="warning"]:focus-within,
+.astryx-date-range-input[data-status="warning"]:focus-within { border-color: var(--color-warning); }
 
 .astryx-text-input[data-status="error"]:focus-within,
 .astryx-text-area[data-status="error"]:focus-within,
 .astryx-selector[data-status="error"]:focus-within,
 .astryx-number-input[data-status="error"]:focus-within,
 .astryx-date-input[data-status="error"]:focus-within,
+.astryx-date-time-input[data-status="error"]:focus-within,
+.astryx-time-input[data-status="error"]:focus-within,
+.astryx-date-range-input[data-status="error"]:focus-within,
 .astryx-field :where(input, select, textarea)[aria-invalid='true']:focus { border-color: var(--color-error); }
 
 .astryx-text-input[data-status="success"]:focus-within,
 .astryx-text-area[data-status="success"]:focus-within,
 .astryx-selector[data-status="success"]:focus-within,
 .astryx-number-input[data-status="success"]:focus-within,
-.astryx-date-input[data-status="success"]:focus-within { border-color: var(--color-success); }
+.astryx-date-input[data-status="success"]:focus-within,
+.astryx-date-time-input[data-status="success"]:focus-within,
+.astryx-time-input[data-status="success"]:focus-within,
+.astryx-date-range-input[data-status="success"]:focus-within { border-color: var(--color-success); }
 
 @media (hover: hover) {
   .astryx-text-input[data-status="warning"]:hover:not(:focus-within),
@@ -389,8 +445,15 @@
 /* -------------------------------------------------------------- Selector */
 /* A native <select> cannot carry a pseudo-element for the chevron, so it is
    drawn out of two gradients painting in currentColor — no image, no colour
-   value. The inline padding reserves the corner it occupies. */
+   value. The inline padding reserves the corner it occupies.
+
+   `select.astryx-selector` is the third selector because Selector renders the
+   bare <select> rather than a wrapper: without it a Selector standing outside
+   a Field kept the platform chevron, which is the one part of a native select
+   no theme can reach. Typed on the element, it also outranks `.astryx-selector`
+   below, so the shell's padding does not eat the corner the chevron needs. */
 .astryx-field select,
+select.astryx-selector,
 .astryx-selector > select {
   appearance: none;
   cursor: pointer;
@@ -475,436 +538,50 @@
   color: var(--color-text-secondary);
 }
 
-/* ------------------------------------------------------------- DateInput */
+/* ----------------------------- DateInput, DateTimeInput, TimeInput */
+/* One floor, because the browser draws these fields itself: the segmented
+   editor plus the picker button is wider than the text it shows, and below
+   this the day segment starts clipping. A time field has one segment fewer and
+   is given its own, narrower floor below. */
 .astryx-date-input,
+.astryx-date-time-input,
+.astryx-time-input,
 .astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'], input[type='month'], input[type='week']) {
   min-inline-size: 180px;
 }
 
-.astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'])::-webkit-calendar-picker-indicator {
+.astryx-time-input {
+  min-inline-size: 120px;
+}
+
+.astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'])::-webkit-calendar-picker-indicator,
+:where(.astryx-date-input, .astryx-date-time-input, .astryx-time-input, .astryx-date-range-input)::-webkit-calendar-picker-indicator,
+.astryx-date-range-input > input::-webkit-calendar-picker-indicator {
   cursor: pointer;
   opacity: 0.6;
 }
 
 @media (hover: hover) {
-  .astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'])::-webkit-calendar-picker-indicator:hover {
+  .astryx-field :where(input[type='date'], input[type='datetime-local'], input[type='time'])::-webkit-calendar-picker-indicator:hover,
+  :where(.astryx-date-input, .astryx-date-time-input, .astryx-time-input)::-webkit-calendar-picker-indicator:hover,
+  .astryx-date-range-input > input::-webkit-calendar-picker-indicator:hover {
     opacity: 1;
   }
 }
 
-/* -------------------------------------------------------- CheckboxInput */
-.astryx-checkbox-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
+/* -------------------------------------------------------- DateRangeInput */
+/* Two date fields and a dash. It is always the wrapper anatomy — there is no
+   single input that means "from one day to another" — so the shell sits on the
+   wrapper and the rule above strips the two fields inside it back to plain
+   text. The dash is aria-hidden and the meaning is carried by the two fields'
+   own labels: "–" read aloud between two dates says nothing. */
+.astryx-date-range-input {
+  min-inline-size: 280px;
 }
 
-.astryx-checkbox-input-label {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-}
-
-.astryx-checkbox-input-description {
-  font-family: var(--font-family-body);
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
+.astryx-date-range-input-separator {
+  flex-shrink: 0;
   color: var(--color-text-secondary);
-}
-
-/* The native control, styled where it is the only control there is. Painting
-   the tick would need a pseudo-element, which Firefox does not render on an
-   <input>; accent-color reaches the real tick in every engine instead and
-   still answers to the theme. */
-.astryx-field :where(input[type='checkbox'], input[type='radio']),
-.astryx-checkbox-input > :where(input[type='checkbox']),
-.astryx-radio-list-item > :where(input[type='radio']) {
-  flex-shrink: 0;
-  inline-size: var(--spacing-5);
-  block-size: var(--spacing-5);
-  margin: 0;
-  accent-color: var(--color-accent);
-  cursor: pointer;
-}
-
-.astryx-field :where(input[type='checkbox'], input[type='radio']):focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-field :where(input[type='checkbox'], input[type='radio']):disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-/* Upstream anatomy: the real input is transparent and stacked over a drawn
-   box, so the native control must give up its own appearance here. It keeps no
-   inset values on purpose — an absolutely positioned flex child falls at its
-   static position, which is exactly where the drawn box sits. */
-.astryx-checkbox-input:has(.astryx-checkbox) > input[type='checkbox'],
-.astryx-radio-list-item:has(.astryx-radio) > input[type='radio'] {
-  position: absolute;
-  inline-size: var(--spacing-5);
-  block-size: var(--spacing-5);
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.astryx-checkbox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  inline-size: var(--spacing-5);
-  block-size: var(--spacing-5);
-  border: var(--border-width) solid var(--color-border-emphasized);
-  border-radius: var(--radius-inner);
-  background-color: var(--color-background-surface);
-  color: var(--color-on-accent);
-  transition-property: background-color, border-color;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-checkbox[data-size="sm"] {
-  inline-size: var(--spacing-4);
-  block-size: var(--spacing-4);
-}
-
-.astryx-checkbox > svg {
-  inline-size: var(--spacing-3);
-  block-size: var(--spacing-3);
-}
-
-.astryx-checkbox-input:has(input:checked) > .astryx-checkbox,
-.astryx-checkbox[aria-checked='true'] {
-  border-color: var(--color-accent);
-  background-color: var(--color-accent);
-}
-
-.astryx-checkbox-input:has(input:focus-visible) > .astryx-checkbox {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-checkbox-input:has(input:disabled) > .astryx-checkbox {
-  opacity: 0.5;
-  border-color: var(--color-border);
-  background-color: var(--color-background-muted);
-}
-
-@media (hover: hover) {
-  .astryx-checkbox-input:hover > .astryx-checkbox {
-    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
-  }
-
-  .astryx-checkbox-input:hover:has(input:checked) > .astryx-checkbox {
-    border-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
-    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
-  }
-}
-
-/* ------------------------------------------------------------- RadioList */
-/* A fieldset carries the group's accessible name, so it is reset rather than
-   avoided — the browser border and inline padding would otherwise box the
-   options in a shape nothing else on the page has. */
-.astryx-radio-list,
-.astryx-field fieldset {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  margin: 0;
-  padding: 0;
-  border: 0;
-  min-inline-size: 0;
-}
-
-.astryx-radio-list[data-orientation="horizontal"] {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: var(--spacing-5);
-}
-
-.astryx-field legend,
-.astryx-radio-list > legend {
-  padding: 0;
-  font-family: var(--font-family-body);
-  font-size: var(--text-label-size);
-  line-height: var(--text-label-leading);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
-}
-
-.astryx-radio-list-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-}
-
-.astryx-radio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  inline-size: var(--spacing-5);
-  block-size: var(--spacing-5);
-  border: var(--border-width) solid var(--color-border-emphasized);
-  border-radius: var(--radius-full);
-  background-color: var(--color-background-surface);
-  transition-property: background-color, border-color;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-radio[data-size="sm"] {
-  inline-size: var(--spacing-4);
-  block-size: var(--spacing-4);
-}
-
-.astryx-radio-dot {
-  inline-size: var(--spacing-2);
-  block-size: var(--spacing-2);
-  border-radius: var(--radius-full);
-  background-color: var(--color-on-accent);
-}
-
-.astryx-radio-list-item:has(input:checked) .astryx-radio,
-.astryx-radio[aria-checked='true'] {
-  border-color: var(--color-accent);
-  background-color: var(--color-accent);
-}
-
-.astryx-radio-list-item:has(input:focus-visible) .astryx-radio {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-radio-list-item:has(input:disabled) .astryx-radio {
-  opacity: 0.5;
-  border-color: var(--color-border);
-  background-color: var(--color-background-muted);
-}
-
-@media (hover: hover) {
-  .astryx-radio-list-item:hover .astryx-radio {
-    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
-  }
-
-  .astryx-radio-list-item:hover:has(input:checked) .astryx-radio {
-    border-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
-    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
-  }
-}
-
-/* ---------------------------------------------------------------- Switch */
-/* Fixed geometry, transcribed: 40x24 track, 4px inset, a 16px thumb that grows
-   to 20px and travels 14px when on. The growth is what reads as a press. */
-.astryx-switch-field {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-}
-
-.astryx-switch-field[data-layout="spread"] {
-  justify-content: space-between;
-  inline-size: 100%;
-}
-
-.astryx-switch-field[data-placement="start"] > .astryx-switch {
-  order: 2;
-}
-
-.astryx-switch {
-  position: relative;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  box-sizing: border-box;
-  inline-size: 40px;
-  block-size: 24px;
-  padding: 4px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-background-gray);
-  cursor: pointer;
-  transition-property: background-color;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-switch-thumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  inline-size: 16px;
-  block-size: 16px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-background-surface);
-  transform: translateX(0);
-  transition-property: transform, width, height;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-switch-field:has(input:checked) > .astryx-switch,
-.astryx-switch[aria-checked='true'] {
-  background-color: var(--color-accent);
-}
-
-.astryx-switch-field:has(input:checked) .astryx-switch-thumb,
-.astryx-switch[aria-checked='true'] .astryx-switch-thumb {
-  inline-size: 20px;
-  block-size: 20px;
-  transform: translateX(14px);
-}
-
-.astryx-switch-field:has(input:focus-visible) > .astryx-switch {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-switch-field:has(input:disabled) > .astryx-switch {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* The input stays in the tree for the keyboard and the form payload, but the
-   track is what is seen. It is clipped rather than stacked over the track: the
-   track is not its parent, so there is no box to stack it onto — the wrapping
-   <label> forwards the click and :has() above forwards the focus ring. */
-.astryx-switch-field > input[type='checkbox'] {
-  position: absolute;
-  inline-size: 1px;
-  block-size: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-@media (hover: hover) {
-  .astryx-switch-field:hover > .astryx-switch {
-    background-color: color-mix(in srgb, var(--color-background-gray), var(--color-tint-hover) 5%);
-  }
-
-  .astryx-switch-field:hover:has(input:checked) > .astryx-switch {
-    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
-  }
-}
-
-/* ---------------------------------------------------------------- Slider */
-.astryx-slider {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2);
-}
-
-.astryx-slider[data-disabled="disabled"] {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Track and thumb for the drawn form. */
-.astryx-slider-track {
-  position: relative;
-  flex-grow: 1;
-  block-size: 4px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-}
-
-.astryx-slider-thumb {
-  position: absolute;
-  inline-size: 20px;
-  block-size: 20px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-  transform: translate(-50%, -50%);
-  cursor: grab;
-  transition-property: background-color, box-shadow;
-  transition-duration: var(--duration-fast);
-  transition-timing-function: var(--ease-standard);
-}
-
-.astryx-slider-thumb:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* Native range. The vendor track/thumb pseudo-elements are the only reachable
-   parts, and they must be declared in separate rules — a browser drops the
-   whole block when it meets a selector it does not know. */
-.astryx-slider > input[type='range'],
-.astryx-field input[type='range'] {
-  appearance: none;
-  flex-grow: 1;
-  inline-size: 100%;
-  block-size: 20px;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.astryx-field input[type='range']::-webkit-slider-runnable-track {
-  block-size: 4px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-}
-
-.astryx-field input[type='range']::-moz-range-track {
-  block-size: 4px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-}
-
-.astryx-field input[type='range']::-moz-range-progress {
-  block-size: 4px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-}
-
-.astryx-field input[type='range']::-webkit-slider-thumb {
-  appearance: none;
-  inline-size: 20px;
-  block-size: 20px;
-  margin-block-start: -8px;
-  border: 0;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-}
-
-.astryx-field input[type='range']::-moz-range-thumb {
-  inline-size: 20px;
-  block-size: 20px;
-  border: 0;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-}
-
-.astryx-field input[type='range']:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.astryx-field input[type='range']:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.astryx-slider-value {
-  flex-shrink: 0;
-  font-family: var(--font-family-body);
-  font-size: var(--text-label-size);
-  color: var(--color-text-primary);
-  white-space: nowrap;
 }
 
 /* ------------------------------------------------------------ InputGroup */
@@ -1058,6 +735,247 @@
   outline-offset: 2px;
 }
 
+/* -------------------------------------------------------------- Tokenizer */
+/* A field that holds chips. It cannot join the shell's selector list because
+   the shell fixes a height and this box has to grow down the page as the chips
+   wrap — a tokenizer that scrolls sideways hides the very values it exists to
+   show — so the recipe is repeated here with `min-block-size` in place of
+   `block-size`. `cursor: text` is the honest one: the whole box behaves like
+   the input it mostly is. */
+.astryx-tokenizer {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-1-5);
+  inline-size: 100%;
+  min-block-size: var(--size-element-md);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-surface);
+  cursor: text;
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-tokenizer:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 2px var(--color-accent-muted);
+}
+
+.astryx-tokenizer[data-status="warning"] { border-color: var(--color-warning); }
+.astryx-tokenizer[data-status="error"] { border-color: var(--color-error); }
+.astryx-tokenizer[data-status="success"] { border-color: var(--color-success); }
+
+.astryx-tokenizer[data-disabled="disabled"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* The entry field takes what the chips leave and no less than a few
+   characters, so the caret never ends up in a one-pixel slot at the end of a
+   full row — it wraps to a line of its own instead. */
+.astryx-tokenizer-input {
+  flex: 1 1 8ch;
+  min-inline-size: 8ch;
+  block-size: auto;
+  padding: 0;
+  border-width: 0;
+  border-style: none;
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+}
+
+/* -------------------------------------- MultiSelector, ComplexSelector */
+/* Two selectors a native <select> cannot express: one that keeps showing what
+   is already chosen while you choose more, one whose options carry a second
+   line of explanation.
+
+   Both are a <details>. Open, closed, Escape and the keyboard are the
+   browser's, and the rows inside are real checkboxes and radios, so the form
+   posts with no script at all. What neither of them is, is a role="listbox":
+   that role promises arrow-key roving focus, which is script, and a listbox
+   that does not answer the arrow keys is worse to a screen-reader user than a
+   disclosure that behaves exactly as announced. */
+.astryx-multi-selector,
+.astryx-complex-selector {
+  position: relative;
+  display: block;
+  inline-size: 100%;
+}
+
+.astryx-multi-selector-trigger,
+.astryx-complex-selector-trigger {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  block-size: var(--size-element-md);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-3);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-surface);
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  /* The disclosure triangle is replaced by the chevron the component renders;
+     Safari needs the second line, and it is not a pseudo-element every engine
+     agrees about, so both are here. */
+  list-style: none;
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-multi-selector-trigger::-webkit-details-marker,
+.astryx-complex-selector-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.astryx-multi-selector-trigger:focus-visible,
+.astryx-complex-selector-trigger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+:where(.astryx-multi-selector, .astryx-complex-selector)[data-status="warning"] > summary { border-color: var(--color-warning); }
+:where(.astryx-multi-selector, .astryx-complex-selector)[data-status="error"] > summary { border-color: var(--color-error); }
+:where(.astryx-multi-selector, .astryx-complex-selector)[data-status="success"] > summary { border-color: var(--color-success); }
+
+.astryx-multi-selector-trigger > svg,
+.astryx-complex-selector-trigger > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  color: var(--color-icon-secondary);
+  transition-property: transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+[open] > .astryx-multi-selector-trigger > svg,
+[open] > .astryx-complex-selector-trigger > svg {
+  transform: rotate(180deg);
+}
+
+/* The summary's text half, which is the current selection. It truncates rather
+   than growing the trigger, because a trigger that changes height when a
+   fourth thing is picked shoves the rest of the form down the page. */
+.astryx-multi-selector-value,
+.astryx-complex-selector-value {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: start;
+}
+
+/* Absolute, so opening the panel does not push the next field down. It is
+   still in the document, so the keyboard walks into it in the right order. */
+.astryx-multi-selector-panel,
+.astryx-complex-selector-panel {
+  position: absolute;
+  inset-inline: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  max-block-size: calc(var(--size-element-lg) * 7);
+  overflow-y: auto;
+  margin-block-start: var(--spacing-1);
+  padding: var(--spacing-2);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-med);
+}
+
+/* --------------------------------------------------------------- Calendar */
+/* A month as a table of dates, and deliberately not a date picker: a picker is
+   a popover, a roving grid and a script, and the control that asks a visitor
+   for a date here is DateInput, which hands that job to the browser's own.
+   This is for showing a month — opening times, an event month, a booking
+   overview — where a table is also what a screen reader can read across and
+   down.
+
+   Today is `aria-current="date"`, not a tint. The ring is the same
+   information said in colour, for everyone who can see it. */
+.astryx-calendar {
+  border-collapse: collapse;
+  inline-size: 100%;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  color: var(--color-text-primary);
+}
+
+.astryx-calendar > caption {
+  padding-block-end: var(--spacing-2);
+  font-weight: var(--font-weight-medium);
+  text-align: start;
+}
+
+.astryx-calendar th {
+  padding-block: var(--spacing-1);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-normal);
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.astryx-calendar td {
+  padding: var(--spacing-0-5);
+  text-align: center;
+}
+
+.astryx-calendar-day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--size-element-sm);
+  block-size: var(--size-element-sm);
+  margin-inline: auto;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--radius-full);
+}
+
+.astryx-calendar td[aria-current='date'] > .astryx-calendar-day {
+  border-color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+.astryx-calendar td[data-selected="selected"] > .astryx-calendar-day {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* A day of the neighbouring month, and a day that cannot be had. The second
+   one is struck through as well as dimmed — dimming alone reads as "quiet",
+   not as "no". */
+.astryx-calendar td[data-state="outside"] > .astryx-calendar-day {
+  color: var(--color-text-disabled);
+}
+
+.astryx-calendar td[data-disabled="disabled"] > .astryx-calendar-day {
+  color: var(--color-text-disabled);
+  text-decoration: line-through;
+}
+
 /* --------------------------------------------------------- reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .astryx-text-input,
@@ -1065,12 +983,15 @@
   .astryx-selector,
   .astryx-number-input,
   .astryx-date-input,
+  .astryx-date-time-input,
+  .astryx-time-input,
+  .astryx-date-range-input,
   .astryx-file-input,
-  .astryx-checkbox,
-  .astryx-radio,
-  .astryx-switch,
-  .astryx-switch-thumb,
-  .astryx-slider-thumb,
+  .astryx-tokenizer,
+  .astryx-multi-selector-trigger,
+  .astryx-complex-selector-trigger,
+  .astryx-multi-selector-trigger > svg,
+  .astryx-complex-selector-trigger > svg,
   .astryx-field :where(input, select, textarea) {
     transition-duration: 0s;
   }

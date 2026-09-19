@@ -23,7 +23,7 @@
   list-style: none;
 }
 
-.g-footer-office-list__offices.is-compact {
+.g-footer-office-list[data-spacing="tight"] .g-footer-office-list__offices {
   --grid-gap: var(--spacing-4);
 }
 
@@ -34,7 +34,7 @@
   gap: var(--spacing-2);
 }
 
-.g-footer-office-list__offices.is-compact .g-footer-office-list__office {
+.g-footer-office-list[data-spacing="tight"] .g-footer-office-list__offices .g-footer-office-list__office {
   --card-padding: var(--spacing-4);
 }
 

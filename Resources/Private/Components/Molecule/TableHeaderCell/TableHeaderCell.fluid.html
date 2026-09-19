@@ -1,0 +1,51 @@
+<f:comment>
+    TableHeaderCell — one `th`.
+
+    `scope` has a default, and the default is the whole reason this component
+    is worth having. A `th` without a scope is the most common real
+    accessibility failure in a data table: the cell looks like a heading,
+    reads like a heading and is announced as one, but nothing says which cells
+    it governs, so a screen reader moving through the rows has to guess and
+    mostly announces nothing at all. The heuristics browsers apply instead are
+    not the same in any two of them. `scope="col"` is the default because a
+    header in a `thead` heads a column, which is what the great majority of
+    header cells are; a `th` at the start of a body row is `scope="row"`, and
+    that is the one case a caller has to remember.
+
+    `colgroup` and `rowgroup` exist for the two-level headings, and once a table
+    needs those it usually needs TableCell's `headers` instead — the two-level
+    case is exactly where scope stops being expressive enough. `id` is here for
+    that: it is what a cell's `headers` points at.
+
+    There is no `abbr` argument, which is a decision rather than an oversight.
+    Every other attribute here is emitted whether or not it is set, on the
+    grounds that an empty value is inert; `abbr` is the one where that is not
+    safe, because a reader that honours it at all substitutes it for the
+    heading, and substituting an empty string would silence the column. A
+    heading short enough to be repeated in front of every cell is the better
+    fix anyway.
+
+    The size, weight and colour of a header cell are already in the stylesheet
+    for both spellings — `.astryx-table :where(thead th)` and
+    `.astryx-table-header-cell` — so a bare `th` inside Table's `head` slot and
+    this component look the same. The difference is that this one can carry its
+    own `data-bordered`, `data-truncate` and `data-wrap`.
+</f:comment>
+
+<f:argument name="scope" type="string" optional="{true}" default="col" />
+<f:argument name="bordered" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="truncate" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="wrap" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="colspan" type="string" optional="{true}" default="" />
+<f:argument name="rowspan" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<th
+    class="astryx-table-header-cell {class}" id="{id}"
+    scope="{scope}"
+    colspan="{colspan}"
+    rowspan="{rowspan}"
+    data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"
+    data-truncate="{f:if(condition: truncate, then: 'truncate', else: 'false')}"
+    data-wrap="{f:if(condition: wrap, then: 'wrap', else: 'false')}"><f:slot /></th>

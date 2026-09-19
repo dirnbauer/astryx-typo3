@@ -1,0 +1,51 @@
+<f:comment>
+    MoreMenu — the three dots at the end of a row, and what they open.
+
+    The only component in the family that owns its trigger, because the trigger
+    is the component: three dots, a name nobody can see, and a menu. Handing
+    those back to the caller would mean every call site writing the same
+    `popovertarget`, the same `aria-haspopup` and the same glyph, and getting
+    the `aria-label` wrong once.
+
+    The button is written out rather than composed from IconButton, and that is
+    a real cost — IconButton declares no `popovertarget`, Fluid drops what a
+    component does not declare, and an invoker without it is a dot that does
+    nothing. Rather than widen that atom's surface for one caller, the button
+    borrows its class and its two data attributes.
+
+    No `aria-expanded` is written. A popover invoker gets the expanded state
+    from the browser as the panel opens and closes; a hand-written one would be
+    a string that never changes, and `aria-expanded="false"` on an open menu is
+    worse than the attribute's absence. `aria-haspopup="menu"` is written,
+    because that part is a fact about the button rather than a state.
+
+    The dots need a name — "More actions for the September invoice" beats
+    "More", which is what every one of them is called when nobody passes
+    `label`.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="ghost" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="placement" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-more-menu {class}">
+    <button
+        type="button"
+        class="astryx-icon-button"
+        popovertarget="{id}"
+        aria-haspopup="menu"
+        aria-label="{label}"
+        data-variant="{variant}"
+        data-size="{size}">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="5" r="1.7"/>
+            <circle cx="12" cy="12" r="1.7"/>
+            <circle cx="12" cy="19" r="1.7"/>
+        </svg>
+    </button>
+
+    <a:molecule.dropdownMenu id="{id}" ariaLabel="{label}" placement="{placement}"><f:slot /></a:molecule.dropdownMenu>
+</div>

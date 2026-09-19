@@ -40,7 +40,7 @@
   white-space: nowrap;
 }
 
-.g-link-grid__links.tight .g-link-grid__link {
+.g-link-grid__links[data-density="compact"] .g-link-grid__link {
   padding-block: var(--spacing-1);
 }
 

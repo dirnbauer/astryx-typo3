@@ -1,0 +1,52 @@
+<f:comment>
+    SideNavCollapseButton — the control at the foot of a SideNav that asks for
+    the rail to be collapsed to icons, or opened back out.
+
+    It does not collapse anything by itself, and the markup is honest about
+    that. The rail's width is `.astryx-side-nav[data-state="collapsed"]`, which
+    is rendered server-side from whatever the site stores the preference in, so
+    this control's whole job is to ask for the other state and let the next
+    response come back with it. With an href it is a link to this page with the
+    preference flipped — the form that works with no script at all, and the one
+    to prefer. Without one it is a submit button, so it still works inside a
+    form that carries the preference; a `type="button"` that waits for a script
+    nobody wrote would be a control that pretends to work, and there is none
+    here.
+
+    `aria-expanded` describes the rail, not this control, and `aria-controls`
+    names which rail — give the SideNav an id and pass it. Both are rendered
+    from the state the server already decided, so they cannot drift out of sync
+    the way a script-held flag does. The chevron is turned by CSS from the same
+    attribute and is hidden from assistive technology, which leaves `ariaLabel`
+    as the only thing that names the control: an icon with no text is announced
+    as "button" and nothing else.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="expanded" type="boolean" optional="{true}" default="{true}" />
+<f:argument name="controls" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{href}">
+    <f:then>
+        <a
+            href="{href}"
+            class="astryx-side-nav-collapse-button {class}"
+            aria-expanded="{f:if(condition: expanded, then: 'true', else: 'false')}"
+            aria-controls="{controls}"
+            aria-label="{ariaLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </f:then>
+    <f:else>
+        <button
+            type="submit"
+            class="astryx-side-nav-collapse-button {class}"
+            name="{name}"
+            value="{value}"
+            aria-expanded="{f:if(condition: expanded, then: 'true', else: 'false')}"
+            aria-controls="{controls}"
+            aria-label="{ariaLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </f:else>
+</f:if>

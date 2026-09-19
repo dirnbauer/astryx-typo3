@@ -1,0 +1,53 @@
+<f:comment>
+    Switch — a setting that is on or off and takes effect as itself, not after
+    a save.
+
+    The root is the `<label class="astryx-switch-field">`, and the track — the
+    contract's root class, `astryx-switch` — is rendered inside it. That is
+    deliberate and it is not a free choice: every state rule in the stylesheet
+    is written as `.astryx-switch-field:has(input:checked) > .astryx-switch`,
+    so the real checkbox has to be a sibling of the track under one parent. A
+    component whose root was the track could not render the input at all, and
+    every caller would have to write the wrapper — and its class — by hand,
+    which templates in this extension are forbidden to do. So the component
+    renders both halves and the wrapper is what carries the caller's class.
+
+    The checkbox itself stays in the tree, clipped rather than hidden: it is
+    the tab stop, it is the space bar, and it is what the form posts.
+    `display: none` would take all three away and leave a decoration.
+
+    `role="switch"` on it is what makes a screen reader say "on"/"off" instead
+    of "checked"/"unchecked" — the same state, in the words the control is
+    drawn in.
+
+    `placement="start"` reorders the row so the words come first and the track
+    sits at the end. The name is the stylesheet's and describes where the label
+    starts, not where the track goes.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="layout" type="string" optional="{true}" default="" />
+<f:argument name="placement" type="string" optional="{true}" default="" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<label
+    class="astryx-switch-field {class}"
+    data-layout="{layout}"
+    data-placement="{placement}"><input
+        id="{id}"
+        type="checkbox"
+        role="switch"
+        name="{name}"
+        value="{value}"
+        aria-describedby="{describedBy}"
+        aria-label="{ariaLabel}"
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: required, then: 'required')} /><span class="astryx-switch"><span class="astryx-switch-thumb"></span></span><f:slot /></label>

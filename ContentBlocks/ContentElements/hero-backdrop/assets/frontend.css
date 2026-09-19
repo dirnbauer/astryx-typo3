@@ -10,11 +10,11 @@
   display: grid;
 }
 
-.g-hero-backdrop.full-height .g-hero-backdrop__frame {
+.g-hero-backdrop[data-variant="full-height"] .g-hero-backdrop__frame {
   min-block-size: min(80svh, 46rem);
 }
 
-.g-hero-backdrop.band .g-hero-backdrop__frame {
+.g-hero-backdrop[data-variant="band"] .g-hero-backdrop__frame {
   min-block-size: 24rem;
 }
 
@@ -59,7 +59,7 @@
   color: var(--color-on-dark);
 }
 
-.g-hero-backdrop__copy.center {
+.g-hero-backdrop__copy[data-align="center"] {
   align-items: center;
   text-align: center;
 }
@@ -80,11 +80,11 @@
 }
 
 @media (max-width: 767px) {
-  .g-hero-backdrop.full-height .g-hero-backdrop__frame {
+  .g-hero-backdrop[data-variant="full-height"] .g-hero-backdrop__frame {
     min-block-size: 28rem;
   }
 
-  .g-hero-backdrop.band .g-hero-backdrop__frame {
+  .g-hero-backdrop[data-variant="band"] .g-hero-backdrop__frame {
     min-block-size: 20rem;
   }
 

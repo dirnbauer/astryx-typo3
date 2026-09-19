@@ -1,0 +1,51 @@
+<f:comment>
+    Tokenizer — a field whose value is a set of chips: tags on an article,
+    recipients on a message, filters already applied.
+
+    What is rendered is the honest half of the upstream control. The chips are
+    real — they are what the server already knows — and the entry field is
+    real, and a normal form submit is what turns what was typed into the next
+    chip. What is not here is the part that makes it feel instant: nothing
+    turns text into a chip as you type a comma, because that is script, and
+    nothing removes a chip on click for the same reason. A caller that wants
+    removal puts a submit button in each chip and lets the server do it, which
+    works in every browser and costs a page load.
+
+    The chips arrive through the slot as Token atoms rather than being rendered
+    here from an array. A token is often a link — to the tag's own page — and
+    often the current one, and a component that built them out of strings could
+    express neither.
+
+    The box is `cursor: text` and the whole of it is inside the field border,
+    so clicking the empty space to the right of the last chip puts the caret
+    where it looks like it should go. That much works without script.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="readonly" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="autocomplete" type="string" optional="{true}" default="" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-tokenizer {class}"
+    data-status="{status}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:slot /><input
+        id="{id}"
+        class="astryx-tokenizer-input"
+        type="text"
+        name="{name}"
+        value="{value}"
+        placeholder="{placeholder}"
+        autocomplete="{autocomplete}"
+        aria-describedby="{describedBy}"
+        aria-label="{ariaLabel}"
+        aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: readonly, then: 'readonly')} /></div>

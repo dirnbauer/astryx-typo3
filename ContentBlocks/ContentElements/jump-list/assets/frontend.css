@@ -22,7 +22,7 @@
   justify-content: center;
 }
 
-.g-jump-list__nav.tight {
+.g-jump-list__nav[data-density="compact"] {
   font-size: var(--text-supporting-size);
   line-height: var(--text-supporting-leading);
 }

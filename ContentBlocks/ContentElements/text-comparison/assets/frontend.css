@@ -46,7 +46,7 @@
     margin-inline-start: calc(-1 * var(--spacing-10));
   }
 
-  .g-text-comparison__grid.reverse > .first {
+  .g-text-comparison__grid[data-layout="reversed"] > .first {
     order: 2;
   }
 }

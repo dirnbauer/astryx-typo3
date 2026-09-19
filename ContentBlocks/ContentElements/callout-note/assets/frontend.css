@@ -14,7 +14,7 @@
   max-inline-size: 70ch;
 }
 
-.g-callout-note__box.compact {
+.g-callout-note[data-spacing="tight"] .g-callout-note__box {
   padding: var(--spacing-3);
 }
 
@@ -23,7 +23,7 @@
   line-height: var(--text-heading-4-leading);
 }
 
-.g-callout-note__box.compact .g-callout-note__title {
+.g-callout-note[data-spacing="tight"] .g-callout-note__box .g-callout-note__title {
   font-size: var(--text-body-size);
   line-height: var(--text-body-leading);
 }

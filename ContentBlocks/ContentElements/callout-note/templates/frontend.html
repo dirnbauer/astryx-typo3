@@ -16,9 +16,9 @@
     the distinction instead.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-callout-note">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-callout-note">
     <a:layout.container size="{data.width}">
-        <a:molecule.banner class="g-callout-note__box {f:if(condition: data.compact, then: 'compact')}">
+        <a:molecule.banner class="g-callout-note__box">
             <a:molecule.bannerContent>
 
                 <f:if condition="{data.header}">

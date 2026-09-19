@@ -13,7 +13,7 @@
   max-inline-size: 44rem;
 }
 
-.g-hero-product__copy.center {
+.g-hero-product__copy[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -43,16 +43,16 @@
 
 /* Bleed: the band stops where the picture is cut, so the screenshot runs off
    the bottom edge with its top — the part that carries meaning — intact. */
-.g-hero-product.bleed {
+.g-hero-product[data-variant="bleed"] {
   padding-block-end: 0;
 }
 
-.g-hero-product.bleed .g-hero-product__frame {
+.g-hero-product[data-variant="bleed"] .g-hero-product__frame {
   max-block-size: 26rem;
   overflow: hidden;
 }
 
-.g-hero-product.bleed .g-hero-product__image {
+.g-hero-product[data-variant="bleed"] .g-hero-product__image {
   border-end-start-radius: 0;
   border-end-end-radius: 0;
 }
@@ -74,7 +74,7 @@
     margin-block-start: var(--spacing-8);
   }
 
-  .g-hero-product.bleed .g-hero-product__frame {
+  .g-hero-product[data-variant="bleed"] .g-hero-product__frame {
     max-block-size: 15rem;
   }
 }

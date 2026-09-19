@@ -34,7 +34,7 @@
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
-.g-footer-opening-hours__rows.is-compact .g-footer-opening-hours__row {
+.g-footer-opening-hours[data-spacing="tight"] .g-footer-opening-hours__rows .g-footer-opening-hours__row {
   padding-block: var(--spacing-1-5);
 }
 

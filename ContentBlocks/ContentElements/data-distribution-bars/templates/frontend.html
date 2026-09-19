@@ -33,7 +33,7 @@
             </f:if>
         </div>
 
-        <dl class="g-data-distribution-bars__buckets {f:if(condition: data.compact, then: 'compact')}">
+        <dl class="g-data-distribution-bars__buckets" data-density="{f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.metrics}" as="metric">
                 <div class="g-data-distribution-bars__bucket" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <dt class="g-data-distribution-bars__name">{metric -> f:render.text(field: 'title')}</dt>

@@ -31,7 +31,7 @@
                     </f:if>
                 </a:atom.heading>
 
-                <ul class="g-sibling-nav__list {f:if(condition: data.compact, then: 'tight')}">
+                <ul class="g-sibling-nav__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
                     <f:for each="{siblings}" as="page">
                         <li class="g-sibling-nav__item">
                             <f:if condition="{page.current}">

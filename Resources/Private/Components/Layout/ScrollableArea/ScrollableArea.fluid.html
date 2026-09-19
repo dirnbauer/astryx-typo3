@@ -1,0 +1,48 @@
+<f:comment>
+    ScrollableArea — a box that scrolls instead of letting the page scroll.
+
+    New in Astryx v0.6.2, and the whole of it is the two things a scroll
+    container is usually missing. It is a tab stop, because content that can
+    only be reached by scrolling can only be reached with a mouse unless the
+    container itself takes focus — a keyboard user tabbing through the page
+    lands on the links before it, then on the links after it, and never sees the
+    rows in between. And it has a name, because once it is a tab stop a screen
+    reader stops on it and has to be able to say what it is. Firefox and Chrome
+    now add the tab stop themselves for overflowing regions; `tabindex="0"` is
+    what makes it true everywhere and true on the day the content does not
+    overflow but the focus order still has to be stable.
+
+    `role="region"` is rendered only when the caller gives a name. An unnamed
+    region is dropped from the landmark list by every screen reader anyway, so
+    rendering it would be pretending; a named one is a landmark a reader can
+    jump to, which is the point. Pass `ariaLabel` or `ariaLabelledby` — an
+    unnamed scrollable area is still keyboard-reachable, it is just announced
+    as "group" with nothing after it.
+
+    The focus ring is the house one and it is not decoration here: it is the
+    only feedback that focus has entered a box whose content did not change.
+</f:comment>
+
+<f:argument name="orientation" type="string" optional="{true}" default="vertical" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel} || {ariaLabelledby}">
+    <f:then>
+        <div
+            class="astryx-scrollable-area {class}" id="{id}"
+            data-orientation="{orientation}"
+            role="region"
+            aria-label="{ariaLabel}"
+            aria-labelledby="{ariaLabelledby}"
+            tabindex="0"><f:slot /></div>
+    </f:then>
+    <f:else>
+        <div
+            class="astryx-scrollable-area {class}" id="{id}"
+            data-orientation="{orientation}"
+            tabindex="0"><f:slot /></div>
+    </f:else>
+</f:if>

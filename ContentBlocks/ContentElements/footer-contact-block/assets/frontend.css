@@ -32,7 +32,7 @@
   list-style: none;
 }
 
-.g-footer-contact-block__channels.is-compact {
+.g-footer-contact-block__channels[data-density="compact"] {
   gap: var(--spacing-3);
 }
 

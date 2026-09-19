@@ -26,7 +26,7 @@
   list-style: none;
 }
 
-.g-footer-certifications__seals.is-compact {
+.g-footer-certifications__seals[data-density="compact"] {
   gap: var(--spacing-4);
 }
 
@@ -57,7 +57,7 @@
   max-inline-size: 100%;
 }
 
-.g-footer-certifications__seals.is-compact .g-footer-certifications__image {
+.g-footer-certifications__seals[data-density="compact"] .g-footer-certifications__image {
   block-size: var(--spacing-10);
 }
 

@@ -21,7 +21,7 @@
   gap: var(--spacing-1);
 }
 
-.g-prev-next__half.next {
+.g-prev-next__half[data-variant="next"] {
   text-align: end;
   align-items: flex-end;
 }
@@ -58,19 +58,19 @@
   vertical-align: baseline;
 }
 
-.g-prev-next__half.previous .g-prev-next__direction::before {
+.g-prev-next__half[data-variant="previous"] .g-prev-next__direction::before {
   rotate: 135deg;
   margin-inline-end: var(--spacing-2);
 }
 
-.g-prev-next__half.next .g-prev-next__direction::after {
+.g-prev-next__half[data-variant="next"] .g-prev-next__direction::after {
   rotate: -45deg;
   margin-inline-start: var(--spacing-2);
 }
 
 /* Plain: the surface goes, the pair stays. A hairline between the halves is
    all that is left holding them apart. */
-.g-prev-next__nav.plain .g-prev-next__half {
+.g-prev-next__nav[data-variant="plain"] .g-prev-next__half {
   padding: var(--spacing-2) 0;
   background-color: transparent;
   box-shadow: none;
@@ -90,7 +90,7 @@
 
   /* Stacked, both halves read from the same edge — an end-aligned card on a
      phone looks like a mistake rather than like a direction. */
-  .g-prev-next__half.next {
+  .g-prev-next__half[data-variant="next"] {
     text-align: start;
     align-items: flex-start;
   }

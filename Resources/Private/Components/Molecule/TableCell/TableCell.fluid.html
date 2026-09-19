@@ -1,0 +1,41 @@
+<f:comment>
+    TableCell — one `td`.
+
+    `truncate` and `wrap` are the two answers to a value that is longer than
+    its column, and they are opposites, so a cell takes one or the other.
+    Truncating is the stricter one and it works by a trick worth knowing about
+    before you use it: the rule sets `max-inline-size: 0` so that the cell stops
+    claiming its content's width, and the column then sizes from the other rows.
+    On a table whose every cell truncates, the columns have nothing left to size
+    from and collapse to equal widths.
+
+    `colspan` and `rowspan` are emitted whether or not they are set. An empty
+    one is not a valid non-negative integer, so the parser falls back to the
+    attribute's own default of 1 — which is exactly what an unset argument
+    should mean, and it saves a second copy of the tag for each of them.
+
+    `headers` is for the tables that `scope` cannot describe: two levels of
+    column headings, a cell governed by a heading that is neither at the top of
+    its column nor at the start of its row. It takes the ids of the `th`s this
+    cell belongs to, space-separated, and TableHeaderCell takes the `id` to put
+    on them. Most tables need neither; a table that needs this needs it
+    everywhere, because a partial `headers` graph is worse than none.
+</f:comment>
+
+<f:argument name="bordered" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="truncate" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="wrap" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="colspan" type="string" optional="{true}" default="" />
+<f:argument name="rowspan" type="string" optional="{true}" default="" />
+<f:argument name="headers" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<td
+    class="astryx-table-cell {class}" id="{id}"
+    colspan="{colspan}"
+    rowspan="{rowspan}"
+    headers="{headers}"
+    data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"
+    data-truncate="{f:if(condition: truncate, then: 'truncate', else: 'false')}"
+    data-wrap="{f:if(condition: wrap, then: 'wrap', else: 'false')}"><f:slot /></td>

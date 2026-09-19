@@ -1,0 +1,26 @@
+<f:comment>
+    CommandPaletteEmpty — what a palette says when nothing matched.
+
+    It composes Molecule/EmptyState rather than restating it. The two are the
+    same thing at two sizes: an icon, a line naming what was looked for, and a
+    hint at what to try instead. All this adds is its own class, and the only
+    thing that class does in 11-command-palette.css is take the twelve units of
+    padding back off — an empty state sized for a page leaves a palette three
+    times taller empty than full.
+
+    Where it sits is decided by HTML rather than by taste. EmptyState renders a
+    `div`, and a `ul` may contain only `li`, so this is a sibling of the listbox
+    and never a row in it. That is the right place anyway: "no results" is not
+    one of the results.
+
+    Two things it cannot do on its own. It cannot appear when a query stops
+    matching — the caller renders it when the server already knows there is
+    nothing, and a script swapping it in afterwards has to announce it, because
+    a region that appears silently is a region a screen reader user never learns
+    about. And it takes no role of its own: EmptyState is a plain div, so the
+    announcement belongs to whatever does the swapping.
+</f:comment>
+
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<a:molecule.emptyState class="astryx-command-palette-empty {class}"><f:slot /></a:molecule.emptyState>

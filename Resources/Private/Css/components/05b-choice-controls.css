@@ -1,0 +1,694 @@
+/*
+ * Choice controls — CheckboxInput, CheckboxList, CheckboxListItem, RadioList,
+ * RadioListItem, Switch, Slider, ToggleButton, ToggleButtonGroup,
+ * SelectableCard.
+ *
+ * Split out of 05-forms.css, which had grown past the point where the field
+ * shell and the controls that do not use it could be read in one sitting.
+ * Nothing here changed in the move; the partial follows 05-forms.css in the
+ * manifest, so the cascade is exactly what it was.
+ *
+ * What holds this set together is the bargain every one of them makes: the
+ * real <input type="checkbox"> or <input type="radio"> stays in the tree, and
+ * everything drawn around it is a sibling the browser paints from :checked and
+ * :has(). That is what makes these controls work with no script at all — the
+ * keyboard, the form payload and the label click are the platform's, and the
+ * only thing this stylesheet owns is what they look like.
+ */
+
+/* -------------------------------------------------------- CheckboxInput */
+.astryx-checkbox-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-checkbox-input-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+.astryx-checkbox-input-description {
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* The native control, styled where it is the only control there is. Painting
+   the tick would need a pseudo-element, which Firefox does not render on an
+   <input>; accent-color reaches the real tick in every engine instead and
+   still answers to the theme. */
+.astryx-field :where(input[type='checkbox'], input[type='radio']),
+.astryx-checkbox-input > :where(input[type='checkbox']),
+.astryx-checkbox-list-item > :where(input[type='checkbox']),
+.astryx-radio-list-item > :where(input[type='radio']) {
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.astryx-field :where(input[type='checkbox'], input[type='radio']):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-field :where(input[type='checkbox'], input[type='radio']):disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Upstream anatomy: the real input is transparent and stacked over a drawn
+   box, so the native control must give up its own appearance here. It keeps no
+   inset values on purpose — an absolutely positioned flex child falls at its
+   static position, which is exactly where the drawn box sits. */
+.astryx-checkbox-input:has(.astryx-checkbox) > input[type='checkbox'],
+.astryx-radio-list-item:has(.astryx-radio) > input[type='radio'] {
+  position: absolute;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.astryx-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-inner);
+  background-color: var(--color-background-surface);
+  color: var(--color-on-accent);
+  transition-property: background-color, border-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-checkbox[data-size="sm"] {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.astryx-checkbox > svg {
+  inline-size: var(--spacing-3);
+  block-size: var(--spacing-3);
+}
+
+/* The tick is always in the markup: a box the visitor clicks has to fill in
+   without a round trip, and there is no script here to add the glyph
+   afterwards. Unchecked it is hidden rather than absent — on-accent ink on a
+   surface-coloured box is legible in several themes, so leaving it painted
+   would show a tick on an empty checkbox. */
+.astryx-checkbox-input:not(:has(input:checked)) > .astryx-checkbox > svg {
+  visibility: hidden;
+}
+
+.astryx-checkbox-input:has(input:checked) > .astryx-checkbox,
+.astryx-checkbox[aria-checked='true'] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+}
+
+.astryx-checkbox-input:has(input:focus-visible) > .astryx-checkbox {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-checkbox-input:has(input:disabled) > .astryx-checkbox {
+  opacity: 0.5;
+  border-color: var(--color-border);
+  background-color: var(--color-background-muted);
+}
+
+@media (hover: hover) {
+  .astryx-checkbox-input:hover > .astryx-checkbox {
+    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
+  }
+
+  .astryx-checkbox-input:hover:has(input:checked) > .astryx-checkbox {
+    border-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* ------------------------------------------------------------- RadioList */
+/* A fieldset carries the group's accessible name, so it is reset rather than
+   avoided — the browser border and inline padding would otherwise box the
+   options in a shape nothing else on the page has. */
+.astryx-radio-list,
+.astryx-field fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+
+.astryx-radio-list[data-orientation="horizontal"] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-5);
+}
+
+.astryx-field legend,
+.astryx-radio-list > legend {
+  padding: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.astryx-radio-list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  transition-property: background-color, border-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-radio[data-size="sm"] {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.astryx-radio-dot {
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background-color: var(--color-on-accent);
+}
+
+/* Same bargain as the checkbox tick, for the same reason. */
+.astryx-radio-list-item:not(:has(input:checked)) .astryx-radio-dot {
+  visibility: hidden;
+}
+
+.astryx-radio-list-item:has(input:checked) .astryx-radio,
+.astryx-radio[aria-checked='true'] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+}
+
+.astryx-radio-list-item:has(input:focus-visible) .astryx-radio {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-radio-list-item:has(input:disabled) .astryx-radio {
+  opacity: 0.5;
+  border-color: var(--color-border);
+  background-color: var(--color-background-muted);
+}
+
+@media (hover: hover) {
+  .astryx-radio-list-item:hover .astryx-radio {
+    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
+  }
+
+  .astryx-radio-list-item:hover:has(input:checked) .astryx-radio {
+    border-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* ---------------------------------------------------------------- Switch */
+/* Fixed geometry, transcribed: 40x24 track, 4px inset, a 16px thumb that grows
+   to 20px and travels 14px when on. The growth is what reads as a press. */
+.astryx-switch-field {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-switch-field[data-layout="spread"] {
+  justify-content: space-between;
+  inline-size: 100%;
+}
+
+.astryx-switch-field[data-placement="start"] > .astryx-switch {
+  order: 2;
+}
+
+.astryx-switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: 40px;
+  block-size: 24px;
+  padding: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-gray);
+  cursor: pointer;
+  transition-property: background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-switch-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 16px;
+  block-size: 16px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  transform: translateX(0);
+  transition-property: transform, width, height;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-switch-field:has(input:checked) > .astryx-switch,
+.astryx-switch[aria-checked='true'] {
+  background-color: var(--color-accent);
+}
+
+.astryx-switch-field:has(input:checked) .astryx-switch-thumb,
+.astryx-switch[aria-checked='true'] .astryx-switch-thumb {
+  inline-size: 20px;
+  block-size: 20px;
+  transform: translateX(14px);
+}
+
+.astryx-switch-field:has(input:focus-visible) > .astryx-switch {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-switch-field:has(input:disabled) > .astryx-switch {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* The input stays in the tree for the keyboard and the form payload, but the
+   track is what is seen. It is clipped rather than stacked over the track: the
+   track is not its parent, so there is no box to stack it onto — the wrapping
+   <label> forwards the click and :has() above forwards the focus ring. */
+.astryx-switch-field > input[type='checkbox'] {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (hover: hover) {
+  .astryx-switch-field:hover > .astryx-switch {
+    background-color: color-mix(in srgb, var(--color-background-gray), var(--color-tint-hover) 5%);
+  }
+
+  .astryx-switch-field:hover:has(input:checked) > .astryx-switch {
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* ---------------------------------------------------------------- Slider */
+.astryx-slider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.astryx-slider[data-disabled="disabled"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Track and thumb for the drawn form. */
+.astryx-slider-track {
+  position: relative;
+  flex-grow: 1;
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+}
+
+.astryx-slider-thumb {
+  position: absolute;
+  inline-size: 20px;
+  block-size: 20px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  transition-property: background-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-slider-thumb:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Native range. The vendor track/thumb pseudo-elements are the only reachable
+   parts, and they must be declared in separate rules — a browser drops the
+   whole block when it meets a selector it does not know. */
+.astryx-slider > input[type='range'],
+.astryx-field input[type='range'] {
+  appearance: none;
+  flex-grow: 1;
+  inline-size: 100%;
+  block-size: 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.astryx-slider > input[type='range']::-webkit-slider-runnable-track,
+.astryx-field input[type='range']::-webkit-slider-runnable-track {
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+}
+
+.astryx-slider > input[type='range']::-moz-range-track,
+.astryx-field input[type='range']::-moz-range-track {
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+}
+
+.astryx-slider > input[type='range']::-moz-range-progress,
+.astryx-field input[type='range']::-moz-range-progress {
+  block-size: 4px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-slider > input[type='range']::-webkit-slider-thumb,
+.astryx-field input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  inline-size: 20px;
+  block-size: 20px;
+  margin-block-start: -8px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-slider > input[type='range']::-moz-range-thumb,
+.astryx-field input[type='range']::-moz-range-thumb {
+  inline-size: 20px;
+  block-size: 20px;
+  border: 0;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+}
+
+.astryx-slider > input[type='range']:focus-visible,
+.astryx-field input[type='range']:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-slider > input[type='range']:disabled,
+.astryx-field input[type='range']:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.astryx-slider-value {
+  flex-shrink: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------- CheckboxList */
+/* The list is a <fieldset>, so inside a Field it already has the reset and the
+   column that `.astryx-field fieldset` gives every fieldset. These rules are
+   what a list standing on its own gets — and the horizontal variant, which has
+   to outrank that descendant selector and does, on two classes against one. */
+.astryx-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+
+.astryx-checkbox-list[data-orientation="horizontal"] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-5);
+}
+
+.astryx-checkbox-list > legend {
+  padding: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+/* ------------------------------------------------------- CheckboxListItem */
+/* One row of a CheckboxList. No drawn box: that anatomy belongs to
+   CheckboxInput, where a single prominent checkbox earns the extra element,
+   and a list of twenty rows would pay for it twenty times. The row is a
+   <label>, so the whole line is the hit target. */
+.astryx-checkbox-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-body);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.astryx-checkbox-list-item:has(input:disabled) {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.astryx-checkbox-list-item:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-inner);
+}
+
+/* ----------------------------------------------------------- ToggleButton */
+/* A button that stays down. The shape is the segmented control's — same height
+   arithmetic, same steady label weight — but the state is a real checkbox or
+   radio inside the label rather than aria-pressed, because aria-pressed needs
+   a script to ever change and this has to work in a plain form post. */
+.astryx-toggle-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  block-size: var(--size-element-md);
+  padding-inline: var(--spacing-3);
+  border: var(--border-width) solid var(--color-border-emphasized);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-surface);
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-toggle-button[data-size="sm"] {
+  block-size: var(--size-element-sm);
+  padding-inline: var(--spacing-2);
+  font-size: var(--text-supporting-size);
+}
+
+.astryx-toggle-button[data-size="lg"] {
+  block-size: var(--size-element-lg);
+  padding-inline: var(--spacing-4);
+}
+
+.astryx-toggle-button > svg {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+/* Down. The fill is the accent, so the label has to move to on-accent with it
+   — and it is still the same weight and the same width, which is what keeps a
+   row of toggles from shuffling when one is pressed. */
+.astryx-toggle-button:has(input:checked) {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.astryx-toggle-button:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-toggle-button:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) {
+  .astryx-toggle-button:hover:not(:has(input:checked)) {
+    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
+    color: var(--color-text-primary);
+  }
+
+  .astryx-toggle-button:hover:has(input:checked) {
+    background-color: color-mix(in srgb, var(--color-accent), var(--color-tint-hover) 15%);
+  }
+}
+
+/* Clipped, not hidden: display:none and visibility:hidden both take the control
+   out of the tab order, and then the only way to work a row of toggles is the
+   mouse. Same recipe the Switch uses. */
+.astryx-toggle-button-control {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ------------------------------------------------------ ToggleButtonGroup */
+.astryx-toggle-button-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+/* Welded: the group loses its gap and the buttons share a seam, each pulled
+   back by one border width so the line between two of them is one line and not
+   two. Only the outer corners keep their radius. */
+.astryx-toggle-button-group[data-variant="joined"] {
+  gap: 0;
+}
+
+.astryx-toggle-button-group[data-variant="joined"] > .astryx-toggle-button {
+  margin-inline-start: calc(-1 * var(--border-width));
+  border-radius: 0;
+}
+
+.astryx-toggle-button-group[data-variant="joined"] > .astryx-toggle-button:first-child {
+  margin-inline-start: 0;
+  border-start-start-radius: var(--radius-element);
+  border-end-start-radius: var(--radius-element);
+}
+
+.astryx-toggle-button-group[data-variant="joined"] > .astryx-toggle-button:last-child {
+  border-start-end-radius: var(--radius-element);
+  border-end-end-radius: var(--radius-element);
+}
+
+/* A pressed or focused segment has to come forward, or the neighbour painted
+   after it clips the border it shares. */
+.astryx-toggle-button-group[data-variant="joined"] > .astryx-toggle-button:has(input:checked),
+.astryx-toggle-button-group[data-variant="joined"] > .astryx-toggle-button:has(input:focus-visible) {
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------- SelectableCard */
+/* The border and the selected treatment are in 03-card.css, next to the card
+   it is a kind of. What is here is the box itself: a card has padding, a
+   radius and a surface, and a label that is only a border is not a card. */
+.astryx-selectable-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-card);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-selectable-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex: 1;
+  min-inline-size: 0;
+}
+
+/* The ring goes on the card, not on the control: the control is a 20px square
+   in the corner of a box the whole of which is the hit target, and a ring
+   around the square says nothing about what would be chosen. */
+.astryx-selectable-card:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-selectable-card:has(input:disabled) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (hover: hover) {
+  .astryx-selectable-card:hover:not(:has(input:checked)) {
+    border-color: color-mix(in srgb, var(--color-border-emphasized), var(--color-tint-hover) 20%);
+  }
+}
+
+/* --------------------------------------------------------- reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-checkbox,
+  .astryx-radio,
+  .astryx-switch,
+  .astryx-switch-thumb,
+  .astryx-slider-thumb,
+  .astryx-toggle-button,
+  .astryx-selectable-card {
+    transition-duration: 0s;
+  }
+}

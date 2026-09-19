@@ -22,7 +22,7 @@
   max-inline-size: 44rem;
 }
 
-.g-data-goal-meter__block.center {
+.g-data-goal-meter__block[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -40,7 +40,7 @@
   block-size: var(--spacing-3);
 }
 
-.g-data-goal-meter__block.center .g-data-goal-meter__track {
+.g-data-goal-meter__block[data-align="center"] .g-data-goal-meter__track {
   inline-size: 100%;
 }
 

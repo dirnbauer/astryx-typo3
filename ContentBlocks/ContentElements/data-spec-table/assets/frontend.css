@@ -41,7 +41,7 @@
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
-.g-data-spec-table__rows.compact .g-data-spec-table__row {
+.g-data-spec-table[data-spacing="tight"] .g-data-spec-table__rows .g-data-spec-table__row {
   padding-block: var(--spacing-2);
 }
 

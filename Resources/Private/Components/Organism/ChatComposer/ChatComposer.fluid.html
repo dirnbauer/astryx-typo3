@@ -1,0 +1,95 @@
+<f:comment>
+    ChatComposer — the form at the foot of a conversation: a field, a send
+    button and, optionally, a microphone and a tray of options.
+
+    Say what it is plainly, because the shape invites the wrong assumption.
+    This is a form. It posts, the server appends the turn and the page comes
+    back with the transcript one message longer. It does not stream, it does
+    not append a bubble optimistically, and nothing on it updates while the
+    visitor waits — there is no JavaScript in this extension. Everything the
+    browser gives a form it has: Return submits, the field is restored on a
+    back navigation, `required` blocks an empty send with the browser's own
+    message, and it all still works with the stylesheet stripped.
+
+    `method` is post, not get. A message can be long, a get would put it in the
+    URL and into every log the request passes through, and the request is not
+    idempotent — a reload should not silently say the same thing twice.
+
+    The field is described by the hint rather than labelled by it, so a screen
+    reader reads the label, then the field, then "press send" — as supporting
+    detail rather than as the field's name. The hint id is derived from the
+    field id so the two cannot come apart.
+
+    The default slot is last and is meant for the hidden inputs a real posting
+    form carries: a CSRF token, the conversation id, the model. It is separate
+    from the `drawer` slot because those are visible controls and their order
+    on the screen matters. Mind Fluid's rule when filling either: one
+    `f:fragment` in a call and the loose children stop being the default slot,
+    so use `<f:fragment name="default">` for the hidden fields as soon as you
+    fill the drawer.
+</f:comment>
+
+<f:argument name="action" type="string" optional="{true}" default="" />
+<f:argument name="method" type="string" optional="{true}" default="post" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="fieldId" type="string" optional="{true}" default="" />
+<f:argument name="name" type="string" optional="{true}" default="message" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="hideLabel" type="boolean" optional="{true}" default="{true}" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="rows" type="string" optional="{true}" default="1" />
+<f:argument name="hint" type="string" optional="{true}" default="" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="sendLabel" type="string" optional="{true}" default="" />
+<f:argument name="dictation" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="dictationLabel" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="resolvedFieldId" value="{f:if(condition: fieldId, then: fieldId, else: 'astryx-chat-composer-field')}" />
+<f:variable name="hintId" value="{f:if(condition: hint, then: '{resolvedFieldId}-hint')}" />
+
+<form
+    class="astryx-chat-composer {class}"
+    id="{id}"
+    action="{action}"
+    method="{method}"
+    data-variant="{variant}"
+    data-status="{status}">
+
+    <f:if condition="{f:slot(name: 'drawer') -> f:format.trim()}">
+        <f:slot name="drawer" />
+    </f:if>
+
+    <div class="astryx-chat-composer-row">
+        <a:molecule.chatComposerInput
+            id="{resolvedFieldId}"
+            name="{name}"
+            label="{label}"
+            hideLabel="{hideLabel}"
+            placeholder="{placeholder}"
+            value="{value}"
+            rows="{rows}"
+            status="{status}"
+            disabled="{disabled}"
+            required="{required}"
+            describedBy="{hintId}"
+            class="astryx-chat-composer-field" />
+
+        <div class="astryx-chat-composer-actions">
+            <f:if condition="{dictation}">
+                <a:molecule.chatDictationButton ariaLabel="{dictationLabel}" size="md" />
+            </f:if>
+            <a:molecule.chatSendButton ariaLabel="{sendLabel}" size="md" disabled="{disabled}" />
+        </div>
+    </div>
+
+    <f:if condition="{hint}">
+        <p class="astryx-chat-composer-hint" id="{hintId}">{hint}</p>
+    </f:if>
+
+    <f:slot />
+</form>

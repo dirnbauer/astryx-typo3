@@ -1,0 +1,31 @@
+<f:comment>
+    ChatMessageMetadata — the small print under a turn: when it was said, and
+    whatever else is worth recording about it.
+
+    The time goes through Atom/Timestamp rather than being written as a `time`
+    here, because that component already decides the thing that is easy to get
+    wrong: with a machine-readable `datetime` it is a `<time>`, and without one
+    it stays a `<span>`, since a `<time>` whose text is "just now" is not
+    conforming markup.
+
+    It is not hidden from assistive technology. A timestamp read after a turn
+    is useful — it is how a reader tells a reply from an hour ago apart from
+    one from last week — and hiding it would be choosing the sighted reader's
+    convenience over everyone else's information. It is quiet, not absent.
+
+    Everything past the time arrives through the slot: a model name, a token
+    count, a citation. This component fixes the order of the line and the type
+    scale and has no opinion about what else belongs in it.
+</f:comment>
+
+<f:argument name="datetime" type="string" optional="{true}" default="" />
+<f:argument name="time" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-chat-message-metadata {class}" id="{id}">
+    <f:if condition="{time}">
+        <a:atom.timestamp datetime="{datetime}" class="astryx-chat-message-metadata-time">{time}</a:atom.timestamp>
+    </f:if>
+    <f:slot />
+</div>

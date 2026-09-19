@@ -5,7 +5,7 @@
 
 <f:asset.css identifier="g-hero-page-header" href="{cb:assetPath()}/frontend.css"/>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-page-header">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-page-header" align="{data.align}">
     <a:layout.container size="{data.width}">
         <f:comment>
             A toolbar rather than a stack: the title and its one action share a
@@ -14,7 +14,7 @@
         </f:comment>
         <a:molecule.toolbar
             class="g-hero-page-header__bar"
-            startClass="g-hero-page-header__titles {data.align}"
+            startClass="g-hero-page-header__titles"
             endClass="g-hero-page-header__action">
             <f:fragment name="start">
                 <f:if condition="{data.eyebrow}">

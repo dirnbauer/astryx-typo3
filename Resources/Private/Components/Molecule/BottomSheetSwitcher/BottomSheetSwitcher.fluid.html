@@ -1,0 +1,77 @@
+<f:comment>
+    BottomSheetSwitcher — the sheet that asks which one: which account, which
+    language, which workspace.
+
+    The same `dialog` as BottomSheet, with its body fixed rather than open:
+    exactly one exclusive choice and a button that commits it. Upstream
+    switches in the browser and re-renders; here the choice is a radio group
+    inside a real form, so picking one and pressing the button is a request the
+    server answers with the page in the new state. That is the whole reason it
+    is not simply a BottomSheet with a slot — a switcher that does not post
+    anywhere has not switched anything.
+
+    `fieldset` and `legend`, not a div with `role="radiogroup"`. It is what the
+    house asks for and it earns it twice over: the legend names the group in
+    the accessibility tree and says on screen what is being chosen, and the
+    radios inside get exclusivity and arrow-key traversal from sharing a
+    `name`. None of it is script.
+
+    The cancel control is a submit button carrying `formmethod="dialog"`, which
+    closes the sheet without posting — an override the platform provides
+    exactly for the "never mind" beside a real submit, and cheaper than a
+    second form or a scripted handler.
+
+    The options go in the default slot as labelled radios, all sharing `name`.
+    It is the caller's list because only the caller knows what the values are.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
+<f:argument name="legend" type="string" optional="{true}" default="" />
+<f:argument name="action" type="string" optional="{true}" default="" />
+<f:argument name="method" type="string" optional="{true}" default="post" />
+<f:argument name="submitLabel" type="string" optional="{true}" default="" />
+<f:argument name="cancelLabel" type="string" optional="{true}" default="" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="titleId"><f:if condition="{title}">{id}-title</f:if></f:variable>
+
+<dialog id="{id}" class="astryx-bottom-sheet-switcher {class}" aria-labelledby="{titleId}" aria-label="{ariaLabel}">
+    <f:if condition="{title} || {closeLabel}">
+        <a:molecule.dialogHeader title="{title}" titleLevel="{titleLevel}" titleId="{titleId}" closeLabel="{closeLabel}" />
+    </f:if>
+
+    <form action="{action}" method="{method}">
+        <fieldset class="astryx-dialog-body">
+            <f:comment>
+                An empty legend is a name that announces nothing and a box the
+                spacing still has to answer for, so it is rendered or it is
+                absent — the same rule DropdownMenuRadioGroup follows.
+            </f:comment>
+            <f:if condition="{legend}"><legend>{legend}</legend></f:if>
+            <f:slot />
+        </fieldset>
+
+        <f:if condition="{submitLabel} || {cancelLabel}">
+            <div class="astryx-dialog-footer">
+                <f:comment>
+                    The cancel is written out rather than composed from Button
+                    for one attribute: `formmethod` is what turns a submit into
+                    a close, Button does not declare it, and Fluid drops what a
+                    component does not declare — so composing it here would
+                    produce a button that posts the form it was meant to
+                    abandon. The submit beside it is the atom, unchanged.
+                </f:comment>
+                <f:if condition="{cancelLabel}">
+                    <button type="submit" formmethod="dialog" class="astryx-button" data-variant="secondary" data-size="md" data-width="auto">{cancelLabel}</button>
+                </f:if>
+                <f:if condition="{submitLabel}">
+                    <a:atom.button type="submit" variant="primary">{submitLabel}</a:atom.button>
+                </f:if>
+            </div>
+        </f:if>
+    </form>
+</dialog>

@@ -30,7 +30,7 @@
             </div>
         </f:if>
 
-        <a:molecule.overflowList wrap="multi-row" class="g-footer-payment-row__marks {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.overflowList wrap="multi-row" class="g-footer-payment-row__marks">
             <f:for each="{data.logos}" as="mark">
                 <li class="g-footer-payment-row__mark">
                     <f:if condition="{mark.link.url}">

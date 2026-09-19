@@ -13,7 +13,7 @@
   margin-block-end: var(--spacing-10);
 }
 
-.g-team-stats__intro.align-center {
+.g-team-stats__intro[data-align="center"] {
   margin-inline: auto;
   text-align: center;
 }
@@ -37,7 +37,7 @@
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
-.g-team-stats__figures.align-center .g-team-stats__figure {
+.g-team-stats__figures[data-align="center"] .g-team-stats__figure {
   align-items: center;
   text-align: center;
 }

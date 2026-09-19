@@ -14,7 +14,7 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-statement-band">
     <a:layout.container size="{data.width}">
-        <div class="g-statement-band__inner align-{data.align}">
+        <div class="g-statement-band__inner" data-align="{data.align}">
 
             <a:atom.text type="display-3" class="g-statement-band__statement">{data -> f:render.text(field: 'header')}</a:atom.text>
 

@@ -1,0 +1,66 @@
+<f:comment>
+    DateRangeInput — from one day to another.
+
+    Always the wrapper anatomy: there is no single input that means a range, so
+    the border is drawn once around two `<input type="date">` fields and the
+    stylesheet strips them back to plain text inside it. Two real date fields
+    rather than a drawn range calendar, for the same reason DateInput is a
+    native field — and because two fields are two tab stops, which is how
+    somebody using only a keyboard sets the end of a range.
+
+    Each field carries its own `aria-label`, and they default to nothing so a
+    caller cannot forget to name them silently: the visible separator is a dash
+    and `aria-hidden`, since "–" read out between two dates says nothing about
+    which one is the start.
+
+    The pair is not validated against each other here. A browser will not stop
+    an end date before the start; pass the start as the end field's `min` from
+    the template if the value is known, and check it again on the server, which
+    is the only place it can be checked for certain.
+</f:comment>
+
+<f:argument name="startName" type="string" optional="{true}" default="" />
+<f:argument name="endName" type="string" optional="{true}" default="" />
+<f:argument name="startValue" type="string" optional="{true}" default="" />
+<f:argument name="endValue" type="string" optional="{true}" default="" />
+<f:argument name="startLabel" type="string" optional="{true}" default="" />
+<f:argument name="endLabel" type="string" optional="{true}" default="" />
+<f:argument name="startId" type="string" optional="{true}" default="" />
+<f:argument name="endId" type="string" optional="{true}" default="" />
+<f:argument name="min" type="string" optional="{true}" default="" />
+<f:argument name="max" type="string" optional="{true}" default="" />
+<f:argument name="separator" type="string" optional="{true}" default="–" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-date-range-input {class}"
+    data-size="{size}"
+    data-status="{status}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><input
+        id="{startId}"
+        type="date"
+        name="{startName}"
+        value="{startValue}"
+        min="{min}"
+        max="{max}"
+        aria-label="{startLabel}"
+        aria-describedby="{describedBy}"
+        aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: required, then: 'required')} /><span class="astryx-date-range-input-separator" aria-hidden="true">{separator}</span><input
+        id="{endId}"
+        type="date"
+        name="{endName}"
+        value="{endValue}"
+        min="{min}"
+        max="{max}"
+        aria-label="{endLabel}"
+        aria-describedby="{describedBy}"
+        aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: required, then: 'required')} /></div>

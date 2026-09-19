@@ -1,0 +1,70 @@
+<f:comment>
+    CommandPaletteItem — one command in a palette: an optional glyph, what the
+    command is called, and the shortcut that runs it without the palette.
+
+    Like a typeahead suggestion, a palette row is an Astryx Item, so the label,
+    the description and the two flanking regions are Item's parts rather than a
+    third set of row rules. What this adds is the trailing keys.
+
+    role="option" with a stable id, and aria-selected / data-state starting at
+    "not this one" — the same division as everywhere else in this family: the
+    server states what the row *is*, a script states which row is *current*.
+    Without that script the row is inert, and deliberately so. An option is
+    chosen through the combobox that owns it; giving it an href would either put
+    a link inside a role="option" (invalid content, and the link disappears from
+    the accessibility tree) or turn the listbox into a menu that the input no
+    longer controls.
+
+    `shortcut` is split on spaces and each piece becomes its own Kbd, so "Ctrl K"
+    renders as two keys rather than one wide one. A single key with a space in
+    its name is not a thing, so there is no escape hatch for it.
+
+    The shortcut is not the row's accessible name and must not become it: it is
+    read after the label, as the trailing region always is. A visitor who cannot
+    see the keys still hears them, which is the only reason to print them at all.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="description" type="string" optional="{true}" default="" />
+<f:argument name="shortcut" type="string" optional="{true}" default="" />
+<f:argument name="selected" type="string" optional="{true}" default="false" />
+<f:argument name="state" type="string" optional="{true}" default="" />
+<f:argument name="density" type="string" optional="{true}" default="compact" />
+<f:argument name="interactive" type="string" optional="{true}" default="interactive" />
+<f:argument name="align" type="string" optional="{true}" default="default" />
+<f:argument name="truncate" type="string" optional="{true}" default="truncate" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li
+    class="astryx-item astryx-command-palette-item {class}"
+    id="{id}"
+    role="option"
+    aria-selected="{selected}"
+    data-state="{state}"
+    data-density="{density}"
+    data-interactive="{interactive}"
+    data-align="{align}">
+    <f:comment>
+        The default slot is the leading glyph and nothing else. It is tested
+        trimmed because an unfilled multi-line slot is whitespace, and a
+        whitespace-filled region would still take its gap and leave every
+        iconless row indented past the ones with icons.
+    </f:comment>
+    <f:if condition="{f:slot() -> f:format.trim()}">
+        <span class="astryx-item-start"><f:slot /></span>
+    </f:if>
+    <a:molecule.itemContent>
+        <a:molecule.itemLabel truncate="{truncate}">{label}</a:molecule.itemLabel>
+        <f:if condition="{description}">
+            <a:molecule.itemDescription>{description}</a:molecule.itemDescription>
+        </f:if>
+    </a:molecule.itemContent>
+    <f:if condition="{shortcut}">
+        <span class="astryx-item-end astryx-kbd-group">
+            <f:for each="{f:split(value: shortcut, separator: ' ')}" as="key">
+                <a:atom.kbd>{key}</a:atom.kbd>
+            </f:for>
+        </span>
+    </f:if>
+</li>

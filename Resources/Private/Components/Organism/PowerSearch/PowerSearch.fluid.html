@@ -1,0 +1,153 @@
+<f:comment>
+    PowerSearch — the search form a search *page* has: the query, the scope it
+    runs in, and the queries this visitor ran before.
+
+    It is not a second spelling of Organism/SearchForm, and the difference is
+    worth stating because the two are one field apart on a screenshot.
+    SearchForm is the header's: one field, one submit, and a loupe that the
+    script collapses the pair into, built so that a visitor with no JavaScript
+    still gets a working box instead of an icon that does nothing. It has no
+    filters and no history, because there is no room for either beside a logo.
+    PowerSearch never collapses and never sits in a header. It carries a scope
+    the visitor can change, and it shows what they searched for last time — two
+    things that need vertical room and a page to sit on.
+
+    The scope is a real `select` inside a real GET form, not a row of links.
+    A filter built out of links is a filter that throws away whatever is in the
+    field the moment it is used: the browser follows the link and the query
+    never gets submitted. A select submits alongside the query, which is the
+    only arrangement that works with the script switched off — and the submit
+    button is therefore not optional decoration, it is how the scope is applied.
+
+    Recent queries are links and not listbox options, which is the opposite
+    choice from Typeahead and for the opposite reason. These are known at render
+    time and they are destinations, so an `a` gets them right: middle-click,
+    keyboard, right-click-copy and a working page without script. The typeahead
+    beneath the field is the live half and stays the script's — this form
+    carries the same `data-suggest` attribute the header's does, so both fields
+    get the same dropdown without either knowing the other exists.
+
+    Nothing here writes a layout class. `astryx-power-search` has no rules
+    anywhere in the stylesheet, so the arrangement is Layout/Stack and the parts
+    are components that already own their appearance; the root class is a hook
+    for a theme, not a promise that one exists.
+</f:comment>
+
+<f:argument name="action" type="string" optional="{true}" default="" />
+<f:argument name="queryParameter" type="string" optional="{true}" default="q" />
+<f:argument name="inputId" type="string" optional="{true}" default="astryx-power-search" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="submitLabel" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="lg" />
+<f:argument name="gap" type="string" optional="{true}" default="default" />
+<f:argument name="scopes" type="mixed" optional="{true}" default="" />
+<f:argument name="scopeParameter" type="string" optional="{true}" default="scope" />
+<f:argument name="scopeLabel" type="string" optional="{true}" default="" />
+<f:argument name="scope" type="string" optional="{true}" default="" />
+<f:argument name="recentQueries" type="mixed" optional="{true}" default="" />
+<f:argument name="recentLabel" type="string" optional="{true}" default="" />
+<f:argument name="suggestUrl" type="string" optional="{true}" default="" />
+<f:argument name="suggestHeading" type="string" optional="{true}" default="" />
+<f:argument name="suggestEmpty" type="string" optional="{true}" default="" />
+<f:argument name="suggestMinChars" type="integer" optional="{true}" default="2" />
+<f:argument name="suggestMaxItems" type="integer" optional="{true}" default="8" />
+<f:argument name="labelPages" type="string" optional="{true}" default="" />
+<f:argument name="labelNews" type="string" optional="{true}" default="" />
+<f:argument name="labelAddresses" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<form
+    class="astryx-power-search {class}"
+    role="search"
+    method="get"
+    action="{action}"
+    data-g-suggest="1"
+    data-suggest="{suggestUrl}"
+    data-g-suggest-min-chars="{suggestMinChars}"
+    data-g-suggest-max-items="{suggestMaxItems}"
+    data-g-suggest-header="{suggestHeading}"
+    data-g-suggest-label-pages="{labelPages}"
+    data-g-suggest-label-news="{labelNews}"
+    data-g-suggest-label-addresses="{labelAddresses}"
+    data-g-suggest-empty="{suggestEmpty}">
+    <a:layout.stack gap="{gap}">
+        <f:comment>
+            An unclassed div, on purpose. astryx.js puts
+            `astryx-typeahead-anchor` on whatever carries the anchor attribute,
+            and that class is what makes the dropdown position itself — so the
+            template marks the element and the stylesheet never has to know
+            about a second one. It wraps the InputGroup rather than being it:
+            an absolutely positioned menu inside the group would become a flex
+            item of it and pick up the rules that weld the group's segments
+            together.
+        </f:comment>
+        <div data-g-suggest-anchor>
+            <a:molecule.inputGroup size="{size}">
+                <a:atom.visuallyHidden as="label" for="{inputId}">{label}</a:atom.visuallyHidden>
+                <a:molecule.textInput
+                    id="{inputId}"
+                    type="search"
+                    name="{queryParameter}"
+                    value="{value}"
+                    placeholder="{placeholder}"
+                    autocomplete="off"
+                    size="{size}"
+                    suggestInput="{true}" />
+                <a:atom.iconButton variant="ghost" size="{size}" type="submit" ariaLabel="{submitLabel}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                        <circle cx="11" cy="11" r="7"/>
+                        <path d="m20 20-3.5-3.5" stroke-linecap="round"/>
+                    </svg>
+                </a:atom.iconButton>
+            </a:molecule.inputGroup>
+        </div>
+
+        <f:if condition="{scopes}">
+            <a:molecule.field label="{scopeLabel}" inputId="{inputId}-scope" orientation="horizontal">
+                <select id="{inputId}-scope" name="{scopeParameter}">
+                    <f:for each="{scopes}" as="scopeText" key="scopeKey">
+                        <option value="{scopeKey}" {f:if(condition: '{scopeKey} == {scope}', then: 'selected')}>{scopeText}</option>
+                    </f:for>
+                </select>
+            </a:molecule.field>
+        </f:if>
+
+        <f:if condition="{recentQueries}">
+            <a:layout.stack gap="2">
+                <f:comment>
+                    A visible label rather than an aria-label on the list. The
+                    rows are old queries and read as plausible results on their
+                    own; sighted visitors need to be told what they are looking
+                    at just as much as anyone else does.
+                </f:comment>
+                <f:if condition="{recentLabel}">
+                    <a:atom.eyebrow>{recentLabel}</a:atom.eyebrow>
+                </f:if>
+                <a:molecule.list density="compact">
+                    <f:comment>
+                        The explicit `li` is not redundant. An Item given an
+                        `href` renders as the `a` itself, and an `a` that is a
+                        direct child of a `ul` is invalid — the row needs a
+                        list item to be a row of.
+                    </f:comment>
+                    <f:for each="{recentQueries}" as="recentQuery">
+                        <li>
+                            <a:molecule.item
+                                href="{action}?{queryParameter}={recentQuery -> f:format.urlencode()}"
+                                density="compact"
+                                interactive="interactive">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel truncate="truncate">{recentQuery}</a:molecule.itemLabel>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
+                        </li>
+                    </f:for>
+                </a:molecule.list>
+            </a:layout.stack>
+        </f:if>
+
+        <f:slot />
+    </a:layout.stack>
+</form>

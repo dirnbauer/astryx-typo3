@@ -1,0 +1,24 @@
+<f:comment>
+    LayoutHeader — the top region of an application shell: the bar that holds a
+    TopNav, and nothing else.
+
+    A `header` element rather than a div, and that is the whole reason this
+    component exists. At the top of a document `header` is the banner landmark,
+    which is what lets a screen reader user jump to the site's controls and
+    back out of them; a div would give them a bar they can only reach by
+    tabbing through it. Everything about how the bar looks belongs to what is
+    put inside it — this is a region, not a design.
+
+    One per document. A `header` nested inside an `article` or a `section` is
+    not a banner at all but that section's own introduction, so a second one of
+    these further down the page silently stops being the landmark it claims to
+    be.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then><header id="{id}" class="astryx-layout-header {class}"><f:slot /></header></f:then>
+    <f:else><header class="astryx-layout-header {class}"><f:slot /></header></f:else>
+</f:if>

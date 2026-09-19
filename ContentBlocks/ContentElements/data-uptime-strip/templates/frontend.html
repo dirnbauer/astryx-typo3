@@ -33,8 +33,8 @@
 
         <ol class="g-data-uptime-strip__strip">
             <f:for each="{data.metrics}" as="metric" iteration="period">
-                <li class="g-data-uptime-strip__period {f:if(condition: '{period.isFirst} || {period.isLast}', then: 'is-edge', else: 'is-mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <span class="g-data-uptime-strip__tick {metric.icon}" aria-hidden="true"><span class="g-data-uptime-strip__fill"></span></span>
+                <li class="g-data-uptime-strip__period" data-position="{f:if(condition: '{period.isFirst} || {period.isLast}', then: 'edge', else: 'mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                    <span class="g-data-uptime-strip__tick" data-status="{metric.icon}" aria-hidden="true"><span class="g-data-uptime-strip__fill"></span></span>
                     <span class="g-data-uptime-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
                     <span class="g-data-uptime-strip__label">{metric -> f:render.text(field: 'title')}</span>
                 </li>

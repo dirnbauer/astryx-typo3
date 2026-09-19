@@ -1,0 +1,81 @@
+<f:comment>
+    CommandPalette — the ⌘K overlay: a modal holding a query field, a grouped
+    listbox of commands and a line of keyboard hints.
+
+    It composes Molecule/Dialog rather than writing a second `dialog`. The top
+    layer, the focus trap, Escape, the backdrop and the open/close transition
+    are all already solved there and in 08-overlay.css, and the only thing a
+    palette needs differently is its geometry — it sits near the top of the
+    viewport, is twice as wide and has no padding of its own. That is eight
+    declarations in 11-command-palette.css against sixty lines of restated
+    dialog, and it means a change to how modals animate reaches this one too.
+
+    No header and no close button: `title` and `closeLabel` are left unset on
+    purpose. A palette is named by its field, the field is the first thing focus
+    lands on, and Escape is both the way out and the last hint in the footer.
+    Opening it is a click on anything carrying `dialogOpen="{id}"` — Button and
+    IconButton both take it — plus whatever binds the keyboard shortcut.
+
+    What this cannot do is the interesting half. Server-rendered, it is a real
+    modal with a real field and a real, readable list: the browser opens it,
+    traps focus in it and closes it on Escape without a line of our script. It
+    cannot filter the list as the visitor types, it cannot move the highlight
+    with the arrow keys, and pressing Return in the field does nothing — so the
+    rows are listed and inert, and `expanded` and `activeDescendant` are passed
+    through to the field for a script to take over. Rendering rows that looked
+    clickable and were not would be the worse failure; rendering them as the
+    options they are at least tells the truth about what they are waiting for.
+
+    `listId` defaults off `id` so the field's aria-controls and the listbox's id
+    agree without a caller having to invent two names and keep them matched.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="inputId" type="string" optional="{true}" default="" />
+<f:argument name="listId" type="string" optional="{true}" default="" />
+<f:argument name="queryParameter" type="string" optional="{true}" default="q" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="placeholder" type="string" optional="{true}" default="" />
+<f:argument name="expanded" type="string" optional="{true}" default="false" />
+<f:argument name="activeDescendant" type="string" optional="{true}" default="" />
+<f:argument name="empty" type="string" optional="{true}" default="" />
+<f:argument name="navigateLabel" type="string" optional="{true}" default="" />
+<f:argument name="selectLabel" type="string" optional="{true}" default="" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="resolvedInputId" value="{f:if(condition: inputId, then: inputId, else: '{id}-query')}" />
+<f:variable name="resolvedListId" value="{f:if(condition: listId, then: listId, else: '{id}-list')}" />
+
+<f:comment>
+    Everything goes in Dialog's default slot, including the footer. Dialog does
+    have a `footer` fragment, but it wraps what it is given in the dialog's own
+    padded footer, and a padded strip inside a padded strip is two rules of
+    spacing fighting. The Fluid trap makes the choice cheap to keep: one named
+    fragment in a call and the loose children stop being the default slot
+    altogether, so a call with no fragments at all is the safer shape.
+</f:comment>
+<a:molecule.dialog id="{id}" class="astryx-command-palette {class}" variant="{variant}" ariaLabel="{label}">
+    <a:molecule.commandPaletteInput
+        inputId="{resolvedInputId}"
+        listId="{resolvedListId}"
+        name="{queryParameter}"
+        value="{value}"
+        label="{label}"
+        placeholder="{placeholder}"
+        expanded="{expanded}"
+        activeDescendant="{activeDescendant}" />
+
+    <a:molecule.commandPaletteList id="{resolvedListId}" ariaLabel="{label}"><f:slot /></a:molecule.commandPaletteList>
+
+    <f:if condition="{empty}">
+        <a:molecule.commandPaletteEmpty>{empty}</a:molecule.commandPaletteEmpty>
+    </f:if>
+
+    <a:molecule.commandPaletteFooter
+        navigateLabel="{navigateLabel}"
+        selectLabel="{selectLabel}"
+        closeLabel="{closeLabel}" />
+</a:molecule.dialog>

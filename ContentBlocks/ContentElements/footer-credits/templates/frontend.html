@@ -26,7 +26,7 @@
             </f:if>
         </div>
 
-        <a:molecule.metadataList class="g-footer-credits__rows {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:molecule.metadataList class="g-footer-credits__rows">
             <f:for each="{data.rows}" as="credit">
                 <a:molecule.metadataListItem class="g-footer-credits__row">
                     <dt class="g-footer-credits__subject">{credit -> f:render.text(field: 'title')}</dt>

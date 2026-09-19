@@ -1,0 +1,27 @@
+<f:comment>
+    TableRow — one `tr`.
+
+    `hoverable` and `striped` are also arguments on Table, and setting them
+    there is the usual answer: the table's own rules reach every `tr` inside it
+    and a row then costs nothing. They are repeated here for the tables whose
+    rows are not all alike — a row that is a subtotal, a row that is not
+    clickable in a table where the rest are.
+
+    `striped` keys off `:nth-child(even)`, so it is a property of the row's
+    position and not of the row: setting it on one row in five gives you a
+    tint only if that row happens to be even. Set it on all of them, or set it
+    on the Table.
+
+    The hover tint is a transition, and it is switched off under
+    prefers-reduced-motion in 06b-table.css along with the table-level one.
+</f:comment>
+
+<f:argument name="hoverable" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="striped" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<tr
+    class="astryx-table-row {class}" id="{id}"
+    data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
+    data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"><f:slot /></tr>

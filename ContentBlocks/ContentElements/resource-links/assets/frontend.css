@@ -33,7 +33,7 @@
   padding-block: var(--spacing-3);
 }
 
-.g-resource-links__items.tight .g-resource-links__item {
+.g-resource-links__items[data-density="compact"] .g-resource-links__item {
   padding-block: var(--spacing-2);
 }
 

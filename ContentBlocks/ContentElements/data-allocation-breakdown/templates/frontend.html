@@ -32,7 +32,7 @@
             </f:if>
         </div>
 
-        <dl class="g-data-allocation-breakdown__lines {f:if(condition: data.compact, then: 'compact')}">
+        <dl class="g-data-allocation-breakdown__lines" data-density="{f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.metrics}" as="metric">
                 <div class="g-data-allocation-breakdown__line" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                     <dt class="g-data-allocation-breakdown__item">{metric -> f:render.text(field: 'title')}</dt>

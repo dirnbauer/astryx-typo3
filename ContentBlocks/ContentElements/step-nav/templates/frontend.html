@@ -50,13 +50,13 @@
         </f:if>
 
         <nav class="g-step-nav__nav" aria-label="{navLabel}">
-            <ol class="g-step-nav__steps {f:if(condition: data.compact, then: 'tight')}">
+            <ol class="g-step-nav__steps" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.steps}" as="step" iteration="position">
                     <f:variable name="state">upcoming</f:variable>
                     <f:if condition="{position.index} < {currentIndex}"><f:variable name="state">done</f:variable></f:if>
                     <f:if condition="{position.index} == {currentIndex} || !{step.link.url}"><f:variable name="state">current</f:variable></f:if>
 
-                    <li class="g-step-nav__step {state}">
+                    <li class="g-step-nav__step" data-state="{state}">
                         <span class="g-step-nav__marker" aria-hidden="true">{position.cycle}</span>
 
                         <span class="g-step-nav__body">

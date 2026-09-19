@@ -1,0 +1,52 @@
+<f:comment>
+    ChatToolCalls — what the assistant did before it answered, one disclosure
+    per call.
+
+    Each call composes Molecule/Collapsible rather than writing a second
+    `details`. The open state, the keyboard behaviour, find-in-page reaching
+    text inside a closed panel and the printer expanding every panel are all
+    the browser's, and Collapsible already has them plus the exclusivity
+    grouping. What this file adds is the row: the tool's name, its outcome and
+    the payload.
+
+    An `ol`, because the calls ran in an order and the third one usually only
+    makes sense after the second. It carries `role="list"` for the reason
+    ChatMessageList does: the stylesheet takes the markers off, and Safari
+    drops list semantics from an unmarkered list. The disclosures are closed by
+    default — a transcript is read for the answer, and six expanded argument
+    dumps between the question and the reply bury it.
+
+    A call is a map with `name`, optionally `status` and `statusLabel`, and
+    optionally `detail`. The outcome needs both halves: `status` is the
+    attribute the tint hangs off, `statusLabel` is the word a reader actually
+    gets, and the badge is rendered only when the words are there — a green
+    pill with nothing in it says nothing to anyone who cannot see green.
+
+    `group` puts the disclosures in one exclusivity group so opening a call
+    closes the last one. Left unset they open independently, which is the right
+    default when a reader is comparing two calls.
+
+    With no `calls` the slot is rendered instead, for the callers that have
+    already built their own rows.
+</f:comment>
+
+<f:argument name="calls" type="mixed" optional="{true}" default="" />
+<f:argument name="group" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ol class="astryx-chat-tool-calls {class}" role="list" aria-label="{ariaLabel}">
+    <f:if condition="{calls}">
+        <f:then>
+            <f:for each="{calls}" as="call">
+                <li class="astryx-chat-tool-calls-item">
+                    <a:molecule.collapsible name="{group}" class="astryx-chat-tool-calls-disclosure">
+                        <f:fragment name="summary"><span class="astryx-chat-tool-calls-name">{call.name}</span><f:if condition="{call.statusLabel}"><span class="astryx-chat-tool-calls-status" data-status="{call.status}">{call.statusLabel}</span></f:if></f:fragment>
+                        <f:fragment name="default"><f:if condition="{call.detail}"><pre class="astryx-chat-tool-calls-detail">{call.detail}</pre></f:if></f:fragment>
+                    </a:molecule.collapsible>
+                </li>
+            </f:for>
+        </f:then>
+        <f:else><f:slot /></f:else>
+    </f:if>
+</ol>

@@ -1,0 +1,148 @@
+/*
+ * Table.
+ *
+ * Split out of 06-data.css, which had grown to the point where the table rules
+ * and the fifteen other data components in it were being read past rather than
+ * read. Nothing else changed: this file follows 06-data.css in manifest.txt, no
+ * .astryx-table selector overlaps anything in it, and the cascade is therefore
+ * the same one it was when the rules sat at the top of that file.
+ *
+ * The React version receives its rows already wrapped in per-part elements;
+ * server-side a template writes plain <thead>, <tr> and <td>, so every part
+ * style also reaches the bare tag inside the table root. That doubling is the
+ * reason for the pairs of selectors throughout.
+ */
+
+/* ----------------------------------------------------------------- Table */
+/* Tables are the one element that cannot be made to fit a narrow column: a
+   five-column table in a 320px viewport either scrolls or breaks the page
+   layout. The wrapper takes the scroll so the page never does. */
+.astryx-table-wrap,
+.astryx-table-scroll-wrapper {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.astryx-table,
+.astryx-base-table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-family: inherit;
+  color: var(--color-text-primary);
+}
+
+/* Auto layout, not upstream's fixed: editors write the cells here and column
+   widths have to follow the content they typed. `.fixed` restores the
+   equal-width behaviour for tables whose columns are known up front. */
+.astryx-table {
+  table-layout: auto;
+}
+
+.astryx-table[data-layout="fixed"] {
+  table-layout: fixed;
+}
+
+.astryx-table :where(th, td),
+.astryx-table-cell,
+.astryx-table-header-cell {
+  box-sizing: border-box;
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
+  text-align: start;
+  vertical-align: middle;
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-table :where(thead th),
+.astryx-table-header-cell {
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+}
+
+/* The last body row's rule would sit directly on top of whatever follows the
+   table, reading as a stray line rather than a cell edge. */
+.astryx-table :where(tbody tr:last-child) :where(th, td),
+.astryx-table-body .astryx-table-row:last-child :where(.astryx-table-cell, .astryx-table-header-cell) {
+  border-block-end: 0;
+}
+
+.astryx-table :where(tfoot),
+.astryx-table-footer {
+  font-weight: var(--font-weight-medium);
+  border-block-start: var(--border-width) solid var(--color-border-emphasized);
+}
+
+.astryx-table[data-density="compact"] :where(th, td),
+.astryx-table[data-density="compact"] .astryx-table-cell,
+.astryx-table[data-density="compact"] .astryx-table-header-cell {
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+}
+
+.astryx-table[data-density="spacious"] :where(th, td),
+.astryx-table[data-density="spacious"] .astryx-table-cell,
+.astryx-table[data-density="spacious"] .astryx-table-header-cell {
+  padding-block: var(--spacing-3);
+  padding-inline: var(--spacing-4);
+}
+
+.astryx-table[data-striped="striped"] :where(tbody tr:nth-child(even)),
+.astryx-table-row[data-striped="striped"]:nth-child(even) {
+  background-color: var(--color-background-muted);
+}
+
+/* A header cell can be given the column rule on its own, and has to be able to:
+   a table that rules only some of its columns is ruling a group, and the cell
+   that starts that group is in the head. */
+.astryx-table[data-bordered="bordered"] :where(th, td):not(:last-child),
+.astryx-table-cell[data-bordered="bordered"]:not(:last-child),
+.astryx-table-header-cell[data-bordered="bordered"]:not(:last-child) {
+  border-inline-end: var(--border-width) solid var(--color-border);
+}
+
+@media (hover: hover) {
+  .astryx-table[data-hoverable="hoverable"] :where(tbody tr):hover,
+  .astryx-table-row[data-hoverable="hoverable"]:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-table[data-hoverable="hoverable"] :where(tbody tr),
+.astryx-table-row[data-hoverable="hoverable"] {
+  transition-property: background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* Truncating cells keep the table's column widths honest instead of letting one
+   long value stretch the whole grid. The header cell is in here too: a column
+   sizes from its widest cell, and a heading is often the widest of them. */
+.astryx-table-cell[data-truncate="truncate"],
+.astryx-table-header-cell[data-truncate="truncate"],
+.astryx-table :where(th, td).truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-inline-size: 0;
+}
+
+.astryx-table-cell[data-wrap="wrap"],
+.astryx-table-header-cell[data-wrap="wrap"],
+.astryx-table :where(th, td).wrap {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* --------------------------------------------------------- reduced motion */
+/* The hover tint is the only thing in here that moves. */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-table[data-hoverable="hoverable"] :where(tbody tr),
+  .astryx-table-row[data-hoverable="hoverable"] {
+    transition-duration: 0s;
+  }
+}

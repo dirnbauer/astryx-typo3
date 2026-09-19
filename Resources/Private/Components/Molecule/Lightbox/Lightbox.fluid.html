@@ -1,0 +1,64 @@
+<f:comment>
+    Lightbox — one picture, full bleed, on the dimmed page.
+
+    A `dialog` opened with `showModal()`, so the media lands in the top layer
+    with a real `::backdrop`, focus contained and Escape bound. The frame
+    carries no surface of its own: the picture sits on the backdrop, with the
+    caption and the counter drawn over it in the on-dark colour.
+
+    What it cannot do is step. There is no previous and no next here, and that
+    is the honest shape rather than a gap. A modal dialog is not reachable by a
+    fragment: `:target` cannot match something the top layer is showing, and a
+    link to `#photo-4` scrolls the inert page behind the lightbox instead of
+    opening photo four. Every scriptless way of stepping — the `:target`
+    gallery, the scroll-snap rail — is a different element to the `dialog` this
+    stylesheet is written for, and a pair of arrows that render, take focus and
+    do nothing is the one thing a component here may never ship. The prev and
+    next rules in the stylesheet therefore stay unrendered — the CSS build
+    drops them and reports them — until something can honestly use them.
+
+    So what a server-rendered lightbox can do: open one figure at full size,
+    name it with a caption, say where it sits in the set with a counter, close
+    on Escape, on the backdrop and on the cross, and hand the reader back to
+    the gallery on the page — which is where stepping actually works, because
+    there it is a list of links.
+
+    The counter is text rather than a live region. It does not change while the
+    dialog is open, and a live region that never updates is a region that costs
+    an announcement for nothing. It is read as part of the dialog when it
+    opens, which is when it is wanted.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="caption" type="string" optional="{true}" default="" />
+<f:argument name="counter" type="string" optional="{true}" default="" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    A lightbox has no heading to be named by, so it is named by `ariaLabel` or
+    by its caption — the caption is what the figure is, and a dialog announced
+    as "dialog" with no name is one a screen-reader user has to explore to
+    identify.
+</f:comment>
+<f:variable name="label" value="{f:if(condition: ariaLabel, then: ariaLabel, else: caption)}" />
+
+<dialog id="{id}" class="astryx-lightbox {class}" aria-label="{label}">
+    <f:if condition="{counter}"><p class="astryx-lightbox-counter">{counter}</p></f:if>
+
+    <f:if condition="{closeLabel}">
+        <form method="dialog" class="astryx-dialog-close-form">
+            <a:atom.iconButton type="submit" variant="ghost" class="astryx-lightbox-close" ariaLabel="{closeLabel}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                    <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                </svg>
+            </a:atom.iconButton>
+        </form>
+    </f:if>
+
+    <figure class="astryx-lightbox-figure">
+        <f:slot />
+        <f:if condition="{caption}"><figcaption class="astryx-lightbox-caption">{caption}</figcaption></f:if>
+    </figure>
+</dialog>

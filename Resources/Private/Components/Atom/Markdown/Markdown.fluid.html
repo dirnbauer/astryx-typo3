@@ -1,0 +1,37 @@
+<f:comment>
+    Markdown — a block of prose that arrives as finished HTML and styles itself
+    from the tags in it.
+
+    It overlaps `astryx-prose`, and the two are not the same thing, so here is
+    the line between them. `astryx-prose` is a stylesheet hook, not a component:
+    it is the seven rules in 01-typography.css that give an editor's rich-text
+    field a paragraph rhythm and a link colour, it is applied to markup no
+    template ever sees, and it is the single entry in the conformance test's
+    class allowlist for exactly that reason. It stops at `p`, `ul`, `ol`, `li`,
+    `a`, `strong` and the top margin of `h2`–`h4`, because that is all an RTE
+    field can produce.
+
+    `astryx-markdown` is a document. It sets all six heading levels on the type
+    scale, images, rules, tables, `pre` and `del`, zeroes the first and last
+    child's margins so the block sits flush in whatever contains it, and has a
+    `density="compact"` for the places where the prose is a cell or a chat
+    bubble rather than a page. That is what a markdown renderer emits and an RTE
+    does not.
+
+    So: bodytext out of a `<f:format.html>` keeps the prose hook where it
+    already is. Anything that has been through a markdown renderer — a
+    README on a documentation page, an answer from an assistant, a file
+    rendered from the filesystem — comes through here. Do not put both on one
+    element; the heading margins are written to different scales and the larger
+    one wins by source order rather than by anyone deciding.
+
+    The content is a slot rather than a string argument, so the escaping
+    decision stays at the call site where the caller knows whether the HTML was
+    produced by a trusted renderer or typed by somebody.
+</f:comment>
+
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-markdown {class}" id="{id}" data-density="{density}"><f:slot /></div>

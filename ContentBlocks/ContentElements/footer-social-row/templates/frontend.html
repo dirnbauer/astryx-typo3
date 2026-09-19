@@ -34,7 +34,7 @@
         </f:if>
 
         <nav aria-label="{navLabel}">
-            <ul class="g-footer-social-row__list {f:if(condition: data.compact, then: 'is-compact')}">
+            <ul class="g-footer-social-row__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.links}" as="profile">
                     <li class="g-footer-social-row__item">
                         <a:molecule.item interactive="interactive" class="g-footer-social-row__link" parameter="{profile.link}">

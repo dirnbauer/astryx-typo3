@@ -10,6 +10,14 @@
  * -description, -end — painted by 06-data.css. That is deliberate: a suggestion
  * row and a result row are the same object at different sizes, and giving the
  * menu its own row recipe is how the two drift apart.
+ *
+ * A row therefore answers to two names. astryx.js builds it as
+ * .astryx-typeahead-option; Molecule/TypeaheadItem renders the identical
+ * anatomy as .astryx-typeahead-item, because the contract names the component
+ * after itself. They are one row, not two, so every rule below that is the
+ * row's own lists both — a second recipe under the second name is precisely how
+ * the script's menu and a template's would start to look different, and nobody
+ * would notice until a theme landed on one of them and not the other.
  */
 
 /* The anchor is whatever the template wrapped around the field. astryx.js adds
@@ -79,11 +87,13 @@
  * visible for its highlight and states it outright, and aria-activedescendant
  * on the input is what tells a screen reader which row that is.
  */
-.astryx-typeahead-option[data-state="active"] {
+.astryx-typeahead-option[data-state="active"],
+.astryx-typeahead-item[data-state="active"] {
   background-color: var(--color-overlay-hover);
 }
 
-.astryx-typeahead-option[data-state="active"] .astryx-item-label {
+.astryx-typeahead-option[data-state="active"] .astryx-item-label,
+.astryx-typeahead-item[data-state="active"] .astryx-item-label {
   color: var(--color-text-primary);
 }
 
@@ -112,7 +122,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .astryx-typeahead-option {
+  .astryx-typeahead-option,
+  .astryx-typeahead-item {
     transition: none;
   }
 }

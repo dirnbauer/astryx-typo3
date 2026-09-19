@@ -44,11 +44,11 @@
   gap: var(--spacing-1);
 }
 
-.g-team-function-columns__columns.compact .g-team-function-columns__column {
+.g-team-function-columns[data-spacing="tight"] .g-team-function-columns__columns .g-team-function-columns__column {
   gap: var(--spacing-2);
 }
 
-.g-team-function-columns__columns.compact .g-team-function-columns__names {
+.g-team-function-columns[data-spacing="tight"] .g-team-function-columns__columns .g-team-function-columns__names {
   gap: 0;
   font-size: var(--text-supporting-size);
   line-height: var(--text-supporting-leading);

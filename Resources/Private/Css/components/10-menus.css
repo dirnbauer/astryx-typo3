@@ -1,0 +1,540 @@
+/*
+ * Menus and sheets — DropdownMenu and its rows, ContextMenu, MoreMenu,
+ * BottomSheet, BottomSheetSwitcher.
+ *
+ * Everything that opens on top of the page and offers a list of things to do.
+ * It is split out of 08-overlay.css because that partial is about surfaces —
+ * how a panel is painted and how it fades in — and this one is about rows: the
+ * height of a command, what a checked one looks like, how a destructive one is
+ * marked, and how far a folded group is indented.
+ *
+ * The panels are native [popover]s and the sheets are native <dialog>s, so the
+ * top layer, light dismiss, Escape and focus containment are all the browser's
+ * and none of them appear here. What does appear is one row recipe shared by
+ * five components: a command, a link, a checkbox, a radio and the summary of a
+ * folded group are the same object with different semantics, and giving each
+ * of them its own padding is how a menu ends up looking ragged.
+ *
+ * The rows are controls, not list items. Upstream's TabMenu next door settled
+ * that first — a flex column of buttons rather than a <ul> — and the family
+ * follows it, which is also why DropdownMenuDivider can be a bare <hr>.
+ */
+
+/* ------------------------------------------------------------ the surface */
+/* The UA paints every [popover] on its own canvas, with a border, auto margins
+   and a centred inset. All four have to go before a surface token can show.
+   08-overlay.css does the same for its panels; the list is repeated rather
+   than shared because a partial that reaches into another partial's selector
+   is a partial nobody can move. */
+.astryx-dropdown-menu,
+.astryx-context-menu {
+  box-sizing: border-box;
+  inset: auto;
+  margin: 0;
+  padding: var(--spacing-1);
+  border-width: 0;
+  border-style: none;
+  min-inline-size: 12rem;
+  max-inline-size: 20rem;
+  border-radius: var(--radius-container);
+  background-color: var(--color-background-popover);
+  box-shadow: var(--shadow-low);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+}
+
+/* Open, the panel is a column. Closed it is display:none, and the flex only
+   applies while it is showing — which is what lets display transition with the
+   rest under allow-discrete. */
+.astryx-dropdown-menu:popover-open,
+.astryx-context-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+}
+
+/* Anchor positioning is what replaces the measuring script. Unset, the anchor
+   is `auto`, which resolves to the popovertarget invoker — the right anchor
+   for a dropdown hung off its own button and for the dots of a MoreMenu.
+   A context menu belongs to the row it acts on, so that one names its anchor
+   through --popover-anchor at the call site. */
+@supports (position-anchor: --a) {
+  .astryx-dropdown-menu,
+  .astryx-context-menu {
+    position-anchor: var(--popover-anchor, auto);
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+    margin-block-start: var(--spacing-1);
+  }
+
+  .astryx-dropdown-menu[data-placement="top"],
+  .astryx-context-menu[data-placement="top"] {
+    position-area: block-start span-inline-end;
+    margin-block: 0 var(--spacing-1);
+  }
+
+  .astryx-dropdown-menu[data-placement="start"],
+  .astryx-context-menu[data-placement="start"] {
+    position-area: block-end span-inline-start;
+  }
+
+  /* The select-like menu: as wide as the control that opened it. */
+  .astryx-dropdown-menu[data-width="match-trigger"] {
+    min-inline-size: anchor-size(width);
+  }
+}
+
+.astryx-dropdown-menu[popover],
+.astryx-context-menu[popover] {
+  opacity: 0;
+  translate: 0 calc(-1 * var(--spacing-1));
+  transition-property: opacity, translate, overlay, display;
+  transition-duration: var(--duration-medium-min);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-dropdown-menu[popover]:popover-open,
+.astryx-context-menu[popover]:popover-open {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .astryx-dropdown-menu[popover]:popover-open,
+  .astryx-context-menu[popover]:popover-open {
+    opacity: 0;
+    translate: 0 calc(-1 * var(--spacing-1));
+  }
+}
+
+/* ---------------------------------------------------------------- the row */
+/* One recipe, five components. The checkbox and radio rows are <label>s and
+   the folded group's is a <summary>, so the selector has to name the element
+   as well as the class in two places — but the declarations are the same set,
+   which is the point: a command and a checked option must line up down the
+   same edge or the menu reads as two menus. */
+.astryx-dropdown-menu-item,
+.astryx-dropdown-menu-checkbox-item,
+.astryx-dropdown-menu-radio-item,
+.astryx-dropdown-menu-sub-menu > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-block-size: var(--size-element-sm);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  border: 0;
+  border-radius: var(--radius-element);
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: var(--font-weight-normal);
+  line-height: inherit;
+  color: var(--color-text-primary);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* Pointer only. A hover tint under a finger is a tint that stays on after the
+   tap, and the row below it then looks like the one that was chosen. */
+@media (hover: hover) {
+  .astryx-dropdown-menu-item:hover,
+  .astryx-dropdown-menu-checkbox-item:hover,
+  .astryx-dropdown-menu-radio-item:hover,
+  .astryx-dropdown-menu-sub-menu > summary:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+.astryx-dropdown-menu-item:active,
+.astryx-dropdown-menu-checkbox-item:active,
+.astryx-dropdown-menu-radio-item:active,
+.astryx-dropdown-menu-sub-menu > summary:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+/* The house ring, and it is drawn inside the row: an outline offset outwards
+   on a row that reaches the panel's padding edge is an outline the panel's
+   own rounding clips. */
+.astryx-dropdown-menu-item:focus-visible,
+.astryx-dropdown-menu-checkbox-item:focus-within,
+.astryx-dropdown-menu-radio-item:focus-within,
+.astryx-dropdown-menu-sub-menu > summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* The row is long, the label inside it is not always shorter. Truncating the
+   text keeps the row one line high without the panel growing to fit a name
+   nobody can read at that width anyway; `title` at the call site is what makes
+   the full one reachable. */
+.astryx-dropdown-menu-item,
+.astryx-dropdown-menu-checkbox-item > span,
+.astryx-dropdown-menu-radio-item > span {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A destructive command is red *and* says "Delete". The colour is the second
+   signal, never the only one — which is why nothing here hides the label. */
+.astryx-dropdown-menu-item[data-variant="destructive"] {
+  color: var(--color-text-red);
+}
+
+.astryx-dropdown-menu-item:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+@media (hover: hover) {
+  .astryx-dropdown-menu-item:disabled:hover {
+    background-color: transparent;
+  }
+}
+
+/* A glyph in a row is a glyph, not a block: it keeps its size while the label
+   beside it takes what is left. */
+.astryx-dropdown-menu-item > svg,
+.astryx-dropdown-menu-sub-menu > summary > svg {
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  color: var(--color-icon-secondary);
+}
+
+/* ------------------------------------------------- checkable and choosable */
+/* Real inputs, drawn by the browser and tinted with accent-color. The
+   alternative — hiding the input and painting a box with ::before — loses the
+   forced-colours rendering, the platform's own checked shape and the tick that
+   a high-contrast mode knows how to draw. */
+.astryx-dropdown-menu-checkbox-item > input,
+.astryx-dropdown-menu-radio-item > input {
+  flex-shrink: 0;
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: inherit;
+}
+
+/* The label is the control, so a disabled input has to grey and un-click the
+   whole row rather than only the box. :has() is what lets the row answer for
+   its own child. */
+.astryx-dropdown-menu-checkbox-item:has(> input:disabled),
+.astryx-dropdown-menu-radio-item:has(> input:disabled) {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.astryx-dropdown-menu-checkbox-item:has(> input:checked),
+.astryx-dropdown-menu-radio-item:has(> input:checked) {
+  font-weight: var(--font-weight-medium);
+}
+
+/* ------------------------------------------------------------- separator */
+/* The <hr>'s own margin and border are the UA's idea of a thematic break
+   between paragraphs, which is far too much between two commands. */
+.astryx-dropdown-menu-divider {
+  flex-shrink: 0;
+  margin-block: var(--spacing-1);
+  margin-inline: calc(-1 * var(--spacing-1));
+  border: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* ------------------------------------------------------------ radio group */
+/* A fieldset brings a UA border, a UA padding and a min-inline-size of
+   min-content that refuses to shrink inside a flex column — the last one is
+   the one that bites, because a long option then widens the whole panel. */
+.astryx-dropdown-menu-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.astryx-dropdown-menu-radio-group > legend {
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-3);
+  color: var(--color-text-secondary);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-supporting-leading);
+}
+
+/* --------------------------------------------------------------- sub-menu */
+.astryx-dropdown-menu-sub-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  interpolate-size: allow-keywords;
+}
+
+.astryx-dropdown-menu-sub-menu > summary {
+  justify-content: space-between;
+  list-style: none;
+}
+
+.astryx-dropdown-menu-sub-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Two borders on an empty box, the same chevron Collapsible draws, pointing
+   along the inline axis until the group opens. Rotating it is the only
+   animation in this file that is not an entry. */
+.astryx-dropdown-menu-sub-menu > summary::after {
+  content: '';
+  flex-shrink: 0;
+  inline-size: var(--spacing-2);
+  block-size: var(--spacing-2);
+  border-inline-end: 2px solid currentColor;
+  border-block-end: 2px solid currentColor;
+  color: var(--color-icon-secondary);
+  rotate: -45deg;
+  transition-property: rotate;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-dropdown-menu-sub-menu[open] > summary::after {
+  rotate: 45deg;
+}
+
+/* The folded rows are indented so the fold is legible when the summary has
+   scrolled out of sight — the indent, not the chevron, is what says these
+   belong to something. */
+.astryx-dropdown-menu-sub-menu > [role="group"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  padding-inline-start: var(--spacing-3);
+}
+
+@supports selector(::details-content) {
+  .astryx-dropdown-menu-sub-menu::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition-property: block-size, content-visibility;
+    transition-duration: var(--duration-medium-min);
+    transition-timing-function: var(--ease-standard);
+    transition-behavior: allow-discrete;
+  }
+
+  .astryx-dropdown-menu-sub-menu[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* -------------------------------------------------------------- more menu */
+/* The wrapper holds the dots and the panel together so that a row of actions
+   can place one object rather than two, and so the panel stays a DOM sibling
+   of its own invoker — which is what keeps `position-anchor: auto` pointing at
+   the right button when a table has forty of them. */
+.astryx-more-menu {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------- bottom sheet */
+/* A <dialog> pinned to the block-end edge. The UA centres a modal dialog with
+   auto margins and a centred inset, so both are overridden before the sheet
+   can reach an edge at all. The padding is one step tighter than a dialog's:
+   a sheet is a phone surface, and the desktop rhythm costs a line of content
+   on a short viewport. */
+.astryx-bottom-sheet,
+.astryx-bottom-sheet-switcher {
+  --dialog-padding: var(--spacing-4);
+  position: fixed;
+  inset-block: auto 0;
+  inset-inline: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  max-block-size: 85dvh;
+  block-size: fit-content;
+  border-start-start-radius: var(--radius-page);
+  border-start-end-radius: var(--radius-page);
+  background-color: var(--color-background-surface);
+  color: var(--color-text-primary);
+  box-shadow: var(--shadow-high);
+  overscroll-behavior: contain;
+  /* Entry needs no state class: @starting-style gives the browser a "before
+     open" snapshot and allow-discrete lets display and overlay travel with the
+     translate, so the sheet slides back down on close instead of vanishing. */
+  translate: 0 100%;
+  transition-property: translate, overlay, display;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-bottom-sheet[open],
+.astryx-bottom-sheet-switcher[open] {
+  display: flex;
+  flex-direction: column;
+  translate: 0 0;
+}
+
+@starting-style {
+  .astryx-bottom-sheet[open],
+  .astryx-bottom-sheet-switcher[open] {
+    translate: 0 100%;
+  }
+}
+
+.astryx-bottom-sheet::backdrop,
+.astryx-bottom-sheet-switcher::backdrop {
+  background-color: var(--color-overlay);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition-property: opacity, overlay, display;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-standard);
+  transition-behavior: allow-discrete;
+}
+
+.astryx-bottom-sheet[open]::backdrop,
+.astryx-bottom-sheet-switcher[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .astryx-bottom-sheet[open]::backdrop,
+  .astryx-bottom-sheet-switcher[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.astryx-bottom-sheet:focus-visible,
+.astryx-bottom-sheet-switcher:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+/* Past the phone it stops being an edge and becomes a panel, centred and
+   capped. A sheet the full width of a desktop window is a wall. */
+@media (min-width: 640px) {
+  .astryx-bottom-sheet,
+  .astryx-bottom-sheet-switcher {
+    max-inline-size: 32rem;
+    margin-inline: auto;
+  }
+}
+
+/* The switcher's form carries the action and the method and nothing else, so
+   it is given no box: `display: contents` leaves the options and the footer as
+   the sheet's own flex children, which is what keeps the options scrolling
+   while the buttons stay put. */
+.astryx-bottom-sheet-switcher > form {
+  display: contents;
+}
+
+/* Same fieldset reset as the menu's radio group, for the same min-content
+   reason — and here it also has to lose the UA's block padding, which would
+   double the body padding it is wearing. */
+.astryx-bottom-sheet-switcher fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+  margin: 0;
+  padding-block: var(--spacing-2);
+  border: 0;
+}
+
+.astryx-bottom-sheet-switcher legend {
+  padding: 0;
+  padding-block-end: var(--spacing-2);
+  color: var(--color-text-secondary);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-supporting-leading);
+}
+
+/* The options are the caller's labelled radios. They are given the menu row's
+   height and touch target rather than a recipe of their own: a choice is a
+   choice, and a switcher that spaces its options differently from the menu
+   next to it looks like a different product. */
+.astryx-bottom-sheet-switcher label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  min-block-size: var(--size-element-md);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  cursor: pointer;
+}
+
+.astryx-bottom-sheet-switcher label:has(input:focus-visible) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.astryx-bottom-sheet-switcher label > input {
+  flex-shrink: 0;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  margin: 0;
+  accent-color: var(--color-accent);
+}
+
+@media (hover: hover) {
+  .astryx-bottom-sheet-switcher label:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+/* ---------------------------------------------------------------- motion */
+/* Everything still opens. Only the movement goes: a sheet that arrives with no
+   slide is a sheet, a sheet that never arrives is a bug. */
+@media (prefers-reduced-motion: reduce) {
+  .astryx-dropdown-menu,
+  .astryx-dropdown-menu[popover],
+  .astryx-context-menu,
+  .astryx-context-menu[popover],
+  .astryx-dropdown-menu-item,
+  .astryx-dropdown-menu-checkbox-item,
+  .astryx-dropdown-menu-radio-item,
+  .astryx-dropdown-menu-sub-menu > summary,
+  .astryx-dropdown-menu-sub-menu > summary::after,
+  .astryx-bottom-sheet,
+  .astryx-bottom-sheet-switcher,
+  .astryx-bottom-sheet::backdrop,
+  .astryx-bottom-sheet-switcher::backdrop {
+    transition-duration: 0s;
+  }
+
+  .astryx-dropdown-menu[popover],
+  .astryx-context-menu[popover] {
+    translate: 0 0;
+  }
+
+  .astryx-bottom-sheet,
+  .astryx-bottom-sheet-switcher {
+    translate: 0 0;
+  }
+
+  @supports selector(::details-content) {
+    .astryx-dropdown-menu-sub-menu::details-content {
+      transition-duration: 0s;
+    }
+  }
+}

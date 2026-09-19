@@ -17,8 +17,8 @@
  *                actual heading order, the actual alt text, the actual labels.
  *                Needs the lab.
  *   --harness    a static page this script builds from
- *                Build/Data/component-contract.json and the built CSS, with
- *                every component rendered in every declared modifier. It cannot
+ *                Build/Data/component-contract.json and the built CSS: every
+ *                component, in every state the stylesheet defines. It cannot
  *                see content problems - there is no content - but it measures
  *                everything the STYLESHEET decides: the type scale, spacing,
  *                radii, focus rings, hover and active states, reduced motion,
@@ -49,6 +49,7 @@ function parseArgs(argv) {
     limit: Infinity,
     out: null,
     concurrency: 4,
+    timeout: 60_000,
   };
   for (const arg of argv) {
     const [flag, raw] = arg.includes('=') ? [arg.slice(0, arg.indexOf('=')), arg.slice(arg.indexOf('=') + 1)] : [arg, null];
@@ -68,6 +69,10 @@ function parseArgs(argv) {
       // independent, so the only cost of more is memory on the machine running
       // them; the default is conservative for a laptop next to a DDEV stack.
       case '--concurrency': args.concurrency = Math.max(1, Number(raw)); break;
+      // Milliseconds a page gets to load. An element preview nobody has asked
+      // for yet is built from scratch, and on a laptop running the stack and
+      // the review at once that is tens of seconds.
+      case '--timeout': args.timeout = Number(raw); break;
       default:
         console.error(`Unknown argument: ${arg}`);
         process.exit(1);
@@ -192,14 +197,43 @@ function sample(layer, rootClass) {
     + '<button class="astryx-button" type="button" data-variant="primary" data-size="md">Button</button>';
 }
 
+/**
+ * Which `[data-x="y"]` cases a component actually has, read out of the CSS.
+ *
+ * The stylesheet is the authority: a case the CSS does not define paints
+ * nothing, and a case it defines but nobody wrote down is exactly the one that
+ * goes unreviewed. Reading it here means a component added tomorrow is probed
+ * in all of its states without anyone maintaining a second list of them.
+ *
+ * @returns {Map<string, Array<[string, Record<string, string>]>>} root class -> [label, attributes]
+ */
+function casesFromStylesheet() {
+  const css = ['astryx-components.css', 'astryx.css']
+    .map(name => path.join(EXT_ROOT, 'Resources/Public/Css', name))
+    .filter(file => fs.existsSync(file))
+    .map(file => fs.readFileSync(file, 'utf8'))
+    .join('\n');
+
+  const byRootClass = new Map();
+  for (const match of css.matchAll(/\.(astryx-[a-z0-9-]+)\[data-([a-z-]+)="([^"]+)"\]/g)) {
+    const [, rootClass, attribute, value] = match;
+    if (!byRootClass.has(rootClass)) byRootClass.set(rootClass, new Map());
+    byRootClass.get(rootClass).set(`${attribute}=${value}`, {[`data-${attribute}`]: value});
+  }
+
+  return byRootClass;
+}
+
+const stylesheetCases = casesFromStylesheet();
+
 function buildHarness() {
   const sections = [];
 
   for (const [key, component] of Object.entries(contract.components)) {
-    const cases = [['(default)', {}]];
-    for (const [token, {attribute, value}] of Object.entries(component.modifiers)) {
-      cases.push([token, {[`data-${attribute}`]: value}]);
-    }
+    const cases = [
+      ['(default)', {}],
+      ...[...(stylesheetCases.get(component.rootClass) ?? new Map())].sort(([a], [b]) => a.localeCompare(b)),
+    ];
 
     const rendered = cases.map(([label, attributes]) => {
       const attrs = Object.entries(attributes).map(([name, value]) => ` ${name}="${value}"`).join('');
@@ -699,10 +733,33 @@ try {
           const page = await context.newPage();
           const label = `${target.id}-${viewport}-${scheme}${reducedMotion ? '-reduced' : ''}`;
 
-          try {
-            await page.goto(target.url, {waitUntil: 'networkidle', timeout: 30_000});
-          } catch (error) {
-            results.push({page: target.id, viewport, scheme, reducedMotion, error: String(error.message ?? error)});
+          /*
+           * `load`, not `networkidle`. A TYPO3 instance running Vite in dev
+           * mode holds a hot-reload socket open for the life of the page, so
+           * the network never goes idle and every page in the run is reported
+           * as a timeout — which is what the first run against the lab did.
+           * What the probes actually need is layout and webfonts, and
+           * document.fonts.ready is the event that says so.
+           *
+           * Twice, because the first visitor to an uncached element preview
+           * waits for TYPO3 to build the page and the second does not. Reporting
+           * that first visitor as a page that "would not load" says nothing
+           * about the design, and one retry turns the whole class of timing
+           * noise into a rerun that costs a second.
+           */
+          let loaded = false;
+          let failure = null;
+          for (let attempt = 0; attempt < 2 && !loaded; attempt++) {
+            try {
+              await page.goto(target.url, {waitUntil: 'load', timeout: args.timeout});
+              await page.evaluate(() => document.fonts.ready);
+              loaded = true;
+            } catch (error) {
+              failure = String(error.message ?? error);
+            }
+          }
+          if (!loaded) {
+            results.push({page: target.id, viewport, scheme, reducedMotion, error: failure});
             await page.close();
             return;
           }

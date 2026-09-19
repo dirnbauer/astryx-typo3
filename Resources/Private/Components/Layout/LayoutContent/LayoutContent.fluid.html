@@ -1,0 +1,24 @@
+<f:comment>
+    LayoutContent — the shell's main region: the one pane that scrolls while
+    the bar above it and the rail beside it stay put.
+
+    A `main` element, so it is the main landmark and the target a skip link can
+    aim at. `id` is worth passing for exactly that reason, and `tabindex="-1"`
+    goes with it: without it, following a skip link moves the scroll position
+    but not the keyboard, and the next Tab carries on from wherever focus still
+    was — usually back up in the navigation the visitor was trying to skip.
+    A -1 tabindex makes the region focusable by script and by fragment
+    navigation without putting it in the tab order.
+
+    Like the other three shell regions this is a region and not a design: it
+    owns the scroll and the landmark, and what it looks like is whatever is
+    placed inside it.
+</f:comment>
+
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{id}">
+    <f:then><main id="{id}" class="astryx-layout-content {class}" tabindex="-1"><f:slot /></main></f:then>
+    <f:else><main class="astryx-layout-content {class}"><f:slot /></main></f:else>
+</f:if>

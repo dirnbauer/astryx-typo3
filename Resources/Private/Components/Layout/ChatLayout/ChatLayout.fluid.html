@@ -1,0 +1,54 @@
+<f:comment>
+    ChatLayout — the frame a conversation sits in: the transcript, the composer
+    below it, and the control that jumps back to the newest message.
+
+    Only the transcript scrolls. The composer is a sibling of the scroller and
+    not a sticky element inside it, because a sticky composer overlays the last
+    message and the reader has to scroll past their own turn to read it. Two
+    rows of a grid cost nothing and the transcript ends exactly where the
+    composer begins.
+
+    `endId` names the empty marker at the foot of the transcript, and it is
+    there so ChatLayoutScrollButton has something to link to — an in-page
+    anchor is the only scroll-to-bottom that works without script. The marker
+    carries `tabindex="-1"` for the reason a skip link's target does: following
+    the link should move the keyboard's focus starting point to the end of the
+    transcript rather than leave it where the reader was.
+
+    Layout composes nothing, so all three regions arrive as slots and this
+    component never learns what a message or a composer is made of. Mind the
+    Fluid trap when calling it: the moment you fill `composer` or
+    `scrollButton` with an `f:fragment`, loose children stop being the default
+    slot, so the transcript has to be wrapped in `<f:fragment name="default">`
+    as well or it silently disappears.
+</f:comment>
+
+<f:argument name="endId" type="string" optional="{true}" default="astryx-chat-end" />
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    class="astryx-chat-layout {class}"
+    id="{id}"
+    data-variant="{variant}"
+    data-density="{density}">
+    <div class="astryx-chat-layout-transcript">
+        <f:slot />
+        <f:comment>
+            An empty div and not an empty list item: the transcript slot holds
+            the `ol`, and a marker inside it would have to be an `li` that a
+            screen reader counts as a turn nobody wrote.
+        </f:comment>
+        <div class="astryx-chat-layout-end" id="{endId}" tabindex="-1"></div>
+    </div>
+
+    <f:if condition="{f:slot(name: 'scrollButton') -> f:format.trim()}">
+        <div class="astryx-chat-layout-affordance"><f:slot name="scrollButton" /></div>
+    </f:if>
+
+    <f:if condition="{f:slot(name: 'composer') -> f:format.trim()}">
+        <div class="astryx-chat-layout-composer"><f:slot name="composer" /></div>
+    </f:if>
+</div>

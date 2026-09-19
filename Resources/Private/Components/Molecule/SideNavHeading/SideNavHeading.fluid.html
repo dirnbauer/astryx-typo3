@@ -1,0 +1,51 @@
+<f:comment>
+    SideNavHeading — what the rail is called, at the top of a SideNav: a mark,
+    a title, and up to two lines of smaller text around it.
+
+    The same three shapes as TopNavHeading and for the same reason: an href
+    makes it a link, `interactive` without an href makes it the button that
+    opens a switcher, and neither makes it a plain `div` that stays out of the
+    tab order. It is a separate component rather than an argument on that one
+    because the two carry different classes, and a theme that retunes the rail
+    without touching the bar — which is most of them — has to be able to reach
+    one and not the other.
+
+    `.astryx-side-nav-heading-text` is added by this file's stylesheet rather
+    than inherited from the bar's: the heading is a flex row, so a title with a
+    sub under it needs a column wrapper, and only the TopNav side of the 2.0
+    stylesheet ever got one.
+
+    In the collapsed rail the heading keeps its mark and loses nothing else —
+    the title is not hidden here the way item labels are, so a rail that
+    collapses should be given a heading that is mostly its NavIcon.
+</f:comment>
+
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="super" type="string" optional="{true}" default="" />
+<f:argument name="sub" type="string" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="interactive" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="popovertarget" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="mode">{f:if(condition: href, then: 'link', else: '{f:if(condition: interactive, then: \'button\', else: \'plain\')}')}</f:variable>
+
+<f:switch expression="{mode}">
+    <f:case value="link">
+        <a href="{href}" class="astryx-side-nav-heading {class}" data-interactive="interactive" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-side-nav-heading-text"><f:if condition="{super}"><span class="astryx-side-nav-heading-super">{super}</span></f:if><span class="astryx-side-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-side-nav-heading-sub">{sub}</span></f:if></span><f:slot /></a>
+    </f:case>
+    <f:comment>
+        `popovertarget` is the browser's own invoker — open, toggle, Escape and
+        click-outside without a line of script. The panel it names is the
+        caller's, because what a project switcher lists is not something the
+        rail's title can know.
+    </f:comment>
+    <f:case value="button">
+        <button type="button" class="astryx-side-nav-heading {class}" data-interactive="interactive" popovertarget="{popovertarget}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-side-nav-heading-text"><f:if condition="{super}"><span class="astryx-side-nav-heading-super">{super}</span></f:if><span class="astryx-side-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-side-nav-heading-sub">{sub}</span></f:if></span><f:slot /></button>
+    </f:case>
+    <f:defaultCase>
+        <div class="astryx-side-nav-heading {class}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-side-nav-heading-text"><f:if condition="{super}"><span class="astryx-side-nav-heading-super">{super}</span></f:if><span class="astryx-side-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-side-nav-heading-sub">{sub}</span></f:if></span><f:slot /></div>
+    </f:defaultCase>
+</f:switch>

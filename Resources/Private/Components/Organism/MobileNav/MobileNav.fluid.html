@@ -1,0 +1,61 @@
+<f:comment>
+    MobileNav — the navigation drawer that slides in over a narrow page.
+
+    A native `dialog` opened modally, which is what makes it a drawer rather
+    than a panel: the top layer, the backdrop, the focus containment, Escape
+    and the inertness of everything behind it are all the browser's. A div with
+    a transform gets none of those, and the focus trap alone is a week of
+    script that is never quite right.
+
+    The one thing the platform will not do is open it, so the trigger calls
+    `dialog.showModal()` — the existing `data-g-dialog-open="<id>"` hook in
+    astryx.js, which takes the id this component is given; the close control
+    here uses that script's companion `data-g-dialog-close`. No new JavaScript,
+    and `id` is required because both hooks find the dialog by it.
+
+    The drawer transform is on the inner pane rather than on the dialog: the
+    dialog itself must stay put and full-screen so that its backdrop covers the
+    page, and `[open]` on the parent is what slides the pane in. The pane is
+    also where the scrolling is — the dialog blocks touch panning so the page
+    behind cannot be pulled, and the content region opts vertical panning back
+    in for itself.
+
+    `ariaLabel` is written twice, on the dialog and on the `nav` inside it, and
+    that is deliberate. The dialog's name is what is announced at the moment it
+    opens; the nav's is what appears in the landmark list once the visitor is
+    inside. Leaving either off costs a name where a name is the only thing
+    being said — "dialog", or "navigation", and nothing more.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="placement" type="string" optional="{true}" default="start" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<dialog id="{id}" class="astryx-mobile-nav {class}" data-placement="{placement}" aria-label="{ariaLabel}">
+    <div class="astryx-mobile-nav-drawer">
+        <div class="astryx-mobile-nav-header">
+            <f:slot name="header" />
+            <f:comment>
+                The close control appears only once it has been given a name.
+                An icon-only button with nothing to announce is read out as
+                "button", and in a modal that is the way out.
+            </f:comment>
+            <f:if condition="{closeLabel}">
+                <button
+                    type="button"
+                    class="astryx-button astryx-icon-button"
+                    data-variant="ghost"
+                    data-size="sm"
+                    data-g-dialog-close
+                    aria-label="{closeLabel}">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                        <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </f:if>
+        </div>
+        <nav class="astryx-mobile-nav-content" aria-label="{ariaLabel}"><f:slot /></nav>
+    </div>
+</dialog>

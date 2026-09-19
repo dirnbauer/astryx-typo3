@@ -1,0 +1,32 @@
+<f:comment>
+    CheckboxList — several checkboxes that answer one question.
+
+    A `<fieldset>` with a `<legend>`, because that is the only markup that
+    makes a screen reader say the question before each of the answers. Without
+    it a list of seven checkboxes is read as seven unrelated switches, and
+    "Vegetarian" on its own is not an answer to anything.
+
+    The legend is only rendered when there is one. A fieldset whose grouping is
+    already stated — the list is the whole of a labelled Field, say — should
+    not say it twice, and an empty `<legend>` is a blank line the reader still
+    stops on.
+
+    Inside a Field the fieldset reset comes from `.astryx-field fieldset`, so
+    this class mostly matters standing alone; `orientation="horizontal"` is the
+    exception, and it is written on two classes precisely so it outranks that
+    descendant rule and the row survives inside a Field.
+</f:comment>
+
+<f:argument name="legend" type="string" optional="{true}" default="" />
+<f:argument name="orientation" type="string" optional="{true}" default="" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<fieldset
+    id="{id}"
+    class="astryx-checkbox-list {class}"
+    data-orientation="{orientation}"
+    aria-describedby="{describedBy}"
+    {f:if(condition: disabled, then: 'disabled')}><f:if condition="{legend}"><legend>{legend}</legend></f:if><f:slot /></fieldset>

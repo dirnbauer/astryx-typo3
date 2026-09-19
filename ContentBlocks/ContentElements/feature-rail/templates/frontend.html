@@ -11,7 +11,7 @@
     pointer can reach is a scroll container half the readers cannot use.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-rail">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-feature-rail">
     <a:layout.container size="{data.width}">
 
         <div class="g-feature-rail__intro">
@@ -29,7 +29,7 @@
         <a:molecule.carousel
             gap="4"
             class="g-feature-rail__rail"
-            trackClass="g-feature-rail__track {f:if(condition: data.compact, then: 'compact')}"
+            trackClass="g-feature-rail__track"
             trackLabelledby="g-feature-rail-{data.uid}-heading">
             <f:for each="{data.items}" as="item">
                 <a:molecule.carouselItem class="g-feature-rail__item">

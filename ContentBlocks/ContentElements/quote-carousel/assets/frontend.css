@@ -70,12 +70,12 @@
   rotate: -45deg;
 }
 
-.g-quote-carousel__control.start::before {
+.g-quote-carousel__control[data-position="start"]::before {
   rotate: 135deg;
   translate: var(--spacing-0-5) 0;
 }
 
-.g-quote-carousel__control.end::before {
+.g-quote-carousel__control[data-position="end"]::before {
   translate: calc(-1 * var(--spacing-0-5)) 0;
 }
 

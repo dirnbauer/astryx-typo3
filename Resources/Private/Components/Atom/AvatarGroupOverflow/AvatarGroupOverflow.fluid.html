@@ -1,0 +1,48 @@
+<f:comment>
+    AvatarGroupOverflow — the "+3" that closes an AvatarGroup.
+
+    It is a pill rather than a disc because the number inside it grows: a
+    circle sized to one avatar holds "+3" and clips "+128", so the stylesheet
+    gives it the avatar's height, the avatar's surface ring, and a minimum
+    width it is allowed to exceed. It is the last child of the group and
+    overlaps like the avatars before it.
+
+    "+3" says nothing on its own, so `ariaLabel` is what carries the meaning —
+    "3 more people". Most groups are decorative and say the whole count in
+    words beside them, and those set `ariaHidden` on the AvatarGroup, which
+    takes this with it; the label is for the ones that do not.
+
+    `href` makes it a link to wherever the rest of the people are. That is the
+    only reason the stylesheet has a focus ring for it: a span is not a tab
+    stop, and a chip that looks clickable and is not is worse than one that
+    looks inert. If the overflow should open a list in place, that is a Popover
+    around it — this stays the chip.
+
+    The link carries its label directly, because a link is a named thing. The
+    span cannot: `aria-label` on an element with no role is ignored, and the
+    chip would go back to reading as "+3". Naming it therefore also makes it an
+    image, which is what StatusDot does for the same reason. An empty `role`
+    attribute is no role at all, so the unnamed case needs no second branch.
+</f:comment>
+
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="ariaHidden" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{href}">
+    <f:then>
+        <a
+            href="{href}"
+            class="astryx-avatar-group-overflow {class}"
+            aria-label="{ariaLabel}"
+            aria-hidden="{ariaHidden}"><f:slot /></a>
+    </f:then>
+    <f:else>
+        <span
+            class="astryx-avatar-group-overflow {class}"
+            role="{f:if(condition: ariaLabel, then: 'img')}"
+            aria-label="{ariaLabel}"
+            aria-hidden="{ariaHidden}"><f:slot /></span>
+    </f:else>
+</f:if>

@@ -47,11 +47,11 @@
   block-size: var(--spacing-8);
 }
 
-.g-feature-ribbon__items.compact {
+.g-feature-ribbon__items[data-density="compact"] {
   gap: var(--spacing-3);
 }
 
-.g-feature-ribbon__items.compact .g-feature-ribbon__icon {
+.g-feature-ribbon__items[data-density="compact"] .g-feature-ribbon__icon {
   inline-size: var(--spacing-7);
   block-size: var(--spacing-7);
 }

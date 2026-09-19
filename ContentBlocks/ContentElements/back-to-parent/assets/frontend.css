@@ -9,7 +9,7 @@
   --section-gap: var(--spacing-4);
 }
 
-.g-back-to-parent__nav.boxed {
+.g-back-to-parent__nav[data-variant="boxed"] {
   padding: var(--spacing-3) var(--spacing-4);
   border-radius: var(--radius-element);
   background-color: var(--color-background-muted);
@@ -61,7 +61,7 @@
   }
 }
 
-.g-back-to-parent[data-surface="accent"] .g-back-to-parent__nav.boxed {
+.g-back-to-parent[data-surface="accent"] .g-back-to-parent__nav[data-variant="boxed"] {
   background-color: transparent;
   box-shadow: inset 0 0 0 var(--border-width) currentColor;
 }
@@ -71,7 +71,7 @@
 }
 
 @media (max-width: 480px) {
-  .g-back-to-parent__nav.boxed {
+  .g-back-to-parent__nav[data-variant="boxed"] {
     padding: var(--spacing-2) var(--spacing-3);
   }
 }

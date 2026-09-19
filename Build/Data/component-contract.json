@@ -1882,6 +1882,594 @@
       "rootClass": "astryx-sidebar-layout",
       "modifiers": {},
       "note": "A content page’s body when sibling links sit beside it: the two-column grid and the nav landmark inside it. Sits inside a Container, like PageHeader."
+    },
+    "layout.formLayout": {
+      "layer": "Layout",
+      "name": "FormLayout",
+      "rootClass": "astryx-form-layout",
+      "modifiers": {}
+    },
+    "layout.gridSpan": {
+      "layer": "Layout",
+      "name": "GridSpan",
+      "rootClass": "astryx-grid-span",
+      "modifiers": {}
+    },
+    "layout.scrollableArea": {
+      "layer": "Layout",
+      "name": "ScrollableArea",
+      "rootClass": "astryx-scrollable-area",
+      "modifiers": {}
+    },
+    "layout.layoutHeader": {
+      "layer": "Layout",
+      "name": "LayoutHeader",
+      "rootClass": "astryx-layout-header",
+      "modifiers": {}
+    },
+    "layout.layoutContent": {
+      "layer": "Layout",
+      "name": "LayoutContent",
+      "rootClass": "astryx-layout-content",
+      "modifiers": {}
+    },
+    "layout.layoutFooter": {
+      "layer": "Layout",
+      "name": "LayoutFooter",
+      "rootClass": "astryx-layout-footer",
+      "modifiers": {}
+    },
+    "layout.layoutPanel": {
+      "layer": "Layout",
+      "name": "LayoutPanel",
+      "rootClass": "astryx-layout-panel",
+      "modifiers": {}
+    },
+    "layout.chatLayout": {
+      "layer": "Layout",
+      "name": "ChatLayout",
+      "rootClass": "astryx-chat-layout",
+      "modifiers": {}
+    },
+    "atom.avatarStatusDot": {
+      "layer": "Atom",
+      "name": "AvatarStatusDot",
+      "rootClass": "astryx-avatar-status-dot",
+      "modifiers": {}
+    },
+    "atom.avatarGroupOverflow": {
+      "layer": "Atom",
+      "name": "AvatarGroupOverflow",
+      "rootClass": "astryx-avatar-group-overflow",
+      "modifiers": {}
+    },
+    "atom.navIcon": {
+      "layer": "Atom",
+      "name": "NavIcon",
+      "rootClass": "astryx-nav-icon",
+      "modifiers": {}
+    },
+    "atom.fieldLabel": {
+      "layer": "Atom",
+      "name": "FieldLabel",
+      "rootClass": "astryx-field-label",
+      "modifiers": {}
+    },
+    "atom.fieldStatus": {
+      "layer": "Atom",
+      "name": "FieldStatus",
+      "rootClass": "astryx-field-status",
+      "modifiers": {}
+    },
+    "atom.inputGroupText": {
+      "layer": "Atom",
+      "name": "InputGroupText",
+      "rootClass": "astryx-input-group-text",
+      "modifiers": {}
+    },
+    "atom.textArea": {
+      "layer": "Atom",
+      "name": "TextArea",
+      "rootClass": "astryx-text-area",
+      "modifiers": {}
+    },
+    "atom.numberInput": {
+      "layer": "Atom",
+      "name": "NumberInput",
+      "rootClass": "astryx-number-input",
+      "modifiers": {}
+    },
+    "atom.dateInput": {
+      "layer": "Atom",
+      "name": "DateInput",
+      "rootClass": "astryx-date-input",
+      "modifiers": {}
+    },
+    "atom.dateTimeInput": {
+      "layer": "Atom",
+      "name": "DateTimeInput",
+      "rootClass": "astryx-date-time-input",
+      "modifiers": {}
+    },
+    "atom.dateRangeInput": {
+      "layer": "Atom",
+      "name": "DateRangeInput",
+      "rootClass": "astryx-date-range-input",
+      "modifiers": {}
+    },
+    "atom.timeInput": {
+      "layer": "Atom",
+      "name": "TimeInput",
+      "rootClass": "astryx-time-input",
+      "modifiers": {}
+    },
+    "atom.fileInput": {
+      "layer": "Atom",
+      "name": "FileInput",
+      "rootClass": "astryx-file-input",
+      "modifiers": {}
+    },
+    "atom.selector": {
+      "layer": "Atom",
+      "name": "Selector",
+      "rootClass": "astryx-selector",
+      "modifiers": {}
+    },
+    "atom.selectorOption": {
+      "layer": "Atom",
+      "name": "SelectorOption",
+      "rootClass": "astryx-selector-option",
+      "modifiers": {}
+    },
+    "atom.switch": {
+      "layer": "Atom",
+      "name": "Switch",
+      "rootClass": "astryx-switch",
+      "modifiers": {}
+    },
+    "atom.slider": {
+      "layer": "Atom",
+      "name": "Slider",
+      "rootClass": "astryx-slider",
+      "modifiers": {}
+    },
+    "atom.toggleButton": {
+      "layer": "Atom",
+      "name": "ToggleButton",
+      "rootClass": "astryx-toggle-button",
+      "modifiers": {}
+    },
+    "atom.dropdownMenuDivider": {
+      "layer": "Atom",
+      "name": "DropdownMenuDivider",
+      "rootClass": "astryx-dropdown-menu-divider",
+      "modifiers": {}
+    },
+    "atom.markdown": {
+      "layer": "Atom",
+      "name": "Markdown",
+      "rootClass": "astryx-markdown",
+      "modifiers": {}
+    },
+    "atom.chatTokenizedText": {
+      "layer": "Atom",
+      "name": "ChatTokenizedText",
+      "rootClass": "astryx-chat-tokenized-text",
+      "modifiers": {}
+    },
+    "molecule.checkboxInput": {
+      "layer": "Molecule",
+      "name": "CheckboxInput",
+      "rootClass": "astryx-checkbox-input",
+      "modifiers": {}
+    },
+    "molecule.checkboxList": {
+      "layer": "Molecule",
+      "name": "CheckboxList",
+      "rootClass": "astryx-checkbox-list",
+      "modifiers": {}
+    },
+    "molecule.checkboxListItem": {
+      "layer": "Molecule",
+      "name": "CheckboxListItem",
+      "rootClass": "astryx-checkbox-list-item",
+      "modifiers": {}
+    },
+    "molecule.radioList": {
+      "layer": "Molecule",
+      "name": "RadioList",
+      "rootClass": "astryx-radio-list",
+      "modifiers": {}
+    },
+    "molecule.radioListItem": {
+      "layer": "Molecule",
+      "name": "RadioListItem",
+      "rootClass": "astryx-radio-list-item",
+      "modifiers": {}
+    },
+    "molecule.selectableCard": {
+      "layer": "Molecule",
+      "name": "SelectableCard",
+      "rootClass": "astryx-selectable-card",
+      "modifiers": {}
+    },
+    "molecule.toggleButtonGroup": {
+      "layer": "Molecule",
+      "name": "ToggleButtonGroup",
+      "rootClass": "astryx-toggle-button-group",
+      "modifiers": {}
+    },
+    "molecule.tokenizer": {
+      "layer": "Molecule",
+      "name": "Tokenizer",
+      "rootClass": "astryx-tokenizer",
+      "modifiers": {}
+    },
+    "molecule.multiSelector": {
+      "layer": "Molecule",
+      "name": "MultiSelector",
+      "rootClass": "astryx-multi-selector",
+      "modifiers": {}
+    },
+    "molecule.complexSelector": {
+      "layer": "Molecule",
+      "name": "ComplexSelector",
+      "rootClass": "astryx-complex-selector",
+      "modifiers": {}
+    },
+    "molecule.calendar": {
+      "layer": "Molecule",
+      "name": "Calendar",
+      "rootClass": "astryx-calendar",
+      "modifiers": {}
+    },
+    "molecule.listItem": {
+      "layer": "Molecule",
+      "name": "ListItem",
+      "rootClass": "astryx-list-item",
+      "modifiers": {}
+    },
+    "molecule.tableHeader": {
+      "layer": "Molecule",
+      "name": "TableHeader",
+      "rootClass": "astryx-table-header",
+      "modifiers": {}
+    },
+    "molecule.tableHeaderCell": {
+      "layer": "Molecule",
+      "name": "TableHeaderCell",
+      "rootClass": "astryx-table-header-cell",
+      "modifiers": {}
+    },
+    "molecule.tableBody": {
+      "layer": "Molecule",
+      "name": "TableBody",
+      "rootClass": "astryx-table-body",
+      "modifiers": {}
+    },
+    "molecule.tableRow": {
+      "layer": "Molecule",
+      "name": "TableRow",
+      "rootClass": "astryx-table-row",
+      "modifiers": {}
+    },
+    "molecule.tableCell": {
+      "layer": "Molecule",
+      "name": "TableCell",
+      "rootClass": "astryx-table-cell",
+      "modifiers": {}
+    },
+    "molecule.tableFooter": {
+      "layer": "Molecule",
+      "name": "TableFooter",
+      "rootClass": "astryx-table-footer",
+      "modifiers": {}
+    },
+    "molecule.tabMenu": {
+      "layer": "Molecule",
+      "name": "TabMenu",
+      "rootClass": "astryx-tab-menu",
+      "modifiers": {}
+    },
+    "molecule.dialogHeader": {
+      "layer": "Molecule",
+      "name": "DialogHeader",
+      "rootClass": "astryx-dialog-header",
+      "modifiers": {}
+    },
+    "molecule.alertDialog": {
+      "layer": "Molecule",
+      "name": "AlertDialog",
+      "rootClass": "astryx-alert-dialog",
+      "modifiers": {}
+    },
+    "molecule.dropdownMenu": {
+      "layer": "Molecule",
+      "name": "DropdownMenu",
+      "rootClass": "astryx-dropdown-menu",
+      "modifiers": {}
+    },
+    "molecule.dropdownMenuItem": {
+      "layer": "Molecule",
+      "name": "DropdownMenuItem",
+      "rootClass": "astryx-dropdown-menu-item",
+      "modifiers": {}
+    },
+    "molecule.dropdownMenuCheckboxItem": {
+      "layer": "Molecule",
+      "name": "DropdownMenuCheckboxItem",
+      "rootClass": "astryx-dropdown-menu-checkbox-item",
+      "modifiers": {}
+    },
+    "molecule.dropdownMenuRadioGroup": {
+      "layer": "Molecule",
+      "name": "DropdownMenuRadioGroup",
+      "rootClass": "astryx-dropdown-menu-radio-group",
+      "modifiers": {}
+    },
+    "molecule.dropdownMenuRadioItem": {
+      "layer": "Molecule",
+      "name": "DropdownMenuRadioItem",
+      "rootClass": "astryx-dropdown-menu-radio-item",
+      "modifiers": {}
+    },
+    "molecule.dropdownMenuSubMenu": {
+      "layer": "Molecule",
+      "name": "DropdownMenuSubMenu",
+      "rootClass": "astryx-dropdown-menu-sub-menu",
+      "modifiers": {}
+    },
+    "molecule.contextMenu": {
+      "layer": "Molecule",
+      "name": "ContextMenu",
+      "rootClass": "astryx-context-menu",
+      "modifiers": {}
+    },
+    "molecule.moreMenu": {
+      "layer": "Molecule",
+      "name": "MoreMenu",
+      "rootClass": "astryx-more-menu",
+      "modifiers": {}
+    },
+    "molecule.hoverCard": {
+      "layer": "Molecule",
+      "name": "HoverCard",
+      "rootClass": "astryx-hover-card",
+      "modifiers": {}
+    },
+    "molecule.toast": {
+      "layer": "Molecule",
+      "name": "Toast",
+      "rootClass": "astryx-toast",
+      "modifiers": {}
+    },
+    "molecule.lightbox": {
+      "layer": "Molecule",
+      "name": "Lightbox",
+      "rootClass": "astryx-lightbox",
+      "modifiers": {}
+    },
+    "molecule.bottomSheet": {
+      "layer": "Molecule",
+      "name": "BottomSheet",
+      "rootClass": "astryx-bottom-sheet",
+      "modifiers": {}
+    },
+    "molecule.bottomSheetSwitcher": {
+      "layer": "Molecule",
+      "name": "BottomSheetSwitcher",
+      "rootClass": "astryx-bottom-sheet-switcher",
+      "modifiers": {}
+    },
+    "molecule.typeahead": {
+      "layer": "Molecule",
+      "name": "Typeahead",
+      "rootClass": "astryx-typeahead",
+      "modifiers": {}
+    },
+    "molecule.typeaheadItem": {
+      "layer": "Molecule",
+      "name": "TypeaheadItem",
+      "rootClass": "astryx-typeahead-item",
+      "modifiers": {}
+    },
+    "molecule.commandPaletteInput": {
+      "layer": "Molecule",
+      "name": "CommandPaletteInput",
+      "rootClass": "astryx-command-palette-input",
+      "modifiers": {}
+    },
+    "molecule.commandPaletteList": {
+      "layer": "Molecule",
+      "name": "CommandPaletteList",
+      "rootClass": "astryx-command-palette-list",
+      "modifiers": {}
+    },
+    "molecule.commandPaletteGroup": {
+      "layer": "Molecule",
+      "name": "CommandPaletteGroup",
+      "rootClass": "astryx-command-palette-group",
+      "modifiers": {}
+    },
+    "molecule.commandPaletteItem": {
+      "layer": "Molecule",
+      "name": "CommandPaletteItem",
+      "rootClass": "astryx-command-palette-item",
+      "modifiers": {}
+    },
+    "molecule.commandPaletteEmpty": {
+      "layer": "Molecule",
+      "name": "CommandPaletteEmpty",
+      "rootClass": "astryx-command-palette-empty",
+      "modifiers": {}
+    },
+    "molecule.commandPaletteFooter": {
+      "layer": "Molecule",
+      "name": "CommandPaletteFooter",
+      "rootClass": "astryx-command-palette-footer",
+      "modifiers": {}
+    },
+    "molecule.chatMessage": {
+      "layer": "Molecule",
+      "name": "ChatMessage",
+      "rootClass": "astryx-chat-message",
+      "modifiers": {}
+    },
+    "molecule.chatMessageBubble": {
+      "layer": "Molecule",
+      "name": "ChatMessageBubble",
+      "rootClass": "astryx-chat-message-bubble",
+      "modifiers": {}
+    },
+    "molecule.chatMessageMetadata": {
+      "layer": "Molecule",
+      "name": "ChatMessageMetadata",
+      "rootClass": "astryx-chat-message-metadata",
+      "modifiers": {}
+    },
+    "molecule.chatSystemMessage": {
+      "layer": "Molecule",
+      "name": "ChatSystemMessage",
+      "rootClass": "astryx-chat-system-message",
+      "modifiers": {}
+    },
+    "molecule.chatToolCalls": {
+      "layer": "Molecule",
+      "name": "ChatToolCalls",
+      "rootClass": "astryx-chat-tool-calls",
+      "modifiers": {}
+    },
+    "molecule.chatSendButton": {
+      "layer": "Molecule",
+      "name": "ChatSendButton",
+      "rootClass": "astryx-chat-send-button",
+      "modifiers": {}
+    },
+    "molecule.chatDictationButton": {
+      "layer": "Molecule",
+      "name": "ChatDictationButton",
+      "rootClass": "astryx-chat-dictation-button",
+      "modifiers": {}
+    },
+    "molecule.chatLayoutScrollButton": {
+      "layer": "Molecule",
+      "name": "ChatLayoutScrollButton",
+      "rootClass": "astryx-chat-layout-scroll-button",
+      "modifiers": {}
+    },
+    "molecule.chatComposerInput": {
+      "layer": "Molecule",
+      "name": "ChatComposerInput",
+      "rootClass": "astryx-chat-composer-input",
+      "modifiers": {}
+    },
+    "molecule.chatComposerDrawer": {
+      "layer": "Molecule",
+      "name": "ChatComposerDrawer",
+      "rootClass": "astryx-chat-composer-drawer",
+      "modifiers": {}
+    },
+    "molecule.sideNavSection": {
+      "layer": "Molecule",
+      "name": "SideNavSection",
+      "rootClass": "astryx-side-nav-section",
+      "modifiers": {}
+    },
+    "molecule.sideNavHeading": {
+      "layer": "Molecule",
+      "name": "SideNavHeading",
+      "rootClass": "astryx-side-nav-heading",
+      "modifiers": {}
+    },
+    "molecule.sideNavItem": {
+      "layer": "Molecule",
+      "name": "SideNavItem",
+      "rootClass": "astryx-side-nav-item",
+      "modifiers": {}
+    },
+    "molecule.sideNavCollapseButton": {
+      "layer": "Molecule",
+      "name": "SideNavCollapseButton",
+      "rootClass": "astryx-side-nav-collapse-button",
+      "modifiers": {}
+    },
+    "molecule.topNavHeading": {
+      "layer": "Molecule",
+      "name": "TopNavHeading",
+      "rootClass": "astryx-top-nav-heading",
+      "modifiers": {}
+    },
+    "molecule.topNavItem": {
+      "layer": "Molecule",
+      "name": "TopNavItem",
+      "rootClass": "astryx-top-nav-item",
+      "modifiers": {}
+    },
+    "molecule.topNavMenu": {
+      "layer": "Molecule",
+      "name": "TopNavMenu",
+      "rootClass": "astryx-top-nav-menu",
+      "modifiers": {}
+    },
+    "molecule.topNavMegaMenu": {
+      "layer": "Molecule",
+      "name": "TopNavMegaMenu",
+      "rootClass": "astryx-top-nav-mega-menu",
+      "modifiers": {}
+    },
+    "molecule.topNavMegaMenuItem": {
+      "layer": "Molecule",
+      "name": "TopNavMegaMenuItem",
+      "rootClass": "astryx-top-nav-mega-menu-item",
+      "modifiers": {}
+    },
+    "molecule.topNavMegaMenuFeaturedCard": {
+      "layer": "Molecule",
+      "name": "TopNavMegaMenuFeaturedCard",
+      "rootClass": "astryx-top-nav-mega-menu-featured-card",
+      "modifiers": {}
+    },
+    "organism.topNav": {
+      "layer": "Organism",
+      "name": "TopNav",
+      "rootClass": "astryx-top-nav",
+      "modifiers": {}
+    },
+    "organism.sideNav": {
+      "layer": "Organism",
+      "name": "SideNav",
+      "rootClass": "astryx-side-nav",
+      "modifiers": {}
+    },
+    "organism.mobileNav": {
+      "layer": "Organism",
+      "name": "MobileNav",
+      "rootClass": "astryx-mobile-nav",
+      "modifiers": {}
+    },
+    "organism.commandPalette": {
+      "layer": "Organism",
+      "name": "CommandPalette",
+      "rootClass": "astryx-command-palette",
+      "modifiers": {}
+    },
+    "organism.powerSearch": {
+      "layer": "Organism",
+      "name": "PowerSearch",
+      "rootClass": "astryx-power-search",
+      "modifiers": {}
+    },
+    "organism.chatComposer": {
+      "layer": "Organism",
+      "name": "ChatComposer",
+      "rootClass": "astryx-chat-composer",
+      "modifiers": {}
+    },
+    "organism.chatMessageList": {
+      "layer": "Organism",
+      "name": "ChatMessageList",
+      "rootClass": "astryx-chat-message-list",
+      "modifiers": {}
     }
   }
 }

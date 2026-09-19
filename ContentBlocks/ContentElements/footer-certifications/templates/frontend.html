@@ -31,7 +31,7 @@
             </f:if>
         </div>
 
-        <ul class="g-footer-certifications__seals {f:if(condition: data.compact, then: 'is-compact')}">
+        <ul class="g-footer-certifications__seals" data-density="{f:if(condition: data.compact, then: 'compact')}">
             <f:for each="{data.logos}" as="seal">
                 <li class="g-footer-certifications__seal">
                     <f:if condition="{seal.link.url}">

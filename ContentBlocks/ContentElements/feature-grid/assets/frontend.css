@@ -31,7 +31,13 @@
 }
 
 /* Grid children stretch, so every cell is as tall as the tallest of its row and
-   the icon tiles land on one optical line whatever the copy does below them. */
+   the icon tiles land on one optical line whatever the copy does below them.
+   The card variant puts a Card (or, unsurfaced, a ClickableCard) between the
+   grid and the tile, so the full height has to be passed through it. */
+.g-feature-grid__cell {
+  block-size: 100%;
+}
+
 .g-feature-grid__item {
   block-size: 100%;
 }

@@ -41,7 +41,7 @@
 
 /* "Featured" lifts one row out of a stack without overruling the band tone the
    editor chose: the pair moves onto its own surface instead. */
-.g-feature-showcase.featured .g-feature-showcase__grid {
+.g-feature-showcase[data-variant="featured"] .g-feature-showcase__grid {
   padding: var(--spacing-8);
   border-radius: var(--radius-container);
   background-color: var(--color-background-surface);
@@ -63,7 +63,7 @@
     max-inline-size: none;
   }
 
-  .g-feature-showcase.featured .g-feature-showcase__grid {
+  .g-feature-showcase[data-variant="featured"] .g-feature-showcase__grid {
     padding: var(--spacing-5);
   }
 }

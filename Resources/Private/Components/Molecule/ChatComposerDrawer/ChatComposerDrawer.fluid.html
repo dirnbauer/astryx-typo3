@@ -1,0 +1,35 @@
+<f:comment>
+    ChatComposerDrawer — the tray of extra controls the composer keeps folded
+    away: attachments, a model picker, whatever a site hangs off a message.
+
+    It composes Molecule/Collapsible, so it is a native `details` and the open
+    state, the keyboard behaviour and the printer expanding it are the
+    browser's. Nothing here toggles anything, and the tray keeps working with
+    the stylesheet stripped.
+
+    `details` nests inside a `form` without complaint, and the controls in the
+    tray are submitted with the message whether the tray is open or closed —
+    `open` is a presentation state and not a disabled state, which is exactly
+    what a folded-away tray of options should be. Hiding the controls with
+    `display: none` instead, which is what a scripted drawer usually does,
+    would leave them in the form but out of the accessibility tree, and a
+    required control in there would block submission with nothing to point at.
+
+    The tray opens downward. Upstream animates it upward over the transcript,
+    which needs the panel positioned out of flow and the summary told which
+    way to point; folded into the composer's own column it costs nothing and
+    pushes nothing off screen.
+</f:comment>
+
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="open" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<a:molecule.collapsible
+    class="astryx-chat-composer-drawer {class}"
+    density="{density}"
+    open="{open}">
+    <f:fragment name="summary"><span class="astryx-chat-composer-drawer-label">{label}</span></f:fragment>
+    <f:fragment name="default"><div class="astryx-chat-composer-drawer-tray"><f:slot /></div></f:fragment>
+</a:molecule.collapsible>

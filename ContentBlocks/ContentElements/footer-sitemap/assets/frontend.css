@@ -34,7 +34,7 @@
   padding-block: var(--spacing-1);
 }
 
-.g-footer-sitemap__list.is-compact .g-footer-sitemap__entry[data-kind="page"] {
+.g-footer-sitemap__list[data-density="compact"] .g-footer-sitemap__entry[data-kind="page"] {
   padding-block: var(--spacing-0-5);
 }
 

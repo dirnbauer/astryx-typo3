@@ -104,7 +104,7 @@
 /* Nine periods is where the labels start colliding. Past that the middle ones
    leave the visual layer and nothing else — they are still read, still copied
    and still found by a page search. */
-.g-data-trend-strip__strip:has(> :nth-child(9)) .g-data-trend-strip__col.is-mid > :where(.g-data-trend-strip__reading, .g-data-trend-strip__period) {
+.g-data-trend-strip__strip:has(> :nth-child(9)) .g-data-trend-strip__col[data-position="mid"] > :where(.g-data-trend-strip__reading, .g-data-trend-strip__period) {
   position: absolute;
   inline-size: 1px;
   block-size: 1px;

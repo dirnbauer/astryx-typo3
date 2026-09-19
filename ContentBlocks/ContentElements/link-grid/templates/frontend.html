@@ -33,7 +33,7 @@
         </f:if>
 
         <nav class="g-link-grid__nav" aria-label="{navLabel}">
-            <ul class="g-link-grid__links {f:if(condition: data.compact, then: 'tight')}">
+            <ul class="g-link-grid__links" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.links}" as="link">
                     <li class="g-link-grid__item">
                         <f:if condition="{link.link.url}">

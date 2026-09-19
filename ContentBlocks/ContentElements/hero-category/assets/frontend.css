@@ -27,7 +27,7 @@
   flex: 1 1 auto;
 }
 
-.g-hero-category__copy.center {
+.g-hero-category__copy[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -66,7 +66,7 @@
 }
 
 @media (max-width: 640px) {
-  .g-hero-category__band.has-media {
+  .g-hero-category__band[data-variant="has-media"] {
     align-items: flex-start;
     gap: var(--spacing-4);
   }

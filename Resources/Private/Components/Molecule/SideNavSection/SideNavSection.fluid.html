@@ -1,0 +1,36 @@
+<f:comment>
+    SideNavSection — one labelled group of entries in a SideNav: "Workspace",
+    "Recent", "Settings".
+
+    The entries are a real list. A rail is a list of destinations, and a screen
+    reader announcing "list, six items" before reading them is the difference
+    between knowing how much is there and finding out by arrowing to the end.
+    The `ul` is this component's, so that SideNavItem can be an `li` without
+    every caller having to remember to wrap them.
+
+    The section title is a `div`, not a heading. It labels the list rather than
+    starting a piece of content, and a rail full of h3s injects a whole tier
+    into the document outline that the page itself never asked for. Passing
+    `id` is what makes the label reach assistive technology: the list points at
+    it with aria-labelledby and the group is then announced by name. Without an
+    id the title is still read in order, just not attached to the list —
+    which is why the argument exists at all.
+
+    In the collapsed rail the title is hidden and the rows shrink to their
+    icons. The title is clipped rather than removed, so the label the list
+    points at still exists.
+</f:comment>
+
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-side-nav-section {class}">
+    <f:if condition="{title}">
+        <f:if condition="{id}">
+            <f:then><div class="astryx-side-nav-section-title" id="{id}">{title}</div></f:then>
+            <f:else><div class="astryx-side-nav-section-title">{title}</div></f:else>
+        </f:if>
+    </f:if>
+    <ul class="astryx-side-nav-section-items" aria-labelledby="{id}"><f:slot /></ul>
+</div>

@@ -48,7 +48,7 @@
   text-decoration: none;
 }
 
-.g-category-chips__list.tight .g-category-chips__chip {
+.g-category-chips__list[data-density="compact"] .g-category-chips__chip {
   padding-block: var(--spacing-0-5);
   font-size: var(--text-supporting-size);
 }
@@ -62,7 +62,7 @@
 /* Three cues, not one: the tint, a border and the weight. A row of chips is
    exactly where a theme with a soft accent would otherwise lose the selected
    one entirely. */
-.g-category-chips__chip.current {
+.g-category-chips__chip[data-selected="selected"] {
   background-color: var(--color-accent-muted);
   border-color: var(--color-accent);
   color: var(--color-text-accent);

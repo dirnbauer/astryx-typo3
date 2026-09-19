@@ -1,0 +1,33 @@
+<f:comment>
+    RadioList — one answer out of several, as a real radio group.
+
+    A `<fieldset>` and a `<legend>`. A radio group is the case where the
+    grouping is not a nicety: each option only makes sense as an answer to the
+    question, and a reader moving between radios announces the legend with
+    every one of them. The stylesheet resets the fieldset rather than avoiding
+    it — the browser's own border and inset padding would box the options in a
+    shape nothing else on the page has.
+
+    The options share a `name`, which is what makes the browser enforce "one of
+    these": the group is the platform's, not ours, and no script keeps it
+    exclusive. That name is passed to each RadioListItem, not to this — a
+    component cannot reach into slotted content to stamp it on.
+
+    `orientation="horizontal"` is for two or three short answers. Anything
+    longer wraps into a shape where it stops being obvious which label belongs
+    to which circle, and the column is the safer default for that reason.
+</f:comment>
+
+<f:argument name="legend" type="string" optional="{true}" default="" />
+<f:argument name="orientation" type="string" optional="{true}" default="" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<fieldset
+    id="{id}"
+    class="astryx-radio-list {class}"
+    data-orientation="{orientation}"
+    aria-describedby="{describedBy}"
+    {f:if(condition: disabled, then: 'disabled')}><f:if condition="{legend}"><legend>{legend}</legend></f:if><f:slot /></fieldset>

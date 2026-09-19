@@ -1,0 +1,37 @@
+<f:comment>
+    GridSpan — one child of a Grid that is wider than the others.
+
+    A grid item cannot be widened from the outside: `grid-column` belongs to the
+    item, so the one wide cell in an otherwise even grid needs an element of its
+    own. Putting the span on the Grid instead would mean the Grid knowing which
+    of its children is the wide one, which is exactly the coupling the layout
+    layer exists to avoid.
+
+    `cols` and `width="full"` are not two spellings of the same thing, for the
+    same reason they are not in Grid. Grid is `auto-fit`: it hands out as many
+    columns as the width allows, so an item spanning three of them is spanning
+    three of however many there are, and below the width at which Grid stops
+    giving out columns the span has to stop too or the item creates an implicit
+    column and pushes the row out of its container. `width="full"` is
+    `1 / -1` — the whole row, whatever the row currently is — and it is the only
+    spelling that is correct at every width. Reach for it first.
+
+    This is a wrapper and nothing else, so it gets no ARIA. If the grid is a
+    `ul`, the span has to be an `li` or the list has a child that is not a list
+    item; `as` is there for that and for nothing decorative.
+</f:comment>
+
+<f:argument name="cols" type="integer" optional="{true}" default="0" />
+<f:argument name="width" type="string" optional="{true}" default="default" />
+<f:argument name="as" type="string" optional="{true}" default="div" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    Like Grid's own counts, an unset `cols` is genuinely absent rather than a
+    span of no columns, so it is emitted only when it has a value.
+</f:comment>
+<f:switch expression="{as}">
+    <f:case value="li"><li class="astryx-grid-span {class}" data-cols="{f:if(condition: cols, then: cols)}" data-width="{width}"><f:slot /></li></f:case>
+    <f:case value="section"><section class="astryx-grid-span {class}" data-cols="{f:if(condition: cols, then: cols)}" data-width="{width}"><f:slot /></section></f:case>
+    <f:defaultCase><div class="astryx-grid-span {class}" data-cols="{f:if(condition: cols, then: cols)}" data-width="{width}"><f:slot /></div></f:defaultCase>
+</f:switch>

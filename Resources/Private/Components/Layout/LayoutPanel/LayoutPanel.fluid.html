@@ -1,0 +1,33 @@
+<f:comment>
+    LayoutPanel — the column beside the content in an application shell: the
+    one a SideNav, a filter rail or an inspector sits in.
+
+    It owns the side of the shell it is on and its own scrolling, and nothing
+    else: no width, because what it holds brings its own (a SideNav is 16rem
+    expanded and a rail when collapsed, and a panel that also declared a width
+    would fight it), and no background, because `inherit` lets the shell decide
+    what the whole column is painted on.
+
+    A plain `div` by default, and that is the part worth explaining. A panel
+    holding a SideNav must not be an `aside`: the nav inside it is already a
+    landmark, and wrapping it in a complementary one means a screen reader's
+    landmark list offers two entries for one rail. Pass `as="aside"` only when
+    the panel's contents are not a landmark of their own — an inspector, a
+    filter column, a preview pane — and then name it with `ariaLabel`, because
+    an unnamed complementary region announces as "complementary" and nothing
+    more.
+</f:comment>
+
+<f:argument name="as" type="string" optional="{true}" default="div" />
+<f:argument name="placement" type="string" optional="{true}" default="start" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{as} == 'aside'">
+    <f:then>
+        <aside class="astryx-layout-panel {class}" data-placement="{placement}" aria-label="{ariaLabel}"><f:slot /></aside>
+    </f:then>
+    <f:else>
+        <div class="astryx-layout-panel {class}" data-placement="{placement}"><f:slot /></div>
+    </f:else>
+</f:if>

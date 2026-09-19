@@ -1,0 +1,33 @@
+<f:comment>
+    DropdownMenuSubMenu — a run of a menu that folds away behind its own label.
+
+    This is the one part of the menu pattern the platform cannot express, and
+    the component says so rather than faking it. A true submenu is a
+    `menuitem` carrying `aria-haspopup="menu"` and an `aria-expanded` that
+    flips as the panel opens and closes. Nothing but script flips it, and a
+    `summary` — the only element that opens a panel on its own — may be a
+    button and never a `menuitem`. So the choice was a `menuitem` with an
+    `aria-expanded` that lies the moment anybody uses it, or a disclosure that
+    tells the truth about what it is.
+
+    It is the disclosure. `details` carries its own expanded state to the
+    accessibility tree, works with scripting off, and survives find-in-page and
+    printing. The panel inside is `role="group"` rather than a nested
+    `role="menu"`, which keeps the rows inside part of the menu they were
+    always part of — `group` is a role a `menu` may own, a nested `menu` under
+    a button that is not a `menuitem` is not.
+
+    The cost, stated plainly: the summary is announced as a collapsed button
+    inside a menu rather than as a submenu item. That is the one place this
+    family is not strictly conforming, and it buys an expander that actually
+    expands.
+
+    `open` renders the group already unfolded, for the submenu holding the row
+    the visitor is currently on.
+</f:comment>
+
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="open" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<details class="astryx-dropdown-menu-sub-menu {class}" {f:if(condition: open, then: 'open')}><summary>{label}</summary><div role="group" aria-label="{label}"><f:slot /></div></details>

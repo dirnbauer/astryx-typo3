@@ -1,0 +1,46 @@
+<f:comment>
+    ChatMessageList — the transcript: every turn that has already been said,
+    in the order it was said in.
+
+    An `ol` and not a stack of divs, because order is meaning in a
+    conversation. A reader arriving with a screen reader is told how many
+    turns there are and which one they are on, and reordering the markup would
+    reorder the conversation rather than merely move some boxes.
+
+    There is no `aria-live` on it, and its absence is the deliberate part.
+    A live region announces what is added to it after the page has settled,
+    which is right for a conversation arriving over a stream and wrong for
+    this one: everything here was rendered with the page. Marking it live
+    makes a screen reader read the entire back-and-forth aloud on load, over
+    the top of whatever the reader was doing — one of the oldest ways to make
+    a chat interface unusable. If this transcript ever gains a script that
+    appends turns, that script adds the live region; the server-rendered
+    markup must not.
+
+    `ariaLabel` names the list. A list with a name is one a reader can find
+    and skip, and "list, 24 items" on its own says nothing about what the
+    items are.
+
+    `role="list"` is the one piece of redundant ARIA here and it is doing real
+    work. The stylesheet removes the numbers, and Safari drops list semantics
+    entirely from a list whose markers are `list-style: none` — VoiceOver then
+    announces the turns as loose paragraphs and the count disappears. Stating
+    the role the element already has is the documented way back.
+
+    The list is the transcript and nothing else — no header, no empty state,
+    no scroll affordance. Those are ChatLayout's, which is what lets a
+    transcript be rendered on its own inside something that is not a chat
+    layout at all.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<ol
+    class="astryx-chat-message-list {class}"
+    id="{id}"
+    data-density="{density}"
+    role="list"
+    aria-label="{ariaLabel}"><f:slot /></ol>

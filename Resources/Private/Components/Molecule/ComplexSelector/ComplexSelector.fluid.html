@@ -1,0 +1,37 @@
+<f:comment>
+    ComplexSelector — one choice out of a list whose options need more than a
+    line each: a price under a plan name, a description under a shipping
+    method, a country beside its flag.
+
+    The same `<details>` as MultiSelector, and exclusive instead: the rows in
+    the slot are RadioListItems or SelectableCards sharing one `name`, so the
+    browser enforces "one of these" with nothing running. This exists
+    separately from Selector because a native `<option>` can hold one string
+    and nothing else — no second line, no markup, no image. That limit is the
+    entire reason to leave the native control behind, and it is the only reason
+    good enough.
+
+    `summaryLabel` is the chosen option as the caller wants it said on the
+    trigger. Like MultiSelector, this component cannot read its own slot, and a
+    trigger showing a placeholder over an already-chosen radio would be worse
+    than one the caller has to fill in.
+
+    There is no filter box. A search field over the options is the thing people
+    reach for once a list passes about twenty rows, and it filters with script.
+    If the list is that long, a page of results with a real search form is the
+    server-rendered answer.
+</f:comment>
+
+<f:argument name="summaryLabel" type="string" optional="{true}" default="" />
+<f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="open" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<details
+    id="{id}"
+    class="astryx-complex-selector {class}"
+    data-status="{status}"
+    {f:if(condition: open, then: 'open')}><summary class="astryx-complex-selector-trigger" aria-label="{ariaLabel}" aria-describedby="{describedBy}"><span class="astryx-complex-selector-value">{summaryLabel}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="astryx-complex-selector-panel"><f:slot /></div></details>

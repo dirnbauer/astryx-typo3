@@ -1,0 +1,45 @@
+<f:comment>
+    DropdownMenu — the panel a button opens under itself.
+
+    A native `[popover]`. The browser gives it the top layer, light dismiss,
+    Escape and — because the invoker is a `popovertarget` button — the anchor
+    to position against and the expanded state to announce. None of that is
+    written here, and none of it is script.
+
+    `type` is the argument to get right, and it is a question about meaning
+    rather than about looks. A menu of commands — rename, duplicate, delete —
+    is `role="menu"`, and a screen reader then arrows through it as a menu and
+    says how many commands there are. A menu of links that navigate is not a
+    menu at all; it is a set of links in a panel, and claiming `role="menu"`
+    for it tells the reader to expect commands and takes the link role away
+    from every row. So `type="menu"` writes the role and `type="links"` writes
+    none, and the empty attribute that leaves behind is inert: a role with no
+    valid token falls back to the element's own, which for a div is nothing.
+
+    Mixing the two in one panel is the mistake this split exists to prevent.
+    DropdownMenuItem decides the same thing the same way — an item with a
+    destination is a link, an item without one is a command — so a `type` that
+    disagrees with what was put inside shows up as a link with no role inside a
+    `role="menu"`, which is exactly the state ARIA calls invalid.
+
+    `id` is required because a popover is addressed by id: without one there is
+    no `popovertarget` a trigger could name, and the panel would be a box that
+    never opens.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="type" type="string" optional="{true}" default="menu" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="placement" type="string" optional="{true}" default="" />
+<f:argument name="width" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div
+    id="{id}"
+    popover
+    class="astryx-dropdown-menu {class}"
+    role="{f:if(condition: '{type} == \'menu\'', then: 'menu')}"
+    aria-label="{ariaLabel}"
+    data-type="{type}"
+    data-placement="{placement}"
+    data-width="{width}"><f:slot /></div>

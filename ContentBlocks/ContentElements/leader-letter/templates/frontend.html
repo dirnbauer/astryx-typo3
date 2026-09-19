@@ -18,7 +18,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-leader-letter">
     <a:layout.container size="{data.width}">
-        <div class="g-leader-letter__sheet align-{data.align}">
+        <div class="g-leader-letter__sheet" data-align="{data.align}">
 
             <f:if condition="{data.eyebrow}">
                 <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>

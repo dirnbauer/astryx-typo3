@@ -1,0 +1,54 @@
+<f:comment>
+    AlertDialog — the modal that asks one question and will not be ignored.
+
+    A `dialog` with `role="alertdialog"`, which is the whole difference from
+    Dialog: `alertdialog` tells a screen reader that this window interrupts,
+    and it makes the description part of the announcement rather than something
+    the reader has to go and find. So `aria-describedby` points at the body
+    here and never at nothing — a `role="alertdialog"` without a description is
+    an interruption that says only its title.
+
+    It is opened the same way every dialog in this theme is, by a control
+    carrying `data-g-dialog-open="{id}"`, which is why `id` is required. Escape
+    still closes it, because the element binds Escape and taking that away
+    would mean intercepting a key the browser owns; an alert that must not be
+    escapable is a shape this component deliberately does not offer.
+
+    The answers go in the `actions` slot and there must be at least one — ARIA
+    requires an alert dialog to contain something focusable, and a modal with
+    no focusable child traps a keyboard in an empty room. They are buttons in a
+    `form method="dialog"` of the caller's own, or submits to a real endpoint:
+    the destructive one is a server action, and this component has no opinion
+    about where it posts.
+
+    No close cross. A dialog offering a way out that answers neither question
+    is how "Delete everything?" gets dismissed by accident.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    Same rule as Dialog: a title that was not written has no id to point at, so
+    the reference is empty rather than dangling and `aria-label` is what names
+    the dialog instead. A dangling aria-labelledby is not a fallback — it is a
+    dialog with no accessible name at all.
+</f:comment>
+<f:variable name="titleId"><f:if condition="{title}">{id}-title</f:if></f:variable>
+
+<dialog
+    id="{id}"
+    class="astryx-alert-dialog {class}"
+    role="alertdialog"
+    aria-labelledby="{titleId}"
+    aria-label="{ariaLabel}"
+    aria-describedby="{id}-description">
+    <a:molecule.dialogHeader title="{title}" titleLevel="{titleLevel}" titleId="{titleId}" />
+
+    <div class="astryx-dialog-body" id="{id}-description"><f:slot /></div>
+
+    <div class="astryx-dialog-footer"><f:slot name="actions" /></div>
+</dialog>

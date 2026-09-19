@@ -1,0 +1,27 @@
+<f:comment>
+    NavIcon — the round accent tile a navigation heading wears in front of its
+    title: a product mark, a workspace initial, a section glyph.
+
+    It is the box and the tone, never the drawing. An Atom composes nothing, so
+    the glyph arrives through the slot as an inline `svg` — which is what
+    `.astryx-nav-icon > svg` sizes — or as a letter or two of text.
+
+    Hidden from assistive technology unless told otherwise, because everywhere
+    the stylesheet puts one the heading's own title is right beside it, and a
+    mark that repeats the words next to it is simply read out twice. A NavIcon
+    that really is the only label says so with `ariaLabel`: that is what turns
+    it into an image with a name, and it clears the aria-hidden at the same
+    time, since a hidden element with a name is a name nobody hears.
+</f:comment>
+
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:if condition="{ariaLabel}">
+    <f:then>
+        <span class="astryx-nav-icon {class}" role="img" aria-label="{ariaLabel}"><f:slot /></span>
+    </f:then>
+    <f:else>
+        <span class="astryx-nav-icon {class}" aria-hidden="true"><f:slot /></span>
+    </f:else>
+</f:if>

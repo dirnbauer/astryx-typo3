@@ -1,0 +1,53 @@
+<f:comment>
+    Calendar — a month, as a table of dates.
+
+    Not a date picker. A picker is a popover, a roving grid and a script, and
+    none of the three exist here; the control that asks a visitor for a day is
+    DateInput, which hands the job to the browser's own picker. This is for
+    showing a month — opening times, an event month, a room's bookings — where
+    a `<table>` is not a layout hack but the right element: seven columns with
+    `<th scope="col">` is what lets a screen reader say "Wednesday 17" instead
+    of reading a wall of numbers.
+
+    Today is `aria-current="date"`. The accent ring says the same thing to
+    everyone who can see it, which is the point of saying it twice.
+
+    The month is built here from arrays rather than being assembled by the
+    caller, and that is the layer rule rather than a preference: no template in
+    this extension may write an Astryx class, so the day cells cannot be the
+    caller's markup. `weeks` is a list of weeks, each a list of days, each day
+    `{label, date, current, selected, disabled, outside}` — `label` the number
+    to print, `date` its ISO form for the `<time>`. A day with no `label` is a
+    lead-in or trail-out cell and renders as an empty box. `weekdays` is seven
+    `{short, long}` pairs: the column heads print the short form and carry the
+    long one in an `<abbr>`, so "Mo" stays two characters wide and is still
+    read out as Monday.
+
+    A disabled day is struck through as well as dimmed. Dimming on its own
+    reads as "quiet", not as "not available".
+</f:comment>
+
+<f:argument name="caption" type="string" optional="{true}" default="" />
+<f:argument name="weekdays" type="array" optional="{true}" />
+<f:argument name="weeks" type="array" optional="{true}" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<table id="{id}" class="astryx-calendar {class}" aria-label="{ariaLabel}">
+    <f:if condition="{caption}"><caption>{caption}</caption></f:if>
+    <f:if condition="{weekdays}">
+        <thead>
+            <tr><f:for each="{weekdays}" as="weekday"><th scope="col"><abbr title="{weekday.long}">{weekday.short}</abbr></th></f:for></tr>
+        </thead>
+    </f:if>
+    <tbody>
+        <f:for each="{weeks}" as="week">
+            <tr><f:for each="{week}" as="day"><td
+                aria-current="{f:if(condition: day.current, then: 'date', else: 'false')}"
+                data-selected="{f:if(condition: day.selected, then: 'selected', else: 'false')}"
+                data-state="{f:if(condition: day.outside, then: 'outside')}"
+                data-disabled="{f:if(condition: day.disabled, then: 'disabled', else: 'false')}"><f:if condition="{day.label}"><time class="astryx-calendar-day" datetime="{day.date}">{day.label}</time></f:if></td></f:for></tr>
+        </f:for>
+    </tbody>
+</table>

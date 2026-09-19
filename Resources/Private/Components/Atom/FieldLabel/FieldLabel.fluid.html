@@ -1,0 +1,31 @@
+<f:comment>
+    FieldLabel — the name of a control, as a real `<label for>`.
+
+    Field writes its own label when you give it one; this is for the places
+    Field cannot reach: a control inside an InputGroup, a label that has to sit
+    in a grid cell of its own, a legend-like name above a group.
+
+    `inputId`, not `for`. The attribute is `for` in the output, but `for` reads
+    as a loop to everyone skimming the call site, and Field already calls the
+    same thing `inputId` — two names for one id is how the pair comes apart
+    when a field is copied.
+
+    The disabled look is usually not passed at all: `.astryx-field-label:has(+
+    :disabled)` catches the common case, where the label is immediately
+    followed by the control it names. `disabled` is for the arrangements where
+    it is not — an inline-label grid, a label above an InputGroup — and the
+    stylesheet has nothing to look at.
+</f:comment>
+
+<f:argument name="inputId" type="string" optional="{true}" default="" />
+<f:argument name="optionality" type="string" optional="{true}" default="" />
+<f:argument name="optionalityLabel" type="string" optional="{true}" default="" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+
+<label
+    id="{id}"
+    class="astryx-field-label {class}"
+    for="{inputId}"
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:slot /><f:if condition="{optionalityLabel}"><span data-optionality="{optionality}">{optionalityLabel}</span></f:if></label>

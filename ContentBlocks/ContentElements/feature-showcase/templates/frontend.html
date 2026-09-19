@@ -11,7 +11,7 @@
     icons wherever they are shown as a grid.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-showcase {f:if(condition: data.featured, then: 'featured')}">
+<a:layout.section surface="{data.tone}" variant="{f:if(condition: data.featured, then: 'featured')}" class="g-feature-showcase">
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-feature-showcase__grid">
 

@@ -35,7 +35,7 @@
   break-inside: avoid;
 }
 
-.g-footer-imprint-summary__rows.is-compact .g-footer-imprint-summary__row {
+.g-footer-imprint-summary[data-spacing="tight"] .g-footer-imprint-summary__rows .g-footer-imprint-summary__row {
   padding-block: var(--spacing-1);
 }
 

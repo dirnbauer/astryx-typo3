@@ -32,7 +32,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-team-function-columns__columns {f:if(condition: data.compact, then: 'compact')}">
+        <a:layout.grid cols="{data.columns}" class="g-team-function-columns__columns">
             <f:groupedFor each="{data.people}" as="members" groupBy="role" groupKey="function">
                 <section class="g-team-function-columns__column">
                     <f:comment>

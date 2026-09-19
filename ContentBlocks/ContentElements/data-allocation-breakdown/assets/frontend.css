@@ -63,7 +63,7 @@
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
-.g-data-allocation-breakdown__lines.compact .g-data-allocation-breakdown__line {
+.g-data-allocation-breakdown__lines[data-density="compact"] .g-data-allocation-breakdown__line {
   padding-block: var(--spacing-2);
 }
 

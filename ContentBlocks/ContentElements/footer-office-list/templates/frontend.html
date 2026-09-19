@@ -30,7 +30,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-footer-office-list__offices {f:if(condition: data.compact, then: 'is-compact')}">
+        <a:layout.grid cols="{data.columns}" class="g-footer-office-list__offices">
             <f:for each="{data.items}" as="office">
                 <a:molecule.card class="g-footer-office-list__office">
                     <f:if condition="{office.icon}">

@@ -1,0 +1,45 @@
+<f:comment>
+    DropdownMenuCheckboxItem — a row of a menu that can be on or off.
+
+    `role="menuitemcheckbox"` on a real `input type="checkbox"`, which ARIA in
+    HTML allows and which is the only version of this row that works with
+    nothing but the platform: the box toggles, the state is the element's own,
+    Space operates it and the label is attached because the input is inside it.
+
+    What is deliberately absent is `aria-checked`. Every write-up of the menu
+    pattern pairs the role with that attribute, and every one of them is
+    describing a `div` that has no state of its own. Here the element does, and
+    a server-rendered `aria-checked="false"` would still say false the moment
+    the visitor ticks the box — a stale attribute overriding a live one, which
+    is worse than no attribute at all. The accessibility tree takes the checked
+    state from the input, so the role is all that needs saying.
+
+    `name` and `value` are what make it more than a toggle: the row belongs to
+    a form, the form posts the filter, and the menu is a set of filters the
+    server applies.
+
+    `form` is built as raw attribute source rather than emitted empty, and it
+    is the one attribute in the family that has to be. An input with no `form`
+    attribute belongs to the form it sits inside; an input with `form=""`
+    belongs to no form at all, because an id that matches nothing is not a
+    fallback to the ancestor. Emitting it blank would silently drop the row out
+    of the form that wraps it.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="form" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="formAttribute"><f:if condition="{form}">form="{form -> f:format.htmlspecialchars()}"</f:if></f:variable>
+
+<label class="astryx-dropdown-menu-checkbox-item {class}"><input
+        type="checkbox"
+        role="menuitemcheckbox"
+        name="{name}"
+        value="{value}"
+        {formAttribute -> f:format.raw()}
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')} /><span><f:slot /></span></label>

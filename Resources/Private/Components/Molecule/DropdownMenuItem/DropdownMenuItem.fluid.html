@@ -1,0 +1,57 @@
+<f:comment>
+    DropdownMenuItem — one row of a dropdown: a command, or a destination.
+
+    Which of the two it is decides the element and the role, and it is inferred
+    rather than asked for. An item given a `parameter` or an `href` goes
+    somewhere, so it is an `a` and carries no role — a link inside a panel of
+    links is already announced as a link, and `role="menuitem"` would replace
+    that with something the browser then refuses to treat as navigable. An item
+    given neither acts, so it is a `button` with `role="menuitem"`, which is
+    what a `role="menu"` is required to own.
+
+    The inference is the same one DropdownMenu makes from its `type`, on
+    purpose: a row's own markup and its panel's role can then only agree or
+    obviously disagree, never quietly diverge.
+
+    Disabled is the native attribute, not `aria-disabled`. The menu pattern
+    usually prefers `aria-disabled` so that arrow keys still land on a greyed
+    row, but that pattern comes with script that moves focus; with nothing but
+    the platform, `aria-disabled` would leave a tabbable control that does
+    nothing when pressed. The native attribute takes it out of the tab order,
+    which is the honest version of the same intent.
+
+    `variant="destructive"` paints the row red, and red is not the message: the
+    label still has to say "Delete". The stylesheet only colours what the words
+    already mean.
+</f:comment>
+
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="target" type="string" optional="{true}" default="" />
+<f:argument name="rel" type="string" optional="{true}" default="" />
+<f:argument name="type" type="string" optional="{true}" default="button" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="relValue"><f:if condition="{rel}"><f:then>{rel}</f:then><f:else>{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}</f:else></f:if></f:variable>
+<f:variable name="mode">{f:if(condition: parameter, then: 'typolink', else: '{f:if(condition: href, then: \'link\', else: \'button\')}')}</f:variable>
+
+<f:switch expression="{mode}">
+    <f:comment>
+        f:link.typolink rejects any attribute it does not declare, so the data
+        and ARIA attributes travel through additionalAttributes — the same trap
+        IconButton documents, and the same way out of it.
+    </f:comment>
+    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-dropdown-menu-item {class}" additionalAttributes="{'data-variant': variant, 'aria-current': ariaCurrent, 'aria-label': ariaLabel}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-dropdown-menu-item {class}" data-variant="{variant}" target="{target}" rel="{relValue}" aria-current="{ariaCurrent}" aria-label="{ariaLabel}"><f:slot /></a></f:case>
+    <f:defaultCase><button
+            type="{type}"
+            class="astryx-dropdown-menu-item {class}"
+            role="menuitem"
+            data-variant="{variant}"
+            aria-label="{ariaLabel}"
+            {f:if(condition: disabled, then: 'disabled')}><f:slot /></button></f:defaultCase>
+</f:switch>

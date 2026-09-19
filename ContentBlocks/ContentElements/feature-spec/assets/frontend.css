@@ -37,7 +37,7 @@
   break-inside: avoid;
 }
 
-.g-feature-spec__rows.compact .g-feature-spec__row {
+.g-feature-spec[data-spacing="tight"] .g-feature-spec__rows .g-feature-spec__row {
   padding-block: var(--spacing-2);
 }
 

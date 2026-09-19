@@ -1,0 +1,62 @@
+<f:comment>
+    DialogHeader — the title row of a dialog, an alert or a bottom sheet.
+
+    Dialog writes its own header inline, which was fine while it was the only
+    thing with one. AlertDialog, BottomSheet and BottomSheetSwitcher all need
+    the same row, and three more copies of a heading, an id and a close button
+    is three more places for the `aria-labelledby` wiring to drift. So the row
+    is a component, and `titleId` is the argument that matters: whatever opens
+    the header has to point its own `aria-labelledby` at the same id, and an id
+    invented in here could not be named out there.
+
+    The close control closes the dialog with `method="dialog"` rather than with
+    the `data-g-dialog-close` hook astryx.js binds. Both end in `close()`, but
+    the form does it with scripting off, and a modal that cannot be dismissed
+    when a script fails to load is the worst failure mode this component has.
+    Opening a dialog still needs the script — `showModal()` has no declarative
+    equivalent — so this is one half of the pair coming for free, not both.
+
+    Like Dialog's, the button appears only once it has a name: an icon-only
+    control with nothing to announce is read out as "button", which is no way
+    out of a modal.
+</f:comment>
+
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
+<f:argument name="titleId" type="string" optional="{true}" default="" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="closeClass" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-dialog-header {class}">
+    <f:if condition="{title}">
+        <f:switch expression="{titleLevel}">
+            <f:case value="3"><h3 class="astryx-dialog-title" id="{titleId}">{title}</h3></f:case>
+            <f:case value="4"><h4 class="astryx-dialog-title" id="{titleId}">{title}</h4></f:case>
+            <f:defaultCase><h2 class="astryx-dialog-title" id="{titleId}">{title}</h2></f:defaultCase>
+        </f:switch>
+    </f:if>
+
+    <f:comment>
+        The default slot is for a header that is not a heading — a stepper, a
+        breadcrumb, an avatar and a name. It sits where the title would, so a
+        caller uses one or the other rather than both.
+    </f:comment>
+    <f:slot />
+
+    <f:comment>
+        `display: contents` on the form is what keeps the button itself the
+        second flex child, so the header's space-between still puts the cross
+        against the trailing edge instead of against a wrapper nobody asked
+        for.
+    </f:comment>
+    <f:if condition="{closeLabel}">
+        <form method="dialog" class="astryx-dialog-close-form">
+            <a:atom.iconButton type="submit" variant="ghost" size="sm" class="{closeClass}" ariaLabel="{closeLabel}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                    <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
+                </svg>
+            </a:atom.iconButton>
+        </form>
+    </f:if>
+</div>

@@ -20,7 +20,7 @@
   max-inline-size: 36rem;
 }
 
-.g-hero-profile__copy.center {
+.g-hero-profile__copy[data-align="center"] {
   margin-inline: auto;
   align-items: center;
   text-align: center;
@@ -45,7 +45,7 @@
   gap: var(--spacing-2) var(--spacing-4);
 }
 
-.g-hero-profile__copy.center .g-hero-profile__link-list {
+.g-hero-profile__copy[data-align="center"] .g-hero-profile__link-list {
   justify-content: center;
 }
 

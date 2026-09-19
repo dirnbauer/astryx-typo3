@@ -44,19 +44,19 @@
   break-inside: avoid;
 }
 
-.g-footer-utility-columns__entry.is-link {
+.g-footer-utility-columns__entry[data-kind="link"] {
   padding-block: var(--spacing-1);
 }
 
 /* An entry with no link starts the next column, which is how the groups are
    edited: in the same list as the links themselves. */
-.g-footer-utility-columns__entry.is-heading {
+.g-footer-utility-columns__entry[data-kind="heading"] {
   break-before: column;
   break-after: avoid;
   padding-block-end: var(--spacing-2);
 }
 
-.g-footer-utility-columns__entry.is-heading:first-child {
+.g-footer-utility-columns__entry[data-kind="heading"]:first-child {
   break-before: auto;
 }
 
@@ -108,7 +108,7 @@
     columns: 1;
   }
 
-  .g-footer-utility-columns__entry.is-heading:not(:first-child) {
+  .g-footer-utility-columns__entry[data-kind="heading"]:not(:first-child) {
     padding-block-start: var(--spacing-6);
   }
 

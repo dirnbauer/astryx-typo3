@@ -1,0 +1,34 @@
+<f:comment>
+    SelectorOption — one row of the wrapper anatomy: an option inside a
+    `role="listbox"`, not an `<option>` inside a `<select>`.
+
+    The two anatomies are not interchangeable and mixing them is the mistake
+    this comment exists to prevent. Selector renders a native `<select>`, and
+    the things inside a `<select>` must be real `<option>` elements — a `<li>`
+    in there is dropped by the parser. This one is for a listbox a caller has
+    built out of a popover and is driving with its own script: it carries the
+    `role`, the `aria-selected` and the `aria-disabled` that a listbox row
+    needs, and the stylesheet's hover and selected treatments are written
+    against exactly those attributes.
+
+    It has no `tabindex`. A listbox is operated with the arrow keys over a
+    single roving tab stop, and which row holds that stop changes as you move —
+    that is state, and state is script. Rendering a tabindex here would put
+    seventeen tab stops in a row and announce a control that does not answer
+    the arrow keys. A caller with no script wants Selector instead, whose
+    options are the browser's own.
+</f:comment>
+
+<f:argument name="selected" type="string" optional="{true}" default="" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<li
+    id="{id}"
+    class="astryx-selector-option {class}"
+    role="option"
+    data-value="{value}"
+    aria-selected="{f:if(condition: '{selected} == \'selected\'', then: 'true', else: 'false')}"
+    aria-disabled="{f:if(condition: disabled, then: 'true', else: 'false')}"><f:slot /></li>

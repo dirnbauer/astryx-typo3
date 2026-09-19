@@ -28,7 +28,7 @@
   line-height: var(--text-supporting-leading);
 }
 
-.g-footer-legal-links__list.is-compact {
+.g-footer-legal-links__list[data-density="compact"] {
   gap: var(--spacing-1) var(--spacing-3);
 }
 
@@ -44,7 +44,7 @@
   background-color: var(--color-border-emphasized);
 }
 
-.g-footer-legal-links__list.is-compact .g-footer-legal-links__item + .g-footer-legal-links__item::before {
+.g-footer-legal-links__list[data-density="compact"] .g-footer-legal-links__item + .g-footer-legal-links__item::before {
   margin-inline-end: var(--spacing-3);
 }
 

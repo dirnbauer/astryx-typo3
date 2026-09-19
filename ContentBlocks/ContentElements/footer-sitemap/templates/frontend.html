@@ -38,7 +38,7 @@
         </f:if>
 
         <nav aria-label="{navLabel}">
-            <ul class="g-footer-sitemap__list {f:if(condition: data.compact, then: 'is-compact')}">
+            <ul class="g-footer-sitemap__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
                 <f:for each="{data.links}" as="entry">
                     <f:if condition="{entry.link.url}">
                         <f:then>

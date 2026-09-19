@@ -1,0 +1,50 @@
+<f:comment>
+    CheckboxInput — one checkbox with its label, and optionally a line saying
+    what ticking it means.
+
+    The drawn anatomy of the two the stylesheet carries: the real checkbox is
+    transparent and stacked exactly over a `<span class="astryx-checkbox">`
+    that is painted instead. That is why the input comes first in the source —
+    absolutely positioned, it falls at its static position, which is the slot
+    the drawn box then occupies as the first element still in flow. Swap the
+    two and the invisible control sits over the label instead.
+
+    It is the drawn form rather than the native one because the tick has to be
+    the accent colour and a pseudo-element on an `<input>` is not rendered by
+    Firefox. The native form — `accent-color` on a plain checkbox — is what
+    CheckboxListItem uses, where there are twenty of them and no single one is
+    the point of the screen.
+
+    The tick is always in the markup and hidden until checked. There is no
+    script to add it on click, and a checkbox that only fills in after a reload
+    is broken.
+
+    The description sits inside the `<label>`, so it is read as part of the
+    control's name. That is the trade taken: these lines are almost always the
+    rest of the sentence the label starts — "Send me the newsletter", "about
+    once a month" — and one announcement carrying the whole meaning beats a
+    name and a separately announced description that arrives after the visitor
+    has already decided.
+</f:comment>
+
+<f:argument name="name" type="string" optional="{true}" default="" />
+<f:argument name="value" type="string" optional="{true}" default="" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="description" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="" />
+<f:argument name="checked" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="disabled" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="required" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="describedBy" type="string" optional="{true}" default="" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-checkbox-input {class}"><input
+        id="{id}"
+        type="checkbox"
+        name="{name}"
+        value="{value}"
+        aria-describedby="{describedBy}"
+        {f:if(condition: checked, then: 'checked')}
+        {f:if(condition: disabled, then: 'disabled')}
+        {f:if(condition: required, then: 'required')} /><span class="astryx-checkbox" data-size="{size}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false"><path d="m5 12.5 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg></span><label class="astryx-checkbox-input-label" for="{id}"><f:if condition="{label}"><f:then>{label}</f:then><f:else><f:slot /></f:else></f:if><f:if condition="{description}"><span class="astryx-checkbox-input-description">{description}</span></f:if></label></div>

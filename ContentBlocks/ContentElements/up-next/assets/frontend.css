@@ -52,7 +52,7 @@
 /* The picture is the second column and never the wider one: this card is a
    sentence about what comes next, with an illustration. */
 @media (min-width: 768px) {
-  .g-up-next__card.with-image {
+  .g-up-next__card[data-variant="with-image"] {
     display: grid;
     grid-template-columns: 2fr 1fr;
     align-items: center;

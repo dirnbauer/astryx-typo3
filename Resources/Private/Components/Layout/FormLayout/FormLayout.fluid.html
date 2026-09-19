@@ -1,0 +1,19 @@
+<f:comment>
+    FormLayout — the arrangement of a form's fields, and nothing else.
+
+    Not a `<form>`. The element that posts carries action, method, enctype and
+    whatever token the backend wants stamped into it, all of which belong to
+    the template that knows where the data is going; a layout component that
+    guessed at them would be wrong in a different way on every call site. So
+    this wraps the fields and the caller wraps this.
+
+    `labels-inline` is the one layout with a floor under it. Two grid columns
+    of label and control stop being readable on a phone, so below 480px the
+    stylesheet drops the grid and the form stacks — which means a caller can
+    ask for inline labels without also having to know when not to.
+</f:comment>
+
+<f:argument name="layout" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div class="astryx-form-layout {class}" data-layout="{layout}"><f:slot /></div>
