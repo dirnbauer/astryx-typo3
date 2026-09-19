@@ -84,12 +84,51 @@ Desiderio:
     That command prints one object per seeded record with `cType`, `uid`,
     `group`, `site`, `storagePid` and `url` — it has no `id` key, and its
     options are `--folder`, `--site` and `--json`. The list therefore has to be
-    mapped before the review reads it: `cType` becomes `id`, `url` stays as it
-    is. The usage message inside `design-review.mjs` suggests a `--host` option
-    that the command does not have.
+    mapped before the review reads it: derive `id` from `cType` through the
+    Content Block whose `typeName` it is, so a finding names an element you can
+    open rather than a record uid.
+
+..  note::
+    Seed the library first, and seed it again after adding a field or a
+    collection: a demo record whose collection rows were never written renders
+    an element with its heading and an empty band, and a review of 250 of those
+    measures nothing. `desiderio:library:seed --parent=<root uid>
+    --hosts=astryx_typo3,core` writes both the records and their children.
 
 `--only=<id,…>` filters that list, `--limit=<n>` truncates it, and both are
 worth using: 250 elements times three viewports times two schemes is a long run.
+`--concurrency=<n>` loads that many pages at once and `--timeout=<ms>` gives
+each one longer, which an uncached preview needs — the first visitor to one
+waits for TYPO3 to build it, so warm the cache first with
+`ddev exec vendor/bin/typo3 desiderio:library:warm`.
+
+..  warning::
+    **A CSS change is not live until the site's asset bundle is rebuilt.** The
+    extension's stylesheets reach a page through
+    :file:`Resources/Private/Assets/Main.entry.css`, which Vite bundles into
+    the site's own :file:`public/_assets/vite/`. Running `npm run build` in the
+    extension rewrites :file:`Resources/Public/Css/`, and nothing on the page
+    changes until the *site* is rebuilt too:
+
+    ..  code-block:: bash
+
+        cd packages/astryx_typo3 && npm run build
+        cd ../.. && ddev mutagen sync && ddev exec npm run build
+        ddev exec vendor/bin/typo3 cache:flush
+
+    The `ddev mutagen sync` is not optional on macOS: the file sync lags behind
+    the host by a few seconds, and a build or a test run started too early
+    reads the previous version of every file you just wrote. A whole review can
+    be spent measuring a stylesheet that is no longer on disk.
+
+..  note::
+    The site's bundler is not the extension's minifier, and it optimises. It
+    drops a declaration whose value is the property's initial value —
+    `padding-block: 0` on a `<button>`, whose user-agent padding is *not* zero —
+    and it merges two rules that share a selector, which can move one of them
+    out of the cascade layer it was written in. Both were found by this review.
+    Prefer the shorthand for the first, and a selector nothing else uses for the
+    second.
 
 ..  _developer-design-review-probes:
 

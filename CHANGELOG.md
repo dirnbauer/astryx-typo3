@@ -56,6 +56,34 @@ left behind are fixed. Nothing an editor does changes.
   so nothing rendered them and nothing noticed.
 - An attached `FieldStatus` pulled `--spacing-1-5` to close a seam the field
   opens with `--spacing-1`, leaving a 14px padding on no step of the scale.
+- **Accessibility, from a design review of all 271 element previews** at 390,
+  768 and 1440 in light and dark with axe on every page. It reported 426 axe
+  nodes and 490 computed-style findings across this extension's elements; it
+  now reports one of each, both explained below.
+  - 83 orphaned `<dt>`/`<dd>` and 83 orphaned `<li>`: seven metric bands and
+    thirteen card grids composed `Layout/Grid`, which renders a `<div>`, so the
+    `<dl>` or `<ul>` around them had quietly disappeared. Grid gained an
+    `as="dl"` case beside `as="ul"` and `as="ol"`, and every caller passes one.
+  - Fifteen heading-order skips, a logo whose `alt` repeated the caption beside
+    it, a struck-through time at 2.79:1, an empty `<th>`, and a row of 8px
+    carousel dots under the 24px target size.
+  - `Molecule/Table` and `Molecule/CodeBlock` wrapped their overflow in a
+    `<div>` of their own. Both compose `Layout/ScrollableArea` now, which is a
+    tab stop with a name — a scroll container a keyboard cannot reach hides the
+    columns and the long lines it scrolls to. `.astryx-table-wrap` and
+    `.astryx-codeblock-scroll` are removed; a site stylesheet naming either must
+    select `.astryx-scrollable-area` instead.
+- **Rich-text rhythm is the design system's decision now.** A paragraph an
+  editor writes carried the browser's `margin: 1em`, which is 14px on a 14px
+  body — a value on no step of the spacing scale, and 458 of the findings
+  above. Paragraphs, lists, quotes and figures are `--spacing-3` in the reset
+  layer; headings are `--spacing-8` above and `--spacing-3` below in the prose
+  rules. A table pasted into rich text gets the theme's cell padding rather
+  than the user agent's 1px.
+- The element library's demo records are reachable again: the seeded
+  collections were empty, so every element built from a collection rendered its
+  heading and an empty band. Re-run
+  `desiderio:library:seed --parent=<root uid> --hosts=astryx_typo3,core`.
 
 ### Removed
 

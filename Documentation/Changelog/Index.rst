@@ -33,6 +33,18 @@ that reaches past the components into the CSS may have to.
     :file:`Build/Data/component-map.json` are generated.** Run
     `npm run build:contract`, or `npm run build`, which starts with it. Editing
     either by hand no longer does anything but create a diff CI will reject.
+*   **`.astryx-table-wrap` and `.astryx-codeblock-scroll` are gone.**
+    `Molecule/Table` and `Molecule/CodeBlock` compose
+    `Layout/ScrollableArea`, which is a tab stop with a name: a scroll
+    container a keyboard cannot reach hides what it scrolls to. A site
+    stylesheet naming either class must select `.astryx-scrollable-area`.
+*   **Rich text has a rhythm the design system decided.** An editor's
+    paragraph carried the browser's `margin: 1em` — 14px on a 14px body, and a
+    value on no step of the spacing scale. Paragraphs, lists, quotes and
+    figures are now `--spacing-3` in the reset layer; headings are
+    `--spacing-8` above and `--spacing-3` below in the prose rules; a table
+    pasted into rich text gets the theme's cell padding. Pages that carry a lot
+    of editor prose move by a pixel or two.
 *   **The two migration codemods are gone** —
     :file:`Build/Scripts/refactor-templates-to-components.php` and
     :file:`Build/Scripts/migrate-component-css.mjs`. The migration they existed
