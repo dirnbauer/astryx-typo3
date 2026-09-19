@@ -87,3 +87,28 @@
     padding-inline: var(--spacing-6);
   }
 }
+
+/* ---------------------------------------------------------------- tables */
+/* A table an editor pastes into rich text, or builds with the core Table
+   element, arrives with no class of its own and therefore with the user
+   agent's 1px cell padding — a value on no step of the scale, and cells that
+   touch. This is the same recipe `.astryx-table` uses, applied to the bare
+   tags at low specificity so anything with an opinion still wins. */
+:where(.astryx-prose, .ce-fsc-table) :where(table) {
+  inline-size: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+:where(.astryx-prose, .ce-fsc-table) :where(th, td) {
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+  border-block-end: var(--border-width) solid var(--color-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+:where(.astryx-prose, .ce-fsc-table) :where(th) {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}

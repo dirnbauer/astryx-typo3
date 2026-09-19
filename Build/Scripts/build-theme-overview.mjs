@@ -193,13 +193,11 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
         <f:comment>
             The scroll box is the theme's own, not the design system's. A table
             of twenty-five rows by eight columns cannot be made to fit a phone,
-            and the wrapper that takes the scroll so the page does not is one
-            declaration — not worth a component, and Table deliberately leaves
-            it outside so that whoever places a table decides how it behaves in
-            a narrow column.
+            so Table takes the scroll with its own scroll argument. It renders a
+            ScrollableArea, which is a tab stop with a name — a scroll container
+            a keyboard cannot reach hides the columns it scrolls to.
         </f:comment>
-        <div class="g-themes__scroll">
-            <a:molecule.table class="g-themes__matrix">
+            <a:molecule.table class="g-themes__matrix" scroll="{true}" scrollLabel="Theme comparison table">
                 <a:atom.visuallyHidden as="caption">
                     Comparison of the seven Astryx themes by heading font, body font,
                     monospace font, corner radius, base text size and dark-mode behaviour.
@@ -219,7 +217,6 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
                 <tbody>${tableRows}
                 </tbody>
             </a:molecule.table>
-        </div>
 
         <a:atom.text type="supporting" class="g-themes__note">
             Set the theme for a whole site with <code>astryx.theme.default</code>,

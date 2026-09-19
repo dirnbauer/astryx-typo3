@@ -249,7 +249,12 @@
   justify-content: center;
   gap: var(--spacing-1);
   block-size: var(--size-element-md);
-  padding-inline: var(--spacing-3);
+  /* The shorthand, and both axes. A tab is a <button>, and a button that
+     states only its inline padding keeps the user agent's 1px block padding —
+     a number on no step of the scale, on every tab row. Written as
+     `padding-block: 0` a CSS optimiser drops it as an initial value, which is
+     true of the property and not of the button; the shorthand survives. */
+  padding: 0 var(--spacing-3);
   border-width: 0;
   border-style: none;
   border-radius: var(--radius-element);

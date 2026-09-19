@@ -1,11 +1,12 @@
 <f:comment>
     Table — rows of data.
 
-    Astryx v0.6.0 gave TableHeader, TableBody and TableFooter components of
-    their own. Server-side they earn nothing: a template writes its rows
-    straight into `thead`, `tbody` and `tfoot`, and the stylesheet already
-    reaches those bare tags. They are named slots here instead, so a caller can
-    still fill one region at a time without three more components to resolve.
+    Astryx gives TableHeader, TableBody, TableFooter, TableRow, TableCell and
+    TableHeaderCell components of their own, and so does this library — a
+    header cell wants its `scope`, and a cell wants `data-truncate`. The three
+    region components are also named slots here, because the stylesheet reaches
+    the bare `thead`, `tbody` and `tfoot` too and a template that writes them
+    directly is not wrong.
 
     The default slot comes first, before any of them, and that ordering is the
     one real decision in this file. A table's `caption` has to be its first
@@ -16,11 +17,17 @@
 
     `scroll` asks for the horizontal scroll container around it. A table is the
     one element that cannot be made to fit a narrow column — a five-column table
-    in a 320px viewport either scrolls or breaks the page — and the wrapper is
-    what takes that scroll so the page never does. It used to be written by
-    whoever placed the table, on the grounds that `astryx-table-wrap` is a
-    second root class; eight elements then wrote the same div, which is how a
-    convention rots. It is rendered here and the caller asks for it by name.
+    in a 320px viewport either scrolls or breaks the page — and the container is
+    what takes that scroll so the page never does. It is ScrollableArea rather
+    than a `astryx-table-wrap` div of this component's own: that container was
+    the same three declarations, minus the tab stop and the focus ring, and a
+    scroll container a keyboard cannot reach hides the columns it scrolls to
+    from everyone who does not use a mouse — which is what a design review
+    across every element reported, on ten pages at once.
+
+    `scrollLabel` names it. Once the container is a tab stop a screen reader
+    stops on it and has to be able to say what it is, so pass the table's
+    subject; without one it is still reachable, just announced as "group".
 </f:comment>
 
 <f:argument name="density" type="string" optional="{true}" default="default" />
@@ -30,17 +37,18 @@
 <f:argument name="bordered" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="scroll" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="scrollClass" type="string" optional="{true}" default="" />
+<f:argument name="scrollLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:if condition="{scroll}">
     <f:then>
-        <div class="astryx-table-wrap {scrollClass}"><table
+        <a:layout.scrollableArea orientation="horizontal" ariaLabel="{scrollLabel}" class="{scrollClass}"><table
             class="astryx-table {class}"
             data-density="{density}"
             data-layout="{layout}"
             data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
             data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
-            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table></div>
+            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table></a:layout.scrollableArea>
     </f:then>
     <f:else>
         <table

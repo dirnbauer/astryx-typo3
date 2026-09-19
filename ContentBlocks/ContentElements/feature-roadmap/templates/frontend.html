@@ -32,7 +32,7 @@
                     <a:atom.statusDot variant="{f:if(condition: item.included, then: 'success', else: 'accent')}" class="g-feature-roadmap__dot" ariaHidden="true"></a:atom.statusDot>
 
                     <div class="g-feature-roadmap__body">
-                        <a:atom.heading level="4">{item -> f:render.text(field: 'title')}</a:atom.heading>
+                        <a:atom.heading level="3">{item -> f:render.text(field: 'title')}</a:atom.heading>
 
                         <f:if condition="{item.text}">
                             <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>

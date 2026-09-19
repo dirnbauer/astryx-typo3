@@ -1,5 +1,5 @@
 {
-  "_comment": "Class names the CSS tree-shake in Build/Scripts/build-astryx-css.mjs must keep even though nothing it can scan renders them. It already scans the 74 Fluid components, the 250 element templates, the page and Solr templates, every element stylesheet, Resources/Public/Js/astryx.js and the compiled upstream theme rules — so a name belongs here only when it is genuinely unscannable: a class a script composes from fragments at runtime, or one an editor can type into a rich-text field.",
+  "_comment": "Class names the CSS tree-shake in Build/Scripts/build-astryx-css.mjs must keep even though nothing it can scan renders them. It already scans every Fluid component, the 250 element templates, the page and Solr templates, every element stylesheet, Resources/Public/Js/astryx.js and the compiled upstream theme rules — so a name belongs here only when it is genuinely unscannable: a class a script composes from fragments at runtime, or one an editor can type into a rich-text field.",
   "_rule": "Every entry needs a reason. An entry without one is indistinguishable from dead weight a year later, which is exactly the state the tree-shake exists to end.",
   "keep": {}
 }

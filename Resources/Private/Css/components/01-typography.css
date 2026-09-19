@@ -165,8 +165,21 @@
   font-weight: var(--font-weight-semibold);
 }
 
-.astryx-prose :where(h2, h3, h4) {
+/*
+ * A heading's own `1em` margin is whatever that heading's size happens to be —
+ * 17px for an h3, 21px for an h2 — so editor rich text carried two more values
+ * on no step of the scale. Stated here rather than in the element reset,
+ * because `:where(h1, h2, …)` is a selector the theme layer also writes and a
+ * CSS optimiser will happily merge the two rules into one, moving this out of
+ * the layer it was meant to sit in.
+ *
+ * The space above a heading is larger than the space below it. That is what
+ * makes a heading belong to the text under it rather than float between two
+ * blocks.
+ */
+.astryx-prose :where(h2, h3, h4, h5, h6) {
   margin-block-start: var(--spacing-8);
+  margin-block-end: var(--spacing-3);
 }
 
 /* Blockquote */

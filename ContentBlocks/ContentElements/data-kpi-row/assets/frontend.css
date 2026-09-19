@@ -24,6 +24,14 @@
   text-align: center;
 }
 
+/* Layout/Grid renders the <dl> and owns the auto-fit columns keyed on the
+   editor's column count. What is left here is the browser's block margin on a
+   description list, which the grid has no opinion about. */
+.g-data-kpi-row__cards {
+  margin: 0;
+  padding: 0;
+}
+
 .g-data-kpi-row__card {
   block-size: 100%;
   gap: var(--spacing-1);

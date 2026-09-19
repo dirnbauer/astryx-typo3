@@ -36,7 +36,7 @@
                         </f:if>
                     </a:atom.text>
 
-                    <a:atom.heading level="4">{metric -> f:render.text(field: 'title')}</a:atom.heading>
+                    <a:atom.heading level="3">{metric -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{metric.text}">
                         <a:atom.text type="supporting" class="g-feature-outcomes__source">{metric -> f:render.text(field: 'text')}</a:atom.text>

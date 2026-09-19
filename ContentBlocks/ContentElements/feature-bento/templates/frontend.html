@@ -28,22 +28,29 @@
 
         <ul class="g-feature-bento__tiles">
             <f:for each="{data.tiles}" as="tile">
-                <a:molecule.card clickable="{tile.link.url}" class="g-feature-bento__tile">
-                    <f:if condition="{tile.icon}">
-                        <a:atom.featureIcon icon="{tile.icon}" />
-                    </f:if>
-
-                    <a:molecule.cardTitle>
-                        <f:if condition="{tile.link.url}">
-                            <f:then><f:link.typolink parameter="{tile.link}">{tile.title}</f:link.typolink></f:then>
-                            <f:else>{tile -> f:render.text(field: 'title')}</f:else>
+                <f:comment>
+                    Card is the tile, but a ul may only contain li, so the li is
+                    the grid cell and the card fills it. The cell, not the card,
+                    therefore carries the lead tile's two-column span.
+                </f:comment>
+                <li class="g-feature-bento__cell">
+                    <a:molecule.card clickable="{tile.link.url}" class="g-feature-bento__tile">
+                        <f:if condition="{tile.icon}">
+                            <a:atom.featureIcon icon="{tile.icon}" />
                         </f:if>
-                    </a:molecule.cardTitle>
 
-                    <f:if condition="{tile.text}">
-                        <a:molecule.cardBody>{tile -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                    </f:if>
-                </a:molecule.card>
+                        <a:molecule.cardTitle>
+                            <f:if condition="{tile.link.url}">
+                                <f:then><f:link.typolink parameter="{tile.link}">{tile.title}</f:link.typolink></f:then>
+                                <f:else>{tile -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </a:molecule.cardTitle>
+
+                        <f:if condition="{tile.text}">
+                            <a:molecule.cardBody>{tile -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                        </f:if>
+                    </a:molecule.card>
+                </li>
             </f:for>
         </ul>
 

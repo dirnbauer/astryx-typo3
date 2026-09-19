@@ -13,6 +13,13 @@
     nothing in any stylesheet has ever painted it, so it carries the theme's
     own `g-` prefix rather than borrowing the design system's and implying a
     recipe that does not exist.
+
+    There is deliberately no page heading. A preview is one element out of
+    context, and an h1 above it would either appear in the picture or, hidden,
+    turn every element that correctly starts at h3 into a heading-order
+    violation against a heading that only exists in the harness. The design
+    review turns the page-level heading rule off for this mode instead, and
+    says so where it does it.
 </f:comment>
 <main class="g-element-preview">
     {content -> f:format.raw()}

@@ -14,15 +14,10 @@
  */
 
 /* ----------------------------------------------------------------- Table */
-/* Tables are the one element that cannot be made to fit a narrow column: a
-   five-column table in a 320px viewport either scrolls or breaks the page
-   layout. The wrapper takes the scroll so the page never does. */
-.astryx-table-wrap,
-.astryx-table-scroll-wrapper {
-  overflow-x: auto;
-  max-inline-size: 100%;
-  -webkit-overflow-scrolling: touch;
-}
+/* A table is the one element that cannot be made to fit a narrow column, so
+   Table wraps itself in ScrollableArea when asked. There is no table-specific
+   scroll container any more: the two were the same three declarations, and the
+   one that had a tab stop and a focus ring was the other one. */
 
 .astryx-table,
 .astryx-base-table {

@@ -644,6 +644,14 @@
 .astryx-carousel-control[data-position="start"] { inset-inline-start: 0; }
 .astryx-carousel-control[data-position="end"] { inset-inline-end: 0; }
 
+/* The arrow sits over whatever the rail is showing, so its focus state lifts
+   the shadow as well as drawing the ring: an outline alone disappears into a
+   photograph, and this control is only ever on top of one. IconButton's own
+   focus rule is inherited; this adds to it rather than restating it. */
+.astryx-carousel-control:focus-visible {
+  box-shadow: var(--shadow-high), 0 0 0 var(--focus-outline-width) var(--focus-outline-color);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .astryx-carousel-track {
     scroll-behavior: auto;

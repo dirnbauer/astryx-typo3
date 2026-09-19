@@ -16,7 +16,7 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-trust-signals" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <a:layout.grid cols="{data.columns}" class="g-trust-signals__signals">
+        <a:layout.grid as="ul" cols="{data.columns}" class="g-trust-signals__signals">
             <f:for each="{data.signals}" as="signal">
                 <li class="g-trust-signals__signal">
                     <f:if condition="{signal.icon}">

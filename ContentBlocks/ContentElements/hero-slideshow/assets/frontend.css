@@ -90,11 +90,21 @@
   margin: var(--spacing-4) 0 0;
   padding-inline-start: 0;
   list-style: none;
-  gap: var(--spacing-2);
+  /* The dots carry their own separation as padding now (see below), so a gap
+     on top of it would only push the row apart twice. */
+  gap: 0;
 }
 
+/* A dot drawn at 8px is an 8px tap target, and WCAG 2.2 wants 24. The mark
+   stays 8px and the padding does the growing: content-box keeps the declared
+   size on the content box, and clipping the background to it keeps the paint
+   on the mark — a content-box radius derived from radius-full is still a full
+   round, so the dot stays a circle rather than becoming a square. */
 .g-hero-slideshow__dot {
   display: block;
+  box-sizing: content-box;
+  padding: var(--spacing-2);
+  background-clip: content-box;
   background-color: color-mix(in srgb, var(--color-on-dark) 45%, transparent);
 }
 

@@ -39,8 +39,8 @@ and a visitor seeing the page. What comes from upstream is the token vocabulary
 and the seven official themes, pinned to release `v0.6.2` rather than to a
 moving branch.
 
-The catalogue is 250 Content Blocks composed out of 74 Fluid components in four
-layers, and 25 themes that switch at runtime in light and dark. Everything a
+The catalogue is 250 Content Blocks composed out of 189 Fluid components in
+four layers, and 25 themes that switch at runtime in light and dark. Everything a
 reader of this manual needs to change — a component, an element, a theme, the
 vendored upstream data — is generated from, or checked against, a file in
 :file:`Build/`, and every rule that keeps 250 elements looking like one design

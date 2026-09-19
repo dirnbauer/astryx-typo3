@@ -78,7 +78,10 @@
   font-family: var(--font-family-heading);
   font-size: var(--text-heading-4-size);
   font-weight: var(--font-weight-semibold);
-  line-height: 1;
+  /* `line-height: 1` was cropping the glyph's own box to its font size. The
+     letter is one character and never wraps, but it is still text on the
+     scale, so it takes the leading that belongs to its size token. */
+  line-height: var(--text-heading-4-leading);
   color: var(--color-text-accent);
   /* The bar jumps to this letter, so it must not land under the sticky bar. */
   scroll-margin-block-start: calc(var(--astryx-header-height) + var(--spacing-12));

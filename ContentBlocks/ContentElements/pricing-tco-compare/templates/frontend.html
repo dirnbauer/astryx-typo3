@@ -30,7 +30,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-pricing-tco-compare__figures">
+        <a:layout.grid as="dl" cols="{data.columns}" class="g-pricing-tco-compare__figures">
             <f:for each="{data.figures}" as="figure">
                 <div class="g-pricing-tco-compare__figure">
                     <a:atom.text type="label" as="dt" class="g-pricing-tco-compare__label">{figure -> f:render.text(field: 'title')}</a:atom.text>

@@ -31,7 +31,7 @@
         <ol class="g-steps-howto__list" data-columns="{data.columns}">
             <f:for each="{data.steps}" as="item">
                 <li class="g-steps-howto__step">
-                    <a:atom.heading level="4" class="g-steps-howto__title">{item -> f:render.text(field: 'title')}</a:atom.heading>
+                    <a:atom.heading level="3" class="g-steps-howto__title">{item -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{item.text}">
                         <a:atom.text type="body" class="g-steps-howto__text">{item -> f:render.text(field: 'text')}</a:atom.text>

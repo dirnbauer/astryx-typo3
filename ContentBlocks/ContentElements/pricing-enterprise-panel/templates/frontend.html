@@ -75,7 +75,7 @@
                                 <a:atom.featureIcon icon="{capability.icon}" />
                             </f:if>
 
-                            <a:molecule.cardTitle>
+                            <a:molecule.cardTitle level="2">
                                 <f:if condition="{capability.link.url}">
                                     <f:then><a:atom.link variant="quiet" parameter="{capability.link}">{capability.title}</a:atom.link></f:then>
                                     <f:else>{capability -> f:render.text(field: 'title')}</f:else>

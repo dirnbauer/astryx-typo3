@@ -17,7 +17,7 @@ language. A site that installs it gets ten wizard groups of twenty-five content
 elements, twenty-five themes that a visitor's browser repaints without a build
 step, and a header, footer, breadcrumb and error page driven by site settings.
 
-Underneath the catalogue sit 74 Fluid components arranged in four layers, and
+Underneath the catalogue sit 189 Fluid components arranged in four layers, and
 every template — element, page and search — is written in terms of those
 components rather than in CSS classes:
 

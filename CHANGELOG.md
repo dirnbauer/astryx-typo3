@@ -2,6 +2,74 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.1.0] - 2026-09-19
+
+A behaviour-preserving release: the component library now covers upstream
+Astryx, the vendored data moves to v0.6.2, and three defects the 2.0 migration
+left behind are fixed. Nothing an editor does changes.
+
+### Changed
+
+- **Astryx v0.6.2 tokens, themes and inventory.** The vendored payload moves
+  from v0.6.0 (commit `1e63a51`) to v0.6.2 (commit `bc93547`). Upstream
+  hyphenated three class names in that release and this extension follows:
+  `.astryx-statusdot` is `.astryx-status-dot`, `.astryx-progressbar*` is
+  `.astryx-progress-bar*`, and `.astryx-textarea*` is `.astryx-text-area*`. **A
+  site stylesheet naming any of the old spellings must be updated.** One
+  component was added upstream, `ScrollableArea`. The comparison is in
+  [Build/Reports/astryx-0.6.0-to-0.6.2.md](Build/Reports/astryx-0.6.0-to-0.6.2.md).
+- **189 Fluid components, up from 91.** 159 of upstream's 164 components render
+  through one. The five that do not — `Theme`, `MediaTheme`, `LinkProvider`,
+  `InternationalizationProvider` and `AppShell` — are React context providers
+  that render no DOM, and each is recorded with the reason in
+  `Build/Data/component-map.json`. A sixth appearing unrecorded fails the sync.
+- **`Build/Data/component-contract.json` and `Build/Data/component-map.json` are
+  generated** by `Build/Scripts/sync-component-contract.mjs`, the first step of
+  `npm run build`. Editing either by hand now only produces a diff CI rejects.
+- `phpunit/phpunit` moves to `^12.4 || ^13.0`.
+
+### Added
+
+- 98 components: the whole form and choice-control family, the table parts,
+  `TopNav`, `SideNav`, `MobileNav` and their rows, the dropdown-menu family,
+  `AlertDialog`, `Lightbox`, `Toast` and its viewport, `BottomSheet`,
+  `HoverCard`, `Typeahead`, the command palette, the chat kit, `TreeListItem`,
+  `ScrollableArea`, `GridSpan` and `Markdown`. Where a behaviour cannot be
+  server-rendered, the component renders the correct static markup and says so
+  in its comment rather than shipping a control that does nothing.
+- `Documentation/` gains Installation, Configuration, Usage and Changelog
+  chapters.
+
+### Fixed
+
+- **The typeahead had been rendering unstyled since 2.0.** `astryx.js` built
+  each suggestion row as `astryx-item compact interactive` and toggled
+  `is-active`; the stylesheet has read `data-density`, `data-interactive` and
+  `data-state` since the 2.0 migration, which only touched CSS and Fluid.
+- **The pagination element ignored its compact setting**, passing `sm`/`md` as a
+  class rather than as Button's `size`. Its two arrows are IconButtons now,
+  which already spell their direction the way the stylesheet reads it.
+- **`conversion-offer-dismissible`'s corner card** keyed on `.surface`,
+  `.muted` and `.accent`, which Section renders as `data-surface`.
+- 150 selectors across the component stylesheets still used the 1.x bare
+  modifier form, all of them in components that had CSS but no Fluid component,
+  so nothing rendered them and nothing noticed.
+- An attached `FieldStatus` pulled `--spacing-1-5` to close a seam the field
+  opens with `--spacing-1`, leaving a 14px padding on no step of the scale.
+
+### Removed
+
+- `Build/Scripts/refactor-templates-to-components.php` and
+  `Build/Scripts/migrate-component-css.mjs`, the two 2.0 migration codemods —
+  921 lines with nothing left to rewrite. What they enforced is enforced
+  directly: no stylesheet may contain `.astryx-x.foo`, and no template may write
+  a class outside `astryx-` and `g-`. `npm run audit:css` went with them.
+- Dead CSS for a syntax highlighter nobody ships, a drawn slider that needs a
+  drag script, a character counter that is wrong the moment someone types, and
+  pre-component spellings of rows `Molecule/Item` now renders. The build's
+  tree-shake dropped 254 selectors on every run before this release and now
+  drops none.
+
 ## [2.0.0] - 2026-09-13
 
 A breaking release. Templates compose Fluid components instead of applying CSS

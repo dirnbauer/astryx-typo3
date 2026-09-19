@@ -33,7 +33,7 @@
                         <a:atom.featureIcon icon="{stage.icon}" />
                     </f:if>
 
-                    <a:atom.heading level="4">{stage -> f:render.text(field: 'title')}</a:atom.heading>
+                    <a:atom.heading level="3">{stage -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{stage.text}">
                         <a:atom.text type="supporting">{stage -> f:render.text(field: 'text')}</a:atom.text>

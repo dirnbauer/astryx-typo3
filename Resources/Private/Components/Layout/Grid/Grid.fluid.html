@@ -14,7 +14,10 @@
 
     `as` exists because a grid of people or of steps is a list before it is a
     layout, and a list whose items are not in a `ul` or `ol` is announced to a
-    screen reader as loose text with no count.
+    screen reader as loose text with no count. `dl` is there for the same
+    reason and was added later: seven metric bands laid their term-and-value
+    pairs out on a grid, which made the `dl` disappear and every `dt` and `dd`
+    in them an orphan — eighty-three of them, in one design review.
 </f:comment>
 
 <f:argument name="cols" type="integer" optional="{true}" default="0" />
@@ -25,6 +28,7 @@
 
 <f:switch expression="{as}">
     <f:case value="ul"><ul class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></ul></f:case>
+    <f:case value="dl"><dl class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></dl></f:case>
     <f:case value="ol"><ol class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></ol></f:case>
     <f:defaultCase><div class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></div></f:defaultCase>
 </f:switch>

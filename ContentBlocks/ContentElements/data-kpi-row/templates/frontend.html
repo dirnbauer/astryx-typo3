@@ -27,7 +27,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-data-kpi-row__cards">
+        <a:layout.grid as="dl" cols="{data.columns}" class="g-data-kpi-row__cards">
             <f:for each="{data.metrics}" as="metric">
                 <a:molecule.card class="g-data-kpi-row__card">
                     <a:atom.text type="label" as="dt" class="g-data-kpi-row__label">{metric -> f:render.text(field: 'title')}</a:atom.text>

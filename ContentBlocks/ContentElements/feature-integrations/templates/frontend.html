@@ -26,12 +26,18 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-feature-integrations__logos">
+        <a:layout.grid as="ul" cols="{data.columns}" class="g-feature-integrations__logos">
             <f:for each="{data.logos}" as="logo">
                 <li class="g-feature-integrations__cell">
                     <a:molecule.card clickable="{logo.link.url}" variant="flat" class="g-feature-integrations__tile">
+                        <f:comment>
+                            The name is printed under the mark, so the mark is
+                            decorative and takes an empty alt. Carrying the
+                            file's own alt text here made every tile announce
+                            the same company twice.
+                        </f:comment>
                         <f:for each="{logo.image}" as="image">
-                            <f:image image="{image}" alt="{image.alternative}" width="200" loading="lazy" class="g-feature-integrations__mark"/>
+                            <f:image image="{image}" alt="" width="200" loading="lazy" class="g-feature-integrations__mark"/>
                         </f:for>
 
                         <a:atom.text type="label" as="span" class="g-feature-integrations__name">

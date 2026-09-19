@@ -26,7 +26,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid fixed="{data.columns}" class="g-feature-steps__steps">
+        <a:layout.grid as="ol" fixed="{data.columns}" class="g-feature-steps__steps">
             <f:for each="{data.steps}" as="step">
                 <li class="g-feature-steps__step">
                     <span class="g-feature-steps__number" aria-hidden="true"></span>

@@ -403,6 +403,32 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
    * defaults would call every themed value a violation — which is how the first
    * run produced 6424 "radius" findings for a radius that was correct.
    */
+  /**
+   * Selectors whose rule sets a font size with `clamp()`. Collected once: a
+   * page carries a few thousand rules and this walk is not worth repeating per
+   * element.
+   *
+   * @type {string[]}
+   */
+  const fluidTypeSelectors = [];
+  {
+    const walk = rules => {
+      for (const rule of rules) {
+        if (rule.cssRules) walk(rule.cssRules);
+        if (rule.style?.fontSize?.includes('clamp(') && rule.selectorText) {
+          fluidTypeSelectors.push(rule.selectorText);
+        }
+      }
+    };
+    for (const sheet of document.styleSheets) {
+      try {
+        walk(sheet.cssRules);
+      } catch {
+        // A cross-origin sheet cannot be read. None of ours are.
+      }
+    }
+  }
+
   const root = getComputedStyle(document.body);
   const resolve = names => {
     const values = [];
@@ -501,7 +527,22 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
       name => typeof element.className === 'string' && element.className.trim().split(/\s+/).includes(name),
     );
 
-    if (hasOwnText && setsOwnSize && !derived) {
+    /*
+     * A font size written as `clamp(<token>, 7vw, <token>)` is on the scale at
+     * both ends and between them everywhere else, and the computed value is
+     * just whatever 7vw came to at this viewport. The computed style cannot
+     * tell the two cases apart — `vw` is absolutized before it gets there — so
+     * the rules are asked instead.
+     */
+    const fluidType = fluidTypeSelectors.some(selector => {
+      try {
+        return element.matches(selector);
+      } catch {
+        return false;
+      }
+    });
+
+    if (hasOwnText && setsOwnSize && !derived && !fluidType) {
       const fontSize = parseFloat(style.fontSize);
       if (!near(fontSize, typeScale)) {
         record('type-scale', element, `font-size ${fontSize}px is not in the scale`);
@@ -565,9 +606,16 @@ const PROBE_SOURCE = ({tokenNames, tolerance, derivedType}) => {
   }
 
   // --- focus ---------------------------------------------------------------
+  /*
+   * Rendered ones only. `focus()` on a control the stylesheet hides at this
+   * viewport does nothing, so its computed style is unchanged afterwards and
+   * the probe reads that as a missing focus ring — which is what it reported
+   * for the carousel arrows, hidden below the breakpoint where a rail is
+   * swiped rather than paged.
+   */
   const focusable = [...document.querySelectorAll(
     'a[href], button:not([disabled]), input:not([disabled]), select, textarea, summary, [tabindex]:not([tabindex="-1"])',
-  )].slice(0, 60);
+  )].filter(element => element.getClientRects().length > 0).slice(0, 60);
 
   for (const element of focusable) {
     const before = getComputedStyle(element);
@@ -780,9 +828,19 @@ const AFFORDANCE_SOURCE = () => {
     }
   });
 
+  /*
+   * `[data-interactive="interactive"]`, not `[data-interactive]`: the
+   * components emit the attribute either way and `="false"` means a row that
+   * is not a control, which has no business offering a hover affordance.
+   * Disabled controls are skipped for the same reason — a carousel arrow at the
+   * end of its rail is disabled on purpose, and the stylesheet's `:not([disabled])`
+   * guard is the design saying so rather than an omission.
+   */
   const interactive = [...document.querySelectorAll(
-    '.astryx-button, .astryx-link, .astryx-icon-button, .astryx-clickable-card, .astryx-item[data-interactive]',
-  )].filter(element => !element.closest('[data-harness-chrome]'));
+    '.astryx-button, .astryx-link, .astryx-icon-button, .astryx-clickable-card,'
+    + ' .astryx-item[data-interactive="interactive"]',
+  )].filter(element => !element.closest('[data-harness-chrome]')
+    && !element.matches('[disabled], [aria-disabled="true"]'));
 
   const seen = new Set();
   for (const element of interactive) {
@@ -968,6 +1026,17 @@ try {
                   .exclude('[data-color="placeholder"]')
                   .exclude('[data-disabled="disabled"]')
                   .exclude('[data-harness-chrome]');
+              } else {
+                /*
+                 * An element-library preview is one content element on an
+                 * otherwise empty page, so the three rules that are about a
+                 * PAGE cannot say anything true here: there is no h1 because
+                 * there is no page, and adding one turns every element that
+                 * correctly starts at h3 into a heading-order violation against
+                 * a heading the harness invented. Heading order WITHIN the
+                 * element is still checked, and found fifteen real skips.
+                 */
+                builder = builder.disableRules(['page-has-heading-one', 'region', 'landmark-one-main']);
               }
               const axe = await builder.analyze();
               violations = axe.violations.map(violation => ({

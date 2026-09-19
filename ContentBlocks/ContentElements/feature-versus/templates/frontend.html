@@ -29,7 +29,14 @@
         <a:molecule.table scroll="{true}" scrollClass="g-feature-versus__wrap" class="g-feature-versus__table">
             <thead>
                 <tr>
-                    <th scope="col"></th>
+                    <f:comment>
+                        The corner cell heads the column of row headers. It is
+                        blank by design — a word there would be read as a third
+                        column title — but a header cell with nothing in it is
+                        announced as nothing at all, so the name is present and
+                        clipped.
+                    </f:comment>
+                    <th scope="col"><a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-versus/language/labels.xlf:column.point" default="Point of comparison"/></a:atom.visuallyHidden></th>
                     <th scope="col" class="g-feature-versus__old-head">{data -> f:render.text(field: 'subheader')}</th>
                     <th scope="col" class="g-feature-versus__new-head">
                         <a:atom.badge variant="accent" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>

@@ -47,7 +47,7 @@
                     <f:for each="{data.addons}" as="addon">
                         <li class="g-pricing-addon-list__addon">
                             <div class="g-pricing-addon-list__body">
-                                <a:atom.heading level="4" class="g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</a:atom.heading>
+                                <a:atom.heading level="3" class="g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</a:atom.heading>
                                 <f:if condition="{addon.text}">
                                     <a:atom.text type="body" class="g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</a:atom.text>
                                 </f:if>

@@ -31,7 +31,7 @@
             </div>
         </f:if>
 
-        <a:layout.grid cols="{data.columns}" class="g-logo-cloud__marks">
+        <a:layout.grid as="ul" cols="{data.columns}" class="g-logo-cloud__marks">
             <f:for each="{data.logos}" as="logo">
                 <li class="g-logo-cloud__cell">
                     <f:if condition="{logo.link.url}">

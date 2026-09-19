@@ -523,9 +523,9 @@
   color: var(--color-syntax-comment);
 }
 
-.astryx-codeblock-scroll {
-  overflow: auto;
-}
+/* The scroll container is ScrollableArea — see CodeBlock's own comment. A
+   long line of code that can only be reached by dragging is a line a keyboard
+   user never sees. */
 
 .astryx-codeblock :where(pre) {
   display: block;
@@ -538,7 +538,11 @@
   color: var(--color-syntax-variable);
   tab-size: 2;
   white-space: pre;
-  overflow-x: auto;
+  /* The `pre` does not take the scroll: CodeBlock's ScrollableArea does, and
+     it is the one with a tab stop and a name. Two nested scrollers would give
+     a keyboard user the outer one and a long line inside the inner one it
+     cannot reach — which is what axe reported for both code elements. */
+  overflow-x: visible;
 }
 
 .astryx-codeblock[data-wrap="wrapped"] :where(pre) {

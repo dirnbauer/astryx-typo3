@@ -37,7 +37,7 @@
                 </f:if>
             </div>
 
-            <a:layout.grid cols="{data.columns}" class="g-data-key-figures__figures">
+            <a:layout.grid as="dl" cols="{data.columns}" class="g-data-key-figures__figures">
                 <f:for each="{data.metrics}" as="metric">
                     <div class="g-data-key-figures__figure">
                         <a:atom.text type="label" as="dt" class="g-data-key-figures__label">{metric -> f:render.text(field: 'title')}</a:atom.text>

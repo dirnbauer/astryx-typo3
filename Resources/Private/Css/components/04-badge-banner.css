@@ -135,7 +135,11 @@
   flex-shrink: 0;
   inline-size: var(--spacing-5);
   block-size: var(--spacing-5);
-  margin-block-start: 0.1em;
+  /* Nudged down so the glyph's optical centre meets the first line of text
+     rather than its box. `0.1em` did the same thing and resolved to 2.8px,
+     which is on no step of the scale — the design review reported it once per
+     banner on the site, 118 times in a single run. */
+  margin-block-start: var(--spacing-0-5);
 }
 
 .astryx-banner[data-status="info"] {

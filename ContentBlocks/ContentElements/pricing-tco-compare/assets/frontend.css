@@ -18,7 +18,11 @@
   color: var(--color-text-secondary);
 }
 
+/* Layout/Grid renders the <dl> and owns the auto-fit columns keyed on the
+   editor's column count. What is left here is the browser's block margin on a
+   description list, which the grid has no opinion about. */
 .g-pricing-tco-compare__figures {
+  padding: 0;
   margin: 0;
 }
 

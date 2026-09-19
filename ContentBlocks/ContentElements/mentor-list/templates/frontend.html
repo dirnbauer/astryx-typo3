@@ -63,7 +63,7 @@
                     <f:if condition="{mentor.text}">
                         <ul class="g-mentor-list__subjects">
                             <f:for each="{mentor.text -> f:split(separator: ';')}" as="subject">
-                                <a:atom.token class="g-mentor-list__subject">{subject -> f:format.trim()}</a:atom.token>
+                                <a:atom.token as="li" class="g-mentor-list__subject">{subject -> f:format.trim()}</a:atom.token>
                             </f:for>
                         </ul>
                     </f:if>

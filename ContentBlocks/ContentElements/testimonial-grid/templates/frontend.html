@@ -26,7 +26,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-testimonial-grid__items">
+        <a:layout.grid as="ul" cols="{data.columns}" class="g-testimonial-grid__items">
             <f:for each="{data.quotes}" as="item">
                 <li class="g-testimonial-grid__item">
                     <a:molecule.card class="g-testimonial-grid__card">

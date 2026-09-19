@@ -33,6 +33,13 @@
   list-style: none;
 }
 
+/* The li is the grid item, so it has to hand its whole cell to the card:
+   without this the card sizes to its own content and a row loses its equal
+   heights. */
+.g-feature-bento__cell {
+  display: grid;
+}
+
 .g-feature-bento__tile {
   gap: var(--spacing-3);
 }
@@ -57,16 +64,16 @@
 
   /* The lead tile takes two cells and gets a larger title with it, so the
      composition is legible from the size alone rather than from the copy. */
-  .g-feature-bento__tile:first-child {
+  .g-feature-bento__cell:first-child {
     grid-column: span 2;
   }
 
-  .g-feature-bento__tile:first-child .astryx-card-title {
+  .g-feature-bento__cell:first-child .astryx-card-title {
     font-size: var(--text-heading-2-size);
     line-height: var(--text-heading-2-leading);
   }
 
-  .g-feature-bento__tile:first-child .astryx-card-body {
+  .g-feature-bento__cell:first-child .astryx-card-body {
     max-inline-size: 48ch;
   }
 }

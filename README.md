@@ -9,17 +9,15 @@ no build step between an editor pressing save and a visitor seeing the page.
 What comes from upstream is the part that matters — the token vocabulary and the
 seven official themes, pinned to release `v0.6.2` rather than to a moving branch.
 
-[Desiderio](https://github.com/dirnbauer/desiderio) is the **rendering engine**
-underneath, not the design system: page rendering, the element library and the
-seeding services. This extension supplies all of its own design.
-
-## What it gives you
+## What it is
 
 - **250 content elements** in the ten wizard groups Desiderio already uses, so
   editors read the same shelf labels across both themes.
-- **89 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
-  reached through one namespace: `<a:atom.button variant="primary">`. No
-  template applies a CSS class.
+- **189 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
+  reached through one namespace: `<a:atom.button variant="primary">`. 159 of
+  upstream's 164 components render through one; the five that do not are React
+  context providers that render no DOM at all, and each is recorded with the
+  reason. No template applies a CSS class.
 - **Twenty-five themes**, switchable per site and per page. Switching is a
   repaint: every value is a custom property, nothing is rebuilt, no content
   changes. Every colour token is a `light-dark()` pair resolved against
@@ -27,12 +25,31 @@ seeding services. This extension supplies all of its own design.
 - **A page shell** — header, footer, breadcrumb, error pages — driven by site
   settings, with almost no JavaScript and self-hosted fonts.
 
+[Desiderio](https://github.com/dirnbauer/desiderio) is the **rendering engine**
+underneath, not the design system: page rendering, the element library and the
+seeding services. This extension supplies all of its own design.
+
 ## Requirements
 
-TYPO3 14.3.7+, PHP 8.4+, `friendsoftypo3/content-blocks` 2.2+,
-`praetorius/vite-asset-collector` 1.18+ and `webconsulting/desiderio` 4.1+.
+| | |
+| --- | --- |
+| TYPO3 | 14.3.7+ |
+| PHP | 8.4+ |
+| Content Blocks | `friendsoftypo3/content-blocks` 2.2+ |
+| Vite assets | `praetorius/vite-asset-collector` 1.18+ |
+| Engine | `webconsulting/desiderio` 4.1+ |
 
-## Setting up a site
+## Install
+
+```bash
+composer require webconsulting/astryx-typo3
+ddev exec php packages/astryx_typo3/Build/Scripts/apply-schema.php --apply
+```
+
+The migrator is not optional: `extension:setup` reports success and applies
+nothing once `tt_content` is large.
+
+## Configure
 
 Add the sets to `config/sites/<site>/config.yaml`:
 
@@ -58,7 +75,7 @@ overrides the theme for itself and everything below it through the **Astryx
 theme** field in its page properties. Search is a third set,
 `webconsulting/astryx-typo3-search`, kept separate because it needs Solr.
 
-## Seeding a showcase
+## Use
 
 ```bash
 ddev exec vendor/bin/typo3 astryx-typo3:site:seed --content
@@ -70,44 +87,27 @@ and the legal and error pages, then places every element on its chapter page
 from its own fixture. The second seeds one demo record per element, so the
 plus-button picker shows a live preview for all 250.
 
-## Working on the catalog
+## Develop
 
-Everything about an element starts as a row in `Build/Data/matrix/<group>.json`:
-its title, its descriptions, its keywords, the fields it uses and the Astryx
-components it composes. Nothing is invented in the generated files.
-
-```bash
-php Build/Scripts/scaffold-content-elements.php --scaffold --group=hero
-php Build/Scripts/scaffold-content-elements.php --derive
-php Build/Scripts/scaffold-content-elements.php --check
-npm run build
-```
-
+Everything about an element starts as a row in `Build/Data/matrix/<group>.json`.
 Two files per element are authored by hand and never overwritten:
 `templates/frontend.html` and `assets/frontend.css`. The template composes
 components and may not write an `astryx-*` class; the stylesheet may only speak
-in tokens. Both rules are enforced by the test suite rather than reviewed.
-
-Getting the columns into the database needs the extension's own migrator —
-`extension:setup` reports success and applies nothing once `tt_content` is large:
+in tokens. Both rules are tests rather than review notes.
 
 ```bash
-ddev exec php packages/astryx_typo3/Build/Scripts/apply-schema.php --apply
-```
-
-## Gates
-
-```bash
-composer lint && composer cgl:check && composer phpstan && composer test
+php Build/Scripts/scaffold-content-elements.php --scaffold --group=hero
+php Build/Scripts/scaffold-content-elements.php --check
 npm run build && git diff --exit-code
+composer lint && composer cgl:check && composer phpstan && composer test
 node Build/Scripts/design-review.mjs --harness
 ```
 
-## Documentation
+## Docs
 
-[Documentation/Index.rst](Documentation/Index.rst) — the component contract, the
-upstream sync, accessibility, the commands, authoring elements and the design
-review checklist.
+[Documentation/Index.rst](Documentation/Index.rst) — installation, configuration,
+usage, the component contract, the upstream sync, accessibility, the commands
+and the design review.
 
 ## Licence
 
@@ -115,6 +115,6 @@ GPL-2.0-or-later, like TYPO3.
 
 Astryx is MIT, © Meta Platforms, Inc. This extension vendors its design tokens
 and component inventory from official release `v0.6.2`; no React or StyleX
-runtime is redistributed. The exact notice and what is vendored are in
+runtime is redistributed. The notice is in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The bundled fonts are licensed
 under the SIL Open Font License.

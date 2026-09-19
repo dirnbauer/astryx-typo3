@@ -62,8 +62,12 @@
   font-weight: var(--font-weight-normal);
 }
 
+/* The disabled colour was borrowed here for "these hours no longer apply", and
+   at 2.8:1 on the surface it failed contrast. The strike-through and the word
+   "Closed" beside it already carry that meaning, so the times only have to be
+   quieter than the open days — which is what the secondary colour is for. */
 .g-footer-opening-hours__struck {
-  color: var(--color-text-disabled);
+  color: var(--color-text-secondary);
   font-weight: var(--font-weight-normal);
 }
 

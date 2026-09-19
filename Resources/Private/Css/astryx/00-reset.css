@@ -27,3 +27,19 @@ select {
 button {
   background: none;
 }
+
+/*
+ * Rich text carries the browser's own `margin-block: 1em` on its flow content,
+ * and 1em of a 14px body is 14px — a number on no step of the spacing scale.
+ * A design review across every element reported it 458 times, in the answer of
+ * every accordion, every FAQ row and every quoted review: markup an editor
+ * writes, that no element styles, and that the design system had therefore
+ * never actually decided the rhythm of.
+ *
+ * `--spacing-3` is 12px, the step the default was nearest to, so the page
+ * barely moves. It sits in the reset layer, which every component and every
+ * element outranks, so anything with an opinion of its own still wins.
+ */
+:where(p, ul, ol, dl, blockquote, figure, pre) {
+  margin-block: var(--spacing-3);
+}

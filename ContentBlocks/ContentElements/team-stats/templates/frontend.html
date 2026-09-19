@@ -33,7 +33,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" align="{data.align}" class="g-team-stats__figures">
+        <a:layout.grid as="dl" cols="{data.columns}" align="{data.align}" class="g-team-stats__figures">
             <f:for each="{data.stats}" as="stat">
                 <div class="g-team-stats__figure">
                     <f:if condition="{stat.icon}">

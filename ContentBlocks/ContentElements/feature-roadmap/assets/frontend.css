@@ -25,9 +25,12 @@
 }
 
 /* The dot sits on the title's first line rather than on the top of the row,
-   which is where it would land in a list item that has two lines of text. */
+   which is where it would land in a list item that has two lines of text.
+   The nudge was `0.5em`, which lands on whatever half the inherited font size
+   happens to be — 7px here, off the scale in both directions. A spacing token
+   puts it on the same grid as everything else and still meets the first line. */
 .g-feature-roadmap__dot {
-  margin-block-start: 0.5em;
+  margin-block-start: var(--spacing-2);
 }
 
 .g-feature-roadmap__body {

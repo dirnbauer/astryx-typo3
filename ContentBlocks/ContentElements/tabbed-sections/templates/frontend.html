@@ -47,7 +47,7 @@
                          id="g-tabbed-sections-{data.uid}-panel-{position.index}"
                          aria-labelledby="g-tabbed-sections-{data.uid}-tab-{position.index}"
                          tabindex="0">
-                    <a:atom.heading level="4" class="g-tabbed-sections__title">{panel -> f:render.text(field: 'title')}</a:atom.heading>
+                    <a:atom.heading level="3" class="g-tabbed-sections__title">{panel -> f:render.text(field: 'title')}</a:atom.heading>
 
                     <f:if condition="{panel.bodytext}">
                         <div class="astryx-prose g-tabbed-sections__body"><f:format.html>{panel.bodytext}</f:format.html></div>

@@ -66,7 +66,10 @@
   block-size: var(--spacing-4);
   /* Optical, not geometric: the glyph sits on the text's x-height rather than
      on the top of its line box. */
-  margin-block-start: 0.2em;
+  /* Nudged down so the mark's optical centre meets the first line of the
+     label. A token rather than `0.2em`, which resolved to 2.8px — a value on
+     no step of the spacing scale. */
+  margin-block-start: var(--spacing-0-5);
 }
 
 .g-pricing-plan-card__feature[data-included='yes'] .g-pricing-plan-card__mark {

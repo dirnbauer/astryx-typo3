@@ -39,6 +39,12 @@
   counter-reset: g-quote-step;
 }
 
+/* The li is the grid item now; it hands the whole cell to the Feature so the
+   four steps still line up on one baseline grid. */
+.g-pricing-quote-request__cell {
+  display: grid;
+}
+
 .g-pricing-quote-request__step {
   counter-increment: g-quote-step;
 }

@@ -47,21 +47,30 @@
             <f:if condition="{data.steps}">
                 <ol class="g-pricing-quote-request__steps">
                     <f:for each="{data.steps}" as="step">
-                        <a:molecule.feature class="g-pricing-quote-request__step">
-                            <f:if condition="{step.icon}">
-                                <f:comment>
-                                    The tile carries the semantic key rather than a glyph, so swapping
-                                    icon library never reaches into a template.
-                                </f:comment>
-                                <a:atom.featureIcon icon="{step.icon}" />
-                            </f:if>
+                        <f:comment>
+                            An ol may only contain li, so the li is the grid cell
+                            and Feature sits inside it. The step counter keeps
+                            incrementing on the Feature: a counter is read by a
+                            descendant's ::before, and one more element in
+                            between changes nothing about that.
+                        </f:comment>
+                        <li class="g-pricing-quote-request__cell">
+                            <a:molecule.feature class="g-pricing-quote-request__step">
+                                <f:if condition="{step.icon}">
+                                    <f:comment>
+                                        The tile carries the semantic key rather than a glyph, so swapping
+                                        icon library never reaches into a template.
+                                    </f:comment>
+                                    <a:atom.featureIcon icon="{step.icon}" />
+                                </f:if>
 
-                            <a:molecule.cardTitle>{step -> f:render.text(field: 'title')}</a:molecule.cardTitle>
+                                <a:molecule.cardTitle>{step -> f:render.text(field: 'title')}</a:molecule.cardTitle>
 
-                            <f:if condition="{step.text}">
-                                <a:molecule.cardBody>{step -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                            </f:if>
-                        </a:molecule.feature>
+                                <f:if condition="{step.text}">
+                                    <a:molecule.cardBody>{step -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                                </f:if>
+                            </a:molecule.feature>
+                        </li>
                     </f:for>
                 </ol>
             </f:if>

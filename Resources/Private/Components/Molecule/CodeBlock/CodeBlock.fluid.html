@@ -32,6 +32,7 @@
 <f:argument name="variant" type="string" optional="{true}" default="default" />
 <f:argument name="wrap" type="string" optional="{true}" default="default" />
 <f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="scrollLabel" type="string" optional="{true}" default="" />
 <f:argument name="scroll" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
@@ -39,4 +40,4 @@
     class="astryx-codeblock {class}"
     data-variant="{variant}"
     data-wrap="{wrap}"
-    data-size="{size}"><f:if condition="{f:slot(name: 'header') -> f:format.trim()}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:if condition="{scroll}"><f:then><div class="astryx-codeblock-scroll"><f:slot /></div></f:then><f:else><f:slot /></f:else></f:if></div>
+    data-size="{size}"><f:if condition="{f:slot(name: 'header') -> f:format.trim()}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:if condition="{scroll}"><f:then><a:layout.scrollableArea orientation="horizontal" ariaLabel="{scrollLabel}"><f:slot /></a:layout.scrollableArea></f:then><f:else><f:slot /></f:else></f:if></div>

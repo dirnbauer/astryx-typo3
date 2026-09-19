@@ -26,7 +26,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-feature-platforms__platforms">
+        <a:layout.grid as="ul" cols="{data.columns}" class="g-feature-platforms__platforms">
             <f:for each="{data.platforms}" as="platform">
                 <a:molecule.item align="start" interactive="{f:if(condition: platform.link.url, then: 'interactive', else: 'default')}" class="g-feature-platforms__platform">
                     <f:fragment name="start"><f:if condition="{platform.icon}"><a:atom.featureIcon icon="{platform.icon}" /></f:if></f:fragment>

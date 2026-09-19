@@ -24,9 +24,15 @@
   margin-block-start: var(--spacing-2);
 }
 
+/* Layout/Grid renders the <dl> and owns the auto-fit columns keyed on the
+   editor's column count. What is left here is the browser's block margin on a
+   description list, which the grid has no opinion about, and the gap, which is
+   the band's own: the figures sit beside a column of prose and need more air
+   between them than the grid's default. */
 .g-data-key-figures__figures {
-  margin: 0;
   --grid-gap: var(--spacing-8);
+  padding: 0;
+  margin: 0;
 }
 
 /* Term first in the source so the pair survives being read out of order,

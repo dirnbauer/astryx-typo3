@@ -27,7 +27,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-social-mentions__posts">
+        <a:layout.grid as="ul" cols="{data.columns}" class="g-social-mentions__posts">
             <f:for each="{data.posts}" as="post">
                 <li class="g-social-mentions__cell">
                     <a:molecule.card density="tight" class="g-social-mentions__card">

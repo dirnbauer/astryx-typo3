@@ -59,7 +59,7 @@
                         </f:if>
 
                         <div class="g-feature-sticky-list__body">
-                            <a:atom.heading level="4">
+                            <a:atom.heading level="3">
                                 <f:if condition="{item.link.url}">
                                     <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
                                     <f:else>{item -> f:render.text(field: 'title')}</f:else>

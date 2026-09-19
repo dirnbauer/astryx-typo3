@@ -27,7 +27,7 @@
             </f:if>
         </div>
 
-        <a:layout.grid cols="{data.columns}" class="g-community-stats__stats">
+        <a:layout.grid as="dl" cols="{data.columns}" class="g-community-stats__stats">
             <f:for each="{data.stats}" as="stat">
                 <div class="g-community-stats__stat">
                     <a:atom.text type="label" as="dt" class="g-community-stats__label">{stat -> f:render.text(field: 'title')}</a:atom.text>

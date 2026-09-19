@@ -74,7 +74,7 @@ function minifyCss(css) {
 /**
  * Which .astryx-* class names anything actually renders.
  *
- * Scanned, not assumed: the 74 Fluid components, the 250 element templates, the
+ * Scanned, not assumed: every Fluid component, the 250 element templates, the
  * page and Solr templates, the element stylesheets, astryx.js, and the compiled
  * upstream theme payload. A class nobody renders is dead weight in every
  * visitor's download.
