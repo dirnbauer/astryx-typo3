@@ -118,6 +118,13 @@ enforces the rules, and each of them has a reason:
     `:root`.
 *   **No `!important`** — the cascade layers make it unnecessary.
 *   **No literal `font-family`** — use `var(--font-family-*)`, or `inherit`.
+*   **No `em` margin, padding, gap or inset** — spacing is a scale and `em` is
+    not on it. An `0.2em` nudge is right about what it wants and wrong about
+    where the number comes from: it resolved to 2.8px on 118 nodes in a design
+    review. `em` stays legal for a glyph's own size, for
+    `text-underline-offset`, and inside a `calc()` that reads a
+    `--text-*-leading` token — centring a mark against a line box is measuring
+    the text on purpose.
 *   **One shared set of breakpoints**: 480, 640, 768 and 1024, plus their
     one-pixel neighbours. Elements that invent their own stop lining up with the
     ones beside them on a page.

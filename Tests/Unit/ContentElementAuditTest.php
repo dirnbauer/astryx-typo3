@@ -297,6 +297,31 @@ final class ContentElementAuditTest extends TestCase
                 }
             }
 
+            /*
+             * Spacing is a scale, and `em` is not on it. `margin-block-start:
+             * 0.2em` resolved to 2.8px on 118 nodes in a design review — an
+             * optical nudge that was right about what it wanted and wrong
+             * about where the number came from. `em` stays legal everywhere
+             * else: `text-underline-offset` and a glyph's own size are
+             * relative to the text by nature — and so is centring a mark
+             * against a line box, which is why a calc() that reads a
+             * `--text-*-leading` token is left alone: that one is measuring
+             * the text on purpose rather than guessing at it.
+             */
+            if (preg_match_all('/\b(margin|padding|gap|inset)(?:-[a-z-]+)?:\s*([^;}]*\b[\d.]+e[mx]\b[^;}]*)/', $source, $relative, PREG_SET_ORDER) > 0) {
+                foreach ($relative as $match) {
+                    if (str_contains($match[2], 'var(--text-')) {
+                        continue;
+                    }
+                    $findings[] = sprintf(
+                        '%s: %s uses "%s" — spacing comes from --spacing-*, not from the font size',
+                        $element,
+                        $match[1],
+                        trim($match[2]),
+                    );
+                }
+            }
+
             if (preg_match_all('/\(\s*(?:min|max)-width:\s*(\d+)px/', $source, $breakpoints) > 0) {
                 foreach ($breakpoints[1] as $breakpoint) {
                     if (!in_array((int)$breakpoint, self::BREAKPOINTS, true)) {

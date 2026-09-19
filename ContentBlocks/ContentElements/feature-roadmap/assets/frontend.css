@@ -43,7 +43,9 @@
 
 .g-feature-roadmap__state {
   flex: 0 0 auto;
-  margin-block-start: 0.15em;
+  /* Nudged down onto the title's first line. A token, not `0.15em`: spacing
+     comes from the scale, and 0.15em resolved to 2.1px. */
+  margin-block-start: var(--spacing-0-5);
 }
 
 .g-feature-roadmap__item[data-shipped='no'] .astryx-heading {

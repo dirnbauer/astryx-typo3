@@ -51,7 +51,9 @@
   display: inline-block;
   inline-size: 0.4em;
   block-size: 0.4em;
-  margin-inline-start: 0.4em;
+  /* The arrow itself scales with the text, which is what `em` is for; the gap
+     before it is spacing and comes from the scale. */
+  margin-inline-start: var(--spacing-1);
   border-block-start: 1.5px solid currentColor;
   border-inline-end: 1.5px solid currentColor;
   rotate: 45deg;
