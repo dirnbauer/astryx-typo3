@@ -40,14 +40,14 @@
 
 /* An unlinked entry opens the next column, which is the whole grouping rule of
    this element; the first one has no column to leave. */
-.g-footer-link-columns__entry.is-heading {
+.g-footer-link-columns__entry[data-kind="heading"] {
   break-before: column;
   break-after: avoid;
   padding-block-start: 0;
   padding-block-end: var(--spacing-2);
 }
 
-.g-footer-link-columns__entry.is-heading:first-child {
+.g-footer-link-columns__entry[data-kind="heading"]:first-child {
   break-before: auto;
 }
 
@@ -94,11 +94,11 @@
 /* In one column a forced column break does nothing, so the heading takes air
    above it instead — otherwise every group would run into the one before. */
 @media (max-width: 640px) {
-  .g-footer-link-columns__entry.is-heading + .g-footer-link-columns__entry.is-link {
+  .g-footer-link-columns__entry[data-kind="heading"] + .g-footer-link-columns__entry[data-kind="link"] {
     padding-block-start: 0;
   }
 
-  .g-footer-link-columns__entry.is-heading:not(:first-child) {
+  .g-footer-link-columns__entry[data-kind="heading"]:not(:first-child) {
     padding-block-start: var(--spacing-6);
   }
 

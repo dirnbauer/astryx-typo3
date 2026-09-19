@@ -102,7 +102,7 @@
 }
 
 /* ------------------------------------------------------------ StatusDot */
-.astryx-statusdot {
+.astryx-status-dot {
   display: inline-block;
   inline-size: var(--spacing-2);
   block-size: var(--spacing-2);
@@ -111,10 +111,10 @@
   flex-shrink: 0;
 }
 
-.astryx-statusdot[data-variant="success"] { background-color: var(--color-success); }
-.astryx-statusdot[data-variant="warning"] { background-color: var(--color-warning); }
-.astryx-statusdot[data-variant="error"] { background-color: var(--color-error); }
-.astryx-statusdot[data-variant="accent"] { background-color: var(--color-accent); }
+.astryx-status-dot[data-variant="success"] { background-color: var(--color-success); }
+.astryx-status-dot[data-variant="warning"] { background-color: var(--color-warning); }
+.astryx-status-dot[data-variant="error"] { background-color: var(--color-error); }
+.astryx-status-dot[data-variant="accent"] { background-color: var(--color-accent); }
 
 /* --------------------------------------------------------------- Banner */
 /* Page-level message. The tinted background carries the meaning, so a banner

@@ -24,12 +24,12 @@
 
         <div class="g-text-comparison__grid {f:if(condition: data.reverse, then: 'reverse')}">
 
-            <div class="g-text-comparison__column first">
+            <div class="g-text-comparison__column" data-column="first">
                 <a:atom.heading level="3" class="g-text-comparison__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
                 <div class="astryx-prose g-text-comparison__prose"><f:format.html>{data.bodytext}</f:format.html></div>
             </div>
 
-            <div class="g-text-comparison__column second">
+            <div class="g-text-comparison__column" data-column="second">
                 <a:atom.heading level="3" class="g-text-comparison__title">{data -> f:render.text(field: 'subheader')}</a:atom.heading>
                 <a:atom.text type="body" class="g-text-comparison__plain">{data -> f:render.text(field: 'text')}</a:atom.text>
             </div>

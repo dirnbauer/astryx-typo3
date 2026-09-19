@@ -27,7 +27,7 @@
 
 <div class="astryx-field {class}" data-orientation="{orientation}" data-status="{status}">
     <f:if condition="{label}">
-        <label class="astryx-field-label" for="{inputId}">{label}<f:if condition="{required}"><f:then><f:if condition="{requiredLabel}"><span class="required">{requiredLabel}</span></f:if></f:then><f:else><f:if condition="{optionalLabel}"><span class="optional">{optionalLabel}</span></f:if></f:else></f:if></label>
+        <label class="astryx-field-label" for="{inputId}">{label}<f:if condition="{required}"><f:then><f:if condition="{requiredLabel}"><span data-optionality="required">{requiredLabel}</span></f:if></f:then><f:else><f:if condition="{optionalLabel}"><span data-optionality="optional">{optionalLabel}</span></f:if></f:else></f:if></label>
     </f:if>
 
     <f:slot />

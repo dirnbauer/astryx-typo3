@@ -1,6 +1,6 @@
 {
   "_comment": "Every Astryx component the element matrix names, and the Fluid component that renders it here. Generated intent, checked by Tests/Unit/AtomicDesignConformanceTest.php: a matrix row may not name an Astryx component that is absent from this map, and this map may not name one that is absent from Build/astryx/components.json.",
-  "_upstream": "v0.6.0",
+  "_upstream": "v0.6.2",
   "components": {
     "AspectRatio": {
       "upstream": "AspectRatio",
@@ -282,7 +282,7 @@
       "package": "@astryxdesign/core",
       "component": "atom.progressBar",
       "tag": "a:atom.progressBar",
-      "rootClass": "astryx-progressbar",
+      "rootClass": "astryx-progress-bar",
       "referencedByMatrix": true
     },
     "Section": {
@@ -315,7 +315,7 @@
       "package": "@astryxdesign/core",
       "component": "atom.statusDot",
       "tag": "a:atom.statusDot",
-      "rootClass": "astryx-statusdot",
+      "rootClass": "astryx-status-dot",
       "referencedByMatrix": true
     },
     "TabList": {

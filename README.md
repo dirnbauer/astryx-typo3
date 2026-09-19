@@ -7,7 +7,7 @@ Astryx ships as React components styled with StyleX. This extension ships the
 same design system as **Fluid components and plain CSS**: no React, no StyleX,
 no build step between an editor pressing save and a visitor seeing the page.
 What comes from upstream is the part that matters — the token vocabulary and the
-seven official themes, pinned to release `v0.6.0` rather than to a moving branch.
+seven official themes, pinned to release `v0.6.2` rather than to a moving branch.
 
 [Desiderio](https://github.com/dirnbauer/desiderio) is the **rendering engine**
 underneath, not the design system: page rendering, the element library and the
@@ -114,7 +114,7 @@ review checklist.
 GPL-2.0-or-later, like TYPO3.
 
 Astryx is MIT, © Meta Platforms, Inc. This extension vendors its design tokens
-and component inventory from official release `v0.6.0`; no React or StyleX
+and component inventory from official release `v0.6.2`; no React or StyleX
 runtime is redistributed. The exact notice and what is vendored are in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The bundled fonts are licensed
 under the SIL Open Font License.

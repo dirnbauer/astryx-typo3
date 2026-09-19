@@ -54,15 +54,15 @@
   border-radius: var(--radius-inner);
 }
 
-.g-data-benchmark-compare__swatch.is-ours,
-.g-data-benchmark-compare__series.is-ours .g-data-benchmark-compare__bar {
+.g-data-benchmark-compare__swatch[data-series="ours"],
+.g-data-benchmark-compare__series[data-series="ours"] .g-data-benchmark-compare__bar {
   background-color: var(--color-accent);
 }
 
 /* The reference series is deliberately quieter: it is the thing being measured
    against, not a second claim competing with the first. */
-.g-data-benchmark-compare__swatch.is-reference,
-.g-data-benchmark-compare__series.is-reference .g-data-benchmark-compare__bar {
+.g-data-benchmark-compare__swatch[data-series="reference"],
+.g-data-benchmark-compare__series[data-series="reference"] .g-data-benchmark-compare__bar {
   background-color: var(--color-text-disabled);
 }
 
@@ -119,7 +119,7 @@
   white-space: nowrap;
 }
 
-.g-data-benchmark-compare__series.is-reference .g-data-benchmark-compare__figure {
+.g-data-benchmark-compare__series[data-series="reference"] .g-data-benchmark-compare__figure {
   font-weight: var(--font-weight-normal);
   color: var(--color-text-secondary);
 }
@@ -132,8 +132,8 @@
   background-color: var(--color-overlay-hover);
 }
 
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__swatch.is-ours,
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__series.is-ours .g-data-benchmark-compare__bar {
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__swatch[data-series="ours"],
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__series[data-series="ours"] .g-data-benchmark-compare__bar {
   background-color: currentColor;
 }
 

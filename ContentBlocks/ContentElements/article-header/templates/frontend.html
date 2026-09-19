@@ -13,7 +13,7 @@
 
 <a:layout.section surface="{data.tone}" class="g-article-header">
     <a:layout.container size="md">
-        <div class="g-article-header__intro align-{data.align}">
+        <div class="g-article-header__intro" data-align="{data.align}">
 
             <f:if condition="{data.eyebrow}">
                 <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>

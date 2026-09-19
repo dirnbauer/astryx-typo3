@@ -6,20 +6,13 @@
     of a rounded image without a second border radius. The media goes in the
     default slot and the strip laid over it in `scrim`.
 
-    That split used to leave a seam worth naming, and this is where it is
-    closed. The contract maps this component's modifiers onto the root, which is
-    where the data attributes below go, while the stylesheet still defines fill,
-    dark, always and align-center on the scrim as bare classes — the CSS codemod
-    does not touch those, because the scrim is not a root class. So the scrim is
-    written here, from the very same arguments: the caller states the position,
-    the tone and the reveal once, and this renders them twice, as the root's
-    attributes and as the classes the stylesheet reads. Four elements used to
-    write that class list by hand, and nothing kept it in step with the root.
+    Root and scrim carry the same four attributes because they describe the same
+    arrangement from two sides: the root positions the strip, the scrim draws it.
+    Stating them once here is what keeps the two in step.
 
-    `reveal="hover"` means hover *and* focus, which is what the stylesheet
-    does: a control that only appears when a pointer arrives is a control a
-    keyboard can never reach. That is also why the two spellings differ — the
-    argument says when it comes back, the class says which rule draws it.
+    `reveal="hover"` means hover *and* focus, which is what the stylesheet does:
+    a control that only appears when a pointer arrives is a control a keyboard
+    can never reach.
 
     The scrim is drawn only when its slot has something in it, and that test
     trims first. A fragment written over several lines is never empty — it
@@ -35,12 +28,12 @@
 <f:argument name="scrimClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<f:variable name="scrimReveal"><f:switch expression="{reveal}"><f:case value="hover">hover-reveal</f:case><f:case value="focus">focus-reveal</f:case><f:defaultCase>{reveal}</f:defaultCase></f:switch></f:variable>
+<f:variable name="fill">{f:if(condition: '{position} == \'fill\'', then: 'fill', else: 'false')}</f:variable>
 
 <div
     class="astryx-overlay {class}"
     data-position="{position}"
-    data-fill="{f:if(condition: '{position} == \'fill\'', then: 'fill', else: 'false')}"
+    data-fill="{fill}"
     data-align="{align}"
     data-tone="{tone}"
-    data-reveal="{reveal}"><f:slot /><f:if condition="{f:slot(name: 'scrim') -> f:format.trim()}"><div class="astryx-overlay-scrim {position} align-{align} {tone} {scrimReveal} {scrimClass}"><f:slot name="scrim" /></div></f:if></div>
+    data-reveal="{reveal}"><f:slot /><f:if condition="{f:slot(name: 'scrim') -> f:format.trim()}"><div class="astryx-overlay-scrim {scrimClass}" data-position="{position}" data-fill="{fill}" data-align="{align}" data-tone="{tone}" data-reveal="{reveal}"><f:slot name="scrim" /></div></f:if></div>

@@ -1,9 +1,9 @@
 {
-  "source": "https://github.com/facebook/astryx/releases/tag/v0.6.0",
-  "release": "v0.6.0",
-  "commit": "1e63a5144bdf4777081edee472089277aceb5d75",
-  "harvestedBy": "@astryxdesign/cli@0.6.0 component --list --json",
-  "harvested": 163,
+  "source": "https://github.com/facebook/astryx/releases/tag/v0.6.2",
+  "release": "v0.6.2",
+  "commit": "bc93547cf59532ea6d8c4bea9c70e3d3fb05bcc3",
+  "harvestedBy": "@astryxdesign/cli@0.6.2 component --list --json",
+  "harvested": 164,
   "note": "Exact component inventory from the official release. Runtime React APIs are documentation provenance only and are not shipped by this TYPO3 extension.",
   "components": [
     {
@@ -658,6 +658,12 @@
       "component": "RadioListItem",
       "name": "RadioListItem",
       "group": "Radio",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "ScrollableArea",
+      "name": "ScrollableArea",
+      "group": "ScrollableArea",
       "package": "@astryxdesign/core"
     },
     {

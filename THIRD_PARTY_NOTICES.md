@@ -4,22 +4,22 @@
 
 Source: https://github.com/facebook/astryx
 
-Pinned release: `v0.6.0`
+Pinned release: `v0.6.2`
 
-Pinned commit: `1e63a5144bdf4777081edee472089277aceb5d75`
+Pinned commit: `bc93547cf59532ea6d8c4bea9c70e3d3fb05bcc3`
 
 What is vendored, and how it was produced:
 
 - `Build/astryx/components.json` — the component inventory, as printed by
-  `@astryxdesign/cli@0.6.0 component --list --json`.
+  `@astryxdesign/cli@0.6.2 component --list --json`.
 - `Build/astryx/tokens.json` — the base token defaults from
-  `@astryxdesign/core@0.6.0`'s `theme` entry point, and the compiled rule set
+  `@astryxdesign/core@0.6.2`'s `theme` entry point, and the compiled rule set
   each of the seven official theme packages
-  (`@astryxdesign/theme-{neutral,butter,chocolate,matcha,stone,gothic,y2k}@0.6.0`)
+  (`@astryxdesign/theme-{neutral,butter,chocolate,matcha,stone,gothic,y2k}@0.6.2`)
   produces through upstream's own `generateThemeRulesSplit()`.
 
 Both files are rewritten by `Build/Scripts/fetch-astryx-manifest.mjs --tag
-v0.6.0` and never edited by hand. No React, StyleX or other upstream runtime is
+v0.6.2` and never edited by hand. No React, StyleX or other upstream runtime is
 redistributed.
 
 Thank you to the Astryx team, Meta Open Source, the Facebook design systems

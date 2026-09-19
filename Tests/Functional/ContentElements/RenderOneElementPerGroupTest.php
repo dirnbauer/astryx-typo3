@@ -46,7 +46,7 @@ final class RenderOneElementPerGroupTest extends FunctionalTestCase
     // astryx_typo3 declares desiderio in ext_emconf.php, desiderio declares
     // content_blocks, workspaces and form: the testing framework refuses to
     // build an instance whose declared dependencies are absent.
-    protected array $coreExtensionsToLoad = ['form', 'workspaces'];
+    protected array $coreExtensionsToLoad = ['fluid_styled_content', 'form', 'workspaces'];
 
     protected array $testExtensionsToLoad = [
         'friendsoftypo3/content-blocks',

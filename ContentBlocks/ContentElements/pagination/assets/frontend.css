@@ -39,12 +39,12 @@
   border-block-end: 2px solid currentColor;
 }
 
-.g-pagination__step.previous::before {
+.g-pagination__step[data-position="start"]::before {
   rotate: 135deg;
   translate: var(--spacing-0-5) 0;
 }
 
-.g-pagination__step.next::before {
+.g-pagination__step[data-position="end"]::before {
   rotate: -45deg;
   translate: calc(-1 * var(--spacing-0-5)) 0;
 }

@@ -42,14 +42,14 @@
   line-height: var(--text-body-leading);
 }
 
-.g-pros-cons__column.for .g-pros-cons__point::before {
+.g-pros-cons__column[data-side="for"] .g-pros-cons__point::before {
   content: '+';
   color: var(--color-success);
 }
 
 /* A minus sign, not a hyphen: at the body size a hyphen beside a plus reads as
    a stray dash rather than as the other half of a pair. */
-.g-pros-cons__column.against .g-pros-cons__point::before {
+.g-pros-cons__column[data-side="against"] .g-pros-cons__point::before {
   content: '\2212';
   color: var(--color-error);
 }

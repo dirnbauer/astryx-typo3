@@ -124,25 +124,25 @@ function run(command, commandArgs, options = {}) {
 
 // -------------------------------------------------------------------- steps
 
-/** Resolve the tag to the commit it points at, through the GitHub API. */
-async function resolveTagCommit(tag) {
-  const url = `https://api.github.com/repos/${REPO}/git/ref/tags/${tag}`;
-  const headers = {'User-Agent': 'astryx-typo3-manifest-harvest', Accept: 'application/vnd.github+json'};
-  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-
-  const response = await fetch(url, {headers});
-  if (!response.ok) fail(`GitHub API ${response.status} for ${url}`);
-  const ref = await response.json();
-
-  // An annotated tag points at a tag object; the commit is one dereference on.
-  if (ref.object.type === 'commit') return ref.object.sha;
-
-  const tagResponse = await fetch(
-    `https://api.github.com/repos/${REPO}/git/tags/${ref.object.sha}`,
-    {headers},
+/**
+ * Resolve the tag to the commit it points at.
+ *
+ * `git ls-remote` rather than the GitHub REST API: the API refuses anonymous
+ * callers after sixty requests an hour, and a harvest that fails on a 403 in
+ * the first second is a harvest nobody runs twice. The `^{}` row is the peeled
+ * commit behind an annotated tag; a lightweight tag has only the plain row.
+ */
+function resolveTagCommit(tag) {
+  const listing = run('git', ['ls-remote', '--tags', `https://github.com/${REPO}.git`, tag, `${tag}^{}`]);
+  const rows = new Map(
+    listing.trim().split('\n').filter(Boolean).map(line => {
+      const [sha, ref] = line.split(/\s+/);
+      return [ref, sha];
+    }),
   );
-  if (!tagResponse.ok) fail(`GitHub API ${tagResponse.status} dereferencing ${tag}`);
-  return (await tagResponse.json()).object.sha;
+  const commit = rows.get(`refs/tags/${tag}^{}`) ?? rows.get(`refs/tags/${tag}`);
+  if (!commit) fail(`No tag ${tag} at https://github.com/${REPO}`);
+  return commit;
 }
 
 /** Download and unpack the tag's source tarball into var/astryx/. */
@@ -290,7 +290,7 @@ process.stdout.write(JSON.stringify({defaults, themes}));
 const args = parseArgs(process.argv.slice(2));
 const version = args.tag.replace(/^v/, '');
 
-const commit = await resolveTagCommit(args.tag);
+const commit = resolveTagCommit(args.tag);
 const sourceRoot = await fetchSource(args.tag);
 const workspace = installRelease(version);
 

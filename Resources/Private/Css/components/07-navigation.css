@@ -48,9 +48,9 @@
   cursor: pointer;
 }
 
-.astryx-nav-item.sm { block-size: var(--size-element-sm); padding-inline: var(--spacing-1); }
-.astryx-nav-item.md { block-size: var(--size-element-md); padding-inline: var(--spacing-2); }
-.astryx-nav-item.lg { block-size: var(--size-element-lg); padding-inline: var(--spacing-2); }
+.astryx-nav-item[data-size="sm"] { block-size: var(--size-element-sm); padding-inline: var(--spacing-1); }
+.astryx-nav-item[data-size="md"] { block-size: var(--size-element-md); padding-inline: var(--spacing-2); }
+.astryx-nav-item[data-size="lg"] { block-size: var(--size-element-lg); padding-inline: var(--spacing-2); }
 
 @media (hover: hover) {
   .astryx-nav-item:hover {
@@ -67,7 +67,7 @@
   outline-offset: 2px;
 }
 
-.astryx-nav-item.selected,
+.astryx-nav-item[data-selected="selected"],
 .astryx-nav-item[aria-current='page'] {
   background-color: var(--color-neutral);
   font-weight: var(--font-weight-medium);
@@ -76,13 +76,13 @@
 /* The selected row keeps its tint under the pointer — hover must not read as
    a second kind of selection. */
 @media (hover: hover) {
-  .astryx-nav-item.selected:hover,
+  .astryx-nav-item[data-selected="selected"]:hover,
   .astryx-nav-item[aria-current='page']:hover {
     background-color: var(--color-neutral);
   }
 }
 
-.astryx-nav-item.disabled,
+.astryx-nav-item[data-disabled="disabled"],
 .astryx-nav-item[aria-disabled='true'] {
   color: var(--color-text-disabled);
   cursor: not-allowed;
@@ -281,7 +281,7 @@
 .astryx-tab[data-selected="selected"],
 .astryx-tab[aria-selected='true'],
 .astryx-tab[aria-current='page'],
-.astryx-tab-menu.selected {
+.astryx-tab-menu[data-selected="selected"] {
   color: var(--color-text-primary);
   font-weight: var(--font-weight-semibold);
 }
@@ -307,9 +307,9 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-tab-indicator.selected,
+.astryx-tab-indicator[data-selected="selected"],
 .astryx-tab[data-selected="selected"] > .astryx-tab-indicator,
-.astryx-tab-menu.selected > .astryx-tab-indicator {
+.astryx-tab-menu[data-selected="selected"] > .astryx-tab-indicator {
   background-color: var(--color-accent);
   opacity: 1;
 }
@@ -365,7 +365,7 @@
   outline-offset: 2px;
 }
 
-.astryx-tab-menu-item.selected,
+.astryx-tab-menu-item[data-selected="selected"],
 .astryx-tab-menu-item[aria-current='page'] {
   font-weight: var(--font-weight-medium);
 }
@@ -490,12 +490,12 @@
 
 /* Three slots need a grid, not flex: the centre stays optically centred on
    the bar even when the two sides carry different amounts of content. */
-.astryx-top-nav.centered {
+.astryx-top-nav[data-align="center"] {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
 }
 
-.astryx-top-nav.mobile-bar {
+.astryx-top-nav[data-layout="mobile-bar"] {
   gap: var(--spacing-2);
 }
 
@@ -542,7 +542,7 @@
   padding-inline-start: 0;
 }
 
-.astryx-top-nav-heading.interactive {
+.astryx-top-nav-heading[data-interactive="interactive"] {
   cursor: pointer;
   border-width: 0;
   border-style: none;
@@ -554,7 +554,7 @@
 }
 
 @media (hover: hover) {
-  .astryx-top-nav-heading.interactive:hover {
+  .astryx-top-nav-heading[data-interactive="interactive"]:hover {
     background-color: var(--color-overlay-hover);
   }
 }
@@ -634,7 +634,7 @@
 
 /* Tinted pill plus semibold: the pill can vanish in a theme where
    --color-neutral is nearly the bar's own background, the weight cannot. */
-.astryx-top-nav-item.selected,
+.astryx-top-nav-item[data-selected="selected"],
 .astryx-top-nav-item[aria-current='page'] {
   background-color: var(--color-neutral);
   color: var(--color-text-primary);
@@ -642,13 +642,13 @@
 }
 
 @media (hover: hover) {
-  .astryx-top-nav-item.selected:hover,
+  .astryx-top-nav-item[data-selected="selected"]:hover,
   .astryx-top-nav-item[aria-current='page']:hover {
     background-color: var(--color-neutral);
   }
 }
 
-.astryx-top-nav-item.icon-only {
+.astryx-top-nav-item[data-variant="icon-only"] {
   padding-inline: var(--spacing-2);
 }
 
@@ -678,8 +678,8 @@
 }
 
 /* Drawer mode reuses the NavItem row shape, so only the indent differs. */
-.astryx-top-nav-item.drawer,
-.astryx-top-nav-mega-menu-item.drawer {
+.astryx-top-nav-item[data-layout="drawer"],
+.astryx-top-nav-mega-menu-item[data-layout="drawer"] {
   inline-size: 100%;
   padding-inline-start: var(--spacing-6);
 }
@@ -792,13 +792,13 @@
 
 /* Collapsed rail: icons only, so the width is the icon gutter and nothing
    more. Labels are hidden rather than removed, keeping the accessible name. */
-.astryx-side-nav.collapsed {
+.astryx-side-nav[data-state="collapsed"] {
   inline-size: var(--spacing-12);
   align-items: center;
 }
 
-.astryx-side-nav.collapsed .astryx-nav-item-label,
-.astryx-side-nav.collapsed .astryx-side-nav-section-title {
+.astryx-side-nav[data-state="collapsed"] .astryx-nav-item-label,
+.astryx-side-nav[data-state="collapsed"] .astryx-side-nav-section-title {
   position: absolute;
   inline-size: 1px;
   block-size: 1px;
@@ -807,13 +807,13 @@
   white-space: nowrap;
 }
 
-.astryx-side-nav.collapsed .astryx-side-nav-item {
+.astryx-side-nav[data-state="collapsed"] .astryx-side-nav-item {
   inline-size: var(--size-element-md);
   justify-content: center;
   padding-inline: 0;
 }
 
-.astryx-side-nav.topbar {
+.astryx-side-nav[data-layout="topbar"] {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -872,7 +872,7 @@
   padding-inline-start: 0;
 }
 
-.astryx-side-nav-heading.interactive {
+.astryx-side-nav-heading[data-interactive="interactive"] {
   cursor: pointer;
   border-width: 0;
   border-style: none;
@@ -884,7 +884,7 @@
 }
 
 @media (hover: hover) {
-  .astryx-side-nav-heading.interactive:hover {
+  .astryx-side-nav-heading[data-interactive="interactive"]:hover {
     background-color: var(--color-overlay-hover);
   }
 }
@@ -988,8 +988,8 @@
   min-inline-size: 12.5rem;
 }
 
-.astryx-nav-heading-menu.sm { min-inline-size: 10rem; }
-.astryx-nav-heading-menu.lg { min-inline-size: 15rem; }
+.astryx-nav-heading-menu[data-size="sm"] { min-inline-size: 10rem; }
+.astryx-nav-heading-menu[data-size="lg"] { min-inline-size: 15rem; }
 
 .astryx-nav-heading-menu-item {
   display: flex;
@@ -1010,8 +1010,8 @@
   cursor: pointer;
 }
 
-.astryx-nav-heading-menu-item.sm { padding-block: var(--spacing-1); }
-.astryx-nav-heading-menu-item.lg { padding-block: var(--spacing-3); padding-inline: var(--spacing-3); }
+.astryx-nav-heading-menu-item[data-size="sm"] { padding-block: var(--spacing-1); }
+.astryx-nav-heading-menu-item[data-size="lg"] { padding-block: var(--spacing-3); padding-inline: var(--spacing-3); }
 
 /* Upstream tints on :focus as well as :hover — the menu is opened by keyboard
    as often as by pointer and the row has to follow the caret either way. */
@@ -1030,12 +1030,12 @@
   outline-offset: 2px;
 }
 
-.astryx-nav-heading-menu-item.selected,
+.astryx-nav-heading-menu-item[data-selected="selected"],
 .astryx-nav-heading-menu-item[aria-current='page'] {
   font-weight: var(--font-weight-semibold);
 }
 
-.astryx-nav-heading-menu-item.disabled,
+.astryx-nav-heading-menu-item[data-disabled="disabled"],
 .astryx-nav-heading-menu-item[aria-disabled='true'] {
   opacity: 0.5;
   cursor: not-allowed;
@@ -1081,12 +1081,12 @@
   transition: transform var(--duration-medium) var(--ease-standard);
 }
 
-.astryx-mobile-nav.start .astryx-mobile-nav-drawer {
+.astryx-mobile-nav[data-placement="start"] .astryx-mobile-nav-drawer {
   inset-inline-start: 0;
   border-inline-end: var(--border-width) solid var(--color-border);
 }
 
-.astryx-mobile-nav.end .astryx-mobile-nav-drawer {
+.astryx-mobile-nav[data-placement="end"] .astryx-mobile-nav-drawer {
   inset-inline-end: 0;
   border-inline-start: var(--border-width) solid var(--color-border);
   transform: translateX(100%);
@@ -1209,7 +1209,7 @@
   outline-offset: 2px;
 }
 
-.astryx-outline-item.active,
+.astryx-outline-item[data-state="active"],
 .astryx-outline-item[aria-current='true'] {
   color: var(--color-text-primary);
   font-weight: var(--font-weight-semibold);
@@ -1217,7 +1217,7 @@
 
 /* The active segment of the rail. Skipped when the markup ships a real
    .astryx-outline-indicator, which slides between entries instead. */
-.astryx-outline:not(:has(.astryx-outline-indicator)) :is(.astryx-outline-item.active, .astryx-outline-item[aria-current='true'])::before {
+.astryx-outline:not(:has(.astryx-outline-indicator)) :is(.astryx-outline-item[data-state="active"], .astryx-outline-item[aria-current='true'])::before {
   content: '';
   position: absolute;
   inset-block: 0;
@@ -1246,7 +1246,7 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-outline-item.active,
+.astryx-outline-item[data-state="active"],
 .astryx-outline-item[aria-current='true'] {
   anchor-name: --outline-active;
 }
@@ -1334,7 +1334,7 @@
 
 /* A dot has no room for a weight or a border, so the active one grows as well
    as changing colour — size is the cue that survives a flat palette. */
-.astryx-pagination-dot.active,
+.astryx-pagination-dot[data-selected="selected"],
 .astryx-pagination-dot[aria-current='page'] {
   background-color: var(--color-accent);
   transform: scale(1.5);

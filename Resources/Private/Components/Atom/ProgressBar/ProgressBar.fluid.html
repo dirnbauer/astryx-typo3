@@ -70,22 +70,22 @@
 <f:variable name="fillStyle"><f:if condition="!{decorative}"><f:if condition="{state} != 'indeterminate'">style="width: {value}%"</f:if></f:if></f:variable>
 
 <div
-    class="astryx-progressbar {class}"
+    class="astryx-progress-bar {class}"
     data-variant="{variant}"
     data-state="{state}"
     aria-label="{ariaLabel}"
     {rootStyle -> f:format.raw()}
     {measure -> f:format.raw()}>
     <f:if condition="{f:slot(name: 'label')}">
-        <div class="astryx-progressbar-header">
+        <div class="astryx-progress-bar-header">
             <f:switch expression="{labelAs}">
-                <f:case value="h3"><h3 class="astryx-progressbar-label {labelClass}"><f:slot name="label" /></h3></f:case>
-                <f:case value="h4"><h4 class="astryx-progressbar-label {labelClass}"><f:slot name="label" /></h4></f:case>
-                <f:defaultCase><span class="astryx-progressbar-label {labelClass}"><f:slot name="label" /></span></f:defaultCase>
+                <f:case value="h3"><h3 class="astryx-progress-bar-label {labelClass}"><f:slot name="label" /></h3></f:case>
+                <f:case value="h4"><h4 class="astryx-progress-bar-label {labelClass}"><f:slot name="label" /></h4></f:case>
+                <f:defaultCase><span class="astryx-progress-bar-label {labelClass}"><f:slot name="label" /></span></f:defaultCase>
             </f:switch>
-            <f:if condition="{f:slot(name: 'value')}"><span class="astryx-progressbar-value {valueClass}"><f:slot name="value" /></span></f:if>
+            <f:if condition="{f:slot(name: 'value')}"><span class="astryx-progress-bar-value {valueClass}"><f:slot name="value" /></span></f:if>
         </div>
     </f:if>
-    <div class="astryx-progressbar-track {trackClass}" {trackHidden -> f:format.raw()}><span class="astryx-progressbar-fill {fillClass}" {fillStyle -> f:format.raw()}></span></div>
+    <div class="astryx-progress-bar-track {trackClass}" {trackHidden -> f:format.raw()}><span class="astryx-progress-bar-fill {fillClass}" {fillStyle -> f:format.raw()}></span></div>
     <f:slot />
 </div>

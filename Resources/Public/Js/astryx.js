@@ -480,7 +480,7 @@
     // The header field is about fourteen characters wide; a page title in a
     // column that narrow wraps to four lines. Measured rather than guessed,
     // because the same menu hangs from the full-width field on the results page.
-    this.list.classList.toggle('wider-than-field', this.anchor.getBoundingClientRect().width < 288);
+    this.list.dataset.width = this.anchor.getBoundingClientRect().width < 288 ? 'wider' : '';
 
     if (this.rows.length === 0) {
       if (this.emptyText === '') {
@@ -501,7 +501,9 @@
   /** One option shell, shared by both row kinds. */
   Suggest.prototype.addRow = function (payload) {
     var option = document.createElement('li');
-    option.className = 'astryx-item compact interactive astryx-typeahead-option';
+    option.className = 'astryx-item astryx-typeahead-option';
+    option.dataset.density = 'compact';
+    option.dataset.interactive = 'interactive';
     option.id = this.list.id + '-option-' + this.rows.length;
     option.setAttribute('role', 'option');
     option.setAttribute('aria-selected', 'false');
@@ -525,7 +527,8 @@
     var content = document.createElement('span');
     content.className = 'astryx-item-content';
     var text = document.createElement('span');
-    text.className = 'astryx-item-label truncate';
+    text.className = 'astryx-item-label';
+    text.dataset.truncate = 'truncate';
     appendHighlighted(text, label, query);
     content.appendChild(text);
     option.appendChild(content);
@@ -534,7 +537,8 @@
       var end = document.createElement('span');
       end.className = 'astryx-item-end astryx-typeahead-count';
       var badge = document.createElement('span');
-      badge.className = 'astryx-badge neutral';
+      badge.className = 'astryx-badge';
+      badge.dataset.variant = 'neutral';
       badge.textContent = String(count);
       end.appendChild(badge);
       option.appendChild(end);
@@ -543,19 +547,21 @@
 
   Suggest.prototype.addDocument = function (item, query) {
     var option = this.addRow({kind: 'document', label: item.title, link: item.link});
-    option.classList.add('align-start');
+    option.dataset.align = 'start';
 
     var content = document.createElement('span');
     content.className = 'astryx-item-content';
 
     var label = document.createElement('span');
-    label.className = 'astryx-item-label truncate';
+    label.className = 'astryx-item-label';
+    label.dataset.truncate = 'truncate';
     appendHighlighted(label, item.title, query);
     content.appendChild(label);
 
     if (item.content) {
       var description = document.createElement('span');
-      description.className = 'astryx-item-description truncate';
+      description.className = 'astryx-item-description';
+      description.dataset.truncate = 'truncate';
       description.textContent = item.content;
       content.appendChild(description);
     }
@@ -567,7 +573,8 @@
       var end = document.createElement('span');
       end.className = 'astryx-item-end';
       var badge = document.createElement('span');
-      badge.className = 'astryx-badge neutral';
+      badge.className = 'astryx-badge';
+      badge.dataset.variant = 'neutral';
       badge.textContent = typeLabel;
       end.appendChild(badge);
       option.appendChild(end);
@@ -602,7 +609,7 @@
     var activeIndex = this.active;
     this.rows.forEach(function (row, index) {
       var on = index === activeIndex;
-      row.element.classList.toggle('is-active', on);
+      row.element.dataset.state = on ? 'active' : '';
       row.element.setAttribute('aria-selected', on ? 'true' : 'false');
     });
 

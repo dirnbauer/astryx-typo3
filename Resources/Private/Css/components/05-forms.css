@@ -24,7 +24,7 @@
 }
 
 /* Fields side by side, each taking an equal share. */
-.astryx-form-layout.horizontal {
+.astryx-form-layout[data-layout="horizontal"] {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
@@ -32,7 +32,7 @@
 
 /* Labels in their own column. Below the phone breakpoint the two columns stop
    being readable, so the grid collapses back to the stacked default. */
-.astryx-form-layout.labels-inline {
+.astryx-form-layout[data-layout="labels-inline"] {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--spacing-3) var(--spacing-4);
@@ -40,7 +40,7 @@
 }
 
 @media (max-width: 480px) {
-  .astryx-form-layout.labels-inline {
+  .astryx-form-layout[data-layout="labels-inline"] {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
@@ -79,15 +79,14 @@
 }
 
 .astryx-field-label:has(+ :disabled),
-.astryx-field-label.disabled {
+.astryx-field-label[data-disabled="disabled"] {
   color: var(--color-text-disabled);
   cursor: not-allowed;
 }
 
 /* "(optional)" / "(required)" sits inside the label but must not compete with
    it, so it drops to supporting size and normal weight. */
-.astryx-field-label > .optional,
-.astryx-field-label > .required {
+.astryx-field-label > [data-optionality] {
   font-weight: var(--font-weight-normal);
   font-size: var(--text-supporting-size);
   line-height: var(--text-supporting-leading);
@@ -121,7 +120,7 @@
 /* Attached: the message slides up under the input and completes its shape, so
    the negative margin has to swallow the field gap and the padding has to give
    it back below the seam. */
-.astryx-field-status.attached {
+.astryx-field-status[data-placement="attached"] {
   margin-block-start: calc(-1 * var(--spacing-1-5));
   padding-block-start: calc(var(--spacing-1-5) + var(--spacing-2));
   padding-block-end: var(--spacing-2);
@@ -137,24 +136,24 @@
    token cannot stay legible on both. Pairing each message with the same tint
    its badge uses keeps one readable combination — and makes a field error and
    an error badge look like the same thing, which they are. */
-.astryx-field-status.warning {
+.astryx-field-status[data-type="warning"] {
   background-color: var(--color-background-yellow);
   color: var(--color-text-yellow);
 }
 
-.astryx-field-status.error {
+.astryx-field-status[data-type="error"] {
   background-color: var(--color-background-red);
   color: var(--color-text-red);
 }
 
-.astryx-field-status.success {
+.astryx-field-status[data-type="success"] {
   background-color: var(--color-background-green);
   color: var(--color-text-green);
 }
 
 /* ---------------------------------------------------- the input shell */
 .astryx-text-input,
-.astryx-textarea,
+.astryx-text-area,
 .astryx-selector,
 .astryx-number-input,
 .astryx-date-input,
@@ -186,7 +185,7 @@
    the two forms apart: a wrapper contains a control, a bare control does not,
    and giving an <input> display:flex disturbs how it lays out its own value. */
 .astryx-text-input:has(> :where(input, select, textarea)),
-.astryx-textarea:has(> :where(input, select, textarea)),
+.astryx-text-area:has(> :where(input, select, textarea)),
 .astryx-selector:has(> :where(input, select, textarea, button)),
 .astryx-number-input:has(> :where(input, select, textarea)),
 .astryx-date-input:has(> :where(input, select, textarea)) {
@@ -200,7 +199,7 @@
    the desktop type scale is untouched. */
 @media (pointer: coarse) {
   .astryx-text-input,
-  .astryx-textarea,
+  .astryx-text-area,
   .astryx-selector,
   .astryx-number-input,
   .astryx-date-input,
@@ -212,7 +211,7 @@
 
 @media (hover: hover) {
   .astryx-text-input:hover:not(:focus-within),
-  .astryx-textarea:hover:not(:focus-within),
+  .astryx-text-area:hover:not(:focus-within),
   .astryx-selector:hover:not(:focus-within),
   .astryx-number-input:hover:not(:focus-within),
   .astryx-date-input:hover:not(:focus-within),
@@ -226,7 +225,7 @@
    an outline, because these controls sit flush against each other in an
    InputGroup where an outline would overlap the neighbour. */
 .astryx-text-input:focus-within,
-.astryx-textarea:focus-within,
+.astryx-text-area:focus-within,
 .astryx-selector:focus-within,
 .astryx-number-input:focus-within,
 .astryx-date-input:focus-within,
@@ -241,7 +240,7 @@
 
 /* Nested case: the element is inside a wrapper that already drew the shell, so
    it becomes the plain text layer again. Must follow the shell rule. */
-:where(.astryx-text-input, .astryx-textarea, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-input-group, .astryx-file-input) :where(input, select, textarea) {
+:where(.astryx-text-input, .astryx-text-area, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-input-group, .astryx-file-input) :where(input, select, textarea) {
   flex: 1;
   min-inline-size: 0;
   block-size: auto;
@@ -261,10 +260,10 @@
 
 .astryx-field :where(input, select, textarea):disabled,
 .astryx-text-input[data-disabled="disabled"],
-.astryx-textarea.disabled,
-.astryx-selector.disabled,
-.astryx-number-input.disabled,
-.astryx-date-input.disabled {
+.astryx-text-area[data-disabled="disabled"],
+.astryx-selector[data-disabled="disabled"],
+.astryx-number-input[data-disabled="disabled"],
+.astryx-date-input[data-disabled="disabled"] {
   cursor: not-allowed;
   opacity: 0.5;
   border-color: var(--color-border-emphasized);
@@ -272,94 +271,94 @@
 
 /* Sizes. A textarea is excluded — its height is its row count. */
 .astryx-text-input[data-size="sm"],
-.astryx-selector.sm,
-.astryx-number-input.sm,
-.astryx-date-input.sm,
+.astryx-selector[data-size="sm"],
+.astryx-number-input[data-size="sm"],
+.astryx-date-input[data-size="sm"],
 .astryx-input-group[data-size="sm"] { block-size: var(--size-element-sm); }
 
 .astryx-text-input[data-size="md"],
-.astryx-selector.md,
-.astryx-number-input.md,
-.astryx-date-input.md,
+.astryx-selector[data-size="md"],
+.astryx-number-input[data-size="md"],
+.astryx-date-input[data-size="md"],
 .astryx-input-group[data-size="md"] { block-size: var(--size-element-md); }
 
 .astryx-text-input[data-size="lg"],
-.astryx-selector.lg,
-.astryx-number-input.lg,
-.astryx-date-input.lg,
+.astryx-selector[data-size="lg"],
+.astryx-number-input[data-size="lg"],
+.astryx-date-input[data-size="lg"],
 .astryx-input-group[data-size="lg"] { block-size: var(--size-element-lg); }
 
 /* ------------------------------------------------------ status variants */
 /* The border carries the status; the hover ring switches to the matching inset
    shadow token so the two never read as different states. */
 .astryx-text-input[data-status="warning"],
-.astryx-textarea.warning,
-.astryx-selector.warning,
-.astryx-number-input.warning,
-.astryx-date-input.warning,
-.astryx-file-input.warning {
+.astryx-text-area[data-status="warning"],
+.astryx-selector[data-status="warning"],
+.astryx-number-input[data-status="warning"],
+.astryx-date-input[data-status="warning"],
+.astryx-file-input[data-status="warning"] {
   border-color: var(--color-warning);
 }
 
 .astryx-text-input[data-status="error"],
-.astryx-textarea.error,
-.astryx-selector.error,
-.astryx-number-input.error,
-.astryx-date-input.error,
-.astryx-file-input.error,
+.astryx-text-area[data-status="error"],
+.astryx-selector[data-status="error"],
+.astryx-number-input[data-status="error"],
+.astryx-date-input[data-status="error"],
+.astryx-file-input[data-status="error"],
 .astryx-field :where(input, select, textarea)[aria-invalid='true'] {
   border-color: var(--color-error);
 }
 
 .astryx-text-input[data-status="success"],
-.astryx-textarea.success,
-.astryx-selector.success,
-.astryx-number-input.success,
-.astryx-date-input.success,
-.astryx-file-input.success {
+.astryx-text-area[data-status="success"],
+.astryx-selector[data-status="success"],
+.astryx-number-input[data-status="success"],
+.astryx-date-input[data-status="success"],
+.astryx-file-input[data-status="success"] {
   border-color: var(--color-success);
 }
 
 /* A status border must survive focus, or the field loses its meaning the
    moment the user clicks into it to fix the problem. */
 .astryx-text-input[data-status="warning"]:focus-within,
-.astryx-textarea.warning:focus-within,
-.astryx-selector.warning:focus-within,
-.astryx-number-input.warning:focus-within,
-.astryx-date-input.warning:focus-within { border-color: var(--color-warning); }
+.astryx-text-area[data-status="warning"]:focus-within,
+.astryx-selector[data-status="warning"]:focus-within,
+.astryx-number-input[data-status="warning"]:focus-within,
+.astryx-date-input[data-status="warning"]:focus-within { border-color: var(--color-warning); }
 
 .astryx-text-input[data-status="error"]:focus-within,
-.astryx-textarea.error:focus-within,
-.astryx-selector.error:focus-within,
-.astryx-number-input.error:focus-within,
-.astryx-date-input.error:focus-within,
+.astryx-text-area[data-status="error"]:focus-within,
+.astryx-selector[data-status="error"]:focus-within,
+.astryx-number-input[data-status="error"]:focus-within,
+.astryx-date-input[data-status="error"]:focus-within,
 .astryx-field :where(input, select, textarea)[aria-invalid='true']:focus { border-color: var(--color-error); }
 
 .astryx-text-input[data-status="success"]:focus-within,
-.astryx-textarea.success:focus-within,
-.astryx-selector.success:focus-within,
-.astryx-number-input.success:focus-within,
-.astryx-date-input.success:focus-within { border-color: var(--color-success); }
+.astryx-text-area[data-status="success"]:focus-within,
+.astryx-selector[data-status="success"]:focus-within,
+.astryx-number-input[data-status="success"]:focus-within,
+.astryx-date-input[data-status="success"]:focus-within { border-color: var(--color-success); }
 
 @media (hover: hover) {
   .astryx-text-input[data-status="warning"]:hover:not(:focus-within),
-  .astryx-textarea.warning:hover:not(:focus-within) {
+  .astryx-text-area[data-status="warning"]:hover:not(:focus-within) {
     box-shadow: var(--shadow-inset-warning);
   }
 
   .astryx-text-input[data-status="error"]:hover:not(:focus-within),
-  .astryx-textarea.error:hover:not(:focus-within) {
+  .astryx-text-area[data-status="error"]:hover:not(:focus-within) {
     box-shadow: var(--shadow-inset-error);
   }
 
   .astryx-text-input[data-status="success"]:hover:not(:focus-within),
-  .astryx-textarea.success:hover:not(:focus-within) {
+  .astryx-text-area[data-status="success"]:hover:not(:focus-within) {
     box-shadow: var(--shadow-inset-success);
   }
 }
 
 /* -------------------------------------------------------------- TextArea */
-.astryx-textarea,
+.astryx-text-area,
 .astryx-field textarea {
   align-items: flex-start;
   block-size: auto;
@@ -368,13 +367,13 @@
   resize: vertical;
 }
 
-.astryx-textarea.lg,
+.astryx-text-area[data-size="lg"],
 .astryx-field textarea.lg {
   padding-block: var(--spacing-2);
 }
 
 /* Character counter under the box. */
-.astryx-textarea-counter {
+.astryx-text-area-counter {
   display: flex;
   justify-content: flex-end;
   margin-block-start: var(--spacing-1);
@@ -383,7 +382,7 @@
   color: var(--color-text-secondary);
 }
 
-.astryx-textarea-counter.error {
+.astryx-text-area-counter[data-status="error"] {
   color: var(--color-error);
 }
 
@@ -571,7 +570,7 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-checkbox.sm {
+.astryx-checkbox[data-size="sm"] {
   inline-size: var(--spacing-4);
   block-size: var(--spacing-4);
 }
@@ -624,7 +623,7 @@
   min-inline-size: 0;
 }
 
-.astryx-radio-list.horizontal {
+.astryx-radio-list[data-orientation="horizontal"] {
   flex-direction: row;
   flex-wrap: wrap;
   gap: var(--spacing-5);
@@ -663,7 +662,7 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-radio.sm {
+.astryx-radio[data-size="sm"] {
   inline-size: var(--spacing-4);
   block-size: var(--spacing-4);
 }
@@ -712,12 +711,12 @@
   gap: var(--spacing-2);
 }
 
-.astryx-switch-field.spread {
+.astryx-switch-field[data-layout="spread"] {
   justify-content: space-between;
   inline-size: 100%;
 }
 
-.astryx-switch-field.label-start > .astryx-switch {
+.astryx-switch-field[data-placement="start"] > .astryx-switch {
   order: 2;
 }
 
@@ -807,7 +806,7 @@
   gap: var(--spacing-2);
 }
 
-.astryx-slider.disabled {
+.astryx-slider[data-disabled="disabled"] {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -991,12 +990,12 @@
 
 /* Drag-over: the tint is what confirms the drop target, the dashed border alone
    is too quiet to notice mid-drag. */
-.astryx-file-input.active {
+.astryx-file-input[data-state="active"] {
   border-color: var(--color-accent);
   background-color: var(--color-accent-muted);
 }
 
-.astryx-file-input.disabled {
+.astryx-file-input[data-disabled="disabled"] {
   cursor: not-allowed;
   opacity: 0.5;
 }
@@ -1009,7 +1008,7 @@
 
 /* Compact mode is a one-line control, so it drops the dashed dropzone shape and
    takes the ordinary field shell instead. */
-.astryx-file-input.compact {
+.astryx-file-input[data-density="compact"] {
   flex-direction: row;
   align-items: center;
   gap: var(--spacing-2);
@@ -1062,7 +1061,7 @@
 /* --------------------------------------------------------- reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .astryx-text-input,
-  .astryx-textarea,
+  .astryx-text-area,
   .astryx-selector,
   .astryx-number-input,
   .astryx-date-input,

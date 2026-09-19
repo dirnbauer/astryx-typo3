@@ -60,9 +60,15 @@ page.10.paths.50 = EXT:astryx_typo3/Resources/Private/Templates/
 # ------------------------------------------------------------ picker preview
 # The element library renders single elements through this page type. It uses
 # its own Fluid template so Vite resolves Astryx's entries, not Desiderio's.
+#
+# `10.file`, not `10.template`: Desiderio's `10` is already a FLUIDTEMPLATE
+# whose `variables.content` selects the previewed record. Setting `10.template`
+# would make THIS file the template-source cObject of that FLUIDTEMPLATE —
+# rendered on its own, with no variables — and the outer FLUIDTEMPLATE would then
+# use the resulting HTML, `{content}` already evaluated to nothing, as its
+# template. That is how every element preview rendered an empty <main>.
 elementLibraryPreview {
-  10.template = FLUIDTEMPLATE
-  10.template.file = EXT:astryx_typo3/Resources/Private/Templates/Pages/ElementPreview.fluid.html
+  10.file = EXT:astryx_typo3/Resources/Private/Templates/Pages/ElementPreview.fluid.html
   bodyTagCObject >
   bodyTagCObject < page.bodyTagCObject
   shortcutIcon < page.shortcutIcon

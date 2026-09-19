@@ -30,10 +30,10 @@
         <figure class="g-data-benchmark-compare__chart">
             <figcaption class="g-data-benchmark-compare__legend">
                 <span class="g-data-benchmark-compare__key">
-                    <span class="g-data-benchmark-compare__swatch is-ours" aria-hidden="true"></span>{data -> f:render.text(field: 'caption')}
+                    <span class="g-data-benchmark-compare__swatch" data-series="ours" aria-hidden="true"></span>{data -> f:render.text(field: 'caption')}
                 </span>
                 <span class="g-data-benchmark-compare__key">
-                    <span class="g-data-benchmark-compare__swatch is-reference" aria-hidden="true"></span>{data -> f:render.text(field: 'badge_text')}
+                    <span class="g-data-benchmark-compare__swatch" data-series="reference" aria-hidden="true"></span>{data -> f:render.text(field: 'badge_text')}
                 </span>
             </figcaption>
 
@@ -42,13 +42,13 @@
                     <div class="g-data-benchmark-compare__row">
                         <dt class="g-data-benchmark-compare__criterion">{row -> f:render.text(field: 'title')}</dt>
 
-                        <dd class="g-data-benchmark-compare__series is-ours" style="--value: {row.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                        <dd class="g-data-benchmark-compare__series" data-series="ours" style="--value: {row.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                             <a:atom.visuallyHidden as="span">{data.caption}</a:atom.visuallyHidden>
                             <span class="g-data-benchmark-compare__track" aria-hidden="true"><span class="g-data-benchmark-compare__bar"></span></span>
                             <span class="g-data-benchmark-compare__figure">{row -> f:render.text(field: 'value')}</span>
                         </dd>
 
-                        <dd class="g-data-benchmark-compare__series is-reference" style="--value: {row.text -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
+                        <dd class="g-data-benchmark-compare__series" data-series="reference" style="--value: {row.text -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
                             <a:atom.visuallyHidden as="span">{data.badge_text}</a:atom.visuallyHidden>
                             <span class="g-data-benchmark-compare__track" aria-hidden="true"><span class="g-data-benchmark-compare__bar"></span></span>
                             <span class="g-data-benchmark-compare__figure">{row -> f:render.text(field: 'text')}</span>

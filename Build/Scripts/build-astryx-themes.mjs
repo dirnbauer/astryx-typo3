@@ -205,38 +205,26 @@ const REGISTRY = path.join(EXT_ROOT, 'Build/Data/theme-registry.json');
 const upstreamMeta = JSON.parse(fs.readFileSync(path.join(EXT_ROOT, 'Build/Data/upstream-theme-meta.json'), 'utf8'));
 
 /**
- * Provenance is a claim about where a theme came from, and claims get checked.
+ * Provenance says where a theme came from, and it is derived, never declared.
  *
- *   upstream@<tag>                          shipped by Astryx at that release,
- *                                           and present in the vendored payload
+ *   upstream@<tag>                          shipped by Astryx at the release
+ *                                           the vendored payload holds
  *   upstream@<tag> (retired upstream, kept)  Astryx shipped it once and dropped
  *                                           it; we keep the last harvest so a
  *                                           live site does not lose its paint
  *   webconsulting                           ours, expanded from a seed above
  *
- * The first form is verified against the payload, so a theme cannot silently
- * claim upstream provenance after upstream stopped shipping it: the harvest
- * would drop it from tokens.json and this would fail.
+ * The tag comes from the payload rather than from seven hand-maintained copies
+ * of it, so provenance cannot fall out of step with the harvest: bumping the
+ * pin is one edit, in Build/astryx/tokens.json, made by the harvest script.
+ * What is left to state per theme is the one thing the payload cannot say —
+ * `"retired": true`, for a theme upstream has stopped shipping and we keep.
  */
-const UPSTREAM_PROVENANCE = /^upstream@v\d+\.\d+\.\d+( \(retired upstream, kept\))?$/;
-
 for (const entry of upstreamMeta) {
-  if (!UPSTREAM_PROVENANCE.test(entry.provenance ?? '')) {
-    console.error(`Theme "${entry.id}" has no usable provenance: ${JSON.stringify(entry.provenance)}`);
-    process.exit(1);
-  }
-  const retired = entry.provenance.includes('retired');
-  const present = Boolean(upstream.themes[entry.id]);
-  if (!present && !retired) {
+  if (!upstream.themes[entry.id] && entry.retired !== true) {
     console.error(
-      `Theme "${entry.id}" claims ${entry.provenance} but is not in the vendored payload `
-      + `(${upstream.release}). Either re-harvest, or mark it "(retired upstream, kept)".`,
-    );
-    process.exit(1);
-  }
-  if (present && entry.provenance !== `upstream@${upstream.release}`) {
-    console.error(
-      `Theme "${entry.id}" says ${entry.provenance} but the vendored payload is ${upstream.release}.`,
+      `Theme "${entry.id}" is not in the vendored payload (${upstream.release}). `
+      + 'Either re-harvest, or mark it "retired": true.',
     );
     process.exit(1);
   }
@@ -250,7 +238,11 @@ for (const seed of seeds) {
 }
 
 const registry = [
-  ...upstreamMeta.map(entry => ({...entry, family: 'astryx'})),
+  ...upstreamMeta.map(({retired, ...entry}) => ({
+    ...entry,
+    family: 'astryx',
+    provenance: `upstream@${upstream.release}` + (retired ? ' (retired upstream, kept)' : ''),
+  })),
   ...seeds.map(seed => ({
     id: seed.name,
     name: seed.label,

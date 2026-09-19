@@ -160,17 +160,17 @@
 
 /* Only one of the two icons is ever shown; which one depends on the scheme
    in force, which is why this reads the color-scheme rather than a class. */
-.astryx-scheme-toggle .icon-dark { display: none; }
+.astryx-scheme-toggle [data-glyph="dark"] { display: none; }
 
 @media (prefers-color-scheme: dark) {
-  :root:not(.light) .astryx-scheme-toggle .icon-light { display: none; }
-  :root:not(.light) .astryx-scheme-toggle .icon-dark { display: block; }
+  :root:not(.light) .astryx-scheme-toggle [data-glyph="light"] { display: none; }
+  :root:not(.light) .astryx-scheme-toggle [data-glyph="dark"] { display: block; }
 }
 
-:root.dark .astryx-scheme-toggle .icon-light { display: none; }
-:root.dark .astryx-scheme-toggle .icon-dark { display: block; }
-:root.light .astryx-scheme-toggle .icon-light { display: block; }
-:root.light .astryx-scheme-toggle .icon-dark { display: none; }
+:root.dark .astryx-scheme-toggle [data-glyph="light"] { display: none; }
+:root.dark .astryx-scheme-toggle [data-glyph="dark"] { display: block; }
+:root.light .astryx-scheme-toggle [data-glyph="light"] { display: block; }
+:root.light .astryx-scheme-toggle [data-glyph="dark"] { display: none; }
 
 /* ----------------------------------------------------------- mobile menu */
 .astryx-menu {
@@ -198,8 +198,8 @@
   block-size: var(--spacing-5);
 }
 
-.astryx-menu[open] .astryx-menu__toggle .icon-open { display: none; }
-.astryx-menu:not([open]) .astryx-menu__toggle .icon-close { display: none; }
+.astryx-menu[open] .astryx-menu__toggle [data-glyph="open"] { display: none; }
+.astryx-menu:not([open]) .astryx-menu__toggle [data-glyph="close"] { display: none; }
 
 .astryx-menu__panel {
   position: absolute;

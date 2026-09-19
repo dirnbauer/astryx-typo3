@@ -1,8 +1,8 @@
 /*
  * Astryx theme tokens — GENERATED, do not edit.
  *
- * Source:  https://github.com/facebook/astryx/releases/tag/v0.6.0
- * Commit:  1e63a5144bdf4777081edee472089277aceb5d75
+ * Source:  https://github.com/facebook/astryx/releases/tag/v0.6.2
+ * Commit:  bc93547cf59532ea6d8c4bea9c70e3d3fb05bcc3
  * License: MIT — Copyright (c) 2026 Meta Platforms, Inc.
  *
  * Rebuild: node Build/Scripts/build-astryx-theme.mjs
@@ -714,16 +714,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="neutral"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="neutral"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="neutral"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="neutral"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="neutral"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="neutral"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="neutral"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="neutral"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="neutral"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -789,19 +789,19 @@
   [data-astryx-theme="neutral"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="neutral"] .astryx-progressbar {
+  [data-astryx-theme="neutral"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="neutral"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="neutral"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="neutral"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="neutral"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="neutral"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="neutral"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="neutral"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="neutral"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="neutral"] .astryx-card {
@@ -1319,16 +1319,16 @@
   [data-astryx-theme="butter"] .astryx-section {
   --astryx-section-padding: var(--spacing-4);
   }
-  [data-astryx-theme="butter"] .astryx-progressbar-track {
+  [data-astryx-theme="butter"] .astryx-progress-bar-track {
   background-color: light-dark(#e5e3d4, #725538);
   }
-  [data-astryx-theme="butter"] .astryx-progressbar-fill[data-variant="success"] {
+  [data-astryx-theme="butter"] .astryx-progress-bar-fill[data-variant="success"] {
   background-color: #91D143;
   }
-  [data-astryx-theme="butter"] .astryx-progressbar-fill[data-variant="warning"] {
+  [data-astryx-theme="butter"] .astryx-progress-bar-fill[data-variant="warning"] {
   background-color: #ffc502;
   }
-  [data-astryx-theme="butter"] .astryx-progressbar-fill[data-variant="error"] {
+  [data-astryx-theme="butter"] .astryx-progress-bar-fill[data-variant="error"] {
   background-color: #fc473b;
   }
   [data-astryx-theme="butter"] .astryx-field-status[data-type="success"] {
@@ -1357,18 +1357,18 @@
   [data-astryx-theme="butter"] .astryx-text-input[data-status="error"] {
   --color-error: #fc473b;
   }
-  [data-astryx-theme="butter"] .astryx-textarea {
+  [data-astryx-theme="butter"] .astryx-text-area {
   padding-block: var(--spacing-2);
   border-color: var(--color-border);
   --_textarea-inline-padding: var(--spacing-3);
   }
-  [data-astryx-theme="butter"] .astryx-textarea[data-status="success"] {
+  [data-astryx-theme="butter"] .astryx-text-area[data-status="success"] {
   --color-success: #91D143;
   }
-  [data-astryx-theme="butter"] .astryx-textarea[data-status="warning"] {
+  [data-astryx-theme="butter"] .astryx-text-area[data-status="warning"] {
   --color-warning: #ffc502;
   }
-  [data-astryx-theme="butter"] .astryx-textarea[data-status="error"] {
+  [data-astryx-theme="butter"] .astryx-text-area[data-status="error"] {
   --color-error: #fc473b;
   }
   [data-astryx-theme="butter"] .astryx-number-input {
@@ -2626,19 +2626,19 @@
   --color-text-secondary: var(--color-text-red);
   --color-error: var(--color-text-red);
   }
-  [data-astryx-theme="stone"] .astryx-progressbar-fill[data-variant="accent"] {
+  [data-astryx-theme="stone"] .astryx-progress-bar-fill[data-variant="accent"] {
   background-color: light-dark(#d7e4f5, #a0acbc);
   }
-  [data-astryx-theme="stone"] .astryx-progressbar-fill[data-variant="success"] {
+  [data-astryx-theme="stone"] .astryx-progress-bar-fill[data-variant="success"] {
   background-color: light-dark(#d0e9ce, #9ab298);
   }
-  [data-astryx-theme="stone"] .astryx-progressbar-fill[data-variant="warning"] {
+  [data-astryx-theme="stone"] .astryx-progress-bar-fill[data-variant="warning"] {
   background-color: light-dark(#f4e1b7, #bbaa82);
   }
-  [data-astryx-theme="stone"] .astryx-progressbar-fill[data-variant="error"] {
+  [data-astryx-theme="stone"] .astryx-progress-bar-fill[data-variant="error"] {
   background-color: light-dark(#f9dcd7, #c0a5a0);
   }
-  [data-astryx-theme="stone"] .astryx-progressbar-track {
+  [data-astryx-theme="stone"] .astryx-progress-bar-track {
   background-color: var(--color-skeleton);
   }
   [data-astryx-theme="stone"] .astryx-switch {
@@ -2662,13 +2662,13 @@
   [data-astryx-theme="stone"] .astryx-text-input[data-status="error"] {
   --color-error: light-dark(#a58b86, #c0a5a1);
   }
-  [data-astryx-theme="stone"] .astryx-textarea[data-status="success"] {
+  [data-astryx-theme="stone"] .astryx-text-area[data-status="success"] {
   --color-success: light-dark(#7f977e, #99b298);
   }
-  [data-astryx-theme="stone"] .astryx-textarea[data-status="warning"] {
+  [data-astryx-theme="stone"] .astryx-text-area[data-status="warning"] {
   --color-warning: light-dark(#9f8f68, #bbaa81);
   }
-  [data-astryx-theme="stone"] .astryx-textarea[data-status="error"] {
+  [data-astryx-theme="stone"] .astryx-text-area[data-status="error"] {
   --color-error: light-dark(#a58b86, #c0a5a1);
   }
   [data-astryx-theme="stone"] .astryx-number-input[data-status="success"] {
@@ -4107,16 +4107,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="harbour"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="harbour"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="harbour"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="harbour"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="harbour"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="harbour"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="harbour"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="harbour"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="harbour"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -4182,19 +4182,19 @@
   [data-astryx-theme="harbour"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="harbour"] .astryx-progressbar {
+  [data-astryx-theme="harbour"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="harbour"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="harbour"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="harbour"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="harbour"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="harbour"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="harbour"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="harbour"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="harbour"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="harbour"] .astryx-card {
@@ -4630,16 +4630,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="ember"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="ember"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="ember"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="ember"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="ember"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="ember"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="ember"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="ember"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="ember"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -4705,19 +4705,19 @@
   [data-astryx-theme="ember"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="ember"] .astryx-progressbar {
+  [data-astryx-theme="ember"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="ember"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="ember"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="ember"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="ember"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="ember"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="ember"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="ember"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="ember"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="ember"] .astryx-card {
@@ -5153,16 +5153,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="linen"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="linen"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="linen"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="linen"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="linen"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="linen"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="linen"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="linen"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="linen"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -5228,19 +5228,19 @@
   [data-astryx-theme="linen"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="linen"] .astryx-progressbar {
+  [data-astryx-theme="linen"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="linen"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="linen"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="linen"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="linen"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="linen"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="linen"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="linen"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="linen"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="linen"] .astryx-card {
@@ -5676,16 +5676,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="orchid"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="orchid"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="orchid"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="orchid"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="orchid"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="orchid"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="orchid"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="orchid"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="orchid"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -5751,19 +5751,19 @@
   [data-astryx-theme="orchid"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="orchid"] .astryx-progressbar {
+  [data-astryx-theme="orchid"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="orchid"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="orchid"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="orchid"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="orchid"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="orchid"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="orchid"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="orchid"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="orchid"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="orchid"] .astryx-card {
@@ -6199,16 +6199,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="cobalt"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="cobalt"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="cobalt"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="cobalt"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="cobalt"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="cobalt"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="cobalt"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="cobalt"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="cobalt"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -6274,19 +6274,19 @@
   [data-astryx-theme="cobalt"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="cobalt"] .astryx-progressbar {
+  [data-astryx-theme="cobalt"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="cobalt"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="cobalt"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="cobalt"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="cobalt"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="cobalt"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="cobalt"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="cobalt"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="cobalt"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="cobalt"] .astryx-card {
@@ -6722,16 +6722,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="moss"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="moss"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="moss"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="moss"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="moss"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="moss"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="moss"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="moss"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="moss"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -6797,19 +6797,19 @@
   [data-astryx-theme="moss"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="moss"] .astryx-progressbar {
+  [data-astryx-theme="moss"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="moss"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="moss"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="moss"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="moss"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="moss"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="moss"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="moss"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="moss"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="moss"] .astryx-card {
@@ -7245,16 +7245,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="clay"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="clay"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="clay"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="clay"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="clay"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="clay"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="clay"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="clay"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="clay"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -7320,19 +7320,19 @@
   [data-astryx-theme="clay"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="clay"] .astryx-progressbar {
+  [data-astryx-theme="clay"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="clay"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="clay"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="clay"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="clay"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="clay"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="clay"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="clay"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="clay"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="clay"] .astryx-card {
@@ -7768,16 +7768,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="plum"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="plum"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="plum"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="plum"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="plum"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="plum"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="plum"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="plum"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="plum"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -7843,19 +7843,19 @@
   [data-astryx-theme="plum"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="plum"] .astryx-progressbar {
+  [data-astryx-theme="plum"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="plum"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="plum"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="plum"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="plum"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="plum"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="plum"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="plum"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="plum"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="plum"] .astryx-card {
@@ -8291,16 +8291,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="sand"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="sand"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="sand"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="sand"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="sand"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="sand"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="sand"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="sand"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="sand"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -8366,19 +8366,19 @@
   [data-astryx-theme="sand"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="sand"] .astryx-progressbar {
+  [data-astryx-theme="sand"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="sand"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="sand"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="sand"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="sand"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="sand"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="sand"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="sand"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="sand"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="sand"] .astryx-card {
@@ -8814,16 +8814,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="ink"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="ink"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="ink"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="ink"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="ink"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="ink"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="ink"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="ink"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="ink"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -8889,19 +8889,19 @@
   [data-astryx-theme="ink"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="ink"] .astryx-progressbar {
+  [data-astryx-theme="ink"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="ink"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="ink"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="ink"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="ink"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="ink"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="ink"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="ink"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="ink"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="ink"] .astryx-card {
@@ -9337,16 +9337,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="lagoon"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="lagoon"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="lagoon"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="lagoon"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="lagoon"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="lagoon"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="lagoon"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="lagoon"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="lagoon"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -9412,19 +9412,19 @@
   [data-astryx-theme="lagoon"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="lagoon"] .astryx-progressbar {
+  [data-astryx-theme="lagoon"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="lagoon"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="lagoon"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="lagoon"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="lagoon"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="lagoon"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="lagoon"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="lagoon"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="lagoon"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="lagoon"] .astryx-card {
@@ -9860,16 +9860,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="rose"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="rose"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="rose"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="rose"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="rose"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="rose"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="rose"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="rose"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="rose"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -9935,19 +9935,19 @@
   [data-astryx-theme="rose"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="rose"] .astryx-progressbar {
+  [data-astryx-theme="rose"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="rose"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="rose"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="rose"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="rose"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="rose"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="rose"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="rose"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="rose"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="rose"] .astryx-card {
@@ -10383,16 +10383,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="graphite"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="graphite"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="graphite"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="graphite"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="graphite"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="graphite"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="graphite"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="graphite"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="graphite"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -10458,19 +10458,19 @@
   [data-astryx-theme="graphite"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="graphite"] .astryx-progressbar {
+  [data-astryx-theme="graphite"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="graphite"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="graphite"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="graphite"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="graphite"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="graphite"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="graphite"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="graphite"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="graphite"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="graphite"] .astryx-card {
@@ -10906,16 +10906,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="frost"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="frost"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="frost"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="frost"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="frost"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="frost"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="frost"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="frost"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="frost"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -10981,19 +10981,19 @@
   [data-astryx-theme="frost"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="frost"] .astryx-progressbar {
+  [data-astryx-theme="frost"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="frost"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="frost"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="frost"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="frost"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="frost"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="frost"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="frost"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="frost"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="frost"] .astryx-card {
@@ -11429,16 +11429,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="latte"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="latte"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="latte"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="latte"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="latte"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="latte"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="latte"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="latte"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="latte"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -11504,19 +11504,19 @@
   [data-astryx-theme="latte"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="latte"] .astryx-progressbar {
+  [data-astryx-theme="latte"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="latte"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="latte"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="latte"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="latte"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="latte"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="latte"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="latte"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="latte"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="latte"] .astryx-card {
@@ -11952,16 +11952,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="solar"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="solar"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="solar"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="solar"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="solar"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="solar"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="solar"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="solar"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="solar"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -12027,19 +12027,19 @@
   [data-astryx-theme="solar"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="solar"] .astryx-progressbar {
+  [data-astryx-theme="solar"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="solar"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="solar"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="solar"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="solar"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="solar"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="solar"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="solar"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="solar"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="solar"] .astryx-card {
@@ -12475,16 +12475,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="retro"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="retro"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="retro"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="retro"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="retro"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="retro"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="retro"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="retro"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="retro"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -12550,19 +12550,19 @@
   [data-astryx-theme="retro"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="retro"] .astryx-progressbar {
+  [data-astryx-theme="retro"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="retro"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="retro"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="retro"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="retro"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="retro"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="retro"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="retro"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="retro"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="retro"] .astryx-card {
@@ -12998,16 +12998,16 @@
   background-color: var(--color-background-gray);
   color: var(--color-text-gray);
   }
-  [data-astryx-theme="midnight"] .astryx-statusdot[data-variant="success"] {
+  [data-astryx-theme="midnight"] .astryx-status-dot[data-variant="success"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="midnight"] .astryx-statusdot[data-variant="warning"] {
+  [data-astryx-theme="midnight"] .astryx-status-dot[data-variant="warning"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="midnight"] .astryx-statusdot[data-variant="error"] {
+  [data-astryx-theme="midnight"] .astryx-status-dot[data-variant="error"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-error);
   }
-  [data-astryx-theme="midnight"] .astryx-statusdot[data-variant="accent"] {
+  [data-astryx-theme="midnight"] .astryx-status-dot[data-variant="accent"] {
   background-color: var(--astryx-theme-neutral-color-status-fill-accent);
   }
   [data-astryx-theme="midnight"] .astryx-avatar-status-dot[data-variant="success"] {
@@ -13073,19 +13073,19 @@
   [data-astryx-theme="midnight"] .astryx-switch {
   --color-background-gray: var(--color-border-emphasized);
   }
-  [data-astryx-theme="midnight"] .astryx-progressbar {
+  [data-astryx-theme="midnight"] .astryx-progress-bar {
   --color-background-muted: var(--color-border-emphasized);
   }
-  [data-astryx-theme="midnight"] .astryx-progressbar[data-variant="accent"] {
+  [data-astryx-theme="midnight"] .astryx-progress-bar[data-variant="accent"] {
   --color-accent: var(--astryx-theme-neutral-color-status-fill-accent);
   }
-  [data-astryx-theme="midnight"] .astryx-progressbar[data-variant="success"] {
+  [data-astryx-theme="midnight"] .astryx-progress-bar[data-variant="success"] {
   --color-success: var(--astryx-theme-neutral-color-status-fill-success);
   }
-  [data-astryx-theme="midnight"] .astryx-progressbar[data-variant="warning"] {
+  [data-astryx-theme="midnight"] .astryx-progress-bar[data-variant="warning"] {
   --color-warning: var(--astryx-theme-neutral-color-status-fill-warning);
   }
-  [data-astryx-theme="midnight"] .astryx-progressbar[data-variant="error"] {
+  [data-astryx-theme="midnight"] .astryx-progress-bar[data-variant="error"] {
   --color-error: var(--astryx-theme-neutral-color-status-fill-error);
   }
   [data-astryx-theme="midnight"] .astryx-card {

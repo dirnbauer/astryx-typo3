@@ -30,17 +30,17 @@
   break-inside: avoid;
 }
 
-.g-footer-sitemap__entry.is-page {
+.g-footer-sitemap__entry[data-kind="page"] {
   padding-block: var(--spacing-1);
 }
 
-.g-footer-sitemap__list.is-compact .g-footer-sitemap__entry.is-page {
+.g-footer-sitemap__list.is-compact .g-footer-sitemap__entry[data-kind="page"] {
   padding-block: var(--spacing-0-5);
 }
 
 /* A section heading that lands at the foot of a column has nothing under it,
    which is exactly what makes a sitemap unreadable. */
-.g-footer-sitemap__entry.is-section {
+.g-footer-sitemap__entry[data-kind="section"] {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-0-5);
@@ -49,7 +49,7 @@
   padding-block-end: var(--spacing-2);
 }
 
-.g-footer-sitemap__entry.is-section:first-child {
+.g-footer-sitemap__entry[data-kind="section"]:first-child {
   padding-block-start: 0;
 }
 
@@ -61,7 +61,7 @@
 
 /* The pages of a section are indented under it, which is the second level the
    element promises — the hierarchy is not carried by the heading alone. */
-.g-footer-sitemap__entry.is-page {
+.g-footer-sitemap__entry[data-kind="page"] {
   padding-inline-start: var(--spacing-3);
 }
 

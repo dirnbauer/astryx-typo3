@@ -379,10 +379,10 @@
   pointer-events: none;
 }
 
-.astryx-toast-viewport.bottom-end { inset-block-end: 0; inset-inline-end: 0; align-items: flex-end; }
-.astryx-toast-viewport.bottom-start { inset-block-end: 0; inset-inline-start: 0; align-items: flex-start; }
-.astryx-toast-viewport.top-end { inset-block-start: 0; inset-inline-end: 0; align-items: flex-end; flex-direction: column-reverse; }
-.astryx-toast-viewport.top-start { inset-block-start: 0; inset-inline-start: 0; align-items: flex-start; flex-direction: column-reverse; }
+.astryx-toast-viewport[data-placement="bottom-end"] { inset-block-end: 0; inset-inline-end: 0; align-items: flex-end; }
+.astryx-toast-viewport[data-placement="bottom-start"] { inset-block-end: 0; inset-inline-start: 0; align-items: flex-start; }
+.astryx-toast-viewport[data-placement="top-end"] { inset-block-start: 0; inset-inline-end: 0; align-items: flex-end; flex-direction: column-reverse; }
+.astryx-toast-viewport[data-placement="top-start"] { inset-block-start: 0; inset-inline-start: 0; align-items: flex-start; flex-direction: column-reverse; }
 
 .astryx-toast {
   display: flex;
@@ -416,12 +416,12 @@
    counterpart of --color-background-inverted in every theme, so the pair
    stays legible without a dedicated on-inverted token. */
 .astryx-toast,
-.astryx-toast.info {
+.astryx-toast[data-status="info"] {
   background-color: var(--color-background-inverted);
   color: var(--color-background-surface);
 }
 
-.astryx-toast.error {
+.astryx-toast[data-status="error"] {
   background-color: var(--color-background-error-inverted);
   color: var(--color-on-error);
 }
@@ -620,8 +620,8 @@
   box-shadow: var(--shadow-med);
 }
 
-.astryx-carousel-control.start { inset-inline-start: 0; }
-.astryx-carousel-control.end { inset-inline-end: 0; }
+.astryx-carousel-control[data-position="start"] { inset-inline-start: 0; }
+.astryx-carousel-control[data-position="end"] { inset-inline-end: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .astryx-carousel-track {
@@ -732,44 +732,44 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-overlay-scrim.fill { inset: 0; }
-.astryx-overlay-scrim.top { inset-inline: 0; inset-block-start: 0; }
-.astryx-overlay-scrim.bottom { inset-inline: 0; inset-block-end: 0; }
+.astryx-overlay-scrim[data-fill="fill"] { inset: 0; }
+.astryx-overlay-scrim[data-position="top"] { inset-inline: 0; inset-block-start: 0; }
+.astryx-overlay-scrim[data-position="bottom"] { inset-inline: 0; inset-block-end: 0; }
 
-.astryx-overlay-scrim.align-start { align-items: flex-start; justify-content: flex-start; }
-.astryx-overlay-scrim.align-center { align-items: center; justify-content: center; }
-.astryx-overlay-scrim.align-end { align-items: flex-end; justify-content: flex-start; }
+.astryx-overlay-scrim[data-align="start"] { align-items: flex-start; justify-content: flex-start; }
+.astryx-overlay-scrim[data-align="center"] { align-items: center; justify-content: center; }
+.astryx-overlay-scrim[data-align="end"] { align-items: flex-end; justify-content: flex-start; }
 
-.astryx-overlay-scrim.dark {
+.astryx-overlay-scrim[data-tone="dark"] {
   background-color: var(--color-overlay);
 }
 
 /* The light scrim has no token of its own: it is the on-dark colour thinned
    to 60%, which lands on white in every theme without naming one. */
-.astryx-overlay-scrim.light {
+.astryx-overlay-scrim[data-tone="light"] {
   background-color: color-mix(in srgb, var(--color-on-dark) 60%, transparent);
   color: var(--color-on-light);
 }
 
-.astryx-overlay-scrim.always {
+.astryx-overlay-scrim[data-reveal="always"] {
   pointer-events: auto;
 }
 
 /* Reveal on hover *or* focus, never hover alone — a control hidden until the
    pointer arrives is a control a keyboard can never reach. */
-.astryx-overlay-scrim.hover-reveal,
-.astryx-overlay-scrim.focus-reveal {
+.astryx-overlay-scrim[data-reveal="hover"],
+.astryx-overlay-scrim[data-reveal="focus"] {
   opacity: 0;
   visibility: hidden;
 }
 
-.astryx-overlay-scrim.hover-reveal.top,
-.astryx-overlay-scrim.focus-reveal.top { translate: 0 -100%; }
+.astryx-overlay-scrim[data-reveal="hover"][data-position="top"],
+.astryx-overlay-scrim[data-reveal="focus"][data-position="top"] { translate: 0 -100%; }
 
-.astryx-overlay-scrim.hover-reveal.bottom,
-.astryx-overlay-scrim.focus-reveal.bottom { translate: 0 100%; }
+.astryx-overlay-scrim[data-reveal="hover"][data-position="bottom"],
+.astryx-overlay-scrim[data-reveal="focus"][data-position="bottom"] { translate: 0 100%; }
 
-.astryx-overlay:focus-within > :where(.astryx-overlay-scrim.hover-reveal, .astryx-overlay-scrim.focus-reveal) {
+.astryx-overlay:focus-within > :where(.astryx-overlay-scrim[data-reveal="hover"], .astryx-overlay-scrim[data-reveal="focus"]) {
   opacity: 1;
   visibility: visible;
   translate: 0 0;
@@ -777,7 +777,7 @@
 }
 
 @media (hover: hover) {
-  .astryx-overlay:hover > .astryx-overlay-scrim.hover-reveal {
+  .astryx-overlay:hover > .astryx-overlay-scrim[data-reveal="hover"] {
     opacity: 1;
     visibility: visible;
     translate: 0 0;

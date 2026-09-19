@@ -38,7 +38,7 @@ final class ComponentRenderingTest extends FunctionalTestCase
     // which in turn depends on content_blocks and the workspaces system
     // extension, and the testing framework refuses to build an instance whose
     // declared dependencies are absent.
-    protected array $coreExtensionsToLoad = ['form', 'workspaces'];
+    protected array $coreExtensionsToLoad = ['fluid_styled_content', 'form', 'workspaces'];
 
     protected array $testExtensionsToLoad = [
         'friendsoftypo3/content-blocks',

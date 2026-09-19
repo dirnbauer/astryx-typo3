@@ -46,7 +46,7 @@
 /* The min is itself clamped to the viewport: a min-inline-size beats a
    max-inline-size, so a bare 22rem would push the menu off the side of a
    320px phone rather than being capped by the max below it. */
-.astryx-typeahead.wider-than-field {
+.astryx-typeahead[data-width="wider"] {
   min-inline-size: min(22rem, calc(100vw - 2 * var(--spacing-4)));
   max-inline-size: min(30rem, calc(100vw - 2 * var(--spacing-4)));
   inset-inline-start: auto;
@@ -79,11 +79,11 @@
  * visible for its highlight and states it outright, and aria-activedescendant
  * on the input is what tells a screen reader which row that is.
  */
-.astryx-typeahead-option.is-active {
+.astryx-typeahead-option[data-state="active"] {
   background-color: var(--color-overlay-hover);
 }
 
-.astryx-typeahead-option.is-active .astryx-item-label {
+.astryx-typeahead-option[data-state="active"] .astryx-item-label {
   color: var(--color-text-primary);
 }
 

@@ -12,7 +12,7 @@
   max-inline-size: 70ch;
 }
 
-.g-article-header__intro.align-center {
+.g-article-header__intro[data-align="center"] {
   margin-inline: auto;
   text-align: center;
 }
@@ -33,7 +33,7 @@
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
-.g-article-header__intro.align-center .g-article-header__byline {
+.g-article-header__intro[data-align="center"] .g-article-header__byline {
   justify-content: center;
 }
 

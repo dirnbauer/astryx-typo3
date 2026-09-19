@@ -42,12 +42,12 @@
                 <f:for each="{data.links}" as="entry">
                     <f:if condition="{entry.link.url}">
                         <f:then>
-                            <li class="g-footer-sitemap__entry is-page">
+                            <li class="g-footer-sitemap__entry" data-kind="page">
                                 <a:atom.link variant="quiet" class="g-footer-sitemap__link" parameter="{entry.link}">{entry.title}</a:atom.link>
                             </li>
                         </f:then>
                         <f:else>
-                            <li class="g-footer-sitemap__entry is-section">
+                            <li class="g-footer-sitemap__entry" data-kind="section">
                                 <a:atom.text type="label" as="h3" class="g-footer-sitemap__section">{entry -> f:render.text(field: 'title')}</a:atom.text>
                                 <f:if condition="{entry.description}">
                                     <a:atom.text type="supporting" as="span" class="g-footer-sitemap__hint">{entry.description}</a:atom.text>

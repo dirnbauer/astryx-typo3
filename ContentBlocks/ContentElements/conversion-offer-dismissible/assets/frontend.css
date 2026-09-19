@@ -86,15 +86,15 @@
   background-color: var(--color-background-card);
 }
 
-.g-conversion-offer-dismissible[data-variant='corner-card'].surface .g-conversion-offer-dismissible__offer {
+.g-conversion-offer-dismissible[data-variant='corner-card'][data-surface='surface'] .g-conversion-offer-dismissible__offer {
   background-color: var(--color-background-surface);
 }
 
-.g-conversion-offer-dismissible[data-variant='corner-card'].muted .g-conversion-offer-dismissible__offer {
+.g-conversion-offer-dismissible[data-variant='corner-card'][data-surface='muted'] .g-conversion-offer-dismissible__offer {
   background-color: var(--color-background-muted);
 }
 
-.g-conversion-offer-dismissible[data-variant='corner-card'].accent .g-conversion-offer-dismissible__offer {
+.g-conversion-offer-dismissible[data-variant='corner-card'][data-surface='accent'] .g-conversion-offer-dismissible__offer {
   background-color: var(--color-accent);
   color: var(--color-on-accent);
 }

@@ -27,7 +27,7 @@
             </div>
         </f:if>
 
-        <ul class="g-downloads-list__list columns-{data.columns}">
+        <ul class="g-downloads-list__list" data-columns="{data.columns}">
             <f:for each="{data.files}" as="item">
                 <li class="g-downloads-list__row">
                     <a:molecule.item interactive="interactive" class="g-downloads-list__link" parameter="{item.link}">

@@ -47,6 +47,8 @@ function parseArgs(argv) {
     schemes: ['light', 'dark'],
     theme: 'neutral',
     limit: Infinity,
+    out: null,
+    concurrency: 4,
   };
   for (const arg of argv) {
     const [flag, raw] = arg.includes('=') ? [arg.slice(0, arg.indexOf('=')), arg.slice(arg.indexOf('=') + 1)] : [arg, null];
@@ -59,6 +61,13 @@ function parseArgs(argv) {
       case '--schemes': args.schemes = raw.split(','); break;
       case '--theme': args.theme = raw; break;
       case '--limit': args.limit = Number(raw); break;
+      // A label for the report directory, so a run before a change and the run
+      // after it can sit side by side instead of overwriting each other.
+      case '--out': args.out = raw; break;
+      // Pages loaded at once per browser context. The probes are per page and
+      // independent, so the only cost of more is memory on the machine running
+      // them; the default is conservative for a laptop next to a DDEV stack.
+      case '--concurrency': args.concurrency = Math.max(1, Number(raw)); break;
       default:
         console.error(`Unknown argument: ${arg}`);
         process.exit(1);
@@ -153,13 +162,13 @@ const RTL_SENSITIVE = ['carousel', 'breadcrumbs', 'stepper', 'split', 'toolbar']
  * happens - and it was the last 288 findings in this report.
  */
 const GRAPHIC_ONLY = new Set([
-  'astryx-statusdot',
+  'astryx-status-dot',
   'astryx-spinner',
   'astryx-skeleton',
   'astryx-divider',
-  'astryx-progressbar',
-  'astryx-progressbar-track',
-  'astryx-progressbar-fill',
+  'astryx-progress-bar',
+  'astryx-progress-bar-track',
+  'astryx-progress-bar-fill',
   'astryx-aspect-ratio',
   'astryx-icon',
   'astryx-feature-icon',
@@ -654,7 +663,7 @@ try {
 }
 
 const date = new Date().toISOString().slice(0, 10);
-const outDir = path.join(EXT_ROOT, 'Build/Reports/design-review', date);
+const outDir = path.join(EXT_ROOT, 'Build/Reports/design-review', args.out ?? date);
 fs.mkdirSync(outDir, {recursive: true});
 
 let harness = null;
@@ -681,9 +690,12 @@ try {
           colorScheme: scheme,
           reducedMotion: reducedMotion ? 'reduce' : 'no-preference',
           deviceScaleFactor: 1,
+          // A DDEV site signs its own certificate; a review that refuses it
+          // reviews nothing.
+          ignoreHTTPSErrors: true,
         });
 
-        for (const target of pages) {
+        const reviewOne = async target => {
           const page = await context.newPage();
           const label = `${target.id}-${viewport}-${scheme}${reducedMotion ? '-reduced' : ''}`;
 
@@ -692,7 +704,7 @@ try {
           } catch (error) {
             results.push({page: target.id, viewport, scheme, reducedMotion, error: String(error.message ?? error)});
             await page.close();
-            continue;
+            return;
           }
 
           if (target.rtl) {
@@ -763,7 +775,15 @@ try {
 
           results.push({page: target.id, viewport, scheme, reducedMotion, findings, violations});
           await page.close();
-        }
+        };
+
+        // A small pool: `concurrency` pages in flight per context, the rest
+        // queued. Order in the results does not matter — the report groups by
+        // rule — so nothing is done to preserve it.
+        const queue = [...pages];
+        await Promise.all(Array.from({length: Math.min(args.concurrency, queue.length)}, async () => {
+          while (queue.length > 0) await reviewOne(queue.shift());
+        }));
 
         await context.close();
       }
@@ -860,7 +880,7 @@ fs.writeFileSync(path.join(outDir, 'report.md'), lines.join('\n'));
 
 const totalFindings = [...byRule.values()].reduce((sum, list) => sum + list.length, 0);
 const totalViolations = [...byAxeRule.values()].reduce((sum, entry) => sum + entry.total, 0);
-console.log(`Build/Reports/design-review/${date}/report.md`);
+console.log(`Build/Reports/design-review/${args.out ?? date}/report.md`);
 console.log(`  ${pages.length} page(s) x ${args.viewports.length} viewport(s) x ${args.schemes.length} scheme(s)`);
 console.log(`  ${totalFindings} computed-style finding(s) across ${byRule.size} rule(s)`);
 console.log(`  ${totalViolations} axe violation(s) across ${byAxeRule.size} rule(s)`);

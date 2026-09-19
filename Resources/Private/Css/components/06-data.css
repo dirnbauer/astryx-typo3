@@ -91,24 +91,24 @@
 }
 
 .astryx-table[data-striped="striped"] :where(tbody tr:nth-child(even)),
-.astryx-table-row.striped:nth-child(even) {
+.astryx-table-row[data-striped="striped"]:nth-child(even) {
   background-color: var(--color-background-muted);
 }
 
 .astryx-table[data-bordered="bordered"] :where(th, td):not(:last-child),
-.astryx-table-cell.bordered:not(:last-child) {
+.astryx-table-cell[data-bordered="bordered"]:not(:last-child) {
   border-inline-end: var(--border-width) solid var(--color-border);
 }
 
 @media (hover: hover) {
   .astryx-table[data-hoverable="hoverable"] :where(tbody tr):hover,
-  .astryx-table-row.hoverable:hover {
+  .astryx-table-row[data-hoverable="hoverable"]:hover {
     background-color: var(--color-overlay-hover);
   }
 }
 
 .astryx-table[data-hoverable="hoverable"] :where(tbody tr),
-.astryx-table-row.hoverable {
+.astryx-table-row[data-hoverable="hoverable"] {
   transition-property: background-color;
   transition-duration: var(--duration-fast);
   transition-timing-function: var(--ease-standard);
@@ -116,7 +116,7 @@
 
 /* Truncating cells keep the table's column widths honest instead of letting one
    long value stretch the whole grid. */
-.astryx-table-cell.truncate,
+.astryx-table-cell[data-truncate="truncate"],
 .astryx-table :where(th, td).truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,7 +124,7 @@
   max-inline-size: 0;
 }
 
-.astryx-table-cell.wrap,
+.astryx-table-cell[data-wrap="wrap"],
 .astryx-table :where(th, td).wrap {
   overflow-wrap: break-word;
   word-break: break-word;
@@ -393,8 +393,8 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-tree-list-item.compact { padding-block: var(--spacing-1); }
-.astryx-tree-list-item.spacious { padding-block: var(--spacing-3); }
+.astryx-tree-list-item[data-density="compact"] { padding-block: var(--spacing-1); }
+.astryx-tree-list-item[data-density="spacious"] { padding-block: var(--spacing-3); }
 
 /* Hover is an overlay gradient, not a background colour, so it layers over the
    selected tint instead of replacing it. */
@@ -409,7 +409,7 @@
 }
 
 .astryx-tree-list-item[aria-selected='true'],
-.astryx-tree-list-item.selected {
+.astryx-tree-list-item[data-selected="selected"] {
   background-color: var(--color-accent-muted);
 }
 
@@ -420,7 +420,7 @@
 }
 
 .astryx-tree-list-item[aria-disabled='true'],
-.astryx-tree-list-item.disabled {
+.astryx-tree-list-item[data-disabled="disabled"] {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.5;
@@ -601,8 +601,8 @@
   word-break: break-word;
 }
 
-.astryx-code.secondary { color: var(--color-text-secondary); }
-.astryx-code.inherit { color: inherit; font-size: inherit; line-height: inherit; }
+.astryx-code[data-color="secondary"] { color: var(--color-text-secondary); }
+.astryx-code[data-color="inherit"] { color: inherit; font-size: inherit; line-height: inherit; }
 
 /* -------------------------------------------------------------- CodeBlock */
 .astryx-codeblock {
@@ -677,7 +677,7 @@
   color: inherit;
 }
 
-.astryx-codeblock-line.highlighted {
+.astryx-codeblock-line[data-state="highlighted"] {
   display: block;
   margin-inline: calc(-1 * var(--spacing-4));
   padding-inline: var(--spacing-4);
@@ -772,14 +772,14 @@
 
 /* Compact halves every block gap; used where markdown is a cell or a bubble
    rather than a document. */
-.astryx-markdown.compact :where(p, ul, ol) { margin-block: var(--spacing-1); }
-.astryx-markdown.compact :where(h1, h2, h3) { margin-block-start: var(--spacing-4); margin-block-end: var(--spacing-2); }
-.astryx-markdown.compact :where(h4, h5, h6) { margin-block-start: var(--spacing-3); margin-block-end: var(--spacing-1); }
-.astryx-markdown.compact :where(pre, blockquote, table) { margin-block: var(--spacing-2); }
-.astryx-markdown.compact :where(hr) { margin-block: var(--spacing-3); }
+.astryx-markdown[data-density="compact"] :where(p, ul, ol) { margin-block: var(--spacing-1); }
+.astryx-markdown[data-density="compact"] :where(h1, h2, h3) { margin-block-start: var(--spacing-4); margin-block-end: var(--spacing-2); }
+.astryx-markdown[data-density="compact"] :where(h4, h5, h6) { margin-block-start: var(--spacing-3); margin-block-end: var(--spacing-1); }
+.astryx-markdown[data-density="compact"] :where(pre, blockquote, table) { margin-block: var(--spacing-2); }
+.astryx-markdown[data-density="compact"] :where(hr) { margin-block: var(--spacing-3); }
 
 /* ----------------------------------------------------------- ProgressBar */
-.astryx-progressbar {
+.astryx-progress-bar {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1);
@@ -787,7 +787,7 @@
   min-inline-size: 48px;
 }
 
-.astryx-progressbar-header {
+.astryx-progress-bar-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -796,18 +796,18 @@
   line-height: var(--text-body-leading);
 }
 
-.astryx-progressbar-label {
+.astryx-progress-bar-label {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-primary);
 }
 
-.astryx-progressbar-value {
+.astryx-progress-bar-value {
   color: var(--color-text-secondary);
 }
 
 /* overflow:hidden is load-bearing: the fill keeps the full pill radius so its
    leading edge stays round, and the track clips the trailing one. */
-.astryx-progressbar-track {
+.astryx-progress-bar-track {
   inline-size: 100%;
   block-size: 8px;
   border-radius: var(--radius-full);
@@ -815,7 +815,7 @@
   overflow: hidden;
 }
 
-.astryx-progressbar-fill {
+.astryx-progress-bar-fill {
   block-size: 100%;
   border-radius: var(--radius-full);
   background-color: var(--color-accent);
@@ -824,16 +824,16 @@
   transition-timing-function: var(--ease-standard);
 }
 
-.astryx-progressbar[data-variant="success"] .astryx-progressbar-fill { background-color: var(--color-success); }
-.astryx-progressbar[data-variant="warning"] .astryx-progressbar-fill { background-color: var(--color-warning); }
-.astryx-progressbar[data-variant="error"] .astryx-progressbar-fill { background-color: var(--color-error); }
-.astryx-progressbar[data-variant="neutral"] .astryx-progressbar-fill,
-.astryx-progressbar[data-state="disabled"] .astryx-progressbar-fill { background-color: var(--color-text-disabled); }
+.astryx-progress-bar[data-variant="success"] .astryx-progress-bar-fill { background-color: var(--color-success); }
+.astryx-progress-bar[data-variant="warning"] .astryx-progress-bar-fill { background-color: var(--color-warning); }
+.astryx-progress-bar[data-variant="error"] .astryx-progress-bar-fill { background-color: var(--color-error); }
+.astryx-progress-bar[data-variant="neutral"] .astryx-progress-bar-fill,
+.astryx-progress-bar[data-state="disabled"] .astryx-progress-bar-fill { background-color: var(--color-text-disabled); }
 
-.astryx-progressbar[data-state="disabled"] .astryx-progressbar-label,
-.astryx-progressbar[data-state="disabled"] .astryx-progressbar-value { color: var(--color-text-disabled); }
+.astryx-progress-bar[data-state="disabled"] .astryx-progress-bar-label,
+.astryx-progress-bar[data-state="disabled"] .astryx-progress-bar-value { color: var(--color-text-disabled); }
 
-.astryx-progressbar[data-state="indeterminate"] .astryx-progressbar-fill {
+.astryx-progress-bar[data-state="indeterminate"] .astryx-progress-bar-fill {
   inline-size: 40%;
   animation: astryx-progress-slide 1.5s ease-in-out infinite;
 }
@@ -970,12 +970,12 @@
 
 /* The neutral variant is hollow, so the plate has to be the surface and the
    colour has to move to the ink — surface on surface would be invisible. */
-.astryx-avatar-status-dot.neutral {
+.astryx-avatar-status-dot[data-variant="neutral"] {
   background-color: var(--color-background-surface);
   color: var(--color-text-secondary);
 }
 
-.astryx-avatar-status-dot.error {
+.astryx-avatar-status-dot[data-variant="error"] {
   background-color: var(--color-error);
   color: var(--color-background-surface);
 }
@@ -1105,22 +1105,22 @@
 @media (prefers-reduced-motion: reduce) {
   .astryx-skeleton,
   .astryx-spinner,
-  .astryx-progressbar[data-state="indeterminate"] .astryx-progressbar-fill {
+  .astryx-progress-bar[data-state="indeterminate"] .astryx-progress-bar-fill {
     animation: none;
   }
 
-  .astryx-progressbar[data-state="indeterminate"] .astryx-progressbar-fill {
+  .astryx-progress-bar[data-state="indeterminate"] .astryx-progress-bar-fill {
     inline-size: 100%;
     opacity: 0.5;
   }
 
-  .astryx-progressbar-fill,
+  .astryx-progress-bar-fill,
   .astryx-item[data-interactive="interactive"],
   .astryx-tree-list-item,
   .astryx-tree-list-chevron,
   .astryx-thumbnail[data-interactive="interactive"],
   .astryx-table[data-hoverable="hoverable"] :where(tbody tr),
-  .astryx-table-row.hoverable {
+  .astryx-table-row[data-hoverable="hoverable"] {
     transition-duration: 0s;
   }
 }

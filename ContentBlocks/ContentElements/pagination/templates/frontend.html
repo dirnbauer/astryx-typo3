@@ -54,9 +54,9 @@
                 <f:if condition="{currentIndex} > -1">
                     <f:for each="{data.pages}" as="part" iteration="step">
                         <f:if condition="{step.index} == {prevIndex}">
-                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__step previous" parameter="{part.link}">
+                            <a:atom.iconButton variant="ghost" size="{buttonSize}" position="start" class="g-pagination__step" parameter="{part.link}">
                                 <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>: {part.title}</a:atom.visuallyHidden>
-                            </a:atom.button>
+                            </a:atom.iconButton>
                         </f:if>
                     </f:for>
                 </f:if>
@@ -64,13 +64,13 @@
                 <f:for each="{data.pages}" as="part" iteration="step">
                     <f:if condition="{step.index} == {currentIndex} || !{part.link.url}">
                         <f:then>
-                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__number" ariaCurrent="page">
+                            <a:atom.button variant="ghost" size="{buttonSize}" class="g-pagination__number" ariaCurrent="page">
                                 <a:atom.visuallyHidden as="span">{partLabel} {step.cycle}: {part.title} — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></a:atom.visuallyHidden>
                                 <span aria-hidden="true">{step.cycle}</span>
                             </a:atom.button>
                         </f:then>
                         <f:else>
-                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__number" parameter="{part.link}">
+                            <a:atom.button variant="ghost" size="{buttonSize}" class="g-pagination__number" parameter="{part.link}">
                                 <a:atom.visuallyHidden as="span">{partLabel} {step.cycle}: {part.title}</a:atom.visuallyHidden>
                                 <span aria-hidden="true">{step.cycle}</span>
                             </a:atom.button>
@@ -81,9 +81,9 @@
                 <f:if condition="{currentIndex} > -1">
                     <f:for each="{data.pages}" as="part" iteration="step">
                         <f:if condition="{step.index} == {nextIndex}">
-                            <a:atom.button variant="ghost" class="{buttonSize} g-pagination__step next" parameter="{part.link}">
+                            <a:atom.iconButton variant="ghost" size="{buttonSize}" position="end" class="g-pagination__step" parameter="{part.link}">
                                 <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>: {part.title}</a:atom.visuallyHidden>
-                            </a:atom.button>
+                            </a:atom.iconButton>
                         </f:if>
                     </f:for>
                 </f:if>

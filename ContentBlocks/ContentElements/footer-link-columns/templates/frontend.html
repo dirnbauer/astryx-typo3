@@ -41,7 +41,7 @@
                 <f:for each="{data.links}" as="item">
                     <f:if condition="{item.link.url}">
                         <f:then>
-                            <li class="g-footer-link-columns__entry is-link">
+                            <li class="g-footer-link-columns__entry" data-kind="link">
                                 <a:atom.link variant="quiet" class="g-footer-link-columns__link" parameter="{item.link}">{item.title}</a:atom.link>
                                 <f:if condition="{item.description}">
                                     <a:atom.text type="supporting" as="span" class="g-footer-link-columns__hint">{item.description}</a:atom.text>
@@ -49,7 +49,7 @@
                             </li>
                         </f:then>
                         <f:else>
-                            <li class="g-footer-link-columns__entry is-heading">
+                            <li class="g-footer-link-columns__entry" data-kind="heading">
                                 <a:atom.text type="label" as="h3" class="g-footer-link-columns__group">{item -> f:render.text(field: 'title')}</a:atom.text>
                                 <f:if condition="{item.description}">
                                     <a:atom.text type="supporting" as="span" class="g-footer-link-columns__hint">{item.description}</a:atom.text>
