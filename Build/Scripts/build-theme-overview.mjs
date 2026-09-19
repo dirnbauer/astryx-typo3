@@ -139,7 +139,7 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
 <a:layout.section class="g-themes">
     <a:layout.container>
         <a:atom.eyebrow>Themes</a:atom.eyebrow>
-        <a:atom.heading level="1">${rows.length} themes, one set of content</a:atom.heading>
+        <a:atom.heading level="2" type="heading-1">${rows.length} themes, one set of content</a:atom.heading>
         <a:atom.text type="large" class="g-themes__lead">
             Every card below is rendered live in its own theme — the same components,
             the same markup, only different tokens. Switching a theme repaints the site;

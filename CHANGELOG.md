@@ -2,6 +2,42 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.1.1] - 2026-09-19
+
+### Fixed
+
+- **One `h1` per page again.** Thirty content elements rendered their headline
+  as an `h1`, so a start page emitted two: its own screen-reader `h1` with the
+  page title, and the hero's. Every element now heads its band with an `h2`, as
+  Desiderio's do and as `PageHeader`, `PageTitle` and `ErrorMessage` have each
+  claimed in their own comments since 2.0.
+- **`Atom/Heading`'s `type` argument does something.** It has promised since
+  2.0 that `level` decides the outline and `type` decides only the size, and
+  the stylesheet never implemented the second half — which is why making a
+  heading *look* like an `h1` meant making it one. `.astryx-heading[data-type]`
+  now carries `heading-1`…`heading-6` and `display-1`…`display-3`, after the
+  `data-level` rules and at equal specificity, so a size wins where one is
+  chosen and the level stays in charge where none is. The thirty elements are
+  `level="2" type="heading-1"`: same pixels, honest outline.
+- The themes page emitted two `h1`s for the same reason — its own
+  screen-reader one and the overview partial's.
+
+### Added
+
+- `npm run check:upstream` (`Build/Scripts/check-astryx-upstream.mjs`) compares
+  the pin in `THIRD_PARTY_NOTICES.md` with the newest upstream release tag and
+  with npm's `latest` dist-tag, and exits non-zero when either is ahead.
+  Deliberately not a test: it reaches the network. The pin stays at **v0.6.2**,
+  which both sources still report as the newest release.
+- Two rules in `AtomicDesignConformanceTest`: a page template renders exactly
+  one `h1`, counted through the partials, layouts and components it pulls in;
+  and no content element renders one at all. `RenderOneElementPerGroupTest`
+  asserts the same of the *rendered* markup, so a heading that reaches `h1`
+  through a component's own switch is caught too.
+- `Documentation/Developer/UpstreamSync.rst` records that the pin follows
+  released tags only, and the three commands that tell a contract change on
+  upstream `main` apart from React behaviour.
+
 ## [2.1.0] - 2026-09-19
 
 A behaviour-preserving release: the component library now covers upstream

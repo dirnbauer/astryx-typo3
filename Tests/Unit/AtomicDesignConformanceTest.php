@@ -82,6 +82,17 @@ final class AtomicDesignConformanceTest extends TestCase
         'Organism' => ['Atom', 'Layout', 'Molecule', 'Organism'],
     ];
 
+    /**
+     * Templates that render no h1, and why.
+     *
+     * The element-library preview is not a page: it renders one content
+     * element on an otherwise empty document so the picker can photograph it,
+     * and a heading above that element would be in the picture.
+     */
+    private const WITHOUT_A_PAGE_HEADING = [
+        'ElementPreview' => 'The element library photographs one element; a heading would be in the picture.',
+    ];
+
     /** @var array<string, mixed> */
     private static array $map;
 
@@ -598,6 +609,215 @@ final class AtomicDesignConformanceTest extends TestCase
             . "write `.astryx-x[data-variant=\"flat\"]`, not `.astryx-x.flat`, and render the\n"
             . "attribute from the component rather than the class.\n"
             . implode("\n", array_slice(array_unique($offences), 0, 30)),
+        );
+    }
+
+    /**
+     * How many h1s a fragment emits.
+     *
+     * Call sites, not branches. A component that can render an h1 writes one
+     * `<h1>` per arm of its own `f:if` — PageHeader has two, Heading has two —
+     * and counting those counts the ways it could be spelled rather than the
+     * heading it renders. What a page emits is one per place it asks for one.
+     */
+    private static function headingOnesIn(string $file): int
+    {
+        // A component renders at most one h1 however many branches spell it,
+        // and whether it renders one at all is the caller's choice.
+        if (str_contains($file, '/Resources/Private/Components/')) {
+            return self::alwaysRendersAHeadingOne($file) ? 1 : 0;
+        }
+
+        $source = self::withoutComments($file);
+
+        return preg_match_all('#<h1[\s>]#', $source)
+            + preg_match_all('#<a:[a-zA-Z.]+[^>]*\bas="h1"#', $source)
+            + preg_match_all('#<a:atom\.heading[^>]*\blevel="1"#', $source);
+    }
+
+    /**
+     * Whether a component renders an h1 no matter how it is called.
+     *
+     * PageHeader and ErrorMessage do: the h1 is written into their markup and
+     * no argument can turn it into anything else. Heading and VisuallyHidden
+     * do not — theirs is one case of a switch on `level` or `as`, which the
+     * call site chooses and where it is therefore counted.
+     */
+    private static function alwaysRendersAHeadingOne(string $file): bool
+    {
+        $source = self::withoutComments($file);
+        if (preg_match('#<h1[\s>]#', $source) !== 1) {
+            return false;
+        }
+
+        return preg_match('#<f:argument\s[^>]*name="(?:level|as)"#', $source) !== 1;
+    }
+
+    private static function withoutComments(string $file): string
+    {
+        return (string)preg_replace(
+            '#<f:comment>.*?</f:comment>#s',
+            '',
+            (string)file_get_contents($file),
+        );
+    }
+
+    /**
+     * Every fragment a page template pulls in, followed one level at a time.
+     *
+     * A page template names partials with `f:render partial="…"`, a layout
+     * with `f:layout`, and components as `<a:layer.name>`; all three can carry
+     * an h1 and none is visible to a scan that reads the template alone.
+     * PageHeader is exactly that case: the h1 of every content page lives two
+     * files away from the template that decides there is one.
+     *
+     * Components are collected but not descended into. What is asked of a
+     * component here is whether it always renders an h1, and what it composes
+     * below that is its own business.
+     *
+     * @return list<string> absolute paths, the template itself first
+     */
+    private static function pageSources(string $template): array
+    {
+        $seen = [];
+        $queue = [$template];
+
+        while ($queue !== []) {
+            $file = array_shift($queue);
+            if (isset($seen[$file]) || !is_file($file)) {
+                continue;
+            }
+            $seen[$file] = true;
+            if (str_contains($file, '/Resources/Private/Components/')) {
+                continue;
+            }
+
+            $source = self::withoutComments($file);
+            if (preg_match_all('#<f:render\s+partial="([^"]+)"#', $source, $partials)) {
+                foreach ($partials[1] as $partial) {
+                    $queue[] = self::EXT_ROOT . '/Resources/Private/Templates/Partials/' . $partial . '.fluid.html';
+                }
+            }
+            if (preg_match_all('#<f:layout\s+name="([^"]+)"#', $source, $layouts)) {
+                foreach ($layouts[1] as $layout) {
+                    $queue[] = self::EXT_ROOT . '/Resources/Private/Templates/Layouts/' . $layout . '.fluid.html';
+                }
+            }
+            if (preg_match_all('#<a:([a-z]+)\.([a-zA-Z][a-zA-Z0-9]*)#', $source, $components, PREG_SET_ORDER)) {
+                foreach ($components as $component) {
+                    $name = ucfirst($component[2]);
+                    $queue[] = sprintf(
+                        '%s/Resources/Private/Components/%s/%s/%s.fluid.html',
+                        self::EXT_ROOT,
+                        ucfirst($component[1]),
+                        $name,
+                        $name,
+                    );
+                }
+            }
+        }
+
+        return array_keys($seen);
+    }
+
+    /**
+     * One h1 per page. Not "at least one", and not "at most".
+     *
+     * A document with none has nothing that says what it is; a document with
+     * two has two things claiming to, and a screen reader's heading list
+     * starts with a disagreement. The lab's end-to-end gate asserts it on a
+     * live page, which found the start page emitting both its own
+     * screen-reader h1 and a hero element's — this asserts it on the source,
+     * so the gate is not the only thing that can catch it.
+     */
+    #[Test]
+    public function everyPageTemplateRendersExactlyOneHeadingOne(): void
+    {
+        $offences = [];
+        $exemptHits = array_fill_keys(array_keys(self::WITHOUT_A_PAGE_HEADING), 0);
+
+        foreach (glob(self::EXT_ROOT . '/Resources/Private/Templates/Pages/*.fluid.html') ?: [] as $template) {
+            $name = basename($template, '.fluid.html');
+            $found = [];
+            foreach (self::pageSources($template) as $file) {
+                $count = self::headingOnesIn($file);
+                if ($count > 0) {
+                    $found[] = sprintf('%s (%d)', self::relative($file), $count);
+                }
+            }
+            $total = array_sum(array_map(
+                static fn(string $entry): int => (int)preg_replace('#.*\((\d+)\)$#', '$1', $entry),
+                $found,
+            ));
+
+            if (array_key_exists($name, self::WITHOUT_A_PAGE_HEADING)) {
+                $exemptHits[$name]++;
+                if ($total !== 0) {
+                    $offences[] = sprintf(
+                        '%s is exempt from having an h1 ("%s") but renders %d: %s',
+                        $name,
+                        self::WITHOUT_A_PAGE_HEADING[$name],
+                        $total,
+                        implode(', ', $found),
+                    );
+                }
+                continue;
+            }
+
+            if ($total !== 1) {
+                $offences[] = sprintf(
+                    '%s renders %d h1(s)%s',
+                    $name,
+                    $total,
+                    $found === [] ? '' : ': ' . implode(', ', $found),
+                );
+            }
+        }
+
+        self::assertSame(
+            [],
+            $offences,
+            "A page renders exactly one h1: the page template's, saying what the page is.\n"
+            . "A content element never renders one — it heads its own band with an h2, and\n"
+            . "Atom/Heading's `type` is how a heading is made to LOOK like an h1 without\n"
+            . "claiming to be the page's subject.\n"
+            . implode("\n", $offences),
+        );
+
+        foreach ($exemptHits as $name => $hits) {
+            self::assertGreaterThan(
+                0,
+                $hits,
+                sprintf('WITHOUT_A_PAGE_HEADING still names "%s", which is not a page template any more.', $name),
+            );
+        }
+    }
+
+    /**
+     * No content element renders an h1, ever.
+     *
+     * An element is placed on a page that already has one, and it cannot know
+     * whether it is the first element or the ninth. Thirty of them rendered
+     * `level="1"` because the stylesheet had no way to make an h2 look like an
+     * h1 — it has one now, and this is the rule that keeps it used.
+     */
+    #[Test]
+    public function noContentElementRendersAHeadingOne(): void
+    {
+        $offences = [];
+        foreach (glob(self::EXT_ROOT . '/ContentBlocks/ContentElements/*/templates/frontend.html') ?: [] as $file) {
+            $count = self::headingOnesIn($file);
+            if ($count > 0) {
+                $offences[] = sprintf('%s renders %d h1(s)', self::relative($file), $count);
+            }
+        }
+
+        self::assertSame(
+            [],
+            $offences,
+            "A content element heads its own band with an h2. To make one look like an h1,\n"
+            . "pass Atom/Heading a size instead of a level: level=\"2\" type=\"heading-1\".\n"
+            . implode("\n", $offences),
         );
     }
 }

@@ -9,6 +9,24 @@ Changelog
 The full, per-release list is :file:`CHANGELOG.md` in the repository root, in
 Keep a Changelog form. This page carries what an integrator has to act on.
 
+..  _changelog-2-1-1:
+
+2.1.1
+=====
+
+*   **One `h1` per page again.** Thirty content elements rendered their
+    headline as an `h1`, so a start page emitted two: its own screen-reader
+    `h1` with the page title, and the hero's. Every element now heads its band
+    with an `h2`.
+*   **`Atom/Heading`'s `type` argument does something.** `level` decides the
+    outline, `type` decides only the size —
+    `.astryx-heading[data-type="heading-1"]` and the eight others exist now, so
+    a heading can look like an `h1` without claiming to be the page's subject.
+    A site stylesheet that made an element's heading bigger by selecting
+    `[data-level="1"]` should select `[data-type="heading-1"]`.
+*   `npm run check:upstream` says whether the vendored Astryx pin is still the
+    newest upstream release. It stays at v0.6.2.
+
 ..  _changelog-2-1-0:
 
 2.1.0

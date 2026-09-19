@@ -141,6 +141,27 @@ final class RenderOneElementPerGroupTest extends FunctionalTestCase
             trim($rendered),
             sprintf('%s (group %s) rendered nothing from its own library.json', $id, $group),
         );
+
+        /*
+         * The rendered markup, not the template: a heading that reaches h1
+         * through a component's own switch is invisible to a scan of the file
+         * and visible here. An element is placed on a page that already has an
+         * h1 and cannot know whether it is the first element or the ninth, so
+         * it heads its own band with an h2 — and a heading that should LOOK
+         * like an h1 asks Atom/Heading for a size, not for a level.
+         *
+         * The lab's end-to-end gate asserts one h1 per live page. This is the
+         * half of that rule an element can break on its own.
+         */
+        self::assertDoesNotMatchRegularExpression(
+            '#<h1[\s>]#',
+            $rendered,
+            sprintf(
+                '%s (group %s) renders an h1. Use level="2" type="heading-1" to keep the size.',
+                $id,
+                $group,
+            ),
+        );
     }
 
     /**

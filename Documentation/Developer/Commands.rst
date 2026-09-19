@@ -100,6 +100,19 @@ Refreshing the vendored Astryx data
 ===================================
 
 ..  code-block:: bash
+    :caption: Is a refresh due at all?
+
+    npm run check:upstream
+
+:file:`Build/Scripts/check-astryx-upstream.mjs` compares the pin in
+:file:`THIRD_PARTY_NOTICES.md` with the newest upstream release tag and with
+npm's `latest` dist-tag, and exits non-zero when either is ahead. It is not
+part of `npm run build` and not a test — it reaches the network, and a suite
+that does that fails on a train. See :ref:`developer-upstream-sync-releases`,
+which also has the commands that tell a contract change on `main` apart from
+React behaviour.
+
+..  code-block:: bash
     :caption: Harvest a release and report the difference
 
     node Build/Scripts/fetch-astryx-manifest.mjs --tag v0.6.0

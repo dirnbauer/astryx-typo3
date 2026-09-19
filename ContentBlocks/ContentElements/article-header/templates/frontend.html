@@ -19,7 +19,7 @@
                 <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
-            <a:atom.heading level="1">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
             <f:if condition="{data.lead}">
                 <a:atom.text type="large" class="g-article-header__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>

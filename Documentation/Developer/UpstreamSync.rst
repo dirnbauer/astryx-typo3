@@ -17,6 +17,62 @@ Neither file is edited by hand, and neither follows a branch. They are harvested
 from a named release tag, they record the commit that tag points at, and the
 next harvest is a deliberate act with a report attached.
 
+..  _developer-upstream-sync-releases:
+
+Released tags only
+==================
+
+The pin follows upstream **releases**. Not `main`, and not a canary published
+to npm: a class name that changes on a branch and changes back before the tag
+would drag every stylesheet and every template here through both edits for
+nothing.
+
+Two questions decide whether a refresh is due, and they are asked of two
+different sources because the sources can disagree — which is itself the
+interesting case:
+
+..  code-block:: bash
+    :caption: Is the pin still the newest release?
+
+    npm run check:upstream
+
+It reads the pin out of :file:`THIRD_PARTY_NOTICES.md`, the newest release tag
+out of `git ls-remote`, and the `latest` dist-tag out of the npm registry, and
+exits non-zero when either is ahead. It is a manual and CI-dispatch check, not
+a test: a unit suite that reaches the network fails on a train, and a gate that
+goes red for reasons unrelated to the change in front of it is a gate people
+learn to ignore.
+
+Upstream being *ahead on main* is not by itself a reason to move. What matters
+is whether those commits touch the contract this extension renders against —
+the `astryx-*` class names, the package exports, the tokens and the compiled
+theme rules. That is answerable without reading eleven commit messages:
+
+..  code-block:: bash
+    :caption: Does a main-only commit touch anything we render?
+
+    git clone --filter=blob:none https://github.com/facebook/astryx.git var/astryx-upstream
+    cd var/astryx-upstream
+
+    # class names added or removed
+    git diff v0.6.2..origin/main -- packages/core/src packages/charts/src \
+      | grep -E '^[+-].*"astryx-' | sort -u
+
+    # exports added or removed
+    git diff v0.6.2..origin/main -- packages/core/src/index.ts
+
+    # anything that decides how it looks
+    git diff --name-only v0.6.2..origin/main -- '*.css' '*theme*' '*token*'
+
+Three empty answers mean the commits are React behaviour, and React behaviour
+is the part of Astryx this extension does not ship. As of v2.1.1 that is
+exactly the state: upstream `main` is eleven commits ahead of `v0.6.2` and
+includes a "chore: add v0.6.3 release reference", but the three commands above
+return nothing — the commits are a Typeahead search-source fix, a PowerSearch
+value menu, a ToggleButton disabled state, a `MultiSelector`
+`formatTriggerCount`, chart audit work, docs and internal scripts. The pin
+stays on the released tag.
+
 ..  _developer-upstream-sync-harvest:
 
 Harvesting a release
@@ -31,11 +87,12 @@ The tag is validated against `/^v\d+\.\d+\.\d+$/` before anything else happens,
 so a branch name or a moving reference cannot be harvested by accident. The
 script then does four things.
 
-It **resolves the tag to a commit** through the GitHub API, at
-`/repos/facebook/astryx/git/ref/tags/<tag>`, dereferencing an annotated tag
-object where necessary so that what is recorded is the commit the tag points
-at rather than a branch head. `GITHUB_TOKEN` is used when it is set, which only
-affects rate limiting.
+It **resolves the tag to a commit** with `git ls-remote --tags`, reading the
+peeled `^{}` row so that an annotated tag records the commit it points at
+rather than the tag object. `git ls-remote` rather than the GitHub API,
+because the API refuses anonymous callers after sixty requests an hour and a
+harvest that fails on a 403 in its first second is a harvest nobody runs
+twice.
 
 It **downloads the tag's source tarball** into :file:`var/astryx/` — git-ignored
 — so the tree of that exact tag can be inspected and so the fallback described

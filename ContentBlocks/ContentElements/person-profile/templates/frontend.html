@@ -24,7 +24,7 @@
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-person-profile__grid">
 
             <div class="g-person-profile__copy">
-                <a:atom.heading level="1" class="g-person-profile__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.heading level="2" type="heading-1" class="g-person-profile__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.subheader}">
                     <a:atom.text type="large" class="g-person-profile__role">{data -> f:render.text(field: 'subheader')}</a:atom.text>

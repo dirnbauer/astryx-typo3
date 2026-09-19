@@ -1,7 +1,7 @@
 {
   "name": "@webconsulting/astryx-typo3",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Build tooling for the Astryx for TYPO3 TYPO3 extension: Astryx theme tokens, component CSS, self-hosted fonts.",
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "upstream:diff": "node Build/Scripts/diff-astryx-manifest.mjs",
     "build:themes": "node Build/Scripts/build-astryx-themes.mjs",
     "build:overview": "node Build/Scripts/build-theme-overview.mjs",
-    "build:contract": "node Build/Scripts/sync-component-contract.mjs"
+    "build:contract": "node Build/Scripts/sync-component-contract.mjs",
+    "check:upstream": "node Build/Scripts/check-astryx-upstream.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

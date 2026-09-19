@@ -19,7 +19,7 @@
                     so search results and the page module show a person rather
                     than a job description.
                 </f:comment>
-                <a:atom.heading level="1" class="g-hero-profile__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.heading level="2" type="heading-1" class="g-hero-profile__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.role}">
                     <a:atom.text type="large" class="g-hero-profile__role">{data -> f:render.text(field: 'role')}</a:atom.text>
