@@ -18,18 +18,24 @@ cannot mean one thing in the markup and another in the stylesheet.
 Four layers, one direction
 ==========================
 
-The 74 components live in four layers, in Brad Frost's order:
+The 189 components live in four layers, in Brad Frost's order:
 
 *   **Layout** — the page's skeleton: `Section`, `Container`, `Grid`, `Split`,
-    `Stack`, `Center`. Imports nothing.
+    `Stack`, `Center`, `ScrollableArea` and seven more. Imports nothing.
 *   **Atom** — one indivisible thing: `Heading`, `Text`, `Button`, `Link`,
-    `Badge`, `Icon` and fourteen more. Imports nothing.
+    `Badge`, `Icon`, `TextArea`, `Switch` and thirty-five more. Imports
+    nothing.
 *   **Molecule** — atoms in a named arrangement: `Card`, `Item`, `Table`,
-    `Collapsible`, `Dialog`, `Field` and thirty-six more. May import Atom and
-    Layout.
+    `Collapsible`, `Dialog`, `Field`, `DropdownMenu`, `Typeahead` and a
+    hundred and nine more. May import Atom and Layout.
 *   **Organism** — a whole region of a page: `SiteHeader`, `SiteFooter`,
-    `Breadcrumb`, `PageHeader`, `SearchForm`, `ThemeSwitcher`. May import
-    anything.
+    `TopNav`, `SideNav`, `CommandPalette`, `ChatComposer` and nine more. May
+    import anything.
+
+Which layer a component belongs in is a question about what it composes, not
+about how big it is: a component that reaches for another `a:` component is at
+least a Molecule, and one that composes Molecules into a page region is an
+Organism.
 
 The direction is one-way and is enforced rather than agreed:
 :php:`AtomicDesignConformanceTest::theLayerGraphIsOneWay()` reads every `<a:…>`
@@ -127,7 +133,7 @@ the component, so the markup would be right in the template and wrong on the
 page. :php:`AtomicDesignConformanceTest::everyComponentDeclaresTheArgumentsItsCallSitesPass()`
 scans every call site in every template and component and reports any attribute
 that has no matching `<f:argument>`, and the functional test
-:php:`ComponentRenderingTest` renders all 74 components with their required
+:php:`ComponentRenderingTest` renders all 189 components with their required
 arguments filled, so a renamed or newly required argument fails in CI rather
 than on a live page.
 

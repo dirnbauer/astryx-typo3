@@ -272,9 +272,18 @@ for a first child that is still on the left. See :ref:`developer-design-review`.
 Native elements, and what happens without JavaScript
 ====================================================
 
-Only seven of the 250 elements carry any JavaScript at all. Everything else is
-the platform: disclosures are `<details>` and `<summary>`, modals are `<dialog>`
-opened with `showModal()`, carousels are CSS scroll-snap.
+No element ships JavaScript of its own, and only two write a script hook into
+their own markup. Everything else is either the platform — disclosures are
+`<details>` and `<summary>`, modals are `<dialog>` opened with `showModal()`,
+menus are the popover API, carousels are CSS scroll-snap — or one of the
+seventeen components that carry a `data-g-…` hook for the single shared
+:file:`Resources/Public/Js/astryx.js`.
+
+A component that cannot do its whole job without a script says so in its own
+comment rather than rendering a control that takes a click and does nothing.
+`Lightbox` renders no previous and next arrows for that reason: a
+`showModal()` dialog lives in the top layer, where `:target` cannot reach it,
+so stepping works on the gallery in the page and not inside the dialog.
 
 `Dialog` is the clearest case of why. The element gives the top layer, the focus
 trap, the Escape key and a real `::backdrop` for nothing, so the only script
