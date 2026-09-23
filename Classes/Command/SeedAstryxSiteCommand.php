@@ -835,10 +835,10 @@ final class SeedAstryxSiteCommand extends Command
             $cType,
             $record['name'],
             [
-                'eyebrow' => 'The catalog',
-                'header' => 'Two hundred and fifty elements, in ten editor categories',
-                'lead' => 'The same ten groups the element picker uses. Every chapter wears a '
-                    . 'different theme, so walking the catalog is also a walk through the themes.',
+                'eyebrow' => 'The catalogue',
+                'header' => '250 elements in ten editor groups',
+                'lead' => 'The same groups as in the element picker. Each chapter uses one of '
+                    . 'the 7 upstream Astryx themes, so you see the themes as you browse.',
                 'columns' => '2',
                 'tone' => 'body',
                 'width' => 'lg',
