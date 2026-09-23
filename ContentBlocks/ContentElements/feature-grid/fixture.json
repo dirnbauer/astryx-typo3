@@ -1,8 +1,8 @@
 {
     "_type": "feature",
     "eyebrow": "Feature Grid",
-    "header": "An icon, a title and one sentence — repeated",
-    "lead": "The default capability grid in two to four columns. The card variant gives every cell a surface, the plain variant takes it away, and nothing else about the cell changes.",
+    "header": "An icon, a title and one sentence",
+    "lead": "The standard feature grid, in two to four columns. The card style gives each cell a surface, the plain style removes it.",
     "columns": "3",
     "variant": "card",
     "tone": "body",
@@ -12,22 +12,22 @@
         {
             "icon": "columns",
             "title": "Two to four columns",
-            "text": "The count is an editor's choice, and the grid still reflows on the room it has rather than on the width of the viewport."
+            "text": "Editors choose the number of columns. The grid adapts to the space it has, not to the screen width."
         },
         {
             "icon": "square",
             "title": "Card or plain",
-            "text": "The variant adds or removes the card surface. Everything else — spacing, order, icon tile — stays exactly where it was."
+            "text": "The style adds or removes the card surface. Spacing, order and icons stay the same."
         },
         {
             "icon": "align",
             "title": "Cells of equal height",
-            "text": "Every cell stretches to the tallest of its row, which is what keeps the icon tiles on one optical line."
+            "text": "Each cell stretches to the tallest cell in its row, so the icons line up."
         },
         {
             "icon": "link",
             "title": "One link per cell",
-            "text": "Give a cell a link and the whole cell becomes the target, with the title carrying the accessible name."
+            "text": "Give a cell a link and the whole cell becomes clickable. The title names the link for screen readers."
         }
     ]
 }
