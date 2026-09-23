@@ -1,43 +1,43 @@
 {
     "_type": "content",
     "eyebrow": "Quote Carousel",
-    "header": "Several voices in one band, one at a time",
-    "lead": "The track is a scroll-snap row, so it works before any script runs: drag it, flick it, or tab into it and use the arrow keys. The two buttons are the affordance a mouse has no other way to reach, and they grey out at either end rather than lying about what they will do.",
+    "header": "Several quotes, shown one at a time",
+    "lead": "The row scrolls without a script: drag it, swipe it, or tab in and use the arrow keys. Two buttons help mouse users and grey out at either end.",
     "tone": "muted",
     "width": "lg",
     "quotes": [
         {
-            "quote_text": "Each card is a figure: a blockquote for the words, a figcaption for the person, and a portrait when there is one.",
+            "quote_text": "Each card is a figure: a blockquote for the words, a figcaption for the person and a portrait if there is one.",
             "author": "The first card",
-            "role": "Every card is the same shape",
+            "role": "Every card has the same layout",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p16.jpg",
-                    "alternative": "A man in his fifties",
+                    "alternative": "A man in his fifties with grey stubble and a dark gilet.",
                     "title": ""
                 }
             ]
         },
         {
-            "quote_text": "Two to twelve quotes. Below 768px the arrows are removed, because a touch screen already has the better control.",
+            "quote_text": "Two to twelve quotes. Below 768px the arrows are hidden, because swiping works better on a touch screen.",
             "author": "The second card",
-            "role": "Cards stay level whatever their length",
+            "role": "All cards have the same height",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p01.jpg",
-                    "alternative": "A woman in her fifties",
+                    "alternative": "A woman in her fifties with short grey hair and a dark jacket.",
                     "title": ""
                 }
             ]
         },
         {
-            "quote_text": "This is the only element in the content group with a script hook, and the hook adds nothing the browser already does.",
+            "quote_text": "This is the only element in the content group with a script hook. The hook adds nothing the browser already does.",
             "author": "The third card",
-            "role": "Behaviour lives in the shared runtime",
+            "role": "Its script is part of the shared runtime",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p02.jpg",
-                    "alternative": "A man in his thirties",
+                    "alternative": "A man in his thirties with a beard and a light blue shirt.",
                     "title": ""
                 }
             ]

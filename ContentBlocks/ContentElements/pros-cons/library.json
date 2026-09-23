@@ -1,47 +1,47 @@
 {
-    "header": "Continuous sensors or fortnightly hand sampling?",
-    "lead": "Marnau does both, and is regularly asked why it does not simply pick one. The honest answer is that each method fails in a way the other does not.",
+    "header": "Continuous sensors versus hand sampling",
+    "lead": "Marnau uses both, and people often ask why it does not pick one. Each method fails in a way the other does not.",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "points": [
         {
-            "title": "A sensor never misses a night, a storm or a bank holiday.",
+            "title": "Sensors never miss a night, storm or holiday.",
             "value": "Continuous",
             "included": 1
         },
         {
-            "title": "Fifteen-minute values make short events visible that a fortnightly round cannot see at all.",
+            "title": "15-minute values show short events that rounds miss.",
             "value": "Continuous",
             "included": 1
         },
         {
-            "title": "Once a mast is standing, a year of readings costs almost nothing to collect.",
+            "title": "Once a mast stands, readings cost almost nothing.",
             "value": "Continuous",
             "included": 1
         },
         {
-            "title": "A probe drifts quietly, and a drifting probe produces a plausible series that is simply wrong.",
+            "title": "A drifting probe gives plausible but wrong data.",
             "value": "Continuous",
             "included": 0
         },
         {
-            "title": "Only four properties can be measured this way; everything biological still needs a bottle.",
+            "title": "Measures only four properties, nothing biological.",
             "value": "Continuous",
             "included": 0
         },
         {
-            "title": "A hand sample is checked against a laboratory standard on the same day it is taken.",
+            "title": "Each sample is lab-checked on the same day.",
             "value": "Hand sampling",
             "included": 1
         },
         {
-            "title": "Twelve rounds a year cost more in staff time than the whole sensor network costs to run.",
+            "title": "12 rounds cost more than running all sensors.",
             "value": "Hand sampling",
             "included": 0
         },
         {
-            "title": "The rounds happen in daylight and in decent weather, which is not when a river is at its most interesting.",
+            "title": "Rounds happen by day, in fair weather only.",
             "value": "Hand sampling",
             "included": 0
         }

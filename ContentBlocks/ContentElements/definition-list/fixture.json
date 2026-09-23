@@ -1,7 +1,7 @@
 {
     "_type": "content",
-    "header": "Term and description, ruled between",
-    "lead": "A real dl with real dt and dd pairs, so a screen reader announces each description as belonging to its term. Two, three or four across, up to forty rows.",
+    "header": "Terms and descriptions, separated by lines",
+    "lead": "A real dl with dt and dd pairs, so screen readers announce each description with its term. Two, three or four columns, up to 40 rows.",
     "columns": "2",
     "width": "md",
     "tone": "body",
@@ -9,22 +9,22 @@
         {
             "title": "The term",
             "value": "Goes in the dt",
-            "text": "It is set in the semibold weight so the two sides stay distinguishable when the list runs long."
+            "text": "It is set in semibold, so the two sides stay easy to tell apart in a long list."
         },
         {
             "title": "The value",
             "value": "Goes in the dd",
-            "text": "Short by design — the child field caps it at twenty-four characters."
+            "text": "Keep it short: a number, a unit or a few words."
         },
         {
             "title": "The explanation",
-            "value": "Two depths",
-            "text": "When the pair needs more than a value, this longer line sits under it at the supporting size."
+            "value": "Optional",
+            "text": "When a value is not enough, this longer line sits under it in smaller text."
         },
         {
-            "title": "The rule",
+            "title": "The line",
             "value": "One per pair",
-            "text": "Drawn under each row rather than around the list, so the eye can run down either column."
+            "text": "It runs under each row, not around the list, so the eye can follow either column."
         }
     ]
 }

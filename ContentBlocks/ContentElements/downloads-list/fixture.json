@@ -1,15 +1,15 @@
 {
     "_type": "content",
-    "header": "A list of files to take away",
-    "lead": "One to twenty rows at two, three or four across. Each row is a single link target, so a reader aiming at it on a phone does not have to hit the four words of the title exactly.",
-    "note": "The format and size live in the row's own description, where an editor can keep them true — nothing on the page can read the size of a file that sits on another server.",
+    "header": "A list of files to download",
+    "lead": "One to twenty rows in two to four columns. The whole row is the link, so it is easy to tap on a phone.",
+    "note": "Put format and size in each row's description. The page cannot read the size of a file on another server.",
     "columns": "2",
     "width": "md",
     "tone": "muted",
     "files": [
         {
             "title": "The title is the first line",
-            "description": "PDF · 1.2 MB · and the context line sits under it",
+            "description": "PDF · 1.2 MB · the context line sits under the title",
             "link": "#"
         },
         {
@@ -19,12 +19,12 @@
         },
         {
             "title": "The arrow is drawn in CSS",
-            "description": "No icon request, nothing to fall back from",
+            "description": "No icon file to load or fall back from",
             "link": "#"
         },
         {
-            "title": "Below 768px the columns collapse to one",
-            "description": "A download row is unreadable at half a phone's width",
+            "title": "Below 768px there is one column",
+            "description": "Half a phone screen is too narrow for a row",
             "link": "#"
         }
     ]

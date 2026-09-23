@@ -1,16 +1,16 @@
 {
     "_type": "content",
-    "header": "A video in a sixteen-by-nine frame",
-    "lead": "The URL goes in the link field — an external player or a file from the file list. The frame holds its ratio at every width, so the page never reflows when the player finishes connecting.",
+    "header": "A video in a 16:9 frame",
+    "lead": "Put the URL in the link field: an external player or a file from the file list. The frame keeps its ratio, so the page does not jump when the player loads.",
     "cta_link": "",
-    "caption": "The poster image stands behind the player until it paints over it.",
-    "note": "No script is involved: the frame is an iframe inside the shared aspect-ratio box.",
+    "caption": "The poster image shows until the player has loaded.",
+    "note": "No script is involved. The player is an iframe inside a fixed-ratio box.",
     "width": "lg",
     "tone": "body",
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/roof-plant.jpg",
-            "alternative": "Roof plant",
+            "alternative": "Air-handling units and a metal walkway on a flat roof under a grey sky.",
             "title": ""
         }
     ]
