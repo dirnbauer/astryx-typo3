@@ -1,31 +1,31 @@
 {
-    "eyebrow": "Was mit einer Stunde geschieht",
-    "header": "Von der Buchung am Tablet zur Zeile in der Lohndatei",
-    "lead": "Vier Stufen, und eine erfasste Minute überspringt keine davon. Das ist die Kette, nach der eine Prüfung fragt.",
-    "note": "Jeder Übergang ist mit Zeitstempel und Verursacher versehen. Das Protokoll wird sieben Jahre aufbewahrt und lässt sich an jeder Stelle exportieren.",
+    "eyebrow": "Erfasste Zeit",
+    "header": "Von der Stempelung zur Lohndatei",
+    "lead": "Jede erfasste Minute durchläuft alle vier Stufen. Genau diese Kette will eine Prüferin oder ein Prüfer sehen.",
+    "note": "Jeder Schritt wird mit Zeitstempel und Namen gespeichert. Der Pfad bleibt sieben Jahre erhalten und lässt sich jederzeit exportieren.",
     "tone": "body",
     "width": "lg",
     "align": "start",
     "stages": [
         {
             "icon": "tap",
-            "title": "Buchen",
-            "text": "Die Person stempelt. Das Gerät signiert die Zeit und hält sie, wenn kein Netz da ist."
+            "title": "Erfassen",
+            "text": "Die Person stempelt ein. Das Gerät signiert die Zeit und speichert sie, wenn kein Netz verfügbar ist."
         },
         {
             "icon": "compare",
             "title": "Abgleichen",
-            "text": "Die Buchung wird mit der geplanten Schicht verglichen; jede Abweichung über der Toleranz wird markiert."
+            "text": "Die Zeit wird mit der geplanten Schicht verglichen. Jede Abweichung über der Toleranz wird markiert."
         },
         {
             "icon": "check",
             "title": "Freigeben",
-            "text": "Die Führungskraft bestätigt oder korrigiert. Eine Korrektur behält beide Werte und den angegebenen Grund."
+            "text": "Die Leitung bestätigt oder korrigiert die Zeit. Eine Korrektur behält beide Werte und den Grund."
         },
         {
             "icon": "file-export",
             "title": "Exportieren",
-            "text": "Freigegebene Minuten werden je Vertrag summiert und zum Monatsende in die Lohndatei geschrieben."
+            "text": "Freigegebene Minuten werden pro Vertrag summiert und am Monatsende in die Lohndatei geschrieben."
         }
     ]
 }
