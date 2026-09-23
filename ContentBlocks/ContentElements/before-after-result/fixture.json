@@ -1,9 +1,9 @@
 {
     "_type": "social-proof",
-    "eyebrow": "Before and After Figures",
-    "header": "Each measure twice: where it started, where it ended",
-    "lead": "One to four measures. The child's text field holds the starting value in the editor's own words, the value field holds the result, and the arrow between them is drawn by the stylesheet.",
-    "note": "Nothing is computed. An element that subtracted one figure from the other would be publishing arithmetic nobody approved.",
+    "eyebrow": "Before and After",
+    "header": "Each measure shown before and after",
+    "lead": "One to four measures, each with a starting value in the text field and a result in the value field. The stylesheet draws the arrow between them.",
+    "note": "Nothing is calculated. An element that subtracted one figure from the other would publish numbers nobody approved.",
     "columns": "2",
     "tone": "body",
     "width": "lg",
@@ -17,9 +17,9 @@
         },
         {
             "value": "40",
-            "unit": "sums",
-            "title": "Arithmetic performed",
-            "text": "was 0",
+            "unit": "%",
+            "title": "An example result",
+            "text": "was 25 %",
             "icon": "check"
         }
     ]

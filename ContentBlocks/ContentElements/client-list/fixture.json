@@ -1,51 +1,51 @@
 {
     "_type": "social-proof",
     "eyebrow": "Client List",
-    "header": "Names as type, with no imagery at all",
-    "lead": "Four to sixty customer names balanced across CSS columns. The list still reads top-to-bottom in each column, which is what a grid would have destroyed.",
-    "note": "The note carries the caveat: which customers are missing, and why.",
+    "header": "Customer names as text, without logos",
+    "lead": "Four to sixty customer names, spread across CSS columns. Each column reads from top to bottom, which a grid would not allow.",
+    "note": "Use the note for the caveat: which customers are missing, and why.",
     "columns": "3",
     "tone": "body",
     "width": "lg",
     "clients": [
         {
-            "title": "Four names minimum",
-            "description": "Fewer is a sentence",
+            "title": "At least four names",
+            "description": "For fewer, write a sentence",
             "link": "#"
         },
         {
-            "title": "Sixty names maximum",
-            "description": "Past that, use a search",
+            "title": "At most sixty names",
+            "description": "For more, add a search",
             "link": "#"
         },
         {
             "title": "Two to four columns",
-            "description": "Editor's choice",
+            "description": "The editor chooses",
             "link": ""
         },
         {
             "title": "Entries never split",
-            "description": "break-inside: avoid",
+            "description": "Each name stays in one column",
             "link": ""
         },
         {
             "title": "Links are optional",
-            "description": "A plain name still renders",
+            "description": "A name without a link still shows",
             "link": ""
         },
         {
             "title": "No logos here",
-            "description": "That is the logo cloud",
+            "description": "Use the logo cloud for logos",
             "link": ""
         },
         {
-            "title": "The sector line is one line",
-            "description": "Supporting size",
+            "title": "One line for the sector",
+            "description": "Set in a smaller size",
             "link": ""
         },
         {
             "title": "One column on a phone",
-            "description": "Below 641px",
+            "description": "Below 641 pixels",
             "link": ""
         }
     ]

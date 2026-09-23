@@ -1,9 +1,9 @@
 {
     "_type": "social-proof",
     "eyebrow": "Review Scores",
-    "header": "One figure per platform, each on its own scale",
-    "lead": "Two to six scores. The unit holds the scale in words, which is what lets 4.7 out of 5 and 92 out of 100 sit in the same row without either looking wrong.",
-    "note": "The note carries the reading date and what the figures do and do not include.",
+    "header": "Scores from several platforms in one row",
+    "lead": "Two to six scores. The unit names the scale, so 4.7 out of 5 and 92 out of 100 can sit side by side.",
+    "note": "Use the note for the date the scores were read and what they include.",
     "columns": "3",
     "tone": "body",
     "width": "lg",
@@ -12,21 +12,21 @@
             "value": "2",
             "unit": "minimum",
             "title": "Scores in a row",
-            "text": "One score on its own is the rating summary instead",
+            "text": "For a single score, use the rating summary",
             "icon": "chart"
         },
         {
             "value": "6",
             "unit": "maximum",
             "title": "Scores in a row",
-            "text": "Past six, no reader compares them",
+            "text": "Readers stop comparing after six",
             "icon": "columns"
         },
         {
             "value": "4.4",
-            "unit": "stars drawn",
-            "title": "No star graphics here",
-            "text": "They would convert 92 out of 100 into something it is not",
+            "unit": "out of 5",
+            "title": "A number, not stars",
+            "text": "Stars would misrepresent a score like 92 out of 100",
             "icon": "star"
         }
     ]

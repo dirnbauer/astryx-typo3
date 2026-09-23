@@ -1,55 +1,55 @@
 {
     "_type": "social-proof",
     "eyebrow": "Testimonial Carousel",
-    "header": "A long list of references that does not take the whole page",
-    "lead": "The track is a scroll-snap row, so it works before any script runs: drag it, flick it, or tab into it and use the arrow keys. The next card is left peeking past the edge, because that is the only honest signal that the band continues.",
+    "header": "Many quotes in one scrolling row",
+    "lead": "A scroll-snap row that works without a script: drag, swipe or use the arrow keys. The next card peeks in at the edge.",
     "tone": "surface",
     "width": "lg",
     "quotes": [
         {
-            "quote_text": "Two to sixteen quotes. The two buttons are the affordance a mouse has no other way to reach, and they grey out at either end rather than lying about what they will do.",
+            "quote_text": "Two to sixteen quotes. The arrow buttons are for mouse users and are disabled at the start and end.",
             "author": "The first card",
-            "role": "Cards are figures, like everywhere else",
+            "role": "Each card is a figure",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p09.jpg",
-                    "alternative": "A woman in her fifties",
+                    "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
             ]
         },
         {
-            "quote_text": "Below 768px the arrows are removed: at that width they sit on top of the first and last card, and a touch screen already has the better control.",
+            "quote_text": "Below 768 pixels the arrows are hidden. On a phone they would cover the cards, and swiping works better.",
             "author": "The second card",
-            "role": "The arrows are not the mechanism",
+            "role": "The arrows are optional",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p10.jpg",
-                    "alternative": "A man in his fifties",
+                    "alternative": "Portrait of a man in his fifties.",
                     "title": ""
                 }
             ]
         },
         {
-            "quote_text": "This is the only element in the trust group with a script hook, and the hook adds nothing the browser was not already doing.",
+            "quote_text": "The script only adds the arrow buttons. Scrolling, snapping and keyboard use come from the browser.",
             "author": "The third card",
-            "role": "Behaviour lives in the shared runtime",
+            "role": "The script is shared",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p11.jpg",
-                    "alternative": "A woman in her thirties",
+                    "alternative": "Portrait of a woman in her thirties.",
                     "title": ""
                 }
             ]
         },
         {
-            "quote_text": "The attribution is pushed to the bottom of every card, so two names beside each other sit on one line however long the quotes above them run.",
+            "quote_text": "The name sits at the bottom of every card, so names line up however long the quotes are.",
             "author": "The fourth card",
-            "role": "Cards end level",
+            "role": "Names line up",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p12.jpg",
-                    "alternative": "A man in his forties",
+                    "alternative": "Portrait of a man in his forties.",
                     "title": ""
                 }
             ]
