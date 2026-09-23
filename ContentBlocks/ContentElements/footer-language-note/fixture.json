@@ -1,9 +1,9 @@
 {
     "_type": "footer",
-    "header": "Which version this is, with links to the others",
-    "text": "Plain links, not a switcher: nothing opens and nothing folds out. One to eight versions.",
+    "header": "Language versions with the current one marked",
+    "text": "Plain links, not a menu: nothing opens or folds out. One to eight versions.",
     "icon": "globe",
-    "note": "The entry with no link is the current one. It stays in the list rather than disappearing from it, carries aria-current, and says so in a visually hidden phrase as well.",
+    "note": "The entry without a link is the current version. It stays in the list, carries aria-current, and visually hidden text marks it as current.",
     "align": "start",
     "tone": "muted",
     "width": "md",
@@ -20,7 +20,7 @@
             "link": "#"
         },
         {
-            "title": "The description is the qualifier",
+            "title": "The description adds detail",
             "description": "Translation, shortened, partial",
             "link": "#"
         }

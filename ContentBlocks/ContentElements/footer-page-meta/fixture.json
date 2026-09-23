@@ -1,8 +1,8 @@
 {
     "_type": "footer",
-    "header": "The page's housekeeping line",
-    "text": "One to six label and value pairs in a description list laid out across the line: when the page was last reviewed, which version it is, who is responsible.",
-    "note": "The dates are typed rather than read from the record's timestamp — a timestamp changes when a typo is corrected, whereas this line says when a human last checked the page.",
+    "header": "Review date, version and owner in one line",
+    "text": "One to six label and value pairs in a description list, set in one line. For example: last review, version and who is responsible.",
+    "note": "Editors type the dates; they are not read from the record's timestamp. A timestamp changes when someone fixes a typo. This line says when a person last checked the page.",
     "align": "start",
     "tone": "body",
     "width": "md",
@@ -23,7 +23,7 @@
         {
             "title": "A row with no value",
             "value": "",
-            "text": "falls back to its longer text",
+            "text": "shows its longer text instead",
             "included": false
         }
     ]

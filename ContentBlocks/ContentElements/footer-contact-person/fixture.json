@@ -1,22 +1,22 @@
 {
     "_type": "footer",
     "eyebrow": "Contact Person",
-    "header": "A named person as the way in",
+    "header": "A named person to contact",
     "author": "The author field holds the name",
-    "role": "The role field holds the function",
-    "text": "Portrait, name, role, one line about what this person handles and two actions for calling or writing. The name is the card's heading, so the person can be found in a heading list.",
+    "role": "The role field holds the job title",
+    "text": "Portrait, name, role, one line on what the person handles, and buttons to call or write. The name is a heading, so it appears in the heading list.",
     "cta_label": "First action",
     "cta_link": "#",
     "secondary_label": "Second action",
     "secondary_link": "#",
-    "note": "The portrait takes an empty alt — the name is the next thing announced, and 'photograph of' before it is only in the way.",
+    "note": "The portrait has an empty alt text. Screen readers announce the name next, so describing the photo would only get in the way.",
     "tone": "surface",
     "align": "start",
     "width": "lg",
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p06.jpg",
-            "alternative": "A man in his forties",
+            "alternative": "Portrait of a smiling man in a high-visibility jacket.",
             "title": ""
         }
     ]

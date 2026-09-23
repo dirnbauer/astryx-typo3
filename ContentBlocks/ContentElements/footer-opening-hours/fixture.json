@@ -1,9 +1,9 @@
 {
     "_type": "footer",
     "eyebrow": "Opening Hours",
-    "header": "The published schedule, as a description list",
-    "text": "Day and time pairs in a real dl. One to ten rows, each with an optional qualifier on its own line under the hours.",
-    "note": "Nothing here reads the clock: no day is marked as today and there is no 'open now' state, because a cached page would go on claiming to be open at midnight. Exceptions belong in this note.",
+    "header": "Days and hours as a description list",
+    "text": "Day and time pairs in a real dl element. One to ten rows, each with an optional line of text under the hours.",
+    "note": "No day is marked as today and there is no 'open now' state: a cached page could still say 'open' at midnight. Put exceptions in this note.",
     "tone": "muted",
     "align": "start",
     "width": "md",
@@ -12,7 +12,7 @@
         {
             "title": "An open day",
             "value": "07:30 – 16:30",
-            "text": "The qualifier is optional",
+            "text": "This line is optional",
             "included": true
         },
         {
@@ -24,13 +24,13 @@
         {
             "title": "A day switched off",
             "value": "",
-            "text": "says 'Closed' as a word, not only as a style",
+            "text": "shows 'Closed' as a word, not just a style",
             "included": false
         },
         {
             "title": "Switched off with hours typed",
             "value": "08:00 – 12:00",
-            "text": "The former hours are struck through beside the word",
+            "text": "The old hours appear struck through beside it",
             "included": false
         }
     ]

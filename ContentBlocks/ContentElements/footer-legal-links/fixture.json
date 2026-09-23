@@ -1,8 +1,8 @@
 {
     "_type": "footer",
-    "header": "Legal links as one separated line",
-    "text": "Leave the heading empty and the bar reads as a single line; the nav then takes its accessible name from a translated default instead of from a heading that is not there.",
-    "note": "The rules between the links are drawn by the stylesheet. Typed into the labels they would end up in a copied line and in what a screen reader reads out.",
+    "header": "Legal links in one line",
+    "text": "Leave the heading empty and the bar becomes a single line. The nav then takes its accessible name from a translated default label.",
+    "note": "The stylesheet draws the dividers between the links. Typed into the labels, they would be copied with the text and read out by screen readers.",
     "align": "start",
     "tone": "muted",
     "width": "lg",
@@ -19,8 +19,8 @@
             "link": "#"
         },
         {
-            "title": "Below 480px the rules go",
-            "description": "A leading rule would mark a line start, not a boundary",
+            "title": "No dividers below 480px",
+            "description": "A divider at a line start marks no boundary",
             "link": "#"
         },
         {

@@ -1,10 +1,10 @@
 {
     "_type": "footer",
     "header": "Operator details as label and value pairs",
-    "text": "Two to twelve pairs in a real description list, at two, three or four columns. The short value takes the register number or the identifier; the long text takes the sentence that goes with it.",
+    "text": "Two to twelve pairs in a real description list, in two to four columns. The value holds a short number or ID; the text holds the sentence that explains it.",
     "columns": "2",
-    "note": "A summary, never a substitute: which details are required depends on the operator, so the link points at the imprint page and this block stays a pointer to it.",
-    "cta_label": "The imprint page itself",
+    "note": "This is a summary, not a replacement for the imprint. The required details depend on the operator, so the link leads to the full imprint.",
+    "cta_label": "See the imprint",
     "cta_link": "#",
     "tone": "muted",
     "width": "lg",
@@ -25,13 +25,13 @@
         {
             "title": "or only a text",
             "value": "",
-            "text": "Long entries wrap inside their column instead of widening it",
+            "text": "Long text wraps inside its column",
             "included": false
         },
         {
             "title": "Identifiers break anywhere",
             "value": "ATU 00 000 000",
-            "text": "A VAT ID has no break opportunity of its own",
+            "text": "A VAT ID has no natural break point",
             "included": false
         }
     ]

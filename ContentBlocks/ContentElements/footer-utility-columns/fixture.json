@@ -1,11 +1,11 @@
 {
     "_type": "footer",
-    "header": "Brand column, link columns, quiet line",
-    "text": "The whole closing block as one element, for a page laid out without the site's own template footer.",
+    "header": "Brand column, link columns and a closing line",
+    "text": "The complete footer as one element, for pages that don't use the site's template footer.",
     "columns": "3",
-    "cta_label": "The brand column's one link",
+    "cta_label": "Brand column link",
     "cta_link": "#",
-    "note": "Only place this where the template footer is switched off, or the page ends twice. It stays a section rather than claiming the footer landmark — two contentinfo landmarks make the landmark list meaningless.",
+    "note": "Use this only where the template footer is switched off, or the page gets two footers. It is a section, not a footer landmark: two contentinfo landmarks make the landmark list useless.",
     "tone": "surface",
     "width": "xl",
     "links": [
@@ -49,7 +49,7 @@
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/substation.jpg",
-            "alternative": "Substation",
+            "alternative": "A fenced electrical substation in open countryside at dusk.",
             "title": ""
         }
     ]

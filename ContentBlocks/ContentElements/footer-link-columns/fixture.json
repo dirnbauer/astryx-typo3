@@ -1,8 +1,8 @@
 {
     "_type": "footer",
-    "header": "Links grouped into two to four columns",
-    "lead": "One flat list of entries in a CSS column flow. An entry without a link becomes the heading of the next column, so the grouping is edited in the same list as the links themselves.",
-    "note": "The headings are real h3 elements — the column break is presentation, and nothing about it reaches a screen reader.",
+    "header": "Links in two to four columns",
+    "lead": "One list of links, spread across columns. An entry without a link becomes the heading of the next column, so editors group links in the same list.",
+    "note": "The headings are real h3 elements. Screen readers do not announce the column breaks.",
     "columns": "3",
     "tone": "muted",
     "width": "lg",
@@ -35,7 +35,7 @@
         },
         {
             "title": "A description is optional",
-            "description": "and sits under the link",
+            "description": "and appears under the link",
             "link": "#"
         },
         {
@@ -59,7 +59,7 @@
             "link": "#"
         },
         {
-            "title": "and the band around them",
+            "title": "and the space around them",
             "description": "",
             "link": "#"
         },
