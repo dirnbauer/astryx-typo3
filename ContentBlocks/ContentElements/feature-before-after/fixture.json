@@ -1,22 +1,22 @@
 {
     "_type": "feature",
-    "eyebrow": "Before and After Images",
-    "header": "Two states of one subject under a single heading",
-    "lead": "The band takes the first two files and gives each its own caption from the file's own metadata. Side by side is the default; the reveal variant stacks them and slides a boundary across.",
+    "eyebrow": "Before and After",
+    "header": "One subject, before and after",
+    "lead": "The element uses the first two images and takes each caption from the file's metadata. By default they sit side by side; the reveal style stacks them with a slider.",
     "images": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/pair/refit-before.jpg",
-            "alternative": "The bakery shopfront before the refit: faded paintwork and a sagging awning",
+            "alternative": "A bakery shopfront with peeling blue paint and a stained awning, before the refit.",
             "title": "Before — March"
         },
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/pair/refit-after.jpg",
-            "alternative": "The same shopfront after the refit: repainted, with a new awning and clear glazing",
+            "alternative": "The same bakery shopfront after the refit, freshly painted and with a new cream awning.",
             "title": "After — September"
         }
     ],
-    "caption": "Each picture takes its caption from the file's own title.",
-    "note": "The reveal sits at the halfway line at rest, so both states are visible before anybody hovers. It falls back to two stacked pictures wherever the wipe cannot be drawn.",
+    "caption": "Each image takes its caption from the file's title.",
+    "note": "The reveal divider starts in the middle, so both states show before anyone moves it. Where the slider cannot be drawn, the images are stacked.",
     "variant": "side-by-side",
     "cta_label": "Primary action",
     "cta_link": "#",

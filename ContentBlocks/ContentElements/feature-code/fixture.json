@@ -1,8 +1,8 @@
 {
     "_type": "feature",
-    "eyebrow": "Feature with Code Sample",
-    "header": "Prose on one side, a working example on the other",
-    "bodytext": "<p>For API and SDK sections, configuration examples and webhook payloads. Where a screenshot would carry the same argument, the showcase row is lighter; where the reader wants limits rather than a working call, the spec sheet is.</p>",
+    "eyebrow": "Feature with Code",
+    "header": "Text beside a working code example",
+    "bodytext": "<p>For API and SDK sections, configuration examples and webhook payloads. If a screenshot makes the same point, use the showcase row. If readers need limits rather than a working call, use the spec sheet.</p>",
     "text": "# The snippet is stored verbatim and is never rich text.\n# The caption above the block names the file or the call.\n\nGET /v2/sites/17/rota?week=2026-W31\nAuthorization: Bearer <token>",
     "caption": "example.http",
     "cta_label": "Primary action",

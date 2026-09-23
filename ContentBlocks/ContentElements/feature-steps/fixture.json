@@ -1,8 +1,8 @@
 {
     "_type": "feature",
     "eyebrow": "How It Works",
-    "header": "A numbered sequence along a connector",
-    "lead": "Steps in the order an editor puts them, joined by a line so the sequence reads before the words do. Below the small breakpoint the connector becomes a vertical rail.",
+    "header": "Numbered steps joined by a line",
+    "lead": "Steps appear in the order the editor sets, joined by a line so readers see the order before they read. On small screens the line runs down the side.",
     "columns": "3",
     "variant": "horizontal",
     "tone": "muted",
@@ -12,17 +12,17 @@
         {
             "icon": "sort",
             "title": "Numbers follow the order",
-            "text": "Reordering the children renumbers the band, because the figures come from the list's own counter."
+            "text": "Move a step and the numbers update, because they come from the list itself."
         },
         {
             "icon": "layout",
             "title": "Two to four across",
-            "text": "The column count is fixed rather than fluid, so a three-step process never reflows into two."
+            "text": "The number of columns is fixed, so a three-step process never breaks into two columns."
         },
         {
             "icon": "rotate",
             "title": "Horizontal or vertical",
-            "text": "The vertical variant keeps the rail at every width, which suits a sequence with a lot to say per step."
+            "text": "The vertical style keeps the line at the side on every screen width. It suits steps with longer text."
         }
     ]
 }

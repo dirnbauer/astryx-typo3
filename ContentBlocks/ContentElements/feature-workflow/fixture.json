@@ -1,32 +1,32 @@
 {
     "_type": "feature",
     "eyebrow": "Workflow Stages",
-    "header": "Stages chained with arrows, input to output",
-    "lead": "Use it where the boxes are system states rather than things the reader does. Where the reader is the one performing them, the how-it-works band is the right one.",
-    "note": "The note takes the legend or the caveat the diagram itself has no room for.",
+    "header": "Stages joined by arrows, from input to output",
+    "lead": "Use it when the boxes are system states, not tasks for the reader. For steps the reader performs, use the How It Works element.",
+    "note": "The note holds a legend or a caveat that doesn't fit in the diagram.",
     "tone": "body",
     "width": "lg",
     "align": "start",
     "stages": [
         {
             "icon": "arrow-down",
-            "title": "Column first",
-            "text": "On a phone the chain runs downwards, arrows and all."
+            "title": "A column on phones",
+            "text": "On a phone the stages and arrows run from top to bottom."
         },
         {
             "icon": "arrow-right",
             "title": "Row above 768px",
-            "text": "The arrows turn and sit exactly in the gap between two stages."
+            "text": "The arrows turn sideways and sit in the gap between two stages."
         },
         {
             "icon": "hash",
             "title": "Two to six stages",
-            "text": "Beyond six the row is too narrow to read and the diagram stops helping."
+            "text": "With more than six, the stages get too narrow to read."
         },
         {
             "icon": "note",
             "title": "A closing note",
-            "text": "For the caveat the boxes have no room for."
+            "text": "For a caveat that doesn't fit in the boxes."
         }
     ]
 }

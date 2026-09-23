@@ -1,34 +1,34 @@
 {
     "_type": "feature",
     "eyebrow": "Annotated Screenshot",
-    "header": "One image, one numbered legend beside it",
-    "lead": "Each entry names a marked place in the picture and explains it in a sentence. The numbers follow the child order, so reordering the entries renumbers both the list and what it refers to.",
-    "caption": "The picture takes the wider of the two columns.",
+    "header": "An image with a numbered legend",
+    "lead": "Each entry names a numbered spot in the image and explains it in one sentence. The numbers follow the order of the entries.",
+    "caption": "The image takes the wider of the two columns.",
     "reverse": false,
     "tone": "body",
     "width": "xl",
     "callouts": [
         {
-            "title": "The markers live in the artwork",
-            "text": "Drawing them over a responsive image would mean guessing coordinates that were true at one width only."
+            "title": "Markers are part of the image",
+            "text": "Markers placed over a responsive image would only be correct at one screen width."
         },
         {
             "title": "The legend is an ordered list",
-            "text": "So the sequence survives for a reader who never sees the discs."
+            "text": "Screen reader users get the sequence without seeing the numbered circles."
         },
         {
             "title": "Reverse swaps the columns",
-            "text": "Source order stays the same; only the layout changes sides."
+            "text": "The order in the HTML stays the same. Only the layout changes sides."
         },
         {
-            "title": "The picture gets the wider column",
-            "text": "Three parts to two, because the numbers inside it have to stay readable."
+            "title": "The image gets the wider column",
+            "text": "The ratio is three to two, so the numbers in the image stay readable."
         }
     ],
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/substation.jpg",
-            "alternative": "Substation",
+            "alternative": "A small fenced electrical substation in front of green hills.",
             "title": ""
         }
     ]

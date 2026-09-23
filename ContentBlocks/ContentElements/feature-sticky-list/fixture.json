@@ -1,8 +1,8 @@
 {
     "_type": "feature",
-    "eyebrow": "Sticky Intro with Feature List",
-    "header": "An intro that stays while the list scrolls past",
-    "lead": "One column is pinned, the other carries a dozen entries. Use it where a capability page is dense enough that the reader would otherwise lose what the list is a list of.",
+    "eyebrow": "Sticky Intro List",
+    "header": "An intro that stays while the list scrolls",
+    "lead": "One column stays in place while the other holds up to 12 entries. Use it on long feature pages, so readers always see what the list is about.",
     "cta_label": "Primary action",
     "cta_link": "#",
     "reverse": false,
@@ -11,28 +11,28 @@
     "items": [
         {
             "icon": "pin",
-            "title": "Sticky above the medium breakpoint",
-            "text": "Below it the columns stack and the pinning is dropped entirely."
+            "title": "Sticky on medium and wide screens",
+            "text": "On small screens the columns stack and nothing is pinned."
         },
         {
             "icon": "header",
-            "title": "Clear of the site header",
-            "text": "The offset is the header height plus a gutter, so the first line is never hidden."
+            "title": "Stays below the site header",
+            "text": "The offset is the header height plus a gap, so the first line is never hidden."
         },
         {
             "icon": "swap",
             "title": "Reverse moves the intro",
-            "text": "The column order changes; the source order does not."
+            "text": "The columns swap sides. The order in the HTML stays the same."
         },
         {
             "icon": "list",
             "title": "Three to twelve entries",
-            "text": "Fewer than three and the pinning has nothing to sit still for."
+            "text": "With fewer than three, there is nothing to scroll past the intro."
         },
         {
             "icon": "link",
-            "title": "Entries can link out",
-            "text": "The whole row becomes the target, as everywhere else in the group."
+            "title": "Entries can link",
+            "text": "The whole row becomes clickable, as in the other feature elements."
         }
     ]
 }

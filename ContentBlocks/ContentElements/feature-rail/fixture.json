@@ -1,8 +1,8 @@
 {
     "_type": "feature",
     "eyebrow": "Feature Rail",
-    "header": "One row that scrolls sideways instead of wrapping",
-    "lead": "Scroll snapping and overflow, and nothing else. The band stays one screen tall however many cards there are, which is what makes it the answer to a long capability set on a short page.",
+    "header": "One row that scrolls sideways",
+    "lead": "Built with CSS scroll snapping and nothing else. The element stays one row tall however many cards it has, so a long feature list fits on a short page.",
     "cta_label": "Secondary action",
     "cta_link": "#",
     "tone": "surface",
@@ -12,22 +12,22 @@
         {
             "icon": "scroll",
             "title": "Snap points, no script",
-            "text": "The browser handles the drag, the momentum and the keyboard."
+            "text": "The browser handles dragging, momentum and keyboard scrolling."
         },
         {
             "icon": "focus",
-            "title": "The row is a focus stop",
-            "text": "So the arrow keys reach it without a pointer."
+            "title": "The row can take focus",
+            "text": "Keyboard users can scroll it with the arrow keys."
         },
         {
             "icon": "resize",
-            "title": "Compact narrows the cards",
-            "text": "More of them are visible at once, at the cost of copy length."
+            "title": "Compact makes cards narrower",
+            "text": "More cards are visible at once, but each has room for less text."
         },
         {
             "icon": "eye",
-            "title": "The next card peeks",
-            "text": "A card cut off at the edge is the only honest promise that there is more."
+            "title": "The next card shows at the edge",
+            "text": "A card cut off at the edge tells readers there is more to scroll."
         }
     ]
 }

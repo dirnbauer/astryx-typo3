@@ -1,9 +1,9 @@
 {
     "_type": "feature",
     "eyebrow": "Feature Showcase Row",
-    "header": "One capability, one band, media on either side",
-    "bodytext": "<p>Rich text on one side, a screenshot or a photograph on the other, and a toggle that swaps them. Editors stack several of these and flip the toggle on every other one, which is how a product tour gets built without a second element.</p><p>Up to four supporting points sit under the copy as plain bullets, and one action closes the band.</p>",
-    "caption": "The image keeps its own proportions at every width.",
+    "header": "One feature, with the image on either side",
+    "bodytext": "<p>Rich text on one side, a screenshot or photo on the other, and a switch that swaps them. Stack several rows and swap every second one to build a product tour.</p><p>Up to four short points sit under the text as bullets, and one button ends the row.</p>",
+    "caption": "The image keeps its proportions at every screen width.",
     "cta_label": "Primary action",
     "cta_link": "#",
     "reverse": false,
@@ -13,21 +13,21 @@
     "points": [
         {
             "title": "Reverse",
-            "text": "Swaps the two columns without touching the source order."
+            "text": "Swaps the two columns. The order in the HTML stays the same."
         },
         {
             "title": "Featured",
-            "text": "Lifts one row of a stack onto its own surface so it can lead."
+            "text": "Puts one row on its own surface, so it stands out from the others."
         },
         {
             "title": "Rich text",
-            "text": "The body is a real editor field, not a single-paragraph textarea."
+            "text": "The main text uses the rich text editor, not a plain text field."
         }
     ],
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/pipework.jpg",
-            "alternative": "Pipework",
+            "alternative": "Copper pipes and brass valves mounted on a concrete wall.",
             "title": ""
         }
     ]

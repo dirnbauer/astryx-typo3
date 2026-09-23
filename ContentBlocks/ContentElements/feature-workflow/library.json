@@ -1,26 +1,26 @@
 {
-    "eyebrow": "What happens to an hour",
-    "header": "From a punch on a tablet to a line in the payroll file",
-    "lead": "Four stages, and a recorded minute never skips one of them. This is the chain an auditor asks to see.",
-    "note": "Every transition is timestamped and attributed. The trail is kept for seven years and is exportable at any point in it.",
+    "eyebrow": "Recorded time",
+    "header": "From clock-in to the payroll file",
+    "lead": "Every recorded minute passes through all four stages. This is the chain an auditor asks to see.",
+    "note": "Every step is saved with a timestamp and a name. The trail is kept for seven years and can be exported at any time.",
     "tone": "body",
     "width": "lg",
     "align": "start",
     "stages": [
         {
             "icon": "tap",
-            "title": "Punch",
-            "text": "The employee clocks in. The device signs the time and holds it if there is no network."
+            "title": "Record",
+            "text": "The employee clocks in. The device signs the time and stores it if there is no network."
         },
         {
             "icon": "compare",
             "title": "Match",
-            "text": "The punch is compared with the planned shift and any difference over the tolerance is flagged."
+            "text": "The time is compared with the planned shift. Any difference above the tolerance is flagged."
         },
         {
             "icon": "check",
             "title": "Approve",
-            "text": "The manager confirms or corrects. A correction keeps both values and the reason given."
+            "text": "The manager confirms or corrects the time. A correction keeps both values and the reason."
         },
         {
             "icon": "file-export",
