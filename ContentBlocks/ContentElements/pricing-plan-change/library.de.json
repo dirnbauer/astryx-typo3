@@ -1,35 +1,35 @@
 {
-    "header": "Tarifwechsel — und der Abschied",
-    "subheader": "Die Abrechnungsregeln vollständig, damit niemand anrufen und nachfragen muss.",
-    "lead": "Alles Folgende gilt ab dem Tag, an dem Sie darum bitten. Nichts davon braucht ein Support-Ticket, und nichts ändert sich zur Verlängerung.",
-    "note": "Diese Regeln gelten für direkt gebuchte Tarife. Praxen mit schriftlichem Angebot folgen für dessen Laufzeit den dortigen Bedingungen; bei Abweichungen geht das Angebot vor.",
+    "header": "Tarif wechseln und kündigen",
+    "subheader": "Alle Abrechnungsregeln auf einen Blick, damit Sie nicht anrufen müssen.",
+    "lead": "Jede Regel gilt ab dem Tag Ihrer Anfrage. Keine braucht ein Support-Ticket, und keine ändert sich bei der Verlängerung.",
+    "note": "Diese Regeln gelten für direkt gebuchte Tarife. Mit einem schriftlichen Angebot gelten für dessen Laufzeit die Bedingungen im Angebot.",
     "tone": "body",
     "width": "md",
     "compact": false,
     "rules": [
         {
-            "title": "Wir wechseln unterjährig in einen größeren Tarif. Was passiert?",
-            "bodytext": "<p>Der neue Tarif gilt ab dem Moment, in dem Sie ihn wählen. Die Rechnung am Monatsende trägt beide: den alten Tarif bis zum Wechseltag, den neuen ab diesem Tag, jeweils taggenau. Doppelt verrechnet wird nichts, und gekündigt werden muss vorher nichts.</p>"
+            "title": "Was gilt beim Upgrade mitten im Monat?",
+            "bodytext": "<p>Der neue Tarif beginnt, sobald Sie ihn wählen. Die Rechnung zum Monatsende zeigt den alten Tarif bis zu diesem Tag und danach den neuen, beide tageweise berechnet. Nichts wird doppelt berechnet, und Sie müssen vorher nichts kündigen.</p>"
         },
         {
-            "title": "Und der Wechsel nach unten?",
-            "bodytext": "<p>Eine Herabstufung wirkt zum Ende der laufenden Abrechnungsperiode, nicht sofort. Bis dahin behalten Sie, wofür Sie bezahlt haben. Wir bitten um Schriftform — eine E-Mail genügt — weil dabei Behandlerkonten wegfallen können, und das löst man nicht mit einem Klick aus.</p>"
+            "title": "Und bei einem Downgrade?",
+            "bodytext": "<p>Ein Downgrade gilt ab dem Ende des laufenden Abrechnungszeitraums. Bis dahin behalten Sie, wofür Sie bezahlt haben. Wir brauchen den Wunsch schriftlich, eine E-Mail genügt. Ein Downgrade kann Behandlerkonten entfernen, deshalb soll es nicht mit einem Klick passieren.</p>"
         },
         {
-            "title": "Am 14. hat eine neue Therapeutin angefangen. Was wird verrechnet?",
-            "bodytext": "<p>Das Konto wird ab dem Tag der Anlage verrechnet, taggenau zum Staffelpreis. Ein unterjährig deaktiviertes Konto wird bis zum Tag der Deaktivierung verrechnet. Wir runden in keine der beiden Richtungen auf einen vollen Monat auf.</p>"
+            "title": "Was gilt für neue Behandelnde mitten im Monat?",
+            "bodytext": "<p>Kommt jemand am 14. dazu, wird das Konto ab dem 14. tageweise zum Staffelpreis berechnet. Ein Konto, das mitten im Monat geschlossen wird, wird bis zu diesem Tag berechnet. Wir runden nie auf einen ganzen Monat auf.</p>"
         },
         {
             "title": "Welche Kündigungsfrist gilt?",
-            "bodytext": "<p>Ein Monat zum Monatsende. Eine Kündigung, die am 3. März eintrifft, beendet den Tarif am 30. April. Es gibt keine Mindestlaufzeit, die vorher ablaufen müsste, und keine automatische Verlängerung um ein Jahr.</p>"
+            "bodytext": "<p>Ein Monat, zum Ende eines Kalendermonats. Eine Kündigung, die am 3. März eingeht, beendet den Tarif am 30. April. Es gibt keine Mindestlaufzeit und keine automatische Verlängerung um ein Jahr.</p>"
         },
         {
-            "title": "Was geschieht mit unseren Daten, wenn wir gehen?",
-            "bodytext": "<p>Sie bekommen einen vollständigen Export — Patienten, Termine, Dokumente, Rechnungen — als CSV und PDF, kostenlos, wann immer Sie darum bitten. Die Praxis bleibt 60 Tage über den letzten Tag hinaus lesbar, damit eine späte Anfrage noch möglich ist, und wird dann gelöscht. Die Löschung bestätigen wir Ihnen schriftlich.</p>"
+            "title": "Was passiert mit unseren Daten beim Ausstieg?",
+            "bodytext": "<p>Sie erhalten auf Wunsch jederzeit einen kostenlosen, vollständigen Export von Patienten, Terminen, Dokumenten und Rechnungen als CSV und PDF. Nach dem letzten Tag bleiben Ihre Daten 60 Tage lesbar, falls Sie sie später brauchen. Danach löschen wir sie und bestätigen das schriftlich.</p>"
         },
         {
-            "title": "Wann gibt es Geld zurück?",
-            "bodytext": "<p>Innerhalb der ersten 60 Tage, ohne Angabe von Gründen, auf den bezahlten Tarifpreis — siehe Garantie. Danach endet ein Monatstarif einfach mit der Kündigungsfrist und wird nicht rückerstattet; eine Jahresrechnung wird nicht anteilig rückerstattet. Bereits erbrachte einmalige Leistungen werden nie rückerstattet — aber auch nie vor der Erbringung verrechnet.</p>"
+            "title": "Wann gibt es eine Erstattung?",
+            "bodytext": "<p>In den ersten 60 Tagen erhalten Sie den Tarifpreis aus jedem Grund zurück, wie in unserer Garantie beschrieben. Danach endet ein Monatstarif mit der Kündigungsfrist, und Jahresrechnungen werden nicht anteilig erstattet. Einmalige Arbeiten erstatten wir nie, berechnen sie aber erst, wenn sie erledigt sind.</p>"
         }
     ]
 }
