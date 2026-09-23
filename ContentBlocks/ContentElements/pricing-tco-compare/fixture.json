@@ -1,11 +1,11 @@
 {
     "_type": "pricing",
-    "header": "Cost of ownership as figures",
-    "subheader": "Licence, hosting, hours, migration — over a stated period",
-    "lead": "Each figure is a number with its unit and a line saying what it is measured against. A cost of ownership with no stated basis is a number chosen to win an argument.",
+    "header": "Total cost of ownership in figures",
+    "subheader": "Licence, hosting, hours and migration over a set period",
+    "lead": "Each figure has a unit and a line on what it is measured against. Without a stated basis, a cost comparison proves nothing.",
     "columns": "3",
     "align": "start",
-    "note": "The note carries the basis of the whole comparison: the period, the size of the organisation, the date the prices were taken.",
+    "note": "The note states the basis of the comparison: the period, the size of the organisation and the date of the prices.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "muted",
@@ -14,15 +14,15 @@
             "icon": "receipt",
             "value": "3,204",
             "unit": "€",
-            "title": "The label is the term",
-            "text": "A description list, so the pairing survives being read out of order."
+            "title": "The label names the figure",
+            "text": "It is a description list, so each label stays paired with its figure."
         },
         {
             "icon": "clock",
             "value": "10,800",
             "unit": "h per year",
             "title": "The unit is text, not styling",
-            "text": "So the figure is read as hours rather than as a smaller font."
+            "text": "So screen readers announce the unit, not just the number."
         },
         {
             "icon": "chart",
@@ -36,7 +36,7 @@
             "value": "210",
             "unit": "incidents",
             "title": "Two to eight figures",
-            "text": "Fewer than two is not a comparison; more than eight is a table."
+            "text": "Fewer than two is not a comparison. More than eight needs a table."
         }
     ]
 }

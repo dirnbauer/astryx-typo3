@@ -1,12 +1,12 @@
 {
     "_type": "pricing",
     "header": "Plan Card",
-    "subheader": "One tier, one card, one button",
+    "subheader": "One plan, one card, one button",
     "badge_text": "Featured",
     "price": "€89",
     "period": "per month, net",
-    "lead": "Each plan is its own content element, so a tier can be reordered, hidden or translated without touching the two beside it.",
-    "note": "The note carries whatever qualifies the price — tax, term, minimum quantity.",
+    "lead": "Each plan is its own content element. You can reorder, hide or translate one plan without touching the others.",
+    "note": "The note holds the conditions of the price, such as tax, term or minimum quantity.",
     "cta_label": "Primary action",
     "cta_link": "#",
     "secondary_label": "Secondary action",
@@ -15,30 +15,30 @@
     "tone": "body",
     "features": [
         {
-            "title": "Every row states whether it is included",
+            "title": "Each row says if it is included",
             "included": true,
-            "text": "The mark carries its own name, so the state survives being read aloud."
+            "text": "The mark has a text label, so screen readers announce it too."
         },
         {
-            "title": "A row may add a short qualifier",
+            "title": "A row can add a short detail",
             "included": true,
             "value": "like this"
         },
         {
-            "title": "A row that is not included keeps its place",
+            "title": "Excluded rows stay in the list",
             "included": false,
-            "text": "Removing it would hide the difference between this tier and the next."
+            "text": "Removing them would hide how this plan differs from the next."
         },
         {
             "title": "The price is a paragraph, not a heading",
             "included": true
         },
         {
-            "title": "The card fills the row it is placed in",
+            "title": "The card fills its row",
             "included": true
         },
         {
-            "title": "Anything the element would have to calculate",
+            "title": "Calculated totals",
             "included": false
         }
     ]

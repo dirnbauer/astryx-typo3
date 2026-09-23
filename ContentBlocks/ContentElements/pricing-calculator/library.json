@@ -1,10 +1,10 @@
 {
-    "eyebrow": "Working it out",
+    "eyebrow": "Cost estimate",
     "header": "What a month costs your practice",
-    "lead": "Five figures decide a Talbrunn invoice. Take them off last month's practice statistics and the arithmetic below gives you the month before it happens.",
-    "bodytext": "<p><strong>Monthly total = plan price + (practitioners above the plan × band rate) + (extra addresses × €25) + (SMS sent × €0.08) + (recall letters × €0.95) + (storage above 20 GB × €0.90) + add-ons</strong></p><p>A worked example. A practice with seven practitioners at two addresses, sending about 400 SMS and 60 recall letters a month, storing 24 GB and running online booking:</p><p>€89 plan + (2 × €18) + (1 × €25) + (400 × €0.08) + (60 × €0.95) + (4 × €0.90) + €19 = <strong>€260.60 net</strong>, or €312.72 including 20 % VAT.</p><p>One-off charges — migration, training, terminal setup — are not part of this sum. They appear once, on the invoice for the month the work was done.</p>",
-    "note": "The rates below are the standing ones. A practice on a written offer uses the figures in that offer, which override anything on this page for the term it covers.",
-    "cta_label": "Ask us to check your numbers",
+    "lead": "Take the figures from last month's practice statistics. The formula below then estimates your next invoice.",
+    "bodytext": "<p><strong>Monthly total = plan + (extra practitioners × band rate) + (extra addresses × €25) + (SMS × €0.08) + (letters × €0.95) + (GB above 20 × €0.90) + add-ons</strong></p><p>Example: seven practitioners at two addresses, 400 SMS and 60 recall letters a month, 24 GB stored and online booking.</p><p>€89 plan + (2 × €18) + (1 × €25) + (400 × €0.08) + (60 × €0.95) + (4 × €0.90) + €19 = <strong>€261.60 net</strong>, or €313.92 including 20% VAT.</p><p>One-off charges such as migration, training and terminal setup are not included. They appear once, on the invoice for the month of the work.</p>",
+    "note": "These are the standard rates. If you have a written offer, its figures apply for its term instead.",
+    "cta_label": "Request an estimate",
     "cta_link": "#",
     "tone": "body",
     "width": "lg",
@@ -12,7 +12,7 @@
         {
             "title": "Plan price",
             "value": "€39 – €169",
-            "text": "Einzel €39, Praxis €89, Verbund €169. One line per practice, whatever the month brings."
+            "text": "Einzel €39, Praxis €89, Verbund €169. One line per practice, every month."
         },
         {
             "title": "Practitioners above the plan",
@@ -27,12 +27,12 @@
         {
             "title": "SMS reminders",
             "value": "€0.08",
-            "text": "Roughly one per appointment where the patient asked for one. Last month's figure is on your practice statistics page."
+            "text": "About one per appointment, if the patient asked for reminders. Last month's count is on your practice statistics page."
         },
         {
             "title": "Printed recall letters",
             "value": "€0.95",
-            "text": "Only letters actually printed and posted. Recalls answered by e-mail cost nothing."
+            "text": "Only letters that are printed and posted. Recalls sent by email cost nothing."
         },
         {
             "title": "Document storage above 20 GB",
@@ -42,7 +42,7 @@
         {
             "title": "Add-ons",
             "value": "€8 – €45",
-            "text": "Add together whatever is switched on: online booking, patient app, waiting-list automation, second data location."
+            "text": "Add up all active extras: online booking, patient app, waiting-list automation and second data location."
         }
     ]
 }

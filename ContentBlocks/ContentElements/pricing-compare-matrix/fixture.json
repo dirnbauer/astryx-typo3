@@ -1,10 +1,10 @@
 {
     "_type": "pricing",
     "header": "A feature-by-feature table",
-    "subheader": "The caption names the table; the heading introduces it",
-    "lead": "Three columns: what the feature is, what this plan gives, and whether it is in the price. The full-table variant fills the band; plan-column narrows it so it can stand beside a sibling.",
+    "subheader": "The caption names the table, the heading introduces it",
+    "lead": "Three columns: the feature, what this plan offers and whether it is included. The full-table style fills the width; the plan-column style is narrower, so two fit side by side.",
     "variant": "full-table",
-    "note": "The note is where the qualifications go, so the cells stay short enough to scan.",
+    "note": "Conditions go in the note, so the cells stay short and easy to scan.",
     "tone": "body",
     "width": "lg",
     "compact": false,
@@ -13,7 +13,7 @@
             "title": "The feature is the row header",
             "value": "th scope=row",
             "included": true,
-            "text": "So a cell read on its own still knows which line it belongs to."
+            "text": "So screen readers announce which row a cell belongs to."
         },
         {
             "title": "The plan is the column header",
@@ -21,20 +21,20 @@
             "included": true
         },
         {
-            "title": "The state is a named mark",
-            "value": "Never colour alone",
+            "title": "Each state has a text label",
+            "value": "Not colour alone",
             "included": true
         },
         {
-            "title": "A caveat sits under its value",
+            "title": "A condition sits below its value",
             "value": "Second line of the cell",
             "included": true
         },
         {
-            "title": "A row outside the price keeps its place",
+            "title": "Excluded rows stay in the table",
             "value": "Add-on",
             "included": false,
-            "text": "Hiding it would hide the difference between this plan and the next."
+            "text": "Hiding them would hide how this plan differs from the next."
         },
         {
             "title": "Anything that needs a script",

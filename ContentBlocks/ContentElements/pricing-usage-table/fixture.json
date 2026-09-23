@@ -2,8 +2,8 @@
     "_type": "pricing",
     "eyebrow": "Usage Rate Table",
     "header": "Price per unit, row by row",
-    "lead": "One row per billable unit, the rate beside it, and a line saying how the unit is counted. Nothing is added up.",
-    "note": "The note carries the billing terms — when the count is taken, how it appears on the invoice, whether tax is included.",
+    "lead": "One row per billable unit, with its rate and a line on how it is counted. The table adds nothing up.",
+    "note": "The note holds the billing terms: when units are counted, how they appear on the invoice and whether tax is included.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "body",
@@ -13,22 +13,22 @@
         {
             "title": "The unit is the row header",
             "value": "€0.08",
-            "text": "So a rate read on its own still knows what it is a rate for."
+            "text": "So screen readers announce which unit each rate belongs to."
         },
         {
             "title": "The rate keeps its own column",
             "value": "€0.00",
-            "text": "Tabular figures, so the decimal points line up down the table."
+            "text": "Figures use equal widths, so the decimal points line up."
         },
         {
             "title": "How it is counted is the third column",
             "value": "€0.95",
-            "text": "The sentence that stops a rate from being argued about later."
+            "text": "A clear counting rule prevents disputes about the invoice later."
         },
         {
-            "title": "A total row",
+            "title": "No total row",
             "value": "—",
-            "text": "Deliberately absent: the arithmetic belongs to the invoice."
+            "text": "Totals belong on the invoice, not in this table."
         }
     ]
 }

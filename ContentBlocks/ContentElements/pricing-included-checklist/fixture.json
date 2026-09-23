@@ -1,29 +1,29 @@
 {
     "_type": "pricing",
     "header": "Ticks and crosses for one price",
-    "subheader": "What is in it, and what is not",
-    "lead": "One to four columns of a single list. Nothing is compared here — the band answers only what this one price covers.",
+    "subheader": "What is included and what is not",
+    "lead": "One list in one to four columns. It compares nothing and only shows what one price covers.",
     "columns": "2",
     "align": "start",
-    "note": "The note is where the qualifications go, so the rows stay short enough to scan.",
+    "note": "Conditions go in the note, so each row stays short.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "body",
     "items": [
         {
-            "title": "Every row carries a named mark",
+            "title": "Each row has a labelled mark",
             "included": true,
-            "text": "Colour alone would not survive being read aloud."
+            "text": "Screen readers can't announce colour, so the mark has a text label."
         },
         {
-            "title": "A row may add a short qualifier",
+            "title": "A row can add a short detail",
             "included": true,
             "value": "like this"
         },
         {
-            "title": "A row may add one line of caveat",
+            "title": "A row can add a note line",
             "included": true,
-            "text": "It sits under the label rather than beside it."
+            "text": "It sits below the label, not next to it."
         },
         {
             "title": "Rows read down a column, then across",
@@ -32,10 +32,10 @@
         {
             "title": "Excluded rows stay in place",
             "included": false,
-            "text": "Removing them would remove the information."
+            "text": "Removing them would hide what the price leaves out."
         },
         {
-            "title": "Anything the element would have to add up",
+            "title": "Calculated totals",
             "included": false
         }
     ]

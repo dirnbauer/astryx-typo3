@@ -1,11 +1,11 @@
 {
     "_type": "pricing",
-    "header": "A volume ladder, band by band",
-    "subheader": "The entry price above, the ladder below",
-    "lead": "Each row is a quantity range and the rate that applies inside it. The reader sees where the price starts before they see where it falls.",
-    "price": "from €00",
+    "header": "Prices that fall with quantity",
+    "subheader": "The starting price above, the bands below",
+    "lead": "Each row is a quantity range with its rate. Readers see the starting price first, then how it falls.",
+    "price": "from €9",
     "period": "per seat per period",
-    "note": "The note says when the count is taken and what happens to a seat added mid-period.",
+    "note": "The note says when seats are counted and how a seat added mid-period is billed.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "surface",
@@ -14,22 +14,22 @@
         {
             "title": "1 – 5",
             "value": "€18",
-            "text": "The range is the row header, so a rate always knows its band."
+            "text": "The range is the row header, so screen readers link each rate to its band."
         },
         {
             "title": "6 – 15",
             "value": "€15",
-            "text": "Figures are tabular, so the column reads as one falling line."
+            "text": "The figures line up, so you can see the rate fall."
         },
         {
             "title": "16 – 40",
             "value": "€12",
-            "text": "A band may carry whatever else changes with volume."
+            "text": "A band can list anything else that changes with volume."
         },
         {
             "title": "41 and above",
             "value": "€9",
-            "text": "The last band usually points at a conversation."
+            "text": "The last band often invites the reader to get in touch."
         }
     ]
 }

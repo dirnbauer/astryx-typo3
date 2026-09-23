@@ -1,9 +1,9 @@
 {
     "eyebrow": "Metered items",
-    "header": "What each unit costs on top of the plan",
-    "lead": "Only four things are counted, and none of them is a patient or an appointment. Everything else in Talbrunn is inside the monthly price.",
-    "note": "Metered items appear as separate lines on the monthly invoice, with the count for the period beside each. Figures are net; 20 % VAT is added on the invoice.",
-    "cta_label": "Work out a monthly estimate",
+    "header": "Usage charges on top of the monthly plan",
+    "lead": "We never charge per patient or per appointment. Everything not listed here is included in the monthly price.",
+    "note": "Each item appears as its own line on the monthly invoice, with the count for the month. Prices exclude 20% VAT.",
+    "cta_label": "Estimate your costs",
     "cta_link": "#",
     "tone": "body",
     "width": "lg",
@@ -12,17 +12,17 @@
         {
             "title": "SMS appointment reminder",
             "value": "€0.08",
-            "text": "Per message actually sent. Reminders that fail are not counted."
+            "text": "Per message sent. Failed reminders are not counted."
         },
         {
-            "title": "E-mail appointment reminder",
+            "title": "Email appointment reminder",
             "value": "€0.00",
             "text": "Unlimited, included in every plan."
         },
         {
             "title": "Printed recall letter",
             "value": "€0.95",
-            "text": "Per letter, including paper, envelope and Austrian domestic postage."
+            "text": "Per letter, including paper, envelope and postage within Austria."
         },
         {
             "title": "Document storage above 20 GB",
@@ -42,7 +42,7 @@
         {
             "title": "Restore from an archived backup",
             "value": "€90.00",
-            "text": "Per restore older than 90 days. Restores inside 90 days are free."
+            "text": "Per restore of a backup older than 90 days. Newer restores are free."
         }
     ]
 }

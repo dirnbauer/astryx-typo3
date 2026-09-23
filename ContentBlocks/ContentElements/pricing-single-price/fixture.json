@@ -1,11 +1,11 @@
 {
     "_type": "pricing",
     "eyebrow": "Single Price Panel",
-    "header": "One number and one button",
-    "lead": "No tiers to compare and no columns to align. The band exists to state a price and take the click.",
+    "header": "One price and one button",
+    "lead": "No plans to compare and no columns to align. This section states one price and offers one button.",
     "price": "€39",
     "period": "per month, net",
-    "note": "The note holds the terms that qualify the number — tax, deposit, minimum term.",
+    "note": "The note lists the terms of the price: tax, deposit, minimum term.",
     "cta_label": "Primary action",
     "cta_link": "#",
     "secondary_label": "Secondary action",
@@ -15,20 +15,20 @@
     "width": "md",
     "included": [
         {
-            "title": "The list sits under the button, not above it",
+            "title": "The list sits below the button",
             "included": true
         },
         {
-            "title": "Every row says whether it is in the price",
+            "title": "Each row says what the price covers",
             "included": true
         },
         {
-            "title": "A row may carry a short qualifier",
+            "title": "A row can add a short detail",
             "included": true,
             "value": "€0.08 per SMS"
         },
         {
-            "title": "Rows outside the price keep their place",
+            "title": "Excluded rows stay in the list",
             "included": false
         }
     ]

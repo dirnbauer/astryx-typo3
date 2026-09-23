@@ -1,9 +1,9 @@
 {
     "_type": "pricing",
     "header": "Charges that happen once",
-    "subheader": "Setup, migration, training — the figures that do not recur",
-    "lead": "Each row names the service, states the fee and explains what the fee covers. The third column is the one that stops a figure from being argued about later.",
-    "note": "The note carries what applies to every line — tax, when it is invoiced, surcharges for out-of-hours work.",
+    "subheader": "Setup, migration and training: fees you pay once",
+    "lead": "Each row names the service, its fee and what the fee covers. That third column answers questions before customers ask them.",
+    "note": "The note holds what applies to every line: tax, invoice timing and surcharges for out-of-hours work.",
     "tone": "body",
     "width": "lg",
     "compact": false,
@@ -11,22 +11,22 @@
         {
             "title": "The service is the row header",
             "value": "€390",
-            "text": "So a fee read on its own still knows what it is a fee for."
+            "text": "So screen readers announce which service each fee belongs to."
         },
         {
             "title": "The fee keeps its own column",
             "value": "€690",
-            "text": "Tabular figures, so the amounts line up down the table."
+            "text": "Figures use equal widths, so the amounts line up."
         },
         {
-            "title": "What it covers is prose",
+            "title": "What it covers is a sentence",
             "value": "€240",
-            "text": "A sentence, not a keyword — this is the column that answers questions before they are asked."
+            "text": "A full sentence, not a keyword, so readers know exactly what they pay for."
         },
         {
-            "title": "A fee may be zero",
+            "title": "A fee can be zero",
             "value": "€120",
-            "text": "Stating a zero is worth more than leaving the row out."
+            "text": "Showing €0 is clearer than leaving the row out."
         }
     ]
 }
