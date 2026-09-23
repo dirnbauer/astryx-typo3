@@ -143,7 +143,7 @@ Footpath survey volunteers (contributor-wall uses each portrait once):
 | Tobias Reisinger | p02 | Dispatch manager, Marbeck Verpackung | review-list, testimonial-grid |
 | Milan Prohaska (= @prohaska_m) | p06 | Warehouse manager, Talmann Sanitärhandel | testimonial-grid, testimonial-portrait, social-mentions |
 | Hannes Wurzer (= @h_wurzer) | p14 | IT lead, Presswerk Neuhaus | testimonial-carousel, social-mentions |
-| Gerald Auracher | p12 | Branch manager, Auracher Gartenbedarf | testimonial-carousel, customer-story-quote |
+| Gerald Auracher | p12 | Branch manager, Auracher Gartenbedarf | testimonial-carousel, customer-story-quote (quoted; its image slot shows the Auracher logo) |
 | @werkstatt_tobi | p08 | User-group member | social-mentions |
 
 ### Marnau Institute (river data)
@@ -243,6 +243,8 @@ suit. Reuse is fine; a photo only has to fit the text next to it.
 | scene/treatment-room | Physio couch and exercise bands | practice software |
 | scene/warehouse-aisle | Worker picking parts in a shelved aisle, trolley | stock software |
 | scene/workshop-bench | Metalworking bench, vice, drill press | workshops |
+| scene/lib-scene-week-planner-* | Laptop on a wooden desk (seedling, coffee mug, gardening gloves) showing a blurred weekly shift grid: six day columns (Monday to Saturday), seven staff rows, green, blue and ochre shifts, one shift with a red edge, a budget bar along the bottom, a tray of grey unfilled shifts on the right, a greyed-out button top right. No legible text. | Fennwood shift planner: feature-callouts, feature-showcase |
+| scene/lib-scene-team-anniversary-* | Group photo of 20 colleagues in three rows in a paved yard behind a white rendered building, overcast sky, bay tree left, bicycle right. Back row 7 men (4th from left bald, in a hi-vis jacket); middle row, left to right, man, woman, woman, woman, man, woman; front row six women and one grey-haired man of about 70 in the middle (4th); the first woman on the left wears a taupe headscarf, the 3rd (denim jacket) is the youngest. Nobody but the founder has grey hair, so faces do not match the portraits. | Aubruck team-group-photo, library and fixture (the library note lists the names in this order) |
 | gallery/g01–g06 | Weir, roadside logger cabinet, stream with marker post, rain gauges, flooded meadow, culvert | Marnau Institute |
 | gallery/g07 | Wall of labelled parts drawers | workshops, stock |
 | gallery/g08 | Pallets of boxed goods under a skylight | warehouses |
@@ -251,19 +253,19 @@ suit. Reuse is fine; a photo only has to fit the text next to it.
 | gallery/g11 | Quiet street of small shopfronts | small shops |
 | gallery/g12 | Printed schedules pinned to a corridor noticeboard | rotas, dispatch boards |
 | pair/refit-before, refit-after | The same bakery shopfront before and after a refit | bakery |
+| pair/lib-pair-backoffice-before-*, lib-pair-backoffice-after-* | A garden-centre back-office wall, sage green, window with a red geranium on the left, wooden staff door on the right. Before: whiteboard rota with blurred marker scribbles, rack of blank clock cards, shelf with a bulging ring binder and loose notes. After: the wall cleared, one tablet mounted beside the staff door, a pot of pens on a small shelf. Framing is similar, not identical. | Fennwood feature-before-after ("Before — March", "After — May") |
+| logo/lib-logo-auracher-*.svg | Monochrome wordmark: sprout on a mound + "Auracher" (drawn SVG, #111 on transparency) | Auracher Gartenbedarf: case-study-teaser, customer-story-quote |
+| logo/lib-logo-falkensteg-*.svg | Monochrome wordmark: arch footbridge + "Falkensteg" (drawn SVG, #111 on transparency) | Falkensteg Gebäudetechnik: footer-brand-newsletter, footer-utility-columns |
+| qr/lib-qr-falkensteg-app-*.svg | Scannable QR code (black on an opaque white square with quiet zone) for https://example.com/falkensteg-app | footer-app-badges (library and fixture) |
 | signature/signature-01 | Signature reading "Helene Marchetti" | leader letter |
 
 ## Pending images
 
-These slots still hold a stand-in because the pool has nothing that fits:
+These slots still hold a stand-in because the pool has nothing that fits. The
+logos, the QR code, the week planner, the back-office pair and the anniversary
+photo were added on 2026-09-23 (prompts in `Build/Data/image-prompts.json`).
 
 | New file | What it should show | Replaces |
 |---|---|---|
-| logo/auracher.png | Wordmark reading "Auracher" (garden-supply dealer) | case-study-teaser (meeting-two.jpg) and customer-story-quote (portrait p12) in library content |
-| logo/falkensteg.png | Wordmark reading "Falkensteg" (building services) | footer-brand-newsletter (workshop-bench.jpg) and footer-utility-columns (pipework.jpg) in library content |
-| qr/falkensteg-app.png | A plain black-on-white QR code, square, no logo | footer-app-badges (technician-tablet.jpg; the text says "Scan the code") |
-| scene/week-planner.jpg | A laptop in a garden-centre back office showing a weekly shift grid: seven day columns, staff rows, coloured shifts, one shift with a red edge, a budget line along the bottom, a tray of unfilled shifts, a greyed-out publish button. No legible text. | feature-callouts and feature-showcase (g12.jpg) |
-| pair/backoffice-before.jpg, pair/backoffice-after.jpg | The same staff back-office wall at a garden centre, same framing. Before: a whiteboard rota, a clock-card rack, a folder of swap notes. After: the wall cleared, one wall-mounted tablet by the staff entrance. | feature-before-after library content (bakery pair) |
-| scene/team-anniversary.jpg | Group photo of 20 colleagues in three rows in a yard behind an office, overcast June day. Back row 7 men; middle row 4 women and 2 men; front row 6 women (one in a headscarf, one about 19) and one man about 70. | team-group-photo library content (empty training room) |
 | portrait/p17–p19.jpg (optional) | Two more women (about 55, and about 40) and one more man (about 45), same portrait style | lets Nadja Reithofer, Sabine Wolkersdorfer and Christoph Waldner have their own faces and removes the team-list repeats |
 | scene/lift-shaft.jpg (optional) | A technician working in a lift machine room or shaft | hero-slideshow ("lift shafts" has no photo yet) |

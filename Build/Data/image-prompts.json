@@ -1,0 +1,40 @@
+{
+    "_readme": "Photos added to the Astryx demo image pool after the first batch (Build/Data/image-manifest.json). Generate one role at a time into its pool folder with the lab's generator, which shells out to `typo3 sitepackage:llm:generate-image --model=gpt-image-2` so the OpenAI key stays in the nr-vault: `node packages/site_package/Build/Scripts/generate-library-images.mjs --manifest packages/astryx_typo3/Build/Data/image-prompts.json --only scene --out packages/astryx_typo3/Resources/Public/Images/scene` (and --only pair --out …/Images/pair). Output names are lib-<role>-<slug>-<hash8>.webp, because the FAL seeder imports by basename and never re-imports a name it already knows. The wordmarks (logo/lib-logo-auracher-*.svg, logo/lib-logo-falkensteg-*.svg: a geometric mark plus the name as SVG text, #111 on transparency) and the QR code (qr/lib-qr-falkensteg-app-*.svg, made with Python segno, error level M, encodes https://example.com/falkensteg-app) are drawn by hand, not generated. Every business named here is invented. The alt texts are the English ones used in library.json; see Build/Data/portrait-map.md for what each photo shows.",
+    "styles": {
+        "photo": "Natural-light editorial photograph for a small business's own website. Calm palette of warm neutrals, soft daylight, realistic and unstaged, slightly imperfect everyday surfaces. No text, no letters, no numbers, no logos, no watermarks, no brand marks. Photorealistic, not an illustration."
+    },
+    "images": [
+        {
+            "slug": "week-planner",
+            "role": "scene",
+            "style": "photo",
+            "size": "1536x1024",
+            "subject": "An open silver laptop on a plain wooden desk in a small garden-centre back office, seen from slightly above and to the side, the screen filling the middle of the frame. The screen shows a weekly shift-planning grid: seven narrow day columns across, about eight staff rows down the left side, rounded coloured blocks for shifts in soft green, blue and ochre, one block outlined in red, a thin horizontal bar along the bottom of the screen, a narrow panel of grey unassigned blocks on the right, and a small greyed-out button in the top right corner. All labels on the screen are soft, blurred and unreadable. Beside the laptop a mug of coffee, a potted seedling in a terracotta pot and a pair of gardening gloves. Window light from the left.",
+            "alt": "A laptop beside a seedling and gardening gloves shows a weekly shift plan with coloured shifts."
+        },
+        {
+            "slug": "backoffice-before",
+            "role": "pair",
+            "style": "photo",
+            "size": "1536x1024",
+            "subject": "Straight-on photograph of one wall in the small staff back office of a garden centre, framed at eye level from about three metres away. The wall is painted pale sage green above a grey skirting, with a light wooden staff door on the right edge of the frame and a narrow window with a potted geranium on the sill on the left edge. On the wall between them: a large whiteboard covered in hand-drawn grid lines, smudged coloured marker scribbles and a few magnets, so faint and blurred that nothing on it can be read; to its right a wall-mounted clock-card rack holding about twenty blank beige time cards in slots; below the whiteboard a small wall shelf with a fat grey ring binder bursting with loose handwritten slips of paper and sticky notes. Cluttered but ordinary. Soft overcast daylight from the window.",
+            "alt": "A whiteboard rota, a rack of clock cards and a bulging folder of notes fill the back-office wall."
+        },
+        {
+            "slug": "backoffice-after",
+            "role": "pair",
+            "style": "photo",
+            "size": "1536x1024",
+            "subject": "Straight-on photograph of one wall in the small staff back office of a garden centre, framed at eye level from about three metres away. The wall is painted pale sage green above a grey skirting, with a light wooden staff door on the right edge of the frame and a narrow window with a potted geranium on the sill on the left edge. The wall between them is now clear and tidy: faint paler rectangles show where a whiteboard and a card rack used to hang, the small wall shelf below holds only a pot of pens, and one slim black tablet is mounted on the wall beside the staff door at shoulder height, its screen lit with a soft pale-green grid and nothing readable on it. Calm and uncluttered. Soft overcast daylight from the window.",
+            "alt": "The same wall is clear except for one tablet mounted beside the staff door."
+        },
+        {
+            "slug": "team-anniversary",
+            "role": "scene",
+            "style": "photo",
+            "size": "1536x1024",
+            "subject": "Staff group photograph of exactly twenty colleagues of a small Austrian surveying office, standing in three rows in a paved yard behind a plain rendered office building, on an overcast June day with a grey sky. Back row: seven men standing, some in shirts, one bald man in a yellow high-visibility jacket. Middle row: six people, four women and two men. Front row: seven people, six women and one grey-haired man of about seventy in the middle; one woman in the front row wears a taupe headscarf and one is a young apprentice of about nineteen. Casual office and workwear clothes in muted colours, relaxed friendly smiles, a few people with arms crossed or hands in pockets. Everyone fully visible, faces natural and in focus, photographed from the front at chest height with a wide lens. A potted bay tree and a bicycle stand at the edge of the yard.",
+            "alt": "Twenty colleagues stand in three rows in a paved yard behind the office on an overcast day."
+        }
+    ]
+}

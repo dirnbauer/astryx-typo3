@@ -21,13 +21,17 @@
 }
 
 /* A logo is normalised on height, not width: a wide wordmark and a square
-   emblem set to the same width read as two different sizes. */
+   emblem set to the same width read as two different sizes. Logos are dark
+   ink on transparency, so a dark scheme would swallow them; --g-ink-filter
+   lives in the chrome stylesheet, which may ask about the scheme. */
 .g-footer-brand-newsletter__logo {
   display: block;
   block-size: var(--spacing-10);
   inline-size: auto;
   max-inline-size: 14rem;
+  filter: var(--g-ink-filter, none);
 }
+
 
 .g-footer-brand-newsletter__prompt {
   color: var(--color-text-secondary);

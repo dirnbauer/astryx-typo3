@@ -22,16 +22,20 @@
 }
 
 /* Small and monochrome: on a card that already carries a headline and a figure,
-   a mark at full colour is the third thing competing for the first glance. */
+   a mark at full colour is the third thing competing for the first glance.
+   Marks are dark ink on transparency, so a dark scheme would swallow them;
+   --g-ink-filter lives in the chrome stylesheet, which may ask about the
+   scheme — this file may not. */
 .g-case-study-teaser__mark {
   display: block;
   block-size: var(--spacing-7);
   inline-size: auto;
   max-inline-size: 10rem;
   object-fit: contain;
-  filter: grayscale(1);
+  filter: var(--g-ink-filter, none) grayscale(1);
   opacity: 0.7;
 }
+
 
 .g-case-study-teaser__lead {
   color: var(--color-text-secondary);

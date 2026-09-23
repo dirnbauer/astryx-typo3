@@ -172,3 +172,9 @@ hr {
 :root.dark {
   --g-ink-filter: invert(1) brightness(1.35);
 }
+
+/* Gothic is a dark theme in both schemes, so its ink always needs the flip.
+   The theme attribute sits on body, below :root, so this wins either way. */
+[data-astryx-theme="gothic"] {
+  --g-ink-filter: invert(1) brightness(1.35);
+}

@@ -19,13 +19,16 @@
   max-inline-size: 28rem;
 }
 
-/* A logo is normalised on height, not width. */
+/* A logo is normalised on height, not width. It is dark ink on transparency,
+   so the chrome's --g-ink-filter lifts it on a dark scheme. */
 .g-footer-utility-columns__logo {
   display: block;
   block-size: var(--spacing-10);
   inline-size: auto;
   max-inline-size: 14rem;
+  filter: var(--g-ink-filter, none);
 }
+
 
 .g-footer-utility-columns__statement {
   color: var(--color-text-secondary);
