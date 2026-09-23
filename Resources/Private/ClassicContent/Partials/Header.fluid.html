@@ -1,0 +1,48 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The heading of a core content element: SectionIntro, with the editor's
+    header and subheader in it.
+
+    The Layout field maps to the outline, with one exception. The page title is
+    the document's only h1 — the page template renders it — so "Layout 1" asks
+    for an h1's SIZE on an h2, which is what Atom/Heading's `type` exists for.
+    Layouts 3 to 5 are h3 to h5; the default and "Layout 2" are h2, the level a
+    band directly under the page title sits at. "Hidden" (100) renders nothing.
+
+    The header and subheader go through f:render.text so the visual editor can
+    edit them in place; `optional` keeps a record type without a subheader
+    field from throwing.
+</f:comment>
+
+<f:argument name="record" type="object" optional="{true}"/>
+<f:argument name="data" type="array" optional="{true}"/>
+
+<f:if condition="{record.header} && {data.header_layout} != 100">
+    <f:variable name="level" value="2"/>
+    <f:variable name="type" value="default"/>
+    <f:switch expression="{data.header_layout}">
+        <f:case value="1"><f:variable name="type" value="heading-1"/></f:case>
+        <f:case value="3"><f:variable name="level" value="3"/></f:case>
+        <f:case value="4"><f:variable name="level" value="4"/></f:case>
+        <f:case value="5"><f:variable name="level" value="5"/></f:case>
+    </f:switch>
+
+    <a:molecule.sectionIntro align="{f:if(condition: data.header_position, then: data.header_position, else: 'default')}" class="g-core__intro">
+        <a:atom.heading level="{level}" type="{type}">
+            <f:if condition="{data.header_link}">
+                <f:then><f:link.typolink parameter="{data.header_link}"><f:render.text record="{record}" field="header" optional="{true}"/></f:link.typolink></f:then>
+                <f:else><f:render.text record="{record}" field="header" optional="{true}"/></f:else>
+            </f:if>
+        </a:atom.heading>
+        <f:if condition="{record.subheader}">
+            <a:atom.text type="large" color="secondary" class="g-core__subheader"><f:render.text record="{record}" field="subheader" optional="{true}"/></a:atom.text>
+        </f:if>
+    </a:molecule.sectionIntro>
+</f:if>
+
+</html>

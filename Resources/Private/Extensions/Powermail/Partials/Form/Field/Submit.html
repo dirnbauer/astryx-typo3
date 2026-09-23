@@ -1,0 +1,15 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Powermail "submit" field: the Astryx primary Button as a real submit
+    button. It needs no name — Powermail posts to the action in the form's own
+    URL — and `powermail_submit` is where Powermail's AJAX submit hangs its
+    progress bar.
+</f:comment>
+<div class="g-form__actions powermail_fieldwrap powermail_fieldwrap_{field.marker}">
+    <a:atom.button type="submit" class="powermail_submit g-form__submit">{field.title}</a:atom.button>
+</div>
+</html>

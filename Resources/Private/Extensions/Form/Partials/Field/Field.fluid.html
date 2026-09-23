@@ -1,0 +1,55 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The shell around every Form Framework field: an Astryx Field with a real
+    label (or a fieldset and legend), the control passed in as
+    `elementContent`, the help text and the server's message.
+
+    The contract is the core partial's — `element`, `elementContent`,
+    `doNotShowLabel`, `renderFieldset` — so a field partial from another
+    extension that renders Field/Field still lands in Astryx markup.
+
+    The ids are the core's too: `{id}-desc` for the help text and
+    `{id}-errors` for the message, which is what every control's
+    aria-describedby names. "(required)" is text in the label, never a lone
+    asterisk.
+
+    As in the core, a field rendered as a fieldset reports its own errors
+    (MultiCheckbox, RadioButton and AdvancedPassword do), so this shell only
+    reports them for the plain case.
+</f:comment>
+<f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+    <a:molecule.field status="{f:if(condition: validationResults.errors.0, then: 'error', else: 'default')}">
+        <f:if condition="{renderFieldset} == 1">
+            <f:then>
+                <fieldset>
+                    <legend class="{f:if(condition: '{doNotShowLabel} == 1', then: 'astryx-visually-hidden', else: 'astryx-field-label')}"><f:render section="Label" arguments="{_all}" /></legend>
+                    <f:render section="Element" arguments="{_all}" />
+                </fieldset>
+            </f:then>
+            <f:else>
+                <f:if condition="{doNotShowLabel} != 1">
+                    <label class="astryx-field-label" for="{element.uniqueIdentifier}"><f:render section="Label" arguments="{_all}" /></label>
+                </f:if>
+                <f:render section="Element" arguments="{_all}" />
+            </f:else>
+        </f:if>
+    </a:molecule.field>
+</f:form.validationResults>
+
+<f:section name="Label"><span>{formvh:translateElementProperty(element: element, property: 'label')}</span><f:if condition="{element.required}"><f:render partial="Field/Required" arguments="{element: element}" /></f:if></f:section>
+
+<f:section name="Element">
+    {elementContent -> f:format.raw()}
+    <f:if condition="{element.properties.elementDescription}">
+        <p class="astryx-field-description" id="{element.uniqueIdentifier}-desc">{formvh:translateElementProperty(element: element, property: 'elementDescription')}</p>
+    </f:if>
+    <f:if condition="{validationResults.flattenedErrors} && {renderFieldset} != 1">
+        <f:render partial="Field/Errors" arguments="{element: element, errors: validationResults.errors}" />
+    </f:if>
+</f:section>
+</html>

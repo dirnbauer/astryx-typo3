@@ -1,0 +1,42 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The Form Framework plugin's entry template on the Astryx site: the form
+    (or, once it has been sent, whatever its finishers answered) and the
+    flash messages, as Astryx Banners instead of the core's message markup.
+
+    A plugin with no form chosen renders nothing, exactly as the core does —
+    a visitor has no use for a note addressed to the editor.
+</f:comment>
+<f:if condition="{formConfiguration}">
+    <div class="g-plugin" data-g-plugin="form">
+        <formvh:render overrideConfiguration="{formConfiguration}" />
+        <f:flashMessages as="flashMessages">
+            <f:for each="{flashMessages}" as="flashMessage">
+                <f:render section="Banner" arguments="{severity: flashMessage.severity.value, title: flashMessage.title, message: flashMessage.message}" />
+            </f:for>
+        </f:flashMessages>
+    </div>
+</f:if>
+
+<f:section name="Banner">
+    <f:switch expression="{severity}">
+        <f:case value="2"><f:variable name="status" value="error" /></f:case>
+        <f:case value="1"><f:variable name="status" value="warning" /></f:case>
+        <f:case value="0"><f:variable name="status" value="success" /></f:case>
+        <f:defaultCase><f:variable name="status" value="info" /></f:defaultCase>
+    </f:switch>
+    <a:molecule.banner status="{status}" ariaLive="polite">
+        <a:molecule.bannerContent>
+            <f:if condition="{title}">
+                <a:molecule.bannerTitle level="3">{title}</a:molecule.bannerTitle>
+            </f:if>
+            <a:molecule.bannerBody>{message}</a:molecule.bannerBody>
+        </a:molecule.bannerContent>
+    </a:molecule.banner>
+</f:section>
+</html>

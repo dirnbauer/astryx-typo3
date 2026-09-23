@@ -1,0 +1,138 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    Every core page menu, in one of three shapes the theme already draws:
+
+      cards   a grid of clickable Cards, the page's abstract as the body —
+              the Page Card Menu element's recipe. For menus of destinations.
+      list    a List of Item rows. For a section index, where the entries are
+              read in order rather than scanned.
+      tree    two levels, each branch a link with its children listed under
+              it — the Sitemap Tree element's recipe. A sitemap that drops the
+              second level is not a sitemap.
+
+    The menu is a named navigation landmark: by the element's header where
+    there is one, by a generic label where there is not, because a page may
+    carry several and "navigation, navigation" tells a screen reader nothing.
+
+    `fallbackPages` is the Desiderio parity path: when the menu processor
+    returns nothing but the editor selected pages, those records are linked
+    directly.
+
+    A card title sits one level below the element's own heading, and at h2 when
+    the heading is hidden, so the outline never skips a level.
+</f:comment>
+
+<f:argument name="record" type="object" optional="{true}"/>
+<f:argument name="data" type="array" optional="{true}"/>
+<f:argument name="items" type="iterable" optional="{true}"/>
+<f:argument name="fallbackPages" type="iterable" optional="{true}"/>
+<f:argument name="layout" type="string" optional="{true}" default="cards"/>
+
+<f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
+<f:variable name="navFallback"><f:if condition="{layout} == 'tree'"><f:then><f:translate key="{labels}:nav.sitemap" default="Sitemap"/></f:then><f:else><f:translate key="{labels}:nav.sectionMenu" default="Section menu"/></f:else></f:if></f:variable>
+<f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+
+<f:variable name="titleLevel" value="2"/>
+<f:if condition="{record.header} && {data.header_layout} != 100">
+    <f:variable name="titleLevel" value="3"/>
+    <f:switch expression="{data.header_layout}">
+        <f:case value="3"><f:variable name="titleLevel" value="4"/></f:case>
+        <f:case value="4"><f:variable name="titleLevel" value="5"/></f:case>
+        <f:case value="5"><f:variable name="titleLevel" value="6"/></f:case>
+    </f:switch>
+</f:if>
+
+<a:layout.stack gap="6" class="g-core-menu">
+    <f:render partial="Header" arguments="{record: record, data: data}"/>
+
+    <f:if condition="{record.bodytext}">
+        <f:render partial="RichText" arguments="{record: record, field: 'bodytext'}"/>
+    </f:if>
+
+    <f:if condition="{items}">
+        <f:then>
+            <nav class="g-core-menu__nav" aria-label="{navLabel}">
+                <f:switch expression="{layout}">
+                    <f:case value="list">
+                        <a:molecule.list dividers="with-dividers" class="g-core-menu__list">
+                            <f:for each="{items}" as="item">
+                                <li class="g-core-menu__row">
+                                    <a:molecule.item href="{item.link}" interactive="interactive" ariaCurrent="{f:if(condition: item.current, then: 'page')}" class="g-core-menu__item">
+                                        <a:molecule.itemContent>
+                                            <a:molecule.itemLabel>{item.title}</a:molecule.itemLabel>
+                                            <f:if condition="{item.data.abstract}">
+                                                <a:molecule.itemDescription>{item.data.abstract}</a:molecule.itemDescription>
+                                            </f:if>
+                                        </a:molecule.itemContent>
+                                    </a:molecule.item>
+                                    <f:if condition="{item.children}">
+                                        <a:molecule.list density="compact" class="g-core-menu__leaves">
+                                            <f:for each="{item.children}" as="child">
+                                                <li><a href="{child.link}" class="g-core-menu__leaf" aria-current="{f:if(condition: child.current, then: 'page', else: 'false')}">{child.title}</a></li>
+                                            </f:for>
+                                        </a:molecule.list>
+                                    </f:if>
+                                </li>
+                            </f:for>
+                        </a:molecule.list>
+                    </f:case>
+                    <f:case value="tree">
+                        <a:layout.grid cols="3" as="ul" class="g-core-menu__tree">
+                            <f:for each="{items}" as="item">
+                                <li class="g-core-menu__branch">
+                                    <a href="{item.link}" class="g-core-menu__branch-link" aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}">{item.title}</a>
+                                    <f:if condition="{item.children}">
+                                        <a:molecule.list density="compact" class="g-core-menu__leaves">
+                                            <f:for each="{item.children}" as="child">
+                                                <li><a href="{child.link}" class="g-core-menu__leaf" aria-current="{f:if(condition: child.current, then: 'page', else: 'false')}">{child.title}</a></li>
+                                            </f:for>
+                                        </a:molecule.list>
+                                    </f:if>
+                                </li>
+                            </f:for>
+                        </a:layout.grid>
+                    </f:case>
+                    <f:defaultCase>
+                        <a:layout.grid cols="3" as="ul" class="g-core-menu__cards">
+                            <f:for each="{items}" as="item">
+                                <li class="g-core-menu__cell">
+                                    <a:molecule.card clickable="{true}" class="g-core-menu__card">
+                                        <a:molecule.cardTitle level="{titleLevel}"><a href="{item.link}" aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}">{item.title}</a></a:molecule.cardTitle>
+                                        <f:if condition="{item.data.abstract}">
+                                            <a:molecule.cardBody>{item.data.abstract}</a:molecule.cardBody>
+                                        </f:if>
+                                    </a:molecule.card>
+                                </li>
+                            </f:for>
+                        </a:layout.grid>
+                    </f:defaultCase>
+                </f:switch>
+            </nav>
+        </f:then>
+        <f:else>
+            <f:if condition="{fallbackPages}">
+                <nav class="g-core-menu__nav" aria-label="{navLabel}">
+                    <a:layout.grid cols="3" as="ul" class="g-core-menu__cards">
+                        <f:for each="{fallbackPages}" as="page">
+                            <li class="g-core-menu__cell">
+                                <a:molecule.card clickable="{true}" class="g-core-menu__card">
+                                    <a:molecule.cardTitle level="{titleLevel}"><f:link.page pageUid="{page.uid}">{f:if(condition: page.nav_title, then: page.nav_title, else: page.title)}</f:link.page></a:molecule.cardTitle>
+                                    <f:if condition="{page.abstract}">
+                                        <a:molecule.cardBody>{page.abstract}</a:molecule.cardBody>
+                                    </f:if>
+                                </a:molecule.card>
+                            </li>
+                        </f:for>
+                    </a:layout.grid>
+                </nav>
+            </f:if>
+        </f:else>
+    </f:if>
+</a:layout.stack>
+
+</html>

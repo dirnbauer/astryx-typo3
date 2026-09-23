@@ -1,0 +1,49 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The error summary after a failed server check: an Astryx error Banner at
+    the top of the form listing every problem, each a link to its field.
+    Every field also carries its own message, so this is the overview, not the
+    only place an error is said. A checkbox or radio group links to its first
+    option, which is where focus has to land.
+
+    The spam verdict has no field to point at and is listed as plain text.
+</f:comment>
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+<f:form.validationResults>
+    <f:if condition="{validationResults.flattenedErrors}">
+        <a:molecule.banner status="error" ariaLabelledby="powermail_form_{form.uid}-errors">
+            <a:molecule.bannerContent>
+                <a:molecule.bannerTitle level="4" id="powermail_form_{form.uid}-errors">{f:translate(key: '{l}:form.errorSummary.title')}</a:molecule.bannerTitle>
+                <ol class="g-form__summary-list">
+                    <f:for each="{validationResults.flattenedErrors}" as="errors">
+                        <f:for each="{errors}" as="singleError">
+                            <f:if condition="{singleError.message} == 'spam_details'">
+                                <f:then>
+                                    <li><f:translate key="validationerror_spam" extensionName="Powermail" /> {singleError.arguments.spamfactor}</li>
+                                </f:then>
+                                <f:else if="{singleError.arguments.marker}">
+                                    <f:variable name="type" value="{vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'type')}" />
+                                    <f:variable name="mandatoryText" value="{vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'mandatory_text')}" />
+                                    <f:variable name="target" value="powermail_field_{singleError.arguments.marker}{f:if(condition: '{type} == \'check\' || {type} == \'radio\'', then: '_1')}" />
+                                    <li>
+                                        <a:atom.link href="#{target}"><vh:getter.getFieldPropertyFromMarkerAndForm marker="{singleError.arguments.marker}" form="{form}" property="title" /></a:atom.link>:
+                                        <f:if condition="{mandatoryText}">
+                                            <f:then>{mandatoryText}</f:then>
+                                            <f:else><f:translate key="validationerror_{singleError.message}" extensionName="Powermail">{singleError.message}</f:translate></f:else>
+                                        </f:if>
+                                    </li>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                    </f:for>
+                </ol>
+            </a:molecule.bannerContent>
+        </a:molecule.banner>
+    </f:if>
+</f:form.validationResults>
+</html>

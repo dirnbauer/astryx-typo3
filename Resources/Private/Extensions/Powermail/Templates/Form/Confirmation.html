@@ -1,0 +1,77 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:comment>
+    The "check your answers" step, when the plugin asks for one: a Card with
+    the answers as an Astryx MetadataList (rendered by PowermailAll's web
+    section) and two actions.
+
+    Each action is its own form carrying every answer as hidden fields, the
+    way Powermail expects: "Back" returns to the filled-in form, "Send" runs
+    the create action. Plain Astryx button markup rather than the Button
+    component, because Powermail's AJAX submit tells the two apart by
+    data-powermail-form-ajax and the component has no slot for it.
+</f:comment>
+
+<f:section name="main">
+    <f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+
+    <div class="g-plugin__result" data-powermail-form="{mail.form.uid}">
+        <a:molecule.card class="g-plugin__card">
+            <header class="g-form__header">
+                <a:molecule.cardTitle level="3"><f:translate key="confirmation_message" extensionName="Powermail" /></a:molecule.cardTitle>
+                <a:atom.text color="secondary">{f:translate(key: '{l}:confirmation.description')}</a:atom.text>
+            </header>
+
+            {powermail_all -> f:format.raw()}
+
+            <div class="g-form__actions" data-align="between">
+                <f:form
+                    action="form"
+                    section="c{ttContentData.uid}"
+                    name="field"
+                    enctype="multipart/form-data"
+                    class="g-form__inline"
+                    addQueryString="{settings.misc.addQueryString}"
+                    additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: mail.form)}">
+                    <f:render section="HiddenFields" arguments="{_all}" />
+                    <button type="submit" class="astryx-button" data-variant="secondary" data-size="md" data-width="auto" data-powermail-form-ajax="confirmation"><f:translate key="confirmation_prev" extensionName="Powermail" /></button>
+                </f:form>
+
+                <f:form
+                    action="create"
+                    section="c{ttContentData.uid}"
+                    name="field"
+                    enctype="multipart/form-data"
+                    class="g-form__inline"
+                    addQueryString="{settings.misc.addQueryString}"
+                    additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: mail.form)}">
+                    <f:render section="HiddenFields" arguments="{_all}" />
+                    <button type="submit" class="astryx-button powermail_submit" data-variant="primary" data-size="md" data-width="auto" data-powermail-form-ajax="submit"><f:translate key="confirmation_submit" extensionName="Powermail" /></button>
+                </f:form>
+            </div>
+        </a:molecule.card>
+    </div>
+</f:section>
+
+<f:section name="HiddenFields">
+    <f:for each="{mail.answers}" as="answer">
+        <f:if condition="{vh:condition.isArray(val: answer.value)}">
+            <f:then>
+                <f:for each="{answer.value}" as="subvalue" iteration="i">
+                    <f:form.hidden property="{answer.field.marker}.{i.index}" value="{subvalue}" respectSubmittedDataValue="false" />
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:form.hidden property="{answer.field.marker}" value="{answer.value}" respectSubmittedDataValue="false" />
+            </f:else>
+        </f:if>
+    </f:for>
+    <f:form.hidden name="mail[form]" value="{mail.form.uid}" class="powermail_form_uid" />
+</f:section>
+</html>

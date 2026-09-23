@@ -1,0 +1,64 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>Form element "ImageUpload": like FileUpload, with a thumbnail per uploaded image. The bare control is what the Astryx Field paints; the aria wiring names the help text and, after a failed check, the message.</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+        <f:variable name="describedBy">{f:if(condition: element.properties.elementDescription, then: '{element.uniqueIdentifier}-desc')} {f:if(condition: validationResults.errors, then: '{element.uniqueIdentifier}-errors')}</f:variable>
+        <f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+        <f:if condition="{describedBy}">
+            <f:variable name="aria" value="{describedby: describedBy}" />
+        </f:if>
+        <f:if condition="{validationResults.errors}">
+            <f:variable name="aria" value="{invalid: 'true', describedby: describedBy}" />
+        </f:if>
+
+        <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+            <formvh:form.uploadedResource
+                property="{element.identifier}"
+                as="image"
+                id="{element.uniqueIdentifier}"
+                errorClass="g-form__invalid"
+                additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                accept="{element.properties.allowedMimeTypes}"
+                aria="{aria}"
+                multiple="{element.properties.multiple}"
+            >
+                <f:if condition="{image}">
+                    <div id="{element.uniqueIdentifier}-preview" class="g-form__files">
+                        <a:molecule.list density="compact">
+                            <f:if condition="{element.properties.multiple}">
+                                <f:then>
+                                    <f:for each="{image}" as="singleImage" iteration="iterator">
+                                        <f:render section="Image" arguments="{element: element, image: singleImage, index: iterator.index}" />
+                                    </f:for>
+                                </f:then>
+                                <f:else>
+                                    <f:render section="Image" arguments="{element: element, image: image, index: 0}" />
+                                </f:else>
+                            </f:if>
+                        </a:molecule.list>
+                    </div>
+                </f:if>
+            </formvh:form.uploadedResource>
+        </f:render>
+    </f:form.validationResults>
+</formvh:renderRenderable>
+<f:section name="Image">
+    <a:molecule.listItem class="g-form__file">
+        <a href="{f:uri.image(image: image, maxWidth: element.properties.imageLinkMaxWidth)}" class="g-form__thumb-link">
+            <f:image image="{image}" maxWidth="{element.properties.imageMaxWidth}" maxHeight="{element.properties.imageMaxHeight}" alt="{image.originalResource.originalFile.name}" class="g-form__thumb" />
+        </a>
+        <f:if condition="{element.properties.allowRemoval}">
+            <label class="astryx-checkbox-list-item g-form__file-remove">
+                <formvh:form.uploadDeleteCheckbox property="{element.identifier}" fileReference="{image}" fileIndex="{index}" />
+                <f:translate key="upload.remove" domain="form" default="Remove" />
+                <a:atom.visuallyHidden>{image.originalResource.originalFile.name}</a:atom.visuallyHidden>
+            </label>
+        </f:if>
+    </a:molecule.listItem>
+</f:section>
+</html>

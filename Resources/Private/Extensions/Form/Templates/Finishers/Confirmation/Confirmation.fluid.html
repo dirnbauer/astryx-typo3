@@ -1,0 +1,19 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The Confirmation finisher's message after a successful submit, as a
+    success Banner. The id is the form's, so the section anchor the form
+    posted to lands on the answer. A live region, because the answer replaces
+    the form the visitor was just in.
+</f:comment>
+<div id="{form.identifier}" class="g-plugin__result">
+    <a:molecule.banner status="success" ariaLive="polite">
+        <a:molecule.bannerContent>
+            <a:molecule.bannerBody as="div" class="astryx-prose">{message -> f:sanitize.html() -> f:transform.html()}</a:molecule.bannerBody>
+        </a:molecule.bannerContent>
+    </a:molecule.banner>
+</div>
+</html>

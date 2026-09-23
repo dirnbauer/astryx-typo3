@@ -1,0 +1,26 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    File links: the heading, the editor's optional intro text, then the file
+    list. {files} comes from the files processor on this CType, which already
+    merges the file references with any file collections and sorts them the
+    way the editor chose.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-uploads">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:if condition="{record.bodytext}">
+            <f:render partial="RichText" arguments="{record: record, field: 'bodytext'}"/>
+        </f:if>
+        <f:render partial="FileList" arguments="{files: files, displayFileSize: data.filelink_size, displayDescription: data.uploads_description, uploadsType: data.uploads_type}"/>
+    </a:layout.stack>
+</f:section>
+
+</html>

@@ -1,0 +1,26 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Password recovery's validation errors as an Astryx error Banner. The core
+    prints the property path and the error code for each one; a visitor needs
+    the sentence, so only the message is shown.
+</f:comment>
+<f:form.validationResults>
+    <f:if condition="{validationResults.flattenedErrors}">
+        <a:molecule.banner status="error" ariaLive="polite">
+            <a:molecule.bannerContent>
+                <ul class="g-form__summary-list">
+                    <f:for each="{validationResults.flattenedErrors}" as="errors">
+                        <f:for each="{errors}" as="error">
+                            <li>{error.message}</li>
+                        </f:for>
+                    </f:for>
+                </ul>
+            </a:molecule.bannerContent>
+        </a:molecule.banner>
+    </f:if>
+</f:form.validationResults>
+</html>

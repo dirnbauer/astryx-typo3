@@ -1,0 +1,21 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The frame for a plugin that brings its own band.
+
+    EXT:solr's templates in this theme (Resources/Private/Solr) already open an
+    Astryx Section and Container of their own — the results page needs its
+    two-column grid at the extra-wide measure, not the content column. Putting
+    them inside Default's section as well would nest a band in a band and
+    double both the vertical rhythm and the gutters, so this layout adds
+    nothing but the anchor every content element carries.
+</f:comment>
+
+<div id="c{data.uid}">
+    <f:render section="Main"/>
+</div>
+
+</html>

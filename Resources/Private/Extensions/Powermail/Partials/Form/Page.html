@@ -1,0 +1,76 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    One Powermail page: a fieldset whose legend names it, and a FormLayout
+    holding its fields.
+
+    The legend is visible when the form has more than one page — then it is the
+    heading of a step — and visually hidden otherwise, where it would only
+    repeat the form title above it. It is never dropped: the fieldset needs a
+    name either way.
+
+    `powermail_fieldset` and `powermail_fieldset_{uid}` are the hooks the
+    multi-step script and powermail_cond show and hide pages by.
+
+    In a multi-step form the last page's submit button moves out of the field
+    list and into the step row, next to "Back", so the row reads the same on
+    every page.
+</f:comment>
+
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+
+<fieldset id="powermail_fieldset_{page.uid}" class="g-form__page powermail_fieldset powermail_fieldset_{page.uid}">
+    <f:if condition="{pageCount} > 1 && {page.css} != 'nolabel'">
+        <f:then><legend class="g-form__legend">{page.title}</legend></f:then>
+        <f:else><a:atom.visuallyHidden as="legend">{page.title}</a:atom.visuallyHidden></f:else>
+    </f:if>
+
+    <a:layout.formLayout>
+        <f:for each="{page.fields}" as="field">
+            <f:if condition="{settings.main.moresteps} && {iterationPages.isLast} && {field.type} == 'submit'">
+                <f:else>
+                    <f:render partial="Form/Field/{vh:string.upper(string: field.type)}" arguments="{field: field, settings: settings, mail: mail, form: form}" />
+                </f:else>
+            </f:if>
+        </f:for>
+    </a:layout.formLayout>
+
+    <f:if condition="{settings.main.moresteps}">
+        <div class="g-form__actions" data-align="between">
+            <f:if condition="!{iterationPages.isFirst}">
+                <button
+                    type="button"
+                    class="astryx-button"
+                    data-variant="secondary"
+                    data-size="md"
+                    data-width="auto"
+                    data-powermail-morestep-show="{iterationPages.index - 1}"
+                    data-powermail-morestep-previous="1">{f:translate(key: '{l}:form.previous')}</button>
+            </f:if>
+            <f:if condition="{iterationPages.isLast}">
+                <f:then>
+                    <f:for each="{page.fields}" as="field">
+                        <f:if condition="{field.type} == 'submit'">
+                            <a:atom.button type="submit" class="powermail_submit g-form__submit">{field.title}</a:atom.button>
+                        </f:if>
+                    </f:for>
+                </f:then>
+                <f:else>
+                    <button
+                        type="button"
+                        class="astryx-button g-form__submit"
+                        data-variant="primary"
+                        data-size="md"
+                        data-width="auto"
+                        data-powermail-morestep-validate="{settings.validation.morestep.fieldset}"
+                        data-powermail-morestep-show="{iterationPages.cycle}">{f:translate(key: '{l}:form.next')}</button>
+                </f:else>
+            </f:if>
+        </div>
+    </f:if>
+</fieldset>
+</html>

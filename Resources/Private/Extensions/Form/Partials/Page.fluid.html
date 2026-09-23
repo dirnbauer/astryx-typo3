@@ -1,0 +1,30 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    One page of a Form Framework form: its title, a "Step 2 of 3" line when
+    the form has more than one page, and its fields in an Astryx FormLayout.
+    The title is an h3: the content element's own header is the h2 above it.
+</f:comment>
+<formvh:renderRenderable renderable="{page}">
+    <f:variable name="pageCount" value="{page.rootForm.pages -> f:count()}" />
+    <f:if condition="{page.label} || {pageCount} > 1">
+        <header class="g-form__header">
+            <f:if condition="{pageCount} > 1">
+                <a:atom.text type="supporting" color="secondary">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf:form.stepOf', arguments: {0: '{page.index + 1}', 1: pageCount})}</a:atom.text>
+            </f:if>
+            <f:if condition="{page.label}">
+                <a:atom.heading level="3" type="heading-4">{formvh:translateElementProperty(element: page, property: 'label')}</a:atom.heading>
+            </f:if>
+        </header>
+    </f:if>
+    <a:layout.formLayout>
+        <f:for each="{page.elements}" as="element">
+            <f:render partial="{element.templateName}" arguments="{element: element}" />
+        </f:for>
+    </a:layout.formLayout>
+</formvh:renderRenderable>
+</html>

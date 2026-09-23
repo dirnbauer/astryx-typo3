@@ -1,0 +1,31 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    Insert records: the referenced content elements, each rendered through its
+    own template and therefore each in its own Section. The stylesheet takes
+    the nested bands' outer spacing and gutters away again, so the inserted
+    elements line up with this element's column instead of being indented twice.
+
+    The raw `records` value ("tt_content_12,tt_content_14") is what Desiderio's
+    RECORDS object reads as its current value; the Record API's resolved
+    relation is not a string it can use.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-shortcut">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:if condition="{data.records}">
+            <div class="g-core-shortcut__records">
+                <f:cObject typoscriptObjectPath="lib.desiderioShortcutRecords" data="{data.records}"/>
+            </div>
+        </f:if>
+    </a:layout.stack>
+</f:section>
+
+</html>

@@ -1,0 +1,514 @@
+/*
+ * Plugin forms — Powermail, the Form Framework and Frontend Login.
+ *
+ * The templates in Resources/Private/Extensions/ build these plugins from
+ * Astryx components: a Card around the form, FormLayout for the fields, a
+ * Field around every label and control, CheckboxList and RadioList for
+ * groups, FieldStatus for messages, Banner for results and errors, Button for
+ * every action. The controls themselves are bare <input>, <select> and
+ * <textarea> elements, which `.astryx-field` already paints (05-forms.css).
+ *
+ * What is left for this file is the arrangement only those plugins have: the
+ * frame, the form's rhythm, the step row of a multi-step Powermail form, the
+ * button row, and the elements Powermail's script inserts at runtime (its
+ * error list and its AJAX progress bar), which no Astryx template writes and
+ * so no component rule reaches.
+ *
+ * This partial sits in the astryx-chrome layer, which outranks the component
+ * layer outright — so every rule here is scoped under `.g-form` or
+ * `.g-plugin`, and touches a component only where the plugin genuinely needs
+ * something the component does not do.
+ */
+
+/* ---------------------------------------------------------- plugin frame */
+/* A form is a column of fields, and a column of fields past ~45rem is harder
+   to fill in, not easier: the eye has to travel from a label at the left edge
+   to a control stretched across the whole content width. The frame keeps the
+   measure and leaves the placement to the content element around it. */
+.g-plugin {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  inline-size: 100%;
+  max-inline-size: 44rem;
+}
+
+.g-plugin__result {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+@media (max-width: 480px) {
+  .g-plugin__card {
+    --card-padding: var(--spacing-4);
+  }
+}
+
+/* Powermail's behaviour hooks. They carry no look of their own — the script
+   and powermail_cond find the form, its pages and its fields by them — but as
+   flex and grid children they must be allowed to shrink below the width of a
+   long label or a wide select. */
+.tx-powermail,
+.powermail_form,
+.powermail_fieldset,
+.powermail_fieldwrap,
+.powermail_fieldwrap_type_file {
+  min-inline-size: 0;
+}
+
+/* A hidden input is never displayed; said once so the hook is not mistaken
+   for something that ought to be styled. */
+.powermail_form_uid {
+  display: none;
+}
+
+/* ------------------------------------------------------------------ form */
+.g-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  margin: 0;
+}
+
+/* Extbase opens every form with an unclassed <div> of hidden fields (request
+   token, trusted properties, referrer). As a flex item it is an empty box that
+   still takes a gap; without a box of its own it takes nothing. */
+.g-form > div:not([class]):has(> input[type='hidden']) {
+  display: contents;
+}
+
+.g-form__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.g-form__header > * {
+  margin: 0;
+}
+
+/* A page, or a fieldset inside it. Block, not flex, and spaced by margins:
+   Powermail's multi-step script shows a page by writing display:block onto it,
+   which would switch a flex column off halfway through — and a fieldset's
+   rendered legend is never one of its flex items anyway. */
+.g-form__page,
+.g-form__fieldset {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-inline-size: 0;
+}
+
+.g-form__legend {
+  margin-block-end: var(--spacing-3);
+  padding: 0;
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-4-size);
+  line-height: var(--text-heading-4-leading);
+  font-weight: var(--text-heading-4-weight);
+  color: var(--color-text-primary);
+}
+
+/* The step row at the foot of a multi-step page. */
+.g-form__page > .g-form__actions {
+  margin-block-start: var(--spacing-6);
+}
+
+/* "(required)" where it is not the direct child of a Field label the component
+   styles — beside a single checkbox, in a group legend — drawn the same. */
+.g-form [data-optionality] {
+  font-weight: var(--font-weight-normal);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* A link an editor wrote into a label (a privacy notice beside the consent
+   box) is an Astryx Link, not the browser's default blue. */
+.g-form :where(label, legend) a {
+  color: var(--color-text-accent);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+}
+
+/* The same fact about legends, for the ones a CheckboxList, a RadioList or a
+   fieldset-rendered Form Framework field puts inside an Astryx Field. */
+.g-form .astryx-field legend:not(.astryx-visually-hidden) {
+  margin-block-end: var(--spacing-2);
+}
+
+/* A multi-step page comes into view with a scroll; the offset keeps its
+   legend clear of the sticky site header. */
+.powermail_morestep .powermail_fieldset {
+  scroll-margin-block-start: var(--spacing-12);
+}
+
+/* The Extbase error class a control gets after a failed server check. The
+   Field already paints aria-invalid; this is the same border for controls the
+   plugin marks by class alone. */
+.g-form .g-form__invalid {
+  border-color: var(--color-error);
+}
+
+/* A server message may hold more than one sentence, one per failed rule. */
+.g-form__error {
+  display: block;
+}
+
+/* --------------------------------------------------------------- actions */
+.g-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+/* Back on the left, forward on the right — and forward stays on the right
+   on the first page too, where there is no Back beside it. */
+.g-form__actions[data-align="between"] {
+  justify-content: space-between;
+}
+
+.g-form__actions[data-align="between"] > .g-form__submit,
+.g-form__actions[data-align="between"] > .powermail_submit {
+  margin-inline-start: auto;
+}
+
+/* Powermail's confirmation step posts "Back" and "Send" from two forms of
+   their own; each is just a wrapper around its button. */
+.g-form__inline {
+  display: inline-flex;
+  margin: 0;
+}
+
+.g-form__links {
+  margin: 0;
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+/* ------------------------------------------------------ multi-step row */
+/* Powermail's step buttons. Its script shows one page at a time and moves an
+   `active` class between these buttons, reading the step to show from the
+   clicked element itself — so nothing inside a button may take the click. */
+.g-form__steps {
+  min-inline-size: 0;
+}
+
+.g-form__step-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-form__step-item {
+  margin: 0;
+}
+
+.g-form__step > * {
+  pointer-events: none;
+}
+
+.g-form__step-index {
+  display: inline-grid;
+  place-items: center;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  border-radius: var(--radius-full);
+  background-color: var(--color-background-surface);
+  font-size: var(--text-supporting-size);
+  line-height: 1;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* The page on screen: the primary button's fill. `active` is not an Astryx
+   modifier — it is the class Powermail's script moves between the step
+   buttons, the only state it exposes — so it is selected as what it is, the
+   active item of the step row. */
+.g-form__steps .active {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.g-form__steps .active .g-form__step-index {
+  background-color: var(--color-on-accent);
+  color: var(--color-accent);
+}
+
+/* On a phone every step but the current one shrinks to its number; the
+   title stays in the accessibility tree through the visually hidden
+   "step n of m" and the label itself. */
+@media (max-width: 480px) {
+  .g-form__step:not(.active) .g-form__step-label {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* ------------------------------------------------------ field messages */
+/* The slot every Powermail field keeps for messages. Empty — the common
+   case — it takes no room in the Field's column. */
+.g-form__messages:empty {
+  display: none;
+}
+
+/* Powermail's client validation writes `<ul class="powermail-errors-list">`
+   into that slot. Drawn as the FieldStatus error it stands in for. */
+.g-form__messages .powermail-errors-list {
+  margin: 0;
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-2);
+  list-style: none;
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-red);
+  color: var(--color-text-red);
+  font-family: var(--font-family-body);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+.g-form__messages .powermail-errors-list > li {
+  margin: 0;
+}
+
+/* A checkbox or radio group Powermail's script has marked invalid. */
+.g-form fieldset.powermail_field_error > legend {
+  color: var(--color-text-red);
+}
+
+/* The server's error summary at the top of a form. */
+.g-form__summary-list {
+  margin: var(--spacing-2) 0 0;
+  padding-inline-start: var(--spacing-5);
+}
+
+.g-form__summary-list > li + li {
+  margin-block-start: var(--spacing-1);
+}
+
+/* ------------------------------------------------------------- content */
+/* Text an editor placed between the fields (Powermail html/text/content,
+   Form Framework StaticText and ContentElement). */
+.g-form__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+}
+
+.g-form__content > :where(p, ul, ol) {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------- captcha */
+.g-form__captcha {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  max-inline-size: 100%;
+}
+
+.g-form__captcha[data-state="bypassed"] {
+  padding-block: var(--spacing-3);
+  padding-inline: var(--spacing-3);
+  border: var(--border-width) dashed var(--color-border-emphasized);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-muted);
+}
+
+.g-form__captcha-icon {
+  margin-block-start: var(--spacing-0-5);
+  color: var(--color-icon-accent);
+}
+
+.g-form__captcha-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
+  min-inline-size: 0;
+}
+
+/* The live widget draws itself into `frc-captcha`; it only has to stay
+   inside the column. */
+.g-form__captcha[data-state="live"] > .frc-captcha {
+  max-inline-size: 100%;
+}
+
+/* Powermail's own image captcha: the code field and the picture of the code
+   side by side, wrapping under each other when there is no room. */
+.g-form__captcha-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+
+.g-form__captcha-row > input {
+  flex: 1 1 12rem;
+}
+
+.powermail_captchaimage {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-inner);
+}
+
+/* ------------------------------------------------------------- uploads */
+.g-form__files,
+.powermail_fieldwrap_file_list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+}
+
+.g-form__files .astryx-list {
+  margin: 0;
+  align-self: stretch;
+}
+
+.g-form__file {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2) var(--spacing-4);
+}
+
+.g-form__file-name {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.g-form__file-remove {
+  font-size: var(--text-supporting-size);
+}
+
+.deleteAllFiles {
+  align-self: flex-start;
+}
+
+.g-form__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.g-form__thumb-link {
+  display: inline-block;
+  border-radius: var(--radius-inner);
+}
+
+.g-form__thumb {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-inner);
+}
+
+/* ------------------------------------------------------ answers summary */
+/* The Form Framework summary page and Powermail's confirmation step. */
+.g-form__values {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  min-inline-size: 0;
+}
+
+.g-form__values-section {
+  margin: var(--spacing-2) 0 0;
+}
+
+.g-form__values :where(dd) > .astryx-list {
+  margin: 0;
+}
+
+.powermail_all_value {
+  overflow-wrap: anywhere;
+}
+
+/* ------------------------------------------------------ smaller parts */
+/* A Form Framework grid row: the Astryx Grid, at the form's own gap and with a
+   column floor sized for a form field rather than a card, so two short fields
+   sit side by side inside the form's measure and stack on a phone. */
+.g-form__grid {
+  --grid-min: 12rem;
+  --grid-gap: var(--spacing-4);
+}
+
+/* The DatePicker's hour and minute selects, side by side. */
+.g-form__time {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.g-form__time > .astryx-field {
+  flex: 0 1 8rem;
+}
+
+/* A field only a bot fills in: off-screen, not display:none — some bots skip
+   fields that are not rendered at all. */
+.g-form__honeypot {
+  position: absolute;
+  inset-inline-start: -10000px;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+}
+
+.g-form__honeypot > input {
+  padding: 0;
+}
+
+/* ---------------------------------------------------- AJAX progress bar */
+/* Powermail's AJAX submit hangs this beside the submit button while the
+   request runs. Its own stylesheet is not loaded on this site, so without
+   these rules it would be three empty divs. */
+.powermail_progressbar {
+  flex: 1 0 100%;
+  block-size: var(--spacing-1);
+  border-radius: var(--radius-full);
+  background-color: var(--color-track);
+  overflow: hidden;
+}
+
+.powermail_progress {
+  block-size: 100%;
+}
+
+.powermail_progress_inner {
+  inline-size: 40%;
+  block-size: 100%;
+  border-radius: var(--radius-full);
+  background-color: var(--color-accent);
+  animation: g-form-progress 1.2s var(--ease-standard) infinite;
+}
+
+@keyframes g-form-progress {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .powermail_progress_inner {
+    inline-size: 100%;
+    animation: none;
+    opacity: 0.6;
+  }
+}

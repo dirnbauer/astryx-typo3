@@ -1,0 +1,32 @@
+# Form Framework rendering for the Astryx site.
+#
+# Registered by Configuration/Sets/AstryxTypo3/TypoScript/plugins.typoscript
+# through plugin.tx_form.settings.yamlConfigurations, so it only reaches the
+# frontend of sites that load the Astryx set — the backend form editor and the
+# Desiderio sites keep their own rendering.
+#
+# Only paths are added here. Element definitions, validators and finishers stay
+# exactly as the core, friendlycaptcha and Desiderio define them; this file
+# changes how a form looks, never what it accepts.
+#
+# Path keys: Fluid picks the highest key first. friendlycaptcha registers
+# 1689150041921 and Desiderio's captcha override 1789150041921, so the Astryx
+# partials sit above both — which is why the Astryx set ships a Friendlycaptcha
+# partial of its own that covers the cases theirs did.
+TYPO3:
+  CMS:
+    Form:
+      prototypes:
+        standard:
+          formElementsDefinition:
+            Form:
+              renderingOptions:
+                templateRootPaths:
+                  1889150041921: 'EXT:astryx_typo3/Resources/Private/Extensions/Form/Templates/'
+                partialRootPaths:
+                  1889150041921: 'EXT:astryx_typo3/Resources/Private/Extensions/Form/Partials/'
+          finishersDefinition:
+            Confirmation:
+              options:
+                templateRootPaths:
+                  1889150041921: 'EXT:astryx_typo3/Resources/Private/Extensions/Form/Templates/Finishers/Confirmation/'

@@ -1,0 +1,19 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Stand-in for the Friendly Captcha widget where it is bypassed: a quiet note
+    that a captcha sits here and why nothing needs doing. Deliberately not a
+    button — a control that does nothing is a control someone will press.
+</f:comment>
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+<div class="g-form__captcha" data-state="bypassed">
+    <a:atom.icon name="shield-check" size="sm" class="g-form__captcha-icon" />
+    <span class="g-form__captcha-text">
+        <a:atom.text as="span" type="label">{f:translate(key: '{l}:captcha.placeholder.title')}</a:atom.text>
+        <a:atom.text as="span" type="supporting" color="secondary">{f:translate(key: '{l}:captcha.placeholder.note')}</a:atom.text>
+    </span>
+</div>
+</html>

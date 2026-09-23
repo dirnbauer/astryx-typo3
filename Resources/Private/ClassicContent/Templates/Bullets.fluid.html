@@ -1,0 +1,55 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    A bullet list: one line of the body text per entry ({bullets}, from the
+    split processor on this CType).
+
+    The editor's list type is honoured as core defines it:
+      0  unordered   an Astryx List with drawn dot markers
+      1  numbered    the same List with `marker="decimal"`, which makes it an
+                     <ol> — the number is the meaning, not the decoration
+      2  definitions "term|definition" per line, as a MetadataList (<dl>)
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-bullets">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:if condition="{bullets}">
+            <f:switch expression="{data.bullets_type}">
+                <f:case value="1">
+                    <a:molecule.list marker="decimal" density="compact" class="g-core-bullets__list">
+                        <f:for each="{bullets}" as="bullet">
+                            <a:molecule.listItem>{bullet}</a:molecule.listItem>
+                        </f:for>
+                    </a:molecule.list>
+                </f:case>
+                <f:case value="2">
+                    <a:molecule.metadataList orientation="stacked" class="g-core-bullets__definitions">
+                        <f:for each="{bullets}" as="bullet">
+                            <f:variable name="pair" value="{bullet -> f:split(separator: '|', limit: 2)}"/>
+                            <a:molecule.metadataListItem>
+                                <f:fragment name="term">{pair.0}</f:fragment>
+                                <f:fragment>{pair.1}</f:fragment>
+                            </a:molecule.metadataListItem>
+                        </f:for>
+                    </a:molecule.metadataList>
+                </f:case>
+                <f:defaultCase>
+                    <a:molecule.list marker="dot" density="compact" class="g-core-bullets__list">
+                        <f:for each="{bullets}" as="bullet">
+                            <a:molecule.listItem>{bullet}</a:molecule.listItem>
+                        </f:for>
+                    </a:molecule.list>
+                </f:defaultCase>
+            </f:switch>
+        </f:if>
+    </a:layout.stack>
+</f:section>
+
+</html>

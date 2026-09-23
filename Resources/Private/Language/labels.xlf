@@ -626,5 +626,20 @@
         <source>Close</source>
       </segment>
     </unit>
+
+    <!-- Core content types (Resources/Private/ClassicContent). The file list
+         of a core "File links" element: a count above the rows, and the verb
+         a screen reader hears before each file name, because the visible row
+         shows only the name. -->
+    <unit id="core.files.count">
+      <segment>
+        <source>{count, plural, one {# file} other {# files}}</source>
+      </segment>
+    </unit>
+    <unit id="core.files.download">
+      <segment>
+        <source>Download</source>
+      </segment>
+    </unit>
   </file>
 </xliff>

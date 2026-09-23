@@ -225,3 +225,40 @@
   white-space: nowrap;
   border-width: 0;
 }
+
+/* ------------------------------------------------------------------ Icon */
+/* The box Atom/Icon puts around a g:icon glyph. The glyph is a 24×24 stroke
+   SVG in currentColor with no size of its own to speak of, so the box decides
+   how big it is and the colour is whatever the text around it is. Until this
+   rule existed the atom had no call site, and the first one — a file list —
+   drew every icon at the SVG's 24px default, larger than the text beside it. */
+.astryx-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--spacing-5);
+  block-size: var(--spacing-5);
+  color: inherit;
+}
+
+.astryx-icon[data-size="sm"] {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+.astryx-icon[data-size="lg"] {
+  inline-size: var(--spacing-6);
+  block-size: var(--spacing-6);
+}
+
+.astryx-icon > svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+/* Inside a badge the glyph is a letter's size, as a bare SVG there already is. */
+.astryx-badge > .astryx-icon {
+  inline-size: 1em;
+  block-size: 1em;
+}

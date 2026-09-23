@@ -1,0 +1,21 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Kept for field partials from other extensions that still render
+    Form/FieldLabel themselves. The theme's own fields write their label in
+    Form/FieldShell; this is the same markup, standing alone.
+</f:comment>
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+<f:if condition="{field.css} == 'nolabel'">
+    <f:then>
+        <a:atom.visuallyHidden as="label" for="powermail_field_{field.marker}"><vh:string.escapeLabels>{field.title}</vh:string.escapeLabels></a:atom.visuallyHidden>
+    </f:then>
+    <f:else>
+        <label class="astryx-field-label" for="powermail_field_{field.marker}"><span><vh:string.escapeLabels>{field.title}</vh:string.escapeLabels></span><f:if condition="{field.mandatory}"><span data-optionality="required">{f:translate(key: '{l}:field.required')}</span></f:if></label>
+    </f:else>
+</f:if>
+</html>

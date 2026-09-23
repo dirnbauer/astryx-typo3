@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en">
+  <file id="plugins">
+
+    <!-- Shared by the Powermail, Form Framework and Frontend Login templates
+         in Resources/Private/Extensions/. Labels the plugins already ship
+         (Powermail's validation messages, felogin's headers) are used from
+         their own files; only what the Astryx markup adds lives here. -->
+
+    <unit id="field.required">
+      <segment>
+        <source>(required)</source>
+      </segment>
+    </unit>
+    <unit id="form.steps">
+      <segment>
+        <source>Form steps</source>
+      </segment>
+    </unit>
+    <unit id="form.stepOf">
+      <segment>
+        <source>Step %1$s of %2$s</source>
+      </segment>
+    </unit>
+    <unit id="form.previous">
+      <segment>
+        <source>Back</source>
+      </segment>
+    </unit>
+    <unit id="form.next">
+      <segment>
+        <source>Next</source>
+      </segment>
+    </unit>
+    <unit id="form.actions">
+      <segment>
+        <source>Form actions</source>
+      </segment>
+    </unit>
+    <unit id="form.errorSummary.title">
+      <segment>
+        <source>Please check these fields</source>
+      </segment>
+    </unit>
+    <unit id="form.noForm">
+      <segment>
+        <source>No form is selected for this element yet. Choose one in the plugin settings.</source>
+      </segment>
+    </unit>
+    <unit id="form.uploadedFiles">
+      <segment>
+        <source>Uploaded files</source>
+      </segment>
+    </unit>
+    <unit id="form.passwordRepeat">
+      <segment>
+        <source>Repeat the password</source>
+      </segment>
+    </unit>
+    <unit id="confirmation.description">
+      <segment>
+        <source>Nothing has been sent yet. Go back to change something, or send the form now.</source>
+      </segment>
+    </unit>
+    <unit id="captcha.placeholder.title">
+      <segment>
+        <source>Protected against spam</source>
+      </segment>
+    </unit>
+    <unit id="captcha.placeholder.note">
+      <segment>
+        <source>Friendly Captcha is switched off in this environment, so the check passes automatically.</source>
+      </segment>
+    </unit>
+    <unit id="login.form">
+      <segment>
+        <source>Log in</source>
+      </segment>
+    </unit>
+    <unit id="login.signedIn">
+      <segment>
+        <source>Signed in</source>
+      </segment>
+    </unit>
+  </file>
+</xliff>

@@ -1,0 +1,56 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Powermail "radio" field: an Astryx RadioList — a fieldset whose legend
+    is the field title — with one RadioListItem row per option, with the drawn radio. The row is
+    the label, so the whole line is the hit target.
+
+    The options are f:form.radio rather than RadioListItem itself: the
+    ViewHelper is what registers the name with Powermail's request token.
+
+    Powermail's client validation needs two selectors for a group, and both
+    are pointed at Astryx markup here: the message goes into the field's
+    message slot, and the error class lands on the fieldset. The ids stay
+    powermail_field_{marker}_{n}, which Powermail's error summary links to.
+</f:comment>
+
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+<f:variable name="fieldId" value="powermail_field_{field.marker}" />
+<f:variable name="invalid" value="{vh:validation.errorClass(field: field, class: 'true')}" />
+<f:variable name="describedBy">{f:if(condition: field.description, then: '{fieldId}-description')} {f:if(condition: invalid, then: '{fieldId}-message')}</f:variable>
+<f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+<f:if condition="{invalid}">
+    <f:variable name="itemAria" value="{invalid: 'true'}" />
+</f:if>
+
+<a:molecule.field status="{f:if(condition: invalid, then: 'error', else: 'default')}" class="powermail_fieldwrap powermail_fieldwrap_{field.marker}">
+    <a:molecule.radioList id="{fieldId}-group" describedBy="{describedBy}">
+        <f:if condition="{field.css} == 'nolabel'">
+            <f:then><a:atom.visuallyHidden as="legend"><vh:string.escapeLabels>{field.title}</vh:string.escapeLabels></a:atom.visuallyHidden></f:then>
+            <f:else><legend class="astryx-field-label"><span><vh:string.escapeLabels>{field.title}</vh:string.escapeLabels></span><f:if condition="{field.mandatory}"><span data-optionality="required">{f:translate(key: '{l}:field.required')}</span></f:if></legend></f:else>
+        </f:if>
+        <f:for each="{field.modifiedSettings}" as="setting" iteration="index">
+            <label class="astryx-radio-list-item"><f:form.radio
+                    property="{field.marker}"
+                    value="{setting.value}"
+                    checked="{vh:misc.prefillMultiField(field: field, mail: mail, cycle: index.cycle)}"
+                    id="{fieldId}_{index.cycle}"
+                    additionalAttributes="{vh:validation.validationDataAttribute(field: field, iteration: index)}"
+                    data="{powermail-errors-container: '#{fieldId}-messages', powermail-class-handler: '#{fieldId}-group'}"
+                    aria="{itemAria}"
+                    errorClass="g-form__invalid" /><span class="astryx-radio"><span class="astryx-radio-dot"></span></span>
+                <span><vh:string.escapeLabels>{setting.label}</vh:string.escapeLabels></span></label>
+        </f:for>
+    </a:molecule.radioList>
+
+    <f:if condition="{field.description}">
+        <p class="astryx-field-description" id="{fieldId}-description">{field.description}</p>
+    </f:if>
+
+    <div class="g-form__messages" id="{fieldId}-messages"><f:if condition="{invalid}"><f:render partial="Misc/FieldError" arguments="{field: field, fieldId: fieldId}" /></f:if></div>
+</a:molecule.field>
+</html>

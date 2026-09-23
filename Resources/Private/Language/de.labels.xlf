@@ -736,5 +736,17 @@
         <target>Der Suchdienst antwortet nicht. Bitte versuchen Sie es gleich noch einmal.</target>
       </segment>
     </unit>
+    <unit id="core.files.count">
+      <segment state="final">
+        <source>{count, plural, one {# file} other {# files}}</source>
+        <target>{count, plural, one {# Datei} other {# Dateien}}</target>
+      </segment>
+    </unit>
+    <unit id="core.files.download">
+      <segment state="final">
+        <source>Download</source>
+        <target>Herunterladen</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

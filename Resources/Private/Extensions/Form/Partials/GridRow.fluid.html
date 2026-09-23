@@ -1,0 +1,23 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "GridRow": fields side by side in an Astryx Grid. The core
+    sizes each column with Bootstrap classes from the element's viewport
+    configuration; the Astryx Grid instead fits as many columns as the width
+    allows and stacks them on a phone, which is what those classes were
+    approximating.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <a:layout.grid cols="{element.elements -> f:count()}" class="g-form__grid">
+        <f:for each="{element.elements}" as="child">
+            <f:if condition="{child.enabled}">
+                <f:render partial="{child.templateName}" arguments="{element: child}" />
+            </f:if>
+        </f:for>
+    </a:layout.grid>
+</formvh:renderRenderable>
+</html>

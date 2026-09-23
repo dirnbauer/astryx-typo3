@@ -1,0 +1,18 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:comment>
+    The landing page of a double opt-in link that could not be confirmed
+    (a confirmed one continues to the thank-you view). Powermail passes the
+    reason as `labelKey`.
+</f:comment>
+
+<f:section name="main">
+    <f:render partial="Misc/FlashMessages" arguments="{_all}" />
+    <f:render partial="Misc/Banner" arguments="{severity: 1, message: '{f:translate(key: \'optin_mail_confirm_{labelKey}\', extensionName: \'Powermail\', default: \'The given link is not correct\')}'}" />
+</f:section>
+</html>

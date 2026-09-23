@@ -9,3 +9,6 @@ dependencies:
   - webconsulting/desiderio
 optionalDependencies:
   - typo3/seo-sitemap
+  # Powermail's own TypoScript and settings; the Astryx Powermail templates
+  # (TypoScript/plugins.typoscript) need a configured plugin to render into.
+  - in2code/powermail-main

@@ -1,0 +1,64 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "DatePicker" (the older, text-based date field): the date
+    input in the Astryx field shell and, when the element asks for a time,
+    hour and minute as two labelled native selects side by side. New forms
+    should prefer the "Date" element, which is the browser's own date input.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+        <f:variable name="describedBy">{f:if(condition: element.properties.elementDescription, then: '{element.uniqueIdentifier}-desc')} {f:if(condition: validationResults.errors, then: '{element.uniqueIdentifier}-errors')}</f:variable>
+        <f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+        <f:if condition="{describedBy}">
+            <f:variable name="aria" value="{describedby: describedBy}" />
+        </f:if>
+        <f:if condition="{validationResults.errors}">
+            <f:variable name="aria" value="{invalid: 'true', describedby: describedBy}" />
+        </f:if>
+
+        <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+            <formvh:form.datePicker
+                id="{element.uniqueIdentifier}"
+                property="{element.identifier}"
+                dateFormat="{element.properties.dateFormat}"
+                initialDate="{element.properties.initialDate}"
+                enableDatePicker="{element.properties.enableDatePicker}"
+                errorClass="g-form__invalid"
+                additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                previewMode="{element.rootForm.renderingOptions.previewMode}"
+                aria="{aria}"
+            />
+        </f:render>
+        <f:if condition="{element.properties.displayTimeSelector}">
+            <div class="g-form__time">
+                <a:molecule.field>
+                    <label class="astryx-field-label" for="{element.uniqueIdentifier}-time">{formvh:translateElementProperty(element: element, property: 'timeSelectorHourLabel')}</label>
+                    <formvh:form.timePicker
+                        id="{element.uniqueIdentifier}-time"
+                        property="{element.identifier}"
+                        initialDate="{element.properties.initialDate}"
+                        errorClass="g-form__invalid"
+                        timeType="hour"
+                    />
+                </a:molecule.field>
+                <a:molecule.field>
+                    <label class="astryx-field-label" for="{element.uniqueIdentifier}-time-minute">{formvh:translateElementProperty(element: element, property: 'timeSelectorMinuteLabel')}</label>
+                    <f:comment>The ViewHelper appends "-minute" to the id it is given.</f:comment>
+                    <formvh:form.timePicker
+                        id="{element.uniqueIdentifier}-time"
+                        property="{element.identifier}"
+                        initialDate="{element.properties.initialDate}"
+                        errorClass="g-form__invalid"
+                        timeType="minute"
+                    />
+                </a:molecule.field>
+            </div>
+        </f:if>
+    </f:form.validationResults>
+</formvh:renderRenderable>
+</html>

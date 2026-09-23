@@ -1,0 +1,16 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-image">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:render partial="Media" arguments="{files: files, columns: data.imagecols, position: 'gallery', maxWidth: 1440}"/>
+    </a:layout.stack>
+</f:section>
+
+</html>

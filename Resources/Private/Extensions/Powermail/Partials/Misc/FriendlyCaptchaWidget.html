@@ -1,0 +1,22 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:friendlycaptcha="http://typo3.org/ns/StudioMitte/FriendlyCaptcha/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The live Friendly Captcha widget. `frc-captcha` is the extension's own
+    mount point — its script finds the element by that class and draws the
+    widget inside — so it is the one foreign class here, and it is behaviour.
+</f:comment>
+<f:variable name="captchaConfiguration" value="{friendlycaptcha:configuration()}" />
+<f:if condition="{captchaConfiguration.enabled}">
+    <f:then>
+        <f:asset.script defer="1" async="1" identifier="friendlycaptcha" src="{captchaConfiguration.jsPath}" useNonce="true" />
+        <div class="g-form__captcha" data-state="live"><div class="frc-captcha" data-sitekey="{captchaConfiguration.siteKey}" {f:if(condition: '{captchaConfiguration.useEuPuzzleEndpoint}', then: 'data-api-endpoint="eu"')}></div></div>
+    </f:then>
+    <f:else>
+        <a:atom.fieldStatus type="warning"><f:translate key="LLL:EXT:friendlycaptcha_official/Resources/Private/Language/locallang.xlf:configuration_missing" /></a:atom.fieldStatus>
+    </f:else>
+</f:if>
+</html>

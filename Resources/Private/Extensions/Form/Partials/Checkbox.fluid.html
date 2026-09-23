@@ -1,0 +1,39 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "Checkbox" — one box, usually a consent. The Astryx
+    CheckboxInput anatomy: the real input, the drawn box it sits on, and the
+    label beside it, which carries the element's label (links allowed, as in
+    the core) and "(required)". The drawn tick is always in the markup and
+    shown by :checked, so it works without script.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+        <f:variable name="describedBy">{f:if(condition: element.properties.elementDescription, then: '{element.uniqueIdentifier}-desc')} {f:if(condition: validationResults.errors, then: '{element.uniqueIdentifier}-errors')}</f:variable>
+        <f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+        <f:if condition="{describedBy}">
+            <f:variable name="aria" value="{describedby: describedBy}" />
+        </f:if>
+        <f:if condition="{validationResults.errors}">
+            <f:variable name="aria" value="{invalid: 'true', describedby: describedBy}" />
+        </f:if>
+
+        <f:render partial="Field/Field" arguments="{element: element, doNotShowLabel: 1}" contentAs="elementContent">
+            <div class="astryx-checkbox-input">
+                <f:form.checkbox
+                    property="{element.identifier}"
+                    id="{element.uniqueIdentifier}"
+                    value="{element.properties.value}"
+                    errorClass="g-form__invalid"
+                    additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                    aria="{aria}"
+                /><span class="astryx-checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false"><path d="m5 12.5 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg></span><label class="astryx-checkbox-input-label" for="{element.uniqueIdentifier}"><span>{formvh:translateElementProperty(element: element, property: 'label') -> f:sanitize.html() -> f:transform.html() -> f:format.stripTags(allowedTags: '<a><br><i><strong>')}<f:if condition="{element.required}"> <f:render partial="Field/Required" arguments="{element: element}" /></f:if></span></label>
+            </div>
+        </f:render>
+    </f:form.validationResults>
+</formvh:renderRenderable>
+</html>

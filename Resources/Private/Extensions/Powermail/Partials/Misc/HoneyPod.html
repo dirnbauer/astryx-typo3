@@ -1,0 +1,23 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Powermail's honeypot: a field only a bot fills in. Moved off-screen by
+    `g-form__honeypot` rather than an inline style (a strict CSP would drop
+    the style and show the trap), and hidden from assistive technology and the
+    tab order so no person ever meets it.
+</f:comment>
+<f:if condition="{vh:validation.isHonepodEnabled()}">
+    <div class="g-form__honeypot" aria-hidden="true">
+        <label for="powermail_hp_{form.uid}"><f:translate key="honeypodLabel" extensionName="Powermail" /></label>
+        <f:form.textfield
+            name="field[__hp]"
+            value=""
+            id="powermail_hp_{form.uid}"
+            tabindex="-1"
+            additionalAttributes="{autocomplete: 'new-powermail-hp-{form.uid}'}" />
+    </div>
+</f:if>
+</html>

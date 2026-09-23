@@ -1,0 +1,40 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    "Forgot your password?": a Card with the explanation, one field (user name
+    or e-mail address), the send button, and the way back to the login.
+    Whatever felogin reports — "we sent you a link", or what was wrong — comes
+    first, as Banners.
+</f:comment>
+<div class="g-plugin" data-g-plugin="login">
+    <f:render partial="Messages" />
+    <f:render partial="ValidationErrors" />
+
+    <a:molecule.card class="g-plugin__card">
+        <f:form action="recovery" method="post" class="g-form" aria="{labelledby: 'tx-felogin-title'}">
+            <header class="g-form__header">
+                <a:molecule.cardTitle level="3" id="tx-felogin-title"><f:render partial="RenderLabelOrMessage" arguments="{key: 'forgot_header', settings: settings}"/></a:molecule.cardTitle>
+                <a:atom.text color="secondary"><f:render partial="RenderLabelOrMessage" arguments="{key: 'forgot_reset_message', settings: settings}"/></a:atom.text>
+            </header>
+            <fieldset class="g-form__fieldset">
+                <a:atom.visuallyHidden as="legend"><f:render partial="RenderLabelOrMessage" arguments="{key: 'reset_password', settings: settings}"/></a:atom.visuallyHidden>
+                <a:layout.formLayout>
+                    <a:molecule.field>
+                        <label class="astryx-field-label" for="tx-felogin-input-data"><f:translate domain="felogin.messages" key="enter_your_data"/></label>
+                        <f:form.textfield name="userIdentifier" id="tx-felogin-input-data" autocomplete="username" />
+                    </a:molecule.field>
+                    <div class="g-form__actions">
+                        <a:atom.button type="submit" class="g-form__submit"><f:translate domain="felogin.messages" key="reset_password"/></a:atom.button>
+                    </div>
+                </a:layout.formLayout>
+            </fieldset>
+        </f:form>
+        <p class="g-form__links">
+            <a:atom.link href="{f:uri.action(action: 'login', controller: 'Login')}"><f:translate domain="felogin.messages" key="forgot_header_backToLogin"/></a:atom.link>
+        </p>
+    </a:molecule.card>
+</div>
+</html>

@@ -1,0 +1,31 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "Fieldset": a group of fields under a legend, laid out by an
+    Astryx FormLayout like the page around it. Attributes the form adds to the
+    fieldset are passed through.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:variable name="fluidAdditionalAttributes" value="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}" />
+    <f:variable name="additionalAttributes" value="" />
+    <f:if condition="{fluidAdditionalAttributes}">
+        <f:for each="{fluidAdditionalAttributes}" as="value" key="key">
+            <f:variable name="additionalAttributes" value='{additionalAttributes} {key}="{value}"' />
+        </f:for>
+    </f:if>
+    <fieldset id="{element.uniqueIdentifier}" class="g-form__fieldset" {additionalAttributes -> f:format.raw()}>
+        <f:if condition="{element.label}">
+            <legend class="g-form__legend">{formvh:translateElementProperty(element: element, property: 'label')}</legend>
+        </f:if>
+        <a:layout.formLayout>
+            <f:for each="{element.elements}" as="element">
+                <f:render partial="{element.templateName}" arguments="{element: element}" />
+            </f:for>
+        </a:layout.formLayout>
+    </fieldset>
+</formvh:renderRenderable>
+</html>

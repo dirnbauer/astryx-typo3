@@ -1,0 +1,29 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    One answer on the confirmation page: the field title as the term, the
+    answer as the value. `powermail_all_value` plus the type class are the
+    hooks Powermail's script masks password answers by.
+</f:comment>
+<a:molecule.metadataListItem>
+    <dt>{answer.field.title}</dt>
+    <dd class="powermail_all_value powermail_all_type_{answer.field.type}">
+        <f:if condition="{vh:condition.isArray(val: answer.value)}">
+            <f:then>
+                <f:for each="{answer.value}" as="subValue" iteration="index">
+                    <f:if condition="{subValue}">
+                        <vh:misc.manipulateValueWithTypoScript answer="{answer}" type="{type}">{subValue}</vh:misc.manipulateValueWithTypoScript><f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+                    </f:if>
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:format.nl2br><vh:misc.manipulateValueWithTypoScript answer="{answer}" type="{type}">{answer.value}</vh:misc.manipulateValueWithTypoScript></f:format.nl2br>
+            </f:else>
+        </f:if>
+    </dd>
+</a:molecule.metadataListItem>
+</html>

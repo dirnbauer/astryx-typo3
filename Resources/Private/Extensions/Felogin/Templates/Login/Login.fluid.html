@@ -1,0 +1,104 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The login form: an Astryx Card with the welcome text as its header, two
+    labelled fields, the optional "stay logged in" checkbox, and one primary
+    button. A failed login is an error Banner above the card, with the same
+    header and message felogin always had.
+
+    Field names, the request token, `fieldNamePrefix=""` and the hidden
+    logintype/redirect fields are exactly the core's: they are what the
+    frontend user authentication reads.
+</f:comment>
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+
+<div class="g-plugin" data-g-plugin="login">
+    <f:render partial="Messages" />
+
+    <f:if condition="{messageKey} == 'error'">
+        <a:molecule.banner status="error" ariaLive="polite">
+            <a:molecule.bannerContent>
+                <a:molecule.bannerTitle level="3"><f:render partial="RenderLabelOrMessage" arguments="{key: 'error_header', settings: settings}"/></a:molecule.bannerTitle>
+                <a:molecule.bannerBody><f:render partial="RenderLabelOrMessage" arguments="{key: 'error_message', settings: settings}"/></a:molecule.bannerBody>
+            </a:molecule.bannerContent>
+        </a:molecule.banner>
+    </f:if>
+
+    <a:molecule.card class="g-plugin__card">
+        <f:form target="_top" fieldNamePrefix="" action="login" requestToken="{requestToken}" spellcheck="false" class="g-form" aria="{labelledby: 'tx-felogin-title'}">
+            <f:if condition="{messageKey} == 'error'">
+                <f:then>
+                    <header class="g-form__header">
+                        <a:molecule.cardTitle level="3" id="tx-felogin-title"><f:translate domain="felogin.messages" key="login"/></a:molecule.cardTitle>
+                    </header>
+                </f:then>
+                <f:else>
+                    <header class="g-form__header">
+                        <a:molecule.cardTitle level="3" id="tx-felogin-title"><f:render partial="RenderLabelOrMessage" arguments="{key: '{messageKey}_header', settings: settings}"/></a:molecule.cardTitle>
+                        <a:atom.text color="secondary"><f:render partial="RenderLabelOrMessage" arguments="{key: '{messageKey}_message', settings: settings}"/></a:atom.text>
+                    </header>
+                </f:else>
+            </f:if>
+            <f:render section="content" arguments="{_all}"/>
+        </f:form>
+
+        <f:if condition="{settings.showForgotPassword}">
+            <p class="g-form__links">
+                <a:atom.link href="{f:uri.action(action: 'recovery', controller: 'PasswordRecovery')}"><f:render partial="RenderLabelOrMessage" arguments="{key: 'forgot_header', settings: settings}"/></a:atom.link>
+            </p>
+        </f:if>
+    </a:molecule.card>
+</div>
+
+<f:section name="content">
+    <fieldset class="g-form__fieldset">
+        <a:atom.visuallyHidden as="legend"><f:translate domain="felogin.messages" key="login"/></a:atom.visuallyHidden>
+        <a:layout.formLayout>
+            <a:molecule.field>
+                <label class="astryx-field-label" for="tx-felogin-input-username"><f:translate domain="felogin.messages" key="username"/></label>
+                <f:form.textfield name="user" required="true" autocomplete="username" id="tx-felogin-input-username"/>
+            </a:molecule.field>
+            <a:molecule.field>
+                <label class="astryx-field-label" for="tx-felogin-input-password"><f:translate domain="felogin.messages" key="password"/></label>
+                <f:form.password name="pass" required="required" autocomplete="current-password" id="tx-felogin-input-password"/>
+            </a:molecule.field>
+
+            <f:if condition="{permaloginStatus} > -1">
+                <div class="astryx-checkbox-input">
+                    <f:if condition="{permaloginStatus} == 1">
+                        <f:then>
+                            <f:form.hidden name="permalogin" value="0" disabled="disabled"/>
+                            <f:form.checkbox name="permalogin" id="permalogin" value="1" checked="checked"/>
+                        </f:then>
+                        <f:else>
+                            <f:form.hidden name="permalogin" value="0"/>
+                            <f:form.checkbox name="permalogin" id="permalogin" value="1"/>
+                        </f:else>
+                    </f:if><span class="astryx-checkbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false"><path d="m5 12.5 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg></span><label class="astryx-checkbox-input-label" for="permalogin"><f:translate domain="felogin.messages" key="permalogin"/></label>
+                </div>
+            </f:if>
+
+            <div class="g-form__actions">
+                <a:atom.button type="submit" width="full" class="g-form__submit"><f:translate domain="felogin.messages" key="login"/></a:atom.button>
+            </div>
+        </a:layout.formLayout>
+
+        <f:form.hidden name="logintype" value="login"/>
+        <f:if condition="{redirectURL}!=''">
+            <f:form.hidden name="redirect_url" value="{redirectURL}" />
+        </f:if>
+        <f:if condition="{referer}!=''">
+            <f:form.hidden name="referer" value="{referer}" />
+        </f:if>
+        <f:if condition="{redirectReferrer}!=''">
+            <f:form.hidden name="redirectReferrer" value="off" />
+        </f:if>
+        <f:if condition="{noRedirect}!=''">
+            <f:form.hidden name="noredirect" value="1" />
+        </f:if>
+    </fieldset>
+</f:section>
+</html>

@@ -1,0 +1,36 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Signed in: who you are, as an Astryx MetadataList row, and the logout
+    button. The hidden fields are the core's.
+</f:comment>
+<div class="g-plugin" data-g-plugin="login">
+    <f:render partial="Messages" />
+
+    <a:molecule.card class="g-plugin__card">
+        <f:form action="login" target="_top" fieldNamePrefix="" class="g-form" aria="{labelledby: 'tx-felogin-title'}">
+            <header class="g-form__header">
+                <a:molecule.cardTitle level="3" id="tx-felogin-title"><f:render partial="RenderLabelOrMessage" arguments="{key: 'status_header', settings: settings}"/></a:molecule.cardTitle>
+                <a:atom.text color="secondary"><f:render partial="RenderLabelOrMessage" arguments="{key: 'status_message', settings: settings}"/></a:atom.text>
+            </header>
+
+            <a:molecule.metadataList>
+                <dt><f:translate domain="felogin.messages" key="username"/></dt>
+                <dd>{user.username}</dd>
+            </a:molecule.metadataList>
+
+            <div class="g-form__actions">
+                <a:atom.button type="submit" variant="secondary"><f:translate domain="felogin.messages" key="logout"/></a:atom.button>
+            </div>
+
+            <f:form.hidden name="logintype" value="logout"/>
+            <f:if condition="{noRedirect}!=''">
+                <f:form.hidden name="noredirect" value="1" />
+            </f:if>
+        </f:form>
+    </a:molecule.card>
+</div>
+</html>

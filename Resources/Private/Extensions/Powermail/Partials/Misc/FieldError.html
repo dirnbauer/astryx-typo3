@@ -1,0 +1,18 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    What the server said about one field, as an Astryx FieldStatus under it.
+
+    Powermail's validators attach every error to the mail, with the field's
+    marker as an argument, so the field's own errors are picked out by marker.
+    The id is the one the control's aria-describedby already names. The text
+    is the field's own "mandatory text" when the editor wrote one, and
+    Powermail's message for the error otherwise.
+</f:comment>
+<f:form.validationResults>
+    <a:atom.fieldStatus type="error" id="{fieldId}-message"><f:for each="{validationResults.flattenedErrors}" as="errors"><f:for each="{errors}" as="singleError"><f:if condition="{singleError.arguments.marker} == {field.marker}"><span class="g-form__error"><f:if condition="{field.mandatoryText}"><f:then>{field.mandatoryText}</f:then><f:else><f:translate key="validationerror_{singleError.message}" extensionName="Powermail">{singleError.message}</f:translate></f:else></f:if></span></f:if></f:for></f:for></a:atom.fieldStatus>
+</f:form.validationResults>
+</html>

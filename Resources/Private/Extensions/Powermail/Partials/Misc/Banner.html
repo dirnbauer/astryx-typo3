@@ -1,0 +1,25 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    One message as an Astryx Banner. `severity` is TYPO3's
+    ContextualFeedbackSeverity value (-2 notice … 2 error), mapped onto the
+    four Banner statuses; the words carry the meaning, the tint repeats it.
+</f:comment>
+<f:switch expression="{severity}">
+    <f:case value="2"><f:variable name="status" value="error" /></f:case>
+    <f:case value="1"><f:variable name="status" value="warning" /></f:case>
+    <f:case value="0"><f:variable name="status" value="success" /></f:case>
+    <f:defaultCase><f:variable name="status" value="info" /></f:defaultCase>
+</f:switch>
+<a:molecule.banner status="{status}" ariaLive="polite">
+    <a:molecule.bannerContent>
+        <f:if condition="{title}">
+            <a:molecule.bannerTitle level="3">{title}</a:molecule.bannerTitle>
+        </f:if>
+        <a:molecule.bannerBody>{message}</a:molecule.bannerBody>
+    </a:molecule.bannerContent>
+</a:molecule.banner>
+</html>

@@ -1,0 +1,88 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    A core Table element ({table}, from the comma-separated-value processor on
+    this CType) as an Astryx Table, built row by row from the part components
+    because whether a cell is a `th` or a `td` is decided per cell.
+
+    What the editor sets is honoured as core defines it:
+      Caption             the table's `caption`, its first child, which is what
+                          makes it the table's accessible name
+      Header position     1: the first row is a `thead` of `th scope="col"`;
+                          2: the first cell of every row is a `th scope="row"`
+      Use table footer    the last row becomes the `tfoot`
+      Table class         striped / bordered map to the Table's own switches
+
+    The table scrolls in its own ScrollableArea rather than widening the page,
+    named after the caption (or the element's header) so the scroll region a
+    keyboard user tabs to says what it holds.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-table">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:if condition="{table}">
+            <f:variable name="headerPosition" value="{data.table_header_position}"/>
+            <f:variable name="useFooter" value="{f:if(condition: data.table_tfoot, then: 1, else: 0)}"/>
+            <a:molecule.table
+                scroll="{true}"
+                scrollLabel="{f:if(condition: data.table_caption, then: data.table_caption, else: data.header)}"
+                striped="{f:if(condition: '{data.table_class} == \'striped\'', then: 1, else: 0)}"
+                bordered="{f:if(condition: '{data.table_class} == \'bordered\'', then: 1, else: 0)}"
+                class="g-core-table__table">
+                <f:if condition="{data.table_caption}">
+                    <a:atom.text as="caption" type="supporting" color="secondary" class="g-core-table__caption">{data.table_caption}</a:atom.text>
+                </f:if>
+                <f:if condition="{headerPosition} == 1">
+                    <a:molecule.tableHeader>
+                        <a:molecule.tableRow>
+                            <f:for each="{table.0}" as="column">
+                                <a:molecule.tableHeaderCell scope="col">{column}</a:molecule.tableHeaderCell>
+                            </f:for>
+                        </a:molecule.tableRow>
+                    </a:molecule.tableHeader>
+                </f:if>
+                <a:molecule.tableBody>
+                    <f:for each="{table}" as="columns" iteration="row">
+                        <f:if condition="({headerPosition} == 1 && {row.isFirst}) || ({useFooter} && {row.isLast} && !{row.isFirst})">
+                            <f:else>
+                                <a:molecule.tableRow>
+                                    <f:for each="{columns}" as="column" iteration="cell">
+                                        <f:if condition="{headerPosition} == 2 && {cell.isFirst}">
+                                            <f:then><a:molecule.tableHeaderCell scope="row">{column}</a:molecule.tableHeaderCell></f:then>
+                                            <f:else><a:molecule.tableCell>{column}</a:molecule.tableCell></f:else>
+                                        </f:if>
+                                    </f:for>
+                                </a:molecule.tableRow>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </a:molecule.tableBody>
+                <f:if condition="{useFooter}">
+                    <f:for each="{table}" as="columns" iteration="row">
+                        <f:if condition="{row.isLast} && !{row.isFirst}">
+                            <a:molecule.tableFooter>
+                                <a:molecule.tableRow>
+                                    <f:for each="{columns}" as="column" iteration="cell">
+                                        <f:if condition="{headerPosition} == 2 && {cell.isFirst}">
+                                            <f:then><a:molecule.tableHeaderCell scope="row">{column}</a:molecule.tableHeaderCell></f:then>
+                                            <f:else><a:molecule.tableCell>{column}</a:molecule.tableCell></f:else>
+                                        </f:if>
+                                    </f:for>
+                                </a:molecule.tableRow>
+                            </a:molecule.tableFooter>
+                        </f:if>
+                    </f:for>
+                </f:if>
+            </a:molecule.table>
+        </f:if>
+    </a:layout.stack>
+</f:section>
+
+</html>

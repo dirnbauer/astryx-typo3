@@ -1,0 +1,49 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The frame for content somebody else renders: every Extbase plugin CType
+    (core registers them with templateName = Generic and the plugin at `.20`),
+    among them the frontend login and the form framework's form.
+
+    This template owns the band, the element's heading and the anchor; the
+    plugin's own templates own everything inside and should not open a Section
+    or Container of their own. `{content}` wins when a TypoScript setup has
+    rendered the output already, exactly as in fluid_styled_content.
+
+    A record from another table (a news record handed to lib.contentElement)
+    has no plugin to call and renders its heading and body text instead.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <f:if condition="{content}">
+        <f:then>
+            {content -> f:format.raw()}
+        </f:then>
+        <f:else>
+            <a:layout.stack gap="6" class="g-core-plugin">
+                <f:render partial="Header" arguments="{record: record, data: data}"/>
+                <f:if condition="{record.mainType} == 'tt_content'">
+                    <f:then>
+                        <div class="g-core-plugin__body">
+                            <f:cObject typoscriptObjectPath="tt_content.{data.CType}.20" data="{data}" table="tt_content"/>
+                        </div>
+                    </f:then>
+                    <f:else if="{record.mainType} == 'tx_news_domain_model_news'">
+                        <f:render partial="RichText" arguments="{record: record, field: 'body'}"/>
+                    </f:else>
+                    <f:else>
+                        <f:render partial="RichText" arguments="{record: record, field: 'bodytext'}"/>
+                    </f:else>
+                </f:if>
+            </a:layout.stack>
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

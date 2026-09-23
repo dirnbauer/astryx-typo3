@@ -1,0 +1,9 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>A field's server-side errors as one Astryx FieldStatus, one line per error.</f:comment>
+<a:atom.fieldStatus type="error" id="{element.uniqueIdentifier}-errors"><f:for each="{errors}" as="error"><span class="g-form__error">{formvh:translateElementError(element: element, error: error)}</span></f:for></a:atom.fieldStatus>
+</html>

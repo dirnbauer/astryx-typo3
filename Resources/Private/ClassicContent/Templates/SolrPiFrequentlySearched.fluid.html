@@ -1,0 +1,27 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    EXT:solr's frequent searches. The plugin opens its own band (the theme's
+    Solr templates do), so this renders in the Bare layout; the element's
+    heading, when it has a visible one, gets a tight band of its own above the
+    plugin rather than floating outside any container.
+</f:comment>
+
+<f:layout name="Bare"/>
+
+<f:section name="Main">
+    <f:if condition="{record.header} && {data.header_layout} != 100">
+        <a:layout.section spacing="tight" class="g-core">
+            <a:layout.container>
+                <f:render partial="Header" arguments="{record: record, data: data}"/>
+            </a:layout.container>
+        </a:layout.section>
+    </f:if>
+    <f:cObject typoscriptObjectPath="plugin.tx_solr_PiFrequentSearches_FrequentSearches" data="{data}" table="tt_content"/>
+</f:section>
+
+</html>

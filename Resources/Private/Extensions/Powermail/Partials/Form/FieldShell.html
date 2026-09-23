@@ -1,0 +1,70 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The shell every single-control Powermail field shares: an Astryx Field
+    holding a real label, the control, the help text and the message slot.
+
+    Written once so the wiring cannot drift between twelve copies:
+
+    - The label is a `label for`, never a title attribute; a field set to
+      "nolabel" keeps a visually hidden one, because a control without a name
+      is not a design choice.
+    - "(required)" sits in the label as text, the way Astryx's Field writes its
+      optionality, so it is not a colour or an asterisk only.
+    - aria-describedby names the help text and, after a failed server check,
+      the message — so both are read with the control. aria-invalid is set
+      with the message, not instead of it.
+    - The message slot (`…-messages`) is always rendered. Powermail's client
+      validation writes its messages into it: every control points
+      `data-powermail-errors-container` at it, overriding Powermail's default
+      of appending a list wherever the control's parent happens to be. It is
+      written on one line so it stays :empty, and hidden, until it has text.
+
+    The control itself comes from a section of Form/Controls, chosen by
+    `control`. `mirror` renders the second password field, which reuses the
+    shell with its own id and label and leaves the message to the first.
+</f:comment>
+
+<f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+<f:variable name="suffix" value="{f:if(condition: mirror, then: '_mirror')}" />
+<f:variable name="fieldId" value="powermail_field_{field.marker}{suffix}" />
+<f:variable name="invalid" value="{vh:validation.errorClass(field: field, class: 'true')}" />
+<f:variable name="showDescription" value="{f:if(condition: '{field.description} && !{mirror}', then: 1, else: 0)}" />
+<f:variable name="showMessage" value="{f:if(condition: '{invalid} && !{mirror}', then: 1, else: 0)}" />
+
+<f:variable name="describedBy">{f:if(condition: showDescription, then: '{fieldId}-description')} {f:if(condition: showMessage, then: '{fieldId}-message')}</f:variable>
+<f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+<f:if condition="{describedBy}">
+    <f:variable name="aria" value="{describedby: describedBy}" />
+</f:if>
+<f:if condition="{invalid}">
+    <f:variable name="aria" value="{describedby: describedBy, invalid: 'true'}" />
+</f:if>
+
+<f:variable name="wrapClass">powermail_fieldwrap powermail_fieldwrap_{field.marker}{suffix}{f:if(condition: '{field.type} == \'file\'', then: ' powermail_fieldwrap_type_file')}</f:variable>
+
+<a:molecule.field status="{f:if(condition: invalid, then: 'error', else: 'default')}" class="{wrapClass}">
+    <f:if condition="{field.css} == 'nolabel'">
+        <f:then>
+            <a:atom.visuallyHidden as="label" for="{fieldId}"><f:render section="LabelText" arguments="{_all}" /></a:atom.visuallyHidden>
+        </f:then>
+        <f:else>
+            <label class="astryx-field-label" for="{fieldId}"><span><f:render section="LabelText" arguments="{_all}" /></span><f:if condition="{field.mandatory}"><span data-optionality="required">{f:translate(key: '{l}:field.required')}</span></f:if></label>
+        </f:else>
+    </f:if>
+
+    <f:render partial="Form/Controls" section="{control}" arguments="{field: field, settings: settings, mail: mail, fieldId: fieldId, aria: aria, mirror: mirror}" />
+
+    <f:if condition="{showDescription}">
+        <p class="astryx-field-description" id="{fieldId}-description">{field.description}</p>
+    </f:if>
+
+    <div class="g-form__messages" id="{fieldId}-messages"><f:if condition="{showMessage}"><f:render partial="Misc/FieldError" arguments="{field: field, fieldId: fieldId}" /></f:if></div>
+</a:molecule.field>
+
+<f:section name="LabelText"><f:if condition="{mirror}"><f:then><f:translate key="writePasswordAgain" extensionName="Powermail" /></f:then><f:else><vh:string.escapeLabels>{field.title}</vh:string.escapeLabels></f:else></f:if></f:section>
+</html>

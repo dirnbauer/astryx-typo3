@@ -1,0 +1,44 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The pictures and films of Image, Text &amp; Images and Text &amp; Media: one
+    Astryx Figure per file, its caption the file's own description.
+
+    f:media rather than f:image, because a Text &amp; Media element takes a
+    YouTube or MP4 asset as readily as a photograph and f:image cannot draw
+    either. It also supplies the alt text and title from the file reference,
+    which is where an editor sets them.
+
+    The column count is the editor's "Number of columns", but never more than
+    there are files: two columns for a single picture would leave it at half
+    width beside nothing.
+</f:comment>
+
+<f:argument name="files" type="iterable" optional="{true}"/>
+<f:argument name="columns" type="integer" optional="{true}" default="1"/>
+<f:argument name="position" type="string" optional="{true}" default="gallery"/>
+<f:argument name="maxWidth" type="integer" optional="{true}" default="1200"/>
+
+<f:if condition="{files}">
+    <f:variable name="fileCount" value="{files -> f:count()}"/>
+    <f:variable name="columnCount" value="{f:min(value: {0: fileCount, 1: columns})}"/>
+    <div class="g-core-media" data-columns="{columnCount}" data-position="{position}">
+        <f:for each="{files}" as="file">
+            <a:molecule.figure class="g-core-media__figure">
+                <f:fragment>
+                    <f:if condition="{file.link}">
+                        <f:then><f:link.typolink parameter="{file.link}" class="g-core-media__link"><f:media file="{file}" width="{maxWidth}m" loading="lazy" decoding="async" class="g-core-media__asset"/></f:link.typolink></f:then>
+                        <f:else><f:media file="{file}" width="{maxWidth}m" loading="lazy" decoding="async" class="g-core-media__asset"/></f:else>
+                    </f:if>
+                </f:fragment>
+                <f:fragment name="caption">{file.description}</f:fragment>
+            </a:molecule.figure>
+        </f:for>
+    </div>
+</f:if>
+
+</html>

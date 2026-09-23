@@ -1,0 +1,17 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Powermail "html" field: editor-written text between the fields, set in the
+    Astryx prose rhythm. Raw HTML only when the site allows it
+    (misc.htmlForHtmlFields), and sanitised even then.
+</f:comment>
+<div class="g-form__content astryx-prose powermail_fieldwrap powermail_fieldwrap_{field.marker}">
+    <f:if condition="{settings.misc.htmlForHtmlFields}">
+        <f:then><f:sanitize.html>{field.text -> f:format.raw()}</f:sanitize.html></f:then>
+        <f:else><p>{field.text}</p></f:else>
+    </f:if>
+</div>
+</html>

@@ -1,0 +1,70 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    Text &amp; Images — the same template as Text &amp; Media: the two CTypes
+    differ only in which field the files processor reads (image vs. assets), and
+    both arrive here as {files}. Kept as its own file rather than an alias so a
+    site can override one without the other.
+
+    Text beside or around media, in the Split layout the theme's own Text with
+    Media element uses.
+
+    The editor's "Position and alignment" (imageorient) is read the way core
+    defines it:
+      0, 1, 2      above the text          8, 9, 10    below the text
+      17, 25       beside it, on the right  18, 26      beside it, on the left
+    "In text" (17, 18) wraps copy around a float in fluid_styled_content; a
+    two-column band is the Astryx answer to the same request, and it reflows
+    to one column on a phone where a float would squeeze the copy.
+
+    Beside the text, the copy stays first in the source and Split's
+    `media-first` variant moves the picture to the left visually only, so the
+    reading order and the first tab stop are the copy's either way.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <f:variable name="mediaPosition" value="above"/>
+    <f:switch expression="{data.imageorient}">
+        <f:case value="8"><f:variable name="mediaPosition" value="below"/></f:case>
+        <f:case value="9"><f:variable name="mediaPosition" value="below"/></f:case>
+        <f:case value="10"><f:variable name="mediaPosition" value="below"/></f:case>
+        <f:case value="17"><f:variable name="mediaPosition" value="right"/></f:case>
+        <f:case value="25"><f:variable name="mediaPosition" value="right"/></f:case>
+        <f:case value="18"><f:variable name="mediaPosition" value="left"/></f:case>
+        <f:case value="26"><f:variable name="mediaPosition" value="left"/></f:case>
+    </f:switch>
+
+    <f:if condition="{files} && ({mediaPosition} == 'left' || {mediaPosition} == 'right')">
+        <f:then>
+            <a:layout.split variant="{f:if(condition: '{mediaPosition} == \'left\'', then: 'media-first', else: 'default')}" class="g-core-textmedia">
+                <a:layout.stack gap="6" class="g-core-textmedia__copy">
+                    <f:render partial="Header" arguments="{record: record, data: data}"/>
+                    <f:render partial="RichText" arguments="{record: record, field: 'bodytext'}"/>
+                </a:layout.stack>
+                <f:render partial="Media" arguments="{files: files, columns: data.imagecols, position: mediaPosition, maxWidth: 900}"/>
+            </a:layout.split>
+        </f:then>
+        <f:else>
+            <a:layout.stack gap="8" class="g-core-textmedia">
+                <f:if condition="{mediaPosition} == 'above'">
+                    <f:render partial="Media" arguments="{files: files, columns: data.imagecols, position: mediaPosition, maxWidth: 1440}"/>
+                </f:if>
+                <a:layout.stack gap="6" class="g-core-textmedia__copy">
+                    <f:render partial="Header" arguments="{record: record, data: data}"/>
+                    <f:render partial="RichText" arguments="{record: record, field: 'bodytext'}"/>
+                </a:layout.stack>
+                <f:if condition="{mediaPosition} == 'below'">
+                    <f:render partial="Media" arguments="{files: files, columns: data.imagecols, position: mediaPosition, maxWidth: 1440}"/>
+                </f:if>
+            </a:layout.stack>
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

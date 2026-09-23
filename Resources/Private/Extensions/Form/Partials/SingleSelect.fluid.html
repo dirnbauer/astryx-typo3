@@ -1,0 +1,47 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>Form element "SingleSelect": a native select, which the Astryx field shell gives its border and drawn chevron. The bare control is what the Astryx Field paints; the aria wiring names the help text and, after a failed check, the message.</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+        <f:variable name="describedBy">{f:if(condition: element.properties.elementDescription, then: '{element.uniqueIdentifier}-desc')} {f:if(condition: validationResults.errors, then: '{element.uniqueIdentifier}-errors')}</f:variable>
+        <f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+        <f:if condition="{describedBy}">
+            <f:variable name="aria" value="{describedby: describedBy}" />
+        </f:if>
+        <f:if condition="{validationResults.errors}">
+            <f:variable name="aria" value="{invalid: 'true', describedby: describedBy}" />
+        </f:if>
+
+        <f:render partial="Field/Field" arguments="{element: element}" contentAs="elementContent">
+            <f:if condition="{element.properties.prependOptionLabel}">
+                <f:then>
+                    <f:form.select
+                        property="{element.identifier}"
+                        id="{element.uniqueIdentifier}"
+                        options="{formvh:translateElementProperty(element: element, property: 'options')}"
+                        errorClass="g-form__invalid"
+                        additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                        prependOptionLabel="{formvh:translateElementProperty(element: element, property: 'prependOptionLabel')}"
+                        prependOptionValue="{formvh:translateElementProperty(element: element, property: 'prependOptionValue')}"
+                        aria="{aria}"
+                    />
+                </f:then>
+                <f:else>
+                    <f:form.select
+                        property="{element.identifier}"
+                        id="{element.uniqueIdentifier}"
+                        options="{formvh:translateElementProperty(element: element, property: 'options')}"
+                        errorClass="g-form__invalid"
+                        additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                        aria="{aria}"
+                    />
+                </f:else>
+            </f:if>
+        </f:render>
+    </f:form.validationResults>
+</formvh:renderRenderable>
+</html>

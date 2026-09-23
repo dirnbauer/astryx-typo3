@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+    Section index of the selected pages: each page a row, its children listed under it. See Partials/Menu.fluid.html.
+</f:comment>
+<f:layout name="Default"/>
+<f:section name="Main">
+    <f:render partial="Menu" arguments="{record: record, data: data, items: menu, fallbackPages: record.pages, layout: 'list'}"/>
+</f:section>
+</html>

@@ -1,0 +1,42 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:di="http://typo3.org/ns/Webconsulting/Desiderio/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "Friendlycaptcha", on a partial path above both
+    friendlycaptcha's own and Desiderio's override, so it has to cover every
+    case they covered:
+
+    - bypass (Development context or test mode, Desiderio's
+      FriendlyCaptchaBypass — the same switch its validator honours), or the
+      extension not installed at all (Desiderio's fallback element with an
+      always-passing validator): an inert note that a captcha sits here;
+    - otherwise the real widget, from its own partial, so the
+      friendlycaptcha ViewHelper namespace is only parsed where the extension
+      exists. lib.astryxFriendlyCaptcha, set by a TypoScript condition, says
+      whether it does.
+
+    The hidden "1" is the value the Form Framework maps for the element; the
+    widget posts its solution in a field of its own.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:variable name="installed"><f:cObject typoscriptObjectPath="lib.astryxFriendlyCaptcha" /></f:variable>
+    <f:render partial="Field/Field" arguments="{element: element, doNotShowLabel: 1}" contentAs="elementContent">
+        <f:if condition="{element.label}">
+            <span class="astryx-field-label">{formvh:translateElementProperty(element: element, property: 'label')}</span>
+        </f:if>
+        <f:form.hidden property="{element.identifier}" id="{element.uniqueIdentifier}" value="1" />
+        <f:if condition="{di:friendlyCaptchaTestModeEnabled()} || !{installed}">
+            <f:then>
+                <f:render partial="Friendlycaptcha/Placeholder" />
+            </f:then>
+            <f:else>
+                <f:render partial="Friendlycaptcha/Widget" arguments="{element: element}" />
+            </f:else>
+        </f:if>
+    </f:render>
+</formvh:renderRenderable>
+</html>

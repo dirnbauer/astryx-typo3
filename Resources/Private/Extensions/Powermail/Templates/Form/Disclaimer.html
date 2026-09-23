@@ -1,0 +1,21 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:comment>The landing page of Powermail's "delete my data" link: whether the mail was removed, as a Banner.</f:comment>
+
+<f:section name="main">
+    <f:render partial="Misc/FlashMessages" arguments="{_all}" />
+    <f:if condition="{status}">
+        <f:then>
+            <f:render partial="Misc/Banner" arguments="{severity: 0, message: '{f:translate(key: \'disclaimer_mail_deleted\', extensionName: \'Powermail\', default: \'Mail deleted\')}'}" />
+        </f:then>
+        <f:else>
+            <f:render partial="Misc/Banner" arguments="{severity: 2, message: '{f:translate(key: \'error_mail_not_deleted\', extensionName: \'Powermail\', default: \'Mail not deleted\')}'}" />
+        </f:else>
+    </f:if>
+</f:section>
+</html>

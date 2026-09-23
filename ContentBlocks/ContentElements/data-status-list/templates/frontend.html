@@ -27,11 +27,29 @@
             </f:if>
         </div>
 
+        <f:comment>
+            The editor picks an icon key per row; the key is a state, and the
+            state becomes a variant — the dot's colour and the badge's — while
+            the glyph itself is drawn by the Icon atom inside the badge. The
+            key used to be written into the class attribute, where nothing
+            styled it: every dot and badge rendered neutral, and
+            `check-circle` sat in the markup as a class with no owner.
+
+            `sparkles` is the icon vocabulary's "nothing chosen" (an empty key
+            normalises to it), so it stays neutral and draws no glyph: a row
+            without a status must never look like it has one.
+        </f:comment>
         <a:molecule.list dividers="with-dividers" class="g-data-status-list__rows">
             <f:for each="{data.metrics}" as="metric">
+                <f:variable name="state" value="neutral"/>
+                <f:switch expression="{metric.icon}">
+                    <f:case value="check-circle"><f:variable name="state" value="success"/></f:case>
+                    <f:case value="alert-triangle"><f:variable name="state" value="warning"/></f:case>
+                    <f:case value="x-circle"><f:variable name="state" value="error"/></f:case>
+                </f:switch>
                 <a:molecule.item align="start" density="{f:if(condition: data.compact, then: 'compact', else: 'spacious')}" class="g-data-status-list__row">
                     <f:fragment name="start">
-                        <a:atom.statusDot class="{metric.icon} g-data-status-list__dot" ariaHidden="true"></a:atom.statusDot>
+                        <a:atom.statusDot variant="{state}" class="g-data-status-list__dot" ariaHidden="true"></a:atom.statusDot>
                     </f:fragment>
 
                     <f:fragment>
@@ -43,7 +61,7 @@
                         </a:molecule.itemContent>
                     </f:fragment>
 
-                    <f:fragment name="end"><f:if condition="{metric.value}"><a:atom.badge as="span" class="{metric.icon} g-data-status-list__state">{metric -> f:render.text(field: 'value')}</a:atom.badge></f:if></f:fragment>
+                    <f:fragment name="end"><f:if condition="{metric.value}"><a:atom.badge as="span" variant="{state}" class="g-data-status-list__state"><f:if condition="{state} != 'neutral'"><a:atom.icon name="{metric.icon}" size="sm"/></f:if>{metric -> f:render.text(field: 'value')}</a:atom.badge></f:if></f:fragment>
                 </a:molecule.item>
             </f:for>
         </a:molecule.list>

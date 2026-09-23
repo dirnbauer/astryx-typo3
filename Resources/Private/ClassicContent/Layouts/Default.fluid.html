@@ -1,0 +1,56 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The frame every core content element and plugin sits in on an Astryx page.
+
+    A core element — Text, Text &amp; Media, a menu, a table — is one band, the
+    same as any of the 250 elements this extension ships: a Section for the
+    vertical rhythm, a Container for the gutters and the measure. It used to
+    render through Desiderio's ClassicContent layout, whose section and
+    container emit Tailwind utilities this theme never loads; the band was
+    therefore unstyled markup with Desiderio's name on it.
+
+    `id="c{uid}"` stays: it is what a section menu and every "#c123" link in
+    an editor's rich text point at.
+
+    The editor's Frame field (tt_content.frame_class) is honoured in the terms
+    this design system has:
+      none                    no band spacing — the element sits flush
+      indent, indent-left/-right  a narrower measure
+      ruler-before/-after     an Astryx Divider on that side
+    A divider element is itself a separator, so it gets the tight band rather
+    than a full one.
+</f:comment>
+
+<f:variable name="spacing" value="default"/>
+<f:if condition="{data.CType} == 'div'">
+    <f:variable name="spacing" value="tight"/>
+</f:if>
+<f:if condition="{data.frame_class} == 'none'">
+    <f:variable name="spacing" value="flush"/>
+</f:if>
+
+<f:variable name="size" value="default"/>
+<f:switch expression="{data.frame_class}">
+    <f:case value="indent"><f:variable name="size" value="md"/></f:case>
+    <f:case value="indent-left"><f:variable name="size" value="md"/></f:case>
+    <f:case value="indent-right"><f:variable name="size" value="md"/></f:case>
+</f:switch>
+
+<a:layout.section id="c{data.uid}" spacing="{spacing}" class="g-core">
+    <a:layout.container size="{size}">
+        <f:if condition="{data.frame_class} == 'ruler-before'">
+            <a:atom.divider class="g-core__rule"/>
+        </f:if>
+        <f:render section="Main"/>
+        <f:if condition="{data.frame_class} == 'ruler-after'">
+            <a:atom.divider class="g-core__rule"/>
+        </f:if>
+    </a:layout.container>
+</a:layout.section>
+
+</html>

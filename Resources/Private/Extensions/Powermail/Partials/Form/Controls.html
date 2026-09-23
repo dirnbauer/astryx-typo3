@@ -1,0 +1,169 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The controls Form/FieldShell places, one section per Powermail field type.
+
+    Every control is the bare element the Astryx stylesheet paints inside a
+    Field — `.astryx-field :where(input, select, textarea)` is the input shell,
+    the select chevron and the file button — so no control carries a class of
+    its own. They are Extbase form ViewHelpers rather than Astryx's TextInput
+    and friends on purpose: only the ViewHelpers register their names for the
+    form's request token, and a field Powermail cannot map is a field whose
+    answer is silently lost.
+
+    `data` comes after `additionalAttributes`, so the errors-container set here
+    wins over the one Powermail's validation attributes may carry.
+</f:comment>
+
+<f:section name="Input">
+    <f:form.textfield
+        type="{vh:validation.fieldTypeFromValidation(field: field)}"
+        id="{fieldId}"
+        property="{field.marker}"
+        placeholder="{field.placeholder}"
+        value="{vh:misc.prefillField(field: field, mail: mail)}"
+        autocomplete="{vh:string.autocomplete(field: field)}"
+        additionalAttributes="{vh:validation.validationDataAttribute(field: field)}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        errorClass="g-form__invalid" />
+</f:section>
+
+<f:section name="Textarea">
+    <f:form.textarea
+        cols="20"
+        rows="5"
+        id="{fieldId}"
+        property="{field.marker}"
+        placeholder="{field.placeholder}"
+        value="{vh:misc.prefillField(field: field, mail: mail)}"
+        autocomplete="{vh:string.autocomplete(field: field)}"
+        additionalAttributes="{vh:validation.validationDataAttribute(field: field)}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        errorClass="g-form__invalid" />
+</f:section>
+
+<f:section name="Select">
+    <vh:form.selectField
+        options="{field.modifiedSettings}"
+        id="{fieldId}"
+        property="{field.marker}"
+        autocomplete="{vh:string.autocomplete(field: field)}"
+        additionalAttributes="{vh:validation.validationDataAttribute(field: field)}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        multiple="{field.multiselectForField}"
+        value="{vh:misc.prefillField(field: field, mail: mail)}"
+        errorClass="g-form__invalid" />
+</f:section>
+
+<f:section name="Country">
+    <f:form.select
+        id="{fieldId}"
+        property="{field.marker}"
+        options="{vh:form.countries(key: 'isoCodeA3', value: 'officialNameLocal', sortbyField: 'isoCodeA3', sorting: 'asc')}"
+        prependOptionLabel="{f:translate(key: 'pleaseChoose', extensionName: 'Powermail')}"
+        value="{vh:misc.prefillField(field: field, mail: mail)}"
+        autocomplete="{vh:string.autocomplete(field: field)}"
+        additionalAttributes="{vh:validation.validationDataAttribute(field: field)}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        errorClass="g-form__invalid" />
+</f:section>
+
+<f:section name="Date">
+    <f:form.textfield
+        type="{field.datepickerSettingsOptimized}"
+        id="{fieldId}"
+        property="{field.marker}"
+        value="{vh:misc.prefillField(field: field, mail: mail)}"
+        autocomplete="{vh:string.autocomplete(field: field)}"
+        additionalAttributes="{vh:validation.datepickerDataAttribute(field: field, value: '{vh:misc.prefillField(field: field)}')}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        errorClass="g-form__invalid" />
+</f:section>
+
+<f:section name="Password">
+    <f:if condition="{mirror}">
+        <f:then>
+            <f:form.password
+                id="{fieldId}"
+                property="{field.marker}_mirror"
+                placeholder="{field.placeholderRepeat}"
+                value=""
+                autocomplete="{vh:string.autocomplete(field: field)}"
+                additionalAttributes="{vh:validation.passwordValidationDataAttribute(field: field)}"
+                data="{powermail-errors-container: '#{fieldId}-messages'}"
+                aria="{aria}"
+                errorClass="g-form__invalid" />
+        </f:then>
+        <f:else>
+            <f:form.password
+                id="{fieldId}"
+                property="{field.marker}"
+                placeholder="{field.placeholder}"
+                value=""
+                autocomplete="{vh:string.autocomplete(field: field)}"
+                additionalAttributes="{vh:validation.validationDataAttribute(field: field)}"
+                data="{powermail-errors-container: '#{fieldId}-messages'}"
+                aria="{aria}"
+                errorClass="g-form__invalid" />
+        </f:else>
+    </f:if>
+</f:section>
+
+<f:section name="Location">
+    <f:form.textfield
+        id="{fieldId}"
+        property="{field.marker}"
+        value="{vh:misc.prefillField(field: field, mail: mail)}"
+        autocomplete="{vh:string.autocomplete(field: field)}"
+        additionalAttributes="{data-powermail-location: 'prefill', data-powermail-eidurl: '{f:uri.page(absolute: 1)}'}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        errorClass="g-form__invalid" />
+</f:section>
+
+<f:section name="Captcha">
+    <div class="g-form__captcha-row">
+        <f:form.textfield
+            id="{fieldId}"
+            property="{field.marker}"
+            value=""
+            autocomplete="off"
+            additionalAttributes="{vh:validation.captchaDataAttribute(field: field)}"
+            data="{powermail-errors-container: '#{fieldId}-messages'}"
+            aria="{aria}"
+            errorClass="g-form__invalid" />
+        <vh:validation.captcha field="{field}" alt="{field.title}" class="powermail_captchaimage" id="powermail_captchaimage" />
+    </div>
+</f:section>
+
+<f:section name="File">
+    <f:variable name="uploaded" value="{vh:misc.prefillField(field: field, mail: mail)}" />
+    <vh:form.multiUpload
+        id="{fieldId}"
+        property="{field.marker}"
+        additionalAttributes="{vh:validation.uploadAttributes(field: field)}"
+        data="{powermail-errors-container: '#{fieldId}-messages'}"
+        aria="{aria}"
+        errorClass="g-form__invalid" />
+    <f:if condition="{uploaded}">
+        <div class="g-form__files powermail_fieldwrap_file_list">
+            <a:atom.text as="span" type="label">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf:form.uploadedFiles')}</a:atom.text>
+            <a:molecule.list density="compact">
+                <f:for each="{uploaded}" as="file">
+                    <a:molecule.listItem>{file}<f:form.hidden property="{field.marker}." value="{file}" /></a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
+            <a:atom.button variant="secondary" size="sm" class="deleteAllFiles"><f:translate key="deleteAllFiles" extensionName="Powermail">Delete All Files</f:translate></a:atom.button>
+        </div>
+    </f:if>
+</f:section>
+</html>

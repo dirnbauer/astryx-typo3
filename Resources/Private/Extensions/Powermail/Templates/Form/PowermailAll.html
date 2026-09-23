@@ -1,0 +1,55 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="PowermailAll" />
+
+<f:comment>
+    {powermail_all}: every answer, once for the web page and once for mails.
+
+    The web section is an Astryx MetadataList, one stacked pair per answer.
+    The mail section is Powermail's own table, unchanged: an e-mail client
+    loads none of the theme's CSS, and the receiver and sender mail templates
+    are not part of this theme.
+</f:comment>
+
+<f:section name="web">
+    <a:molecule.metadataList orientation="stacked" class="g-form__values">
+        <f:for each="{mail.answers}" as="answer">
+            <f:if condition="{vh:condition.isNotExcludedFromPowermailAll(answer: answer, type: type, settings: settings)}">
+                <f:if condition="{settings.misc.showOnlyFilledValues}">
+                    <f:then>
+                        <f:if condition="{vh:condition.isNotEmpty(val: '{answer.value}')}">
+                            <f:render partial="PowermailAll/Web" arguments="{_all}" />
+                        </f:if>
+                    </f:then>
+                    <f:else>
+                        <f:render partial="PowermailAll/Web" arguments="{_all}" />
+                    </f:else>
+                </f:if>
+            </f:if>
+        </f:for>
+    </a:molecule.metadataList>
+</f:section>
+
+<f:section name="mail">
+    <table class="powermail_all">
+        <f:for each="{mail.answers}" as="answer">
+            <f:if condition="{vh:condition.isNotExcludedFromPowermailAll(answer: answer, type: type, settings: settings)}">
+                <f:if condition="{settings.misc.showOnlyFilledValues}">
+                    <f:then>
+                        <f:if condition="{vh:condition.isNotEmpty(val: '{answer.value}')}">
+                            <f:render partial="PowermailAll/Mail" arguments="{_all}" />
+                        </f:if>
+                    </f:then>
+                    <f:else>
+                        <f:render partial="PowermailAll/Mail" arguments="{_all}" />
+                    </f:else>
+                </f:if>
+            </f:if>
+        </f:for>
+    </table>
+</f:section>
+</html>

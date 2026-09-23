@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+    Sitemap: two levels of the page tree, each branch with its children under it. See Partials/Menu.fluid.html.
+</f:comment>
+<f:layout name="Default"/>
+<f:section name="Main">
+    <f:render partial="Menu" arguments="{record: record, data: data, items: menu, layout: 'tree'}"/>
+</f:section>
+</html>

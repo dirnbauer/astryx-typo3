@@ -1,0 +1,24 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Powermail's flash messages as Astryx Banners, tinted by severity.
+
+    checkForTypoScript first: it is what queues the "TypoScript is missing"
+    message when the Powermail set is not loaded, and that message is the only
+    clue an integrator gets. It looks for `staticTemplate`, which Powermail
+    only lifts out of `settings.setup` when the plugin has a FlexForm; a plugin
+    with no form chosen yet has none, and would be told its TypoScript is
+    missing when it is not — so the check is handed `setup` in that case.
+</f:comment>
+<vh:misc.checkForTypoScript settings="{f:if(condition: settings.setup, then: settings.setup, else: settings)}" />
+
+<f:flashMessages queueIdentifier="extbase.flashmessages.tx_powermail_pi1" as="flashMessages">
+    <f:for each="{flashMessages}" as="flashMessage">
+        <f:render partial="Misc/Banner" arguments="{severity: flashMessage.severity.value, title: flashMessage.title, message: flashMessage.message}" />
+    </f:for>
+</f:flashMessages>
+</html>

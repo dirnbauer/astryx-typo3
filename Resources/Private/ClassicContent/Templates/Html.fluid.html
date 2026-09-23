@@ -1,0 +1,21 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    Raw HTML is output verbatim: that is the whole contract of this CType, and
+    whatever classes an editor writes into it are theirs.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-html">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <div class="g-core-html__body">{data.bodytext -> f:format.raw()}</div>
+    </a:layout.stack>
+</f:section>
+
+</html>

@@ -1,0 +1,77 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    xmlns:di="http://typo3.org/ns/Webconsulting/Desiderio/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The files of a core "File links" element, as Astryx List rows.
+
+    Each row is one Item and one real link — the file's name — stretched over
+    the whole row by the stylesheet, so a reader aiming at a row on a phone
+    does not have to hit four words, and the accessible name of the target is
+    still the file's name rather than "download". The Item stays an `li`
+    rather than taking an href because a download wants the `download`
+    attribute, which Item has no argument for.
+
+    The editor's three switches decide what a row carries, as they do in
+    fluid_styled_content:
+      Display       0 name only, 1 with a file-type icon, 2 with a thumbnail
+                    for images (and the icon for everything else)
+      File size     the size beside the type badge
+      Description   the file's description under its name
+
+    The icon key comes from Desiderio's file-type vocabulary, the same one the
+    theme's Icon atom draws from — the engine's, not a second copy of it.
+</f:comment>
+
+<f:argument name="files" type="iterable" optional="{true}"/>
+<f:argument name="displayFileSize" type="boolean" optional="{true}" default="{false}"/>
+<f:argument name="displayDescription" type="boolean" optional="{true}" default="{false}"/>
+<f:argument name="uploadsType" type="integer" optional="{true}" default="1"/>
+
+<f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
+
+<f:if condition="{files}">
+    <f:variable name="fileCount" value="{files -> f:count()}"/>
+    <div class="g-core-files">
+        <a:atom.text type="supporting" color="secondary" class="g-core-files__summary"><f:translate key="{labels}:core.files.count" arguments="{count: fileCount}"/></a:atom.text>
+        <a:molecule.list dividers="with-dividers" class="g-core-files__list">
+            <f:for each="{files}" as="file">
+                <f:variable name="fileTitle" value="{f:if(condition: file.title, then: file.title, else: file.name)}"/>
+                <a:molecule.item interactive="interactive" class="g-core-files__row">
+                    <f:fragment name="start"><f:spaceless>
+                        <f:if condition="{uploadsType} == 2 && {file.type} == 2">
+                            <f:then>
+                                <a:atom.thumbnail class="g-core-files__thumbnail"><f:image image="{file}" width="112c" height="112c" alt="" loading="lazy" decoding="async"/></a:atom.thumbnail>
+                            </f:then>
+                            <f:else if="{uploadsType} != 0">
+                                <a:atom.icon name="{di:fileIconName(extension: file.extension)}" class="g-core-files__icon"/>
+                            </f:else>
+                        </f:if>
+                    </f:spaceless></f:fragment>
+                    <f:fragment>
+                        <a:molecule.itemContent>
+                            <a:molecule.itemLabel class="g-core-files__name"><a href="{file.publicUrl}" class="g-core-files__link" download><a:atom.visuallyHidden><f:translate key="{labels}:core.files.download" default="Download"/>: </a:atom.visuallyHidden>{fileTitle}</a></a:molecule.itemLabel>
+                            <f:if condition="{displayDescription} && {file.description}">
+                                <a:molecule.itemDescription>{file.description}</a:molecule.itemDescription>
+                            </f:if>
+                        </a:molecule.itemContent>
+                    </f:fragment>
+                    <f:fragment name="end"><f:spaceless>
+                        <f:if condition="{uploadsType} != 0 && {file.extension}">
+                            <a:atom.badge variant="outline" class="g-core-files__type">{file.extension}</a:atom.badge>
+                        </f:if>
+                        <f:if condition="{displayFileSize} && {file.size}">
+                            <a:atom.text as="span" type="supporting" color="secondary" class="g-core-files__size"><f:format.bytes decimals="0">{file.size}</f:format.bytes></a:atom.text>
+                        </f:if>
+                        <a:atom.icon name="download" size="sm" class="g-core-files__action"/>
+                    </f:spaceless></f:fragment>
+                </a:molecule.item>
+            </f:for>
+        </a:molecule.list>
+    </div>
+</f:if>
+
+</html>

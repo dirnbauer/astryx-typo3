@@ -1,0 +1,46 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:di="http://typo3.org/ns/Webconsulting/Desiderio/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Powermail "friendlycaptcha" field (studiomitte/friendlycaptcha).
+
+    The same three states Desiderio's partial has, drawn in Astryx markup:
+
+    - bypass (Development context or test mode, decided by Desiderio's
+      FriendlyCaptchaBypass, which this theme's parent set already uses to
+      skip the check): an inert note that a captcha sits here;
+    - the real widget, when the extension is installed and configured;
+    - the extension's own "configuration missing" message otherwise.
+
+    The widget lives in its own partial so the friendlycaptcha ViewHelper
+    namespace is only parsed where the extension is known to be loaded —
+    lib.astryxFriendlyCaptcha, set by a TypoScript condition, says so.
+
+    The hidden "1" is what Powermail maps for the field; the widget writes its
+    solution into a field of its own.
+</f:comment>
+
+<f:variable name="fieldId" value="powermail_field_{field.marker}" />
+<f:variable name="installed"><f:cObject typoscriptObjectPath="lib.astryxFriendlyCaptcha" /></f:variable>
+<f:variable name="invalid" value="{vh:validation.errorClass(field: field, class: 'true')}" />
+
+<a:molecule.field status="{f:if(condition: invalid, then: 'error', else: 'default')}" class="powermail_fieldwrap powermail_fieldwrap_{field.marker}">
+    <f:if condition="{field.css} != 'nolabel'">
+        <span class="astryx-field-label" id="{fieldId}-label"><vh:string.escapeLabels>{field.title}</vh:string.escapeLabels></span>
+    </f:if>
+    <f:form.hidden property="{field.marker}" value="1" id="{fieldId}" respectSubmittedDataValue="false" />
+    <f:if condition="{di:friendlyCaptchaTestModeEnabled()} || !{installed}">
+        <f:then>
+            <f:render partial="Misc/CaptchaPlaceholder" />
+        </f:then>
+        <f:else>
+            <f:render partial="Misc/FriendlyCaptchaWidget" />
+        </f:else>
+    </f:if>
+    <div class="g-form__messages" id="{fieldId}-messages"><f:if condition="{invalid}"><f:render partial="Misc/FieldError" arguments="{field: field, fieldId: fieldId}" /></f:if></div>
+</a:molecule.field>
+</html>

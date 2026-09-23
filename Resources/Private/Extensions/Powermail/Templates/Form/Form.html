@@ -1,0 +1,98 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:vh="http://typo3.org/ns/In2code/Powermail/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:layout name="Default" />
+
+<f:comment>
+    The Powermail form, as an Astryx Card holding one real form.
+
+    What stays exactly as Powermail wrote it is everything its scripts and
+    powermail_cond read: the `powermail_form`, `powermail_morestep`,
+    `powermail_fieldset*` and `powermail_form_uid` hooks, the data attributes
+    from enableJavascriptValidationAndAjax, and the step buttons'
+    data-powermail-morestep-* attributes. Those are behaviour, not styling —
+    the look is the Astryx components and the `g-form` rules only.
+
+    Multi-step forms: Powermail's script shows one fieldset at a time and moves
+    an `active` class between the step buttons, so the step list below is
+    plain buttons it can find by attribute. A click has to land on the button
+    itself (the script reads the target's attributes), which is why the
+    number and title inside it take no pointer events.
+</f:comment>
+
+<f:section name="main">
+    <f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
+    <f:render partial="Misc/FlashMessages" arguments="{_all}" />
+
+    <f:if condition="{form}">
+        <f:then>
+            <f:variable name="pageCount" value="{form.pages -> f:count()}" />
+            <f:variable name="titleId" value="powermail_form_{form.uid}-title" />
+            <f:if condition="{form.css} != 'nolabel'">
+                <f:variable name="formAria" value="{labelledby: titleId}" />
+            </f:if>
+
+            <a:molecule.card class="g-plugin__card">
+                <f:form
+                    action="{action}"
+                    section="c{ttContentData.uid}"
+                    name="field"
+                    enctype="multipart/form-data"
+                    autocomplete="{form.autocompleteToken}"
+                    additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: form)}"
+                    addQueryString="{settings.misc.addQueryString}"
+                    aria="{formAria}"
+                    class="g-form powermail_form {vh:misc.morestepClass(activate: settings.main.moresteps)}">
+
+                    <f:if condition="{form.css} != 'nolabel'">
+                        <header class="g-form__header">
+                            <a:molecule.cardTitle level="3" id="{titleId}">{form.title}</a:molecule.cardTitle>
+                        </header>
+                    </f:if>
+
+                    <f:render partial="Misc/FormError" arguments="{form: form}" />
+
+                    <f:if condition="{settings.main.moresteps}">
+                        <nav class="g-form__steps" aria-label="{f:translate(key: '{l}:form.steps')}">
+                            <ol class="g-form__step-list">
+                                <f:for each="{form.pages}" as="page" iteration="iterationPages">
+                                    <li class="g-form__step-item">
+                                        <button
+                                            type="button"
+                                            class="astryx-button g-form__step"
+                                            data-variant="secondary"
+                                            data-size="sm"
+                                            data-width="auto"
+                                            data-powermail-morestep-validate="{settings.validation.morestep.fieldset}"
+                                            data-powermail-fieldset="{page.uid}"
+                                            data-powermail-morestep-current="{iterationPages.index}"
+                                            data-powermail-morestep-show="{iterationPages.index}"
+                                            aria-controls="powermail_fieldset_{page.uid}"><span class="g-form__step-index" aria-hidden="true">{iterationPages.cycle}</span><span class="g-form__step-label">{page.title}</span><span class="astryx-visually-hidden">, {f:translate(key: '{l}:form.stepOf', arguments: {0: iterationPages.cycle, 1: pageCount})}</span></button>
+                                    </li>
+                                </f:for>
+                            </ol>
+                        </nav>
+                    </f:if>
+
+                    <f:for each="{form.pages}" as="page" iteration="iterationPages">
+                        <f:render partial="Form/Page" arguments="{page: page, iterationPages: iterationPages, form: form, settings: settings, mail: mail, pageCount: pageCount}" />
+                    </f:for>
+
+                    <f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" respectSubmittedDataValue="false" />
+                    <f:render partial="Misc/HoneyPod" arguments="{form: form}" />
+                </f:form>
+            </a:molecule.card>
+        </f:then>
+        <f:else>
+            <a:molecule.banner status="warning">
+                <a:molecule.bannerContent>
+                    <a:molecule.bannerBody>{f:translate(key: '{l}:form.noForm')}</a:molecule.bannerBody>
+                </a:molecule.bannerContent>
+            </a:molecule.banner>
+        </f:else>
+    </f:if>
+</f:section>
+</html>

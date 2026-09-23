@@ -1,0 +1,67 @@
+# Plugin templates — Powermail, the Form Framework and Frontend Login in Astryx
+# markup (Resources/Private/Extensions/).
+#
+# Each path is added one step above whatever the parent layers register, so the
+# Astryx template wins and anything this theme does not ship (Powermail's mail
+# templates, a third-party field partial) still falls back to the one below:
+#
+#   Powermail   1000001  above Desiderio's DesiderioPowermail set (1000000)
+#   Form        YAML key 1889150041921, above friendlycaptcha (1689150041921)
+#               and Desiderio's captcha override (1789150041921)
+#   felogin     1000001  above the core's 10
+#
+# Besides view paths and one YAML file, only two Powermail display settings are
+# set here (see below). What the plugins accept, validate and send is left to
+# the plugins and their own configuration.
+
+# ---------------------------------------------------------------- Powermail
+# Powermail's own TypoScript comes from its site set (in2code/powermail-main,
+# an optional dependency of this set). Friendly Captcha ships no set, so its
+# Powermail validator and field type are imported here, as Desiderio's
+# Powermail set does.
+[extensionLoaded("friendlycaptcha_official")]
+  @import 'EXT:friendlycaptcha_official/Configuration/TypoScript/Powermail/setup.typoscript'
+[END]
+
+plugin.tx_powermail.view {
+  templateRootPaths.1000001 = EXT:astryx_typo3/Resources/Private/Extensions/Powermail/Templates/
+  partialRootPaths.1000001 = EXT:astryx_typo3/Resources/Private/Extensions/Powermail/Partials/
+  layoutRootPaths.1000001 = EXT:astryx_typo3/Resources/Private/Extensions/Powermail/Layouts/
+}
+
+# Multi-step forms: "Next" and the step buttons only move on once the visible
+# page validates. Powermail's set maps this to a constant it never defines, so
+# without a value the step buttons carried the raw "{$…}" string and skipped the
+# check. Same value Desiderio's Powermail set uses.
+plugin.tx_powermail.settings.setup.validation.morestep.fieldset = 1
+
+# An "html" field is there to hold markup; with Powermail's default it printed
+# its tags as text. The Astryx partial passes it through f:sanitize.html, so
+# this allows the editor's formatting and nothing a sanitiser would not.
+# (Labels stay escaped: Powermail prints those raw, unsanitised, when allowed.)
+plugin.tx_powermail.settings.setup.misc.htmlForHtmlFields = 1
+
+# ----------------------------------------------------------- Form Framework
+# Render.fluid.html is the plugin's own entry template (flash messages); the
+# form, its pages, fields and finisher messages come from the YAML file.
+plugin.tx_form {
+  view.templateRootPaths.1000001 = EXT:astryx_typo3/Resources/Private/Extensions/Form/Templates/
+  settings.yamlConfigurations.1889150041921 = EXT:astryx_typo3/Configuration/Yaml/AstryxFormSetup.yaml
+}
+
+# ----------------------------------------------------------- Frontend Login
+plugin.tx_felogin_login.view {
+  templateRootPaths.1000001 = EXT:astryx_typo3/Resources/Private/Extensions/Felogin/Templates/
+  partialRootPaths.1000001 = EXT:astryx_typo3/Resources/Private/Extensions/Felogin/Partials/
+}
+
+# --------------------------------------------------------- Friendly Captcha
+# Whether studiomitte/friendlycaptcha is installed, for the captcha partials of
+# both form plugins. They render the live widget from a partial of its own that
+# uses the extension's ViewHelpers — a partial that must never be parsed where
+# the extension is missing — and fall back to the Astryx placeholder otherwise.
+lib.astryxFriendlyCaptcha = TEXT
+lib.astryxFriendlyCaptcha.value = 0
+[extensionLoaded("friendlycaptcha_official")]
+  lib.astryxFriendlyCaptcha.value = 1
+[END]

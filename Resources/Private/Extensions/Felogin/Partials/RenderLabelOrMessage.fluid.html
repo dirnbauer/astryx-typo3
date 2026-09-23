@@ -1,0 +1,13 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>An editor-set text from the plugin settings, or felogin's own label for the same key. Unchanged from the core: it is text, not markup.</f:comment>
+<f:spaceless>
+    <f:if condition="{settings.{key}}">
+        <f:then>
+            {settings.{key}}
+        </f:then>
+        <f:else>
+            <f:translate domain="felogin.messages" key="{key}"/>
+        </f:else>
+    </f:if>
+</f:spaceless>
+</html>

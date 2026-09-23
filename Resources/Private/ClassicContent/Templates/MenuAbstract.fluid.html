@@ -1,0 +1,9 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment>
+    Menu of selected pages, each card carrying the page's abstract. See Partials/Menu.fluid.html.
+</f:comment>
+<f:layout name="Default"/>
+<f:section name="Main">
+    <f:render partial="Menu" arguments="{record: record, data: data, items: menu, fallbackPages: record.pages, layout: 'cards'}"/>
+</f:section>
+</html>

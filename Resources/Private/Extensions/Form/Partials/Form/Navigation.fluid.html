@@ -1,0 +1,40 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The button row: Back (secondary, skips browser validation, as the core's
+    does), then Next or Submit (primary).
+
+    f:form.button with the Astryx button markup, not the Button component:
+    `__currentPage` has to be a registered form field, or the Form Framework
+    cannot tell which way the visitor is going.
+</f:comment>
+<div class="g-form__actions" data-align="between">
+    <f:if condition="{form.previousEnabledPage}">
+        <f:form.button
+            property="__currentPage"
+            value="{form.previousEnabledPage.index}"
+            formnovalidate="formnovalidate"
+            class="astryx-button"
+            data="{variant: 'secondary', size: 'md', width: 'auto'}">{formvh:translateElementProperty(element: form.currentPage, renderingOptionProperty: 'previousButtonLabel')}</f:form.button>
+    </f:if>
+    <f:if condition="{form.nextEnabledPage}">
+        <f:then>
+            <f:form.button
+                property="__currentPage"
+                value="{form.nextEnabledPage.index}"
+                class="astryx-button g-form__submit"
+                data="{variant: 'primary', size: 'md', width: 'auto'}">{formvh:translateElementProperty(element: form.currentPage, renderingOptionProperty: 'nextButtonLabel')}</f:form.button>
+        </f:then>
+        <f:else>
+            <f:form.button
+                property="__currentPage"
+                value="{form.pages -> f:count()}"
+                class="astryx-button g-form__submit"
+                data="{variant: 'primary', size: 'md', width: 'auto'}">{formvh:translateElementProperty(element: form, renderingOptionProperty: 'submitButtonLabel')}</f:form.button>
+        </f:else>
+    </f:if>
+</div>
+</html>

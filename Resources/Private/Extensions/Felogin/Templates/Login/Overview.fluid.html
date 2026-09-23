@@ -1,0 +1,17 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>After a successful login without a redirect: a success Banner that says who is signed in.</f:comment>
+<div class="g-plugin" data-g-plugin="login">
+    <a:molecule.banner status="success" ariaLive="polite">
+        <a:molecule.bannerContent>
+            <f:if condition="{showLoginMessage}">
+                <a:molecule.bannerTitle level="3"><f:render partial="RenderLabelOrMessage" arguments="{key: 'success_header', settings: settings}"/></a:molecule.bannerTitle>
+            </f:if>
+            <a:molecule.bannerBody><f:translate arguments="{0: '{user.username}'}" domain="felogin.messages" key="login_user_info"/></a:molecule.bannerBody>
+        </a:molecule.bannerContent>
+    </a:molecule.banner>
+</div>
+</html>

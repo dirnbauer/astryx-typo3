@@ -57,6 +57,18 @@ page.headerData.2610.value (
 lib.fluidPage.paths.50 = EXT:astryx_typo3/Resources/Private/Templates/
 page.10.paths.50 = EXT:astryx_typo3/Resources/Private/Templates/
 
+# Core content types — Text, Text & Media, Table, the menus, the plugin frames.
+# Desiderio registers its ClassicContent templates at .200; these sit above
+# them at .250 (below .300, which Desiderio reserves for sitepackages), so on
+# an Astryx site every core CType renders with Astryx components and
+# classes instead of Desiderio's Tailwind markup. The data processors stay
+# Desiderio's: only the templates, partials and layouts change.
+lib.contentElement {
+  templateRootPaths.250 = EXT:astryx_typo3/Resources/Private/ClassicContent/Templates/
+  partialRootPaths.250 = EXT:astryx_typo3/Resources/Private/ClassicContent/Partials/
+  layoutRootPaths.250 = EXT:astryx_typo3/Resources/Private/ClassicContent/Layouts/
+}
+
 # ------------------------------------------------------------ picker preview
 # The element library renders single elements through this page type. It uses
 # its own Fluid template so Vite resolves Astryx's entries, not Desiderio's.
@@ -142,3 +154,6 @@ tt_content.astryx_typo3_backtoparent.dataProcessing.20 {
     titleField = nav_title // title
   }
 [END]
+
+# Powermail, Form Framework and Frontend Login in Astryx markup.
+@import 'EXT:astryx_typo3/Configuration/Sets/AstryxTypo3/TypoScript/plugins.typoscript'

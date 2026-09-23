@@ -1,0 +1,21 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The Form Framework's honeypot: a field only a bot fills in. Moved
+    off-screen by `g-form__honeypot` (the element's inline style is kept as a
+    second line of defence), out of the tab order and hidden from assistive
+    technology, so no person ever meets it.
+</f:comment>
+<f:if condition="{element.properties.renderAsHiddenField}">
+    <f:then>
+        <f:form.hidden property="{element.identifier}" id="{element.uniqueIdentifier}" data="{id: element.identifier}" />
+    </f:then>
+    <f:else>
+        <div class="g-form__honeypot" aria-hidden="true">
+            <f:form.textfield property="{element.identifier}" id="{element.uniqueIdentifier}" data="{id: element.identifier}" additionalAttributes="{aria-hidden: 'true', autocomplete: 'off'}" tabindex="-1" style="{element.properties.styleAttribute}" />
+        </div>
+    </f:else>
+</f:if>
+</html>

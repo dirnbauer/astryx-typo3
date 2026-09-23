@@ -1,0 +1,28 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    The frame for a Powermail form, used where a set points
+    tt_content.powermail_pi1.templateName here (Desiderio's Powermail set
+    does). Band, heading and anchor are this template's; the form itself is
+    Powermail's own templates', which should not open a Section of their own.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-plugin">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <div class="g-core-plugin__body">
+            <f:if condition="{content}">
+                <f:then>{content -> f:format.raw()}</f:then>
+                <f:else><f:cObject typoscriptObjectPath="tt_content.{data.CType}.20" data="{data}" table="tt_content"/></f:else>
+            </f:if>
+        </div>
+    </a:layout.stack>
+</f:section>
+
+</html>

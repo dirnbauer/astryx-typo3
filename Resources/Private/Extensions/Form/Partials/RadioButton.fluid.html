@@ -1,0 +1,65 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "RadioButton": an Astryx RadioList — a fieldset whose legend is
+    the question — with one RadioListItem row per option and the drawn radio.
+    The row is the label, so the whole line is the hit target.
+
+    Options are f:form.radio rather than RadioListItem itself, because only the
+    ViewHelper registers the name with the form's request token. The legend
+    follows the element's legendVisuallyHidden setting (the core default hides
+    it); with renderFieldset off the group is a role="radiogroup" named by a
+    visible label instead.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+        <f:variable name="describedBy">{f:if(condition: element.properties.elementDescription, then: '{element.uniqueIdentifier}-desc')} {f:if(condition: validationResults.errors, then: '{element.uniqueIdentifier}-errors')}</f:variable>
+        <f:variable name="describedBy" value="{describedBy -> f:format.trim()}" />
+        <f:if condition="{validationResults.errors}">
+            <f:variable name="itemAria" value="{invalid: 'true'}" />
+        </f:if>
+
+        <a:molecule.field status="{f:if(condition: validationResults.errors.0, then: 'error', else: 'default')}">
+            <f:if condition="{element.properties.renderFieldset} == 1">
+                <f:then>
+                    <a:molecule.radioList id="{element.uniqueIdentifier}" describedBy="{describedBy}">
+                        <legend class="{f:if(condition: element.properties.legendVisuallyHidden, then: 'astryx-visually-hidden', else: 'astryx-field-label')}"><f:render section="Legend" arguments="{element: element}" /></legend>
+                        <f:render section="Options" arguments="{_all}" />
+                    </a:molecule.radioList>
+                </f:then>
+                <f:else>
+                    <span class="astryx-field-label" id="{element.uniqueIdentifier}-label"><f:render section="Legend" arguments="{element: element}" /></span>
+                    <div class="astryx-radio-list" id="{element.uniqueIdentifier}" role="radiogroup" aria-labelledby="{element.uniqueIdentifier}-label" aria-describedby="{describedBy}">
+                        <f:render section="Options" arguments="{_all}" />
+                    </div>
+                </f:else>
+            </f:if>
+            <f:if condition="{element.properties.elementDescription}">
+                <p class="astryx-field-description" id="{element.uniqueIdentifier}-desc">{formvh:translateElementProperty(element: element, property: 'elementDescription')}</p>
+            </f:if>
+            <f:if condition="{validationResults.flattenedErrors}">
+                <f:render partial="Field/Errors" arguments="{element: element, errors: validationResults.errors}" />
+            </f:if>
+        </a:molecule.field>
+    </f:form.validationResults>
+</formvh:renderRenderable>
+
+<f:section name="Legend"><span>{formvh:translateElementProperty(element: element, property: 'label')}</span><f:if condition="{element.required}"><f:render partial="Field/Required" arguments="{element: element}" /></f:if></f:section>
+
+<f:section name="Options">
+    <f:for each="{element.properties.options}" as="label" key="value" iteration="idIterator">
+        <label class="astryx-radio-list-item"><f:form.radio
+                                property="{element.identifier}"
+                                id="{element.uniqueIdentifier}-{idIterator.index}"
+                                value="{value}"
+                                errorClass="g-form__invalid"
+                                additionalAttributes="{formvh:translateElementProperty(element: element, property: 'fluidAdditionalAttributes')}"
+                                aria="{itemAria}"
+                            /><span class="astryx-radio"><span class="astryx-radio-dot"></span></span><span>{formvh:translateElementProperty(element: element, property: '{0: \'options\', 1: value}')}</span></label>
+    </f:for>
+</f:section>
+</html>

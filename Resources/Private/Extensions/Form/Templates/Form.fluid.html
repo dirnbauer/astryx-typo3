@@ -1,0 +1,33 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The form itself: an Astryx Card around one real form, the current page
+    and the button row. Everything the Form Framework needs from the <form>
+    tag — the object, action, method, enctype and whatever attributes the
+    form definition adds — is passed through untouched.
+</f:comment>
+<formvh:renderRenderable renderable="{form}">
+    <a:molecule.card class="g-plugin__card">
+        <formvh:form
+            object="{form}"
+            action="{form.renderingOptions.controllerAction}"
+            method="{form.renderingOptions.httpMethod}"
+            id="{form.identifier}"
+            section="{form.identifier}"
+            enctype="{form.renderingOptions.httpEnctype}"
+            addQueryString="{form.renderingOptions.addQueryString}"
+            argumentsToBeExcludedFromQueryString="{form.renderingOptions.argumentsToBeExcludedFromQueryString}"
+            additionalParams="{form.renderingOptions.additionalParams}"
+            additionalAttributes="{formvh:translateElementProperty(element: form, property: 'fluidAdditionalAttributes')}"
+            class="g-form"
+        >
+            <f:render partial="{form.currentPage.templateName}" arguments="{page: form.currentPage}" />
+            <f:render partial="Form/Navigation" arguments="{form: form}" />
+        </formvh:form>
+    </a:molecule.card>
+</formvh:renderRenderable>
+</html>

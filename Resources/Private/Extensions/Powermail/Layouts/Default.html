@@ -1,0 +1,16 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    The frame around every Powermail view on the Astryx site.
+
+    `tx-powermail` is not a style: Powermail's own script finds the plugin by
+    it (the AJAX submit swaps this element's content and hangs its progress bar
+    here), so it stays. Everything that paints comes from `g-plugin` and the
+    Astryx components inside.
+</f:comment>
+<div class="tx-powermail g-plugin" data-g-plugin="powermail">
+    <f:render section="main" />
+</div>
+</html>

@@ -1,0 +1,22 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+<f:comment>
+    Form element "StaticText": a heading and a paragraph between the fields,
+    in Astryx type. An h4 — under the page title (h3) — where the core writes
+    an h2.
+</f:comment>
+<formvh:renderRenderable renderable="{element}">
+    <div class="g-form__content">
+        <f:if condition="{element.label}">
+            <a:atom.heading level="4" type="heading-5">{formvh:translateElementProperty(element: element, property: 'label')}</a:atom.heading>
+        </f:if>
+        <f:if condition="{element.properties.text}">
+            <a:atom.text as="div" color="secondary">{formvh:translateElementProperty(element: element, property: 'text') -> f:sanitize.html() -> f:transform.html()}</a:atom.text>
+        </f:if>
+    </div>
+</formvh:renderRenderable>
+</html>

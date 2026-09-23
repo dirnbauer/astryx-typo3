@@ -116,7 +116,9 @@ final class AtomicDesignConformanceTest extends TestCase
     private static function templateFiles(): array
     {
         $files = glob(self::EXT_ROOT . '/ContentBlocks/ContentElements/*/templates/frontend.html') ?: [];
-        foreach (['Templates/Pages', 'Templates/Partials/Pages', 'Templates/Layouts/Pages'] as $dir) {
+        // ClassicContent renders the core CTypes (Text, Table, menus, plugin
+        // frames) on an Astryx site, so it answers to the same contract.
+        foreach (['Templates/Pages', 'Templates/Partials/Pages', 'Templates/Layouts/Pages', 'ClassicContent/Layouts', 'ClassicContent/Partials', 'ClassicContent/Templates'] as $dir) {
             $files = [...$files, ...(glob(self::EXT_ROOT . '/Resources/Private/' . $dir . '/*.html') ?: [])];
         }
         $solr = new \RecursiveIteratorIterator(

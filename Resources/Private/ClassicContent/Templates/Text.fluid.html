@@ -1,0 +1,16 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <a:layout.stack gap="6" class="g-core-text">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:render partial="RichText" arguments="{record: record, field: 'bodytext'}"/>
+    </a:layout.stack>
+</f:section>
+
+</html>

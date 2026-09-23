@@ -1,0 +1,40 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:comment>
+    Content elements sharing the selected categories. Unlike the page menus,
+    core's processor hands over raw content rows as {content} — no link, no
+    title — so the Menu partial cannot draw them. The same clickable-card grid
+    is built here from the rows instead; each card links to its element's
+    anchor on the page it lives on.
+</f:comment>
+
+<f:layout name="Default"/>
+
+<f:section name="Main">
+    <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
+    <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+    <f:variable name="titleLevel" value="{f:if(condition: '{record.header} && {data.header_layout} != 100', then: 3, else: 2)}"/>
+
+    <a:layout.stack gap="6" class="g-core-menu">
+        <f:render partial="Header" arguments="{record: record, data: data}"/>
+        <f:if condition="{content}">
+            <nav class="g-core-menu__nav" aria-label="{navLabel}">
+                <a:layout.grid cols="3" as="ul" class="g-core-menu__cards">
+                    <f:for each="{content}" as="item">
+                        <li class="g-core-menu__cell">
+                            <a:molecule.card clickable="{true}" class="g-core-menu__card">
+                                <a:molecule.cardTitle level="{titleLevel}"><a href="{f:uri.page(pageUid: item.data.pid, section: 'c{item.data.uid}')}">{item.data.header}</a></a:molecule.cardTitle>
+                            </a:molecule.card>
+                        </li>
+                    </f:for>
+                </a:layout.grid>
+            </nav>
+        </f:if>
+    </a:layout.stack>
+</f:section>
+
+</html>

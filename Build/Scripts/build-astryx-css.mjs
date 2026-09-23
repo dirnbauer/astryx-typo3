@@ -110,6 +110,11 @@ function collectUsedClasses() {
 
   walk(path.join(EXT_ROOT, 'Resources/Private/Components'), ['.html']);
   walk(path.join(EXT_ROOT, 'Resources/Private/Templates'), ['.html']);
+  // The core content types (Text, Table, menus, plugin frames) render from
+  // here; a class only they use is still a class the site renders.
+  walk(path.join(EXT_ROOT, 'Resources/Private/ClassicContent'), ['.html']);
+  // Powermail, Form Framework and Frontend Login templates (plugins.typoscript).
+  walk(path.join(EXT_ROOT, 'Resources/Private/Extensions'), ['.html']);
   walk(path.join(EXT_ROOT, 'Resources/Private/Solr'), ['.html']);
   walk(path.join(EXT_ROOT, 'ContentBlocks'), ['.html', '.css']);
   add(readIf(path.join(EXT_ROOT, 'Resources/Public/Js/astryx.js')));

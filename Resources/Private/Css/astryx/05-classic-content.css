@@ -1,106 +1,354 @@
 /*
  * Native TYPO3 content types on an Astryx page.
  *
- * An editor can always drop a core "Text & Media", "Header" or menu element
- * onto a page. Those render through Desiderio's self-contained ClassicContent
- * templates. These rules adapt that stable markup to Astryx tokens.
+ * An editor can always drop a core Text, Text & Media, Table, File links or
+ * menu element onto a page, and a site can carry plugins (search, login,
+ * forms) that render through the same frame. Those render through this
+ * extension's own ClassicContent templates (Resources/Private/ClassicContent,
+ * registered over Desiderio's at lib.contentElement *RootPaths.250): Astryx
+ * components, with `g-core-*` classes for the arrangement between them.
  *
- * Kept deliberately small and at low specificity: enough that a core element
- * does not look broken, not so much that it competes with the elements this
- * extension ships.
+ * This file is that arrangement and nothing else. Type, colour, cards, lists,
+ * tables and dividers are the components' own rules; what is here is gap,
+ * measure and the few joins between one component and the next — the same
+ * job an element's own frontend.css does for the 250 elements. Tokens only.
+ *
+ * It sits in the astryx-chrome layer, which outranks astryx-components, so a
+ * rule here that touches a component (the figure's margin, the nested
+ * section's padding) wins without needing specificity to do it.
  */
 
-.ce-headline,
-.frame > :where(h1, h2, h3, h4, h5, h6) {
-  font-family: var(--font-family-heading);
-  color: var(--color-text-primary);
-  text-wrap: balance;
+/* ----------------------------------------------------------------- frame */
+
+/*
+ * Consecutive core elements read as one document — a header, then its text,
+ * then a table — so the seam between two bands is one band, not two. The same
+ * collapse `.astryx-section[data-surface="same-tone"]` gives the elements
+ * that ask for it.
+ */
+.g-core + .g-core {
+  padding-block-start: 0;
 }
 
-.frame {
-  padding-block: var(--spacing-8);
+.g-core__rule {
+  margin-block: 0 var(--spacing-8);
 }
 
-.frame > .astryx-layout,
-.frame-inner {
-  max-inline-size: var(--astryx-container);
+.g-core__rule:last-child {
+  margin-block: var(--spacing-8) 0;
+}
+
+/* ---------------------------------------------------------------- header */
+
+.g-core__intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  /* A heading block that runs the full container width stops introducing and
+     starts being body copy — the width every element intro uses. */
+  max-inline-size: 44rem;
+}
+
+.g-core__intro[data-align="center"] {
   margin-inline: auto;
-  padding-inline: var(--spacing-4);
+  text-align: center;
 }
 
-.frame :where(p, ul, ol) {
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-leading);
-  color: var(--color-text-primary);
+.g-core__intro[data-align="right"] {
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+.g-core__subheader {
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------ text */
+
+/* The reading measure. The band may be as wide as the page; a line of running
+   text past about seventy characters loses the reader's eye on the way back. */
+.g-core__prose {
   max-inline-size: 70ch;
 }
 
-.frame :where(a):not([class]) {
-  color: var(--color-text-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+/* --------------------------------------------------------- text & media */
+
+.g-core-textmedia {
+  align-items: start;
 }
 
-.frame :where(img) {
-  border-radius: var(--radius-element);
+.g-core-textmedia__copy {
+  min-inline-size: 0;
 }
 
-/* Classic media elements ship their own grid classes; give them a sane gap
-   rather than restyling the grid itself. */
-.ce-gallery .ce-row + .ce-row,
-.ce-gallery .ce-column + .ce-column {
-  margin-block-start: var(--spacing-4);
+/* ----------------------------------------------------------------- media */
+
+/*
+ * One figure per file, in the editor's column count (at most four, and never
+ * more than there are files — the template caps it). One column below the
+ * medium breakpoint: two photographs side by side on a phone are two stamps.
+ */
+.g-core-media {
+  --core-media-columns: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--core-media-columns), minmax(0, 1fr));
+  gap: var(--spacing-6);
 }
 
-.ce-bodytext > * + * {
-  margin-block-start: var(--spacing-4);
+@media (min-width: 768px) {
+  .g-core-media[data-columns="2"] { --core-media-columns: 2; }
+  .g-core-media[data-columns="3"] { --core-media-columns: 3; }
+  .g-core-media[data-columns="4"],
+  .g-core-media[data-columns="5"],
+  .g-core-media[data-columns="6"],
+  .g-core-media[data-columns="7"],
+  .g-core-media[data-columns="8"] { --core-media-columns: 4; }
 }
 
-/* Core menus render as bare lists. */
-.ce-menu ul,
-.ce-uploads {
-  list-style: none;
+.g-core-media__figure {
   margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2);
 }
 
-.ce-menu a,
-.ce-uploads a {
+/* No fixed ratio: a picture beside a paragraph was chosen for what is in it,
+   and cropping it to a shape the template preferred would cut that out. */
+.g-core-media__asset {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+/* A film arrives as an iframe or a video element with its own intrinsic
+   size; it takes the column's width at the film's own ratio. */
+.g-core-media__figure :where(iframe, video) {
+  inline-size: 100%;
+  block-size: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-core-media__link {
+  display: block;
+  border-radius: var(--radius-container, var(--radius-element));
+}
+
+.g-core-media__figure > figcaption {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------- bullets */
+
+.g-core-bullets__list,
+.g-core-bullets__definitions {
+  max-inline-size: 70ch;
+}
+
+/* ----------------------------------------------------------------- table */
+
+.g-core-table__caption {
+  caption-side: top;
+  text-align: start;
+  padding-block-end: var(--spacing-2);
+}
+
+/* ----------------------------------------------------------------- files */
+
+.g-core-files {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-core-files__summary {
+  margin: 0;
+}
+
+.g-core-files__list {
+  border-block: var(--border-width) solid var(--color-border);
+}
+
+/* The file name is the row's one link; this stretches it over the row, the
+   way ClickableCard stretches a card's, so the whole row is the target. */
+.g-core-files__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-core-files__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.g-core-files__link:focus-visible {
+  outline: none;
+}
+
+.g-core-files__name {
+  font-weight: var(--font-weight-medium);
+}
+
+.g-core-files__row:hover .g-core-files__name {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.g-core-files__row .astryx-item-end {
+  gap: var(--spacing-3);
+}
+
+.g-core-files__icon,
+.g-core-files__action {
+  color: var(--color-icon-secondary);
+}
+
+.g-core-files__thumbnail {
+  inline-size: var(--spacing-12);
+}
+
+.g-core-files__size {
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------------- menus */
+
+.g-core-menu__cards,
+.g-core-menu__tree {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The list item is the grid cell; the card fills it, so every card in a row
+   is as tall as the tallest one. */
+.g-core-menu__cell {
+  display: flex;
+}
+
+.g-core-menu__card {
+  flex: 1;
+}
+
+/* The card title is the accessible name of the whole card, so its link must
+   not underline on hover as if it were the only target. */
+.g-core-menu__card .astryx-card-title a {
+  text-decoration: none;
+}
+
+.g-core-menu__row {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* The row is the link. Its label and description keep their own colours, and
+   the hover tint says "this goes somewhere" — an underline under both lines
+   of a row reads as two links. */
+.g-core-menu__item {
+  color: inherit;
+  text-decoration: none;
+}
+
+.g-core-menu__item[aria-current="page"] .astryx-item-label {
+  font-weight: var(--font-weight-semibold);
+}
+
+.g-core-menu__branch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.g-core-menu__branch-link {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.g-core-menu__leaves {
+  padding-inline-start: var(--spacing-3);
+}
+
+.g-core-menu__row > .g-core-menu__leaves {
+  padding-inline-start: var(--spacing-6);
+  padding-block-end: var(--spacing-2);
+}
+
+.g-core-menu__leaf {
   color: var(--color-text-accent);
   text-decoration: none;
 }
 
+.g-core-menu__branch-link[aria-current="page"],
+.g-core-menu__leaf[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 @media (hover: hover) {
-  .ce-menu a:hover,
-  .ce-uploads a:hover {
+  .g-core-menu__branch-link:hover,
+  .g-core-menu__leaf:hover {
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
 }
 
-@media (min-width: 768px) {
-  .frame > .astryx-layout,
-  .frame-inner {
-    padding-inline: var(--spacing-6);
-  }
+/* ------------------------------------------------------------------ html */
+
+.g-core-html__body {
+  min-inline-size: 0;
 }
 
-/* ---------------------------------------------------------------- tables */
-/* A table an editor pastes into rich text, or builds with the core Table
-   element, arrives with no class of its own and therefore with the user
-   agent's 1px cell padding — a value on no step of the scale, and cells that
-   touch. This is the same recipe `.astryx-table` uses, applied to the bare
-   tags at low specificity so anything with an opinion still wins. */
-:where(.astryx-prose, .ce-fsc-table) :where(table) {
+/* ------------------------------------------------------- insert records */
+
+/*
+ * An inserted element brings its own Section and Container. Inside this
+ * element's column they would add a second band of padding and a second pair
+ * of gutters, so the nested ones give both back.
+ */
+.g-core-shortcut__records {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.g-core-shortcut__records .astryx-section {
+  padding-block: 0;
+  background-color: transparent;
+}
+
+.g-core-shortcut__records .astryx-layout {
+  padding-inline: 0;
+}
+
+/* ---------------------------------------------------------------- plugin */
+
+.g-core-plugin__body {
+  min-inline-size: 0;
+}
+
+/* -------------------------------------------------------------- tables */
+/* A table an editor pastes into rich text arrives with no class of its own
+   and therefore with the user agent's 1px cell padding — a value on no step
+   of the scale, and cells that touch. This is the same recipe `.astryx-table`
+   uses, applied to the bare tags at zero specificity so anything with an
+   opinion still wins. The core Table element renders an Astryx Table and
+   does not need it. */
+:where(.astryx-prose) :where(table) {
   inline-size: 100%;
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-:where(.astryx-prose, .ce-fsc-table) :where(th, td) {
+:where(.astryx-prose) :where(th, td) {
   padding-block: var(--spacing-2);
   padding-inline: var(--spacing-3);
   border-block-end: var(--border-width) solid var(--color-border);
@@ -108,7 +356,7 @@
   vertical-align: top;
 }
 
-:where(.astryx-prose, .ce-fsc-table) :where(th) {
+:where(.astryx-prose) :where(th) {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
 }
