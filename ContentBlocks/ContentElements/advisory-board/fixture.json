@@ -1,46 +1,46 @@
 {
     "_type": "team",
     "eyebrow": "Advisory Board",
-    "header": "External advisors, and where they come from",
-    "lead": "Portrait, name, affiliation and the subject each one advises on. Two to twelve people, with a note under the grid for the things a board has to say about itself.",
-    "note": "The note field is the place for declarations of interest, meeting frequency or the sentence explaining that advisors are unpaid.",
+    "header": "External advisers and where they come from",
+    "lead": "Portrait, name, organisation and subject for each adviser. Two to twelve people, with a note below the grid.",
+    "note": "Use the note for conflicts of interest, how often the board meets, or whether advisers are paid.",
     "columns": "3",
     "tone": "muted",
     "width": "lg",
     "people": [
         {
             "title": "The name",
-            "role": "The organisation they come from",
+            "role": "Their organisation",
             "text": "The subject they advise on",
             "link": "#",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p07.jpg",
-                    "alternative": "A woman in her thirties",
+                    "alternative": "Portrait of a woman in her thirties.",
                     "title": ""
                 }
             ]
         },
         {
-            "title": "Affiliation at the same weight",
-            "role": "as the name above it",
-            "text": "Because that is the credibility",
+            "title": "Organisation at equal weight",
+            "role": "to the name above it",
+            "text": "Because it shows why this person is on the board",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p08.jpg",
-                    "alternative": "A man in his twenties",
+                    "alternative": "Portrait of a man in his twenties.",
                     "title": ""
                 }
             ]
         },
         {
-            "title": "The subject is a token",
-            "role": "not a badge",
-            "text": "So a long subject wraps instead of running out of the card",
+            "title": "The subject wraps",
+            "role": "it is not a badge",
+            "text": "So a long subject breaks onto a new line instead of overflowing the card",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p09.jpg",
-                    "alternative": "A woman in her fifties",
+                    "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
             ]

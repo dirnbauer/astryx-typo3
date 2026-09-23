@@ -1,27 +1,27 @@
 {
     "_type": "team",
     "eyebrow": "Open Roles",
-    "header": "Vacancies as rows, one target each",
-    "lead": "Job title, location and contract type, and a link to the posting. The whole row is the link rather than the four words of the title, so a reader on a phone does not have to aim.",
-    "note": "The note holds the speculative-application line that follows the list — the sentence for the reader none of the rows fitted.",
+    "header": "Job openings as rows, one link each",
+    "lead": "Each row shows the job title, location, contract type and a link. The whole row is clickable, so it is easy to tap on a phone.",
+    "note": "Use the note for readers who want to apply although no opening matches.",
     "cta_label": "How applications work",
     "cta_link": "#",
     "tone": "body",
     "width": "md",
     "roles": [
         {
-            "title": "The title is the row's label",
-            "description": "and the description carries the location and the contract type",
+            "title": "The job title labels the row",
+            "description": "and the description holds location and contract type",
             "link": "#"
         },
         {
-            "title": "Dividers, not gaps",
-            "description": "a rule between rows reads as one list rather than as separate cards",
+            "title": "Lines between rows",
+            "description": "so the rows read as one list, not as separate cards",
             "link": "#"
         },
         {
-            "title": "A row without a link stays",
-            "description": "rendered as plain text, because a dead link is worse than none"
+            "title": "A row without a link",
+            "description": "shows as plain text, because a broken link is worse than none"
         }
     ]
 }

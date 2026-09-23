@@ -1,8 +1,8 @@
 {
     "_type": "team",
     "header": "The name is the heading",
-    "subheader": "and the role is the line under it",
-    "bodytext": "<p>One person in full: a cropped portrait beside a rich-text biography, with the name at heading level and the role directly beneath. The name goes in the header field rather than being written into the text, so the page module, the search index and a shared link all show a person rather than an untitled block.</p><p>The biography is the only rich-text field on the element. It caps at about sixty-two characters a line whatever width the band is given, because a paragraph that runs the full page is a paragraph nobody finishes.</p><p>Up to two links close the column — a way to reach the person, and somewhere their work lives. The reverse toggle moves the portrait to the other side without changing the source order, so the name is still read first.</p>",
+    "subheader": "and the role sits below it",
+    "bodytext": "<p>One person in full: a portrait beside a rich-text biography. The name goes in the header field, not in the text. That way the page module, the search index and shared links all show a person's name.</p><p>The biography is the only rich-text field. Lines stop at about 62 characters at any band width, so the text stays easy to read.</p><p>Up to two links close the column: one to contact the person, one to their work. The reverse switch moves the portrait to the other side, and the name is still read first.</p>",
     "cta_label": "Primary action",
     "cta_link": "#",
     "secondary_label": "Secondary action",
@@ -13,7 +13,7 @@
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p05.jpg",
-            "alternative": "A woman in her forties",
+            "alternative": "Portrait of a woman in her forties.",
             "title": ""
         }
     ]

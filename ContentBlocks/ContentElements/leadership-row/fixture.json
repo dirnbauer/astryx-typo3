@@ -1,8 +1,8 @@
 {
     "_type": "team",
     "eyebrow": "Leadership Row",
-    "header": "A handful of people, larger, with a line each",
-    "lead": "Two to six people at the avatar's largest size, each with a role, a short biography and a link on the name. Past six the row stops reading as leadership and starts reading as a small team grid, which is what the maximum is for.",
+    "header": "Larger portraits, each with a short bio",
+    "lead": "Two to six people at the largest avatar size, each with a role, a short bio and a linked name. For more people, use a team grid.",
     "columns": "3",
     "align": "start",
     "tone": "surface",
@@ -10,37 +10,37 @@
     "people": [
         {
             "title": "The portrait is a circle",
-            "role": "the shared avatar at its largest size",
-            "text": "Which is what tells this band apart from the framed rectangles of Team Grid when both sit on one page.",
+            "role": "the avatar at its largest size",
+            "text": "This sets the row apart from the rectangular portraits of Team Grid on the same page.",
             "link": "#",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p14.jpg",
-                    "alternative": "A man in his thirties",
+                    "alternative": "Portrait of a man in his thirties.",
                     "title": ""
                 }
             ]
         },
         {
             "title": "The name is the link",
-            "role": "and the heading is the accessible name",
-            "text": "Rather than a second, vaguer target underneath repeating the same destination in weaker words.",
+            "role": "and the heading names the link",
+            "text": "There is no second link below it that repeats the same target.",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p15.jpg",
-                    "alternative": "A woman in her twenties",
+                    "alternative": "Portrait of a woman in her twenties.",
                     "title": ""
                 }
             ]
         },
         {
-            "title": "Centred moves the whole cell",
-            "role": "portrait, name, role and biography together",
-            "text": "The align field centres the intro as well, so nothing is left hanging off the start edge of a centred column.",
+            "title": "Centring moves the whole cell",
+            "role": "portrait, name, role and bio together",
+            "text": "The align setting centres the intro too, so no part stays at the start edge.",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p16.jpg",
-                    "alternative": "A man in his fifties",
+                    "alternative": "Portrait of a man in his fifties.",
                     "title": ""
                 }
             ]
