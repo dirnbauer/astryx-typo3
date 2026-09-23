@@ -1,33 +1,33 @@
 {
     "_type": "navigation",
-    "header": "Destinations as full-width rows",
-    "lead": "The list menu: a title, a line of context and a trailing arrow, ruled between. Thirty rows cost the page a fraction of what thirty cards would, which is the entire reason to choose it.",
+    "header": "Pages as full-width rows",
+    "lead": "Each row has a title, a line of context and an arrow, with a rule between rows. 30 rows take far less space than 30 cards.",
     "width": "md",
     "tone": "body",
     "compact": 0,
     "items": [
         {
             "title": "The whole row is the link",
-            "description": "Not the title alone — a row is one destination and one target",
+            "description": "Not just the title: one row, one page, one link",
             "link": "#"
         },
         {
-            "title": "A row without a description collapses",
+            "title": "A row without a description is shorter",
             "link": "#"
         },
         {
-            "title": "The arrow is drawn, not fetched",
-            "description": "Two borders on an empty box, hidden from assistive technology",
+            "title": "The arrow is drawn in CSS",
+            "description": "Two borders on an empty box, hidden from screen readers",
             "link": "#"
         },
         {
-            "title": "Compact tightens the rows",
-            "description": "The toggle changes the padding and nothing else about the row",
+            "title": "Compact makes rows tighter",
+            "description": "The switch changes the padding and nothing else",
             "link": "#"
         },
         {
-            "title": "Up to thirty destinations",
-            "description": "Past that the list wants columns, which is the Section Index",
+            "title": "Up to 30 pages",
+            "description": "For more, use the Section Index, which has columns",
             "link": "#"
         }
     ]

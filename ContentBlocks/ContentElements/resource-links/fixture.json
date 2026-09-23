@@ -1,30 +1,30 @@
 {
     "_type": "navigation",
-    "header": "A reading list that leaves the site",
-    "lead": "Each row carries the title, the source it comes from and a marker that the link goes elsewhere.",
-    "note": "The note is the editor's line about the set as a whole — when it was last checked, what is missing from it.",
+    "header": "A reading list of external links",
+    "lead": "Each row shows the title, its source and a marker that says the link leaves the site.",
+    "note": "A line about the whole list, such as when it was last checked.",
     "width": "md",
     "tone": "muted",
     "compact": 0,
     "links": [
         {
-            "title": "The marker is drawn, not fetched",
-            "description": "Two borders leaving the top corner of an empty box",
+            "title": "The marker is drawn in CSS",
+            "description": "Two borders at the top corner of an empty box",
             "link": "#"
         },
         {
-            "title": "And it is said as well as shown",
-            "description": "A short line inside the link, for anyone not seeing the arrow",
+            "title": "It is also written out",
+            "description": "Hidden text inside the link, for people who can't see the arrow",
             "link": "#"
         },
         {
             "title": "rel=noopener on every row",
-            "description": "Regardless of the target the editor chose",
+            "description": "Whatever target the editor chose",
             "link": "#"
         },
         {
             "title": "The description names the source",
-            "description": "Not a summary — the body the page belongs to",
+            "description": "Not a summary, but who published the page",
             "link": "#"
         }
     ]

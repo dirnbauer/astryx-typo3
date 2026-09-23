@@ -1,46 +1,46 @@
 {
     "_type": "navigation",
     "eyebrow": "Page Card Menu",
-    "header": "Destinations as cards, one line each",
-    "lead": "The grid menu: an icon tile, a title and a sentence saying what is behind it, in two to four columns. The whole card is the link, and the title is what a screen reader announces as its name.",
+    "header": "Pages as cards, one line each",
+    "lead": "An icon, a title and one sentence about the page, in two to four columns. The whole card is the link, and screen readers announce the title.",
     "columns": "3",
     "width": "lg",
     "tone": "body",
     "items": [
         {
             "icon": "arrow-right",
-            "title": "The whole card is the target",
-            "description": "One link per card, spread over the card by the clickable-card rule — no second link to the same page.",
+            "title": "The whole card is the link",
+            "description": "Each card has one link, and it covers the whole card. There is no second link to the same page.",
             "link": "#"
         },
         {
             "icon": "menu",
-            "title": "A named nav landmark",
-            "description": "Several menus can sit on one page, so this one is announced by its own heading rather than as “navigation”.",
+            "title": "A named navigation area",
+            "description": "A page can hold several menus. Screen readers announce this one by its heading, not just as “navigation”.",
             "link": "#"
         },
         {
             "icon": "sparkles",
             "title": "The icon is decoration",
-            "description": "A tinted tile carrying the semantic key, hidden from assistive technology because the title already says it.",
+            "description": "A tinted tile with an icon. Screen readers skip it, because the title already says the same.",
             "link": "#"
         },
         {
             "icon": "layout-sidebar-right",
             "title": "Two to four columns",
-            "description": "The count is the editor's choice and the grid still reflows on the room it has, not on the width of the window.",
+            "description": "Editors choose the number of columns. The grid adapts to the space it has, not to the screen width.",
             "link": "#"
         },
         {
             "icon": "file-text",
-            "title": "The line is what earns the card",
-            "description": "Destinations whose titles say everything belong in a Link Grid, where no card gets in the way.",
+            "title": "When titles say enough",
+            "description": "If a page needs no description, use a Link Grid instead. It shows the labels without cards.",
             "link": "#"
         },
         {
             "icon": "check",
-            "title": "Cells of equal height",
-            "description": "Every card stretches to the tallest of its row, which keeps the icon tiles on one optical line.",
+            "title": "Cards of equal height",
+            "description": "Each card stretches to the tallest card in its row, so the icons line up.",
             "link": "#"
         }
     ]

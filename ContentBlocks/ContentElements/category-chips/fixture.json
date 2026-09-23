@@ -1,32 +1,32 @@
 {
     "_type": "navigation",
-    "header": "A taxonomy as a wrapping row",
+    "header": "Categories in a wrapping row",
     "align": "start",
     "width": "md",
     "compact": 0,
     "chips": [
         {
-            "title": "The chip with no link is the current one",
+            "title": "Unlinked means current",
             "link": ""
         },
         {
-            "title": "So is one that resolves to this page",
+            "title": "Self-link means current",
             "link": "#so-is-one"
         },
         {
-            "title": "Tint, border and weight",
+            "title": "Tint, border, weight",
             "link": "#tint-border-and"
         },
         {
-            "title": "aria-current says it out loud",
+            "title": "Marked with aria-current",
             "link": "#aria-current-says"
         },
         {
-            "title": "The row wraps, never scrolls",
+            "title": "Wraps, never scrolls",
             "link": "#the-row-wraps"
         },
         {
-            "title": "Two to thirty categories",
+            "title": "2–30 categories",
             "link": "#two-to-thirty"
         }
     ]
