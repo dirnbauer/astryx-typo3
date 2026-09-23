@@ -2,7 +2,7 @@
     "_type": "hero",
     "eyebrow": "Documentation Hero",
     "header": "The top of a documentation home page",
-    "lead": "Product name, one line on what the docs cover, a search field, a version badge and the short list of pages people actually open. The field submits as “q” on a full page load, so search works before any script does.",
+    "lead": "Product name, one line of text, a search field, a version badge and quick links. Search sends “q” as a normal page request, so it works without JavaScript.",
     "badge_text": "Version badge",
     "cta_label": "Search",
     "cta_link": "#",
@@ -12,17 +12,17 @@
     "links": [
         {
             "title": "Quick links",
-            "description": "Two to six of them, each a title and one line.",
+            "description": "Two to six, each with a title and one line.",
             "link": "#"
         },
         {
-            "title": "Laid out as a grid",
-            "description": "Six stacked would push the search field off the screen.",
+            "title": "Shown as a grid",
+            "description": "Six links in one column would push the search off the screen.",
             "link": "#"
         },
         {
-            "title": "Ordinary links",
-            "description": "No script, no typeahead, crawlable on their own.",
+            "title": "Plain links",
+            "description": "No script and no typeahead. Search engines can follow them.",
             "link": "#"
         }
     ]
