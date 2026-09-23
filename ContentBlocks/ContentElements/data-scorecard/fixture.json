@@ -4,8 +4,8 @@
     "header": "An overall score, then one row per criterion",
     "value": "4.1",
     "unit": "of 5",
-    "lead": "The scale is five segments, so type 4.5 rather than 90%. The overall score is typed too and is never averaged from the rows — a weighted verdict and an unweighted mean are different numbers, and the note is where you say which this is.",
-    "note": "Use Progress Bars when the rows are percentages of completion, and Distribution Bars when you are showing how many people gave each rating.",
+    "lead": "Each row has five segments, so type 4.5, not 90%. The overall score is typed, not averaged from the rows; say in the note how it was worked out.",
+    "note": "For completion percentages, use Progress Bars. To show how many people gave each rating, use Distribution Bars.",
     "tone": "body",
     "width": "md",
     "compact": 0,
@@ -19,8 +19,8 @@
         {
             "value": "4.5",
             "unit": "",
-            "title": "A half row",
-            "text": "Four solid and one at half — the fraction is drawn, not rounded away."
+            "title": "A partial row",
+            "text": "Four full segments and one half: fractions are drawn, not rounded."
         },
         {
             "value": "2",
@@ -31,8 +31,8 @@
         {
             "value": "3.9",
             "unit": "",
-            "title": "An unrated row",
-            "text": "Nothing typed leaves five empty segments."
+            "title": "Another row",
+            "text": "Leave the value empty and all five segments stay empty."
         }
     ]
 }

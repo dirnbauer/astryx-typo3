@@ -1,8 +1,8 @@
 {
     "_type": "data",
     "header": "Figures List",
-    "lead": "A compact label-left, figure-right list, divided by rules and built for a narrow column.",
-    "note": "Use KPI Card Row when the figures should carry a full-width band, and Specification Table when the pairs are product attributes.",
+    "lead": "A compact list with labels on the left and figures on the right, separated by lines. Made for narrow columns.",
+    "note": "For a full-width band of figures, use KPI Card Row. For product attributes, use Specification Table.",
     "tone": "body",
     "width": "md",
     "compact": 0,
@@ -22,8 +22,8 @@
         {
             "value": "14",
             "unit": "",
-            "title": "Bars and icons",
-            "text": "Deliberately none — they are the first thing to break at 300px"
+            "title": "Any figure",
+            "text": "No bars or icons: they are the first thing to break at 300px"
         },
         {
             "value": "34",

@@ -1,9 +1,9 @@
 {
     "_type": "data",
     "eyebrow": "Ranking List",
-    "header": "A numbered list where the position is the point",
-    "lead": "The order is the order of the child records — drag to re-rank. The position numbers are drawn by the list itself, so nothing has to be renumbered by hand when a row moves.",
-    "note": "Use Bar Comparison when the distance between the values matters more than the order, and Figures List when the rows are simply labelled numbers.",
+    "header": "A numbered list where the order matters",
+    "lead": "Drag the rows to change the ranking. The list numbers itself, so nothing needs renumbering when a row moves.",
+    "note": "If the gaps between values matter more than the order, use Bar Comparison. For plain labelled numbers, use Figures List.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "body",
@@ -14,7 +14,7 @@
             "value": "1",
             "unit": "",
             "title": "First place",
-            "text": "The detail line under a name is optional and stays secondary."
+            "text": "An optional detail line sits under the name."
         },
         {
             "value": "2",
@@ -32,7 +32,7 @@
             "value": "20",
             "unit": "",
             "title": "Twentieth place, at most",
-            "text": "Past twenty, a ranking becomes a directory."
+            "text": "Beyond 20 rows, a ranking turns into a directory."
         }
     ]
 }

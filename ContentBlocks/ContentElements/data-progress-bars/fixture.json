@@ -1,9 +1,9 @@
 {
     "_type": "data",
     "eyebrow": "Progress Bars",
-    "header": "One named row, one bar, one typed percentage",
-    "lead": "The digits in each row's value become a custom property on that row, and the fill reads it as a width. There is no script, no chart library and nothing measured — a bar here is a number an editor wrote down.",
-    "note": "Rows are independent percentages. Use Distribution Bars when they are shares of one total, and Goal Meter when a single target is the whole story.",
+    "header": "One bar and one percentage per row",
+    "lead": "The number in each row sets the width of its bar through CSS. There is no script and no chart library: every bar shows a number an editor typed.",
+    "note": "Each row is a separate percentage. For shares of one total, use Distribution Bars; for a single target, use Goal Meter.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
@@ -12,19 +12,19 @@
             "value": "100",
             "unit": "%",
             "title": "A full row",
-            "text": "Clamped at the track width, so a value typed as 140 does not run past it."
+            "text": "Values above 100 stop at the full width, so 140 does not overflow."
         },
         {
             "value": "62",
             "unit": "%",
             "title": "A partial row",
-            "text": "The figure is written out beside the label; the bar only repeats it."
+            "text": "The number appears next to the label. The bar only repeats it."
         },
         {
             "value": "61",
             "unit": "%",
-            "title": "An empty row",
-            "text": "A row with nothing typed in it reads as zero rather than as full."
+            "title": "A third row",
+            "text": "A row left empty shows as zero, not as full."
         }
     ]
 }

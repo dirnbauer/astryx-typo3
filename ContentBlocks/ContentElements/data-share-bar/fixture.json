@@ -1,11 +1,11 @@
 {
     "_type": "data",
     "eyebrow": "Share Bar",
-    "header": "One bar, several segments, a whole read as its parts",
+    "header": "One bar, divided into its parts",
     "value": "100",
     "unit": "% of a whole",
-    "lead": "Segment widths are flex ratios taken from the shares typed on the children. Make them add up to a hundred yourself — the bar does not normalise anything, it only shares out the room.",
-    "note": "Use Distribution Bars when each part deserves its own row and figure, and Percentage Rings when a single share is the whole message.",
+    "lead": "Each segment's width comes from the share typed on its row. Make the shares add up to 100 yourself; the bar does not adjust them.",
+    "note": "If each part needs its own row and figure, use Distribution Bars. For a single share, use Percentage Rings.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
@@ -14,7 +14,7 @@
             "value": "42",
             "unit": "%",
             "title": "First segment",
-            "text": "The colour comes from the position, never from a field"
+            "text": "The colour follows the position; editors do not choose it"
         },
         {
             "value": "27",

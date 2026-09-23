@@ -1,9 +1,9 @@
 {
     "eyebrow": "Service status",
     "header": "What was working when this page was written",
-    "lead": "A page somebody writes, not a monitor. During an incident the outage map is the faster source, and the recorded announcement on the service line is faster still.",
-    "note": "Written 12 January 2027, 09:00, and updated by hand. If an entry below contradicts the outage map, the map is right.",
-    "cta_label": "Open the outage map",
+    "lead": "We update this page by hand; it is not a live monitor. During an incident, check the outage map or the recorded announcement on the service line.",
+    "note": "Written 12 January 2027, 09:00, and updated by hand. If an entry below differs from the outage map, trust the map.",
+    "cta_label": "Open outage map",
     "cta_link": "#",
     "tone": "body",
     "width": "md",
@@ -25,7 +25,7 @@
             "icon": "warning",
             "title": "District heat, Ashcombe network",
             "value": "Reduced",
-            "text": "Flow temperature held 8 °C lower while the Marrowfield pumping station is rebuilt. Expected back to normal in May 2027."
+            "text": "Flow temperature 8 °C lower while the Marrowfield pumping station is rebuilt. Expected back to normal in May 2027."
         },
         {
             "icon": "success",
@@ -43,7 +43,7 @@
             "icon": "error",
             "title": "Charging network, Old Harbour",
             "value": "Partial outage",
-            "text": "Fourteen of 340 points offline since the harbour car park works began. No date yet."
+            "text": "14 of 340 points offline since work on the harbour car park began. No end date yet."
         }
     ]
 }

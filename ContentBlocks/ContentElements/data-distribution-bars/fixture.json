@@ -1,11 +1,11 @@
 {
     "_type": "data",
     "eyebrow": "Distribution Bars",
-    "header": "How one total splits across named buckets",
+    "header": "How one total splits into named groups",
     "value": "100",
     "unit": "%",
-    "lead": "The band-level figure holds the total the shares refer to; each row's value draws its own bar and is written out at the end of the row. Nothing checks that the shares add up — that arithmetic is the editor's.",
-    "note": "Use Share Bar when the split should read as a single bar, and Bar Comparison when the rows are independent measures that do not add up to anything.",
+    "lead": "The large figure is the total, and each row shows its share as a bar and a number. Nothing checks that the shares add up to the total.",
+    "note": "To show the split as one bar, use Share Bar. For separate measures that do not add up, use Bar Comparison.",
     "tone": "body",
     "width": "md",
     "compact": 0,
@@ -13,26 +13,26 @@
         {
             "value": "52",
             "unit": "%",
-            "title": "The largest bucket",
-            "text": "The absolute count belongs on this line"
+            "title": "The largest group",
+            "text": "Put the absolute count on this line"
         },
         {
             "value": "28",
             "unit": "%",
-            "title": "A middling bucket",
+            "title": "A medium group",
             "text": ""
         },
         {
             "value": "14",
             "unit": "%",
-            "title": "A small bucket",
+            "title": "A small group",
             "text": ""
         },
         {
             "value": "6",
             "unit": "%",
-            "title": "The tail",
-            "text": "Below 640px the bar drops to its own line"
+            "title": "The smallest group",
+            "text": "Below 640px the bar moves to its own line"
         }
     ]
 }

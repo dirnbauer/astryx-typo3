@@ -2,9 +2,9 @@
     "_type": "data",
     "eyebrow": "Captioned Data Table",
     "header": "Rows, a caption above and a source below",
-    "lead": "Every value is typed into its row. The caption becomes the table's own caption element and the note becomes the source line beneath it, which is what makes the figures quotable rather than merely visible.",
+    "lead": "Editors type every value into its row. The caption and the source line are part of the table, so readers can quote the figures correctly.",
     "caption": "The caption names the data set, the period and the unit",
-    "note": "Source lines belong here. Use Specification Table for product attributes with no source apparatus, and Ranking List when the order of the rows is the point.",
+    "note": "Put the source here. For product attributes, use Specification Table; when the order matters, use Ranking List.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
@@ -12,17 +12,17 @@
         {
             "title": "The first column",
             "value": "2",
-            "text": "A row heading, marked up as one, so a screen reader can name the cell it is reading."
+            "text": "Marked up as a row heading, so screen readers can name each cell."
         },
         {
             "title": "The middle column",
             "value": "40",
-            "text": "Set right with tabular figures, because a column of numbers is compared digit by digit."
+            "text": "Right-aligned with tabular figures, so the numbers line up digit by digit."
         },
         {
             "title": "The last column",
             "value": "1",
-            "text": "The remark. Optional per row, and secondary in colour so it never competes with the figure."
+            "text": "An optional remark, in a lighter colour so it does not compete with the figure."
         }
     ]
 }

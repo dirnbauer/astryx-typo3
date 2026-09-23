@@ -1,10 +1,10 @@
 {
     "_type": "data",
     "eyebrow": "Comparison Matrix",
-    "header": "One row per criterion, a tick and an answer",
-    "lead": "Two subjects only. The tick column is each row's included toggle; the column beside it is the sentence describing how the alternative handles the same point.",
-    "caption": "Name both sides here — the column headings stay generic so the caption can carry the two real names.",
-    "note": "The tick carries its own name in the markup, because a mark that means something only by its shape is unreadable to anyone using the table without seeing it.",
+    "header": "A tick and an answer for each criterion",
+    "lead": "For comparing two options. The tick shows whether this option covers a criterion, and the next column says how the alternative handles it.",
+    "caption": "Name both options here. The column headings stay generic, so the caption carries the real names.",
+    "note": "Each tick has a text label in the markup, so screen reader users know what it means.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "body",
@@ -13,17 +13,17 @@
         {
             "title": "A covered criterion",
             "included": 1,
-            "text": "The sentence beside the tick says what the other side does instead."
+            "text": "The text next to the tick says what the other option does instead."
         },
         {
             "title": "A criterion both sides cover",
             "included": 1,
-            "text": "Say so plainly. A comparison that never concedes anything is not read as a comparison."
+            "text": "Say so plainly. Readers do not trust a comparison that concedes nothing."
         },
         {
             "title": "A criterion this option does not cover",
             "included": 0,
-            "text": "The cross is grey rather than red: not every gap is a failure."
+            "text": "The cross is grey, not red, because not every gap is a failure."
         }
     ]
 }

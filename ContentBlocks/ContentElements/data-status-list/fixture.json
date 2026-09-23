@@ -1,9 +1,9 @@
 {
     "_type": "data",
     "eyebrow": "Status List",
-    "header": "One row per service, with a state word and a dot",
-    "lead": "The dot's colour comes from the semantic key on the child record, so an editor never types a colour. The same key sets the badge, which means the state is always said in a word as well as shown in a hue.",
-    "note": "Write the date into the note. A status list says what somebody published, not what is happening now, and a page that hides that difference is worse than no page.",
+    "header": "A status word and a dot per service",
+    "lead": "Editors pick a status, never a colour. The status sets both the dot and the word, so the state never depends on colour alone.",
+    "note": "Put the date and time in this note. A status list shows what someone published, not what is happening now.",
     "cta_label": "Optional action",
     "cta_link": "#",
     "tone": "body",
@@ -12,7 +12,7 @@
     "metrics": [
         {
             "icon": "success",
-            "title": "A service that is fine",
+            "title": "A service that works",
             "value": "Normal",
             "text": ""
         },
@@ -20,7 +20,7 @@
             "icon": "warning",
             "title": "A service that is degraded",
             "value": "Reduced",
-            "text": "The detail line is where the reason and the expected end date belong."
+            "text": "Use the detail line for the reason and the expected end date."
         },
         {
             "icon": "error",
@@ -30,9 +30,9 @@
         },
         {
             "icon": "",
-            "title": "A service with no key chosen",
+            "title": "A service with no status chosen",
             "value": "Unknown",
-            "text": "No key means a neutral dot, never a green one."
+            "text": "Without a status the dot is neutral, never green."
         }
     ]
 }

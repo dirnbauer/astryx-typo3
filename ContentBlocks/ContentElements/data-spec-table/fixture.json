@@ -1,10 +1,10 @@
 {
     "_type": "data",
     "eyebrow": "Specification Table",
-    "header": "Label and value pairs, with room for a caveat",
-    "lead": "Attributes of one subject rather than rows of a data set, which is why this is a description list and not a table. The editor fills pairs and never types a header row.",
-    "caption": "The caption line names the subject and the conditions the figures hold under",
-    "note": "Use Captioned Data Table when the rows form a data set with a source, and Comparison Matrix when two options are being weighed against each other.",
+    "header": "Label and value pairs with an optional caveat",
+    "lead": "For the attributes of one subject, not rows of a data set. It is a description list, so there is no header row to fill in.",
+    "caption": "The caption names the subject and the conditions the figures apply to",
+    "note": "For a data set with a source, use Captioned Data Table. To weigh two options against each other, use Comparison Matrix.",
     "tone": "body",
     "width": "md",
     "compact": 0,
@@ -12,22 +12,22 @@
         {
             "title": "Minimum rows",
             "value": "2",
-            "text": "One pair is a sentence, not a specification."
+            "text": "A single pair reads better as a sentence."
         },
         {
             "title": "Maximum rows",
             "value": "40",
-            "text": "Past forty, a reader stops reading and starts searching."
+            "text": "Beyond 40 rows, readers start searching instead of reading."
         },
         {
             "title": "The caveat line",
             "value": "35 A",
-            "text": "It sits under both columns and stays part of the pair."
+            "text": "It sits under both columns and belongs to its pair."
         },
         {
             "title": "Below 480px",
             "value": "stacked",
-            "text": "A value set right against a long term leaves two words a line."
+            "text": "Side by side, a long label would leave only two words per line."
         }
     ]
 }
