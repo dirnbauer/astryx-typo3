@@ -54,6 +54,9 @@ final class SeedAstryxSiteCommand extends Command
 
     private ?DesiderioContentCleaner $contentCleaner = null;
 
+    /** @var list<string>|null */
+    private ?array $ownCTypes = null;
+
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly Context $context,
@@ -323,7 +326,6 @@ final class SeedAstryxSiteCommand extends Command
             self::FAL_FOLDER,
             1777300001,
         );
-        $cleaner = $this->getContentCleaner();
         $columns = $this->databaseSchema->getColumnNames('tt_content');
 
         $seeded = 0;
@@ -334,9 +336,9 @@ final class SeedAstryxSiteCommand extends Command
                 continue;
             }
 
-            // Only what a previous run put here: an editor's own additions on a
-            // chapter page survive a reseed.
-            $cleaner->softDeleteSeededContent($pageUid, $now);
+            // Only element types this seeder places are replaced: core
+            // elements an editor added to a chapter page survive a reseed.
+            $this->cleanSeededContent($pageUid, $now);
 
             $sorting = 0;
             foreach ($elements as $element) {
@@ -398,7 +400,7 @@ final class SeedAstryxSiteCommand extends Command
             $catalog[$element['cType']] = $element;
         }
 
-        $this->getContentCleaner()->softDeleteSeededContent($rootUid, $now);
+        $this->cleanSeededContent($rootUid, $now);
 
         $sorting = 0;
         $placed = 0;
@@ -476,7 +478,7 @@ final class SeedAstryxSiteCommand extends Command
                 continue;
             }
 
-            $this->getContentCleaner()->softDeleteSeededContent($pageUid, $now);
+            $this->cleanSeededContent($pageUid, $now);
 
             $seeder->insert($pageUid, $now, $resolver->buildContentInsert(
                 $pageUid,
@@ -538,11 +540,7 @@ final class SeedAstryxSiteCommand extends Command
         );
         $columns = $this->databaseSchema->getColumnNames('tt_content');
 
-        $this->getContentCleaner()->softDeleteSeededContent(
-            $searchUid,
-            $now,
-            [AstryxSiteDefinitions::SEARCH_PLUGIN_CTYPE],
-        );
+        $this->cleanSeededContent($searchUid, $now, [AstryxSiteDefinitions::SEARCH_PLUGIN_CTYPE]);
 
         $cType = 'astryx_typo3_leadparagraph';
         $record = null;
@@ -638,7 +636,7 @@ final class SeedAstryxSiteCommand extends Command
         $pages = 0;
         $placed = 0;
         foreach ($themePages as $pageUid) {
-            $this->getContentCleaner()->softDeleteSeededContent($pageUid, $now);
+            $this->cleanSeededContent($pageUid, $now);
 
             $sorting = 0;
             foreach ($showcase as $cType) {
@@ -696,8 +694,10 @@ final class SeedAstryxSiteCommand extends Command
         $titles = AstryxSiteDefinitions::germanPageTitles();
         $connection = $this->connectionPool->getConnectionForTable('pages');
 
+        // no_index belongs to EXT:seo; without it the translation keeps the default.
+        $noIndex = isset($columns['no_index']) ? ', no_index' : '';
         $originals = $connection->fetchAllAssociative(
-            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, no_index, is_siteroot FROM pages'
+            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, is_siteroot' . $noIndex . ' FROM pages'
             . ' WHERE deleted = 0 AND sys_language_uid = 0'
             . ' AND (uid = ? OR pid = ? OR pid IN (SELECT p.uid FROM (SELECT uid FROM pages WHERE pid = ? AND deleted = 0) p))',
             [$rootUid, $rootUid, $rootUid],
@@ -726,7 +726,7 @@ final class SeedAstryxSiteCommand extends Command
                 'doktype' => (int)$page['doktype'],
                 'sorting' => (int)$page['sorting'],
                 'nav_hide' => (int)$page['nav_hide'],
-                'no_index' => (int)$page['no_index'],
+                'no_index' => (int)($page['no_index'] ?? 0),
                 'tstamp' => $now,
             ], $columns);
 
@@ -828,7 +828,7 @@ final class SeedAstryxSiteCommand extends Command
             return;
         }
 
-        $this->getContentCleaner()->softDeleteSeededContent($hubUid, $now);
+        $this->cleanSeededContent($hubUid, $now);
 
         $seeder->insert($hubUid, $now, $resolver->buildContentInsert(
             $hubUid,
@@ -850,6 +850,37 @@ final class SeedAstryxSiteCommand extends Command
         ));
 
         $io->writeln(sprintf('  %-28s %d chapter cards', 'Components hub', count($items)));
+    }
+
+    /**
+     * Replace what an earlier run seeded on a page.
+     *
+     * Desiderio's cleaner only recognises its own `desiderio_*` types by
+     * itself, so Astryx names its elements explicitly. Without them every
+     * run added a second copy of each element instead of replacing it.
+     *
+     * @param list<string> $additionalCTypes
+     */
+    private function cleanSeededContent(int $pageUid, int $now, array $additionalCTypes = []): void
+    {
+        $this->getContentCleaner()->softDeleteSeededContent($pageUid, $now, [...$this->ownCTypes(), ...$additionalCTypes]);
+    }
+
+    /**
+     * @return list<string>
+     */
+    private function ownCTypes(): array
+    {
+        if ($this->ownCTypes === null) {
+            $this->ownCTypes = [];
+            foreach ($this->elementCatalog->getElements() as $element) {
+                if ($element['hostExtension'] === 'astryx_typo3') {
+                    $this->ownCTypes[] = $element['cType'];
+                }
+            }
+        }
+
+        return $this->ownCTypes;
     }
 
     private function getContentCleaner(): DesiderioContentCleaner
