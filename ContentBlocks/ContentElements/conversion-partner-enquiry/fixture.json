@@ -1,44 +1,44 @@
 {
     "_type": "conversion",
     "eyebrow": "Partner Enquiry Band",
-    "header": "What a partner gets, and what is expected in return",
+    "header": "What partners get and what they give",
     "subheader": "For resellers, integrators, affiliates and distributors.",
-    "lead": "A split band with rich text beside a picture, over a grid of benefits that runs the full width underneath.",
-    "bodytext": "<p>The rich text is where the obligations go, and it comes before the benefit grid on purpose: a partner page that only lists what somebody gets attracts exactly the applications nobody wanted to read.</p><p>Below the tablet breakpoint the two halves stack and the benefits follow at the width they had.</p>",
+    "lead": "Rich text beside an image, with a full-width grid of benefits below.",
+    "bodytext": "<p>Put the obligations in the rich text. It comes before the benefits on purpose, because a page that only lists benefits attracts the wrong applications.</p><p>On screens narrower than a tablet, the two halves stack and the benefits follow at full width.</p>",
     "columns": "2",
     "cta_label": "Apply",
     "cta_link": "#",
-    "secondary_label": "The conditions",
+    "secondary_label": "Read the terms",
     "secondary_link": "#",
-    "note": "The note is for what happens after an application — how often they are looked at, and what an answer will and will not contain.",
+    "note": "The note says what happens after someone applies: how often you review applications and what a reply includes.",
     "reverse": 0,
     "tone": "body",
     "benefits": [
         {
             "icon": "briefcase",
             "title": "Zero to six benefits",
-            "text": "Each an icon, a title and one sentence. Leave the collection empty and the band is a plain split."
+            "text": "Each has an icon, a title and one sentence. With no benefits, the band is a plain split layout."
         },
         {
             "icon": "settings",
             "title": "Two to four columns",
-            "text": "The grid reflows on the room it has rather than on the width of the viewport."
+            "text": "The grid adapts to the space it has, not to the screen width."
         },
         {
             "icon": "file-image",
             "title": "Media on either side",
-            "text": "Reverse swaps the halves without changing the order the copy is read in."
+            "text": "The reverse switch swaps the halves. Screen readers still read the text in the same order."
         },
         {
             "icon": "check-circle",
             "title": "One button, one link",
-            "text": "The quieter action is for a reader who wants the terms before the form."
+            "text": "The link is for readers who want the terms before the form."
         }
     ],
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/workshop-bench.jpg",
-            "alternative": "Workshop bench",
+            "alternative": "Hand tools laid out on a wooden workbench beside a drill press.",
             "title": ""
         }
     ]

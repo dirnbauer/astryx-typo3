@@ -1,44 +1,44 @@
 {
     "_type": "conversion",
     "eyebrow": "Community Join Band",
-    "header": "The places a reader can join, and how busy each one is",
-    "lead": "Forum, chat, user group, mailing list, code repository — one card per place, with what it is for and roughly how many people are there.",
+    "header": "Places to join and how active each is",
+    "lead": "Forum, chat, user group, mailing list or code repository. Each gets a card with its purpose and roughly how many people are there.",
     "columns": "2",
-    "cta_label": "The main one",
+    "cta_label": "Join the forum",
     "cta_link": "#",
-    "note": "Member counts belong in each entry's description and go stale faster than anything else on the page: round them, or leave them out.",
+    "note": "Put member counts in each description. They go out of date quickly, so round them or leave them out.",
     "align": "start",
     "tone": "muted",
     "places": [
         {
             "icon": "messages",
             "title": "Two to six places",
-            "description": "A card with a link becomes a link target as a whole, with the title carrying the accessible name.",
+            "description": "A card with a link is clickable as a whole, and the title names the link for screen readers.",
             "link": "#"
         },
         {
             "icon": "users",
             "title": "Equal weight",
-            "description": "A forum of a thousand and a meeting of nine are both simply somewhere to turn up, so neither is styled larger.",
+            "description": "A forum of 1,000 and a meet-up of 9 are both places to go, so neither card is larger.",
             "link": "#"
         },
         {
             "icon": "mail",
-            "title": "The size goes in the description",
-            "description": "Not in the shared note, where it would claim to describe every place at once.",
+            "title": "Size goes in the description",
+            "description": "Not in the shared note, which applies to every place at once.",
             "link": "#"
         },
         {
             "icon": "file-code",
             "title": "Two to four columns",
-            "description": "And an optional image between the intro and the grid when the group has a photograph worth showing.",
+            "description": "Plus an optional image between the intro and the grid, if the group has a good photo.",
             "link": "#"
         }
     ],
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/drawing-review.jpg",
-            "alternative": "Drawing review",
+            "alternative": "Two hands rest on a large building plan beside a ruler and a pencil.",
             "title": ""
         }
     ]

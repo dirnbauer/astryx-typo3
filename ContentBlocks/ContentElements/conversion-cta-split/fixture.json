@@ -1,22 +1,22 @@
 {
     "_type": "conversion",
-    "eyebrow": "Split CTA with Media",
-    "header": "The ask on one side, the thing being asked about on the other",
-    "lead": "A call to action in two halves, with the picture on whichever side the editor chose.",
-    "bodytext": "<p>Copy, rich text, one button, one quieter link and the small print share the left half; a single image takes the right. The toggle swaps the halves in the grid only — the copy stays first in the source, so a screen reader gets the ask before the picture either way.</p><p>Below the tablet breakpoint the two halves become one column and the media drops under the copy at its own proportions.</p>",
-    "caption": "The caption belongs to the picture and sits inside the figure.",
+    "eyebrow": "Split Media CTA",
+    "header": "A call to action beside its picture",
+    "lead": "A two-column band. Editors choose which side the image goes on.",
+    "bodytext": "<p>Text, one button, one plain link and the small print share one half. A single image fills the other. The switch only changes the visual order, so screen readers always read the text before the image.</p><p>On screens narrower than a tablet, the halves stack into one column. The image moves below the text and keeps its proportions.</p>",
+    "caption": "The caption belongs to the image and sits inside the figure.",
     "cta_label": "Primary action",
     "cta_link": "#",
     "secondary_label": "Secondary action",
     "secondary_link": "#",
-    "note": "The note is the small print under the actions.",
+    "note": "The note is the small print under the buttons.",
     "reverse": 1,
     "tone": "surface",
     "width": "lg",
     "image": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/scene/field-sampling.jpg",
-            "alternative": "Field sampling",
+            "alternative": "A woman in waders takes a water sample from a shallow river.",
             "title": ""
         }
     ]
