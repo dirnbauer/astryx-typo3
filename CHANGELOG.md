@@ -2,6 +2,43 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.2.0] - 2026-09-23
+
+### Added
+
+- **Core content elements and form plugins in Astryx markup.** On an Astryx
+  site, TYPO3's own content types (text, text & media, text & images, image,
+  header, bullets, table, uploads, div, html, shortcut, all menus) and the
+  Solr, Powermail, Form Framework and felogin plugins used to come through
+  Desiderio's templates: Desiderio components and Tailwind classes the Astryx
+  site does not load. Astryx now ships its own templates for all of them,
+  built from its atoms, molecules, organisms and layouts and styled by Astryx
+  CSS only (`Resources/Private/ClassicContent`, `Resources/Private/Extensions`,
+  `Configuration/Yaml/AstryxFormSetup.yaml`). Powermail's TypoScript is an
+  optional dependency of the set.
+- The missing demo images: Auracher and Falkensteg wordmarks, a real QR code,
+  the week-planner screen, the back-office before/after pair and the
+  anniversary group photo (`Build/Data/image-prompts.json`).
+- `Build/Data/portrait-map.md`: one portrait per named person, used
+  consistently across all demo content.
+
+### Changed
+
+- **All demo copy rewritten** in plain British English (`fixture.json`,
+  `library.json`, site text, theme descriptions with a "Best for" line), and
+  `library.de.json` is the German version of it for every element, with
+  formal "Sie".
+- Names match their portraits and photos match their captions.
+- Logos, signatures and QR codes flip to light ink on dark schemes and on the
+  Gothic theme.
+
+### Fixed
+
+- Reseeding replaces Astryx elements instead of adding copies.
+- Linked headings keep the heading colour.
+- The data status list drew the icon name into the class attribute; it now
+  renders the glyph with the Icon atom.
+
 ## [2.1.1] - 2026-09-19
 
 ### Fixed
