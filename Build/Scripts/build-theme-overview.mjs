@@ -154,8 +154,8 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
         <a:atom.heading level="2">The ${astryxRows.length} Meta ships</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
             These are Astryx's own themes, token for token: the values come from
-            upstream's theme compiler rather than from anyone's eye. Astryx has
-            seven and no more.
+            upstream's theme compiler rather than from anyone's eye. Astryx itself
+            ships seven themes.
         </a:atom.text>
 
         <div class="g-themes__grid">${astryxCards}
@@ -199,7 +199,7 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
         </f:comment>
             <a:molecule.table class="g-themes__matrix" scroll="{true}" scrollLabel="Theme comparison table">
                 <a:atom.visuallyHidden as="caption">
-                    Comparison of the seven Astryx themes by heading font, body font,
+                    Comparison of all ${rows.length} themes by heading font, body font,
                     monospace font, corner radius, base text size and dark-mode behaviour.
                 </a:atom.visuallyHidden>
                 <thead>
