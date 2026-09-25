@@ -2,6 +2,40 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.3.0] - 2026-09-25
+
+### Changed
+
+- **Contact data is webconsulting's own.** Every footer, contact and
+  conversion element that gives an address, phone number, email, office hours
+  or register data now uses the details published on
+  webconsulting.at/impressum: webconsulting business services gmbh,
+  Johann Nepomuk Berger-Straße 7/2/14, 7210 Mattersburg (headquarters) and
+  Ungargasse 64-66/3/404, 1030 Vienna, +43 2626 20156 (the only number, also
+  for Vienna), office@webconsulting.at, careers@ and press@, office hours
+  Monday to Thursday 8:00–18:00 and Friday 8:00–16:00. This covers the demo
+  site's footer on every page and page 1305, and the element library in
+  English and German: footer contact block, address card, contact person,
+  hotline band, opening hours, office list, imprint summary, utility columns,
+  legal links, copyright bar, credits, social row, accessibility note,
+  questions band, the conversion contact options, band, person and callback,
+  contact person and office people. The made-up numbers and addresses of
+  Falkensteg, Aichbrunn and their branches, the 0800 breakdown line and the
+  example.org addresses are gone, and so are the response times and 24/7
+  promises that went with them. Office lists name the two real offices.
+- The imprint page gives the full imprint of webconsulting business services
+  gmbh (register, VAT ID, managing director, supervisory authority, § 25
+  MedienG) instead of a placeholder.
+- Person elements that give contact data show DI(FH) Kurt Dirnbauer, the
+  managing director, with the webconsulting logo mark instead of a portrait
+  (new `lib-logo-webconsulting-*.svg`).
+
+## [2.2.1] - 2026-09-24
+
+### Changed
+
+- The extension and module icons follow the TYPO3 v14 line style.
+
 ## [2.2.0] - 2026-09-23
 
 ### Added
