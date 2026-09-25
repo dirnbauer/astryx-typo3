@@ -484,9 +484,10 @@ final class AstryxSiteDefinitions
     /**
      * Copy for the legal and error pages, keyed by slug.
      *
-     * These are demo pages on a demo site: the text says what the page is for
-     * and states plainly that it is not a legal document, rather than
-     * impersonating one.
+     * The imprint carries the real details of the operator, webconsulting
+     * business services gmbh, as published on webconsulting.at/impressum:
+     * every contact detail on this site is webconsulting's own. The privacy
+     * and accessibility pages describe what this demo site actually does.
      *
      * @return array<string, array{header: string, bodytext: string}>
      */
@@ -494,9 +495,18 @@ final class AstryxSiteDefinitions
     {
         return [
             'imprint' => [
-                'header' => 'A placeholder, not a legal notice',
-                'bodytext' => '<p>This is a demo site for the Astryx design system on TYPO3. It is not a business. This page is a placeholder for a real imprint.</p>'
-                    . '<p>A live site replaces this text with the details its jurisdiction requires: operator, address, contact, registration and supervisory authority.</p>',
+                'header' => 'Who runs this site',
+                'bodytext' => '<p>This site is run by webconsulting business services gmbh, Johann Nepomuk Berger-Straße 7/2/14, 7210 Mattersburg, Austria.</p>'
+                    . '<p>Phone: <a href="tel:+43262620156">+43 2626 20156</a><br>Email: <a href="mailto:office@webconsulting.at">office@webconsulting.at</a><br>Web: <a href="https://webconsulting.at">webconsulting.at</a></p>'
+                    . '<p>Legal form: limited liability company (Gesellschaft mit beschränkter Haftung). Registered office: Mattersburg. Share capital: EUR 35,000.</p>'
+                    . '<p>Company register number: FN 401904 k, Landesgericht Eisenstadt. VAT ID: ATU68140807. GLN: 9110018113713. GISA number: 10229743.</p>'
+                    . '<p>Managing director: DI(FH) Kurt Dirnbauer, who is also the sole shareholder.</p>'
+                    . '<p>Business purpose: management consulting including business organisation, IT services and an advertising agency. The IT services cover software development, web design, web consulting and trade in hardware and software.</p>'
+                    . '<p>Trade licence: services in automatic data processing and information technology. Supervisory authority: Bezirkshauptmannschaft Mattersburg.</p>'
+                    . '<p>Member of the Wirtschaftskammer Burgenland, Fachgruppe Unternehmensberatung, Buchhaltung und Informationstechnologie (UBIT).</p>'
+                    . '<p>Applicable rules: Gewerbeordnung 1994 (GewO), E-Commerce-Gesetz (ECG), Mediengesetz (MedienG) and Telekommunikationsgesetz (TKG).</p>'
+                    . '<p>Media owner (§ 25 MedienG): webconsulting business services gmbh, Johann Nepomuk Berger-Straße 7/2/14, 7210 Mattersburg. Responsible for the content: DI(FH) Kurt Dirnbauer.</p>'
+                    . '<p>We are neither obliged nor willing to take part in dispute resolution before a consumer arbitration board. You are welcome to send any complaints directly to us at <a href="mailto:office@webconsulting.at">office@webconsulting.at</a>.</p>',
             ],
             'privacy' => [
                 'header' => 'What this site stores and loads',

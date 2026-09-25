@@ -1,42 +1,30 @@
 {
-    "eyebrow": "Büro Wien",
-    "header": "Wann Schalter und Telefon besetzt sind",
-    "text": "Das sind die Öffnungszeiten des Büros in der Rebhanggasse. Der Störungsdienst unter 0800 24 24 90 antwortet auch außerhalb, an jedem Tag im Jahr.",
-    "note": "Am 24. und 31. Dezember geschlossen. Zwischen Weihnachten und Dreikönigstag öffnet der Schalter nur am 27. und 30. Dezember, von 08:00 bis 12:00 Uhr. Änderungen an Feiertagen kündigen wir hier zwei Wochen vorher an.",
+    "eyebrow": "Bürozeiten",
+    "header": "Wann Sie uns erreichen",
+    "text": "Bitte rufen Sie uns zu diesen Zeiten an oder schreiben Sie uns.",
+    "note": "Das Büro in Wien hat keine eigene Telefonnummer. Bitte wählen Sie die Hauptnummer.",
     "tone": "muted",
     "align": "start",
     "width": "md",
     "compact": false,
     "rows": [
         {
-            "title": "Montag bis Donnerstag",
-            "value": "07:30 – 16:30",
-            "text": "Schalter, Aufträge und Buchhaltung",
+            "title": "Montag – Donnerstag",
+            "value": "8:00 – 18:00",
+            "text": "Telefon +43 2626 20156",
             "included": true
         },
         {
             "title": "Freitag",
-            "value": "07:30 – 12:30",
-            "text": "Schalter schließt um 12 Uhr, Anlieferung bis 11:00",
+            "value": "8:00 – 16:00",
+            "text": "Zwei Stunden früher Schluss als Montag bis Donnerstag",
             "included": true
         },
         {
-            "title": "Ersatzteilschalter, Mo bis Fr",
-            "value": "07:00 – 15:30",
-            "text": "Eigener Eingang im Hof",
+            "title": "Samstag, Sonntag & Feiertage",
+            "value": "Geschlossen",
+            "text": "E-Mail an office@webconsulting.at",
             "included": true
-        },
-        {
-            "title": "Samstag",
-            "value": "",
-            "text": "",
-            "included": false
-        },
-        {
-            "title": "Sonn- und Feiertage",
-            "value": "",
-            "text": "Nur Störungsdienst",
-            "included": false
         }
     ]
 }

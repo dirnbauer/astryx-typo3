@@ -78,14 +78,14 @@ Staff:
 |---|---|---|---|
 | Helene Marchetti | p01 | Managing partner (signs the leader letter) | leadership-row, team-grid, team-list, leader-letter, founder-story (text), team-group-photo (text) |
 | Andrea Brandstätter | p05 | Partner, surveying | leadership-row, mentor-list, person-profile, team-departments, team-facepile, team-function-columns, team-grid, team-list |
-| Katja Sunder | p11 | Partner, administration | contact-person, leadership-row, office-people, team-function-columns, team-grid, team-list |
+| Katja Sunder | p11 | Partner, administration | leadership-row, team-function-columns, team-grid, team-list |
 | Tobias Reindl | p12 | Partner, road and drainage planning | leadership-row, team-function-columns, team-grid, team-list |
 | Milan Hrdlicka | p16 | Senior surveyor | mentor-list, person-quote, speaker-lineup, team-departments, team-facepile, team-function-columns, team-grid, team-list |
 | Clara Hofstätter | p03 | Drone surveyor | mentor-list, speaker-lineup, team-departments, team-facepile, team-function-columns, team-grid, team-list |
-| Anja Feuerstein | p07 | Land surveyor, Kettbach | office-people, team-departments, team-facepile, team-function-columns, team-list |
+| Anja Feuerstein | p07 | Land surveyor, Kettbach | team-departments, team-facepile, team-function-columns, team-list |
 | Lea Wimmer | p15 | Apprentice, third year | person-interview, team-departments, team-facepile, team-function-columns, team-list |
 | Hanno Grasser | p06 | Site supervisor | team-departments, team-facepile, team-function-columns, team-list |
-| Roland Lachner | p10 | Road planner, Nauwang | office-people, team-facepile, team-function-columns, team-list |
+| Roland Lachner | p10 | Road planner, Nauwang | team-facepile, team-function-columns, team-list |
 | Firat Yildiz | p02 | Project engineer, drainage | mentor-list, team-facepile, team-function-columns, team-grid, team-list |
 | Emre Aydin | p14 | GIS and data specialist | mentor-list, team-function-columns, team-list |
 | Paul Ebner | p08 | Survey software and IT | team-function-columns, team-list |
@@ -162,11 +162,20 @@ Footpath survey volunteers (contributor-wall uses each portrait once):
 |---|---|---|---|---|
 | Ines Kraml | p07 | Kestrel Field Ops | Support lead | hero-profile |
 | Tobias Reinsch | p04 | Kestrel Field Ops customer | Managing director, Brenner Aufzugstechnik | hero-quote |
-| Ingrid Halmweger | p05 | Falkensteg Gebäudetechnik | Head of service | footer-contact-person |
 | Ruth Amsler | p13 | Shift planner customer | Operations manager, Fennwood Garden Centres | feature-proof |
-| Ines Straubinger | p11 | Aichbrunn Kasse (bakery tills) | Accounts, Austria West | conversion-contact-person |
 
 Named without a portrait: Marlen Osterhage (Hafner Sanitär, hero-article byline).
+
+## Contact elements: webconsulting's real data
+
+Every contact detail in the demo content (address, phone, email, office
+hours, map link, imprint data) is webconsulting's own, and nobody invented is
+attached to it. The contact elements therefore name no fictional person:
+contact-person, footer-contact-person and conversion-contact-person show
+DI(FH) Kurt Dirnbauer, the managing director, and office-people shows the
+company at both offices. None of them uses a stock portrait, because a face
+from this pool next to a real name would pass for that person's photo; the
+image slot holds `logo/lib-logo-webconsulting-mark-*.svg` instead.
 
 ## Known repeats
 
@@ -192,13 +201,13 @@ keep the repeats out of sight where possible.
 | p02 | Firat Yildiz, Simon Baumgartner, Alexander Prem (Aubruck); Tobias Reisinger (stock) |
 | p03 | Clara Hofstätter, Miriam Deutsch, Barbara Lindner (Aubruck); Lena Brandtner (stock) |
 | p04 | Norbert Pichlmayr, Gerhard Tulln, Walter Bösch (Aubruck); Tobias Reinsch (Kestrel) |
-| p05 | Andrea Brandstätter, Beate Kirchner (Aubruck); Ines Kofler (stock); Hanna Vogt (Marnau); Ingrid Halmweger (Falkensteg) |
+| p05 | Andrea Brandstätter, Beate Kirchner (Aubruck); Ines Kofler (stock); Hanna Vogt (Marnau) |
 | p06 | Hanno Grasser, Martin Obermayr, Thomas Kienast (Aubruck); Milan Prohaska (stock) |
 | p07 | Anja Feuerstein, Ayse Demir, Silvia Neuhold (Aubruck); @lager_hanna (stock); Ines Kraml (Kestrel) |
 | p08 | Paul Ebner, Dominik Sailer (Aubruck); @werkstatt_tobi (stock) |
 | p09 | Doris Achleitner, Sabine Wolkersdorfer, Gudrun Haslinger, Ingrid Pfeil (Aubruck); Doris Ebner (stock) |
 | p10 | Roland Lachner, Bernd Kofler, Josef Rauner (Aubruck); Andrej Lubic (Marnau) |
-| p11 | Katja Sunder, Helene Marek, Verena Kolb, Regina Mairhofer (Aubruck); Ines Straubinger (Aichbrunn) |
+| p11 | Katja Sunder, Helene Marek, Verena Kolb, Regina Mairhofer (Aubruck) |
 | p12 | Tobias Reindl, Christoph Waldner, Georg Stauber, Markus Zehetner (Aubruck); Gerald Auracher (stock) |
 | p13 | Renate Söllner, Ulrike Traxler, Elfriede Rauch (Aubruck); Dr. Ingrid Wallnöfer (stock); Ruth Amsler (Fennwood) |
 | p14 | Emre Aydin, Nikolaus Ferk, Michael Prager (Aubruck); Hannes Wurzer (stock) |
@@ -228,7 +237,7 @@ suit. Reuse is fine; a photo only has to fit the text next to it.
 | scene/field-sampling | Woman in waders taking a river water sample | Marnau Institute |
 | scene/handover-keys | Keys and papers handed over at a front door | property handovers (not used in library content) |
 | scene/lab-bench | Scientist pipetting sample tubes | Marnau lab (not used in library content) |
-| scene/meeting-two | Man and woman at a table with a laptop | meetings, demos, procurement |
+| scene/meeting-two | Man and woman at a table with a laptop | meetings, demos, procurement; the webconsulting contact elements (footer-address-card, footer-questions-band, conversion-contact-band) |
 | scene/night-shift | Joiner at a bench, seen through a workshop window at night | workshops (unused) |
 | scene/office-standup | Four colleagues around a monitor in a loft office | office teams, planning |
 | scene/pipework | Copper pipes and brass valves on a concrete wall | plumbing, heating |
@@ -255,7 +264,9 @@ suit. Reuse is fine; a photo only has to fit the text next to it.
 | pair/refit-before, refit-after | The same bakery shopfront before and after a refit | bakery |
 | pair/lib-pair-backoffice-before-*, lib-pair-backoffice-after-* | A garden-centre back-office wall, sage green, window with a red geranium on the left, wooden staff door on the right. Before: whiteboard rota with blurred marker scribbles, rack of blank clock cards, shelf with a bulging ring binder and loose notes. After: the wall cleared, one tablet mounted beside the staff door, a pot of pens on a small shelf. Framing is similar, not identical. | Fennwood feature-before-after ("Before — March", "After — May") |
 | logo/lib-logo-auracher-*.svg | Monochrome wordmark: sprout on a mound + "Auracher" (drawn SVG, #111 on transparency) | Auracher Gartenbedarf: case-study-teaser, customer-story-quote |
-| logo/lib-logo-falkensteg-*.svg | Monochrome wordmark: arch footbridge + "Falkensteg" (drawn SVG, #111 on transparency) | Falkensteg Gebäudetechnik: footer-brand-newsletter, footer-utility-columns |
+| logo/lib-logo-falkensteg-*.svg | Monochrome wordmark: arch footbridge + "Falkensteg" (drawn SVG, #111 on transparency) | Falkensteg Gebäudetechnik: footer-brand-newsletter |
+| logo/lib-logo-webconsulting-*.svg | The real webconsulting logo (mark + wordmark), copied from Desiderio's `webconsulting-logo.svg` | footer-utility-columns |
+| logo/lib-logo-webconsulting-mark-*.svg | The webconsulting mark alone, centred on a white square, for avatar slots | contact-person, footer-contact-person, conversion-contact-person, office-people |
 | qr/lib-qr-falkensteg-app-*.svg | Scannable QR code (black on an opaque white square with quiet zone) for https://example.com/falkensteg-app | footer-app-badges (library and fixture) |
 | signature/signature-01 | Signature reading "Helene Marchetti" | leader letter |
 

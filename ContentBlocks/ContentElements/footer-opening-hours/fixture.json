@@ -10,28 +10,22 @@
     "compact": false,
     "rows": [
         {
-            "title": "An open day",
-            "value": "07:30 – 16:30",
-            "text": "This line is optional",
+            "title": "Monday – Thursday",
+            "value": "8:00 – 18:00",
+            "text": "This line under the hours is optional",
             "included": true
         },
         {
-            "title": "The value holds the hours",
-            "value": "09:00 – 12:00",
-            "text": "",
+            "title": "Friday",
+            "value": "8:00 – 16:00",
+            "text": "The value holds the hours",
             "included": true
         },
         {
-            "title": "A day switched off",
-            "value": "",
-            "text": "shows 'Closed' as a word, not just a style",
-            "included": false
-        },
-        {
-            "title": "Switched off with hours typed",
-            "value": "08:00 – 12:00",
-            "text": "The old hours appear struck through beside it",
-            "included": false
+            "title": "Saturday, Sunday & public holidays",
+            "value": "Closed",
+            "text": "Switching a row off shows 'Closed' and strikes typed hours through",
+            "included": true
         }
     ]
 }
