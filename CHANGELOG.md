@@ -2,6 +2,14 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.3.2] - 2026-09-27
+
+### Fixed
+
+- The help text of the page theme field no longer says "one of the seven
+  Astryx themes": the field offers all 25, and the text now just says "an
+  Astryx theme" (English and German).
+
 ## [2.3.1] - 2026-09-26
 
 ### Fixed
