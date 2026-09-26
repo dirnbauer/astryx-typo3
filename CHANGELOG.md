@@ -2,6 +2,14 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.3.1] - 2026-09-26
+
+### Fixed
+
+- The picture credits footer in the element library no longer names the CMS
+  (library demo content never names the product); the licence row for the
+  content management system is gone in English and German.
+
 ## [2.3.0] - 2026-09-25
 
 ### Changed
