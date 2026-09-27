@@ -2,6 +2,15 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.3.3] - 2026-09-27
+
+### Changed
+
+- The pricing block of the showcase shows the new plans, the same as
+  Desiderio's: Community €0, Studio €590, Agency €1,990 and Partner €4,900 a
+  year, and one plan covers Astryx and Desiderio. The Pro plan, the old
+  Agency price and the installation service are gone.
+
 ## [2.3.2] - 2026-09-27
 
 ### Fixed
