@@ -2,6 +2,14 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.3.5] - 2026-09-27
+
+### Fixed
+
+- A multi-step Powermail form renders one submit button, on its last
+  step. A submit field on an earlier page rendered as a real submit
+  button next to Next and sent the whole form from that step.
+
 ## [2.3.4] - 2026-09-27
 
 ### Changed
