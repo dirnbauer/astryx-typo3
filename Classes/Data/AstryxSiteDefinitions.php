@@ -414,7 +414,7 @@ final class AstryxSiteDefinitions
                 'fixture' => [
                     'eyebrow' => 'Pricing',
                     'header' => 'Free to use. Pay for certainty.',
-                    'lead' => 'Astryx for TYPO3 is free under GPL-2.0-or-later, with all 250 elements and 25 themes. Paid plans add early access, the maintenance promise and answers from the maintainers, and one plan covers Astryx and Desiderio.',
+                    'lead' => 'Astryx for TYPO3 is free under GPL-2.0-or-later, with all 250 elements, 25 themes and every release. Support plans add guaranteed answers and the maintenance promise, and one plan covers Astryx and Desiderio.',
                     'note' => 'Prices exclude VAT. Plans are billed yearly or monthly, and staging and local installations are always free. Astryx is MIT-licensed, © Meta Platforms, Inc. and affiliates.',
                     'cta_label' => 'See all elements',
                     'cta_link' => 't3://page?uid=__HUB__',
@@ -429,12 +429,12 @@ final class AstryxSiteDefinitions
                         [
                             'title' => 'Studio',
                             'value' => '€590',
-                            'text' => 'Per year, or €59 a month. Up to 5 live sites, early access to new releases, the maintenance promise and email answers within two business days.',
+                            'text' => 'Per year, or €59 a month. Support for up to 5 live sites, the maintenance promise and email answers within two business days.',
                         ],
                         [
                             'title' => 'Agency',
                             'value' => '€1,990',
-                            'text' => 'Per year, or €199 a month. Everything in Studio for up to 25 live sites, an answer by the next business day (CET) and a yearly onboarding call.',
+                            'text' => 'Per year, or €199 a month. Support for up to 25 live sites, an answer by the next business day (CET) and a yearly onboarding call.',
                         ],
                         [
                             'title' => 'Partner',
