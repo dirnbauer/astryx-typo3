@@ -18,7 +18,9 @@
 
     In a multi-step form the last page's submit button moves out of the field
     list and into the step row, next to "Back", so the row reads the same on
-    every page.
+    every page. A submit field on an earlier page is not rendered at all: it
+    would send the whole form from that step, and "Next" moves on instead. A
+    multi-step form sends from its last page only.
 </f:comment>
 
 <f:variable name="l" value="LLL:EXT:astryx_typo3/Resources/Private/Language/plugins.xlf" />
@@ -31,7 +33,7 @@
 
     <a:layout.formLayout>
         <f:for each="{page.fields}" as="field">
-            <f:if condition="{settings.main.moresteps} && {iterationPages.isLast} && {field.type} == 'submit'">
+            <f:if condition="{settings.main.moresteps} && {field.type} == 'submit'">
                 <f:else>
                     <f:render partial="Form/Field/{vh:string.upper(string: field.type)}" arguments="{field: field, settings: settings, mail: mail, form: form}" />
                 </f:else>
