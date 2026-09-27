@@ -2,6 +2,15 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.3.4] - 2026-09-27
+
+### Changed
+
+- Astryx and Desiderio stay free with every release. Studio, Agency and
+  Partner are yearly support plans: guaranteed answers, the maintenance
+  promise and onboarding. The pricing block no longer offers paid early
+  access.
+
 ## [2.3.3] - 2026-09-27
 
 ### Changed
