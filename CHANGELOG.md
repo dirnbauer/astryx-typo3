@@ -2,6 +2,20 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.4.0] - 2026-09-28
+
+### Added
+
+- Forms with powermail_cond conditions start in their final state: where
+  powermail_cond is active, the form renders the conditions' starting
+  state with the page, so a field a condition hides is never visible
+  first and no request goes to the condition endpoint on load.
+
+### Fixed
+
+- A condition can hide the submit button on the last step of a
+  multi-step form; the button had no wrapper for powermail_cond to hide.
+
 ## [2.3.5] - 2026-09-27
 
 ### Fixed
