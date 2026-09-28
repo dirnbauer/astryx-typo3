@@ -25,5 +25,19 @@ final class PowermailMultiStepTest extends TestCase
         self::assertSame(1, substr_count($page, '<f:render partial="Form/Field/'), 'the field list has one way to render a field');
         self::assertStringContainsString('<f:if condition="{iterationPages.isLast}">', $page);
         self::assertSame(1, substr_count($page, 'type="submit"'), 'one submit button: the last page\'s, in the step row');
+        // powermail_cond hides a field by its wrapper; without one a condition cannot hide the button.
+        self::assertStringContainsString('<span class="powermail_fieldwrap powermail_fieldwrap_{field.marker}">', $page);
+    }
+
+    public function testTheConditionsStartingStateRendersOnlyWherePowermailCondIsActive(): void
+    {
+        $form = (string)file_get_contents(dirname(__DIR__, 2) . '/Resources/Private/Extensions/Powermail/Templates/Form/Form.html');
+        $state = (string)file_get_contents(dirname(__DIR__, 2) . '/Resources/Private/Extensions/Powermail/Partials/Misc/ConditionsState.html');
+
+        // The partial's pc: namespace exists only with powermail_cond, which sets the switch.
+        self::assertStringContainsString('<f:if condition="{settings.powermailCond.prerender}">', $form);
+        self::assertStringContainsString('<f:render partial="Misc/ConditionsState" arguments="{form: form}" />', $form);
+        self::assertStringContainsString('id="form-{form.uid}-actions"', $state);
+        self::assertStringContainsString('{pc:conditions(form: form) -> f:format.raw()}', $state);
     }
 }

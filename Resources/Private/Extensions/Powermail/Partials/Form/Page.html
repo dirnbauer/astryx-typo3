@@ -57,7 +57,10 @@
                 <f:then>
                     <f:for each="{page.fields}" as="field">
                         <f:if condition="{field.type} == 'submit'">
-                            <a:atom.button type="submit" class="powermail_submit g-form__submit">{field.title}</a:atom.button>
+                            <f:comment>The wrapper is the hook a condition hides the button by.</f:comment>
+                            <span class="powermail_fieldwrap powermail_fieldwrap_{field.marker}">
+                                <a:atom.button type="submit" class="powermail_submit g-form__submit">{field.title}</a:atom.button>
+                            </span>
                         </f:if>
                     </f:for>
                 </f:then>
