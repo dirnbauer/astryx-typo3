@@ -6,55 +6,61 @@
 <f:asset.css identifier="g-testimonial-video" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    No player is embedded. The poster is a link, which is what keeps the band
-    free of third-party scripts and consent prompts until the reader has
-    decided to watch — and it is why the call-to-action label sits inside the
-    link rather than beside it: one link, one accessible name, no duplicate.
+    No player is embedded. The poster is a still with one button laid over it
+    that links to the recording, which keeps the band free of third-party
+    scripts and consent prompts until the reader has decided to watch.
+
+    The button is the link, and the only one: an <a> around the whole poster
+    with a <button> inside it, which is what this element used to render, is
+    interactive content inside interactive content and not valid HTML. Overlay
+    lays the button over the still and takes the frame's corners; the button
+    renders only when it has a target, so a poster without a link is a picture
+    rather than a dead control.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-testimonial-video">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-testimonial-video__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-        </div>
+            <a:layout.split>
 
-        <a:layout.split class="g-testimonial-video__grid">
+                <f:if condition="{data.image}">
+                    <a:molecule.overlay align="center">
+                        <f:fragment>
+                            <a:atom.aspectRatio>
+                                <f:for each="{data.image}" as="image">
+                                    <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy"/>
+                                </f:for>
+                            </a:atom.aspectRatio>
+                        </f:fragment>
 
-            <f:if condition="{data.image}">
-                <f:link.typolink parameter="{data.cta_link}" class="g-testimonial-video__poster">
-                    <a:atom.aspectRatio class="g-testimonial-video__frame">
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="" width="960" loading="lazy"/>
-                        </f:for>
-                    </a:atom.aspectRatio>
-                    <a:atom.button variant="primary" size="lg" class="g-testimonial-video__play">
-                        <span class="g-testimonial-video__play-mark" aria-hidden="true"></span>
-                        {data.cta_label}
-                    </a:atom.button>
-                </f:link.typolink>
-            </f:if>
-
-            <figure class="g-testimonial-video__figure">
-                <a:molecule.blockquote class="g-testimonial-video__quote">
-                    <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </a:molecule.blockquote>
-
-                <f:if condition="{data.author}">
-                    <a:molecule.citation class="g-testimonial-video__credit">
-                        <span class="g-testimonial-video__name">{data -> f:render.text(field: 'author')}</span>
-                        <f:if condition="{data.role}">
-                            <span class="g-testimonial-video__role">{data -> f:render.text(field: 'role')}</span>
-                        </f:if>
-                    </a:molecule.citation>
+                        <f:fragment name="scrim"><f:if condition="{data.cta_label} && {data.cta_link.url}"><a:atom.button variant="primary" size="lg" parameter="{data.cta_link}"><a:atom.icon name="play" size="sm" />{data.cta_label}</a:atom.button></f:if></f:fragment>
+                    </a:molecule.overlay>
                 </f:if>
-            </figure>
 
-        </a:layout.split>
+                <a:molecule.figure class="g-testimonial-video__figure">
+                    <a:molecule.blockquote size="lg" marks="auto">
+                        <p>{data -> f:render.text(field: 'quote_text')}</p>
+                    </a:molecule.blockquote>
+
+                    <f:if condition="{data.author}">
+                        <a:molecule.citation class="g-testimonial-video__credit">
+                            <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                            <f:if condition="{data.role}">
+                                <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </a:molecule.citation>
+                    </f:if>
+                </a:molecule.figure>
+
+            </a:layout.split>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

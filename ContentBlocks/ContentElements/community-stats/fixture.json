@@ -5,8 +5,8 @@
     "lead": "Two to six numbers, each with a label and an optional line of context. All figures use the same type size, whatever their number of digits.",
     "columns": "4",
     "align": "start",
-    "cta_label": "Primary action",
-    "cta_link": "#",
+    "cta_label": "See the community sign-up",
+    "cta_link": "{{page:components/conversion}}",
     "tone": "muted",
     "width": "lg",
     "stats": [
@@ -22,20 +22,20 @@
             "unit": "maximum",
             "title": "Figures in the set",
             "text": "Beyond six, a table works better.",
-            "icon": "columns"
+            "icon": "layout-grid"
         },
         {
             "value": "12k",
-            "unit": "",
+            "unit": "or 12,400",
             "title": "Stored as text",
-            "text": "So editors can write 12k or 12,400, whichever suits the page.",
-            "icon": "edit"
+            "text": "Editors write whichever form suits the page.",
+            "icon": "file-text"
         },
         {
             "value": "180",
-            "unit": "",
+            "unit": "meet-ups",
             "title": "About your own reach",
-            "text": "For one customer's results, use the case study metrics band.",
+            "text": "Use it for your own community. For one customer’s results, use the case study metrics band.",
             "icon": "user"
         }
     ]

@@ -8,51 +8,50 @@
 <f:comment>
     Emblems keep their own colours here — an award seal desaturated to match the
     page stops looking like an award and starts looking like a supplier logo.
-    That is the one deliberate difference from the customer walls.
+    That is the one deliberate difference from the customer walls, and why the
+    emblem is not a muted Logo.
+
+    A wrapping row rather than a grid, so two prizes sit together at the start
+    of the line instead of stretching across half the page each. The emblem's
+    alt is empty because the prize is named right under it; the name is a label
+    rather than a heading, because the band's own heading is optional and a run
+    of h3s under no h2 would break the page outline.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-awards-row" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-awards-row__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-awards-row__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro align="{data.align}">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <ul class="g-awards-row__awards">
-            <f:for each="{data.awards}" as="award">
-                <li class="g-awards-row__award">
-                    <f:if condition="{award.image}">
-                        <span class="g-awards-row__emblem">
-                            <f:for each="{award.image}" as="image">
-                                <f:image image="{image}"
-                                         alt="{f:if(condition: image.alternative, then: image.alternative, else: award.title)}"
-                                         height="128"
-                                         loading="lazy"
-                                         class="g-awards-row__image"/>
-                            </f:for>
-                        </span>
-                    </f:if>
-
-                    <a:atom.text type="label" as="h3" class="g-awards-row__name">
-                        <f:if condition="{award.link.url}">
-                            <f:then><a:atom.link variant="quiet" parameter="{award.link}">{award.title}</a:atom.link></f:then>
-                            <f:else>{award -> f:render.text(field: 'title')}</f:else>
+            <a:layout.stack as="ul" orientation="horizontal" gap="8" align="start" justify="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'default')}" class="g-awards-row__awards">
+                <f:for each="{data.awards}" as="award">
+                    <li class="g-awards-row__award">
+                        <f:if condition="{award.image}">
+                            <span class="g-awards-row__emblem">
+                                <f:for each="{award.image}" as="image">
+                                    <f:image image="{image}" alt="" height="128" loading="lazy" class="g-awards-row__image"/>
+                                </f:for>
+                            </span>
                         </f:if>
-                    </a:atom.text>
-                </li>
-            </f:for>
-        </ul>
 
+                        <a:atom.text type="label">
+                            <f:if condition="{award.link.url}">
+                                <f:then><a:atom.link variant="quiet" parameter="{award.link}">{award.title}</a:atom.link></f:then>
+                                <f:else>{award -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </a:atom.text>
+                    </li>
+                </f:for>
+            </a:layout.stack>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

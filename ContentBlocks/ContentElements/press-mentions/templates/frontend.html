@@ -6,52 +6,52 @@
 <f:asset.css identifier="g-press-mentions" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A mention always leads off this site, so the marker on the headline is
-    unconditional rather than sniffed out of the URL: an arrow that appears on
-    some rows and not others teaches the reader a rule that is not true.
+    One card per article, and the card is the item of the list (`Card as="li"`),
+    so a reader is told how many mentions there are. The headline is the card's
+    title and its only link, so the whole card is the target while the
+    accessible name stays the headline; the publication and the date sit under
+    it, outside the link. A mention without a link is a plain card rather than
+    an anchor to nowhere.
 
-    The publication and the date are the citation, not part of the headline, so
-    they sit outside the link and keep the accessible name to the article title.
+    The editor's column count is held rather than treated as a hint — four
+    mentions in two columns are two full rows, not three and an orphan — and
+    Grid itself steps four columns down to two on a tablet.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-press-mentions">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-press-mentions__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" fixed="{data.columns}" gap="4">
+                <f:for each="{data.mentions}" as="mention">
+                    <a:molecule.card as="li" clickable="{mention.link.url}" variant="flat">
+                        <a:molecule.cardTitle>
+                            <f:if condition="{mention.link.url}">
+                                <f:then><f:link.typolink parameter="{mention.link}">{mention.title}</f:link.typolink></f:then>
+                                <f:else>{mention -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </a:molecule.cardTitle>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-press-mentions__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-press-mentions__items">
-            <f:for each="{data.mentions}" as="mention">
-                <a:molecule.card clickable="{mention.link.url}" variant="flat" class="g-press-mentions__item">
-                    <a:molecule.cardTitle class="g-press-mentions__headline">
-                        <f:if condition="{mention.link.url}">
-                            <f:then><f:link.typolink parameter="{mention.link}">{mention.title}</f:link.typolink></f:then>
-                            <f:else>{mention -> f:render.text(field: 'title')}</f:else>
+                        <f:if condition="{mention.description}">
+                            <a:atom.text type="supporting" class="g-press-mentions__source">{mention -> f:render.text(field: 'description')}</a:atom.text>
                         </f:if>
-                    </a:molecule.cardTitle>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
 
-                    <f:if condition="{mention.description}">
-                        <a:molecule.citation class="g-press-mentions__source">{mention -> f:render.text(field: 'description')}</a:molecule.citation>
-                    </f:if>
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
+            <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                <a:layout.stack align="start">
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:layout.stack>
+            </f:if>
 
-        <f:if condition="{data.cta_label}">
-            <p class="g-press-mentions__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

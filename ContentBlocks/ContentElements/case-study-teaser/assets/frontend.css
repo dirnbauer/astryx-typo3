@@ -1,103 +1,32 @@
 /*
  * Case Study Teaser
  *
+ * Layout only: reading measures and the figure's shared baseline. The card,
+ * the mark, the intro, the button and the type are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-case-study-teaser__card {
-  gap: 0;
-}
-
-.g-case-study-teaser__grid {
-  align-items: center;
-}
-
 .g-case-study-teaser__copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-4);
   max-inline-size: 40ch;
 }
 
-/* Small and monochrome: on a card that already carries a headline and a figure,
-   a mark at full colour is the third thing competing for the first glance.
-   Marks are dark ink on transparency, so a dark scheme would swallow them;
-   --g-ink-filter lives in the chrome stylesheet, which may ask about the
-   scheme — this file may not. */
-.g-case-study-teaser__mark {
-  display: block;
-  block-size: var(--spacing-7);
-  inline-size: auto;
-  max-inline-size: 10rem;
-  object-fit: contain;
-  filter: var(--g-ink-filter, none) grayscale(1);
-  opacity: 0.7;
-}
-
-
-.g-case-study-teaser__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-case-study-teaser__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-2);
-}
-
-.g-case-study-teaser__result {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
+/* Value and unit share a baseline, so the unit reads as part of the figure. */
 .g-case-study-teaser__figure {
   margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-1-5);
-  color: var(--color-text-accent);
-}
-
-.g-case-study-teaser__value {
-  font-family: var(--font-family-heading);
-  font-size: var(--text-display-1-size);
-  font-weight: var(--text-display-1-weight);
-  line-height: var(--text-display-1-leading);
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-case-study-teaser__unit {
-  font-size: var(--text-heading-3-size);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text-secondary);
+  gap: var(--spacing-2);
 }
 
 .g-case-study-teaser__caption {
   max-inline-size: 34ch;
 }
 
-.g-case-study-teaser[data-surface="accent"] .g-case-study-teaser__figure {
-  color: currentColor;
-}
-
-.g-case-study-teaser[data-surface="accent"] .g-case-study-teaser__lead,
-.g-case-study-teaser[data-surface="accent"] .g-case-study-teaser__unit,
-.g-case-study-teaser[data-surface="accent"] .astryx-eyebrow,
-.g-case-study-teaser[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
 @media (max-width: 767px) {
   .g-case-study-teaser__copy,
   .g-case-study-teaser__caption {
     max-inline-size: none;
-  }
-
-  .g-case-study-teaser__value {
-    font-size: var(--text-display-2-size);
-    line-height: var(--text-display-2-leading);
   }
 }

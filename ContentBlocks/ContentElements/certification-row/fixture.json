@@ -2,27 +2,55 @@
     "_type": "social-proof",
     "eyebrow": "Certification Row",
     "header": "Certificates with scope and a register link",
-    "lead": "Two to twelve certificates. Each links to the issuing body's register, not to your own site, so readers can check the seal.",
-    "note": "Use the note for validity: what the certificates cover, what they don't, and until when.",
+    "lead": "Two to twelve certificates. Each links to the issuing body’s register, not to your own site, so readers can check the seal.",
+    "note": "Use the note for validity: what the certificates cover, what they don’t, and until when.",
     "tone": "surface",
     "width": "lg",
     "align": "start",
     "certificates": [
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-data-protection.svg",
+                    "alternative": "A blue shield with a white tick.",
+                    "title": ""
+                }
+            ],
             "title": "At least two certificates",
-            "link": "#"
+            "link": ""
         },
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-security-audit.svg",
+                    "alternative": "A round navy seal with a padlock.",
+                    "title": ""
+                }
+            ],
             "title": "At most twelve certificates",
-            "link": "#"
+            "link": ""
         },
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-accessibility-aa.svg",
+                    "alternative": "A green round badge with the accessibility figure and the level AA.",
+                    "title": ""
+                }
+            ],
             "title": "Put the scope in the title",
             "link": ""
         },
         {
-            "title": "Link to the issuer's register",
-            "link": "#"
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-invoicing.svg",
+                    "alternative": "A purple stamp with a document and a tick.",
+                    "title": ""
+                }
+            ],
+            "title": "Link to the issuer’s register",
+            "link": ""
         }
     ]
 }

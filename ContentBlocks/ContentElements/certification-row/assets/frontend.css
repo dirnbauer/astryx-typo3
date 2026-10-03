@@ -1,45 +1,34 @@
 /*
  * Certification Row
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, plus the seals' box: a seal is not a muted Logo — it keeps its
+ * colours — so its height is still this element's business. The intro, the
+ * row, the type and the links are the components' own. Tokens only: no raw
+ * colour, no literal font family, no light-dark() and no prefers-color-scheme
+ * — the theme carries all four, and the audit enforces it.
  */
 
-.g-certification-row__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-certification-row__lead {
-  color: var(--color-text-secondary);
-}
-
 .g-certification-row__certificates {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-8);
   row-gap: var(--spacing-6);
 }
 
+/* The scope, not the standard's number, is what a reader is actually checking,
+   so it gets the full width of the cell and wraps rather than truncating. */
 .g-certification-row__certificate {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-3);
   inline-size: 12rem;
+  text-align: center;
+  text-wrap: balance;
 }
 
 .g-certification-row__seal {
   display: flex;
   align-items: center;
   justify-content: center;
-  block-size: var(--spacing-12);
+  block-size: calc(var(--spacing-8) * 2);
 }
 
 .g-certification-row__image {
@@ -51,48 +40,18 @@
   object-fit: contain;
 }
 
-/* The scope, not the standard's number, is what a reader is actually checking,
-   so it gets the full width of the cell and wraps rather than truncating. */
-.g-certification-row__scope {
-  margin: 0;
-  text-align: center;
-  text-wrap: balance;
-  color: var(--color-text-primary);
-}
-
 .g-certification-row__note {
-  margin-block-start: var(--spacing-8);
   max-inline-size: 60ch;
 }
 
-.g-certification-row[data-align='center'] .g-certification-row__intro {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.g-certification-row[data-align='center'] .g-certification-row__certificates {
-  justify-content: center;
-}
-
 .g-certification-row[data-align='center'] .g-certification-row__note {
-  margin-inline: auto;
+  align-self: center;
   text-align: center;
-}
-
-.g-certification-row[data-surface="accent"] .g-certification-row__lead,
-.g-certification-row[data-surface="accent"] .astryx-eyebrow,
-.g-certification-row[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-certification-row[data-surface="accent"] .g-certification-row__scope {
-  color: currentColor;
 }
 
 @media (max-width: 640px) {
   .g-certification-row__certificates {
-    gap: var(--spacing-6);
+    column-gap: var(--spacing-6);
     row-gap: var(--spacing-5);
   }
 
@@ -101,6 +60,6 @@
   }
 
   .g-certification-row__seal {
-    block-size: var(--spacing-10);
+    block-size: var(--spacing-12);
   }
 }

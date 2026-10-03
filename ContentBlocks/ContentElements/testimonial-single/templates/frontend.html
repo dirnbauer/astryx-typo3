@@ -6,33 +6,40 @@
 <f:asset.css identifier="g-testimonial-single" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The quotation marks are drawn by the stylesheet with quotes: auto, so a
-    German page gets its own pair and an English one another. That is why the
-    field is stored bare — an editor who types the marks in gets four.
+    One sentence at display size, and the person who said it.
+
+    A Figure holding a Blockquote and a Citation — the pairing HTML sanctions
+    for a quotation with an attribution. The display size and the quotation
+    marks are the Blockquote's own (`size`, `marks`), so the field is stored
+    bare: the marks follow the page's language, and an editor who typed them
+    in would get two pairs. Centred, the Figure drops the quote's accent rule
+    itself.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-testimonial-single" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6" align="{data.align}">
 
-        <f:if condition="{data.eyebrow}">
-            <a:atom.eyebrow class="g-testimonial-single__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-        </f:if>
-
-        <figure class="g-testimonial-single__figure">
-            <a:molecule.blockquote class="g-testimonial-single__quote">
-                <p>{data -> f:render.text(field: 'quote_text')}</p>
-            </a:molecule.blockquote>
-
-            <f:if condition="{data.author}">
-                <a:molecule.citation class="g-testimonial-single__credit">
-                    <span class="g-testimonial-single__name">{data -> f:render.text(field: 'author')}</span>
-                    <f:if condition="{data.role}">
-                        <span class="g-testimonial-single__role">{data -> f:render.text(field: 'role')}</span>
-                    </f:if>
-                </a:molecule.citation>
+            <f:if condition="{data.eyebrow}">
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
-        </figure>
 
+            <a:molecule.figure align="{data.align}">
+                <a:molecule.blockquote size="display" marks="auto" class="g-testimonial-single__quote">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
+                </a:molecule.blockquote>
+
+                <f:if condition="{data.author}">
+                    <a:molecule.citation class="g-testimonial-single__credit">
+                        <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                        <f:if condition="{data.role}">
+                            <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                        </f:if>
+                    </a:molecule.citation>
+                </f:if>
+            </a:molecule.figure>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

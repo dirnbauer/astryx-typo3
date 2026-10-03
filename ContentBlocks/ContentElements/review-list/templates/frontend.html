@@ -8,78 +8,69 @@
 <f:comment>
     The rating is printed as a number beside its stars rather than hidden
     behind them: five graphics are unreadable to anyone who cannot see them,
-    and "4/5" is the same claim in every language this catalog ships.
+    and "4/5" is the same claim in every language this catalog ships. The stars
+    are Atom/Rating with that text in its slot, so they stay silent and the
+    number is read. A review with no rating still renders — the star row is
+    simply left out rather than filled with a value nobody gave.
 
-    A review with no rating still renders — the star row is simply left out
-    rather than filled with a value nobody gave.
+    Each row is a Figure: the review in a plain Blockquote with the marks of
+    the page's language, the reviewer in a Citation. The button renders only
+    when it has somewhere to go.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-review-list">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-review-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-review-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.list dividers="with-dividers" density="spacious" class="g-review-list__reviews">
-            <f:for each="{data.reviews}" as="review">
-                <li class="g-review-list__review">
-                    <figure class="g-review-list__figure">
-                        <f:if condition="{review.rating}">
-                            <p class="g-review-list__rating">
-                                <span class="g-review-list__stars" style="--g-rating: {review.rating};" aria-hidden="true">
-                                    <span class="g-review-list__star"></span>
-                                    <span class="g-review-list__star"></span>
-                                    <span class="g-review-list__star"></span>
-                                    <span class="g-review-list__star"></span>
-                                    <span class="g-review-list__star"></span>
-                                </span>
-                                <a:atom.text type="supporting" as="span" class="g-review-list__value">{review.rating}/5</a:atom.text>
-                            </p>
-                        </f:if>
-
-                        <blockquote class="g-review-list__text">
-                            <p>{review -> f:render.text(field: 'quote_text')}</p>
-                        </blockquote>
-
-                        <figcaption class="g-review-list__credit">
-                            <f:if condition="{review.image}">
-                                <a:atom.avatar size="sm">
-                                    <f:for each="{review.image}" as="portrait">
-                                        <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
-                                    </f:for>
-                                </a:atom.avatar>
+            <a:molecule.list dividers="with-dividers" density="spacious" class="g-review-list__reviews">
+                <f:for each="{data.reviews}" as="review">
+                    <a:molecule.listItem>
+                        <a:molecule.figure class="g-review-list__figure">
+                            <f:if condition="{review.rating}">
+                                <a:atom.rating value="{review.rating}" size="sm">{review.rating}/5</a:atom.rating>
                             </f:if>
 
-                            <a:atom.text type="label" as="span">{review -> f:render.text(field: 'author')}</a:atom.text>
+                            <a:molecule.blockquote variant="plain" marks="auto">
+                                <p>{review -> f:render.text(field: 'quote_text')}</p>
+                            </a:molecule.blockquote>
 
-                            <f:if condition="{review.role}">
-                                <a:atom.text type="supporting" as="span">{review -> f:render.text(field: 'role')}</a:atom.text>
-                            </f:if>
-                        </figcaption>
-                    </figure>
-                </li>
-            </f:for>
-        </a:molecule.list>
+                            <a:molecule.citation class="g-review-list__credit">
+                                <f:if condition="{review.image}">
+                                    <a:atom.avatar size="sm">
+                                        <f:for each="{review.image}" as="portrait">
+                                            <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
+                                        </f:for>
+                                    </a:atom.avatar>
+                                </f:if>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-review-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+                                <a:atom.text type="label" as="span">{review -> f:render.text(field: 'author')}</a:atom.text>
 
-        <f:if condition="{data.cta_label}">
-            <p class="g-review-list__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
+                                <f:if condition="{review.role}">
+                                    <a:atom.text type="supporting" as="span">{review -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:molecule.citation>
+                        </a:molecule.figure>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-review-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
+
+            <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                <a:layout.stack align="start">
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:layout.stack>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

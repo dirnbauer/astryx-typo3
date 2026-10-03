@@ -1,12 +1,12 @@
 {
     "_type": "social-proof",
     "eyebrow": "Case Study Metrics",
-    "header": "One project's results as a row of figures",
+    "header": "One project’s results as a row of figures",
     "lead": "Two to six results, each with a label and a line on how it was measured. The stylesheet shows each figure above its label.",
     "note": "Use the note for the measurement period. Without one, readers doubt every figure, even the true ones.",
     "columns": "4",
-    "cta_label": "Secondary action",
-    "cta_link": "#",
+    "cta_label": "Open the data chapter",
+    "cta_link": "{{page:components/data}}",
     "tone": "surface",
     "width": "lg",
     "metrics": [
@@ -22,7 +22,7 @@
             "unit": "maximum",
             "title": "Figures in the band",
             "text": "Beyond six, readers remember none of them.",
-            "icon": "columns"
+            "icon": "layout-grid"
         },
         {
             "value": "1",
@@ -33,9 +33,9 @@
         },
         {
             "value": "0",
-            "unit": "",
-            "title": "Animated counters",
-            "text": "Figures stay still, so readers can take them in at once.",
+            "unit": "animations",
+            "title": "Counters that count up",
+            "text": "Figures stay still, so readers take them in at a glance.",
             "icon": "clock"
         }
     ]

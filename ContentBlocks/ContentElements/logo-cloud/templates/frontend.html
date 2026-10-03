@@ -10,62 +10,64 @@
     never "logo": a screen reader announcing "image, logo" ten times in a row
     has told nobody which customers these are.
 
-    Without artwork the name is set as type instead. A wall with three gaps in
-    it is worse proof than a wall of words.
+    Every mark is an Atom/Logo: one height for all of them, grey and faint at
+    rest so no single brand pulls the wall towards itself, and full strength
+    when a reader points at a linked one or tabs to it. Without artwork the Logo
+    sets the name as type instead — a wall with three gaps in it is worse proof
+    than a wall of words.
+
+    The editor's column count is a promise, not a hint, so six marks in three
+    columns are two full rows rather than five and an orphan; `items="small"`
+    keeps two to a row on a phone.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-logo-cloud">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-logo-cloud__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-logo-cloud__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <a:layout.grid as="ul" cols="{data.columns}" class="g-logo-cloud__marks">
-            <f:for each="{data.logos}" as="logo">
-                <li class="g-logo-cloud__cell">
-                    <f:if condition="{logo.link.url}">
-                        <f:then>
-                            <f:link.typolink parameter="{logo.link}" class="g-logo-cloud__link">
+            <a:layout.grid as="ul" fixed="{data.columns}" items="small" gap="8" class="g-logo-cloud__marks">
+                <f:for each="{data.logos}" as="logo">
+                    <li class="g-logo-cloud__cell">
+                        <f:if condition="{logo.link.url}">
+                            <f:then>
+                                <a:atom.link variant="quiet" parameter="{logo.link}">
+                                    <f:render section="mark" arguments="{logo: logo}"/>
+                                </a:atom.link>
+                            </f:then>
+                            <f:else>
                                 <f:render section="mark" arguments="{logo: logo}"/>
-                            </f:link.typolink>
-                        </f:then>
-                        <f:else>
-                            <f:render section="mark" arguments="{logo: logo}"/>
-                        </f:else>
-                    </f:if>
-                </li>
-            </f:for>
-        </a:layout.grid>
+                            </f:else>
+                        </f:if>
+                    </li>
+                </f:for>
+            </a:layout.grid>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
 <f:section name="mark">
-    <f:if condition="{logo.image}">
-        <f:then>
-            <f:for each="{logo.image}" as="image">
-                <f:image image="{image}"
-                         alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
-                         height="96"
-                         loading="lazy"
-                         class="g-logo-cloud__image"/>
-            </f:for>
-        </f:then>
-        <f:else>
-            <span class="g-logo-cloud__wordmark">{logo.title}</span>
-        </f:else>
-    </f:if>
+    <a:atom.logo tone="muted" size="lg">
+        <f:if condition="{logo.image}">
+            <f:then>
+                <f:for each="{logo.image}" as="image">
+                    <f:image image="{image}"
+                             alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
+                             height="96"
+                             loading="lazy"/>
+                </f:for>
+            </f:then>
+            <f:else>{logo -> f:render.text(field: 'title')}</f:else>
+        </f:if>
+    </a:atom.logo>
 </f:section>
 
 </html>

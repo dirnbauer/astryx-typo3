@@ -1,84 +1,13 @@
 /*
  * Press Mentions
  *
+ * Layout only: the source line sits on the card's floor. The intro, the card,
+ * its whole-card link, the columns and the type are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-press-mentions__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-press-mentions__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-press-mentions__items {
-  --grid-gap: var(--spacing-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-press-mentions__item {
-  block-size: 100%;
-  gap: var(--spacing-2);
-}
-
-.g-press-mentions__headline {
-  font-size: var(--text-heading-5-size);
-  line-height: var(--text-heading-5-leading);
-  text-wrap: balance;
-}
-
-/*
- * The leaves-this-site marker follows the headline; it does not lead it.
- *
- * Set before the text it reads as a list bullet, and a column of them turns a
- * set of mentions into what looks like a broken enumeration. After the text it
- * reads as what it is — this link goes elsewhere — which is also where the
- * convention puts it.
- *
- * Sized in em so it tracks the headline rather than a fixed step, and rotated
- * to point up and away rather than merely right.
- */
-.g-press-mentions__headline a::after {
-  content: '';
-  display: inline-block;
-  inline-size: 0.4em;
-  block-size: 0.4em;
-  /* The arrow itself scales with the text, which is what `em` is for; the gap
-     before it is spacing and comes from the scale. */
-  margin-inline-start: var(--spacing-1);
-  border-block-start: 1.5px solid currentColor;
-  border-inline-end: 1.5px solid currentColor;
-  rotate: 45deg;
-  vertical-align: 0.08em;
-  opacity: 0.55;
-}
-
+/* On the card's floor, so the sources of a row of cards line up. */
 .g-press-mentions__source {
-  margin: 0;
   margin-block-start: auto;
-}
-
-.g-press-mentions__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-8);
-}
-
-.g-press-mentions[data-surface="accent"] .g-press-mentions__lead,
-.g-press-mentions[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-press-mentions__intro {
-    margin-block-end: var(--spacing-8);
-  }
 }

@@ -11,7 +11,8 @@
     would put "Free returns" into the page outline as if it were a section.
 
     The tile carries the semantic icon key rather than a glyph, so swapping
-    icon library never reaches into a template.
+    icon library never reaches into a template. How close the strip sits to its
+    neighbours is the editor's "compact" switch, passed to the Section.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-trust-signals" align="{data.align}">
@@ -20,11 +21,11 @@
             <f:for each="{data.signals}" as="signal">
                 <li class="g-trust-signals__signal">
                     <f:if condition="{signal.icon}">
-                        <a:atom.featureIcon icon="{signal.icon}" class="g-trust-signals__icon" />
+                        <a:atom.featureIcon icon="{signal.icon}" />
                     </f:if>
 
                     <span class="g-trust-signals__copy">
-                        <a:atom.text type="label" as="span" class="g-trust-signals__promise">
+                        <a:atom.text type="label" as="span">
                             <f:if condition="{signal.link.url}">
                                 <f:then><a:atom.link variant="quiet" parameter="{signal.link}">{signal.title}</a:atom.link></f:then>
                                 <f:else>{signal -> f:render.text(field: 'title')}</f:else>

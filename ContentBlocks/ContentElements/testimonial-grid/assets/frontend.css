@@ -1,59 +1,18 @@
 /*
  * Testimonial Grid
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the intro, the card, the quote and the credit's type are the
+ * components' own. Tokens only: no raw colour, no literal font family, no
+ * light-dark() and no prefers-color-scheme — the theme carries all four, and
+ * the audit enforces it.
  */
 
-.g-testimonial-grid__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-testimonial-grid__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-testimonial-grid__items {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Cards stretch to the tallest of their row, and the attribution is pushed to
-   the bottom, so the faces land on one optical line however long the quotes
-   above them run. */
-.g-testimonial-grid__item {
-  block-size: 100%;
-}
-
-.g-testimonial-grid__card {
-  margin: 0;
-  block-size: 100%;
-  gap: var(--spacing-5);
-}
-
-.g-testimonial-grid__quote {
-  margin: 0;
-  quotes: auto;
-}
-
-.g-testimonial-grid__quote > p {
-  margin: 0;
-  color: var(--color-text-primary);
-}
-
-.g-testimonial-grid__quote > p::before {
-  content: open-quote;
-}
-
-.g-testimonial-grid__quote > p::after {
-  content: close-quote;
+/* Cards stretch to the tallest of their row; the figure fills its card and the
+   credit sits on the card's floor, so the faces land on one line however long
+   the quotes above them run. */
+.g-testimonial-grid__figure {
+  flex: 1;
+  gap: var(--spacing-4);
 }
 
 .g-testimonial-grid__credit {
@@ -67,16 +26,4 @@
   display: flex;
   flex-direction: column;
   min-inline-size: 0;
-}
-
-.g-testimonial-grid[data-surface="accent"] .g-testimonial-grid__lead,
-.g-testimonial-grid[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-testimonial-grid__intro {
-    margin-block-end: var(--spacing-8);
-  }
 }

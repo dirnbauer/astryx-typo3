@@ -2,24 +2,52 @@
     "eyebrow": "Independently audited",
     "header": "Certificates your purchasing team can check",
     "lead": "Each seal links to the register of the body that issued it. If the register and this page differ, the register is correct.",
-    "note": "Larkmoor holds all four certificates for its hosted service. They don't cover installations on your own hardware or our partners, who certify separately.",
+    "note": "Larkmoor holds all four certificates for its hosted service. They don’t cover installations on your own hardware or our partners, who certify separately.",
     "tone": "surface",
     "width": "lg",
     "align": "start",
     "certificates": [
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-data-protection.svg",
+                    "alternative": "A blue shield with a white tick.",
+                    "title": ""
+                }
+            ],
             "title": "Data protection audit, level B, valid to 2027",
             "link": "#"
         },
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-security-audit.svg",
+                    "alternative": "A round navy seal with a padlock.",
+                    "title": ""
+                }
+            ],
             "title": "Security audit for stock systems, valid to 2026",
             "link": "#"
         },
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-accessibility-aa.svg",
+                    "alternative": "A green round badge with the accessibility figure and the level AA.",
+                    "title": ""
+                }
+            ],
             "title": "Accessibility review, level AA, 2025",
             "link": "#"
         },
         {
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/certification-row/assets/certification-row-seal-invoicing.svg",
+                    "alternative": "A purple stamp with a document and a tick.",
+                    "title": ""
+                }
+            ],
             "title": "Invoicing seal for trade, renewed every year",
             "link": "#"
         }

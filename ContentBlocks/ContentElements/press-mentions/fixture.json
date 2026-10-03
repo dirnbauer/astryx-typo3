@@ -1,28 +1,28 @@
 {
     "_type": "social-proof",
     "eyebrow": "Press Mentions",
-    "header": "Press coverage, one row per article",
+    "header": "Press coverage, one card per article",
     "lead": "Two to sixteen mentions, each with the headline, publication and date. Only the headline is linked, so screen readers announce the article title.",
     "columns": "2",
-    "cta_label": "Secondary action",
-    "cta_link": "#",
+    "cta_label": "Search the catalogue",
+    "cta_link": "{{page:search}}",
     "tone": "body",
     "width": "lg",
     "mentions": [
         {
             "title": "The headline goes in the title field",
             "description": "The publication and date go in the description",
-            "link": "#"
+            "link": "https://typo3.org/"
         },
         {
-            "title": "Every row shows an outbound arrow",
-            "description": "Each mention links to another site",
-            "link": "#"
+            "title": "The whole card is the link",
+            "description": "The headline carries it, so screen readers read the title",
+            "link": "https://docs.typo3.org/"
         },
         {
             "title": "Two to four columns",
             "description": "One column on a phone",
-            "link": "#"
+            "link": "https://extensions.typo3.org/"
         },
         {
             "title": "A row without a link still shows",

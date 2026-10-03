@@ -8,57 +8,59 @@
 <f:comment>
     Posts are stored as text rather than embedded: no third-party script runs,
     nothing is loaded before consent, and the wall survives the source platform
-    disappearing. It is still somebody else's words, so each card is a figure
-    with the post in a blockquote and the handle in the caption.
+    disappearing. It is still somebody else's words, so each card — the item of
+    the list — is a Figure with the post in a Blockquote and the handle in a
+    Citation, first in the figure, where a figcaption is allowed, because a
+    post is read by who wrote it before what they wrote.
+
+    The post is reproduced verbatim, so it is a `plain` quote with no marks: a
+    pair of quotation marks around it would suggest an editor chose where it
+    started and stopped.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-social-mentions">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-social-mentions__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}" gap="4" class="g-social-mentions__posts">
+                <f:for each="{data.posts}" as="post">
+                    <a:molecule.card as="li" density="tight">
+                        <a:molecule.figure class="g-social-mentions__figure">
+                            <a:molecule.citation class="g-social-mentions__who">
+                                <f:if condition="{post.image}">
+                                    <a:atom.avatar size="sm">
+                                        <f:for each="{post.image}" as="portrait">
+                                            <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
+                                        </f:for>
+                                    </a:atom.avatar>
+                                </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-social-mentions__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                                <a:atom.text type="label" as="span" class="g-social-mentions__handle">{post -> f:render.text(field: 'author')}</a:atom.text>
 
-        <a:layout.grid as="ul" cols="{data.columns}" class="g-social-mentions__posts">
-            <f:for each="{data.posts}" as="post">
-                <li class="g-social-mentions__cell">
-                    <a:molecule.card density="tight" class="g-social-mentions__card">
-                        <figcaption class="g-social-mentions__who">
-                            <f:if condition="{post.image}">
-                                <a:atom.avatar size="sm">
-                                    <f:for each="{post.image}" as="portrait">
-                                        <f:image image="{portrait}" alt="" width="48c" height="48c" loading="lazy"/>
-                                    </f:for>
-                                </a:atom.avatar>
-                            </f:if>
+                                <f:if condition="{post.role}">
+                                    <a:atom.token class="g-social-mentions__origin">{post -> f:render.text(field: 'role')}</a:atom.token>
+                                </f:if>
+                            </a:molecule.citation>
 
-                            <a:atom.text type="label" as="span" class="g-social-mentions__handle">{post -> f:render.text(field: 'author')}</a:atom.text>
-
-                            <f:if condition="{post.role}">
-                                <a:atom.token class="g-social-mentions__origin">{post -> f:render.text(field: 'role')}</a:atom.token>
-                            </f:if>
-                        </figcaption>
-
-                        <blockquote class="g-social-mentions__post">
-                            <p>{post -> f:render.text(field: 'quote_text')}</p>
-                        </blockquote>
+                            <a:molecule.blockquote variant="plain">
+                                <p>{post -> f:render.text(field: 'quote_text')}</p>
+                            </a:molecule.blockquote>
+                        </a:molecule.figure>
                     </a:molecule.card>
-                </li>
-            </f:for>
-        </a:layout.grid>
+                </f:for>
+            </a:layout.grid>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-social-mentions__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-social-mentions__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

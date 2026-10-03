@@ -7,46 +7,48 @@
 
 <f:comment>
     An endorsement leans on who is speaking, so the credentials are set at the
-    same weight as the name rather than being demoted to a caption whisper.
-    The portrait carries an empty alt: the name is printed right beside it.
+    same weight as the name — a label, only in the quieter ink — rather than
+    being demoted to a caption whisper. The portrait carries an empty alt: the
+    name is printed right beside it. Centred, the Figure drops the quote's
+    accent rule itself.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-endorsement-single" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <figure class="g-endorsement-single__figure">
+        <a:layout.stack gap="6" align="{data.align}">
 
             <f:if condition="{data.eyebrow}">
                 <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
             </f:if>
 
             <f:if condition="{data.badge_text}">
-                <p class="g-endorsement-single__badge-row">
-                    <a:atom.badge variant="outline" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
-                </p>
+                <a:atom.badge variant="outline">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
             </f:if>
 
-            <a:molecule.blockquote class="g-endorsement-single__quote">
-                <p>{data -> f:render.text(field: 'quote_text')}</p>
-            </a:molecule.blockquote>
+            <a:molecule.figure align="{data.align}">
+                <a:molecule.blockquote size="lg" marks="auto" class="g-endorsement-single__quote">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
+                </a:molecule.blockquote>
 
-            <a:molecule.citation class="g-endorsement-single__credit">
-                <f:if condition="{data.image}">
-                    <a:atom.avatar size="lg" class="g-endorsement-single__portrait">
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
-                        </f:for>
-                    </a:atom.avatar>
-                </f:if>
-
-                <span class="g-endorsement-single__who">
-                    <span class="g-endorsement-single__name">{data -> f:render.text(field: 'author')}</span>
-                    <f:if condition="{data.role}">
-                        <span class="g-endorsement-single__role">{data -> f:render.text(field: 'role')}</span>
+                <a:molecule.citation class="g-endorsement-single__credit">
+                    <f:if condition="{data.image}">
+                        <a:atom.avatar size="lg">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="" width="96c" height="96c" loading="lazy"/>
+                            </f:for>
+                        </a:atom.avatar>
                     </f:if>
-                </span>
-            </a:molecule.citation>
 
-        </figure>
+                    <span class="g-endorsement-single__who">
+                        <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                        <f:if condition="{data.role}">
+                            <a:atom.text type="label" color="secondary" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                        </f:if>
+                    </span>
+                </a:molecule.citation>
+            </a:molecule.figure>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

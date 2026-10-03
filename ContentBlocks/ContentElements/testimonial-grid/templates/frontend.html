@@ -6,55 +6,54 @@
 <f:asset.css identifier="g-testimonial-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Every card is a figure: the words in a blockquote, the person in the
-    caption. A quote card carries no title, so there is no heading inside the
-    grid and the page outline stays as short as the band deserves.
+    Every card is the item of the list (`Card as="li"`) and a figure inside it:
+    the words in a Blockquote, the person in a Citation, which is a figcaption
+    and so has to sit inside a Figure. A quote card carries no title, so there
+    is no heading inside the grid and the page outline stays as short as the
+    band deserves. On a card the quote already sits apart, so it is `plain`:
+    no accent rule, and the marks of the page's language.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-testimonial-grid">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-testimonial-grid__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.quotes}" as="item">
+                    <a:molecule.card as="li">
+                        <a:molecule.figure class="g-testimonial-grid__figure">
+                            <a:molecule.blockquote variant="plain" marks="auto">
+                                <p>{item -> f:render.text(field: 'quote_text')}</p>
+                            </a:molecule.blockquote>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-testimonial-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid as="ul" cols="{data.columns}" class="g-testimonial-grid__items">
-            <f:for each="{data.quotes}" as="item">
-                <li class="g-testimonial-grid__item">
-                    <a:molecule.card class="g-testimonial-grid__card">
-                        <blockquote class="g-testimonial-grid__quote">
-                            <p>{item -> f:render.text(field: 'quote_text')}</p>
-                        </blockquote>
-
-                        <figcaption class="g-testimonial-grid__credit">
-                            <f:if condition="{item.image}">
-                                <a:atom.avatar size="md">
-                                    <f:for each="{item.image}" as="portrait">
-                                        <f:image image="{portrait}" alt="" width="72c" height="72c" loading="lazy"/>
-                                    </f:for>
-                                </a:atom.avatar>
-                            </f:if>
-
-                            <span class="g-testimonial-grid__who">
-                                <a:atom.text type="label" as="span">{item -> f:render.text(field: 'author')}</a:atom.text>
-                                <f:if condition="{item.role}">
-                                    <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
+                            <a:molecule.citation class="g-testimonial-grid__credit">
+                                <f:if condition="{item.image}">
+                                    <a:atom.avatar size="md">
+                                        <f:for each="{item.image}" as="portrait">
+                                            <f:image image="{portrait}" alt="" width="72c" height="72c" loading="lazy"/>
+                                        </f:for>
+                                    </a:atom.avatar>
                                 </f:if>
-                            </span>
-                        </figcaption>
-                    </a:molecule.card>
-                </li>
-            </f:for>
-        </a:layout.grid>
 
+                                <span class="g-testimonial-grid__who">
+                                    <a:atom.text type="label" as="span">{item -> f:render.text(field: 'author')}</a:atom.text>
+                                    <f:if condition="{item.role}">
+                                        <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
+                                    </f:if>
+                                </span>
+                            </a:molecule.citation>
+                        </a:molecule.figure>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

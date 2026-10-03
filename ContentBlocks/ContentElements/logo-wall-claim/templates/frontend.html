@@ -6,64 +6,66 @@
 <f:asset.css identifier="g-logo-wall-claim" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The claim sits inside the wall rather than above it, occupying two cells of
-    the same grid. That is why the element asks for at least six marks: with
-    fewer, the hole the claim leaves reads as a missing logo rather than as a
-    deliberate part of the pattern.
+    The claim sits inside the wall rather than above it, taking half of the same
+    grid. That is why the element asks for at least six marks: with fewer, the
+    space the claim leaves reads as a missing logo rather than as a deliberate
+    part of the pattern.
 
     The list is a list even though the claim shares its grid — the claim is a
     sibling of the list, not an item in it, or a screen reader would count it
     as one of the customers.
+
+    The figure is a Stat standing alone (`as="dl"`): the value is the figure
+    and the unit field — "companies", "teams" — is what it counts, so it is the
+    term. The marks are Atom/Logo; the button renders only when it has
+    somewhere to go.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-logo-wall-claim">
     <a:layout.container size="{data.width}">
         <div class="g-logo-wall-claim__wall">
 
-            <div class="g-logo-wall-claim__claim">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack align="start" class="g-logo-wall-claim__claim">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
 
                 <f:if condition="{data.value}">
-                    <p class="g-logo-wall-claim__figure">
-                        <span class="g-logo-wall-claim__number">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-logo-wall-claim__unit">{data.unit}</span></f:if>
-                    </p>
+                    <a:molecule.stat as="dl" color="accent">
+                        <f:fragment name="value">{data -> f:render.text(field: 'value')}</f:fragment>
+                        <f:fragment name="label">{data -> f:render.text(field: 'unit')}</f:fragment>
+                    </a:molecule.stat>
                 </f:if>
 
                 <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-logo-wall-claim__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                    <a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
-                <f:if condition="{data.cta_label}">
-                    <p class="g-logo-wall-claim__actions">
-                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
+                <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
-            <ul class="g-logo-wall-claim__marks">
+            <a:layout.grid as="ul" fixed="4" items="small" gap="6" class="g-logo-wall-claim__marks">
                 <f:for each="{data.logos}" as="logo">
                     <li class="g-logo-wall-claim__cell">
-                        <f:if condition="{logo.image}">
-                            <f:then>
-                                <f:for each="{logo.image}" as="image">
-                                    <f:image image="{image}"
-                                             alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
-                                             height="72"
-                                             loading="lazy"
-                                             class="g-logo-wall-claim__image"/>
-                                </f:for>
-                            </f:then>
-                            <f:else>
-                                <span class="g-logo-wall-claim__wordmark">{logo.title}</span>
-                            </f:else>
-                        </f:if>
+                        <a:atom.logo tone="muted" size="lg">
+                            <f:if condition="{logo.image}">
+                                <f:then>
+                                    <f:for each="{logo.image}" as="image">
+                                        <f:image image="{image}"
+                                                 alt="{f:if(condition: image.alternative, then: image.alternative, else: logo.title)}"
+                                                 height="72"
+                                                 loading="lazy"/>
+                                    </f:for>
+                                </f:then>
+                                <f:else>{logo -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </a:atom.logo>
                     </li>
                 </f:for>
-            </ul>
+            </a:layout.grid>
 
         </div>
     </a:layout.container>

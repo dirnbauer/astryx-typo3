@@ -1,77 +1,20 @@
 /*
  * Testimonial with Portrait
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the quote's size and marks, the figure's column, the credit's
+ * type and the frame's corners are the components' own. Tokens only: no raw
+ * colour, no literal font family, no light-dark() and no prefers-color-scheme
+ * — the theme carries all four, and the audit enforces it.
  */
 
+/* Beside a tall picture the column would otherwise take the full half of the
+   band and the line length with it. */
 .g-testimonial-portrait__figure {
-  margin: 0;
-  align-items: center;
+  max-inline-size: 36rem;
 }
 
-.g-testimonial-portrait__body {
+/* The name over the role, never run together on one line. */
+.g-testimonial-portrait__credit {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
-  /* Beside a tall picture the column would otherwise stretch to the height of
-     the frame and take the line length with it. */
-  max-inline-size: 45ch;
-}
-
-.g-testimonial-portrait__quote {
-  font-size: var(--text-heading-2-size);
-  line-height: var(--text-heading-2-leading);
-}
-
-.g-testimonial-portrait__quote > p {
-  margin: 0;
-  quotes: auto;
-}
-
-.g-testimonial-portrait__quote > p::before {
-  content: open-quote;
-}
-
-.g-testimonial-portrait__quote > p::after {
-  content: close-quote;
-}
-
-.g-testimonial-portrait__name {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-semibold);
-}
-
-.g-testimonial-portrait__role::before {
-  content: ', ';
-}
-
-/* No crop: the frame the photographer chose survives, which is the only way to
-   be sure the face is never cut off below the eyes at some viewport width. */
-.g-testimonial-portrait__image {
-  display: block;
-  inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
-}
-
-.g-testimonial-portrait[data-surface="accent"] .astryx-citation {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-testimonial-portrait[data-surface="accent"] .g-testimonial-portrait__name {
-  color: currentColor;
-}
-
-@media (max-width: 767px) {
-  .g-testimonial-portrait__body {
-    max-inline-size: none;
-  }
-
-  .g-testimonial-portrait__quote {
-    font-size: var(--text-heading-3-size);
-    line-height: var(--text-heading-3-leading);
-  }
 }

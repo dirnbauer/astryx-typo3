@@ -7,66 +7,70 @@
 
 <f:comment>
     The track is a scroll-snap row, so it is already a carousel with no script
-    at all — drag, momentum and keyboard scrolling belong to the browser. The
-    hook only adds the two arrows a mouse user has no other way to reach, and
-    the shared runtime disables them at either end.
+    at all — swipe, drag, momentum and the arrow keys belong to the browser.
+    Molecule/Carousel renders the track, the two arrows and the status line
+    that tells a screen reader which quote it has come to; astryx.js pages the
+    rail, switches each arrow off at its end and hides both where the rail fits
+    or a finger is the pointer.
 
-    The next card is deliberately left peeking past the edge: it is the only
-    honest signal that the band continues, and it costs no markup.
+    From tablet width two whole cards sit side by side and the arrows say that
+    the row continues; a card cut off there would read as a layout fault. On a
+    phone there are no arrows, so the next card shows a sliver at the edge
+    instead — the one sign left that there is more to swipe to.
+
+    Each card is a figure — the words in a plain Blockquote with the marks of
+    the page's language, the person in a Citation.
 </f:comment>
+
+<f:variable name="labels">LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf</f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-testimonial-carousel">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-testimonial-carousel__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-testimonial-carousel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-        <a:molecule.carousel
-            gap="4"
-            class="g-testimonial-carousel__carousel"
-            trackClass="g-testimonial-carousel__track"
-            trackLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.region', default: 'Quotes')}"
-            controlClass="g-testimonial-carousel__control"
-            previousLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.previous', default: 'Previous quote')}"
-            nextLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.next', default: 'Next quote')}">
-            <f:for each="{data.quotes}" as="item">
-                <a:molecule.carouselItem class="g-testimonial-carousel__item">
-                    <a:molecule.card variant="raised" class="g-testimonial-carousel__card">
-                        <f:if condition="{item.image}">
-                            <a:atom.avatar size="lg" class="g-testimonial-carousel__portrait">
-                                <f:for each="{item.image}" as="portrait">
-                                    <f:image image="{portrait}" alt="" width="96c" height="96c" loading="lazy"/>
-                                </f:for>
-                            </a:atom.avatar>
-                        </f:if>
+            <a:molecule.carousel
+                gap="4"
+                trackLabel="{f:translate(key: '{labels}:content.carousel.region', default: 'Quotes')}"
+                previousLabel="{f:translate(key: '{labels}:content.carousel.previous', default: 'Previous quote')}"
+                nextLabel="{f:translate(key: '{labels}:content.carousel.next', default: 'Next quote')}"
+                statusLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/testimonial-carousel/language/labels.xlf:carousel.status', default: 'Quote %1$s of %2$s')}">
+                <f:for each="{data.quotes}" as="item">
+                    <a:molecule.carouselItem class="g-testimonial-carousel__item">
+                        <a:molecule.card class="g-testimonial-carousel__card">
+                            <a:molecule.figure class="g-testimonial-carousel__figure">
+                                <a:molecule.blockquote variant="plain" marks="auto">
+                                    <p>{item -> f:render.text(field: 'quote_text')}</p>
+                                </a:molecule.blockquote>
 
-                        <blockquote class="g-testimonial-carousel__quote">
-                            <p>{item -> f:render.text(field: 'quote_text')}</p>
-                        </blockquote>
+                                <a:molecule.citation class="g-testimonial-carousel__credit">
+                                    <f:if condition="{item.image}">
+                                        <a:atom.avatar size="lg">
+                                            <f:for each="{item.image}" as="portrait">
+                                                <f:image image="{portrait}" alt="" width="96c" height="96c" loading="lazy"/>
+                                            </f:for>
+                                        </a:atom.avatar>
+                                    </f:if>
 
-                        <figcaption class="g-testimonial-carousel__credit">
-                            <a:atom.text type="label" as="span" class="g-testimonial-carousel__name">{item -> f:render.text(field: 'author')}</a:atom.text>
-                            <f:if condition="{item.role}">
-                                <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
-                            </f:if>
-                        </figcaption>
-                    </a:molecule.card>
-                </a:molecule.carouselItem>
-            </f:for>
+                                    <span class="g-testimonial-carousel__who">
+                                        <a:atom.text type="label" as="span">{item -> f:render.text(field: 'author')}</a:atom.text>
+                                        <f:if condition="{item.role}">
+                                            <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
+                                        </f:if>
+                                    </span>
+                                </a:molecule.citation>
+                            </a:molecule.figure>
+                        </a:molecule.card>
+                    </a:molecule.carouselItem>
+                </f:for>
+            </a:molecule.carousel>
 
-        </a:molecule.carousel>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
