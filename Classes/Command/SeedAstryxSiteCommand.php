@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Webconsulting\AstryxTypo3\Command;
 
+use Doctrine\DBAL\ArrayParameterType;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -56,6 +57,16 @@ final class SeedAstryxSiteCommand extends Command
 
     /** @var list<string>|null */
     private ?array $ownCTypes = null;
+
+    /**
+     * Pages below the site root by slug (without the leading slash), for
+     * {{page:<slug>}} links in fixtures; filled once the tree exists.
+     *
+     * @var array<string, int>
+     */
+    private array $pageLinks = [];
+
+    private int $rootPageUid = 0;
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
@@ -249,6 +260,8 @@ final class SeedAstryxSiteCommand extends Command
         }
 
         if ((bool)$input->getOption('content')) {
+            $this->rootPageUid = $rootUid;
+            $this->pageLinks = $this->collectPageLinks($rootUid);
             $this->seedChapterContent($io, $created, $chapters, $now, (bool)$input->getOption('include-video'));
             $this->seedHomeContent($io, $rootUid, $hubUid, $created['Themes'] ?? 0, $now);
             $this->seedSupportContent($io, $supportUids, $now);
@@ -351,15 +364,17 @@ final class SeedAstryxSiteCommand extends Command
                     continue;
                 }
                 $sorting += self::SORTING_STEP;
+                $fixture = $this->withPageLinks($record['fixture']);
                 $contentData = $resolver->buildContentInsert(
                     $pageUid,
                     $cType,
                     $record['name'],
-                    $record['fixture'],
+                    $fixture,
                     $sorting,
                     $now,
                     $columns,
                 );
+                [$contentData['row'], $contentData['collections']] = $this->keepEmptyValues($contentData['row'], $contentData['collections'], $fixture);
                 $seeder->insert($pageUid, $now, $contentData);
                 $seeded++;
             }
@@ -646,15 +661,18 @@ final class SeedAstryxSiteCommand extends Command
                 }
 
                 $sorting += self::SORTING_STEP;
-                $seeder->insert($pageUid, $now, $resolver->buildContentInsert(
+                $fixture = $this->withPageLinks($record['fixture']);
+                $contentData = $resolver->buildContentInsert(
                     $pageUid,
                     $cType,
                     $record['name'],
-                    $record['fixture'],
+                    $fixture,
                     $sorting,
                     $now,
                     $columns,
-                ));
+                );
+                [$contentData['row'], $contentData['collections']] = $this->keepEmptyValues($contentData['row'], $contentData['collections'], $fixture);
+                $seeder->insert($pageUid, $now, $contentData);
                 $placed++;
             }
             $pages++;
@@ -850,6 +868,118 @@ final class SeedAstryxSiteCommand extends Command
         ));
 
         $io->writeln(sprintf('  %-28s %d chapter cards', 'Components hub', count($items)));
+    }
+
+    /**
+     * Every live default-language page below the root, by slug without its
+     * leading slash: "components/hero", "themes/matcha", "search".
+     *
+     * @return array<string, int>
+     */
+    private function collectPageLinks(int $rootUid): array
+    {
+        $links = [];
+        $parents = [$rootUid];
+        for ($depth = 0; $parents !== [] && $depth < 8; $depth++) {
+            $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
+            $queryBuilder->getRestrictions()->removeAll();
+            $rows = $queryBuilder
+                ->select('uid', 'slug')
+                ->from('pages')
+                ->where(
+                    $queryBuilder->expr()->in('pid', $queryBuilder->createNamedParameter($parents, ArrayParameterType::INTEGER)),
+                    $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+                    $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+                    ...$this->liveWorkspaceQueryHelper->buildLiveWorkspaceConstraints($queryBuilder, 'pages'),
+                )
+                ->executeQuery()
+                ->fetchAllAssociative();
+            $parents = [];
+            foreach ($rows as $row) {
+                $uid = is_numeric($row['uid'] ?? null) ? (int)$row['uid'] : 0;
+                $slug = trim(is_string($row['slug'] ?? null) ? $row['slug'] : '', '/');
+                if ($uid === 0) {
+                    continue;
+                }
+                $parents[] = $uid;
+                if ($slug !== '' && !isset($links[$slug])) {
+                    $links[$slug] = $uid;
+                }
+            }
+        }
+
+        return $links;
+    }
+
+    /**
+     * The fixture's empty values stay empty. The shared resolver fills every
+     * empty field with a demo value — an empty link became an example.com URL,
+     * an empty unit "Unit for …" — so an element could never show its "nothing
+     * here" state. A field the fixture lists as "" is put back to "", at the
+     * top level and in the first level of collection items. A single space
+     * counts as empty too: the element library's seeder has no such rule, so
+     * fixtures shared with it spell "deliberately empty" as " ", and the
+     * database gets "" rather than a stray space.
+     *
+     * @param array<string, mixed> $row
+     * @param array<string, array{table: string, column: string, items: list<array<string, mixed>>}> $collections
+     * @param array<array-key, mixed> $fixture
+     * @return array{0: array<string, mixed>, 1: array<string, array{table: string, column: string, items: list<array<string, mixed>>}>}
+     */
+    private function keepEmptyValues(array $row, array $collections, array $fixture): array
+    {
+        foreach ($fixture as $field => $value) {
+            if (!is_string($field)) {
+                continue;
+            }
+            if (is_string($value) && trim($value) === '' && array_key_exists($field, $row)) {
+                $row[$field] = '';
+                continue;
+            }
+            if (!is_array($value) || !array_is_list($value) || !isset($collections[$field])) {
+                continue;
+            }
+            foreach ($value as $index => $item) {
+                if (!is_array($item) || !isset($collections[$field]['items'][$index])) {
+                    continue;
+                }
+                foreach ($item as $itemField => $itemValue) {
+                    if (is_string($itemValue) && trim($itemValue) === '' && is_string($itemField) && array_key_exists($itemField, $collections[$field]['items'][$index])) {
+                        $collections[$field]['items'][$index][$itemField] = '';
+                    }
+                }
+            }
+        }
+
+        return [$row, $collections];
+    }
+
+    /**
+     * Turn {{page:<slug>}} in a fixture into a link to that page of this site.
+     * A slug the tree does not have links to the site root rather than to
+     * nothing, so a demo button never renders as a dead link.
+     *
+     * @param array<array-key, mixed> $fixture
+     * @return array<array-key, mixed>
+     */
+    private function withPageLinks(array $fixture): array
+    {
+        foreach ($fixture as $key => $value) {
+            if (is_array($value)) {
+                $fixture[$key] = $this->withPageLinks($value);
+                continue;
+            }
+            if (!is_string($value) || !str_contains($value, '{{page:')) {
+                continue;
+            }
+            $fixture[$key] = (string)preg_replace_callback(
+                '/\{\{page:([^}]*)\}\}/',
+                fn(array $match): string => 't3://page?uid=' . ($this->pageLinks[trim($match[1], '/')] ?? $this->rootPageUid),
+                $value,
+            );
+        }
+
+        return $fixture;
     }
 
     /**
