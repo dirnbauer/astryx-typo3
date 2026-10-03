@@ -6,76 +6,92 @@
 <f:asset.css identifier="g-pricing-plan-card" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The price is a paragraph, not a heading: an outline built from this page
-    should list the plan names, not a column of currency amounts. The period is
-    a second span of real text beside the figure, so "89 euros" is followed by
-    "per month" rather than by a font size.
+    The price is a paragraph (Molecule/Price), not a heading: an outline built
+    from this page should list the plan names, not a column of currency
+    amounts. The period is real text beside the figure, so "89 euros" is
+    followed by "per month" rather than by a font size.
 
-    A tick alone says nothing to a reader who cannot see it, so each mark
-    carries its own name and the row states its state as well as showing it.
+    A tick alone says nothing to a reader who cannot see it, so each mark is an
+    Icon with its own name ("Included", "Not included") and an excluded row
+    also says so in the colour of its label — never in colour alone.
+
+    The row value ("20 GB", "Mon–Fri") is quiet text at the end of the row,
+    not a badge: a plan lists a value on most rows, and a column of badges
+    reads as a column of alarms.
+
+    "Featured" is the Card's own accent ring; no attribute is written for an
+    ordinary plan.
 </f:comment>
+
+<f:variable name="includedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-card/language/labels.xlf:feature.included" default="Included"/></f:variable>
+<f:variable name="excludedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-card/language/labels.xlf:feature.excluded" default="Not included"/></f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-plan-card">
     <a:layout.container size="md">
         <a:molecule.card
             as="article"
             variant="{f:if(condition: data.featured, then: 'raised', else: 'default')}"
-            featured="{f:if(condition: data.featured, then: 'yes', else: 'no')}"
+            featured="{f:if(condition: data.featured, then: 'yes')}"
             class="g-pricing-plan-card__card">
 
-            <header class="g-pricing-plan-card__head">
+            <a:layout.stack gap="2" align="start">
                 <f:if condition="{data.badge_text}">
-                    <p class="g-pricing-plan-card__flag"><a:atom.badge variant="accent" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge></p>
+                    <a:atom.badge variant="accent">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                 </f:if>
 
-                <a:atom.heading level="2" class="g-pricing-plan-card__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.heading level="2" type="heading-3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.subheader}">
-                    <a:atom.text type="supporting" class="g-pricing-plan-card__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                 </f:if>
-            </header>
+            </a:layout.stack>
 
-            <p class="g-pricing-plan-card__figure">
-                <a:atom.text type="display-3" as="span" class="g-pricing-plan-card__amount">{data -> f:render.text(field: 'price')}</a:atom.text><f:if condition="{data.period}"><a:atom.text type="label" as="span" class="g-pricing-plan-card__period">{data -> f:render.text(field: 'period')}</a:atom.text></f:if>
-            </p>
+            <a:molecule.price size="sm">
+                <f:fragment name="amount">{data -> f:render.text(field: 'price')}</f:fragment>
+                <f:fragment name="period">{data -> f:render.text(field: 'period')}</f:fragment>
+            </a:molecule.price>
 
             <f:if condition="{data.lead}">
-                <a:molecule.cardBody class="g-pricing-plan-card__lead">{data -> f:render.text(field: 'lead')}</a:molecule.cardBody>
+                <a:molecule.cardBody>{data -> f:render.text(field: 'lead')}</a:molecule.cardBody>
             </f:if>
 
-            <a:molecule.list density="balanced" class="g-pricing-plan-card__features">
+            <a:atom.divider />
+
+            <a:molecule.list density="balanced">
                 <f:for each="{data.features}" as="feature">
-                    <li class="g-pricing-plan-card__feature" data-included="{f:if(condition: feature.included, then: 'yes', else: 'no')}">
+                    <a:molecule.listItem class="g-pricing-plan-card__feature">
                         <f:if condition="{feature.included}">
-                            <f:then><svg class="g-pricing-plan-card__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-card/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
-                            <f:else><svg class="g-pricing-plan-card__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-card/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+                            <f:then><a:atom.icon name="check" size="sm" color="success" ariaLabel="{includedLabel}" class="g-pricing-plan-card__mark"/></f:then>
+                            <f:else><a:atom.icon name="x" size="sm" color="secondary" ariaLabel="{excludedLabel}" class="g-pricing-plan-card__mark"/></f:else>
                         </f:if>
 
                         <span class="g-pricing-plan-card__feature-text">
-                            <span class="g-pricing-plan-card__feature-label">{feature -> f:render.text(field: 'title')}</span>
+                            <a:atom.text as="span" color="{f:if(condition: feature.included, then: 'default', else: 'secondary')}">{feature -> f:render.text(field: 'title')}</a:atom.text>
                             <f:if condition="{feature.text}">
-                                <a:atom.text type="supporting" as="span" class="g-pricing-plan-card__feature-note">{feature -> f:render.text(field: 'text')}</a:atom.text>
+                                <a:atom.text type="supporting" as="span">{feature -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
                         </span>
 
                         <f:if condition="{feature.value}">
-                            <a:atom.badge variant="outline" as="span" class="g-pricing-plan-card__qualifier">{feature.value}</a:atom.badge>
+                            <a:atom.text type="label" as="span" numeric="tabular" class="g-pricing-plan-card__value">{feature -> f:render.text(field: 'value')}</a:atom.text>
                         </f:if>
-                    </li>
+                    </a:molecule.listItem>
                 </f:for>
             </a:molecule.list>
 
-            <a:molecule.cardFooter class="g-pricing-plan-card__actions">
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-                <f:if condition="{data.secondary_label}">
-                    <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
-                </f:if>
-            </a:molecule.cardFooter>
+            <f:if condition="{data.cta_label} || {data.secondary_label}">
+                <a:molecule.cardFooter>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="primary" size="lg" width="full" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                    <f:if condition="{data.secondary_label}">
+                        <a:atom.button variant="ghost" size="lg" width="full" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                    </f:if>
+                </a:molecule.cardFooter>
+            </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-pricing-plan-card__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </a:molecule.card>

@@ -6,91 +6,86 @@
 <f:asset.css identifier="g-pricing-enterprise-panel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The price slot is free text and usually not a number at all. It still gets
-    the display size the priced tiers get, because a row of plans in which one
-    box has no figure at its price line reads as a box that is missing something
-    rather than as a tier that is priced differently.
+    The tier with no number: what large buyers get, and a conversation instead
+    of a checkout. price is text, so "On request" sits in the same Price slot
+    and at the same size a figure would — an empty price line reads as missing
+    data.
+
+    The capabilities run underneath across the whole width, which is the only
+    place where the editor's two to four columns have room; beside the image
+    they would always collapse to one. Each capability is a level-3 heading
+    under the band's h2.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-enterprise-panel" columns="{data.columns}">
     <a:layout.container size="xl">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-pricing-enterprise-panel__grid">
+        <a:layout.stack gap="12">
 
-            <div class="g-pricing-enterprise-panel__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-pricing-enterprise-panel__grid">
 
-                <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.subheader}">
-                    <a:atom.text type="large" class="g-pricing-enterprise-panel__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-pricing-enterprise-panel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <div class="g-pricing-enterprise-panel__anchor">
-                    <f:if condition="{data.price}">
-                        <p class="g-pricing-enterprise-panel__figure">
-                            <a:atom.text type="display-3" as="span" class="g-pricing-enterprise-panel__amount">{data -> f:render.text(field: 'price')}</a:atom.text>
-                        </p>
-                    </f:if>
-
-                    <f:if condition="{data.cta_label} || {data.secondary_label}">
-                        <a:molecule.buttonGroup class="g-pricing-enterprise-panel__actions">
-                            <f:if condition="{data.cta_label}">
-                                <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                <a:layout.stack gap="6">
+                    <a:molecule.sectionIntro headingType="heading-1">
+                        <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                        <f:fragment>
+                            <f:if condition="{data.lead}">
+                                <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
                             </f:if>
-                            <f:if condition="{data.secondary_label}">
-                                <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
-                            </f:if>
-                        </a:molecule.buttonGroup>
-                    </f:if>
+                        </f:fragment>
+                    </a:molecule.sectionIntro>
 
-                    <f:if condition="{data.note}">
-                        <a:atom.text type="supporting" class="g-pricing-enterprise-panel__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                    </f:if>
-                </div>
-            </div>
+                    <a:atom.divider />
 
-            <div class="g-pricing-enterprise-panel__detail">
+                    <a:layout.stack gap="3" align="start">
+                        <f:if condition="{data.price}">
+                            <a:molecule.price size="sm">{data -> f:render.text(field: 'price')}</a:molecule.price>
+                        </f:if>
+                        <f:if condition="{data.cta_label} || {data.secondary_label}">
+                            <a:molecule.buttonGroup>
+                                <f:if condition="{data.cta_label}">
+                                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                                </f:if>
+                                <f:if condition="{data.secondary_label}">
+                                    <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                                </f:if>
+                            </a:molecule.buttonGroup>
+                        </f:if>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        </f:if>
+                    </a:layout.stack>
+                </a:layout.stack>
+
                 <f:if condition="{data.image}">
-                    <figure class="g-pricing-enterprise-panel__media">
+                    <a:atom.aspectRatio class="g-pricing-enterprise-panel__media">
                         <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy" class="g-pricing-enterprise-panel__image"/>
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy"/>
                         </f:for>
-                    </figure>
+                    </a:atom.aspectRatio>
                 </f:if>
 
-                <a:layout.grid cols="{data.columns}" class="g-pricing-enterprise-panel__capabilities">
-                    <f:for each="{data.capabilities}" as="capability">
-                        <a:molecule.feature class="g-pricing-enterprise-panel__capability">
-                            <f:if condition="{capability.icon}">
-                                <f:comment>
-                                    The tile carries the semantic key rather than a glyph, so swapping
-                                    icon library never reaches into a template.
-                                </f:comment>
-                                <a:atom.featureIcon icon="{capability.icon}" />
-                            </f:if>
+            </a:layout.split>
 
-                            <a:molecule.cardTitle level="2">
+            <f:if condition="{data.capabilities}">
+                <a:layout.grid fixed="{data.columns}">
+                    <f:for each="{data.capabilities}" as="capability">
+                        <a:molecule.feature icon="{capability.icon}">
+                            <a:molecule.cardTitle level="3">
                                 <f:if condition="{capability.link.url}">
                                     <f:then><a:atom.link variant="quiet" parameter="{capability.link}">{capability.title}</a:atom.link></f:then>
                                     <f:else>{capability -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
                             </a:molecule.cardTitle>
-
                             <f:if condition="{capability.text}">
                                 <a:molecule.cardBody>{capability -> f:render.text(field: 'text')}</a:molecule.cardBody>
                             </f:if>
                         </a:molecule.feature>
                     </f:for>
                 </a:layout.grid>
-            </div>
+            </f:if>
 
-        </a:layout.split>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

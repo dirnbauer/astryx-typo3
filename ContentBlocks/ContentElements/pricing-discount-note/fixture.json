@@ -1,37 +1,38 @@
 {
     "_type": "pricing",
     "header": "Who pays less, and why",
-    "subheader": "Nonprofit, education, start-up, public sector",
+    "subheader": "One card per programme, each with its proof",
     "lead": "Each entry has an icon, the discount and one line on how to prove eligibility. Naming the proof saves readers from having to ask.",
     "columns": "2",
     "align": "start",
     "note": "The note holds the rules for all programmes: whether they combine, what they apply to and how long they last.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "cta_label": "Compare the themes",
+    "cta_link": "{{page:themes}}",
     "tone": "muted",
     "programmes": [
         {
             "icon": "sparkles",
             "title": "The title states the discount",
-            "text": "Readers see the amount without opening anything.",
-            "link": "#"
+            "text": "Readers see the amount before they open anything. This card links to the template.",
+            "link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-discount-note"
         },
         {
-            "icon": "users",
-            "title": "The proof is named",
-            "text": "Say which document to send and where. That answers the question before anyone asks.",
-            "link": "#"
+            "icon": "file-text",
+            "title": "The link leads to the proof",
+            "text": "Point it at the application step. The element itself checks nothing.",
+            "link": "{{page:components/conversion}}"
         },
         {
-            "icon": "shield",
-            "title": "A card can be a link",
-            "text": "Then the whole card is clickable, and the title names the link for screen readers.",
-            "link": "#"
+            "icon": "accessibility",
+            "title": "The whole card is one link",
+            "text": "Its title names the link, so a screen reader announces where it goes.",
+            "link": "{{page:accessibility}}"
         },
         {
-            "icon": "handshake",
+            "icon": "layout-grid",
             "title": "Two to four columns",
-            "text": "The grid adapts to the space it has, not to the screen width."
+            "text": "The grid fits the space it has, not the width of the screen.",
+            "link": "{{page:components}}"
         }
     ]
 }

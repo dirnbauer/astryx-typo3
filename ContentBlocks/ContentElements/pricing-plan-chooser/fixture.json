@@ -1,30 +1,30 @@
 {
     "_type": "pricing",
-    "header": "Routes to the right price list",
-    "subheader": "Shown before any prices",
-    "lead": "Each card has an icon, one line on who it is for and a link. This section shows no prices.",
+    "header": "Routes before prices",
+    "subheader": "Two to four doors, one for each kind of reader",
+    "lead": "Each card names who it is for, says it in one line and links to their page. Here the routes lead to other chapters of this catalogue.",
     "columns": "3",
     "align": "start",
     "note": "The note holds what applies to every route: currency, region and tax.",
     "tone": "body",
     "routes": [
         {
-            "icon": "user",
-            "title": "The audience is the title",
-            "description": "Readers should recognise themselves in it without reading further.",
-            "link": "#"
+            "icon": "layout-grid",
+            "title": "Building a landing page",
+            "description": "Hero bands and feature grids for the top of a page.",
+            "link": "{{page:components/hero}}"
         },
         {
-            "icon": "building",
-            "title": "Who it is for, in one line",
-            "description": "A size, a sector or a way of buying.",
-            "link": "#"
+            "icon": "chart",
+            "title": "Publishing figures",
+            "description": "Tables, charts and key numbers that stay readable.",
+            "link": "{{page:components/data}}"
         },
         {
-            "icon": "book",
-            "title": "The whole card is clickable",
-            "description": "One link per card. The title names the link for screen readers.",
-            "link": "#"
+            "icon": "send",
+            "title": "Collecting enquiries",
+            "description": "Forms, sign-ups and contact bands that lead somewhere.",
+            "link": "{{page:components/conversion}}"
         }
     ]
 }

@@ -6,39 +6,43 @@
     "lead": "Security review, single sign-on, a named contact, custom terms and payment on account. These are agreed in a meeting, not picked from a list.",
     "price": "On request",
     "note": "The note says what the first talk costs and how long an offer is valid. Buyers want both answers.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
-    "secondary_label": "Secondary action",
-    "secondary_link": "#",
+    "cta_label": "Email us",
+    "cta_link": "mailto:office@webconsulting.at",
+    "secondary_label": "Read the template on GitHub",
+    "secondary_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-enterprise-panel",
     "columns": "2",
     "tone": "muted",
     "reverse": 0,
     "capabilities": [
         {
-            "icon": "key",
-            "title": "The price line keeps its large size",
-            "text": "An empty price line looks like missing data. Large text makes clear the price is agreed separately."
+            "icon": "lock",
+            "title": "The price line keeps its size",
+            "text": "An empty price line looks like missing data. “On request” in large type says the price is agreed separately.",
+            "link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-enterprise-panel"
         },
         {
-            "icon": "shield",
+            "icon": "layout-grid",
             "title": "Capabilities sit in an icon grid",
-            "text": "Two to four columns, each with a title and one sentence."
+            "text": "Two to four columns across the full width, each with a title and one sentence.",
+            "link": "{{page:components/features}}"
         },
         {
             "icon": "user",
             "title": "The image is optional",
-            "text": "The section also works with only text and capabilities."
+            "text": "Without one, the pitch runs across the band on its own.",
+            "link": "{{page:components}}"
         },
         {
-            "icon": "file",
+            "icon": "message-circle",
             "title": "Both buttons sit below the price",
-            "text": "One to get in touch, one to download a document and read it first."
+            "text": "One to start the conversation, one to read a document first.",
+            "link": "{{page:components/conversion}}"
         }
     ],
     "image": [
         {
-            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/roof-plant.jpg",
-            "alternative": "Ventilation ducts and a metal walkway on a flat roof under a grey sky.",
+            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/meeting-two.jpg",
+            "alternative": "A man and a woman talk at a table with a laptop between them.",
             "title": ""
         }
     ]

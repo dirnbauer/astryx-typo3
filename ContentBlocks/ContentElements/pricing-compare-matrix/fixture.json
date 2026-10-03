@@ -18,17 +18,20 @@
         {
             "title": "The plan is the column header",
             "value": "th scope=col",
-            "included": true
+            "included": true,
+            "text": "Each column says which plan its marks belong to."
         },
         {
             "title": "Each state has a text label",
             "value": "Not colour alone",
-            "included": true
+            "included": true,
+            "text": "A tick and a cross are named, so the state is read out, not only seen."
         },
         {
             "title": "A condition sits below its value",
             "value": "Second line of the cell",
-            "included": true
+            "included": true,
+            "text": "Like this line: short, and only where a row needs it."
         },
         {
             "title": "Excluded rows stay in the table",
@@ -39,7 +42,8 @@
         {
             "title": "Anything that needs a script",
             "value": "Not here",
-            "included": false
+            "included": false,
+            "text": "Sorting and filtering belong in a data table, not in a price list."
         }
     ]
 }

@@ -7,22 +7,48 @@
     "compact": true,
     "methods": [
         {
-            "title": "SEPA direct debit"
+            "title": "SEPA direct debit",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-sepa.svg",
+                    "alternative": "SEPA direct debit",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "Bank transfer on invoice"
+            "title": "Bank transfer on invoice",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-transfer.svg",
+                    "alternative": "Bank transfer on invoice",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "Visa"
+            "title": "Credit or debit card",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-card.svg",
+                    "alternative": "Credit or debit card",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "Mastercard"
-        },
-        {
-            "title": "EPS online transfer"
-        },
-        {
-            "title": "Invoice on account, 30 days"
+            "title": "Invoice on account, 30 days",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-invoice.svg",
+                    "alternative": "Invoice on account, 30 days",
+                    "title": ""
+                }
+            ]
         }
     ]
 }

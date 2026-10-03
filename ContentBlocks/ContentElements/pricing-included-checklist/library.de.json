@@ -1,7 +1,7 @@
 {
     "header": "Was jeder Talbrunn-Tarif enthält",
     "subheader": "Die Liste ist dieselbe, ob eine Person behandelt oder fünfzehn.",
-    "lead": "Durchgestrichene Punkte sind entweder Zusatzmodule mit eigenem Preis oder Leistungen, die wir nicht anbieten.",
+    "lead": "Punkte mit einem Kreuz sind Zusatzmodule mit eigenem Preis oder Leistungen, die wir nicht anbieten.",
     "columns": "2",
     "align": "start",
     "note": "Zusatzmodule werden pro Praxis und Monat abgerechnet. Sie können sie zum Ende jedes Abrechnungszeitraums kündigen. Preise zuzüglich USt.",
@@ -10,103 +10,88 @@
     "tone": "body",
     "items": [
         {
-            "title": "Terminkalender mit Tages-, Wochen- und Behandleransicht",
-            "included": true
+            "title": "Terminkalender",
+            "included": true,
+            "value": "Tages-, Wochen- und Behandleransicht",
+            "text": "Räume und Geräte buchen Sie in derselben Ansicht."
         },
         {
-            "title": "Raum- und Geräteplanung",
-            "included": true
-        },
-        {
-            "title": "Warteliste mit automatischen Terminangeboten",
-            "included": true
+            "title": "Warteliste",
+            "included": true,
+            "value": "Inklusive",
+            "text": "Automatische Angebote per SMS gibt es als Zusatzmodul um 9 € pro Monat."
         },
         {
             "title": "Kassenabrechnung",
             "included": true,
-            "value": "alle österreichischen Kassen"
+            "value": "Alle österreichischen Kassen",
+            "text": "Die Abrechnung geht am ersten Werktag des Monats hinaus."
         },
         {
-            "title": "Privatrechnungen, Quittungen und Mahnungen",
-            "included": true
-        },
-        {
-            "title": "Terminerinnerungen per SMS und E-Mail",
+            "title": "Privatrechnungen und Mahnungen",
             "included": true,
-            "text": "Jede SMS wird gesondert verrechnet."
+            "value": "Unbegrenzt",
+            "text": "Mit Ihrem Logo und Ihrer Bankverbindung."
         },
         {
-            "title": "Recall-Liste",
-            "included": true
+            "title": "Terminerinnerungen",
+            "included": true,
+            "value": "0,08 € pro SMS",
+            "text": "Erinnerungen per E-Mail sind kostenlos."
         },
         {
             "title": "Behandlungsdokumentation",
-            "included": true
-        },
-        {
-            "title": "Vorlagen für Befunde und Berichte",
-            "included": true
-        },
-        {
-            "title": "Scannen von Verordnungen und Überweisungen",
-            "included": true
+            "included": true,
+            "value": "Vorlagen",
+            "text": "Befunde und Berichte aus Ihren eigenen Vorlagen."
         },
         {
             "title": "Dokumentenablage",
             "included": true,
-            "value": "20 GB"
+            "value": "20 GB",
+            "text": "Verordnungen und Überweisungen scannen Sie direkt ein."
         },
         {
             "title": "Tägliches externes Backup",
             "included": true,
+            "value": "90 Tage",
             "text": "Gespeichert in Österreich und 90 Tage lang wiederherstellbar."
         },
         {
-            "title": "Datenexport als CSV und PDF",
+            "title": "Datenexport",
             "included": true,
-            "value": "jederzeit"
-        },
-        {
-            "title": "Anmeldung mit zwei Faktoren",
-            "included": true
+            "value": "CSV und PDF",
+            "text": "Jederzeit, ohne dass Sie uns fragen müssen."
         },
         {
             "title": "Support per Telefon und E-Mail",
             "included": true,
-            "value": "Mo–Fr"
-        },
-        {
-            "title": "Updates und Gesetzesänderungen",
-            "included": true
+            "value": "Mo–Fr",
+            "text": "Von 8:00 bis 17:00, beantwortet von unserem eigenen Team."
         },
         {
             "title": "Gedruckte Recall-Briefe",
             "included": false,
-            "value": "Zusatzmodul"
+            "value": "0,95 € pro Brief",
+            "text": "Zusatzmodul. Druck und Versand übernimmt unser Druckpartner."
         },
         {
             "title": "Online-Terminbuchung für Patienten",
             "included": false,
-            "value": "Zusatzmodul"
-        },
-        {
-            "title": "Patienten-App mit Übungsplänen",
-            "included": false,
-            "value": "Zusatzmodul"
+            "value": "19 € pro Monat",
+            "text": "Zusatzmodul, kündbar zum Ende jedes Abrechnungszeitraums."
         },
         {
             "title": "Lohnabrechnung für Ihr Personal",
             "included": false,
-            "text": "Wir rechnen Behandlungen mit Patienten und Kassen ab, keine Löhne für Ihr Personal."
+            "value": "Nicht im Angebot",
+            "text": "Wir rechnen mit Patienten und Kassen ab, nicht Löhne."
         },
         {
             "title": "Installation vor Ort",
             "included": false,
-            "text": "Als bezahlter Einrichtungstag buchbar."
-        },
-        {
-            "title": "Medizinische Beratung jeder Art",
-            "included": false
+            "value": "Einrichtungstag",
+            "text": "Wird gesondert gebucht und bezahlt."
         }
     ]
 }

@@ -1,95 +1,41 @@
 /*
  * Feature Comparison Matrix
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: column proportions, the caption's place and the plan-column
+ * width. Cell type, rules, colours and the intro are components.
  */
 
-.g-pricing-compare-matrix__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-pricing-compare-matrix__lead {
-  color: var(--color-text-secondary);
-}
-
-/* A caption is centred and dropped below the table by default; here it is the
-   table's title and belongs above it, on the reading edge. */
 .g-pricing-compare-matrix__caption {
   caption-side: top;
-  text-align: start;
   padding-block-end: var(--spacing-3);
-  color: var(--color-text-secondary);
+  text-align: start;
 }
 
 .g-pricing-compare-matrix__feature {
   inline-size: 38%;
-  font-weight: var(--font-weight-medium);
 }
 
+/* Value and its condition stack in the cell: the condition is the second
+   line of the same answer, not a third column. */
 .g-pricing-compare-matrix__value {
-  display: table-cell;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-5);
 }
 
-.g-pricing-compare-matrix__caveat {
-  display: block;
-  margin-block-start: var(--spacing-0-5);
-}
-
-.g-pricing-compare-matrix__col-state,
+/* The state column is as narrow as its mark, so on a phone it stays on
+   screen instead of scrolling out of reach. Its header may wrap; the marks
+   never do. */
+.g-pricing-compare-matrix__state-head,
 .g-pricing-compare-matrix__state {
   inline-size: 1%;
+  text-align: center;
+}
+
+.g-pricing-compare-matrix__state {
   white-space: nowrap;
 }
 
-.g-pricing-compare-matrix__mark {
-  display: inline-block;
-  inline-size: var(--spacing-4);
-  block-size: var(--spacing-4);
-  vertical-align: middle;
-}
-
-.g-pricing-compare-matrix__table tr[data-included='yes'] .g-pricing-compare-matrix__mark {
-  color: var(--color-success);
-}
-
-.g-pricing-compare-matrix__table tr[data-included='no'] .g-pricing-compare-matrix__mark,
-.g-pricing-compare-matrix__table tr[data-included='no'] .g-pricing-compare-matrix__feature,
-.g-pricing-compare-matrix__table tr[data-included='no'] .g-pricing-compare-matrix__value-text {
-  color: var(--color-text-secondary);
-}
-
-/* One plan's column, meant to stand beside its siblings: the table stops
-   filling the band and takes only the width a single column needs. */
 .g-pricing-compare-matrix[data-variant='plan-column'] .g-pricing-compare-matrix__wrap {
   max-inline-size: 32rem;
-}
-
-.g-pricing-compare-matrix__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-pricing-compare-matrix[data-surface="accent"] .g-pricing-compare-matrix__lead,
-.g-pricing-compare-matrix[data-surface="accent"] .g-pricing-compare-matrix__caption,
-.g-pricing-compare-matrix[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 767px) {
-  /* Three columns of prose do not fit a phone; the wrapper takes the scroll so
-     the page never does. */
-  .g-pricing-compare-matrix__table {
-    min-inline-size: 34rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .g-pricing-compare-matrix__intro {
-    margin-block-end: var(--spacing-8);
-  }
 }

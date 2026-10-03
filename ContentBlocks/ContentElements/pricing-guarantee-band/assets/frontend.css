@@ -1,15 +1,10 @@
 /*
  * Guarantee Band
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the icon tile beside the promise (above it on a phone), the
+ * parts of a supporting point, and centred alignment. The intro, the grid of
+ * points, the icon tile and the icons' colour are components.
  */
-
-.g-pricing-guarantee-band__panel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
-}
 
 .g-pricing-guarantee-band__promise {
   display: flex;
@@ -17,79 +12,32 @@
   gap: var(--spacing-4);
 }
 
-.g-pricing-guarantee-band__icon {
-  flex: 0 0 auto;
+.g-pricing-guarantee-band__point {
+  gap: var(--spacing-3);
 }
 
-.g-pricing-guarantee-band__copy {
+.g-pricing-guarantee-band__point-text {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
 }
 
-.g-pricing-guarantee-band__scope,
-.g-pricing-guarantee-band__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-pricing-guarantee-band__actions,
-.g-pricing-guarantee-band__note {
-  margin: 0;
-}
-
-/* The points are conditions, not features: they sit under one rule as a single
-   qualifying row rather than being dressed as four benefits. */
-.g-pricing-guarantee-band__points {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-4);
-  margin: 0;
-  padding-block-start: var(--spacing-6);
-  padding-inline-start: 0;
-  list-style: none;
-  border-block-start: var(--border-width) solid var(--color-border);
-}
-
-.g-pricing-guarantee-band__point-title {
-  margin: 0 0 var(--spacing-1);
+/* On a phone, and when centred, the tile sits above the promise, so the
+   heading gets the width. */
+@media (max-width: 640px) {
+  .g-pricing-guarantee-band__promise {
+    flex-direction: column;
+  }
 }
 
 .g-pricing-guarantee-band[data-align='center'] .g-pricing-guarantee-band__promise {
   flex-direction: column;
   align-items: center;
-  text-align: center;
-}
-
-.g-pricing-guarantee-band[data-align='center'] .g-pricing-guarantee-band__copy {
-  align-items: center;
-  margin-inline: auto;
 }
 
 .g-pricing-guarantee-band[data-align='center'] .g-pricing-guarantee-band__point {
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-}
-
-.g-pricing-guarantee-band[data-surface="accent"] .g-pricing-guarantee-band__scope,
-.g-pricing-guarantee-band[data-surface="accent"] .g-pricing-guarantee-band__lead,
-.g-pricing-guarantee-band[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-pricing-guarantee-band[data-surface="accent"] .g-pricing-guarantee-band__points {
-  border-color: currentColor;
-}
-
-@media (min-width: 641px) {
-  .g-pricing-guarantee-band__points {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-6);
-  }
-}
-
-@media (min-width: 1024px) {
-  .g-pricing-guarantee-band__points {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }

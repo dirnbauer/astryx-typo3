@@ -6,62 +6,58 @@
 <f:asset.css identifier="g-pricing-discount-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Each programme says how eligibility is proved as well as what it is worth.
-    A reduction whose conditions are left vague is one a reader has to write in
-    and ask about, which costs both sides more than the reduction is worth.
+    Who pays less, and why. Each programme is a card and an item of one list;
+    when it has a link the whole card is the target, but the link itself stays
+    the one in the title, so its name is the programme's name and there is
+    exactly one tab stop per card. The link should reach the proof or the
+    application step — the element never checks eligibility itself.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-discount-note" align="{data.align}">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-discount-note__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-pricing-discount-note__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-discount-note__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-pricing-discount-note__programmes">
-            <f:for each="{data.programmes}" as="programme">
-                <a:molecule.card clickable="{programme.link.url}" class="g-pricing-discount-note__programme">
-                    <f:if condition="{programme.icon}">
-                        <f:comment>
-                            The tile carries the semantic key rather than a glyph, so swapping
-                            icon library never reaches into a template.
-                        </f:comment>
-                        <a:atom.featureIcon icon="{programme.icon}" />
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.lead}">
+                        <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
                     </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-                    <a:molecule.cardTitle>
-                        <f:if condition="{programme.link.url}">
-                            <f:then><f:link.typolink parameter="{programme.link}">{programme.title}</f:link.typolink></f:then>
-                            <f:else>{programme -> f:render.text(field: 'title')}</f:else>
+            <a:layout.grid as="ul" fixed="{data.columns}">
+                <f:for each="{data.programmes}" as="programme">
+                    <a:molecule.card as="li" clickable="{programme.link.url}" align="{data.align}">
+                        <f:if condition="{programme.icon}">
+                            <a:atom.featureIcon icon="{programme.icon}" />
                         </f:if>
-                    </a:molecule.cardTitle>
+                        <a:molecule.cardTitle>
+                            <f:if condition="{programme.link.url}">
+                                <f:then><a:atom.link variant="quiet" parameter="{programme.link}">{programme.title}</a:atom.link></f:then>
+                                <f:else>{programme -> f:render.text(field: 'title')}</f:else>
+                            </f:if>
+                        </a:molecule.cardTitle>
+                        <f:if condition="{programme.text}">
+                            <a:molecule.cardBody>{programme -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                        </f:if>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
 
-                    <f:if condition="{programme.text}">
-                        <a:molecule.cardBody>{programme -> f:render.text(field: 'text')}</a:molecule.cardBody>
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6" class="g-pricing-discount-note__foot">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-discount-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
 
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-discount-note__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-discount-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

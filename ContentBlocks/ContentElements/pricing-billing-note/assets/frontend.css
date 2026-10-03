@@ -1,80 +1,17 @@
 /*
  * Billing Period Note
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: where the saving badge sits in its card, and the centred
+ * variant's small print. The intro, the period cards, the price lines and the
+ * button centre themselves through their own align.
  */
 
-.g-pricing-billing-note__panel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.g-pricing-billing-note__lead {
-  color: var(--color-text-secondary);
-}
-
-/* Two slots, not a two-column definition list: each period and its amount are
-   one block, so the shared class's label-beside-value grid has to give way. */
-.g-pricing-billing-note__slots.astryx-metadata-list {
-  grid-template-columns: 1fr;
-  gap: var(--spacing-4);
-}
-
-.g-pricing-billing-note__slot {
-  padding: var(--spacing-4);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-container, var(--radius-element));
-}
-
-/* The cheaper period is marked with a border, not with a colour alone: the
-   badge beside the figure is what actually says why it is cheaper. */
-.g-pricing-billing-note__slot[data-preferred='yes'] {
-  border-color: var(--color-border-emphasized);
-}
-
-.g-pricing-billing-note__term {
-  color: var(--color-text-secondary);
-}
-
-.g-pricing-billing-note__value {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
-.g-pricing-billing-note__amount {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-pricing-billing-note__actions,
-.g-pricing-billing-note__note {
-  margin: 0;
+/* The card stretches its children; a stretched badge stops being a badge.
+   Centred, the card already centres it. */
+.g-pricing-billing-note:not([data-align='center']) .g-pricing-billing-note__saving {
+  align-self: flex-start;
 }
 
 .g-pricing-billing-note[data-align='center'] .g-pricing-billing-note__panel {
   text-align: center;
-}
-
-.g-pricing-billing-note[data-align='center'] .g-pricing-billing-note__value {
-  justify-content: center;
-}
-
-.g-pricing-billing-note[data-surface="accent"] .g-pricing-billing-note__lead,
-.g-pricing-billing-note[data-surface="accent"] .g-pricing-billing-note__term,
-.g-pricing-billing-note[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-pricing-billing-note[data-surface="accent"] .g-pricing-billing-note__slot {
-  border-color: currentColor;
-}
-
-@media (min-width: 641px) {
-  .g-pricing-billing-note__slots.astryx-metadata-list {
-    grid-template-columns: 1fr 1fr;
-  }
 }

@@ -1,26 +1,55 @@
 {
     "_type": "pricing",
     "header": "A row of payment methods",
-    "lead": "The payment methods you accept, shown as logos where available and as text where not.",
+    "lead": "The payment methods you accept, shown as supplied marks where you have artwork and by name where you do not.",
     "note": "The note holds the conditions, such as mandates and payment terms. The element takes no payments: it has no fields, buttons or redirects.",
     "align": "start",
     "tone": "muted",
     "compact": true,
     "methods": [
         {
-            "title": "A method without a logo"
+            "title": "Invoice",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-invoice.svg",
+                    "alternative": "Invoice",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "is shown"
+            "title": "SEPA direct debit",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-sepa.svg",
+                    "alternative": "SEPA direct debit",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "by its name"
+            "title": "Credit or debit card",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-card.svg",
+                    "alternative": "Credit or debit card",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "as plain text"
-        },
-        {
-            "title": "instead of an empty space"
+            "title": "Bank transfer",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-transfer.svg",
+                    "alternative": "Bank transfer",
+                    "title": ""
+                }
+            ]
         }
     ]
 }

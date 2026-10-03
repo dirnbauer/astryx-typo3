@@ -6,53 +6,53 @@
 <f:asset.css identifier="g-pricing-trial-terms" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A description list, because that is the shape of the content: each term is a
-    question about the trial and each value is its answer. It also means a reader
-    copying the panel into a mail to a colleague still gets pairs rather than two
-    disconnected columns of words.
+    How the trial works, as a description list: each term is a question and
+    its value the short answer, so the pair stays together when it is read out
+    or copied into an email. A longer condition goes in the line under the
+    answer, not into the answer itself.
 
-    The clarification is a second value on the same term rather than a paragraph
-    of its own, so a term with a caveat still reads as one answer.
+    State what happens on the last day in a row of its own; silence there is
+    the single biggest source of billing complaints.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-trial-terms">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-trial-terms__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.metadataList columns="2" dividers="with-dividers">
+                <f:for each="{data.terms}" as="term">
+                    <a:molecule.metadataListItem>
+                        <f:fragment name="term">{term -> f:render.text(field: 'title')}</f:fragment>
+                        <f:fragment>
+                            <span class="g-pricing-trial-terms__answer">
+                                <a:atom.text type="large" as="span">{term -> f:render.text(field: 'value')}</a:atom.text>
+                                <f:if condition="{term.text}">
+                                    <a:atom.text type="supporting" as="span">{term -> f:render.text(field: 'text')}</a:atom.text>
+                                </f:if>
+                            </span>
+                        </f:fragment>
+                    </a:molecule.metadataListItem>
+                </f:for>
+            </a:molecule.metadataList>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-trial-terms__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.metadataList class="g-pricing-trial-terms__terms">
-            <f:for each="{data.terms}" as="term">
-                <a:molecule.metadataListItem class="g-pricing-trial-terms__term">
-                    <dt class="g-pricing-trial-terms__label">{term -> f:render.text(field: 'title')}</dt>
-                    <dd class="g-pricing-trial-terms__value">{term -> f:render.text(field: 'value')}</dd>
-                    <f:if condition="{term.text}">
-                        <a:atom.text type="supporting" as="dd" class="g-pricing-trial-terms__detail">{term -> f:render.text(field: 'text')}</a:atom.text>
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-trial-terms__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
-                </a:molecule.metadataListItem>
-            </f:for>
-        </a:molecule.metadataList>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
 
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-trial-terms__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-trial-terms__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

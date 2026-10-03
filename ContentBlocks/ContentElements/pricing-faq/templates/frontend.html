@@ -6,67 +6,62 @@
 <f:asset.css identifier="g-pricing-faq" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Native details elements: the open state, the keyboard behaviour, the
-    accessible name and the print rendering are all the browser's own, and the
-    band works with scripting switched off. The shared name attribute is what
-    makes the rows exclusive, and it is keyed to the record uid so that two FAQs
-    on one page do not close each other's answers.
+    Money questions, as an accordion or as an open list.
 
-    The open-list variant is the same content with nothing to click — for a page
-    where the questions are the point rather than the tidiness.
+    The accordion is native details/summary: it opens without script, the
+    browser's find-in-page reaches a closed answer, and print expands it. The
+    shared name closes the other rows when one opens, and it carries the
+    element's uid so two FAQs on one page stay independent.
+
+    Each question is a level-3 heading in either variant; in the accordion the
+    Collapsible draws it (headingLevel) in the summary's own type.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-faq" variant="{data.variant}" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-faq__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <f:if condition="{data.variant} == 'open-list'">
+                <f:then>
+                    <div class="g-pricing-faq__open">
+                        <f:for each="{data.questions}" as="item">
+                            <a:layout.stack gap="2" class="g-pricing-faq__entry">
+                                <a:atom.heading level="3" type="heading-4">{item -> f:render.text(field: 'title')}</a:atom.heading>
+                                <div class="astryx-prose"><f:format.html>{item.bodytext}</f:format.html></div>
+                            </a:layout.stack>
+                        </f:for>
+                    </div>
+                </f:then>
+                <f:else>
+                    <a:molecule.collapsibleGroup name="g-pricing-faq-{data.uid}" dividers="all">
+                        <f:for each="{data.questions}" as="item">
+                            <a:molecule.collapsible density="spacious" headingLevel="3" name="g-pricing-faq-{data.uid}" contentClass="astryx-prose g-pricing-faq__answer">
+                                <f:fragment name="summary">{item -> f:render.text(field: 'title')}</f:fragment>
+                                <f:fragment><f:format.html>{item.bodytext}</f:format.html></f:fragment>
+                            </a:molecule.collapsible>
+                        </f:for>
+                    </a:molecule.collapsibleGroup>
+                </f:else>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-faq__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-faq__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
-        </div>
 
-        <f:if condition="{data.variant} == 'open-list'">
-            <f:then>
-                <div class="g-pricing-faq__open">
-                    <f:for each="{data.questions}" as="item">
-                        <div class="g-pricing-faq__entry">
-                            <a:atom.heading level="3" class="g-pricing-faq__question">{item -> f:render.text(field: 'title')}</a:atom.heading>
-                            <div class="astryx-prose g-pricing-faq__answer"><f:format.html>{item.bodytext}</f:format.html></div>
-                        </div>
-                    </f:for>
-                </div>
-            </f:then>
-            <f:else>
-                <a:molecule.collapsibleGroup class="g-pricing-faq__group">
-                    <f:for each="{data.questions}" as="item">
-                        <a:molecule.collapsible density="spacious" class="g-pricing-faq__item" name="g-pricing-faq-{data.uid}" contentClass="astryx-prose g-pricing-faq__answer">
-                            <f:fragment name="summary">
-                                <h3 class="g-pricing-faq__summary-question">{item -> f:render.text(field: 'title')}</h3>
-                            </f:fragment>
-                            <f:fragment><f:format.html>{item.bodytext}</f:format.html></f:fragment>
-                        </a:molecule.collapsible>
-                    </f:for>
-                </a:molecule.collapsibleGroup>
-            </f:else>
-        </f:if>
-
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-faq__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-faq__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -6,84 +6,74 @@
 <f:asset.css identifier="g-pricing-quote-request" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    There is no form here, and there is deliberately no field of any kind. The
-    band explains what to send and links to wherever the form actually lives —
-    a TYPO3 form element or a mail address. Nothing a visitor types is collected,
-    stored or sent by this element, which is why it can sit on a cached page and
-    be copied to a second site without carrying an obligation with it.
+    Ask for a written price: what to send, what comes back and how long it
+    takes, and a button to the page where the real form lives. This band never
+    renders a field and never receives a submission — the form belongs on the
+    target page, built with the form framework.
+
+    The steps are an ordered list because their order is the point, in a fixed
+    grid of as many columns as there are steps so none is left alone on a row.
+    The visible number is decoration for sighted readers (aria-hidden); a
+    screen reader already announces "1 of 4" from the list itself.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-quote-request" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <div class="g-pricing-quote-request__panel">
+        <a:layout.stack gap="12">
 
-            <div class="g-pricing-quote-request__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-pricing-quote-request__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-pricing-quote-request__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+            <a:layout.split class="g-pricing-quote-request__grid">
+                <a:molecule.sectionIntro align="{data.align}">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                    <f:fragment>
+                        <f:if condition="{data.cta_label} || {data.secondary_label}">
+                            <a:molecule.buttonGroup align="{data.align}">
+                                <f:if condition="{data.cta_label}">
+                                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                                </f:if>
+                                <f:if condition="{data.secondary_label}">
+                                    <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                                </f:if>
+                            </a:molecule.buttonGroup>
                         </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                         </f:if>
-                    </a:molecule.buttonGroup>
-                </f:if>
+                    </f:fragment>
+                </a:molecule.sectionIntro>
 
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-quote-request__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <f:if condition="{data.image}">
+                    <a:atom.aspectRatio class="g-pricing-quote-request__media">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy"/>
+                        </f:for>
+                    </a:atom.aspectRatio>
                 </f:if>
-            </div>
+            </a:layout.split>
 
             <f:if condition="{data.steps}">
-                <ol class="g-pricing-quote-request__steps">
-                    <f:for each="{data.steps}" as="step">
-                        <f:comment>
-                            An ol may only contain li, so the li is the grid cell
-                            and Feature sits inside it. The step counter keeps
-                            incrementing on the Feature: a counter is read by a
-                            descendant's ::before, and one more element in
-                            between changes nothing about that.
-                        </f:comment>
-                        <li class="g-pricing-quote-request__cell">
-                            <a:molecule.feature class="g-pricing-quote-request__step">
-                                <f:if condition="{step.icon}">
-                                    <f:comment>
-                                        The tile carries the semantic key rather than a glyph, so swapping
-                                        icon library never reaches into a template.
-                                    </f:comment>
-                                    <a:atom.featureIcon icon="{step.icon}" />
-                                </f:if>
-
-                                <a:molecule.cardTitle>{step -> f:render.text(field: 'title')}</a:molecule.cardTitle>
-
+                <a:layout.grid as="ol" fixed="{f:count(subject: data.steps)}">
+                    <f:for each="{data.steps}" as="step" iteration="stepIterator">
+                        <li>
+                            <a:molecule.feature icon="{step.icon}" align="{data.align}">
+                                <a:molecule.cardTitle>
+                                    <span aria-hidden="true">{stepIterator.cycle}.</span>
+                                    <f:if condition="{step.link.url}">
+                                        <f:then><a:atom.link parameter="{step.link}">{step.title}</a:atom.link></f:then>
+                                        <f:else>{step -> f:render.text(field: 'title')}</f:else>
+                                    </f:if>
+                                </a:molecule.cardTitle>
                                 <f:if condition="{step.text}">
                                     <a:molecule.cardBody>{step -> f:render.text(field: 'text')}</a:molecule.cardBody>
                                 </f:if>
                             </a:molecule.feature>
                         </li>
                     </f:for>
-                </ol>
+                </a:layout.grid>
             </f:if>
 
-            <f:if condition="{data.image}">
-                <figure class="g-pricing-quote-request__media">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="900" loading="lazy" class="g-pricing-quote-request__image"/>
-                    </f:for>
-                </figure>
-            </f:if>
-
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

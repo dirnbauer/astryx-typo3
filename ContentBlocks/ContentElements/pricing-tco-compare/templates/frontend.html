@@ -6,55 +6,55 @@
 <f:asset.css identifier="g-pricing-tco-compare" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A description list, because each figure is the value of a named cost and the
-    pairing has to survive the band being read out of order. The unit is a second
-    span of real text beside the number, so "3,204" is followed by "euros over
-    three years" rather than by a smaller font.
+    Cost of ownership as figures. One description list (Grid as dl) holding one
+    Stat per figure: the label is the term, the figure with its unit and the
+    basis it was measured on are its descriptions, so a label never drifts
+    away from its number, and the unit is read out with the figure.
 
-    Every figure says what it is measured against. A cost of ownership with no
-    stated basis is a number chosen to win an argument.
+    Every figure needs its source or a stated assumption in that third line;
+    an unsourced cost claim is the fastest way to lose a tender.
+
+    The columns are fixed rather than reflowed: four figures stay four across
+    or two by two, and never three and an orphan.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-tco-compare" align="{data.align}">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-tco-compare__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-pricing-tco-compare__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-tco-compare__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid as="dl" cols="{data.columns}" class="g-pricing-tco-compare__figures">
-            <f:for each="{data.figures}" as="figure">
-                <div class="g-pricing-tco-compare__figure">
-                    <a:atom.text type="label" as="dt" class="g-pricing-tco-compare__label">{figure -> f:render.text(field: 'title')}</a:atom.text>
-                    <dd class="g-pricing-tco-compare__value">
-                        <a:atom.text type="display-3" as="span" class="g-pricing-tco-compare__number">{figure -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{figure.unit}"><a:atom.text type="label" as="span" class="g-pricing-tco-compare__unit">{figure.unit}</a:atom.text></f:if>
-                    </dd>
-                    <f:if condition="{figure.text}">
-                        <a:atom.text type="supporting" as="dd" class="g-pricing-tco-compare__basis">{figure -> f:render.text(field: 'text')}</a:atom.text>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.lead}">
+                        <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
                     </f:if>
-                </div>
-            </f:for>
-        </a:layout.grid>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-tco-compare__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-tco-compare__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
+            <a:layout.grid as="dl" fixed="{data.columns}" class="g-pricing-tco-compare__figures">
+                <f:for each="{data.figures}" as="figure">
+                    <a:molecule.stat size="sm" rule="top" align="{data.align}">
+                        <f:fragment name="value">{figure -> f:render.text(field: 'value')}</f:fragment>
+                        <f:fragment name="unit">{figure -> f:render.text(field: 'unit')}</f:fragment>
+                        <f:fragment name="label"><span class="g-pricing-tco-compare__label"><f:if condition="{figure.icon}"><a:atom.icon name="{figure.icon}" size="sm" /></f:if>{figure -> f:render.text(field: 'title')}</span></f:fragment>
+                        <f:fragment name="note">{figure -> f:render.text(field: 'text')}</f:fragment>
+                    </a:molecule.stat>
+                </f:for>
+            </a:layout.grid>
 
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6" class="g-pricing-tco-compare__foot">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-tco-compare__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

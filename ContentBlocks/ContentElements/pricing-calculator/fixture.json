@@ -5,8 +5,8 @@
     "lead": "One row per cost item, with its rate and a line on how to count it. The formula sits below, in rich text.",
     "bodytext": "<p><strong>Total = base + (quantity × rate) + extras</strong></p><p>Editors write the formula in the rich text and can add a worked example. The element does no maths itself, because a calculated figure would be a quote nobody at the company has checked.</p>",
     "note": "The note says which rates apply and what overrides them, usually a written offer.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-calculator",
     "tone": "body",
     "width": "lg",
     "inputs": [
@@ -17,8 +17,8 @@
         },
         {
             "title": "The rate keeps its own column",
-            "value": "€18 – €9",
-            "text": "Figures use equal widths, so the amounts line up."
+            "value": "€9 – €18",
+            "text": "Rates sit flush right in their own column, so the amounts line up."
         },
         {
             "title": "How to count it is the third column",

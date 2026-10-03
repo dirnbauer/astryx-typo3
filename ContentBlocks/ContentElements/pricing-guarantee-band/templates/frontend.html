@@ -6,62 +6,68 @@
 <f:asset.css identifier="g-pricing-guarantee-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A promise is only worth a band if its conditions are in the same band. The
-    supporting points are where the limits go — how long, on what, who decides —
-    because a guarantee whose conditions live on another page is a guarantee a
-    reader has to take on trust twice.
+    One promise, said once and plainly: an icon, the guarantee, and up to four
+    points that state its limits — how long, on what, who decides, how to
+    claim. Three stacked guarantees read as none, and the legal conditions
+    belong on the page the button links to.
+
+    The points sit in a fixed grid of as many columns as there are points, so
+    none is ever left alone on a row: four become two on a tablet, all become
+    one on a phone.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-guarantee-band" align="{data.align}">
     <a:layout.container size="lg">
-        <div class="g-pricing-guarantee-band__panel">
+        <a:layout.stack gap="8">
 
             <div class="g-pricing-guarantee-band__promise">
                 <f:if condition="{data.icon}">
-                    <f:comment>
-                        The tile carries the semantic key rather than a glyph, so swapping
-                        icon library never reaches into a template.
-                    </f:comment>
-                    <a:atom.featureIcon icon="{data.icon}" class="g-pricing-guarantee-band__icon" />
+                    <a:atom.featureIcon icon="{data.icon}" />
                 </f:if>
-
-                <div class="g-pricing-guarantee-band__copy">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                    <f:if condition="{data.subheader}">
-                        <a:atom.text type="large" class="g-pricing-guarantee-band__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-                    </f:if>
-
-                    <f:if condition="{data.lead}">
-                        <a:atom.text type="body" class="g-pricing-guarantee-band__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                    </f:if>
-
-                    <f:if condition="{data.cta_label}">
-                        <p class="g-pricing-guarantee-band__actions">
+                <a:molecule.sectionIntro align="{data.align}">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                    <f:fragment>
+                        <f:if condition="{data.lead}">
+                            <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                        </f:if>
+                        <f:if condition="{data.cta_label}">
                             <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                        </p>
-                    </f:if>
-                </div>
+                        </f:if>
+                    </f:fragment>
+                </a:molecule.sectionIntro>
             </div>
 
             <f:if condition="{data.points}">
-                <ul class="g-pricing-guarantee-band__points">
+                <a:atom.divider />
+
+                <a:layout.grid as="ul" fixed="{f:count(subject: data.points)}">
                     <f:for each="{data.points}" as="point">
-                        <li class="g-pricing-guarantee-band__point">
-                            <a:atom.text type="label" as="h3" class="g-pricing-guarantee-band__point-title">{point -> f:render.text(field: 'title')}</a:atom.text>
-                            <f:if condition="{point.text}">
-                                <a:atom.text type="supporting" class="g-pricing-guarantee-band__point-text">{point -> f:render.text(field: 'text')}</a:atom.text>
+                        <a:molecule.listItem class="g-pricing-guarantee-band__point">
+                            <f:if condition="{point.icon}">
+                                <a:atom.icon name="{point.icon}" color="accent" />
                             </f:if>
-                        </li>
+                            <div class="g-pricing-guarantee-band__point-text">
+                                <a:atom.text type="label" as="h3">
+                                    <f:if condition="{point.link.url}">
+                                        <f:then><a:atom.link parameter="{point.link}">{point.title}</a:atom.link></f:then>
+                                        <f:else>{point -> f:render.text(field: 'title')}</f:else>
+                                    </f:if>
+                                </a:atom.text>
+                                <f:if condition="{point.text}">
+                                    <a:atom.text type="supporting">{point -> f:render.text(field: 'text')}</a:atom.text>
+                                </f:if>
+                            </div>
+                        </a:molecule.listItem>
                     </f:for>
-                </ul>
+                </a:layout.grid>
             </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-pricing-guarantee-band__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -1,80 +1,14 @@
 /*
  * Bundle Panel
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the contents beside the offer card, the parts of an item row,
+ * and the badge's place in the card. The intro, the price line, surfaces,
+ * type, tabular figures and colours are components; the strike-through is
+ * the <s> element's own.
  */
 
 .g-pricing-bundle-panel__grid {
   align-items: start;
-}
-
-.g-pricing-bundle-panel__copy,
-.g-pricing-bundle-panel__detail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.g-pricing-bundle-panel__copy {
-  max-inline-size: 34rem;
-}
-
-.g-pricing-bundle-panel__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-pricing-bundle-panel__anchor {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-3);
-  padding-block-start: var(--spacing-5);
-  border-block-start: var(--border-width) solid var(--color-border);
-}
-
-.g-pricing-bundle-panel__flag,
-.g-pricing-bundle-panel__note,
-.g-pricing-bundle-panel__actions {
-  margin: 0;
-}
-
-.g-pricing-bundle-panel__figure {
-  margin: 0;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
-.g-pricing-bundle-panel__amount,
-.g-pricing-bundle-panel__comparison-value,
-.g-pricing-bundle-panel__item-price {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-pricing-bundle-panel__period,
-.g-pricing-bundle-panel__comparison {
-  color: var(--color-text-secondary);
-}
-
-.g-pricing-bundle-panel__comparison {
-  margin: 0;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
-/* The comparison figure is thinned out rather than struck through: it is the sum
-   of the parts, not a price this offer ever had. */
-.g-pricing-bundle-panel__comparison-value {
-  text-decoration: line-through;
-  text-decoration-thickness: from-font;
-}
-
-.g-pricing-bundle-panel__contents {
-  inline-size: 100%;
 }
 
 .g-pricing-bundle-panel__item {
@@ -84,49 +18,29 @@
 
 .g-pricing-bundle-panel__item-text {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: var(--spacing-0-5);
-  flex: 1 1 auto;
   min-inline-size: 0;
 }
 
-/* The item prices have to add up to the comparison figure above, so they sit in
-   one column where a reader can run down them. */
+/* Item prices end their rows, flush right, so they can be added up. */
 .g-pricing-bundle-panel__item-price {
   flex: 0 0 auto;
   margin-inline-start: auto;
   text-align: end;
   white-space: nowrap;
-  color: var(--color-text-secondary);
 }
 
-.g-pricing-bundle-panel__media {
-  margin: 0;
+/* The card is a flex column that stretches its children; a stretched badge
+   stops being a badge. */
+.g-pricing-bundle-panel__flag {
+  align-self: flex-start;
 }
 
-.g-pricing-bundle-panel__image {
-  inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
-}
-
-.g-pricing-bundle-panel[data-surface="accent"] .g-pricing-bundle-panel__lead,
-.g-pricing-bundle-panel[data-surface="accent"] .g-pricing-bundle-panel__period,
-.g-pricing-bundle-panel[data-surface="accent"] .g-pricing-bundle-panel__comparison,
-.g-pricing-bundle-panel[data-surface="accent"] .g-pricing-bundle-panel__item-price,
-.g-pricing-bundle-panel[data-surface="accent"] .astryx-eyebrow,
-.g-pricing-bundle-panel[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-pricing-bundle-panel[data-surface="accent"] .g-pricing-bundle-panel__anchor {
-  border-color: currentColor;
-}
-
-@media (max-width: 767px) {
-  .g-pricing-bundle-panel__copy {
-    max-inline-size: none;
+/* The photograph is the first thing to go on a phone. */
+@media (max-width: 640px) {
+  .g-pricing-bundle-panel__media {
+    display: none;
   }
 }

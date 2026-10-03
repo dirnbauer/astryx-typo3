@@ -1,101 +1,21 @@
 /*
  * Quote Request Panel
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: a single column when there is no image, and the image dropping
+ * out on a phone. The intro, the buttons, the grid of steps, icon tiles and
+ * their centring are components.
  */
 
-.g-pricing-quote-request__panel {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-8);
-}
-
-.g-pricing-quote-request__copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-4);
-  max-inline-size: 44rem;
-}
-
-.g-pricing-quote-request__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-pricing-quote-request__note {
-  margin: 0;
-}
-
-/* Numbered, because the order is the reassurance: a reader wants to know what
-   happens after they press the button, not only before. */
-.g-pricing-quote-request__steps {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--spacing-6);
-  margin: 0;
-  padding-inline-start: 0;
-  list-style: none;
-  counter-reset: g-quote-step;
-}
-
-/* The li is the grid item now; it hands the whole cell to the Feature so the
-   four steps still line up on one baseline grid. */
-.g-pricing-quote-request__cell {
-  display: grid;
-}
-
-.g-pricing-quote-request__step {
-  counter-increment: g-quote-step;
-}
-
-.g-pricing-quote-request__step > .astryx-card-title::before {
-  content: counter(g-quote-step) '. ';
-  color: var(--color-text-accent);
-}
-
-.g-pricing-quote-request__media {
-  margin: 0;
-}
-
-.g-pricing-quote-request__image {
-  inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
-}
-
-.g-pricing-quote-request[data-align='center'] .g-pricing-quote-request__copy {
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
-}
-
-.g-pricing-quote-request[data-align='center'] .g-pricing-quote-request__step {
-  align-items: center;
-  text-align: center;
-}
-
-.g-pricing-quote-request[data-surface="accent"] .g-pricing-quote-request__lead,
-.g-pricing-quote-request[data-surface="accent"] .astryx-card-body,
-.g-pricing-quote-request[data-surface="accent"] .astryx-eyebrow,
-.g-pricing-quote-request[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-pricing-quote-request[data-surface="accent"] .g-pricing-quote-request__step > .astryx-card-title::before {
-  color: currentColor;
-}
-
-@media (min-width: 641px) {
-  .g-pricing-quote-request__steps {
-    grid-template-columns: repeat(2, 1fr);
+/* Without an image the split keeps one column instead of an empty second. */
+@media (min-width: 768px) {
+  .g-pricing-quote-request__grid:not(:has(> .g-pricing-quote-request__media)) {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
-@media (min-width: 1024px) {
-  .g-pricing-quote-request__steps {
-    grid-template-columns: repeat(4, 1fr);
+/* The photograph is the first thing to go on a phone. */
+@media (max-width: 640px) {
+  .g-pricing-quote-request__media {
+    display: none;
   }
 }

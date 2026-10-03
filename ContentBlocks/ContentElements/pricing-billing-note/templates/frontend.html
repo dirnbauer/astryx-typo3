@@ -6,60 +6,53 @@
 <f:asset.css identifier="g-pricing-billing-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Both figures are in the page at once and neither is hidden behind a control.
-    A monthly-yearly switch has to be scripted, has to be reachable by keyboard,
-    has to survive being cached and still leaves one of the two numbers invisible
-    to print and to search. A pair of terms and their amounts does none of that
-    and says the same thing.
+    Monthly and yearly side by side, with the saving stated — deliberately not
+    a switch. A toggle needs a script and hides one of the two prices from
+    print, from a cached page and from a screen reader; two cards hide nothing.
 
-    A description list, because that is exactly the shape: the billing period is
-    the term and the amount is its value.
+    price/period hold the monthly figure, value/unit the yearly one, and the
+    yearly card is the raised one because it is the cheaper commitment.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-billing-note" align="{data.align}">
     <a:layout.container size="md">
-        <div class="g-pricing-billing-note__panel">
+        <a:layout.stack gap="6" class="g-pricing-billing-note__panel">
 
-            <f:if condition="{data.header}">
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro leadType="body" align="{data.align}">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-billing-note__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <a:molecule.metadataList class="g-pricing-billing-note__slots">
-                <a:molecule.metadataListItem class="g-pricing-billing-note__slot">
-                    <a:atom.text type="label" as="dt" class="g-pricing-billing-note__term">{data -> f:render.text(field: 'period')}</a:atom.text>
-                    <dd class="g-pricing-billing-note__value">
-                        <a:atom.text type="display-3" as="span" class="g-pricing-billing-note__amount">{data -> f:render.text(field: 'price')}</a:atom.text>
-                    </dd>
-                </a:molecule.metadataListItem>
+            <a:layout.grid fixed="{f:if(condition: data.value, then: 2, else: 0)}">
+                <a:molecule.card variant="flat" align="{data.align}">
+                    <a:atom.text type="label" color="secondary">{data -> f:render.text(field: 'period')}</a:atom.text>
+                    <a:molecule.price size="sm" align="{data.align}">{data -> f:render.text(field: 'price')}</a:molecule.price>
+                </a:molecule.card>
 
                 <f:if condition="{data.value}">
-                    <a:molecule.metadataListItem preferred="yes" class="g-pricing-billing-note__slot">
-                        <a:atom.text type="label" as="dt" class="g-pricing-billing-note__term">{data.unit}</a:atom.text>
-                        <dd class="g-pricing-billing-note__value">
-                            <a:atom.text type="display-3" as="span" class="g-pricing-billing-note__amount">{data -> f:render.text(field: 'value')}</a:atom.text>
-                            <f:if condition="{data.badge_text}">
-                                <a:atom.badge variant="success" as="span" class="g-pricing-billing-note__saving">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
-                            </f:if>
-                        </dd>
-                    </a:molecule.metadataListItem>
+                    <a:molecule.card variant="raised" align="{data.align}">
+                        <a:atom.text type="label" color="secondary">{data -> f:render.text(field: 'unit')}</a:atom.text>
+                        <a:molecule.price size="sm" align="{data.align}">{data -> f:render.text(field: 'value')}</a:molecule.price>
+                        <f:if condition="{data.badge_text}">
+                            <a:atom.badge variant="success" class="g-pricing-billing-note__saving">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                        </f:if>
+                    </a:molecule.card>
                 </f:if>
-            </a:molecule.metadataList>
+            </a:layout.grid>
 
             <f:if condition="{data.cta_label}">
-                <p class="g-pricing-billing-note__actions">
-                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </p>
+                <a:molecule.buttonGroup align="{data.align}">
+                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
             </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-pricing-billing-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

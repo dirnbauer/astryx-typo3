@@ -7,22 +7,48 @@
     "compact": true,
     "methods": [
         {
-            "title": "SEPA-Lastschrift"
+            "title": "SEPA-Lastschrift",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-sepa.svg",
+                    "alternative": "SEPA-Lastschrift",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "Überweisung auf Rechnung"
+            "title": "Überweisung auf Rechnung",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-transfer-de.svg",
+                    "alternative": "Überweisung auf Rechnung",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "Visa"
+            "title": "Kredit- oder Debitkarte",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-card-de.svg",
+                    "alternative": "Kredit- oder Debitkarte",
+                    "title": ""
+                }
+            ]
         },
         {
-            "title": "Mastercard"
-        },
-        {
-            "title": "EPS-Onlineüberweisung"
-        },
-        {
-            "title": "Zahlung auf Rechnung, 30 Tage"
+            "title": "Rechnung auf Ziel, 30 Tage",
+            "link": " ",
+            "image": [
+                {
+                    "file": "EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-payment-methods/assets/astryx-pricing-pay-invoice-de.svg",
+                    "alternative": "Rechnung auf Ziel, 30 Tage",
+                    "title": ""
+                }
+            ]
         }
     ]
 }

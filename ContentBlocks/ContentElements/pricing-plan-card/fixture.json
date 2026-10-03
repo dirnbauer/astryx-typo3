@@ -7,38 +7,47 @@
     "period": "per month, net",
     "lead": "Each plan is its own content element. You can reorder, hide or translate one plan without touching the others.",
     "note": "The note holds the conditions of the price, such as tax, term or minimum quantity.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
-    "secondary_label": "Secondary action",
-    "secondary_link": "#",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-plan-card",
+    "secondary_label": "Compare the themes",
+    "secondary_link": "{{page:themes}}",
     "featured": 1,
     "tone": "body",
     "features": [
         {
-            "title": "Each row says if it is included",
-            "included": true,
-            "text": "The mark has a text label, so screen readers announce it too."
+            "title": "Rows that say what is included",
+            "value": "1–14 rows",
+            "text": "Each mark has a text label, so a screen reader announces it too.",
+            "included": true
         },
         {
-            "title": "A row can add a short detail",
-            "included": true,
-            "value": "like this"
+            "title": "A value at the end of a row",
+            "value": "20 GB",
+            "text": "For a quantity or a limit, such as storage or seats.",
+            "included": true
+        },
+        {
+            "title": "A note under a row",
+            "value": "One line",
+            "text": "For a condition that applies to that row only.",
+            "included": true
+        },
+        {
+            "title": "Buttons at the foot of the card",
+            "value": "Up to two",
+            "text": "Full width, so each label fits on a phone.",
+            "included": true
         },
         {
             "title": "Excluded rows stay in the list",
-            "included": false,
-            "text": "Removing them would hide how this plan differs from the next."
+            "value": "Add-on",
+            "text": "Removing them would hide how this plan differs from the next.",
+            "included": false
         },
         {
-            "title": "The price is a paragraph, not a heading",
-            "included": true
-        },
-        {
-            "title": "The card fills its row",
-            "included": true
-        },
-        {
-            "title": "Calculated totals",
+            "title": "Totals worked out for you",
+            "value": "None",
+            "text": "The card shows the price as written and adds nothing up.",
             "included": false
         }
     ]

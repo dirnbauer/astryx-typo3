@@ -8,44 +8,55 @@
     "badge_text": "Recommended",
     "bodytext": "<p>The rich text explains the plan in a paragraph or two: who it is for and what happens when they outgrow it. A card only has room for one sentence.</p>",
     "note": "The note holds the conditions, such as tax, term and what counts as a seat.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
-    "secondary_label": "Secondary action",
-    "secondary_link": "#",
-    "columns": "2",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-plan-spotlight",
+    "secondary_label": "Browse all elements",
+    "secondary_link": "{{page:components}}",
+    "columns": "3",
     "tone": "surface",
     "reverse": 0,
     "features": [
         {
-            "title": "The list flows into two to four columns",
+            "title": "The pitch sits beside the offer",
+            "value": "Two columns",
+            "text": "The argument on one side, the price and the buttons on the other.",
             "included": true
         },
         {
-            "title": "Read down each column, then across",
+            "title": "One raised card for the decision",
+            "value": "Price first",
+            "text": "Badge, price, period, buttons and conditions stay together.",
             "included": true
         },
         {
-            "title": "A row can add a short detail",
-            "included": true,
-            "value": "like this"
+            "title": "Entitlements run underneath",
+            "value": "2–4 columns",
+            "text": "The list reads down each column, then across.",
+            "included": true
         },
         {
-            "title": "Excluded rows stay visible",
+            "title": "A value at the end of a row",
+            "value": "20 GB",
+            "text": "For a quantity or a limit, such as storage or seats.",
+            "included": true
+        },
+        {
+            "title": "The photograph drops out on phones",
+            "value": "Below 640 px",
+            "text": "So the price is on screen without scrolling past it.",
+            "included": true
+        },
+        {
+            "title": "Two spotlights on one page",
+            "value": "Not advised",
+            "text": "Two recommended plans cancel each other out.",
             "included": false
-        },
-        {
-            "title": "The price sits next to its period",
-            "included": true
-        },
-        {
-            "title": "Both buttons sit below the price",
-            "included": true
         }
     ],
     "image": [
         {
-            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/roof-plant.jpg",
-            "alternative": "Ventilation ducts and a metal walkway on a flat roof under a grey sky.",
+            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/lib-scene-week-planner-083f6674.webp",
+            "alternative": "A laptop beside a seedling and gardening gloves shows a weekly shift plan with coloured shifts.",
             "title": ""
         }
     ]

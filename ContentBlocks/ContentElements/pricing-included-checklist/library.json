@@ -1,7 +1,7 @@
 {
     "header": "What every Talbrunn plan covers",
     "subheader": "The same list applies to one practitioner or a group of fifteen.",
-    "lead": "Crossed-out items are either add-ons with their own price or services we do not offer.",
+    "lead": "Items with a cross are add-ons with their own price, or services we do not offer.",
     "columns": "2",
     "align": "start",
     "note": "Add-ons are billed per practice per month. You can cancel them at the end of any billing period. Prices exclude VAT.",
@@ -10,103 +10,88 @@
     "tone": "body",
     "items": [
         {
-            "title": "Appointment book with day, week and practitioner views",
-            "included": true
+            "title": "Appointment book",
+            "included": true,
+            "value": "Day, week, practitioner",
+            "text": "Rooms and equipment are booked in the same view."
         },
         {
-            "title": "Room and equipment planning",
-            "included": true
-        },
-        {
-            "title": "Waiting list with automatic offers",
-            "included": true
+            "title": "Waiting list",
+            "included": true,
+            "value": "Built in",
+            "text": "Automatic offers by SMS are an add-on at €9 per month."
         },
         {
             "title": "Insurance billing",
             "included": true,
-            "value": "all Austrian funds"
+            "value": "All Austrian funds",
+            "text": "Claims go out on the first working day of the month."
         },
         {
-            "title": "Private invoices, receipts and reminders",
-            "included": true
-        },
-        {
-            "title": "SMS and email appointment reminders",
+            "title": "Private invoices and reminders",
             "included": true,
-            "text": "Each SMS is billed separately."
+            "value": "Unlimited",
+            "text": "With your logo and your bank details."
         },
         {
-            "title": "Recall list",
-            "included": true
+            "title": "Appointment reminders",
+            "included": true,
+            "value": "€0.08 per SMS",
+            "text": "Email reminders are free."
         },
         {
             "title": "Treatment documentation",
-            "included": true
-        },
-        {
-            "title": "Findings and report templates",
-            "included": true
-        },
-        {
-            "title": "Prescription and referral scanning",
-            "included": true
+            "included": true,
+            "value": "Templates",
+            "text": "Findings and reports from your own templates."
         },
         {
             "title": "Document storage",
             "included": true,
-            "value": "20 GB"
+            "value": "20 GB",
+            "text": "Prescriptions and referrals are scanned straight in."
         },
         {
             "title": "Daily off-site backup",
             "included": true,
+            "value": "90 days",
             "text": "Stored in Austria and restorable for 90 days."
         },
         {
-            "title": "Data export as CSV and PDF",
+            "title": "Data export",
             "included": true,
-            "value": "any time"
-        },
-        {
-            "title": "Two-factor sign-in",
-            "included": true
+            "value": "CSV and PDF",
+            "text": "Any time, without having to ask us."
         },
         {
             "title": "Support by phone and email",
             "included": true,
-            "value": "Mon-Fri"
-        },
-        {
-            "title": "Updates and legal changes",
-            "included": true
+            "value": "Mon–Fri",
+            "text": "From 8:00 to 17:00, answered by our own team."
         },
         {
             "title": "Printed recall letters",
             "included": false,
-            "value": "add-on"
+            "value": "€0.95 per letter",
+            "text": "Add-on. Our print partner handles printing and postage."
         },
         {
             "title": "Online booking for patients",
             "included": false,
-            "value": "add-on"
-        },
-        {
-            "title": "Patient app with exercise plans",
-            "included": false,
-            "value": "add-on"
+            "value": "€19 per month",
+            "text": "Add-on, cancellable at the end of any billing period."
         },
         {
             "title": "Payroll for your staff",
             "included": false,
-            "text": "We bill patients and insurance funds, not staff wages."
+            "value": "Not offered",
+            "text": "We bill patients and insurance funds, not wages."
         },
         {
             "title": "On-site installation",
             "included": false,
-            "text": "Available as a paid setup day."
-        },
-        {
-            "title": "Medical advice of any kind",
-            "included": false
+            "value": "Setup day",
+            "text": "Booked and paid for separately."
         }
     ]
 }

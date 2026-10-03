@@ -1,34 +1,47 @@
 {
     "_type": "pricing",
     "eyebrow": "Single Price Panel",
-    "header": "One price and one button",
-    "lead": "No plans to compare and no columns to align. This section states one price and offers one button.",
+    "header": "One price, nothing to compare",
+    "lead": "No plans side by side and no columns to align. The panel states one price, the action that goes with it and what the price covers.",
     "price": "€39",
     "period": "per month, net",
     "note": "The note lists the terms of the price: tax, deposit, minimum term.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
-    "secondary_label": "Secondary action",
-    "secondary_link": "#",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-single-price",
+    "secondary_label": "Browse all elements",
+    "secondary_link": "{{page:components}}",
     "align": "start",
     "tone": "surface",
     "width": "md",
     "included": [
         {
-            "title": "The list sits below the button",
+            "title": "The price can be a word",
+            "value": "Free",
+            "text": "“On request” fits the same place as a figure.",
             "included": true
         },
         {
-            "title": "Each row says what the price covers",
+            "title": "The buttons sit under the price",
+            "value": "Up to two",
+            "text": "The decision comes before the detail.",
             "included": true
         },
         {
-            "title": "A row can add a short detail",
-            "included": true,
-            "value": "€0.08 per SMS"
+            "title": "Rows say what the price covers",
+            "value": "Up to 10",
+            "text": "Each row has a labelled mark.",
+            "included": true
+        },
+        {
+            "title": "A value can end a row",
+            "value": "€0.08 per SMS",
+            "text": "For a rate or a limit that belongs to one row.",
+            "included": true
         },
         {
             "title": "Excluded rows stay in the list",
+            "value": "Add-on",
+            "text": "So it is clear what the price leaves out.",
             "included": false
         }
     ]

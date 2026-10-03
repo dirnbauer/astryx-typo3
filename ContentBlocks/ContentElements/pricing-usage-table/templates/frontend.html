@@ -6,60 +6,60 @@
 <f:asset.css identifier="g-pricing-usage-table" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A rate card states rates. There is no total row and no running sum: what a
-    month costs depends on what was used, and an element that guessed at it
-    would be quoting a price nobody agreed to.
+    Price per unit, row by row, and deliberately no total: a metered bill is
+    added up on the invoice, not guessed at on a page. The unit is the row
+    header, so each rate is announced with what it is the rate of.
 
-    The caption is hidden rather than absent — the table needs a name, and a
-    visible one here would only repeat the heading above it.
+    A long table scrolls inside its own named region; the page itself never
+    scrolls sideways because of it.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-usage-table">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-usage-table__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.table scroll="{true}" scrollLabel="{data.header}" scrollClass="g-pricing-usage-table__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-usage-table__table">
+                <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
+                <a:molecule.tableHeader>
+                    <a:molecule.tableRow>
+                        <a:molecule.tableHeaderCell><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.unit" default="Unit"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell class="g-pricing-usage-table__rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.rate" default="Rate"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.counted" default="How it is counted"/></a:molecule.tableHeaderCell>
+                    </a:molecule.tableRow>
+                </a:molecule.tableHeader>
+                <a:molecule.tableBody>
+                    <f:for each="{data.rates}" as="rate">
+                        <a:molecule.tableRow>
+                            <a:molecule.tableHeaderCell scope="row" class="g-pricing-usage-table__unit">{rate -> f:render.text(field: 'title')}</a:molecule.tableHeaderCell>
+                            <a:molecule.tableCell class="g-pricing-usage-table__rate">
+                                <a:atom.text type="label" as="span">{rate -> f:render.text(field: 'value')}</a:atom.text>
+                            </a:molecule.tableCell>
+                            <a:molecule.tableCell>
+                                <a:atom.text as="span" color="secondary">{rate -> f:render.text(field: 'text')}</a:atom.text>
+                            </a:molecule.tableCell>
+                        </a:molecule.tableRow>
+                    </f:for>
+                </a:molecule.tableBody>
+            </a:molecule.table>
+
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-usage-table__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-pricing-usage-table__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.table scroll="{true}" scrollClass="g-pricing-usage-table__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-usage-table__table">
-            <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
-            <thead>
-                <tr>
-                    <th scope="col" class="g-pricing-usage-table__col-unit"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.unit" default="Unit"/></th>
-                    <th scope="col" class="g-pricing-usage-table__col-rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.rate" default="Rate"/></th>
-                    <th scope="col" class="g-pricing-usage-table__col-counted"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-usage-table/language/labels.xlf:column.counted" default="How it is counted"/></th>
-                </tr>
-            </thead>
-            <tbody>
-                <f:for each="{data.rates}" as="rate">
-                    <tr>
-                        <th scope="row" class="g-pricing-usage-table__unit">{rate -> f:render.text(field: 'title')}</th>
-                        <td class="g-pricing-usage-table__rate">{rate -> f:render.text(field: 'value')}</td>
-                        <td class="g-pricing-usage-table__counted">{rate -> f:render.text(field: 'text')}</td>
-                    </tr>
-                </f:for>
-            </tbody>
-        </a:molecule.table>
-
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-usage-table__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-usage-table__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

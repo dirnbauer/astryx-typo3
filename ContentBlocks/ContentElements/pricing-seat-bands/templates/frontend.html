@@ -6,63 +6,68 @@
 <f:asset.css identifier="g-pricing-seat-bands" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The entry price sits above the ladder rather than inside it: a reader has to
-    see where the price starts before a falling column of numbers means anything.
-    The ladder itself is a table, because each row is a range read against a rate.
+    A volume ladder: the starting price first, then the bands it falls
+    through. The band is written in the row title ("11–50 seats") and the
+    rate in its value; the template does not parse ranges, so an editor can
+    write "41 and above" without a format to obey.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-seat-bands">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-seat-bands__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.lead}">
+                        <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.price}">
+                        <a:molecule.price size="sm">
+                            <f:fragment name="amount">{data -> f:render.text(field: 'price')}</f:fragment>
+                            <f:fragment name="period">{data -> f:render.text(field: 'period')}</f:fragment>
+                        </a:molecule.price>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-pricing-seat-bands__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
+            <a:molecule.table scroll="{true}" scrollLabel="{data.header}" scrollClass="g-pricing-seat-bands__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-seat-bands__table">
+                <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
+                <a:molecule.tableHeader>
+                    <a:molecule.tableRow>
+                        <a:molecule.tableHeaderCell><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.band" default="Seats"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell class="g-pricing-seat-bands__rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.rate" default="Price per seat"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.note" default="Note"/></a:molecule.tableHeaderCell>
+                    </a:molecule.tableRow>
+                </a:molecule.tableHeader>
+                <a:molecule.tableBody>
+                    <f:for each="{data.bands}" as="band">
+                        <a:molecule.tableRow>
+                            <a:molecule.tableHeaderCell scope="row" class="g-pricing-seat-bands__band">{band -> f:render.text(field: 'title')}</a:molecule.tableHeaderCell>
+                            <a:molecule.tableCell class="g-pricing-seat-bands__rate">
+                                <a:atom.text type="label" as="span">{band -> f:render.text(field: 'value')}</a:atom.text>
+                            </a:molecule.tableCell>
+                            <a:molecule.tableCell>
+                                <a:atom.text as="span" color="secondary">{band -> f:render.text(field: 'text')}</a:atom.text>
+                            </a:molecule.tableCell>
+                        </a:molecule.tableRow>
+                    </f:for>
+                </a:molecule.tableBody>
+            </a:molecule.table>
+
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-seat-bands__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-seat-bands__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.price}">
-                <p class="g-pricing-seat-bands__figure">
-                    <a:atom.text type="display-3" as="span" class="g-pricing-seat-bands__amount">{data -> f:render.text(field: 'price')}</a:atom.text><f:if condition="{data.period}"><a:atom.text type="label" as="span" class="g-pricing-seat-bands__period">{data -> f:render.text(field: 'period')}</a:atom.text></f:if>
-                </p>
-            </f:if>
-        </div>
-
-        <a:molecule.table scroll="{true}" scrollClass="g-pricing-seat-bands__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-seat-bands__table">
-            <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
-            <thead>
-                <tr>
-                    <th scope="col" class="g-pricing-seat-bands__col-band"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.band" default="Seats"/></th>
-                    <th scope="col" class="g-pricing-seat-bands__col-rate"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.rate" default="Price per seat"/></th>
-                    <th scope="col" class="g-pricing-seat-bands__col-note"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-seat-bands/language/labels.xlf:column.note" default="Note"/></th>
-                </tr>
-            </thead>
-            <tbody>
-                <f:for each="{data.bands}" as="band">
-                    <tr>
-                        <th scope="row" class="g-pricing-seat-bands__band">{band -> f:render.text(field: 'title')}</th>
-                        <td class="g-pricing-seat-bands__rate">{band -> f:render.text(field: 'value')}</td>
-                        <td class="g-pricing-seat-bands__band-note">{band -> f:render.text(field: 'text')}</td>
-                    </tr>
-                </f:for>
-            </tbody>
-        </a:molecule.table>
-
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-seat-bands__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-seat-bands__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

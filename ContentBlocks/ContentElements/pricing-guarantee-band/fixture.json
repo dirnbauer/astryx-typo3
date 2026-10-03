@@ -5,8 +5,8 @@
     "subheader": "An icon, the guarantee in a line or two and up to four supporting points.",
     "lead": "The points state the limits: how long, on what and who decides. Conditions hidden on another page make a guarantee harder to trust.",
     "note": "The note explains how to claim: who to ask, how and how long it takes.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-guarantee-band",
     "align": "start",
     "tone": "surface",
     "compact": false,
@@ -14,22 +14,26 @@
         {
             "icon": "calendar",
             "title": "When it starts and ends",
-            "text": "A stated start date makes the period clear."
+            "text": "A stated start date makes the period clear.",
+            "link": " "
         },
         {
-            "icon": "receipt",
+            "icon": "file-text",
             "title": "What it covers",
-            "text": "And what it does not cover."
+            "text": "And what it does not cover.",
+            "link": " "
         },
         {
             "icon": "download",
             "title": "What the reader keeps",
-            "text": "Guarantees often leave this out."
+            "text": "Guarantees often leave this out.",
+            "link": " "
         },
         {
             "icon": "mail",
             "title": "How to claim it",
-            "text": "Explain it in one sentence. If it needs more, the process is too complicated."
+            "text": "Explain it in one sentence. If it needs more, the process is too complicated.",
+            "link": " "
         }
     ]
 }

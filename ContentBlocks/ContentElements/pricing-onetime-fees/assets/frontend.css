@@ -1,60 +1,23 @@
 /*
  * One-Off Cost List
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the table's column proportions and its minimum width on a
+ * phone. Cell type, rules, tabular figures and the intro are components.
  */
-
-.g-pricing-onetime-fees__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-pricing-onetime-fees__scope,
-.g-pricing-onetime-fees__lead {
-  color: var(--color-text-secondary);
-}
 
 .g-pricing-onetime-fees__service {
   inline-size: 30%;
-  font-weight: var(--font-weight-medium);
 }
 
-.g-pricing-onetime-fees__col-fee,
+/* Fees line up on their last digit and never break across lines. */
 .g-pricing-onetime-fees__fee {
   inline-size: 1%;
   white-space: nowrap;
-  font-variant-numeric: tabular-nums lining-nums;
-  font-weight: var(--font-weight-semibold);
-}
-
-.g-pricing-onetime-fees__covers {
-  color: var(--color-text-secondary);
-}
-
-.g-pricing-onetime-fees__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-pricing-onetime-fees[data-surface="accent"] .g-pricing-onetime-fees__scope,
-.g-pricing-onetime-fees[data-surface="accent"] .g-pricing-onetime-fees__lead,
-.g-pricing-onetime-fees[data-surface="accent"] .g-pricing-onetime-fees__covers,
-.g-pricing-onetime-fees[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
+  text-align: end;
 }
 
 @media (max-width: 767px) {
   .g-pricing-onetime-fees__table {
-    min-inline-size: 38rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .g-pricing-onetime-fees__intro {
-    margin-block-end: var(--spacing-8);
+    min-inline-size: 34rem;
   }
 }

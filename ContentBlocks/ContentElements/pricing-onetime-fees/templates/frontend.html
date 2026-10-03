@@ -6,50 +6,55 @@
 <f:asset.css identifier="g-pricing-onetime-fees" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Every fee brings the sentence that says what it buys. Left to a bare figure
-    a setup charge becomes the line a reader argues about six weeks later, and
-    the sentence is cheaper to write than the argument is to have.
+    Charges that happen once — setup, migration, training — as a table whose
+    third column says what each fee covers, which answers the question before
+    a customer has to ask it. Whether the figures are net or gross belongs in
+    the note: readers assume the opposite of whatever was meant.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-onetime-fees">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-onetime-fees__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.lead}">
+                        <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-pricing-onetime-fees__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
+            <a:molecule.table scroll="{true}" scrollLabel="{data.header}" scrollClass="g-pricing-onetime-fees__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-onetime-fees__table">
+                <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
+                <a:molecule.tableHeader>
+                    <a:molecule.tableRow>
+                        <a:molecule.tableHeaderCell><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.service" default="Service"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell class="g-pricing-onetime-fees__fee"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.fee" default="Fee"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.covers" default="What the fee covers"/></a:molecule.tableHeaderCell>
+                    </a:molecule.tableRow>
+                </a:molecule.tableHeader>
+                <a:molecule.tableBody>
+                    <f:for each="{data.fees}" as="fee">
+                        <a:molecule.tableRow>
+                            <a:molecule.tableHeaderCell scope="row" class="g-pricing-onetime-fees__service">{fee -> f:render.text(field: 'title')}</a:molecule.tableHeaderCell>
+                            <a:molecule.tableCell class="g-pricing-onetime-fees__fee">
+                                <a:atom.text type="label" as="span">{fee -> f:render.text(field: 'value')}</a:atom.text>
+                            </a:molecule.tableCell>
+                            <a:molecule.tableCell>
+                                <a:atom.text as="span" color="secondary">{fee -> f:render.text(field: 'text')}</a:atom.text>
+                            </a:molecule.tableCell>
+                        </a:molecule.tableRow>
+                    </f:for>
+                </a:molecule.tableBody>
+            </a:molecule.table>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-onetime-fees__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.table scroll="{true}" scrollClass="g-pricing-onetime-fees__wrap" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-pricing-onetime-fees__table">
-            <a:atom.visuallyHidden as="caption">{data -> f:render.text(field: 'header')}</a:atom.visuallyHidden>
-            <thead>
-                <tr>
-                    <th scope="col" class="g-pricing-onetime-fees__col-service"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.service" default="Service"/></th>
-                    <th scope="col" class="g-pricing-onetime-fees__col-fee"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.fee" default="Fee"/></th>
-                    <th scope="col" class="g-pricing-onetime-fees__col-covers"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-onetime-fees/language/labels.xlf:column.covers" default="What the fee covers"/></th>
-                </tr>
-            </thead>
-            <tbody>
-                <f:for each="{data.fees}" as="fee">
-                    <tr>
-                        <th scope="row" class="g-pricing-onetime-fees__service">{fee -> f:render.text(field: 'title')}</th>
-                        <td class="g-pricing-onetime-fees__fee">{fee -> f:render.text(field: 'value')}</td>
-                        <td class="g-pricing-onetime-fees__covers">{fee -> f:render.text(field: 'text')}</td>
-                    </tr>
-                </f:for>
-            </tbody>
-        </a:molecule.table>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-pricing-onetime-fees__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

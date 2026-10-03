@@ -6,37 +6,45 @@
     "columns": "2",
     "align": "start",
     "note": "Conditions go in the note, so each row stays short.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-included-checklist",
     "tone": "body",
     "items": [
         {
             "title": "Each row has a labelled mark",
+            "value": "Text label",
             "included": true,
-            "text": "Screen readers can't announce colour, so the mark has a text label."
+            "text": "A screen reader can’t announce a colour, so each mark has a name."
         },
         {
-            "title": "A row can add a short detail",
+            "title": "A row can end in a value",
+            "value": "20 GB",
             "included": true,
-            "value": "like this"
+            "text": "For a quantity, a limit or a rate."
         },
         {
             "title": "A row can add a note line",
+            "value": "Optional",
             "included": true,
             "text": "It sits below the label, not next to it."
         },
         {
             "title": "Rows read down a column, then across",
-            "included": true
+            "value": "1–4 columns",
+            "included": true,
+            "text": "The way a printed checklist is read."
         },
         {
             "title": "Excluded rows stay in place",
+            "value": "Add-on",
             "included": false,
             "text": "Removing them would hide what the price leaves out."
         },
         {
             "title": "Calculated totals",
-            "included": false
+            "value": "None",
+            "included": false,
+            "text": "The list states what is covered and adds nothing up."
         }
     ]
 }

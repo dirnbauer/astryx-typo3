@@ -6,64 +6,75 @@
 <f:asset.css identifier="g-pricing-single-price" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    With nothing to compare, the figure carries the band on its own — which is
-    why it is display type and not a heading. An outline of the page should read
-    "What the single practice pays", not "39 euros".
+    One offer with nothing to compare, so the panel is one raised card: the
+    price is the largest thing in it and the button sits directly beneath, with
+    what the price covers listed after the decision rather than before it.
+
+    The price accepts "Free" or "On request" as readily as a figure; the period
+    is simply left empty when nothing recurs. Centred, every part centres
+    through its own component's align; only the list keeps a start edge.
 </f:comment>
+
+<f:variable name="includedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-single-price/language/labels.xlf:feature.included" default="Included"/></f:variable>
+<f:variable name="excludedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-single-price/language/labels.xlf:feature.excluded" default="Not included"/></f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-single-price" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <div class="g-pricing-single-price__panel">
+        <a:molecule.card variant="raised" density="roomy" align="{data.align}" class="g-pricing-single-price__panel">
 
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro headingType="heading-2" align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-pricing-single-price__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <p class="g-pricing-single-price__figure">
-                <a:atom.text type="display-2" as="span" class="g-pricing-single-price__amount">{data -> f:render.text(field: 'price')}</a:atom.text><f:if condition="{data.period}"><a:atom.text type="large" as="span" class="g-pricing-single-price__period">{data -> f:render.text(field: 'period')}</a:atom.text></f:if>
-            </p>
+            <a:molecule.price align="{data.align}">
+                <f:fragment name="amount">{data -> f:render.text(field: 'price')}</f:fragment>
+                <f:fragment name="period">{data -> f:render.text(field: 'period')}</f:fragment>
+            </a:molecule.price>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <a:molecule.buttonGroup class="g-pricing-single-price__actions">
+                <a:molecule.buttonGroup align="{data.align}">
                     <f:if condition="{data.cta_label}">
                         <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                     <f:if condition="{data.secondary_label}">
-                        <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                        <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                     </f:if>
                 </a:molecule.buttonGroup>
             </f:if>
 
             <f:if condition="{data.included}">
+                <a:atom.divider />
+
                 <a:molecule.list density="compact" class="g-pricing-single-price__included">
                     <f:for each="{data.included}" as="entry">
-                        <li class="g-pricing-single-price__entry" data-included="{f:if(condition: entry.included, then: 'yes', else: 'no')}">
+                        <a:molecule.listItem class="g-pricing-single-price__entry">
                             <f:if condition="{entry.included}">
-                                <f:then><svg class="g-pricing-single-price__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-single-price/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
-                                <f:else><svg class="g-pricing-single-price__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-single-price/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+                                <f:then><a:atom.icon name="check" size="sm" color="success" ariaLabel="{includedLabel}" class="g-pricing-single-price__mark"/></f:then>
+                                <f:else><a:atom.icon name="x" size="sm" color="secondary" ariaLabel="{excludedLabel}" class="g-pricing-single-price__mark"/></f:else>
                             </f:if>
 
-                            <span class="g-pricing-single-price__entry-label">{entry -> f:render.text(field: 'title')}</span>
+                            <span class="g-pricing-single-price__entry-text">
+                                <a:atom.text as="span" color="{f:if(condition: entry.included, then: 'default', else: 'secondary')}">{entry -> f:render.text(field: 'title')}</a:atom.text>
+                                <f:if condition="{entry.text}">
+                                    <a:atom.text type="supporting" as="span">{entry -> f:render.text(field: 'text')}</a:atom.text>
+                                </f:if>
+                            </span>
 
                             <f:if condition="{entry.value}">
-                                <a:atom.badge variant="outline" as="span" class="g-pricing-single-price__qualifier">{entry.value}</a:atom.badge>
+                                <a:atom.text type="label" as="span" numeric="tabular" class="g-pricing-single-price__value">{entry -> f:render.text(field: 'value')}</a:atom.text>
                             </f:if>
-                        </li>
+                        </a:molecule.listItem>
                     </f:for>
                 </a:molecule.list>
             </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-pricing-single-price__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:molecule.card>
     </a:layout.container>
 </a:layout.section>
 

@@ -6,84 +6,97 @@
 <f:asset.css identifier="g-pricing-plan-spotlight" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The entitlements are one list flowed into columns rather than several lists
-    side by side: split into real columns they would read across the band, and a
-    plan's contents are one enumeration however wide the room is.
+    The band is the pitch beside the offer: the argument on one side, and on
+    the other one featured card that holds everything a decision needs — the
+    price, the period, the buttons and the conditions. Anything set between
+    the number and the button is a decision the reader has to make twice.
+
+    The entitlements run underneath, across the whole width, because that is
+    the only place where the editor's two to four columns have room.
+
+    The image is optional and decorative to the offer; on a phone it drops out
+    first, so the price is on screen without scrolling past a photograph.
 </f:comment>
+
+<f:variable name="includedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-spotlight/language/labels.xlf:feature.included" default="Included"/></f:variable>
+<f:variable name="excludedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-spotlight/language/labels.xlf:feature.excluded" default="Not included"/></f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-plan-spotlight" columns="{data.columns}">
     <a:layout.container size="xl">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-pricing-plan-spotlight__grid">
+        <a:layout.stack gap="12">
 
-            <div class="g-pricing-plan-spotlight__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-pricing-plan-spotlight__grid">
 
-                <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:molecule.sectionIntro headingType="heading-1">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                    <f:fragment>
+                        <f:if condition="{data.bodytext}">
+                            <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
+                        </f:if>
+                    </f:fragment>
+                </a:molecule.sectionIntro>
 
-                <f:if condition="{data.subheader}">
-                    <a:atom.text type="large" class="g-pricing-plan-spotlight__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-                </f:if>
-
-                <div class="g-pricing-plan-spotlight__anchor">
-                    <f:if condition="{data.badge_text}">
-                        <p class="g-pricing-plan-spotlight__flag"><a:atom.badge variant="accent" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge></p>
+                <a:molecule.card variant="raised" featured="yes">
+                    <f:if condition="{data.image}">
+                        <a:atom.aspectRatio class="g-pricing-plan-spotlight__media">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="720" loading="lazy"/>
+                            </f:for>
+                        </a:atom.aspectRatio>
                     </f:if>
 
-                    <p class="g-pricing-plan-spotlight__figure">
-                        <a:atom.text type="display-2" as="span" class="g-pricing-plan-spotlight__amount">{data -> f:render.text(field: 'price')}</a:atom.text><f:if condition="{data.period}"><a:atom.text type="large" as="span" class="g-pricing-plan-spotlight__period">{data -> f:render.text(field: 'period')}</a:atom.text></f:if>
-                    </p>
+                    <f:if condition="{data.badge_text}">
+                        <a:atom.badge variant="accent" class="g-pricing-plan-spotlight__flag">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                    </f:if>
+
+                    <a:molecule.price>
+                        <f:fragment name="amount">{data -> f:render.text(field: 'price')}</f:fragment>
+                        <f:fragment name="period">{data -> f:render.text(field: 'period')}</f:fragment>
+                    </a:molecule.price>
 
                     <f:if condition="{data.cta_label} || {data.secondary_label}">
-                        <a:molecule.buttonGroup class="g-pricing-plan-spotlight__actions">
+                        <a:molecule.buttonGroup>
                             <f:if condition="{data.cta_label}">
                                 <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                             </f:if>
                             <f:if condition="{data.secondary_label}">
-                                <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                                <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                             </f:if>
                         </a:molecule.buttonGroup>
                     </f:if>
 
                     <f:if condition="{data.note}">
-                        <a:atom.text type="supporting" class="g-pricing-plan-spotlight__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
-                </div>
-            </div>
+                </a:molecule.card>
 
-            <div class="g-pricing-plan-spotlight__detail">
-                <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-pricing-plan-spotlight__argument"><f:format.html>{data.bodytext}</f:format.html></div>
-                </f:if>
+            </a:layout.split>
 
-                <a:molecule.list density="compact" class="g-pricing-plan-spotlight__features">
-                    <f:for each="{data.features}" as="feature">
-                        <li class="g-pricing-plan-spotlight__feature" data-included="{f:if(condition: feature.included, then: 'yes', else: 'no')}">
-                            <f:if condition="{feature.included}">
-                                <f:then><svg class="g-pricing-plan-spotlight__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-spotlight/language/labels.xlf:feature.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></f:then>
-                                <f:else><svg class="g-pricing-plan-spotlight__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-plan-spotlight/language/labels.xlf:feature.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></f:else>
+            <a:molecule.list density="compact" columns="{data.columns}">
+                <f:for each="{data.features}" as="feature">
+                    <a:molecule.listItem class="g-pricing-plan-spotlight__feature">
+                        <f:if condition="{feature.included}">
+                            <f:then><a:atom.icon name="check" size="sm" color="success" ariaLabel="{includedLabel}" class="g-pricing-plan-spotlight__mark"/></f:then>
+                            <f:else><a:atom.icon name="x" size="sm" color="secondary" ariaLabel="{excludedLabel}" class="g-pricing-plan-spotlight__mark"/></f:else>
+                        </f:if>
+
+                        <span class="g-pricing-plan-spotlight__feature-text">
+                            <a:atom.text as="span" color="{f:if(condition: feature.included, then: 'default', else: 'secondary')}">{feature -> f:render.text(field: 'title')}</a:atom.text>
+                            <f:if condition="{feature.text}">
+                                <a:atom.text type="supporting" as="span">{feature -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
+                        </span>
 
-                            <span class="g-pricing-plan-spotlight__feature-label">{feature -> f:render.text(field: 'title')}</span>
+                        <f:if condition="{feature.value}">
+                            <a:atom.text type="label" as="span" numeric="tabular" class="g-pricing-plan-spotlight__value">{feature -> f:render.text(field: 'value')}</a:atom.text>
+                        </f:if>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
-                            <f:if condition="{feature.value}">
-                                <a:atom.badge variant="outline" as="span" class="g-pricing-plan-spotlight__qualifier">{feature.value}</a:atom.badge>
-                            </f:if>
-                        </li>
-                    </f:for>
-                </a:molecule.list>
-
-                <f:if condition="{data.image}">
-                    <figure class="g-pricing-plan-spotlight__media">
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy" class="g-pricing-plan-spotlight__image"/>
-                        </f:for>
-                    </figure>
-                </f:if>
-            </div>
-
-        </a:layout.split>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

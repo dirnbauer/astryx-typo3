@@ -4,8 +4,8 @@
     "header": "Price per unit, row by row",
     "lead": "One row per billable unit, with its rate and a line on how it is counted. The table adds nothing up.",
     "note": "The note holds the billing terms: when units are counted, how they appear on the invoice and whether tax is included.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "cta_label": "Read the template on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/ContentBlocks/ContentElements/pricing-usage-table",
     "tone": "body",
     "width": "lg",
     "compact": false,
@@ -17,8 +17,8 @@
         },
         {
             "title": "The rate keeps its own column",
-            "value": "€0.00",
-            "text": "Figures use equal widths, so the decimal points line up."
+            "value": "€0.12",
+            "text": "Rates sit flush right in their own column, so the amounts line up."
         },
         {
             "title": "How it is counted is the third column",

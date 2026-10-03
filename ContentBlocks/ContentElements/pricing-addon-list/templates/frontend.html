@@ -6,72 +6,73 @@
 <f:asset.css identifier="g-pricing-addon-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Both variants render the same list in the same order; only the surface
-    changes. Cards give each extra its own edge, which suits a handful of them —
-    rows keep twenty readable, which a grid of twenty cards never is.
+    Paid extras on top of a plan, as rows or as a card grid. The variant
+    changes the surface only: the same three facts — name, price with its
+    period ("+€9 / month"), one line on what it does — in the same order.
+    There is no separate period per row; it is written into the price.
+
+    The cards are the items of a list (Grid as ul, Card as li), and the grid
+    keeps the editor's column count: four become two on a tablet, all become
+    one on a phone.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-addon-list" variant="{data.variant}" columns="{data.columns}">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8">
 
-        <div class="g-pricing-addon-list__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.lead}">
+                        <a:atom.text color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-pricing-addon-list__scope">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-pricing-addon-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.variant} == 'cards'">
-            <f:then>
-                <a:layout.grid cols="{data.columns}" class="g-pricing-addon-list__addons">
-                    <f:for each="{data.addons}" as="addon">
-                        <a:molecule.card class="g-pricing-addon-list__addon">
-                            <a:molecule.cardTitle class="g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</a:molecule.cardTitle>
-                            <p class="g-pricing-addon-list__price">
-                                <a:atom.text type="display-3" as="span" class="g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</a:atom.text>
-                            </p>
-                            <f:if condition="{addon.text}">
-                                <a:molecule.cardBody class="g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                            </f:if>
-                        </a:molecule.card>
-                    </f:for>
-                </a:layout.grid>
-            </f:then>
-            <f:else>
-                <a:molecule.list dividers="with-dividers" density="spacious" class="g-pricing-addon-list__addons">
-                    <f:for each="{data.addons}" as="addon">
-                        <li class="g-pricing-addon-list__addon">
-                            <div class="g-pricing-addon-list__body">
-                                <a:atom.heading level="3" class="g-pricing-addon-list__name">{addon -> f:render.text(field: 'title')}</a:atom.heading>
+            <f:if condition="{data.variant} == 'cards'">
+                <f:then>
+                    <a:layout.grid as="ul" fixed="{data.columns}">
+                        <f:for each="{data.addons}" as="addon">
+                            <a:molecule.card as="li">
+                                <a:molecule.cardTitle>{addon -> f:render.text(field: 'title')}</a:molecule.cardTitle>
+                                <a:atom.text type="display-3" numeric="tabular">{addon -> f:render.text(field: 'value')}</a:atom.text>
                                 <f:if condition="{addon.text}">
-                                    <a:atom.text type="body" class="g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</a:atom.text>
+                                    <a:molecule.cardBody>{addon -> f:render.text(field: 'text')}</a:molecule.cardBody>
                                 </f:if>
-                            </div>
-                            <p class="g-pricing-addon-list__price">
-                                <a:atom.text type="label" as="span" class="g-pricing-addon-list__amount">{addon -> f:render.text(field: 'value')}</a:atom.text>
-                            </p>
-                        </li>
-                    </f:for>
-                </a:molecule.list>
-            </f:else>
-        </f:if>
+                            </a:molecule.card>
+                        </f:for>
+                    </a:layout.grid>
+                </f:then>
+                <f:else>
+                    <a:molecule.list dividers="with-dividers" density="spacious">
+                        <f:for each="{data.addons}" as="addon">
+                            <a:molecule.listItem class="g-pricing-addon-list__row">
+                                <div class="g-pricing-addon-list__body">
+                                    <a:atom.heading level="3" type="heading-4">{addon -> f:render.text(field: 'title')}</a:atom.heading>
+                                    <f:if condition="{addon.text}">
+                                        <a:atom.text color="secondary" class="g-pricing-addon-list__what">{addon -> f:render.text(field: 'text')}</a:atom.text>
+                                    </f:if>
+                                </div>
+                                <a:atom.text type="large" numeric="tabular" class="g-pricing-addon-list__price">{addon -> f:render.text(field: 'value')}</a:atom.text>
+                            </a:molecule.listItem>
+                        </f:for>
+                    </a:molecule.list>
+                </f:else>
+            </f:if>
 
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-pricing-addon-list__foot">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-pricing-addon-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack orientation="horizontal" gap="6">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-pricing-addon-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

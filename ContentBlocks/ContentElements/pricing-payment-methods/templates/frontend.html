@@ -6,32 +6,31 @@
 <f:asset.css identifier="g-pricing-payment-methods" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A row of marks and nothing else: no field, no button, no redirect. The band
-    states which arrangements are accepted; taking a payment happens somewhere
-    else entirely, and this element never stands between a visitor and their bank.
+    A quiet row of payment marks with one line of conditions. Card-scheme
+    artwork has fixed clear space and may not be recoloured, so each mark is a
+    Logo in its original colours, at one height, with its title as the alt
+    text. A method without artwork is shown by its name in an outline badge,
+    so two names side by side cannot run together into one.
 
-    The list is given its accessible name by the heading above it, so the marks
-    are read as a set rather than as a run of unrelated names.
+    The heading is the band's h2, set small: it heads its own section like
+    every element, it just does not shout.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pricing-payment-methods" align="{data.align}">
     <a:layout.container size="lg">
-        <div class="g-pricing-payment-methods__panel">
+        <a:layout.stack gap="4">
 
-            <div class="g-pricing-payment-methods__copy">
-                <a:atom.heading level="3" id="g-pricing-payment-methods-{data.uid}">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro headingType="heading-4" leadType="body" align="{data.align}">
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-pricing-payment-methods__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-
-            <ul class="g-pricing-payment-methods__row" aria-labelledby="g-pricing-payment-methods-{data.uid}">
+            <a:molecule.list orientation="horizontal" gap="6" class="g-pricing-payment-methods__row">
                 <f:for each="{data.methods}" as="method">
-                    <li class="g-pricing-payment-methods__method">
+                    <a:molecule.listItem>
                         <f:if condition="{method.link.url}">
                             <f:then>
-                                <a:atom.link variant="quiet" class="g-pricing-payment-methods__link" parameter="{method.link}">
+                                <a:atom.link variant="quiet" parameter="{method.link}">
                                     <f:render section="mark" arguments="{method: method}"/>
                                 </a:atom.link>
                             </f:then>
@@ -39,31 +38,29 @@
                                 <f:render section="mark" arguments="{method: method}"/>
                             </f:else>
                         </f:if>
-                    </li>
+                    </a:molecule.listItem>
                 </f:for>
-            </ul>
+            </a:molecule.list>
 
             <f:if condition="{data.note}">
                 <a:atom.text type="supporting" class="g-pricing-payment-methods__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
-<f:comment>
-    A mark is either artwork or, when nobody has uploaded any, the method's name
-    set as type — which is still the information, and better than an empty slot.
-</f:comment>
 <f:section name="mark">
     <f:if condition="{method.image}">
         <f:then>
-            <f:for each="{method.image}" as="image">
-                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: method.title)}" height="32" loading="lazy" class="g-pricing-payment-methods__image"/>
-            </f:for>
+            <a:atom.logo tone="original">
+                <f:for each="{method.image}" as="image">
+                    <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: method.title)}" height="64" loading="lazy"/>
+                </f:for>
+            </a:atom.logo>
         </f:then>
         <f:else>
-            <span class="g-pricing-payment-methods__wordmark">{method.title}</span>
+            <a:atom.badge variant="outline">{method.title}</a:atom.badge>
         </f:else>
     </f:if>
 </f:section>

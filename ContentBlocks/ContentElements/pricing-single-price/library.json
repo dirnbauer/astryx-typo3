@@ -7,7 +7,7 @@
     "note": "Plus 20% VAT. No activation fee or minimum term; cancel at the end of any month. Moving up to Praxis keeps all your data.",
     "cta_label": "Start 30-day trial",
     "cta_link": "#",
-    "secondary_label": "See what's included",
+    "secondary_label": "See what’s included",
     "secondary_link": "#",
     "align": "start",
     "tone": "surface",
@@ -15,39 +15,51 @@
     "included": [
         {
             "title": "Appointment book for one practitioner",
-            "included": true
+            "included": true,
+            "value": "1 calendar",
+            "text": "Plus rooms and equipment."
         },
         {
             "title": "Insurance billing and private invoices",
-            "included": true
+            "included": true,
+            "value": "All Austrian funds",
+            "text": "Claims go out on the first working day of the month."
         },
         {
             "title": "SMS and email reminders",
             "included": true,
-            "value": "€0.08 per SMS"
+            "value": "€0.08 per SMS",
+            "text": "Email reminders cost nothing."
         },
         {
             "title": "Treatment documentation and reports",
-            "included": true
+            "included": true,
+            "value": "Templates",
+            "text": "Findings and reports from your own templates."
         },
         {
             "title": "Document storage",
             "included": true,
-            "value": "20 GB"
+            "value": "20 GB",
+            "text": "Reports, scans and signed consent forms."
         },
         {
             "title": "Support by phone and email",
             "included": true,
-            "value": "Mon-Fri"
+            "value": "Mon–Fri",
+            "text": "From 8:00 to 17:00, answered by our own team."
         },
         {
             "title": "A second practitioner account",
-            "included": false
+            "included": false,
+            "value": "Praxis plan",
+            "text": "Moving up keeps all your data."
         },
         {
             "title": "Online booking for patients",
             "included": false,
-            "value": "add-on"
+            "value": "€19 per month",
+            "text": "Available as an add-on."
         }
     ]
 }

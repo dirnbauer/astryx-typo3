@@ -6,58 +6,47 @@
 <f:asset.css identifier="g-pricing-offer-price" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A line through a figure is a visual convention and nothing more: read aloud
-    it disappears, and the two amounts become one confusing pair. Each therefore
-    carries a named label, and the strike is left to do the seeing.
+    Was and now. value carries the former price and price the current one;
+    Molecule/Price strikes the former through and gives both figures their
+    visually hidden names ("Regular price", "Current price"), because a
+    strike-through is invisible to a screen reader.
 
-    The deadline is written out rather than counted down. A clock would have to
-    be scripted, would be wrong in a cached page, and a date a reader can note
-    in a diary is more use than seconds ticking away.
+    The deadline is written out in the note. Nothing counts down: a countdown
+    needs a script, and on a cached page it lies.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-pricing-offer-price" align="{data.align}">
     <a:layout.container size="md">
-        <div class="g-pricing-offer-price__panel">
+        <a:molecule.card variant="raised" density="roomy" align="{data.align}" class="g-pricing-offer-price__panel">
 
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro headingType="heading-2" align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.badge_text}">
+                        <a:atom.badge variant="accent">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-pricing-offer-price__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.badge_text}">
-                <p class="g-pricing-offer-price__flag"><a:atom.badge variant="accent" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge></p>
-            </f:if>
-
-            <p class="g-pricing-offer-price__figures">
-                <f:if condition="{data.value}">
-                    <span class="g-pricing-offer-price__was">
-                        <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-offer-price/language/labels.xlf:price.previous" default="Previous price"/></a:atom.visuallyHidden>
-                        <s class="g-pricing-offer-price__was-amount">{data -> f:render.text(field: 'value')}</s>
-                    </span>
-                </f:if>
-
-                <span class="g-pricing-offer-price__now">
-                    <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/pricing-offer-price/language/labels.xlf:price.current" default="Current price"/></a:atom.visuallyHidden>
-                    <a:atom.text type="display-2" as="span" class="g-pricing-offer-price__amount">{data -> f:render.text(field: 'price')}</a:atom.text><f:if condition="{data.period}"><a:atom.text type="large" as="span" class="g-pricing-offer-price__period">{data -> f:render.text(field: 'period')}</a:atom.text></f:if>
-                </span>
-            </p>
+            <a:molecule.price align="{data.align}">
+                <f:fragment name="former">{data -> f:render.text(field: 'value')}</f:fragment>
+                <f:fragment name="amount">{data -> f:render.text(field: 'price')}</f:fragment>
+                <f:fragment name="period">{data -> f:render.text(field: 'period')}</f:fragment>
+            </a:molecule.price>
 
             <f:if condition="{data.cta_label}">
-                <p class="g-pricing-offer-price__actions">
+                <a:molecule.buttonGroup align="{data.align}">
                     <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </p>
+                </a:molecule.buttonGroup>
             </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-pricing-offer-price__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:molecule.card>
     </a:layout.container>
 </a:layout.section>
 

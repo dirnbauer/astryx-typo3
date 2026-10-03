@@ -4,33 +4,37 @@
     "header": "Ask for a written price",
     "lead": "What to send, what you get back and how long it takes. Then a button that links to your form.",
     "note": "The element shows only the panel and the button. It has no form fields and collects no data.",
-    "cta_label": "Open the form",
-    "cta_link": "#",
+    "cta_label": "See the form elements",
+    "cta_link": "{{page:components/conversion}}",
     "secondary_label": "Or email us",
-    "secondary_link": "#",
+    "secondary_link": "mailto:office@webconsulting.at",
     "align": "start",
     "tone": "surface",
     "width": "lg",
     "steps": [
         {
-            "icon": "edit",
+            "icon": "send",
             "title": "What you send",
-            "text": "List exactly what a useful enquiry needs."
+            "text": "List exactly what a useful enquiry needs.",
+            "link": " "
         },
         {
             "icon": "phone",
             "title": "What happens next",
-            "text": "Many panels leave this out, but it helps readers decide to get in touch."
+            "text": "Many panels leave this out, but it helps readers decide to get in touch.",
+            "link": " "
         },
         {
             "icon": "file",
             "title": "What comes back",
-            "text": "Say whether it is a document, a call or a price."
+            "text": "Say whether it is a document, a call or a price.",
+            "link": " "
         },
         {
             "icon": "calendar",
             "title": "How long the offer is valid",
-            "text": "Without a date, people have to ask again."
+            "text": "Without a date, people have to ask again.",
+            "link": " "
         }
     ],
     "image": [
