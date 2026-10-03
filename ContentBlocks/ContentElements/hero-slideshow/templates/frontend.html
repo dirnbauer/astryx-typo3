@@ -9,17 +9,24 @@
     <f:comment>
         The backdrops are the images field rather than a collection because
         the copy never changes with the picture: one headline, several views
-        behind it. Which one shows is a fragment of the URL, so the dots below
-        need no script and survive a reload.
+        behind it. They are a Slideshow: the views rotate behind the copy with
+        a pause control, and each dot shows its view without moving the page.
+        Without script a dot is a fragment link and still shows its view.
     </f:comment>
     <a:molecule.overlay class="g-hero-slideshow__frame" scrimClass="g-hero-slideshow__scrim">
 
         <f:fragment>
-            <f:for each="{data.images}" as="image" iteration="slide">
-                <figure id="g-hero-slideshow-{data.uid}-{slide.cycle}" class="g-hero-slideshow__slide">
-                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="{f:if(condition: slide.isFirst, then: 'eager', else: 'lazy')}" class="g-hero-slideshow__image"/>
-                </figure>
-            </f:for>
+            <a:molecule.slideshow
+                class="g-hero-slideshow__slides"
+                interval="7"
+                pauseLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:slideshow.pause', default: 'Pause the slideshow')}"
+                playLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:slideshow.play', default: 'Play the slideshow')}">
+                <f:for each="{data.images}" as="image" iteration="slide">
+                    <a:molecule.slideshowSlide id="g-hero-slideshow-{data.uid}-{slide.cycle}" class="g-hero-slideshow__slide">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="{f:if(condition: slide.isFirst, then: 'eager', else: 'lazy')}" class="g-hero-slideshow__image"/>
+                    </a:molecule.slideshowSlide>
+                </f:for>
+            </a:molecule.slideshow>
         </f:fragment>
 
         <f:fragment name="scrim">

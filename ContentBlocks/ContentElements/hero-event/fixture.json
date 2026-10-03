@@ -1,28 +1,31 @@
 {
     "_type": "hero",
-    "badge_text": "Badge",
+    "badge_text": "Registration open",
     "eyebrow": "Event Hero",
     "header": "The date, place and price up front",
     "lead": "A badge, the title, one line of text and the key facts. Each fact has a name and a value, so date, venue and price always line up.",
-    "cta_label": "Register",
-    "cta_link": "#",
-    "secondary_label": "See the programme",
-    "secondary_link": "#",
+    "cta_label": "Browse conversion elements",
+    "cta_link": "{{page:components/conversion}}",
+    "secondary_label": "Browse all components",
+    "secondary_link": "{{page:components}}",
     "note": "The note holds venue details or cancellation terms.",
     "tone": "body",
     "width": "lg",
     "facts": [
         {
-            "title": "Facts",
-            "value": "One to four"
+            "title": "Date",
+            "value": "18 March 2027",
+            "text": "09:00 to 17:30"
         },
         {
-            "title": "Each fact",
-            "value": "A name and a value"
+            "title": "Venue",
+            "value": "Tabakfabrik Linz",
+            "text": "Linz, Austria"
         },
         {
-            "title": "Example",
-            "value": "€180"
+            "title": "Ticket",
+            "value": "€180",
+            "text": "lunch included"
         }
     ],
     "image": [

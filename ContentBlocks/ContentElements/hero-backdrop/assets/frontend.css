@@ -1,12 +1,12 @@
 /*
- * Full-Bleed Image Hero
+ * Full-Bleed Image Hero — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The scrim and the colours on it belong to Overlay, the copy to SectionIntro,
+ * the actions to Button. What stays here is the band's height and where the
+ * copy sits on the photograph. Tokens only, and the audit enforces it.
  */
 
 .g-hero-backdrop__frame {
-  position: relative;
   display: grid;
 }
 
@@ -15,82 +15,36 @@
 }
 
 .g-hero-backdrop[data-variant="band"] .g-hero-backdrop__frame {
-  min-block-size: 24rem;
+  min-block-size: 26rem;
 }
 
+/* The photograph must not decide how tall the band is: it is taken out of the
+   flow and cropped to fill whatever height the variant and the copy give the
+   band. */
 .g-hero-backdrop__image {
-  grid-area: 1 / 1;
+  position: absolute;
+  inset: 0;
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* --scrim is the one knob the tones move; everything below reads it, so the
-   opacity of the layer lives in exactly one place. */
+/* The scrim is the one thing in the flow, so long copy grows the band instead
+   of spilling out of it. The copy rests on the lower part of the picture,
+   where a photograph usually has the least detail. */
 .g-hero-backdrop__scrim {
-  --scrim: 45%;
   position: relative;
-  grid-area: 1 / 1;
-  display: flex;
   justify-content: flex-end;
   padding: 0;
   padding-block: var(--astryx-band);
-  background-color: color-mix(in srgb, var(--color-overlay) var(--scrim), transparent);
-}
-
-.g-hero-backdrop[data-surface="muted"] .g-hero-backdrop__scrim {
-  --scrim: 30%;
-}
-
-.g-hero-backdrop[data-surface="surface"] .g-hero-backdrop__scrim {
-  --scrim: 60%;
-}
-
-/* The accent tone tints the photograph rather than only darkening it. */
-.g-hero-backdrop[data-surface="accent"] .g-hero-backdrop__scrim {
-  background-color: color-mix(in srgb, var(--color-accent) 65%, transparent);
-}
-
-.g-hero-backdrop__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  color: var(--color-on-dark);
-}
-
-.g-hero-backdrop__copy[data-align="center"] {
-  align-items: center;
-  text-align: center;
-}
-
-.g-hero-backdrop__headline,
-.g-hero-backdrop__lead,
-.g-hero-backdrop__eyebrow {
-  color: currentColor;
-  max-inline-size: 40rem;
-}
-
-.g-hero-backdrop__lead {
-  opacity: 0.9;
-}
-
-.g-hero-backdrop__actions {
-  margin-block-start: var(--spacing-2);
 }
 
 @media (max-width: 767px) {
   .g-hero-backdrop[data-variant="full-height"] .g-hero-backdrop__frame {
-    min-block-size: 28rem;
+    min-block-size: 32rem;
   }
 
   .g-hero-backdrop[data-variant="band"] .g-hero-backdrop__frame {
-    min-block-size: 20rem;
-  }
-
-  /* A photograph read on a phone carries far less contrast than the same file
-     on a desktop, so the layer over it gets heavier rather than lighter. */
-  .g-hero-backdrop__scrim {
-    --scrim: 60%;
+    min-block-size: 24rem;
   }
 }

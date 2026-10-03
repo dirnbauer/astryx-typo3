@@ -1,48 +1,53 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
-<f:asset.css identifier="g-hero-portal" href="{cb:assetPath()}/frontend.css"/>
+<f:comment>
+    No stylesheet of its own: the intro is a SectionIntro, the destinations are
+    clickable Cards as the items of a Grid list, and each card's arrow sits in
+    a CardFooter, which keeps it at the foot of cards of unequal length.
+</f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-hero-portal">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-portal__copy" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+        <a:layout.stack gap="8">
+
+            <a:molecule.sectionIntro headingType="display-2" align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <f:if condition="{data.routes}">
+                <a:layout.grid as="ul" fixed="{data.columns}">
+                    <f:for each="{data.routes}" as="route">
+                        <a:molecule.card as="li" clickable="{true}">
+                            <f:comment>
+                                The whole card is the target: the title is a heading one
+                                level below the band's, and the single link inside it is
+                                spread over the card by ClickableCard — one link per
+                                destination, not two. The icon shows only when one was
+                                chosen: "Sparkles" is the icon set's default and stands
+                                for nothing in particular.
+                            </f:comment>
+                            <f:if condition="{route.icon} && {route.icon} != 'none' && {route.icon} != 'sparkles'">
+                                <a:atom.featureIcon icon="{route.icon}"/>
+                            </f:if>
+                            <a:molecule.cardTitle level="3">
+                                <a:atom.link variant="quiet" parameter="{route.link}">{route.title}</a:atom.link>
+                            </a:molecule.cardTitle>
+                            <f:if condition="{route.description}">
+                                <a:molecule.cardBody>{route.description}</a:molecule.cardBody>
+                            </f:if>
+                            <a:molecule.cardFooter>
+                                <a:atom.icon name="arrow-right" color="accent"/>
+                            </a:molecule.cardFooter>
+                        </a:molecule.card>
+                    </f:for>
+                </a:layout.grid>
             </f:if>
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-hero-portal__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.routes}">
-            <a:layout.grid fixed="{data.columns}" class="g-hero-portal__routes">
-                <f:for each="{data.routes}" as="route">
-                    <a:molecule.card clickable="{true}" class="g-hero-portal__card">
-                        <f:comment>
-                            The whole card is the target, so the title is a plain
-                            heading and the single link inside it spreads over the
-                            card — one link per destination, not two.
-                        </f:comment>
-                        <a:molecule.cardTitle level="2" class="g-hero-portal__card-title">
-                            <f:link.typolink parameter="{route.link}">{route.title}</f:link.typolink>
-                        </a:molecule.cardTitle>
-                        <f:if condition="{route.description}">
-                            <a:molecule.cardBody class="g-hero-portal__card-body">{route.description}</a:molecule.cardBody>
-                        </f:if>
-                        <span class="g-hero-portal__chevron" aria-hidden="true">
-                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                <path d="M4 10h11m0 0-4-4m4 4-4 4"/>
-                            </svg>
-                        </span>
-                    </a:molecule.card>
-                </f:for>
-            </a:layout.grid>
-        </f:if>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

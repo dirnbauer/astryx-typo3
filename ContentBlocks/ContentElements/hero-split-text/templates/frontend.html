@@ -9,27 +9,24 @@
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-hero-split-text__grid">
 
-            <div class="g-hero-split-text__claim">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:molecule.sectionIntro headingType="display-2">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-                <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            </div>
-
-            <div class="g-hero-split-text__body">
+            <a:layout.stack gap="6" align="start">
                 <f:comment>
                     The only hero that takes rich text, because the right column
                     is genuinely prose — links and emphasis belong in it, and the
                     prose rules give them their rhythm without this element
                     styling a single tag.
                 </f:comment>
-                <div class="astryx-prose g-hero-split-text__prose">
+                <div class="astryx-prose">
                     <f:format.html>{data.bodytext}</f:format.html>
                 </div>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-hero-split-text__actions">
+                    <a:molecule.buttonGroup>
                         <f:if condition="{data.cta_label}">
                             <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
@@ -38,7 +35,7 @@
                         </f:if>
                     </a:molecule.buttonGroup>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
         </a:layout.split>
     </a:layout.container>

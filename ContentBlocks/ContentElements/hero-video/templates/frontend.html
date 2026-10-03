@@ -9,60 +9,59 @@
 
 <a:layout.section surface="{data.tone}" class="g-hero-video">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-video__copy" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+        <a:layout.stack gap="8">
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro headingType="display-2" align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-hero-video__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.image}">
-            <figure class="g-hero-video__figure">
-                <a:molecule.overlay align="center" class="g-hero-video__frame" scrimClass="g-hero-video__scrim">
+            <f:if condition="{data.image}">
+                <a:molecule.figure>
                     <f:fragment>
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1440" loading="eager" class="g-hero-video__poster"/>
-                        </f:for>
+                        <a:molecule.overlay align="center" radius="container">
+                            <f:fragment>
+                                <f:for each="{data.image}" as="image">
+                                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1440" loading="eager" class="g-hero-video__poster"/>
+                                </f:for>
+                            </f:fragment>
+
+                            <f:comment>
+                                On one line, and deliberately: an unfilled slot is what
+                                tells Overlay not to draw the scrim, and a fragment
+                                broken over several lines is never unfilled — it holds
+                                the newlines. With no film to play there is no control
+                                here, and a scrim with nothing in it would darken the
+                                poster and swallow the clicks.
+                            </f:comment>
+                            <f:fragment name="scrim"><f:if condition="{videoUri}"><a:atom.iconButton variant="primary" size="lg" dialogOpen="g-hero-video-{data.uid}"><a:atom.icon name="play"/><a:atom.visuallyHidden><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.play" default="Play the film"/><f:if condition="{data.cta_label}">: {data.cta_label}</f:if></a:atom.visuallyHidden></a:atom.iconButton></f:if></f:fragment>
+                        </a:molecule.overlay>
                     </f:fragment>
+                    <f:fragment name="caption"><f:if condition="{data.note}">{data -> f:render.text(field: 'note')}</f:if></f:fragment>
+                </a:molecule.figure>
+            </f:if>
 
-                    <f:comment>
-                        On one line, and deliberately: an unfilled slot is what
-                        tells Overlay not to draw the scrim, and a fragment
-                        broken over several lines is never unfilled — it holds
-                        the newlines. With no film to play there is no control
-                        here, and a scrim with nothing in it would darken the
-                        poster and swallow the clicks.
-                    </f:comment>
-                    <f:fragment name="scrim"><f:if condition="{data.cta_link.url}"><a:atom.iconButton variant="primary" size="lg" class="g-hero-video__play" dialogOpen="g-hero-video-{data.uid}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.5 19 12 8 18.5Z" fill="currentColor"/></svg><a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.play" default="Play the film"/><f:if condition="{data.cta_label}">: {data.cta_label}</f:if></a:atom.visuallyHidden></a:atom.iconButton></f:if></f:fragment>
-                </a:molecule.overlay>
-
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" as="figcaption" class="g-hero-video__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-            </figure>
-        </f:if>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
-<f:if condition="{data.cta_link.url}">
+<f:if condition="{videoUri}">
+    <f:comment>
+        The media dialog is a dark stage in either scheme, and it stops the film
+        when it closes. A lazy iframe inside a closed dialog is never fetched, so
+        the recording costs nothing until somebody asks for it — which is the
+        whole reason this element exists rather than an embed.
+    </f:comment>
     <a:molecule.dialog
-        variant="fullscreen"
+        size="full"
+        variant="media"
         class="g-hero-video__dialog"
         id="g-hero-video-{data.uid}"
         ariaLabel="{data.header}"
         closeLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.close', default: 'Close')}"
         closeClass="g-hero-video__close">
         <a:atom.aspectRatio class="g-hero-video__player">
-            <f:comment>
-                A lazy iframe inside a closed dialog is never fetched, so the
-                recording costs nothing until somebody asks for it — which is
-                the whole reason this element exists rather than an embed.
-            </f:comment>
             <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
         </a:atom.aspectRatio>
     </a:molecule.dialog>

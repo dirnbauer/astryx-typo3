@@ -7,68 +7,98 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-docs">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-docs__copy">
-            <p class="g-hero-docs__flags">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.badge_text}">
-                    <a:atom.badge variant="outline" as="span" class="g-hero-docs__version">{data.badge_text}</a:atom.badge>
-                </f:if>
-            </p>
+        <a:layout.stack gap="8">
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack gap="6" align="start">
+                <a:layout.stack gap="3" align="start">
+                    <f:if condition="{data.eyebrow} || {data.badge_text}">
+                        <a:layout.stack orientation="horizontal" gap="3">
+                            <f:if condition="{data.eyebrow}">
+                                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                            </f:if>
+                            <f:if condition="{data.badge_text}">
+                                <a:atom.badge variant="outline">{data.badge_text}</a:atom.badge>
+                            </f:if>
+                        </a:layout.stack>
+                    </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-hero-docs__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                    <a:molecule.sectionIntro headingType="display-2">
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                    </a:molecule.sectionIntro>
+                </a:layout.stack>
+
+                <f:comment>
+                    A GET form pointed at the results page: the query arrives as "q"
+                    on a full page load, so search works before any script does.
+                </f:comment>
+                <form class="g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
+                    <a:molecule.field>
+                        <a:atom.visuallyHidden as="label" for="g-hero-docs-q-{data.uid}">
+                            <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
+                        </a:atom.visuallyHidden>
+                        <a:molecule.inputGroup size="lg">
+                            <a:molecule.textInput
+                                size="lg"
+                                type="search"
+                                name="q"
+                                id="g-hero-docs-q-{data.uid}"
+                                placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchPlaceholder', default: 'Search the documentation')}" />
+                            <a:atom.button variant="primary" size="lg" class="g-hero-docs__submit" type="submit">
+                                <f:if condition="{data.cta_label}">
+                                    <f:then>{data.cta_label}</f:then>
+                                    <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
+                                </f:if>
+                            </a:atom.button>
+                        </a:molecule.inputGroup>
+                    </a:molecule.field>
+                </form>
+            </a:layout.stack>
+
+            <f:if condition="{data.links}">
+                <f:comment>
+                    Quick links are columns, not one long column: six of them stacked
+                    would push the search field off a laptop screen, which is the one
+                    thing this band exists to keep in view.
+                </f:comment>
+                <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.quickLinks', default: 'Quick links')}">
+                    <a:molecule.list columns="3" gap="2">
+                        <f:for each="{data.links}" as="link">
+                            <f:comment>
+                                Item makes the whole row the link when it has one, and is
+                                a plain row otherwise — which is already an li, so only
+                                the linked row is wrapped in a ListItem.
+                            </f:comment>
+                            <f:if condition="{f:uri.typolink(parameter: link.link)}">
+                                <f:then>
+                                    <a:molecule.listItem>
+                                        <a:molecule.item interactive="interactive" align="start" parameter="{link.link}">
+                                            <f:render section="quickLink" arguments="{link: link}"/>
+                                        </a:molecule.item>
+                                    </a:molecule.listItem>
+                                </f:then>
+                                <f:else>
+                                    <a:molecule.item align="start">
+                                        <f:render section="quickLink" arguments="{link: link}"/>
+                                    </a:molecule.item>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                    </a:molecule.list>
+                </nav>
             </f:if>
 
-            <f:comment>
-                A GET form pointed at the results page: the query arrives as "q"
-                on a full page load, so search works before any script does.
-            </f:comment>
-            <form class="g-hero-docs__search" action="{f:uri.typolink(parameter: data.cta_link)}" method="get" role="search">
-                <a:molecule.field>
-                    <a:atom.visuallyHidden as="label" for="g-hero-docs-q-{data.uid}">
-                        <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchQuery" default="Search term"/>
-                    </a:atom.visuallyHidden>
-                    <a:molecule.inputGroup size="lg">
-                        <a:molecule.textInput
-                            size="lg"
-                            type="search"
-                            name="q"
-                            id="g-hero-docs-q-{data.uid}"
-                            placeholder="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.searchPlaceholder', default: 'Search the documentation')}" />
-                        <a:atom.button variant="primary" size="lg" class="g-hero-docs__submit" type="submit">
-                            <f:if condition="{data.cta_label}">
-                                <f:then>{data.cta_label}</f:then>
-                                <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.search" default="Search"/></f:else>
-                            </f:if>
-                        </a:atom.button>
-                    </a:molecule.inputGroup>
-                </a:molecule.field>
-            </form>
-        </div>
-
-        <f:if condition="{data.links}">
-            <nav class="g-hero-docs__quick" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.quickLinks', default: 'Quick links')}">
-                <a:molecule.list class="g-hero-docs__list">
-                    <f:for each="{data.links}" as="link">
-                        <li>
-                            <a:molecule.item interactive="interactive" class="g-hero-docs__link" parameter="{link.link}">
-                                <a:molecule.itemContent>
-                                    <a:molecule.itemLabel class="g-hero-docs__link-title">{link.title}</a:molecule.itemLabel>
-                                    <f:if condition="{link.description}">
-                                        <a:molecule.itemDescription>{link.description}</a:molecule.itemDescription>
-                                    </f:if>
-                                </a:molecule.itemContent>
-                            </a:molecule.item>
-                        </li>
-                    </f:for>
-                </a:molecule.list>
-            </nav>
-        </f:if>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
+
+<f:section name="quickLink">
+    <a:molecule.itemContent>
+        <a:molecule.itemLabel weight="medium">{link.title}</a:molecule.itemLabel>
+        <f:if condition="{link.description}">
+            <a:molecule.itemDescription>{link.description}</a:molecule.itemDescription>
+        </f:if>
+    </a:molecule.itemContent>
+</f:section>
 
 </html>

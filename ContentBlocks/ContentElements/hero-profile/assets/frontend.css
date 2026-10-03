@@ -1,86 +1,23 @@
 /*
- * Profile Hero
+ * Profile Hero — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The copy is a SectionIntro, the links a horizontal List, the portrait an
+ * AspectRatio. What stays here is the column count and how large the portrait
+ * is. Tokens only, and the audit enforces it.
  */
 
-.g-hero-profile__grid {
-  align-items: center;
+.g-hero-profile__grid:not(:has(.g-hero-profile__portrait)) {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.g-hero-profile__grid:not(:has(.g-hero-profile__media)) {
-  grid-template-columns: 1fr;
-}
-
-.g-hero-profile__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 36rem;
-}
-
-.g-hero-profile__copy[data-align="center"] {
-  margin-inline: auto;
-  align-items: center;
-  text-align: center;
-}
-
-.g-hero-profile__role {
-  color: var(--color-text-accent);
-  font-weight: var(--font-weight-medium);
-}
-
-.g-hero-profile__lead {
-  color: var(--color-text-secondary);
-  margin-block-start: var(--spacing-1);
-}
-
-.g-hero-profile__link-list {
-  margin: var(--spacing-1) 0 0;
-  padding-inline-start: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-2) var(--spacing-4);
-}
-
-.g-hero-profile__copy[data-align="center"] .g-hero-profile__link-list {
-  justify-content: center;
-}
-
-.g-hero-profile__actions {
-  margin-block-start: var(--spacing-3);
-}
-
-.g-hero-profile__media {
-  display: flex;
-  justify-content: center;
-}
-
-/* One portrait, sized by the avatar's own knob so it keeps the circle and the
-   object-fit the component already defines. */
 .g-hero-profile__portrait {
-  --_avatar-size: min(18rem, 60vw);
-}
-
-.g-hero-profile[data-surface="accent"] .g-hero-profile__role,
-.g-hero-profile[data-surface="accent"] .g-hero-profile__lead,
-.g-hero-profile[data-surface="accent"] .astryx-eyebrow,
-.g-hero-profile[data-surface="accent"] .astryx-link {
-  color: currentColor;
-}
-
-.g-hero-profile[data-surface="accent"] .g-hero-profile__lead {
-  opacity: 0.85;
+  inline-size: min(100%, 22rem);
+  justify-self: center;
 }
 
 @media (max-width: 767px) {
-  .g-hero-profile__copy {
-    max-inline-size: none;
-  }
-
   .g-hero-profile__portrait {
-    --_avatar-size: 12rem;
+    inline-size: min(100%, 16rem);
+    justify-self: start;
   }
 }

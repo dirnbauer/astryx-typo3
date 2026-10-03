@@ -3,23 +3,25 @@
     "eyebrow": "Hero with Bullets",
     "header": "A headline with a short list of benefits",
     "lead": "Two to five benefits beside the text, all marked with the same tick.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
-    "secondary_label": "Secondary action",
-    "secondary_link": "#",
+    "cta_label": "See the feature elements",
+    "cta_link": "{{page:components/features}}",
+    "secondary_label": "Browse all components",
+    "secondary_link": "{{page:components}}",
     "reverse": 0,
     "tone": "body",
     "width": "lg",
     "bullets": [
         {
-            "title": "Two bullets minimum"
+            "title": "Two to five bullets",
+            "text": "Fewer reads as a sentence, more as a feature list."
         },
         {
-            "title": "Five bullets maximum"
+            "title": "One tick for every line",
+            "text": "The mark never changes, so the bullets read as one list."
         },
         {
-            "title": "The second line is optional",
-            "text": "A bullet with only a title shows as one line, which suits this hero best."
+            "title": "A second line is optional",
+            "text": "Without it a bullet stays on one line, which suits this hero best."
         }
     ],
     "image": [

@@ -9,40 +9,41 @@
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-hero-profile__grid">
 
-            <div class="g-hero-profile__copy" data-align="{data.align}">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
+            <a:layout.stack gap="6" align="{data.align}">
                 <f:comment>
-                    The name is the heading and the job title is a line under it,
-                    so search results and the page module show a person rather
-                    than a job description.
+                    The name is the heading and the job title the line under it, so
+                    search results and the page module show a person rather than a
+                    job description. The introduction and the contact links follow
+                    as the rest of the intro.
                 </f:comment>
-                <a:atom.heading level="2" type="heading-1" class="g-hero-profile__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:molecule.sectionIntro headingType="display-2" leadColor="accent" align="{data.align}">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'role')}</f:fragment>
+                    <f:fragment>
+                        <f:if condition="{data.lead}">
+                            <a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                        </f:if>
 
-                <f:if condition="{data.role}">
-                    <a:atom.text type="large" class="g-hero-profile__role">{data -> f:render.text(field: 'role')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-hero-profile__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.links}">
-                    <nav class="g-hero-profile__links" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.profileLinks', default: 'Profile links')}">
-                        <ul class="g-hero-profile__link-list">
-                            <f:for each="{data.links}" as="link">
-                                <li>
-                                    <a:atom.link variant="quiet" class="g-hero-profile__link" parameter="{link.link}">{link.title}</a:atom.link>
-                                </li>
-                            </f:for>
-                        </ul>
-                    </nav>
-                </f:if>
+                        <f:if condition="{data.links}">
+                            <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:hero.profileLinks', default: 'Profile links')}">
+                                <a:molecule.list orientation="horizontal">
+                                    <f:for each="{data.links}" as="link">
+                                        <a:molecule.listItem>
+                                            <f:if condition="{link.icon} && {link.icon} != 'none' && {link.icon} != 'sparkles'">
+                                                <a:atom.icon name="{link.icon}" color="secondary"/>
+                                            </f:if>
+                                            <a:atom.link parameter="{link.link}">{link.title}</a:atom.link>
+                                        </a:molecule.listItem>
+                                    </f:for>
+                                </a:molecule.list>
+                            </nav>
+                        </f:if>
+                    </f:fragment>
+                </a:molecule.sectionIntro>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-hero-profile__actions">
+                    <a:molecule.buttonGroup>
                         <f:if condition="{data.cta_label}">
                             <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
@@ -51,16 +52,19 @@
                         </f:if>
                     </a:molecule.buttonGroup>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-hero-profile__media">
-                    <a:atom.avatar class="g-hero-profile__portrait">
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="480" height="480" loading="eager"/>
-                        </f:for>
-                    </a:atom.avatar>
-                </div>
+                <f:comment>
+                    A portrait in the photographer's 3:4, framed by AspectRatio: it
+                    fills the column beside the copy instead of leaving a small
+                    circle in the middle of an empty half.
+                </f:comment>
+                <a:atom.aspectRatio ratio="portrait" class="g-hero-profile__portrait">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="640c" height="853c" loading="eager"/>
+                    </f:for>
+                </a:atom.aspectRatio>
             </f:if>
 
         </a:layout.split>

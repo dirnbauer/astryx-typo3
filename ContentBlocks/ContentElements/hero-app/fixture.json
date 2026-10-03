@@ -1,22 +1,24 @@
 {
     "_type": "hero",
     "eyebrow": "App Download Hero",
-    "header": "Text beside a phone and store links",
+    "header": "Text beside a device shot and store links",
     "lead": "An app opening with a device image and a row of store links. Each link shows the store name as text, so no store badges are needed.",
-    "note": "The note shows the minimum operating system version.",
+    "note": "The note names the minimum system, such as iOS 17 or Android 13.",
     "reverse": 0,
     "tone": "body",
     "width": "lg",
     "stores": [
         {
-            "title": "One store link",
-            "description": "Minimum",
-            "link": "#"
+            "title": "App Store",
+            "description": "Download on the",
+            "link": "https://www.apple.com/app-store/",
+            "icon": "brand-apple"
         },
         {
-            "title": "Four store links",
-            "description": "Maximum",
-            "link": "#"
+            "title": "Google Play",
+            "description": "Get it on",
+            "link": "https://play.google.com/store/apps",
+            "icon": "brand-google-play"
         }
     ],
     "image": [

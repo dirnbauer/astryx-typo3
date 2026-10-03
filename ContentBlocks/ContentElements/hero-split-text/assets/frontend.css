@@ -1,49 +1,12 @@
 /*
- * Split Text Hero
+ * Split Text Hero — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The claim is a SectionIntro, the right column prose and Buttons. What stays
+ * here is where the two columns start. Tokens only, and the audit enforces it.
  */
 
 /* Both columns start at the top: with no media in the band, centring them
    would leave a short claim floating beside a long paragraph. */
 .g-hero-split-text__grid {
   align-items: start;
-}
-
-.g-hero-split-text__claim {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-}
-
-.g-hero-split-text__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-5);
-}
-
-.g-hero-split-text__prose {
-  color: var(--color-text-secondary);
-  max-inline-size: 38rem;
-}
-
-.g-hero-split-text[data-surface="accent"] .g-hero-split-text__prose,
-.g-hero-split-text[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-}
-
-.g-hero-split-text[data-surface="accent"] .g-hero-split-text__prose :where(p, li) {
-  color: currentColor;
-  opacity: 0.9;
-}
-
-.g-hero-split-text[data-surface="accent"] .g-hero-split-text__prose :where(a) {
-  color: currentColor;
-}
-
-@media (max-width: 767px) {
-  .g-hero-split-text__prose {
-    max-inline-size: none;
-  }
 }

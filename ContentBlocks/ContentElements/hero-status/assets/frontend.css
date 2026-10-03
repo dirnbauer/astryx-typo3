@@ -1,12 +1,20 @@
 /*
- * Status Hero
+ * Status Hero — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The state is a Badge with a StatusDot, the sentence a SectionIntro, the
+ * history a call-to-action Link. What stays here is the band's rhythm, the
+ * row the sentence and the reading share, and the figure line. Tokens only,
+ * and the audit enforces it.
  */
 
+/* A status band is short by nature, so its default is the tight band; the
+   Compact switch takes it down one step further, as on the Page Header. */
 .g-hero-status {
   --section-gap: var(--astryx-band-tight);
+}
+
+.g-hero-status[data-spacing="tight"] {
+  --section-gap: var(--spacing-6);
 }
 
 .g-hero-status__band {
@@ -16,41 +24,8 @@
   gap: var(--spacing-8);
 }
 
-.g-hero-status__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  max-inline-size: 44rem;
-}
-
-.g-hero-status__headline {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-}
-
-.g-hero-status__dot {
-  inline-size: var(--spacing-3);
-  block-size: var(--spacing-3);
-}
-
-.g-hero-status__flag,
-.g-hero-status__note {
-  margin: 0;
-}
-
-.g-hero-status__lead {
-  color: var(--color-text-secondary);
-}
-
-/* The measured value is a second reading of the same state, so it sits apart
-   from the sentence rather than inside it. */
 .g-hero-status__reading {
   flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--spacing-1);
   text-align: end;
 }
 
@@ -61,47 +36,11 @@
   gap: var(--spacing-1);
 }
 
-.g-hero-status__value {
-  font-family: var(--font-family-heading);
-  font-size: var(--text-display-3-size);
-  font-weight: var(--text-display-3-weight);
-  line-height: var(--text-display-3-leading);
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-hero-status__unit {
-  font-size: var(--text-large-size);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-hero-status[data-surface="accent"] .g-hero-status__dot {
-  background-color: currentColor;
-}
-
-.g-hero-status[data-surface="accent"] .g-hero-status__lead,
-.g-hero-status[data-surface="accent"] .g-hero-status__note,
-.g-hero-status[data-surface="accent"] .g-hero-status__unit,
-.g-hero-status[data-surface="accent"] .astryx-eyebrow,
-.g-hero-status[data-surface="accent"] .astryx-timestamp,
-.g-hero-status[data-surface="accent"] .astryx-link {
-  color: currentColor;
-}
-
-.g-hero-status[data-surface="accent"] .g-hero-status__lead,
-.g-hero-status[data-surface="accent"] .g-hero-status__note {
-  opacity: 0.85;
-}
-
 @media (max-width: 767px) {
   .g-hero-status__band {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--spacing-5);
-  }
-
-  .g-hero-status__copy {
-    max-inline-size: none;
   }
 
   .g-hero-status__reading {

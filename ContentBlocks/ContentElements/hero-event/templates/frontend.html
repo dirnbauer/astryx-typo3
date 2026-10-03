@@ -9,26 +9,32 @@
     <a:layout.container size="{data.width}">
         <a:layout.split class="g-hero-event__grid">
 
-            <div class="g-hero-event__copy">
-                <f:if condition="{data.badge_text} || {data.eyebrow}">
-                    <p class="g-hero-event__flags">
-                        <f:if condition="{data.badge_text}">
-                            <a:atom.badge variant="accent" as="span">{data.badge_text}</a:atom.badge>
-                        </f:if>
-                        <f:if condition="{data.eyebrow}">
-                            <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                        </f:if>
-                    </p>
-                </f:if>
+            <a:layout.stack gap="6" align="start">
+                <a:layout.stack gap="3" align="start">
+                    <f:if condition="{data.badge_text} || {data.eyebrow}">
+                        <a:layout.stack orientation="horizontal" gap="3">
+                            <f:if condition="{data.badge_text}">
+                                <a:atom.badge variant="accent">{data.badge_text}</a:atom.badge>
+                            </f:if>
+                            <f:if condition="{data.eyebrow}">
+                                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                            </f:if>
+                        </a:layout.stack>
+                    </f:if>
 
-                <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-hero-event__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
+                    <a:molecule.sectionIntro headingType="display-2">
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                    </a:molecule.sectionIntro>
+                </a:layout.stack>
 
                 <f:if condition="{data.facts}">
-                    <a:molecule.metadataList class="g-hero-event__facts">
+                    <f:comment>
+                        The facts are the reason somebody opens an event page: a table
+                        of name and value, ruled between the rows, so date, venue and
+                        price line up whatever their length.
+                    </f:comment>
+                    <a:molecule.metadataList dividers="with-dividers" class="g-hero-event__facts">
                         <f:for each="{data.facts}" as="fact">
                             <dt>{fact -> f:render.text(field: 'title')}</dt>
                             <dd>{fact -> f:render.text(field: 'value')}<f:if condition="{fact.text}"> <a:atom.text type="supporting" as="span">{fact -> f:render.text(field: 'text')}</a:atom.text></f:if></dd>
@@ -36,28 +42,32 @@
                     </a:molecule.metadataList>
                 </f:if>
 
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-hero-event__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                <f:if condition="{data.cta_label} || {data.secondary_label} || {data.note}">
+                    <a:layout.stack gap="3" align="start">
+                        <f:if condition="{data.cta_label} || {data.secondary_label}">
+                            <a:molecule.buttonGroup>
+                                <f:if condition="{data.cta_label}">
+                                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                                </f:if>
+                                <f:if condition="{data.secondary_label}">
+                                    <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                                </f:if>
+                            </a:molecule.buttonGroup>
                         </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
-                        </f:if>
-                    </a:molecule.buttonGroup>
-                </f:if>
 
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-hero-event__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        </f:if>
+                    </a:layout.stack>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-hero-event__media">
+                <a:molecule.figure class="g-hero-event__media">
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="eager" class="g-hero-event__image"/>
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="eager"/>
                     </f:for>
-                </div>
+                </a:molecule.figure>
             </f:if>
 
         </a:layout.split>

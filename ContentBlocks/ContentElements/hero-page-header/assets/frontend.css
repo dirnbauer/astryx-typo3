@@ -1,8 +1,9 @@
 /*
- * Page Header
+ * Page Header — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The titles are a SectionIntro in a Toolbar, the rule a Divider. What stays
+ * here is the band's rhythm and how the title and its action share a line.
+ * Tokens only, and the audit enforces it.
  */
 
 /* This is the one hero built to sit flush under a sticky navigation, so it
@@ -15,46 +16,16 @@
   --section-gap: var(--spacing-6);
 }
 
+/* Title and action rest on one baseline line; the titles take the room the
+   action leaves, which is also what lets a centred title centre itself. */
 .g-hero-page-header__bar {
   align-items: flex-end;
   gap: var(--spacing-4);
 }
 
 .g-hero-page-header__titles {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
+  flex: 1 1 auto;
   min-inline-size: 0;
-}
-
-.g-hero-page-header[data-align="center"] .g-hero-page-header__titles {
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
-}
-
-.g-hero-page-header__subheader {
-  color: var(--color-text-secondary);
-  max-inline-size: 46rem;
-}
-
-.g-hero-page-header__action {
-  flex: 0 0 auto;
-}
-
-.g-hero-page-header__rule {
-  margin-block-start: var(--spacing-5);
-}
-
-.g-hero-page-header[data-surface="accent"] .g-hero-page-header__subheader,
-.g-hero-page-header[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-hero-page-header[data-surface="accent"] .g-hero-page-header__rule {
-  background-color: currentColor;
-  opacity: 0.3;
 }
 
 @media (max-width: 640px) {
@@ -66,6 +37,7 @@
   }
 
   .g-hero-page-header__action {
-    display: flex;
+    margin-inline-start: 0;
+    justify-content: flex-start;
   }
 }

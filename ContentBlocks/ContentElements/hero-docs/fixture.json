@@ -3,27 +3,27 @@
     "eyebrow": "Documentation Hero",
     "header": "The top of a documentation home page",
     "lead": "Product name, one line of text, a search field, a version badge and quick links. Search sends “q” as a normal page request, so it works without JavaScript.",
-    "badge_text": "Version badge",
+    "badge_text": "Astryx 0.6.2",
     "cta_label": "Search",
-    "cta_link": "#",
+    "cta_link": "{{page:search}}",
     "tone": "surface",
     "width": "lg",
     "compact": 0,
     "links": [
         {
-            "title": "Quick links",
-            "description": "Two to six, each with a title and one line.",
-            "link": "#"
+            "title": "All components",
+            "description": "250 elements in ten chapters.",
+            "link": "{{page:components}}"
         },
         {
-            "title": "Shown as a grid",
-            "description": "Six links in one column would push the search off the screen.",
-            "link": "#"
+            "title": "Themes",
+            "description": "Twenty-five themes, each in light and dark.",
+            "link": "{{page:themes}}"
         },
         {
-            "title": "Plain links",
-            "description": "No script and no typeahead. Search engines can follow them.",
-            "link": "#"
+            "title": "Search",
+            "description": "Find an element by name or by what it is for.",
+            "link": "{{page:search}}"
         }
     ]
 }

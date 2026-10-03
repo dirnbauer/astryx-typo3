@@ -9,19 +9,22 @@
     "align": "start",
     "routes": [
         {
-            "title": "Two to four cards",
-            "description": "Fewer works as a link list, more as a menu.",
-            "link": "#"
+            "title": "Browse the components",
+            "description": "250 elements in ten chapters.",
+            "link": "{{page:components}}",
+            "icon": "layout-grid"
         },
         {
-            "title": "The whole card is the link",
-            "description": "The title is not a second link inside it.",
-            "link": "#"
+            "title": "Compare the themes",
+            "description": "Twenty-five themes, each in light and dark.",
+            "link": "{{page:themes}}",
+            "icon": "layers"
         },
         {
-            "title": "One line each",
-            "description": "The description is one line, never a paragraph.",
-            "link": "#"
+            "title": "Search the catalogue",
+            "description": "Find an element by what it is for.",
+            "link": "{{page:search}}",
+            "icon": "search"
         }
     ]
 }

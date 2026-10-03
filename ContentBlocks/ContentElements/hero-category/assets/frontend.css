@@ -1,77 +1,35 @@
 /*
- * Category Hero
+ * Category Hero — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The copy is a SectionIntro under a row of Eyebrow and Badge, the picture a
+ * Thumbnail. What stays here is the band's bottom edge and the row the copy
+ * and the picture share. Tokens only, and the audit enforces it.
  */
 
 /* This band introduces the list that follows it. Ordinary bottom spacing would
-   read as a gap between two unrelated sections, so it is deliberately smaller
-   than every other hero in the group. */
+   read as a gap between two unrelated sections, so it ends sooner than every
+   other hero in the group. */
 .g-hero-category {
-  --section-gap: var(--astryx-band-tight);
   padding-block-end: var(--spacing-6);
 }
 
+/* Copy at the start, the picture at the far end: the band spans the container
+   like the list below it, instead of ending where the lead does. */
 .g-hero-category__band {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: var(--spacing-8);
 }
 
 .g-hero-category__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  max-inline-size: 44rem;
   flex: 1 1 auto;
-}
-
-.g-hero-category__copy[data-align="center"] {
-  margin-inline: auto;
-  align-items: center;
-  text-align: center;
-}
-
-.g-hero-category__flags {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
-.g-hero-category__lead {
-  color: var(--color-text-secondary);
-}
-
-/* Decoration, not content: it never grows and it is the first thing dropped
-   when the band gets narrow. */
-.g-hero-category__media {
-  flex: 0 0 auto;
-}
-
-.g-hero-category__image {
-  display: block;
-  inline-size: var(--spacing-12);
-  block-size: var(--spacing-12);
-  object-fit: cover;
-  border-radius: var(--radius-element);
-}
-
-.g-hero-category[data-surface="accent"] .g-hero-category__lead,
-.g-hero-category[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
+  min-inline-size: 0;
 }
 
 @media (max-width: 640px) {
-  .g-hero-category__band[data-variant="has-media"] {
+  .g-hero-category__band {
     align-items: flex-start;
     gap: var(--spacing-4);
-  }
-
-  .g-hero-category__copy {
-    max-inline-size: none;
   }
 }

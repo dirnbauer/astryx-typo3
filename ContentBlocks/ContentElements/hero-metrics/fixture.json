@@ -3,31 +3,31 @@
     "eyebrow": "Hero with Metrics",
     "header": "Headline and text, then a row of figures",
     "lead": "Two to four numbers under the text, each with a label and optional unit. All figures share one size, whatever their number of digits.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
-    "secondary_label": "Secondary action",
-    "secondary_link": "#",
+    "cta_label": "Browse all components",
+    "cta_link": "{{page:components}}",
+    "secondary_label": "See the themes",
+    "secondary_link": "{{page:themes}}",
     "tone": "body",
     "align": "start",
     "width": "lg",
     "metrics": [
         {
-            "value": "2",
-            "unit": "",
-            "title": "Minimum figures",
-            "text": "One figure works better as a sentence."
+            "value": "250",
+            "unit": "elements",
+            "title": "In ten chapters",
+            "text": "Each one is placed on a page of this catalogue."
         },
         {
-            "value": "4",
-            "unit": "",
-            "title": "Maximum figures",
-            "text": "Readers stop taking in figures after four."
+            "value": "25",
+            "unit": "themes",
+            "title": "Switchable per page",
+            "text": "Every one in light and dark."
         },
         {
-            "value": "1",
-            "unit": "",
-            "title": "Type size",
-            "text": "Every figure uses it, however many digits it has."
+            "value": "90",
+            "unit": "%",
+            "title": "Without JavaScript",
+            "text": "At least nine in ten elements need none."
         }
     ]
 }

@@ -9,54 +9,50 @@
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-hero-app__grid">
 
-            <div class="g-hero-app__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:layout.stack gap="6" align="start">
+                <a:molecule.sectionIntro headingType="display-2">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
 
-                <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-hero-app__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.stores}">
-                    <ul class="g-hero-app__stores">
-                        <f:for each="{data.stores}" as="store">
-                            <li>
-                                <a:molecule.item interactive="interactive" class="g-hero-app__store" parameter="{store.link}">
-                                    <f:comment>
-                                        One glyph for every store: the child carries the
-                                        platform name, so no store artwork — with its own
-                                        trademark rules — has to be uploaded at all.
-                                    </f:comment>
-                                    <svg class="g-hero-app__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false">
-                                        <path d="M12 3v11m0 0 4-4m-4 4-4-4"/>
-                                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
-                                    </svg>
-                                    <a:molecule.itemContent>
-                                        <f:if condition="{store.description}">
-                                            <a:molecule.itemDescription>{store.description}</a:molecule.itemDescription>
+                <f:if condition="{data.stores} || {data.note}">
+                    <a:layout.stack gap="3" align="start" class="g-hero-app__get">
+                        <f:if condition="{data.stores}">
+                            <f:comment>
+                                One button per store. The child carries the platform name, the
+                                line in front of it and its own icon from the shared set, so no
+                                store artwork — with its own trademark rules — has to be
+                                uploaded at all. "Sparkles" is the set's default and names no
+                                store, so it falls back to the download glyph; "None" shows no
+                                glyph. Button resolves the link field itself, target included.
+                            </f:comment>
+                            <a:molecule.buttonGroup class="g-hero-app__stores">
+                                <f:for each="{data.stores}" as="store">
+                                    <a:atom.button variant="primary" size="lg" parameter="{store.link}" class="g-hero-app__store">
+                                        <f:variable name="storeIcon" value="{f:if(condition: '{store.icon} && {store.icon} != \'sparkles\'', then: store.icon, else: 'download')}"/>
+                                        <f:if condition="{storeIcon} != 'none'">
+                                            <a:atom.icon name="{storeIcon}"/>
                                         </f:if>
-                                        <a:molecule.itemLabel class="g-hero-app__store-name">{store.title}</a:molecule.itemLabel>
-                                    </a:molecule.itemContent>
-                                </a:molecule.item>
-                            </li>
-                        </f:for>
-                    </ul>
-                </f:if>
+                                        {f:if(condition: store.description, then: '{store.description} ')}{store.title}
+                                    </a:atom.button>
+                                </f:for>
+                            </a:molecule.buttonGroup>
+                        </f:if>
 
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-hero-app__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        </f:if>
+                    </a:layout.stack>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-hero-app__media">
+                <a:molecule.figure class="g-hero-app__media">
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="560" loading="eager" class="g-hero-app__image"/>
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="560" loading="eager"/>
                     </f:for>
-                </div>
+                </a:molecule.figure>
             </f:if>
 
         </a:layout.split>

@@ -7,52 +7,57 @@
 
 <a:layout.section surface="{data.tone}" class="g-hero-quote">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-quote__copy" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
-
-            <f:if condition="{data.header}">
-                <a:atom.heading level="3" class="g-hero-quote__header">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            </f:if>
-
-            <figure class="g-hero-quote__figure">
+        <a:layout.stack gap="6" align="{data.align}">
+            <f:if condition="{data.eyebrow} || {data.header}">
                 <f:comment>
-                    quote_text is stored without quotation marks so the same
-                    sentence can be reused where a different pair — or none —
-                    is wanted; the marks here are drawn, not typed.
+                    The header is the band's heading, set quietly: the quotation
+                    below carries the band, the heading only says what it is about.
                 </f:comment>
-                <a:molecule.blockquote class="g-hero-quote__quote">
-                    <p class="g-hero-quote__text">{data -> f:render.text(field: 'quote_text')}</p>
+                <a:molecule.sectionIntro headingType="heading-3" align="{data.align}">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
+
+            <f:comment>
+                quote_text is stored without quotation marks so the same sentence
+                can be reused where a different pair — or none — is wanted; the
+                Blockquote adds the pair the page's language uses.
+            </f:comment>
+            <a:molecule.figure align="{data.align}" class="g-hero-quote__figure">
+                <a:molecule.blockquote size="display" variant="plain" marks="auto">
+                    <p>{data -> f:render.text(field: 'quote_text')}</p>
                 </a:molecule.blockquote>
 
                 <f:if condition="{data.author} || {data.image}">
-                    <figcaption class="g-hero-quote__attribution">
-                        <f:if condition="{data.image}">
-                            <a:atom.avatar class="g-hero-quote__portrait">
-                                <f:for each="{data.image}" as="image">
-                                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="128" height="128" loading="eager"/>
-                                </f:for>
-                            </a:atom.avatar>
-                        </f:if>
-                        <span class="g-hero-quote__attribution-text">
-                            <f:if condition="{data.author}">
-                                <span class="g-hero-quote__author">{data -> f:render.text(field: 'author')}</span>
+                    <a:molecule.citation>
+                        <a:layout.stack orientation="horizontal" gap="3">
+                            <f:if condition="{data.image}">
+                                <a:atom.avatar size="lg">
+                                    <f:for each="{data.image}" as="image">
+                                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="128c" height="128c" loading="eager"/>
+                                    </f:for>
+                                </a:atom.avatar>
                             </f:if>
-                            <f:if condition="{data.role}">
-                                <a:atom.text type="supporting" as="span" class="g-hero-quote__role">{data -> f:render.text(field: 'role')}</a:atom.text>
-                            </f:if>
-                        </span>
-                    </figcaption>
+                            <a:layout.stack gap="1" align="start">
+                                <f:if condition="{data.author}">
+                                    <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                                </f:if>
+                                <f:if condition="{data.role}">
+                                    <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </a:layout.stack>
+                    </a:molecule.citation>
                 </f:if>
-            </figure>
+            </a:molecule.figure>
 
             <f:if condition="{data.cta_label}">
-                <a:molecule.buttonGroup class="g-hero-quote__actions">
+                <a:molecule.buttonGroup>
                     <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </a:molecule.buttonGroup>
             </f:if>
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

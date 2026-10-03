@@ -1,6 +1,11 @@
 /*
  * Rotating Backdrop Hero
  *
+ * Layout only. Which view shows, the fade, the pause control and the dots are
+ * the Slideshow and PaginationDot components'; what sits on the photo takes
+ * its colours from the Overlay's scrim. This file places the views and the
+ * copy in the frame.
+ *
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
@@ -11,27 +16,10 @@
   min-block-size: min(70svh, 40rem);
 }
 
-.g-hero-slideshow__slide {
+/* The views fill the frame; the copy sets its height. */
+.g-hero-slideshow__slides,
+.g-hero-slideshow__scrim {
   grid-area: 1 / 1;
-  margin: 0;
-  opacity: 0;
-  transition: opacity var(--duration-medium) var(--ease-standard);
-}
-
-/* Without a fragment in the address the first backdrop is the one on show. */
-.g-hero-slideshow__slide:first-of-type {
-  opacity: 1;
-}
-
-/* As soon as any slide is targeted, none of them is on show by default —
-   and the rule after this one brings the targeted one back. Order matters:
-   the two selectors weigh the same. */
-.g-hero-slideshow__frame:has(.g-hero-slideshow__slide:target) .g-hero-slideshow__slide {
-  opacity: 0;
-}
-
-.g-hero-slideshow__frame .g-hero-slideshow__slide:target {
-  opacity: 1;
 }
 
 .g-hero-slideshow__image {
@@ -42,13 +30,11 @@
 }
 
 .g-hero-slideshow__scrim {
-  grid-area: 1 / 1;
   position: relative;
   display: flex;
   justify-content: flex-end;
   padding: 0;
   padding-block: var(--astryx-band);
-  background-color: color-mix(in srgb, var(--color-overlay) 45%, transparent);
 }
 
 .g-hero-slideshow[data-surface="accent"] .g-hero-slideshow__scrim {
@@ -63,7 +49,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-4);
-  color: var(--color-on-dark);
 }
 
 .g-hero-slideshow__copy[data-align="center"] {
@@ -72,54 +57,17 @@
 }
 
 .g-hero-slideshow__headline,
-.g-hero-slideshow__lead,
-.g-hero-slideshow__eyebrow {
-  color: currentColor;
+.g-hero-slideshow__lead {
   max-inline-size: 40rem;
 }
 
-.g-hero-slideshow__lead {
-  opacity: 0.9;
-}
-
-.g-hero-slideshow__actions {
-  margin-block-start: var(--spacing-2);
-}
-
+.g-hero-slideshow__actions,
 .g-hero-slideshow__dots {
-  margin: var(--spacing-4) 0 0;
-  padding-inline-start: 0;
-  list-style: none;
-  /* The dots carry their own separation as padding now (see below), so a gap
-     on top of it would only push the row apart twice. */
-  gap: 0;
-}
-
-/* A dot drawn at 8px is an 8px tap target, and WCAG 2.2 wants 24. The mark
-   stays 8px and the padding does the growing: content-box keeps the declared
-   size on the content box, and clipping the background to it keeps the paint
-   on the mark — a content-box radius derived from radius-full is still a full
-   round, so the dot stays a circle rather than becoming a square. */
-.g-hero-slideshow__dot {
-  display: block;
-  box-sizing: content-box;
-  padding: var(--spacing-2);
-  background-clip: content-box;
-  background-color: color-mix(in srgb, var(--color-on-dark) 45%, transparent);
+  margin-block-start: var(--spacing-2);
 }
 
 @media (max-width: 767px) {
   .g-hero-slideshow__frame {
     min-block-size: 26rem;
-  }
-
-  .g-hero-slideshow__scrim {
-    background-color: color-mix(in srgb, var(--color-overlay) 60%, transparent);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .g-hero-slideshow__slide {
-    transition: none;
   }
 }

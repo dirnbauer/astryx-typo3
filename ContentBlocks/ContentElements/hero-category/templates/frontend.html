@@ -7,31 +7,41 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-hero-category">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-category__band" data-variant="{f:if(condition: data.image, then: 'has-media')}">
+        <div class="g-hero-category__band">
 
-            <div class="g-hero-category__copy" data-align="{data.align}">
-                <p class="g-hero-category__flags">
-                    <f:if condition="{data.eyebrow}">
-                        <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                    </f:if>
-                    <f:if condition="{data.badge_text}">
-                        <a:atom.badge variant="neutral" as="span" class="g-hero-category__count">{data.badge_text}</a:atom.badge>
-                    </f:if>
-                </p>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-hero-category__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
+            <f:comment>
+                The count sits beside the eyebrow, on one line with it, so the
+                eyebrow and the badge are a row of their own above the intro; the
+                gap between the two matches the intro's own.
+            </f:comment>
+            <a:layout.stack gap="3" align="{data.align}" class="g-hero-category__copy">
+                <f:if condition="{data.eyebrow} || {data.badge_text}">
+                    <a:layout.stack orientation="horizontal" gap="2">
+                        <f:if condition="{data.eyebrow}">
+                            <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                        </f:if>
+                        <f:if condition="{data.badge_text}">
+                            <a:atom.badge variant="neutral">{data.badge_text}</a:atom.badge>
+                        </f:if>
+                    </a:layout.stack>
                 </f:if>
-            </div>
+
+                <a:molecule.sectionIntro headingType="display-3" leadType="body" align="{data.align}">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-hero-category__media">
+                <f:comment>
+                    Decoration, not content: a Thumbnail never grows, and it is the
+                    first thing to give way when the band gets narrow.
+                </f:comment>
+                <a:atom.thumbnail>
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="320" height="320" loading="eager" class="g-hero-category__image"/>
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="160c" height="160c" loading="eager"/>
                     </f:for>
-                </div>
+                </a:atom.thumbnail>
             </f:if>
 
         </div>

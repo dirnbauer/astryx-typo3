@@ -7,46 +7,47 @@
 
 <a:layout.section surface="{data.tone}" class="g-hero-metrics">
     <a:layout.container size="{data.width}">
-        <div class="g-hero-metrics__copy" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+        <a:layout.stack gap="12">
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack gap="6" align="{data.align}">
+                <a:molecule.sectionIntro headingType="display-2" align="{data.align}">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-hero-metrics__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <a:molecule.buttonGroup class="g-hero-metrics__actions">
-                    <f:if condition="{data.cta_label}">
-                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </f:if>
-                    <f:if condition="{data.secondary_label}">
-                        <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
-                    </f:if>
-                </a:molecule.buttonGroup>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.metrics}">
-            <a:atom.divider class="g-hero-metrics__rule" />
-
-            <a:layout.grid as="dl" cols="4" class="g-hero-metrics__figures">
-                <f:for each="{data.metrics}" as="metric">
-                    <div class="g-hero-metrics__figure">
-                        <a:atom.text type="label" as="dt" class="g-hero-metrics__label">{metric -> f:render.text(field: 'title')}</a:atom.text>
-                        <dd class="g-hero-metrics__value">
-                            <span class="g-hero-metrics__number">{metric -> f:render.text(field: 'value')}</span><f:if condition="{metric.unit}"><span class="g-hero-metrics__unit">{metric.unit}</span></f:if>
-                        </dd>
-                        <f:if condition="{metric.text}">
-                            <a:atom.text type="supporting" as="dd" class="g-hero-metrics__note">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <a:molecule.buttonGroup>
+                        <f:if condition="{data.cta_label}">
+                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
-                    </div>
-                </f:for>
-            </a:layout.grid>
-        </f:if>
+                        <f:if condition="{data.secondary_label}">
+                            <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                        </f:if>
+                    </a:molecule.buttonGroup>
+                </f:if>
+            </a:layout.stack>
+
+            <f:if condition="{data.metrics}">
+                <f:comment>
+                    One description list for the row, one Stat group per figure: the
+                    label is the term and the figure its description, read figure
+                    first on screen. Every figure takes the same display step, and
+                    each is ruled off on its own, so a wrapped row keeps its rules.
+                </f:comment>
+                <a:layout.grid as="dl" cols="4" class="g-hero-metrics__figures">
+                    <f:for each="{data.metrics}" as="metric">
+                        <a:molecule.stat rule="top" align="{data.align}">
+                            <f:fragment name="value">{metric -> f:render.text(field: 'value')}</f:fragment>
+                            <f:fragment name="unit">{metric.unit}</f:fragment>
+                            <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
+                            <f:fragment name="note">{metric -> f:render.text(field: 'text')}</f:fragment>
+                        </a:molecule.stat>
+                    </f:for>
+                </a:layout.grid>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -1,98 +1,41 @@
 /*
- * App Download Hero
+ * App Download Hero — layout only.
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * The copy is a SectionIntro, the store links are Buttons, the shot is a
+ * Figure. What stays here is the column count, the size of a portrait shot
+ * and the phone row of store buttons. Tokens only, and the audit enforces it.
  */
 
-.g-hero-app__grid {
+.g-hero-app__grid:not(:has(.g-hero-app__media)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* A phone shot is portrait: at full column width it would tower over the
+   copy, so it is capped by height and centred in its column instead. */
+.g-hero-app__media {
   align-items: center;
 }
 
-.g-hero-app__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  max-inline-size: 36rem;
-}
-
-.g-hero-app__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-hero-app__stores {
-  margin: var(--spacing-2) 0 0;
-  padding-inline-start: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-3);
-}
-
-/* Store rows are two-line targets, so they get a border of their own instead
-   of the button height, which cannot hold both lines. */
-.g-hero-app__store {
-  border: var(--border-width) solid var(--color-border-emphasized);
-  padding-inline: var(--spacing-3);
-  padding-block: var(--spacing-2);
-  text-decoration: none;
-  color: inherit;
-  min-inline-size: 11rem;
-}
-
-.g-hero-app__glyph {
-  flex: 0 0 auto;
-  inline-size: var(--spacing-6);
-  block-size: var(--spacing-6);
-}
-
-.g-hero-app__store-name {
-  font-weight: var(--font-weight-semibold);
-}
-
-.g-hero-app__note {
-  margin: 0;
-}
-
-.g-hero-app__media {
-  display: flex;
-  justify-content: center;
-}
-
-/* A phone shot is portrait: at full column width it would tower over the copy,
-   so it is capped rather than stretched. */
-.g-hero-app__image {
+.g-hero-app__media > img {
   inline-size: auto;
-  max-inline-size: 100%;
   max-block-size: 32rem;
-  block-size: auto;
-  filter: drop-shadow(var(--shadow-med));
-}
-
-.g-hero-app[data-surface="accent"] .g-hero-app__lead,
-.g-hero-app[data-surface="accent"] .g-hero-app__note,
-.g-hero-app[data-surface="accent"] .astryx-eyebrow,
-.g-hero-app[data-surface="accent"] .astryx-item-description {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-hero-app[data-surface="accent"] .g-hero-app__store {
-  border-color: currentColor;
 }
 
 @media (max-width: 767px) {
-  .g-hero-app__copy {
-    max-inline-size: none;
-  }
-
-  .g-hero-app__image {
+  .g-hero-app__media > img {
     max-block-size: 22rem;
   }
 }
 
+/* On a phone each store gets its own full-width row, so the two targets never
+   end up as one wide and one wrapped button. */
 @media (max-width: 480px) {
+  .g-hero-app__get,
+  .g-hero-app__stores {
+    align-self: stretch;
+  }
+
   .g-hero-app__store {
-    min-inline-size: 100%;
+    flex: 1 1 100%;
   }
 }

@@ -4,23 +4,27 @@
     "header": "A large search field with suggested queries",
     "lead": "The field sends “q” to the results page. The suggestions below are plain links, so they work without JavaScript and search engines can follow them.",
     "cta_label": "Search",
-    "cta_link": "#",
+    "cta_link": "{{page:search}}",
     "tone": "surface",
     "align": "center",
     "width": "lg",
     "compact": 0,
     "suggestions": [
         {
-            "title": "Zero to six suggestions",
-            "link": "#"
+            "title": "Carousel",
+            "link": "{{page:search}} - - - &q=carousel"
         },
         {
-            "title": "Each one a plain link",
-            "link": "#"
+            "title": "Pricing",
+            "link": "{{page:search}} - - - &q=pricing"
         },
         {
-            "title": "The field sends q",
-            "link": "#"
+            "title": "Accordion",
+            "link": "{{page:search}} - - - &q=accordion"
+        },
+        {
+            "title": "Testimonial",
+            "link": "{{page:search}} - - - &q=testimonial"
         }
     ]
 }

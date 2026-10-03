@@ -7,13 +7,19 @@
 
 <a:layout.section spacing="flush" surface="{data.tone}" variant="{data.variant}" class="g-hero-backdrop">
     <f:comment>
-        The scrim is what makes the type legible, so its strength follows the
-        tone rather than the photograph: an editor picks a mood, not an
-        opacity, and never has to darken the file before uploading it. It is
-        Overlay's own region now, which is what keeps the scrim's classes and
-        the overlay's attributes saying the same thing.
+        The scrim is what makes the type legible, and it is Overlay's: its dark
+        tone re-scopes the colour tokens for everything on it, so the headline,
+        the lead and both buttons read on any photograph without this element
+        choosing a single colour. The editor picks a mood, not an opacity:
+        "Raised surface" lays a light wash over the picture instead of a dark
+        one, every other tone keeps the dark scrim. Square corners: the band
+        runs edge to edge.
     </f:comment>
-    <a:molecule.overlay class="g-hero-backdrop__frame" scrimClass="g-hero-backdrop__scrim">
+    <a:molecule.overlay
+        tone="{f:if(condition: '{data.tone} == \'surface\'', then: 'light', else: 'dark')}"
+        radius="none"
+        class="g-hero-backdrop__frame"
+        scrimClass="g-hero-backdrop__scrim">
         <f:fragment>
             <f:for each="{data.image}" as="image">
                 <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="2200" loading="eager" class="g-hero-backdrop__image"/>
@@ -21,27 +27,25 @@
         </f:fragment>
 
         <f:fragment name="scrim">
-            <a:layout.container size="{data.width}" align="{data.align}" class="g-hero-backdrop__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow class="g-hero-backdrop__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:layout.container size="{data.width}">
+                <a:layout.stack gap="6" align="{data.align}">
+                    <a:molecule.sectionIntro headingType="display-2" align="{data.align}">
+                        <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                    </a:molecule.sectionIntro>
 
-                <a:atom.heading level="2" type="heading-1" class="g-hero-backdrop__headline">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-hero-backdrop__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-hero-backdrop__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                        </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
-                        </f:if>
-                    </a:molecule.buttonGroup>
-                </f:if>
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <a:molecule.buttonGroup>
+                            <f:if condition="{data.cta_label}">
+                                <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <a:atom.button variant="secondary" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                            </f:if>
+                        </a:molecule.buttonGroup>
+                    </f:if>
+                </a:layout.stack>
             </a:layout.container>
         </f:fragment>
     </a:molecule.overlay>
