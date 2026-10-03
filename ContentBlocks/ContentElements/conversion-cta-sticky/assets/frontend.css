@@ -1,6 +1,9 @@
 /*
  * Sticky Bottom CTA
  *
+ * Layout only: where the bar sticks and when it is allowed to. The surface,
+ * the rule along its top edge, the type and the buttons are the components'
+ * own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
@@ -9,50 +12,45 @@
    the column, so it can only float for as long as that column is on screen —
    which is what stops it from ever reaching the page footer. */
 .g-conversion-cta-sticky {
-  --section-gap: var(--spacing-3);
-  position: sticky;
-  inset-block-end: 0;
   z-index: 1;
-  box-shadow: var(--shadow-med);
+}
+
+/* A floating bar covers the bottom of whatever scrolls past it, so it only
+   floats where it is one slim row on a window tall enough to spare it. On a
+   phone the bar wraps to several lines and a landscape phone has barely more
+   than a bar's worth of height: there it simply sits where it was placed.
+   Nothing in the bar changes size while it floats — a bar that shrank when it
+   stuck would come unstuck, grow and stick again, and flicker. */
+@media (min-width: 768px) and (min-height: 30rem) {
+  .g-conversion-cta-sticky {
+    position: sticky;
+    inset-block-end: 0;
+  }
+
+  /* A control that receives focus is scrolled clear of the floating bar
+     rather than left underneath it (WCAG 2.4.11, focus not obscured). A page
+     that also has a floating section keeps that section's larger padding. */
+  :root:has(.g-conversion-cta-sticky):not(:has(.astryx-section[data-elevation="floating"])) {
+    scroll-padding-block-end: calc(var(--spacing-12) * 2 + var(--spacing-6));
+  }
 }
 
 .g-conversion-cta-sticky__bar {
   flex-wrap: wrap;
+  padding-block: var(--spacing-3);
 }
 
 .g-conversion-cta-sticky__copy {
-  display: flex;
+  flex: 1 1 20rem;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-0-5);
   min-inline-size: 0;
 }
 
-.g-conversion-cta-sticky__text,
-.g-conversion-cta-sticky__note {
-  margin: 0;
-}
-
 .g-conversion-cta-sticky__actions {
   flex: 0 0 auto;
   gap: var(--spacing-4);
-}
-
-.g-conversion-cta-sticky[data-surface="accent"] .g-conversion-cta-sticky__text,
-.g-conversion-cta-sticky[data-surface="accent"] .g-conversion-cta-sticky__note,
-.g-conversion-cta-sticky[data-surface="accent"] .g-conversion-cta-sticky__secondary {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-/* A landscape phone has barely more than a bar's worth of height, and a bar
-   that covers the paragraph it argues about has stopped helping. Below that
-   the band gives up sticking and simply sits where it was placed. */
-@media (max-height: 30rem) {
-  .g-conversion-cta-sticky {
-    position: static;
-    box-shadow: none;
-  }
 }
 
 @media (max-width: 640px) {

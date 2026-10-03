@@ -8,32 +8,30 @@
 <f:comment>
     The strip sits inside running text, so it keeps a heading rather than a
     styled paragraph: a reader skimming by headings has to be able to tell
-    that the article was interrupted and by what.
+    that the article was interrupted and by what. It is a banner title — a
+    real h2 set at body size — because it names a note, not a section, and an
+    h5 straight under the page's h1 skipped three levels of the outline.
+
+    The banner is an aside, so its title names the landmark. It is the compact
+    banner: a sentence and a button in a slim box, not a panel.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-conversion-cta-inline">
     <a:layout.container size="{data.width}">
-        <a:molecule.banner class="g-conversion-cta-inline__strip">
+        <a:molecule.banner density="compact" ariaLabelledby="g-conversion-cta-inline-{data.uid}" class="g-conversion-cta-inline__strip">
+            <f:fragment name="icon"><f:if condition="{data.icon}"><a:atom.featureIcon icon="{data.icon}" /></f:if></f:fragment>
+            <f:fragment>
+                <a:molecule.bannerContent class="g-conversion-cta-inline__copy">
+                    <a:molecule.bannerTitle level="2" id="g-conversion-cta-inline-{data.uid}">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
+                    <f:if condition="{data.text}">
+                        <a:molecule.bannerBody>{data -> f:render.text(field: 'text')}</a:molecule.bannerBody>
+                    </f:if>
+                </a:molecule.bannerContent>
 
-            <f:if condition="{data.icon}">
-                <f:comment>
-                    The tile carries the semantic key rather than a glyph, so
-                    swapping icon library never reaches into a template.
-                </f:comment>
-                <a:atom.featureIcon icon="{data.icon}" class="g-conversion-cta-inline__icon" />
-            </f:if>
-
-            <a:molecule.bannerContent class="g-conversion-cta-inline__copy">
-                <a:atom.heading level="5">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                <f:if condition="{data.text}">
-                    <a:atom.text type="supporting" class="g-conversion-cta-inline__text">{data -> f:render.text(field: 'text')}</a:atom.text>
+                <f:if condition="{data.cta_label}">
+                    <a:atom.button variant="primary" class="g-conversion-cta-inline__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </f:if>
-            </a:molecule.bannerContent>
-
-            <f:if condition="{data.cta_label}">
-                <a:atom.button variant="primary" class="g-conversion-cta-inline__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </f:if>
-
+            </f:fragment>
         </a:molecule.banner>
     </a:layout.container>
 </a:layout.section>

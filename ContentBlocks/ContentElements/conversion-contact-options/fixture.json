@@ -4,34 +4,34 @@
     "subheader": "Chat, phone, email, help centre, status page or a walk-in counter.",
     "lead": "One style gives each channel a card, the other a row with a line below. Nothing else changes between the two.",
     "variant": "cards",
-    "columns": "3",
+    "columns": "2",
     "align": "start",
     "note": "Use tel: and mailto: links so phones open the right app. Put opening hours in each entry, not in this note.",
     "tone": "body",
     "channels": [
         {
             "icon": "phone",
-            "title": "A tel: entry",
-            "description": "The number goes in the description, the tel: link on the title.",
-            "link": "#"
+            "title": "Telephone",
+            "description": "+43 2626 20156, Monday to Thursday 8:00–18:00, Friday 8:00–16:00.",
+            "link": "tel:+43262620156"
         },
         {
             "icon": "mail",
-            "title": "A mailto: entry",
-            "description": "Add a response time your team can keep.",
-            "link": "#"
+            "title": "Email",
+            "description": "office@webconsulting.at, for general enquiries.",
+            "link": "mailto:office@webconsulting.at"
         },
         {
             "icon": "book-open",
-            "title": "An always-open entry",
-            "description": "Help pages are open all the time, so hours belong in each row, not in the band.",
-            "link": "#"
+            "title": "Component catalogue",
+            "description": "Every Astryx element with a live example, open at any hour.",
+            "link": "{{page:components}}"
         },
         {
             "icon": "map-pin",
-            "title": "A walk-in entry",
-            "description": "Address and opening hours, in the same format as the other entries.",
-            "link": "#"
+            "title": "Office, Mattersburg",
+            "description": "Johann Nepomuk Berger-Straße 7/2/14, 7210 Mattersburg. Monday to Thursday 8:00–18:00, Friday 8:00–16:00.",
+            "link": "https://maps.google.com/?q=Johann+Nepomuk+Berger-Stra%C3%9Fe+7,+7210+Mattersburg"
         }
     ]
 }

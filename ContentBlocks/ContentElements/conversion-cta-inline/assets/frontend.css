@@ -1,6 +1,9 @@
 /*
  * Inline CTA Strip
  *
+ * Layout only: one row that wraps on a phone, the copy giving way before the
+ * button does. The strip's box, its compact density, the tile, the title and
+ * the stacking below 480px are the Banner's and its parts'.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
@@ -10,40 +13,16 @@
   flex-wrap: wrap;
 }
 
-.g-conversion-cta-inline[data-spacing="tight"] .g-conversion-cta-inline__strip {
-  padding: var(--spacing-3);
-}
-
-.g-conversion-cta-inline__icon {
-  /* The tile must not stretch to the height of a wrapped strip. */
-  flex: 0 0 auto;
-  align-self: flex-start;
-}
-
+/* The copy gives way before the button does: it shrinks down to a readable
+   measure, and only then does the row wrap. */
 .g-conversion-cta-inline__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-}
-
-.g-conversion-cta-inline__text {
-  margin: 0;
+  flex: 1 1 16rem;
 }
 
 /* The button keeps its full size when the row runs out of room: shrinking it
    is what would take it below a comfortable tap target. */
 .g-conversion-cta-inline__action {
   flex: 0 0 auto;
-}
-
-.g-conversion-cta-inline[data-surface="accent"] .astryx-banner {
-  background-color: transparent;
-  color: currentColor;
-}
-
-.g-conversion-cta-inline[data-surface="accent"] .g-conversion-cta-inline__text {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 640px) {

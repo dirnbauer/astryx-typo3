@@ -10,25 +10,25 @@
     on a phone who is already willing to ring should not have to open a form
     to find out what to dial, so the label is the number and the link is a
     tel: URL the dialler understands.
+
+    The card is the whole band, so its heading is the band's: an h2, like every
+    other band on the page. The subheader is the intro's lead; the lead, when
+    there is one, is a quieter paragraph after it.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-conversion-callback" align="{data.align}">
     <a:layout.container size="md">
-        <a:molecule.card class="g-conversion-callback__card">
+        <a:molecule.card density="{f:if(condition: data.compact, then: 'tight', else: 'default')}" align="{data.align}" class="g-conversion-callback__card">
 
             <f:if condition="{data.icon}">
                 <a:atom.featureIcon icon="{data.icon}" />
             </f:if>
 
-            <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-conversion-callback__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-conversion-callback__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead"><f:if condition="{data.subheader}">{data -> f:render.text(field: 'subheader')}</f:if></f:fragment>
+                <f:fragment><f:if condition="{data.lead}"><a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text></f:if></f:fragment>
+            </a:molecule.sectionIntro>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
                 <a:molecule.buttonGroup class="g-conversion-callback__actions">
@@ -36,13 +36,13 @@
                         <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                     <f:if condition="{data.secondary_label}">
-                        <a:atom.button variant="ghost" size="lg" class="g-conversion-callback__number" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                        <a:atom.button variant="ghost" size="lg" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                     </f:if>
                 </a:molecule.buttonGroup>
             </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-conversion-callback__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
         </a:molecule.card>

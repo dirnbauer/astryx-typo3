@@ -15,50 +15,46 @@
 
 <a:layout.section surface="{data.tone}" class="g-conversion-gated-teaser">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <div class="g-conversion-gated-teaser__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead"><f:if condition="{data.subheader}">{data -> f:render.text(field: 'subheader')}</f:if></f:fragment>
+            </a:molecule.sectionIntro>
+
+            <f:if condition="{data.bodytext}">
+                <div class="astryx-prose g-conversion-gated-teaser__excerpt"><f:format.html>{data.bodytext}</f:format.html></div>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-conversion-gated-teaser__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.bodytext}">
-            <div class="astryx-prose g-conversion-gated-teaser__excerpt"><f:format.html>{data.bodytext}</f:format.html></div>
-        </f:if>
-
-        <a:molecule.card variant="raised" class="g-conversion-gated-teaser__ask">
-            <f:if condition="{data.image}">
-                <div class="g-conversion-gated-teaser__cover">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="360" loading="lazy" class="g-conversion-gated-teaser__image"/>
-                    </f:for>
-                </div>
-            </f:if>
-
-            <div class="g-conversion-gated-teaser__ask-copy">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="body" class="g-conversion-gated-teaser__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            <a:molecule.card variant="raised" class="g-conversion-gated-teaser__ask">
+                <f:if condition="{data.image}">
+                    <a:atom.aspectRatio ratio="portrait" class="g-conversion-gated-teaser__cover">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" width="320" loading="lazy"/>
+                        </f:for>
+                    </a:atom.aspectRatio>
                 </f:if>
 
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-conversion-gated-teaser__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                        </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.link variant="cta" class="g-conversion-gated-teaser__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
-                        </f:if>
-                    </a:molecule.buttonGroup>
-                </f:if>
-            </div>
-        </a:molecule.card>
+                <a:layout.stack gap="4" align="start" class="g-conversion-gated-teaser__ask-copy">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
 
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <a:molecule.buttonGroup class="g-conversion-gated-teaser__actions">
+                            <f:if condition="{data.cta_label}">
+                                <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <a:atom.link variant="cta" class="g-conversion-gated-teaser__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
+                            </f:if>
+                        </a:molecule.buttonGroup>
+                    </f:if>
+                </a:layout.stack>
+            </a:molecule.card>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

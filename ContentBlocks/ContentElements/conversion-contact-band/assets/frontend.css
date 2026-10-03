@@ -1,70 +1,32 @@
 /*
  * Contact Form Band
  *
+ * Layout only: one column when there is no picture, the measure of the copy,
+ * and the actions stacked on a phone. The intro, the picture frame and the
+ * buttons are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-contact-band__grid {
-  align-items: start;
-}
-
+/* Without a picture the split would leave half the band empty. */
 .g-conversion-contact-band__grid:not(:has(.g-conversion-contact-band__media)) {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .g-conversion-contact-band__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
   max-inline-size: 38rem;
-}
-
-.g-conversion-contact-band__subheader,
-.g-conversion-contact-band__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-conversion-contact-band__actions {
-  margin-block-start: var(--spacing-2);
-}
-
-.g-conversion-contact-band__note {
-  margin: 0;
-}
-
-.g-conversion-contact-band__media {
-  display: flex;
-  position: sticky;
-  inset-block-start: var(--spacing-6);
-}
-
-.g-conversion-contact-band__image {
-  inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
-}
-
-.g-conversion-contact-band[data-surface="accent"] .g-conversion-contact-band__subheader,
-.g-conversion-contact-band[data-surface="accent"] .g-conversion-contact-band__lead,
-.g-conversion-contact-band[data-surface="accent"] .g-conversion-contact-band__note,
-.g-conversion-contact-band[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-conversion-contact-band[data-surface="accent"] .astryx-prose :where(a) {
-  color: currentColor;
 }
 
 @media (max-width: 767px) {
   .g-conversion-contact-band__copy {
     max-inline-size: none;
   }
+}
 
-  /* Stacked, the picture is above nothing and has nothing to stick to. */
-  .g-conversion-contact-band__media {
-    position: static;
+@media (max-width: 640px) {
+  .g-conversion-contact-band__actions {
+    flex-direction: column;
+    align-items: stretch;
+    align-self: stretch;
   }
 }

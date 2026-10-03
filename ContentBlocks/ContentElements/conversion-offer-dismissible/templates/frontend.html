@@ -6,51 +6,69 @@
 <f:asset.css identifier="g-conversion-offer-dismissible" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The only behaviour in the group, and it is two attributes: the runtime in
+    The only behaviour in the group, and it is attributes: the runtime in
     astryx.js removes whatever carries data-g-dismissible when a
-    data-g-dismiss control inside it is pressed. Both are the components' —
-    Section's `dismissible` writes the first and Banner's the second — so the
-    pair can never drift apart in a template that copies only one of them.
+    data-g-dismiss control inside it is pressed, moves the keyboard on to the
+    next control, and remembers the decision for thirty days under the band's
+    dismiss key. All three hooks are the components' — Section's `dismissible`
+    and `dismissKey` write the first two and Banner's the third — so they can
+    never drift apart in a template that copies only one of them.
+
+    The bar sits in the flow of the page. The corner card floats over it, at
+    the foot of the window, until it is closed; the key is the element's uid,
+    so closing one offer never hides another.
+
+    The banner is an aside; its title names the landmark. The title is a
+    banner title — an h2 at body size — because the bar names an offer, not a
+    section of the page.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" variant="{data.variant}" dismissible="{true}" class="g-conversion-offer-dismissible">
+<a:layout.section
+    surface="{data.tone}"
+    variant="{data.variant}"
+    elevation="{f:if(condition: '{data.variant} == \'corner-card\'', then: 'floating', else: 'flat')}"
+    dismissible="{true}"
+    dismissKey="offer-{data.uid}"
+    class="g-conversion-offer-dismissible">
     <a:layout.container>
         <a:molecule.banner
+            density="compact"
+            ariaLabelledby="g-conversion-offer-dismissible-{data.uid}"
             class="g-conversion-offer-dismissible__offer"
             dismissible="{true}"
             dismissClass="g-conversion-offer-dismissible__close"
             dismissLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:conversion.dismiss', default: 'Close')}">
 
-            <f:if condition="{data.icon}">
-                <a:atom.featureIcon icon="{data.icon}" class="g-conversion-offer-dismissible__icon" />
-            </f:if>
+            <f:fragment name="icon"><f:if condition="{data.icon}"><a:atom.featureIcon icon="{data.icon}" /></f:if></f:fragment>
 
-            <a:molecule.bannerContent class="g-conversion-offer-dismissible__copy">
-                <f:if condition="{data.badge_text} || {data.eyebrow}">
-                    <p class="g-conversion-offer-dismissible__flags">
-                        <f:if condition="{data.badge_text}">
-                            <a:atom.badge variant="accent" as="span">{data.badge_text}</a:atom.badge>
-                        </f:if>
-                        <f:if condition="{data.eyebrow}">
-                            <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                        </f:if>
-                    </p>
+            <f:fragment>
+                <a:molecule.bannerContent class="g-conversion-offer-dismissible__copy">
+                    <f:if condition="{data.badge_text} || {data.eyebrow}">
+                        <a:layout.stack orientation="horizontal" gap="2">
+                            <f:if condition="{data.badge_text}">
+                                <a:atom.badge variant="accent">{data.badge_text}</a:atom.badge>
+                            </f:if>
+                            <f:if condition="{data.eyebrow}">
+                                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                            </f:if>
+                        </a:layout.stack>
+                    </f:if>
+
+                    <a:molecule.bannerTitle level="2" id="g-conversion-offer-dismissible-{data.uid}">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
+
+                    <f:if condition="{data.text}">
+                        <a:molecule.bannerBody>{data -> f:render.text(field: 'text')}</a:molecule.bannerBody>
+                    </f:if>
+
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:molecule.bannerContent>
+
+                <f:if condition="{data.cta_label}">
+                    <a:atom.button variant="primary" class="g-conversion-offer-dismissible__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </f:if>
-
-                <a:atom.heading level="5">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.text}">
-                    <a:atom.text type="supporting" class="g-conversion-offer-dismissible__text">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-conversion-offer-dismissible__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-            </a:molecule.bannerContent>
-
-            <f:if condition="{data.cta_label}">
-                <a:atom.button variant="primary" class="g-conversion-offer-dismissible__action" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </f:if>
+            </f:fragment>
 
         </a:molecule.banner>
     </a:layout.container>

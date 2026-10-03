@@ -1,74 +1,28 @@
 /*
  * Partner Enquiry Band
  *
+ * Layout only: one column without a picture, the measure of the copy, the gap
+ * between the button and the link, the note's measure and the actions stacked
+ * on a phone. The intro, the features in their list, the picture frame and
+ * the buttons are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-partner-enquiry__grid {
-  align-items: center;
-}
-
 .g-conversion-partner-enquiry__grid:not(:has(.g-conversion-partner-enquiry__media)) {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .g-conversion-partner-enquiry__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
   max-inline-size: 38rem;
 }
 
-.g-conversion-partner-enquiry__subheader,
-.g-conversion-partner-enquiry__lead {
-  color: var(--color-text-secondary);
-}
-
 .g-conversion-partner-enquiry__actions {
-  margin-block-start: var(--spacing-2);
   gap: var(--spacing-5);
 }
 
-.g-conversion-partner-enquiry__media {
-  display: flex;
-}
-
-.g-conversion-partner-enquiry__image {
-  inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
-}
-
-.g-conversion-partner-enquiry__benefits {
-  margin-block: var(--spacing-10) 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-conversion-partner-enquiry__benefit {
-  block-size: 100%;
-  gap: var(--spacing-2);
-}
-
 .g-conversion-partner-enquiry__note {
-  margin-block-start: var(--spacing-6);
   max-inline-size: 44rem;
-}
-
-.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__subheader,
-.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__lead,
-.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__note,
-.g-conversion-partner-enquiry[data-surface="accent"] .g-conversion-partner-enquiry__secondary,
-.g-conversion-partner-enquiry[data-surface="accent"] .astryx-card-body,
-.g-conversion-partner-enquiry[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-conversion-partner-enquiry[data-surface="accent"] .astryx-prose :where(a) {
-  color: currentColor;
 }
 
 @media (max-width: 767px) {
@@ -76,7 +30,19 @@
     max-inline-size: none;
   }
 
-  .g-conversion-partner-enquiry__benefits {
-    margin-block-start: var(--spacing-8);
+  .g-conversion-partner-enquiry__inner {
+    --stack-gap: var(--spacing-8);
+  }
+}
+
+@media (max-width: 640px) {
+  .g-conversion-partner-enquiry__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-4);
+  }
+
+  .g-conversion-partner-enquiry__secondary {
+    justify-content: center;
   }
 }

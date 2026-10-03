@@ -10,59 +10,77 @@
     so it is uploaded as an image and never redrawn as a styled button. Where
     no artwork has been uploaded the entry falls back to a plain link rather
     than to something shaped like a badge but not one.
+
+    The badge is one link with one name: the store's title, which is also what
+    the artwork says. An uploaded file's own alternative text describes the
+    file, and a badge whose alt reads like a photo caption is a link nobody can
+    find by the store's name. Logo keeps every badge at one height and in its
+    own colours — a store's mark may not be greyed out.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-conversion-app-badges">
+<a:layout.section surface="{data.tone}" class="g-conversion-app-badges" align="{data.align}">
     <a:layout.container size="lg">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-conversion-app-badges__grid">
 
-            <div class="g-conversion-app-badges__copy" data-align="{data.align}">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-conversion-app-badges__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
+            <a:layout.stack gap="6" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}" class="g-conversion-app-badges__copy">
+                <a:molecule.sectionIntro align="{data.align}" headingId="g-conversion-app-badges-{data.uid}">
+                    <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead"><f:if condition="{data.lead}">{data -> f:render.text(field: 'lead')}</f:if></f:fragment>
+                </a:molecule.sectionIntro>
 
                 <f:if condition="{data.stores}">
-                    <ul class="g-conversion-app-badges__stores">
+                    <a:molecule.overflowList wrap="multi-row" ariaLabelledby="g-conversion-app-badges-{data.uid}" class="g-conversion-app-badges__stores">
                         <f:for each="{data.stores}" as="store">
-                            <li class="g-conversion-app-badges__store">
-                                <f:link.typolink parameter="{store.link}" class="g-conversion-app-badges__link">
-                                    <f:if condition="{store.image}">
-                                        <f:then>
-                                            <f:for each="{store.image}" as="image">
-                                                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: store.title)}" height="48" loading="lazy" class="g-conversion-app-badges__image"/>
-                                            </f:for>
-                                        </f:then>
-                                        <f:else>
-                                            <a:atom.link variant="cta">{store.title}</a:atom.link>
-                                        </f:else>
-                                    </f:if>
-                                </f:link.typolink>
+                            <li>
+                                <f:if condition="{store.image}">
+                                    <f:then>
+                                        <f:if condition="{store.link.url}">
+                                            <f:then><a:atom.link variant="quiet" parameter="{store.link}"><f:render section="badge" arguments="{store: store}"/></a:atom.link></f:then>
+                                            <f:else><f:render section="badge" arguments="{store: store}"/></f:else>
+                                        </f:if>
+                                    </f:then>
+                                    <f:else>
+                                        <f:if condition="{store.link.url}">
+                                            <f:then><a:atom.link variant="cta" parameter="{store.link}">{store.title}</a:atom.link></f:then>
+                                            <f:else><a:atom.text type="label" as="span">{store.title}</a:atom.text></f:else>
+                                        </f:if>
+                                    </f:else>
+                                </f:if>
                             </li>
                         </f:for>
-                    </ul>
+                    </a:molecule.overflowList>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-conversion-app-badges__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-conversion-app-badges__device">
+                <a:molecule.figure align="center" class="g-conversion-app-badges__device">
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="600" loading="lazy" class="g-conversion-app-badges__device-image"/>
+                        <f:image image="{image}" alt="{image.alternative}" width="640" loading="lazy" class="g-conversion-app-badges__device-image"/>
                     </f:for>
-                </div>
+                </a:molecule.figure>
             </f:if>
 
         </a:layout.split>
     </a:layout.container>
 </a:layout.section>
+
+<f:comment>
+    One artwork per store: the field allows one file, and the first is the
+    badge if an editor ever manages to attach two.
+</f:comment>
+<f:section name="badge">
+    <a:atom.logo tone="original" size="lg">
+        <f:for each="{store.image}" as="image" iteration="artwork">
+            <f:if condition="{artwork.isFirst}">
+                <f:image image="{image}" alt="{f:if(condition: store.title, then: store.title, else: image.alternative)}" height="80" loading="lazy"/>
+            </f:if>
+        </f:for>
+    </a:atom.logo>
+</f:section>
 
 </html>

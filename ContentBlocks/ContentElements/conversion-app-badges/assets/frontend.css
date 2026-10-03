@@ -1,92 +1,45 @@
 /*
  * App Store Buttons Band
  *
+ * Layout only: one column when there is no device shot, the measure of the
+ * copy and the clear space between the badges. The intro, the badges' height
+ * and colour, and the figure are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-conversion-app-badges__grid {
-  align-items: center;
-}
-
+/* Without a device shot the split would leave half the band empty. */
 .g-conversion-app-badges__grid:not(:has(.g-conversion-app-badges__device)) {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .g-conversion-app-badges__copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--spacing-4);
   max-inline-size: 34rem;
 }
 
-.g-conversion-app-badges__copy[data-align="center"] {
+.g-conversion-app-badges[data-align="center"] .g-conversion-app-badges__copy {
   margin-inline: auto;
-  align-items: center;
   text-align: center;
 }
 
-.g-conversion-app-badges__lead {
-  color: var(--color-text-secondary);
-}
-
+/* Store guidelines require clear space around a badge; the gap is that
+   space and is the reason the row never tightens up on small screens. */
 .g-conversion-app-badges__stores {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  /* Store guidelines require clear space around a badge; the gap is that
-     space and is the reason the row never tightens up on small screens. */
   gap: var(--spacing-4);
 }
 
-.g-conversion-app-badges__copy[data-align="center"] .g-conversion-app-badges__stores {
+.g-conversion-app-badges[data-align="center"] .g-conversion-app-badges__stores {
   justify-content: center;
 }
 
-.g-conversion-app-badges__link {
-  display: inline-flex;
-  align-items: center;
-}
-
-.g-conversion-app-badges__image {
-  display: block;
-  block-size: var(--spacing-10);
-  inline-size: auto;
-}
-
-.g-conversion-app-badges__note {
-  margin: 0;
-}
-
-.g-conversion-app-badges__device {
-  display: flex;
-  justify-content: center;
-}
-
+/* A device shot is looked at, not read: it is capped so it never becomes the
+   largest thing in the band. */
 .g-conversion-app-badges__device-image {
-  inline-size: 100%;
   max-inline-size: 20rem;
-  block-size: auto;
-}
-
-.g-conversion-app-badges[data-surface="accent"] .g-conversion-app-badges__lead,
-.g-conversion-app-badges[data-surface="accent"] .g-conversion-app-badges__note,
-.g-conversion-app-badges[data-surface="accent"] .astryx-eyebrow,
-.g-conversion-app-badges[data-surface="accent"] .astryx-link {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 767px) {
   .g-conversion-app-badges__copy {
     max-inline-size: none;
-  }
-
-  .g-conversion-app-badges__image {
-    block-size: var(--spacing-9);
   }
 }

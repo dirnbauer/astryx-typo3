@@ -2,12 +2,12 @@
     "_type": "conversion",
     "eyebrow": "Demo Booking Band",
     "header": "Duration, host and agenda of a demo",
-    "lead": "An invitation to a live demo, with the agenda as icon points between two lines.",
+    "lead": "An invitation to a live demo, with the agenda as a list of icon points above the button.",
     "columns": "2",
-    "cta_label": "Open the calendar",
-    "cta_link": "#",
-    "secondary_label": "Ask a question",
-    "secondary_link": "#",
+    "cta_label": "Browse all components",
+    "cta_link": "{{page:components}}",
+    "secondary_label": "Email a question",
+    "secondary_link": "mailto:office@webconsulting.at",
     "note": "The band links to a booking page and never embeds a calendar. An external booking script would load on every page that uses this element.",
     "reverse": 1,
     "tone": "body",
@@ -15,7 +15,7 @@
         {
             "icon": "clock",
             "title": "Up to six points",
-            "text": "Each has an icon, a title and one sentence. With no points, the lines disappear too."
+            "text": "Each has an icon, a title and one sentence. With no points, the band is a plain split."
         },
         {
             "icon": "settings",
@@ -30,13 +30,13 @@
         {
             "icon": "message-circle",
             "title": "One button, one link",
-            "text": "The button opens the calendar. The link is for readers who aren't ready to pick a time yet."
+            "text": "The button opens the calendar. The link is for readers who aren’t ready to pick a time yet."
         }
     ],
     "image": [
         {
-            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/field-sampling.jpg",
-            "alternative": "A woman in waders takes a water sample from a shallow river.",
+            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/meeting-two.jpg",
+            "alternative": "A man and a woman talk at a table with a laptop between them.",
             "title": ""
         }
     ]

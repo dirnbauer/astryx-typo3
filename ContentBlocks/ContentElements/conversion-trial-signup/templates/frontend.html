@@ -9,62 +9,64 @@
     The reassurances sit beside the button rather than under the fold,
     because an objection answered after the decision has already been taken
     is not an answer. Signing up happens on the target page; this band never
-    renders a field.
+    renders a field. The badge and the eyebrow share one line above the
+    heading, so they sit outside the intro rather than in its eyebrow.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-conversion-trial-signup" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="12" class="g-conversion-trial-signup__inner">
 
-        <div class="g-conversion-trial-signup__ask">
-            <f:if condition="{data.badge_text} || {data.eyebrow}">
-                <p class="g-conversion-trial-signup__flags">
-                    <f:if condition="{data.badge_text}">
-                        <a:atom.badge variant="accent" as="span">{data.badge_text}</a:atom.badge>
+            <a:layout.stack gap="6" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}" class="g-conversion-trial-signup__ask">
+                <a:layout.stack gap="3" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}">
+                    <f:if condition="{data.badge_text} || {data.eyebrow}">
+                        <a:layout.stack orientation="horizontal" gap="2">
+                            <f:if condition="{data.badge_text}">
+                                <a:atom.badge variant="accent">{data.badge_text}</a:atom.badge>
+                            </f:if>
+                            <f:if condition="{data.eyebrow}">
+                                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                            </f:if>
+                        </a:layout.stack>
                     </f:if>
-                    <f:if condition="{data.eyebrow}">
-                        <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                    </f:if>
-                </p>
-            </f:if>
+                    <a:molecule.sectionIntro align="{data.align}">
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead"><f:if condition="{data.lead}">{data -> f:render.text(field: 'lead')}</f:if></f:fragment>
+                    </a:molecule.sectionIntro>
+                </a:layout.stack>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-conversion-trial-signup__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <a:molecule.buttonGroup class="g-conversion-trial-signup__actions">
-                    <f:if condition="{data.cta_label}">
-                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </f:if>
-                    <f:if condition="{data.secondary_label}">
-                        <a:atom.link variant="cta" class="g-conversion-trial-signup__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
-                    </f:if>
-                </a:molecule.buttonGroup>
-            </f:if>
-
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-conversion-trial-signup__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.reassurances}">
-            <a:layout.grid cols="{data.columns}" class="g-conversion-trial-signup__reassurances">
-                <f:for each="{data.reassurances}" as="reassurance">
-                    <a:molecule.feature class="g-conversion-trial-signup__reassurance">
-                        <f:if condition="{reassurance.icon}">
-                            <a:atom.featureIcon icon="{reassurance.icon}" />
+                <f:if condition="{data.cta_label} || {data.secondary_label}">
+                    <a:molecule.buttonGroup class="g-conversion-trial-signup__actions">
+                        <f:if condition="{data.cta_label}">
+                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
-                        <a:molecule.cardTitle>{reassurance -> f:render.text(field: 'title')}</a:molecule.cardTitle>
-                        <f:if condition="{reassurance.text}">
-                            <a:molecule.cardBody>{reassurance -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                        <f:if condition="{data.secondary_label}">
+                            <a:atom.link variant="cta" class="g-conversion-trial-signup__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
                         </f:if>
-                    </a:molecule.feature>
-                </f:for>
-            </a:layout.grid>
-        </f:if>
+                    </a:molecule.buttonGroup>
+                </f:if>
 
+                <f:if condition="{data.note}">
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                </f:if>
+            </a:layout.stack>
+
+            <f:if condition="{data.reassurances}">
+                <a:layout.grid cols="{data.columns}" as="ul">
+                    <f:for each="{data.reassurances}" as="reassurance">
+                        <a:layout.gridSpan as="li">
+                            <a:molecule.feature icon="{reassurance.icon}" align="{data.align}">
+                                <a:molecule.cardTitle>{reassurance -> f:render.text(field: 'title')}</a:molecule.cardTitle>
+                                <f:if condition="{reassurance.text}">
+                                    <a:molecule.cardBody>{reassurance -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                                </f:if>
+                            </a:molecule.feature>
+                        </a:layout.gridSpan>
+                    </f:for>
+                </a:layout.grid>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

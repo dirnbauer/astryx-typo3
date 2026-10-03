@@ -3,28 +3,28 @@
     "eyebrow": "Multi-Step Form Intro",
     "header": "An overview before a long form",
     "subheader": "The steps in order, how long each takes and what to have ready.",
-    "lead": "Text about a form, not the form itself. The steps and their logic are in the TYPO3 form framework, on the page the button opens.",
+    "lead": "Text about a form, not the form itself: the steps and their logic live in the TYPO3 form framework, on the form’s own page.",
     "note": "Use the same step titles as the real form. Otherwise this band will contradict the form.",
-    "cta_label": "Start the form",
-    "cta_link": "#",
+    "cta_label": "Read about the form framework",
+    "cta_link": "https://docs.typo3.org/c/typo3/cms-form/main/en-us/",
     "align": "start",
     "tone": "surface",
     "width": "md",
     "steps": [
         {
-            "title": "Two to eight steps",
-            "value": "the title",
-            "text": "Each row has a title, an optional duration and a sentence on what to have ready."
+            "title": "Your project",
+            "value": "about 2 minutes",
+            "text": "What the website is for, and when it should go live."
         },
         {
-            "title": "The duration is the value",
-            "value": "24 characters",
-            "text": "Short enough to fit on one line under the title, where readers look for it."
+            "title": "Pages and content",
+            "value": "about 5 minutes",
+            "text": "Roughly how many pages there are, and who writes the text."
         },
         {
-            "title": "The list is ordered",
-            "value": "an ol",
-            "text": "Screen readers announce the order. The numbers you see are only decoration."
+            "title": "Contact details",
+            "value": "about 1 minute",
+            "text": "Your name and email address. A phone number only if you would rather be called."
         }
     ]
 }

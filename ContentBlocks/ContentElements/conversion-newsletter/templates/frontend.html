@@ -13,42 +13,43 @@
     describes.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-conversion-newsletter">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-conversion-newsletter" align="{data.align}">
     <a:layout.container size="{data.width}">
         <a:layout.split class="g-conversion-newsletter__grid">
 
-            <div class="g-conversion-newsletter__copy" data-align="{data.align}">
-                <f:if condition="{data.icon}">
-                    <a:atom.featureIcon icon="{data.icon}" />
-                </f:if>
-
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-conversion-newsletter__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
+            <a:layout.stack gap="6" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}" class="g-conversion-newsletter__copy">
+                <a:layout.stack gap="3" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}">
+                    <f:if condition="{data.icon}">
+                        <a:atom.featureIcon icon="{data.icon}" />
+                    </f:if>
+                    <a:molecule.sectionIntro align="{data.align}">
+                        <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead"><f:if condition="{data.lead}">{data -> f:render.text(field: 'lead')}</f:if></f:fragment>
+                    </a:molecule.sectionIntro>
+                </a:layout.stack>
 
                 <f:if condition="{data.cta_label}">
-                    <a:molecule.buttonGroup class="g-conversion-newsletter__actions">
-                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </a:molecule.buttonGroup>
+                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}" class="g-conversion-newsletter__action">{data.cta_label}</a:atom.button>
                 </f:if>
 
+                <f:comment>
+                    The consent line is the small print an editor is expected
+                    to keep word for word identical to the form's own, so it
+                    gets its own measure rather than running the width of the
+                    lead.
+                </f:comment>
                 <f:if condition="{data.note}">
                     <a:atom.text type="supporting" class="g-conversion-newsletter__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-conversion-newsletter__media">
+                <a:atom.aspectRatio class="g-conversion-newsletter__media">
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="760" loading="lazy" class="g-conversion-newsletter__image"/>
+                        <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy"/>
                     </f:for>
-                </div>
+                </a:atom.aspectRatio>
             </f:if>
 
         </a:layout.split>

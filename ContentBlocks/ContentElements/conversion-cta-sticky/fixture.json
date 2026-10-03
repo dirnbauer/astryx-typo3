@@ -2,10 +2,10 @@
     "_type": "conversion",
     "header": "A bar that sticks to the bottom edge",
     "text": "It uses CSS position: sticky and no script. The bar floats while its column is on screen and returns to its place at the end.",
-    "cta_label": "Get started free",
-    "cta_link": "#",
-    "secondary_label": "See pricing",
-    "secondary_link": "#",
-    "note": "On screens less than 30rem tall, the bar stops sticking so it doesn't cover the text.",
+    "cta_label": "Browse all components",
+    "cta_link": "{{page:components}}",
+    "secondary_label": "See the pricing elements",
+    "secondary_link": "{{page:components/pricing}}",
+    "note": "It floats only on wide screens tall enough to spare a slim row. On phones and short windows it stays in its place.",
     "tone": "surface"
 }

@@ -1,85 +1,19 @@
 /*
  * Contact Options Grid
  *
+ * Layout only: the alignment of the note and a tighter rhythm on a phone. The
+ * intro, the cards and rows in their lists, their alignment and the tiles are
+ * the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
-
-.g-conversion-contact-options__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-conversion-contact-options[data-align='center'] .g-conversion-contact-options__intro {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.g-conversion-contact-options__subheader,
-.g-conversion-contact-options__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-conversion-contact-options__channels {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-conversion-contact-options__icon {
-  flex: 0 0 auto;
-}
-
-.g-conversion-contact-options__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-}
-
-/* Cards: every cell as tall as the tallest in its row, so the tiles land on
-   one optical line whatever the descriptions do underneath them. */
-.g-conversion-contact-options[data-variant='cards'] .g-conversion-contact-options__channel {
-  block-size: 100%;
-}
-
-.g-conversion-contact-options[data-variant='cards'][data-align='center'] .g-conversion-contact-options__channel {
-  align-items: center;
-  text-align: center;
-}
-
-/* List: the tile drops to the height of the row's first line so a two-line
-   description does not push it into the middle of nothing. */
-.g-conversion-contact-options[data-variant='list'] .g-conversion-contact-options__icon {
-  inline-size: var(--spacing-8);
-  block-size: var(--spacing-8);
-}
-
-.g-conversion-contact-options__note {
-  margin-block-start: var(--spacing-6);
-}
 
 .g-conversion-contact-options[data-align='center'] .g-conversion-contact-options__note {
   text-align: center;
 }
 
-.g-conversion-contact-options[data-surface="accent"] .g-conversion-contact-options__subheader,
-.g-conversion-contact-options[data-surface="accent"] .g-conversion-contact-options__lead,
-.g-conversion-contact-options[data-surface="accent"] .g-conversion-contact-options__note,
-.g-conversion-contact-options[data-surface="accent"] .astryx-card-body,
-.g-conversion-contact-options[data-surface="accent"] .astryx-item-description {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-conversion-contact-options[data-surface="accent"] .astryx-list[data-dividers="with-dividers"] > li {
-  border-color: currentColor;
-}
-
 @media (max-width: 640px) {
-  .g-conversion-contact-options__intro {
-    margin-block-end: var(--spacing-6);
+  .g-conversion-contact-options__inner {
+    --stack-gap: var(--spacing-6);
   }
 }

@@ -1,6 +1,10 @@
 /*
  * Dismissible Offer Bar
  *
+ * Layout only: the slim band, the row that wraps when it runs out of room, and
+ * the button on a line of its own in the narrow corner card. The banner's box
+ * and density, the close control, the floating card and the remembered
+ * dismissal are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
@@ -14,113 +18,37 @@
   flex-wrap: wrap;
 }
 
-.g-conversion-offer-dismissible__icon {
-  flex: 0 0 auto;
-  align-self: flex-start;
-}
-
+/* The copy gives way before the button does, and only then does the row
+   wrap. */
 .g-conversion-offer-dismissible__copy {
+  flex: 1 1 16rem;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1);
-}
-
-.g-conversion-offer-dismissible__flags {
-  margin: 0;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-}
-
-.g-conversion-offer-dismissible__text,
-.g-conversion-offer-dismissible__note {
-  margin: 0;
 }
 
 .g-conversion-offer-dismissible__action {
   flex: 0 0 auto;
 }
 
-/* The close control is the way out of an interruption, so it is at least as
-   large a target as the thing it lets you escape. */
+/* The way out of an interruption stays in the top corner, however many lines
+   the offer runs to. */
 .g-conversion-offer-dismissible__close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-inline-size: var(--spacing-11);
-  min-block-size: var(--spacing-11);
   align-self: flex-start;
 }
 
-.g-conversion-offer-dismissible__close > svg {
-  inline-size: var(--spacing-4);
-  block-size: var(--spacing-4);
-}
-
-.g-conversion-offer-dismissible__close:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* --------------------------------------------------------- corner card */
-/* Sticky rather than fixed: a fixed card would still be over the page after
-   its own column has scrolled away, and would sit on the footer. */
-.g-conversion-offer-dismissible[data-variant='corner-card'] {
-  position: sticky;
-  inset-block-end: 0;
-  z-index: 1;
-  background-color: transparent;
-}
-
-.g-conversion-offer-dismissible[data-variant='corner-card'] .astryx-layout {
-  display: flex;
-  justify-content: flex-end;
-}
-
+/* The corner card is narrow. The copy keeps the first line beside the icon
+   and the close control, both at the top, and the button takes a line of its
+   own below them. */
 .g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__offer {
-  flex-wrap: wrap;
-  max-inline-size: 26rem;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-med);
-  background-color: var(--color-background-card);
+  align-items: flex-start;
 }
 
-.g-conversion-offer-dismissible[data-variant='corner-card'][data-surface='surface'] .g-conversion-offer-dismissible__offer {
-  background-color: var(--color-background-surface);
-}
-
-.g-conversion-offer-dismissible[data-variant='corner-card'][data-surface='muted'] .g-conversion-offer-dismissible__offer {
-  background-color: var(--color-background-muted);
-}
-
-.g-conversion-offer-dismissible[data-variant='corner-card'][data-surface='accent'] .g-conversion-offer-dismissible__offer {
-  background-color: var(--color-accent);
-  color: var(--color-on-accent);
+.g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__copy {
+  flex-basis: 0;
 }
 
 .g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__action {
   flex: 1 0 100%;
-}
-
-.g-conversion-offer-dismissible[data-surface="accent"] .g-conversion-offer-dismissible__text,
-.g-conversion-offer-dismissible[data-surface="accent"] .g-conversion-offer-dismissible__note,
-.g-conversion-offer-dismissible[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-conversion-offer-dismissible[data-surface="accent"] .astryx-banner {
-  background-color: transparent;
-  color: currentColor;
-}
-
-@media (max-width: 640px) {
-  .g-conversion-offer-dismissible__action {
-    flex: 1 0 100%;
-  }
-
-  .g-conversion-offer-dismissible[data-variant='corner-card'] .g-conversion-offer-dismissible__offer {
-    max-inline-size: none;
-  }
+  order: 1;
 }

@@ -1,6 +1,9 @@
 /*
  * Gated Content Teaser
  *
+ * Layout, plus the one thing no component draws: the fade at the foot of the
+ * excerpt, which is this element's whole point. The intro, the card, the
+ * cover's frame, type and buttons are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
@@ -15,25 +18,13 @@
 .g-conversion-gated-teaser[data-surface="muted"] { --gate-fade: var(--color-background-muted); }
 .g-conversion-gated-teaser[data-surface="accent"] { --gate-fade: var(--color-accent); }
 
-.g-conversion-gated-teaser__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-6);
-}
-
-.g-conversion-gated-teaser__subheader {
-  color: var(--color-text-secondary);
-}
-
 /* The excerpt is capped in height and faded at its foot. Both are decoration
    over text that is fully present in the document. */
 .g-conversion-gated-teaser__excerpt {
   position: relative;
   max-block-size: 22rem;
-  overflow: hidden;
   max-inline-size: 44rem;
+  overflow: hidden;
 }
 
 .g-conversion-gated-teaser__excerpt::after {
@@ -50,55 +41,20 @@
   flex-direction: row;
   align-items: center;
   gap: var(--spacing-6);
-  margin-block-start: var(--spacing-6);
 }
 
 .g-conversion-gated-teaser__cover {
   flex: 0 0 auto;
-}
-
-.g-conversion-gated-teaser__image {
-  display: block;
-  inline-size: 100%;
-  max-inline-size: 9rem;
-  block-size: auto;
-  border-radius: var(--radius-element);
-  box-shadow: var(--shadow-low);
+  inline-size: 6rem;
 }
 
 .g-conversion-gated-teaser__ask-copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
+  flex: 1 1 auto;
   min-inline-size: 0;
-}
-
-.g-conversion-gated-teaser__note {
-  margin: 0;
-  color: var(--color-text-secondary);
 }
 
 .g-conversion-gated-teaser__actions {
   gap: var(--spacing-5);
-}
-
-.g-conversion-gated-teaser[data-surface="accent"] .astryx-card {
-  background-color: transparent;
-  box-shadow: none;
-  color: currentColor;
-  border: var(--border-width) solid currentColor;
-}
-
-.g-conversion-gated-teaser[data-surface="accent"] .g-conversion-gated-teaser__subheader,
-.g-conversion-gated-teaser[data-surface="accent"] .g-conversion-gated-teaser__note,
-.g-conversion-gated-teaser[data-surface="accent"] .g-conversion-gated-teaser__secondary,
-.g-conversion-gated-teaser[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-conversion-gated-teaser[data-surface="accent"] .astryx-prose :where(a) {
-  color: currentColor;
 }
 
 @media (max-width: 640px) {
@@ -112,10 +68,18 @@
     gap: var(--spacing-4);
   }
 
+  .g-conversion-gated-teaser__ask-copy {
+    align-self: stretch;
+  }
+
   .g-conversion-gated-teaser__actions {
     flex-direction: column;
     align-items: stretch;
-    inline-size: 100%;
+    align-self: stretch;
     gap: var(--spacing-4);
+  }
+
+  .g-conversion-gated-teaser__secondary {
+    justify-content: center;
   }
 }

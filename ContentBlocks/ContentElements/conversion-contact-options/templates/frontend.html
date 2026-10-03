@@ -12,89 +12,90 @@
 
     The two variants are two different components rather than one element with
     two sets of hand-written classes. A card grid and a divided list share only
-    the data, and the earlier version that swapped `astryx-*` class strings in
-    and out composed neither of them: the modifiers it wrote (`cols-3`,
-    `with-dividers`, `spacious`, `align-start`) stopped being classes when the
-    design system moved to data attributes, so the list had been running
-    without its dividers or its rhythm ever since.
+    the data. In the grid each card is the list item itself; in the list, a
+    channel with a link is one Item whose whole row is the link — the target is
+    the full row, not the few words of its label. An Item that links is an <a>,
+    so a ListItem gives it the <li> the list needs; an Item without a link is
+    an <li> of its own.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-conversion-contact-options" variant="{data.variant}" align="{data.align}">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8" class="g-conversion-contact-options__inner">
 
-        <div class="g-conversion-contact-options__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead"><f:if condition="{data.subheader}">{data -> f:render.text(field: 'subheader')}</f:if></f:fragment>
+                <f:fragment><f:if condition="{data.lead}"><a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text></f:if></f:fragment>
+            </a:molecule.sectionIntro>
 
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-conversion-contact-options__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-conversion-contact-options__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:if condition="{data.variant} == 'cards'">
-            <f:then>
-                <a:layout.grid cols="{data.columns}" class="g-conversion-contact-options__channels">
-                    <f:for each="{data.channels}" as="channel">
-                        <a:molecule.card clickable="{channel.link.url}" class="g-conversion-contact-options__channel">
-                            <f:if condition="{channel.icon}">
-                                <a:atom.featureIcon icon="{channel.icon}" class="g-conversion-contact-options__icon" />
+            <f:if condition="{data.variant} == 'list'">
+                <f:then>
+                    <a:molecule.list dividers="with-dividers">
+                        <f:for each="{data.channels}" as="channel">
+                            <f:if condition="{channel.link.url}">
+                                <f:then>
+                                    <a:molecule.listItem>
+                                        <a:molecule.item href="{f:uri.typolink(parameter: channel.link)}" target="{channel.link.target}" interactive="interactive" density="spacious" align="start">
+                                            <f:fragment name="start"><f:if condition="{channel.icon}"><a:atom.featureIcon icon="{channel.icon}" size="sm" /></f:if></f:fragment>
+                                            <f:fragment><f:render section="rowContent" arguments="{channel: channel, linked: 1}"/></f:fragment>
+                                        </a:molecule.item>
+                                    </a:molecule.listItem>
+                                </f:then>
+                                <f:else>
+                                    <a:molecule.item density="spacious" align="start">
+                                        <f:fragment name="start"><f:if condition="{channel.icon}"><a:atom.featureIcon icon="{channel.icon}" size="sm" /></f:if></f:fragment>
+                                        <f:fragment><f:render section="rowContent" arguments="{channel: channel}"/></f:fragment>
+                                    </a:molecule.item>
+                                </f:else>
                             </f:if>
+                        </f:for>
+                    </a:molecule.list>
+                </f:then>
 
-                            <a:molecule.cardTitle>
-                                <f:if condition="{channel.link.url}">
-                                    <f:then><f:link.typolink parameter="{channel.link}">{channel.title}</f:link.typolink></f:then>
-                                    <f:else>{channel -> f:render.text(field: 'title')}</f:else>
+                <f:else>
+                    <a:layout.grid cols="{data.columns}" as="ul">
+                        <f:for each="{data.channels}" as="channel">
+                            <a:molecule.card as="li" clickable="{channel.link.url}" align="{data.align}">
+                                <f:if condition="{channel.icon}">
+                                    <a:atom.featureIcon icon="{channel.icon}" />
                                 </f:if>
-                            </a:molecule.cardTitle>
 
-                            <f:if condition="{channel.description}">
-                                <a:molecule.cardBody>{channel -> f:render.text(field: 'description')}</a:molecule.cardBody>
-                            </f:if>
-                        </a:molecule.card>
-                    </f:for>
-                </a:layout.grid>
-            </f:then>
-
-            <f:else>
-                <f:comment>
-                    The rule between rows replaces the gap, and the spacious
-                    density is what gives that rule its air — which is why the
-                    two are separate arguments on List rather than one "list
-                    style" nobody could take apart again.
-                </f:comment>
-                <a:molecule.list dividers="with-dividers" density="spacious" class="g-conversion-contact-options__channels">
-                    <f:for each="{data.channels}" as="channel">
-                        <a:molecule.item align="start" class="g-conversion-contact-options__channel">
-                            <f:fragment name="start"><f:if condition="{channel.icon}"><a:atom.featureIcon icon="{channel.icon}" class="g-conversion-contact-options__icon" /></f:if></f:fragment>
-
-                            <f:fragment>
-                                <a:molecule.itemContent class="g-conversion-contact-options__body">
-                                    <a:molecule.itemLabel class="g-conversion-contact-options__name">
-                                        <f:if condition="{channel.link.url}">
-                                            <f:then><f:link.typolink parameter="{channel.link}">{channel.title}</f:link.typolink></f:then>
-                                            <f:else>{channel -> f:render.text(field: 'title')}</f:else>
-                                        </f:if>
-                                    </a:molecule.itemLabel>
-
-                                    <f:if condition="{channel.description}">
-                                        <a:molecule.itemDescription>{channel -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                <a:molecule.cardTitle>
+                                    <f:if condition="{channel.link.url}">
+                                        <f:then><f:link.typolink parameter="{channel.link}">{channel.title}</f:link.typolink></f:then>
+                                        <f:else>{channel -> f:render.text(field: 'title')}</f:else>
                                     </f:if>
-                                </a:molecule.itemContent>
-                            </f:fragment>
-                        </a:molecule.item>
-                    </f:for>
-                </a:molecule.list>
-            </f:else>
-        </f:if>
+                                </a:molecule.cardTitle>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-conversion-contact-options__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+                                <f:if condition="{channel.description}">
+                                    <a:molecule.cardBody>{channel -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                                </f:if>
+                            </a:molecule.card>
+                        </f:for>
+                    </a:layout.grid>
+                </f:else>
+            </f:if>
 
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-conversion-contact-options__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
+
+<f:comment>
+    Inside a linked row the title is the link's own text, so it is printed as
+    it is; an unlinked row keeps the editable field.
+</f:comment>
+<f:section name="rowContent">
+    <a:molecule.itemContent>
+        <a:molecule.itemLabel weight="semibold"><f:if condition="{linked}"><f:then>{channel.title}</f:then><f:else>{channel -> f:render.text(field: 'title')}</f:else></f:if></a:molecule.itemLabel>
+        <f:if condition="{channel.description}">
+            <a:molecule.itemDescription>{channel -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+        </f:if>
+    </a:molecule.itemContent>
+</f:section>
 
 </html>

@@ -8,47 +8,41 @@
 <f:comment>
     The count is a figure an editor types, not one the element queries. It is
     therefore only ever as true as the last time somebody looked, which is why
-    the note is the right place to say when that was.
+    the note is the right place to say when that was. It is set in tabular
+    figures, so an edited count does not shift.
+
+    The picture goes into the Card's own media slot, which is what bleeds it
+    to the card's edges. Once one fragment is named, the rest of the card has
+    to be a fragment too, or Fluid drops it without a word.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-conversion-waitlist" align="{data.align}">
     <a:layout.container size="md">
-        <a:molecule.card density="roomy" media="{f:if(condition: data.image, then: 'top', else: 'default')}" class="g-conversion-waitlist__card">
+        <a:molecule.card density="roomy" media="{f:if(condition: data.image, then: 'top', else: 'default')}" align="{data.align}" class="g-conversion-waitlist__card">
+            <f:fragment name="media"><f:if condition="{data.image}"><a:molecule.figure><f:for each="{data.image}" as="image"><f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy"/></f:for></a:molecule.figure></f:if></f:fragment>
 
-            <f:if condition="{data.image}">
-                <div class="g-conversion-waitlist__media">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="880" loading="lazy" class="g-conversion-waitlist__image"/>
-                    </f:for>
-                </div>
-            </f:if>
+            <f:fragment>
+                <a:molecule.sectionIntro align="{data.align}">
+                    <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead"><f:if condition="{data.lead}">{data -> f:render.text(field: 'lead')}</f:if></f:fragment>
+                </a:molecule.sectionIntro>
 
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+                <f:if condition="{data.value}">
+                    <a:atom.text type="body">
+                        <a:atom.text type="display-3" numeric="tabular" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                        <f:if condition="{data.unit}"> <a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                    </a:atom.text>
+                </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <f:if condition="{data.cta_label}">
+                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}" class="g-conversion-waitlist__action">{data.cta_label}</a:atom.button>
+                </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-conversion-waitlist__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.value}">
-                <p class="g-conversion-waitlist__figure">
-                    <span class="g-conversion-waitlist__value">{data -> f:render.text(field: 'value')}</span><f:if condition="{data.unit}"><span class="g-conversion-waitlist__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
-                </p>
-            </f:if>
-
-            <f:if condition="{data.cta_label}">
-                <a:molecule.buttonGroup class="g-conversion-waitlist__actions">
-                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </a:molecule.buttonGroup>
-            </f:if>
-
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-conversion-waitlist__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-            </f:if>
-
+                <f:if condition="{data.note}">
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                </f:if>
+            </f:fragment>
         </a:molecule.card>
     </a:layout.container>
 </a:layout.section>

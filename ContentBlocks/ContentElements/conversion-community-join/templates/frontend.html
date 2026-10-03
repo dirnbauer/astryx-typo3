@@ -9,64 +9,64 @@
     How busy a place is belongs to that place, so the count sits in each
     entry's description rather than in a shared line. Counts go stale faster
     than anything else on a page like this — round them, or leave them out.
+
+    The places are a list, so a screen reader announces how many there are.
+    Each card is the list item itself, and the whole card is the link target.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-conversion-community-join" align="{data.align}">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8" class="g-conversion-community-join__inner">
 
-        <div class="g-conversion-community-join__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead"><f:if condition="{data.lead}">{data -> f:render.text(field: 'lead')}</f:if></f:fragment>
+            </a:molecule.sectionIntro>
+
+            <f:if condition="{data.image}">
+                <a:atom.aspectRatio ratio="wide">
+                    <f:for each="{data.image}" as="image">
+                        <f:image image="{image}" alt="{image.alternative}" width="1440" loading="lazy"/>
+                    </f:for>
+                </a:atom.aspectRatio>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <f:if condition="{data.places}">
+                <a:layout.grid cols="{data.columns}" as="ul">
+                    <f:for each="{data.places}" as="place">
+                        <a:molecule.card as="li" clickable="{place.link.url}" align="{data.align}">
+                            <f:if condition="{place.icon}">
+                                <a:atom.featureIcon icon="{place.icon}" />
+                            </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-conversion-community-join__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                            <a:molecule.cardTitle>
+                                <f:if condition="{place.link.url}">
+                                    <f:then><f:link.typolink parameter="{place.link}">{place.title}</f:link.typolink></f:then>
+                                    <f:else>{place -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
+
+                            <f:if condition="{place.description}">
+                                <a:molecule.cardBody>{place -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                            </f:if>
+                        </a:molecule.card>
+                    </f:for>
+                </a:layout.grid>
             </f:if>
-        </div>
 
-        <f:if condition="{data.image}">
-            <div class="g-conversion-community-join__media">
-                <f:for each="{data.image}" as="image">
-                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1120" loading="lazy" class="g-conversion-community-join__image"/>
-                </f:for>
-            </div>
-        </f:if>
-
-        <a:layout.grid cols="{data.columns}" class="g-conversion-community-join__places">
-            <f:for each="{data.places}" as="place">
-                <a:molecule.card clickable="{place.link.url}" class="g-conversion-community-join__place">
-                    <f:if condition="{place.icon}">
-                        <a:atom.featureIcon icon="{place.icon}" />
+            <f:if condition="{data.cta_label} || {data.note}">
+                <a:layout.stack gap="3" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}" class="g-conversion-community-join__foot">
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
-
-                    <a:molecule.cardTitle>
-                        <f:if condition="{place.link.url}">
-                            <f:then><f:link.typolink parameter="{place.link}">{place.title}</f:link.typolink></f:then>
-                            <f:else>{place -> f:render.text(field: 'title')}</f:else>
-                        </f:if>
-                    </a:molecule.cardTitle>
-
-                    <f:if condition="{place.description}">
-                        <a:molecule.cardBody>{place -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-conversion-community-join__note">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
-
-        <div class="g-conversion-community-join__foot">
-            <f:if condition="{data.cta_label}">
-                <a:molecule.buttonGroup class="g-conversion-community-join__actions">
-                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </a:molecule.buttonGroup>
+                </a:layout.stack>
             </f:if>
 
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-conversion-community-join__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-            </f:if>
-        </div>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

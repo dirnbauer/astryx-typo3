@@ -15,70 +15,68 @@
 
 <a:layout.section surface="{data.tone}" class="g-conversion-partner-enquiry">
     <a:layout.container size="lg">
+        <a:layout.stack gap="12" class="g-conversion-partner-enquiry__inner">
 
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-conversion-partner-enquiry__grid">
+            <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-conversion-partner-enquiry__grid">
 
-            <div class="g-conversion-partner-enquiry__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                <a:layout.stack gap="6" class="g-conversion-partner-enquiry__copy">
+                    <a:molecule.sectionIntro>
+                        <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead"><f:if condition="{data.subheader}">{data -> f:render.text(field: 'subheader')}</f:if></f:fragment>
+                        <f:fragment><f:if condition="{data.lead}"><a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text></f:if></f:fragment>
+                    </a:molecule.sectionIntro>
+
+                    <f:if condition="{data.bodytext}">
+                        <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <a:molecule.buttonGroup class="g-conversion-partner-enquiry__actions">
+                            <f:if condition="{data.cta_label}">
+                                <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <a:atom.link variant="cta" class="g-conversion-partner-enquiry__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
+                            </f:if>
+                        </a:molecule.buttonGroup>
+                    </f:if>
+                </a:layout.stack>
+
+                <f:if condition="{data.image}">
+                    <a:atom.aspectRatio class="g-conversion-partner-enquiry__media">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy"/>
+                        </f:for>
+                    </a:atom.aspectRatio>
                 </f:if>
 
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            </a:layout.split>
 
-                <f:if condition="{data.subheader}">
-                    <a:atom.text type="large" class="g-conversion-partner-enquiry__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-                </f:if>
+            <f:if condition="{data.benefits} || {data.note}">
+                <a:layout.stack gap="6">
+                    <f:if condition="{data.benefits}">
+                        <a:layout.grid cols="{data.columns}" as="ul">
+                            <f:for each="{data.benefits}" as="benefit">
+                                <a:layout.gridSpan as="li">
+                                    <a:molecule.feature icon="{benefit.icon}">
+                                        <a:molecule.cardTitle>{benefit -> f:render.text(field: 'title')}</a:molecule.cardTitle>
+                                        <f:if condition="{benefit.text}">
+                                            <a:molecule.cardBody>{benefit -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                                        </f:if>
+                                    </a:molecule.feature>
+                                </a:layout.gridSpan>
+                            </f:for>
+                        </a:layout.grid>
+                    </f:if>
 
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-conversion-partner-enquiry__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-conversion-partner-enquiry__body"><f:format.html>{data.bodytext}</f:format.html></div>
-                </f:if>
-
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-conversion-partner-enquiry__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                        </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.link variant="cta" class="g-conversion-partner-enquiry__secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
-                        </f:if>
-                    </a:molecule.buttonGroup>
-                </f:if>
-            </div>
-
-            <f:if condition="{data.image}">
-                <div class="g-conversion-partner-enquiry__media">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="820" loading="lazy" class="g-conversion-partner-enquiry__image"/>
-                    </f:for>
-                </div>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-conversion-partner-enquiry__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
-        </a:layout.split>
-
-        <f:if condition="{data.benefits}">
-            <a:layout.grid cols="{data.columns}" class="g-conversion-partner-enquiry__benefits">
-                <f:for each="{data.benefits}" as="benefit">
-                    <a:molecule.feature class="g-conversion-partner-enquiry__benefit">
-                        <f:if condition="{benefit.icon}">
-                            <a:atom.featureIcon icon="{benefit.icon}" />
-                        </f:if>
-                        <a:molecule.cardTitle>{benefit -> f:render.text(field: 'title')}</a:molecule.cardTitle>
-                        <f:if condition="{benefit.text}">
-                            <a:molecule.cardBody>{benefit -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                        </f:if>
-                    </a:molecule.feature>
-                </f:for>
-            </a:layout.grid>
-        </f:if>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-conversion-partner-enquiry__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

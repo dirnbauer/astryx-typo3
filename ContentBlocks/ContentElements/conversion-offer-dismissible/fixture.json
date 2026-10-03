@@ -2,12 +2,12 @@
     "_type": "conversion",
     "eyebrow": "Dismissible Offer Bar",
     "header": "A short offer readers can close",
-    "text": "Badge, heading, one line, a button and a close button. The corner-card style sticks to the bottom of its column, not over the page.",
+    "text": "Badge, heading, one line, a button and a close button. The corner-card style floats at the foot of the window until it is closed.",
     "badge_text": "Closable",
     "icon": "info",
     "variant": "bar",
-    "cta_label": "See the offer",
-    "cta_link": "#",
-    "note": "The close button is at least 44 by 44 pixels and has a translated screen reader label.",
+    "cta_label": "See the pricing elements",
+    "cta_link": "{{page:components/pricing}}",
+    "note": "The close button has a translated screen reader label. A closed offer stays closed for 30 days in that browser.",
     "tone": "muted"
 }

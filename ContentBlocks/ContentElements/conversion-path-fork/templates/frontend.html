@@ -9,52 +9,50 @@
     Every panel gets the same surface, the same tile and the same weight of
     title. The moment one of them is styled as the recommended route the fork
     has stopped being a fork and become a call to action with distractions.
+
+    The routes are a list, so a screen reader announces how many there are to
+    choose from before it reads the first; each card is the list item itself.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-conversion-path-fork" align="{data.align}">
     <a:layout.container size="lg">
+        <a:layout.stack gap="8" class="g-conversion-path-fork__inner">
 
-        <div class="g-conversion-path-fork__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow"><f:if condition="{data.eyebrow}">{data -> f:render.text(field: 'eyebrow')}</f:if></f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead"><f:if condition="{data.subheader}">{data -> f:render.text(field: 'subheader')}</f:if></f:fragment>
+                <f:fragment><f:if condition="{data.lead}"><a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'lead')}</a:atom.text></f:if></f:fragment>
+            </a:molecule.sectionIntro>
+
+            <f:if condition="{data.paths}">
+                <a:layout.grid cols="{data.columns}" as="ul">
+                    <f:for each="{data.paths}" as="path">
+                        <a:molecule.card as="li" clickable="{path.link.url}" align="{data.align}">
+                            <f:if condition="{path.icon}">
+                                <a:atom.featureIcon icon="{path.icon}" />
+                            </f:if>
+
+                            <a:molecule.cardTitle>
+                                <f:if condition="{path.link.url}">
+                                    <f:then><f:link.typolink parameter="{path.link}">{path.title}</f:link.typolink></f:then>
+                                    <f:else>{path -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
+
+                            <f:if condition="{path.description}">
+                                <a:molecule.cardBody>{path -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                            </f:if>
+                        </a:molecule.card>
+                    </f:for>
+                </a:layout.grid>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="large" class="g-conversion-path-fork__subheader">{data -> f:render.text(field: 'subheader')}</a:atom.text>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-conversion-path-fork__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-conversion-path-fork__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-conversion-path-fork__paths">
-            <f:for each="{data.paths}" as="path">
-                <a:molecule.card clickable="{path.link.url}" class="g-conversion-path-fork__path">
-                    <f:if condition="{path.icon}">
-                        <a:atom.featureIcon icon="{path.icon}" />
-                    </f:if>
-
-                    <a:molecule.cardTitle>
-                        <f:if condition="{path.link.url}">
-                            <f:then><f:link.typolink parameter="{path.link}">{path.title}</f:link.typolink></f:then>
-                            <f:else>{path -> f:render.text(field: 'title')}</f:else>
-                        </f:if>
-                    </a:molecule.cardTitle>
-
-                    <f:if condition="{path.description}">
-                        <a:molecule.cardBody>{path -> f:render.text(field: 'description')}</a:molecule.cardBody>
-                    </f:if>
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-conversion-path-fork__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

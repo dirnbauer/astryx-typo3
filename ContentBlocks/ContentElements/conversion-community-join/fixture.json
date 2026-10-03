@@ -4,41 +4,41 @@
     "header": "Places to join and how active each is",
     "lead": "Forum, chat, user group, mailing list or code repository. Each gets a card with its purpose and roughly how many people are there.",
     "columns": "2",
-    "cta_label": "Join the forum",
-    "cta_link": "#",
+    "cta_label": "Visit TYPO3 Talk",
+    "cta_link": "https://talk.typo3.org/",
     "note": "Put member counts in each description. They go out of date quickly, so round them or leave them out.",
     "align": "start",
     "tone": "muted",
     "places": [
         {
             "icon": "messages",
-            "title": "Two to six places",
-            "description": "A card with a link is clickable as a whole, and the title names the link for screen readers.",
-            "link": "#"
+            "title": "TYPO3 Talk",
+            "description": "The community forum, for questions, answers and announcements.",
+            "link": "https://talk.typo3.org/"
         },
         {
-            "icon": "users",
-            "title": "Equal weight",
-            "description": "A forum of 1,000 and a meet-up of 9 are both places to go, so neither card is larger.",
-            "link": "#"
+            "icon": "message-circle",
+            "title": "TYPO3 Slack",
+            "description": "The community chat, with a channel for each topic and region. Joining is free.",
+            "link": "https://typo3.org/community/meet/chat-slack"
         },
         {
-            "icon": "mail",
-            "title": "Size goes in the description",
-            "description": "Not in the shared note, which applies to every place at once.",
-            "link": "#"
+            "icon": "brand-github",
+            "title": "TYPO3 on GitHub",
+            "description": "The source code of the TYPO3 core, to read, fork and learn from.",
+            "link": "https://github.com/TYPO3/typo3"
         },
         {
-            "icon": "file-code",
-            "title": "Two to four columns",
-            "description": "Plus an optional image between the intro and the grid, if the group has a good photo.",
-            "link": "#"
+            "icon": "list-checks",
+            "title": "TYPO3 Forge",
+            "description": "The issue tracker, where bugs are reported and their fixes followed.",
+            "link": "https://forge.typo3.org/"
         }
     ],
     "image": [
         {
-            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/drawing-review.jpg",
-            "alternative": "Two hands rest on a large building plan beside a ruler and a pencil.",
+            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/training-room.jpg",
+            "alternative": "Chairs in a circle around a flip chart in a room with brick walls.",
             "title": ""
         }
     ]

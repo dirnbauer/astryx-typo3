@@ -1,48 +1,26 @@
 /*
  * Closing CTA Band
  *
+ * Layout only: the measure of the ask, the gap between the button and the
+ * link, and the actions stacked on a phone. The intro, type and the button and
+ * link looks are the components' own.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
+/* A closing ask that runs the full container width reads as one more
+   paragraph rather than as the end of the page. */
 .g-conversion-closing-cta__inner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  /* A closing ask that runs the full container width reads as one more
-     paragraph rather than as the end of the page. */
   max-inline-size: 40rem;
 }
 
 .g-conversion-closing-cta[data-align='center'] .g-conversion-closing-cta__inner {
   margin-inline: auto;
-  align-items: center;
   text-align: center;
 }
 
-.g-conversion-closing-cta__subheader,
-.g-conversion-closing-cta__lead {
-  color: var(--color-text-secondary);
-}
-
 .g-conversion-closing-cta__actions {
-  margin-block-start: var(--spacing-2);
   gap: var(--spacing-5);
-}
-
-.g-conversion-closing-cta__note {
-  margin: 0;
-}
-
-/* On the accent band the secondary text colour is tuned for the page
-   background and would fall out of contrast. */
-.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__subheader,
-.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__lead,
-.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__note,
-.g-conversion-closing-cta[data-surface="accent"] .g-conversion-closing-cta__secondary,
-.g-conversion-closing-cta[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 640px) {
@@ -55,6 +33,7 @@
   .g-conversion-closing-cta__actions {
     flex-direction: column;
     align-items: stretch;
+    align-self: stretch;
     gap: var(--spacing-4);
   }
 
