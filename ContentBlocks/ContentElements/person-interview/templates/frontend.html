@@ -12,57 +12,60 @@
     find-in-page, which is the whole reason somebody publishes an interview.
 
     Each pair is an <article> so the question heads its own answer rather than
-    floating above an undifferentiated run of paragraphs.
+    floating above an undifferentiated run of paragraphs. The question asks the
+    Heading for the accent colour, so it can be found by eye when skimming
+    without a quotation mark or a "Q:" that a screen reader would read out.
+
+    The standfirst is a SectionIntro with the interviewee's portrait and name
+    after the lead. A Divider closes it; the conversation keeps a reading
+    measure whatever width the band was given.
 
     The alt names the person: one portrait, one interviewee, and the picture
-    sits in the standfirst rather than beside a printed name.
+    sits in the standfirst beside the printed name.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-person-interview">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-person-interview__standfirst">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}">
+                <f:if condition="{data.image} || {data.author}">
+                    <a:layout.stack orientation="horizontal" gap="3" class="g-person-interview__who">
+                        <f:if condition="{data.image}">
+                            <a:atom.avatar size="lg">
+                                <f:for each="{data.image}" as="image">
+                                    <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.avatar>
+                        </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                        <f:if condition="{data.author}">
+                            <a:layout.stack gap="1" class="g-person-interview__credit">
+                                <a:atom.text type="label">{data -> f:render.text(field: 'author')}</a:atom.text>
+                                <f:if condition="{data.role}">
+                                    <a:atom.text type="supporting">{data -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </f:if>
+                    </a:layout.stack>
+                </f:if>
+            </a:molecule.sectionIntro>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-person-interview__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
+            <a:atom.divider class="g-person-interview__rule" />
 
-            <f:if condition="{data.image} || {data.author}">
-                <div class="g-person-interview__who">
-                    <f:if condition="{data.image}">
-                        <a:atom.avatar size="lg" class="g-person-interview__portrait">
-                            <f:for each="{data.image}" as="image">
-                                <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
+            <a:layout.stack gap="8" class="g-person-interview__conversation">
+                <f:for each="{data.questions}" as="pair">
+                    <article class="g-person-interview__pair">
+                        <a:atom.heading level="3" color="accent">{pair -> f:render.text(field: 'title')}</a:atom.heading>
+                        <div class="astryx-prose"><f:format.html>{pair.bodytext}</f:format.html></div>
+                    </article>
+                </f:for>
+            </a:layout.stack>
 
-                    <f:if condition="{data.author}">
-                        <p class="g-person-interview__credit">
-                            <a:atom.text type="label" as="span" class="g-person-interview__name">{data -> f:render.text(field: 'author')}</a:atom.text>
-                            <f:if condition="{data.role}">
-                                <a:atom.text type="supporting" as="span" class="g-person-interview__role">{data -> f:render.text(field: 'role')}</a:atom.text>
-                            </f:if>
-                        </p>
-                    </f:if>
-                </div>
-            </f:if>
-        </div>
-
-        <div class="g-person-interview__conversation">
-            <f:for each="{data.questions}" as="pair">
-                <article class="g-person-interview__pair">
-                    <a:atom.heading level="3" class="g-person-interview__question">{pair -> f:render.text(field: 'title')}</a:atom.heading>
-                    <div class="astryx-prose g-person-interview__answer"><f:format.html>{pair.bodytext}</f:format.html></div>
-                </article>
-            </f:for>
-        </div>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

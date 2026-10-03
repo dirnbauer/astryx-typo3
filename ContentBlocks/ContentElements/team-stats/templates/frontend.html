@@ -6,57 +6,48 @@
 <f:asset.css identifier="g-team-stats" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The figures are a description list: each value is defined by the label
-    under it, and that is the one relationship a screen reader needs in order
-    to read "fifty-eight" as something other than a loose number.
-
-    The value comes before its label in the source as well as on screen — a
-    definition list is read term first, and here the number is the term the
-    sentence beneath explains.
+    Each figure is a Stat: the value and its unit on one baseline, the title as
+    the term the figure is defined by, the note under it. A Stat is its own
+    description list, which is what lets a screen reader read "fifty-eight" as
+    something other than a loose number — and it is why the figures are list
+    items rather than one shared description list: the icon tile above each
+    figure may not stand inside a <dl>.
 
     The icon tile carries the semantic key rather than a glyph, so swapping the
-    icon library never reaches into a template.
+    icon library never reaches into a template. The grid's small items keep two
+    figures to a row on a phone. Centring is the editor's choice and reaches
+    the intro and every figure.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-team-stats">
+<a:layout.section surface="{data.tone}" align="{data.align}" class="g-team-stats">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-team-stats__intro" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}"
+                align="{data.align}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-team-stats__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid as="dl" cols="{data.columns}" align="{data.align}" class="g-team-stats__figures">
-            <f:for each="{data.stats}" as="stat">
-                <div class="g-team-stats__figure">
-                    <f:if condition="{stat.icon}">
-                        <a:atom.featureIcon icon="{stat.icon}" class="g-team-stats__icon" />
-                    </f:if>
-
-                    <a:atom.text type="display-3" as="dt" class="g-team-stats__value">
-                        <span>{stat -> f:render.text(field: 'value')}</span>
-                        <f:if condition="{stat.unit}">
-                            <span class="g-team-stats__unit">{stat -> f:render.text(field: 'unit')}</span>
+            <a:layout.grid as="ul" cols="{data.columns}" items="small">
+                <f:for each="{data.stats}" as="stat">
+                    <li class="g-team-stats__figure">
+                        <f:if condition="{stat.icon}">
+                            <a:atom.featureIcon icon="{stat.icon}" />
                         </f:if>
-                    </a:atom.text>
 
-                    <dd class="g-team-stats__label">
-                        <a:atom.text type="label" as="span" class="g-team-stats__title">{stat -> f:render.text(field: 'title')}</a:atom.text>
-                        <f:if condition="{stat.text}">
-                            <a:atom.text type="supporting" as="span" class="g-team-stats__note">{stat -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </dd>
-                </div>
-            </f:for>
-        </a:layout.grid>
+                        <a:molecule.stat
+                            as="dl"
+                            align="{data.align}"
+                            value="{stat -> f:render.text(field: 'value')}"
+                            unit="{stat -> f:render.text(field: 'unit')}"
+                            label="{stat -> f:render.text(field: 'title')}"
+                            note="{stat -> f:render.text(field: 'text')}" />
+                    </li>
+                </f:for>
+            </a:layout.grid>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

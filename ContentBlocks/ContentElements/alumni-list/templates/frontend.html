@@ -11,9 +11,15 @@
     and its text carries the current position, and the source order is that
     order — which is the only arrangement that survives being read aloud.
 
+    The rows are a List in the editor's number of columns, with a rule under
+    every row, so a column reads as one list rather than as a stack of pairs.
+    Compact asks the List for its balanced density and the avatar for its
+    small size.
+
     The years stay plain text rather than becoming a <time> element. "2011–2019"
     is not a machine-readable datetime, and dressing it up as one would put a
-    promise into the markup that nothing can keep.
+    promise into the markup that nothing can keep; Timestamp without a datetime
+    renders a span, which is honest.
 
     The alt names the person: an alumni list is a page somebody searches for a
     former colleague on, and a face that answers to nothing helps nobody.
@@ -21,58 +27,51 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-alumni-list">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-alumni-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}"
+                leadType="body" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.list columns="{data.columns}" dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}">
+                <f:for each="{data.people}" as="person">
+                    <a:molecule.listItem>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-alumni-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <f:if condition="{person.image}">
+                            <a:atom.avatar size="{f:if(condition: data.compact, then: 'sm', else: 'md')}">
+                                <f:for each="{person.image}" as="image">
+                                    <f:image image="{image}" alt="{person.title}" width="72c" height="72c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.avatar>
+                        </f:if>
 
-        <a:layout.grid as="ul" cols="{data.columns}" class="g-alumni-list__people">
-            <f:for each="{data.people}" as="person">
-                <li class="g-alumni-list__row">
-
-                    <f:if condition="{person.image}">
-                        <a:atom.avatar size="md" class="g-alumni-list__portrait">
-                            <f:for each="{person.image}" as="image">
-                                <f:image image="{image}" alt="{person.title}" width="72c" height="72c" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
-
-                    <span class="g-alumni-list__detail">
-                        <span class="g-alumni-list__headline">
-                            <a:atom.text type="label" as="span" class="g-alumni-list__name">
+                        <a:layout.stack gap="1" class="g-alumni-list__detail">
+                            <a:atom.text type="label">
                                 <f:if condition="{person.link.url}">
                                     <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
                                     <f:else>{person -> f:render.text(field: 'title')}</f:else>
                                 </f:if>
+                                <f:if condition="{person.role}">
+                                    <a:atom.text type="supporting" as="span" class="g-alumni-list__years"><a:atom.timestamp>{person -> f:render.text(field: 'role')}</a:atom.timestamp></a:atom.text>
+                                </f:if>
                             </a:atom.text>
 
-                            <f:if condition="{person.role}">
-                                <a:atom.timestamp class="g-alumni-list__years">{person -> f:render.text(field: 'role')}</a:atom.timestamp>
+                            <f:if condition="{person.text}">
+                                <a:atom.text type="supporting">{person -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
-                        </span>
+                        </a:layout.stack>
 
-                        <f:if condition="{person.text}">
-                            <a:atom.text type="supporting" as="span" class="g-alumni-list__where">{person -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </span>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
-                </li>
-            </f:for>
-        </a:layout.grid>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-alumni-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-alumni-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

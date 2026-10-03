@@ -11,62 +11,64 @@
     The speaker's name still heads the card, because a reader looking for a
     person scans names and a reader looking for a subject reads on.
 
+    A linked talk makes the whole card clickable: Card's own clickable state
+    stretches the talk link over the card, so there is one link per card and
+    its accessible name is the talk title. The talk sits at the foot of the
+    card, so a row of cards ends level whatever the affiliations above did.
+
     The alt names the speaker, as everywhere in this group where a portrait
     heads a card of its own.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-speaker-lineup">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-speaker-lineup__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.speakers}" as="speaker">
+                    <a:molecule.card as="li" clickable="{speaker.link.url}">
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-speaker-lineup__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <f:if condition="{speaker.image}">
+                            <a:atom.avatar size="lg">
+                                <f:for each="{speaker.image}" as="image">
+                                    <f:image image="{image}" alt="{speaker.title}" width="128c" height="128c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.avatar>
+                        </f:if>
 
-        <a:layout.grid cols="{data.columns}" class="g-speaker-lineup__speakers">
-            <f:for each="{data.speakers}" as="speaker">
-                <a:molecule.card clickable="{speaker.link.url}" class="g-speaker-lineup__speaker">
+                        <a:layout.stack gap="1">
+                            <a:molecule.cardTitle>{speaker -> f:render.text(field: 'title')}</a:molecule.cardTitle>
 
-                    <f:if condition="{speaker.image}">
-                        <a:atom.avatar size="lg" class="g-speaker-lineup__portrait">
-                            <f:for each="{speaker.image}" as="image">
-                                <f:image image="{image}" alt="{speaker.title}" width="128c" height="128c" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
-
-                    <a:molecule.cardTitle class="g-speaker-lineup__name">{speaker -> f:render.text(field: 'title')}</a:molecule.cardTitle>
-
-                    <f:if condition="{speaker.role}">
-                        <a:atom.text type="supporting" class="g-speaker-lineup__affiliation">{speaker -> f:render.text(field: 'role')}</a:atom.text>
-                    </f:if>
-
-                    <f:if condition="{speaker.text}">
-                        <a:molecule.cardBody class="g-speaker-lineup__talk">
-                            <f:if condition="{speaker.link.url}">
-                                <f:then><f:link.typolink parameter="{speaker.link}">{speaker.text}</f:link.typolink></f:then>
-                                <f:else>{speaker -> f:render.text(field: 'text')}</f:else>
+                            <f:if condition="{speaker.role}">
+                                <a:atom.text type="supporting">{speaker -> f:render.text(field: 'role')}</a:atom.text>
                             </f:if>
-                        </a:molecule.cardBody>
-                    </f:if>
+                        </a:layout.stack>
 
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
+                        <f:if condition="{speaker.text}">
+                            <a:atom.text type="label" class="g-speaker-lineup__talk">
+                                <f:if condition="{speaker.link.url}">
+                                    <f:then><a:atom.link variant="quiet" parameter="{speaker.link}">{speaker.text}</a:atom.link></f:then>
+                                    <f:else>{speaker -> f:render.text(field: 'text')}</f:else>
+                                </f:if>
+                            </a:atom.text>
+                        </f:if>
 
-        <f:if condition="{data.cta_label}">
-            <p class="g-speaker-lineup__actions">
-                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
 
+            <f:if condition="{data.cta_label}">
+                <a:atom.text>
+                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:atom.text>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

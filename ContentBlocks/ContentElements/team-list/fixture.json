@@ -1,6 +1,6 @@
 {
     "_type": "team",
-    "eyebrow": "Team Directory",
+    "eyebrow": "Team directory",
     "header": "A large team in compact rows",
     "lead": "From 4 to 200 people, one line each: small portrait, name, role and an optional link. On desktop screens, each row stays one line tall.",
     "note": "Use the note to explain how to reach people, which a list of names cannot say row by row.",
@@ -11,8 +11,8 @@
     "people": [
         {
             "title": "The name takes the free space",
-            "role": "and the role sits at the far end",
-            "link": "#",
+            "role": "The role sits at the far end",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p05.jpg",
@@ -23,58 +23,63 @@
         },
         {
             "title": "The portrait is decorative",
-            "role": "empty alt text, skipped by screen readers",
+            "role": "Empty alt text, so screen readers skip it",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p06.jpg",
                     "alternative": "Portrait of a man in his forties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "A missing portrait leaves no gap",
-            "role": "the row starts with the name",
+            "role": "The row starts with the name",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p07.jpg",
                     "alternative": "Portrait of a woman in her thirties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Lines between rows",
-            "role": "so a column reads as one list",
+            "role": "So a column reads as one list",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p08.jpg",
                     "alternative": "Portrait of a man in his twenties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Compact halves the row height",
-            "role": "and makes the text one size smaller",
+            "role": "Smaller text and a smaller portrait",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p09.jpg",
                     "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Below 480px, the role moves down",
-            "role": "instead of both lines wrapping",
+            "role": "Instead of both lines wrapping",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p10.jpg",
                     "alternative": "Portrait of a man in his fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

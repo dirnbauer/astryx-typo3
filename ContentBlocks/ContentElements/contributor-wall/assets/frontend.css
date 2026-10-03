@@ -1,36 +1,20 @@
 /*
  * Contributor Wall
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The intro, the gaps, the list reset, the faces, the type and
+ * the link colours come from the components the template composes; this file
+ * sets the dense column tracks a wall of faces needs.
  */
 
-.g-contributor-wall__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-contributor-wall__lead {
-  color: var(--color-text-secondary);
-}
-
-/* auto-fill rather than auto-fit: with two hundred people the last row should
-   keep the column rhythm instead of stretching four faces across the band. */
+/* auto-fill rather than the grid's own auto-fit, and narrower tracks than
+   Grid offers: with two hundred people the last row keeps the column rhythm
+   instead of stretching four faces across the band. */
 .g-contributor-wall__people {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
-  gap: var(--spacing-5) var(--spacing-3);
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
-.g-contributor-wall__people[data-density="compact"] {
+.g-contributor-wall[data-spacing="tight"] .g-contributor-wall__people {
   grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
-  gap: var(--spacing-4) var(--spacing-2);
 }
 
 .g-contributor-wall__person,
@@ -42,28 +26,15 @@
   text-align: center;
 }
 
+/* Names break where they can rather than pushing the column wider: a wall
+   whose widest name sets the grid wastes a third of the band. */
 .g-contributor-wall__name {
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-  /* Names break where they can rather than pushing the column wider: a wall
-     whose widest name sets the grid wastes a third of the band. */
   overflow-wrap: anywhere;
 }
 
-.g-contributor-wall__people[data-density="compact"] .g-contributor-wall__portrait {
-  --_avatar-size: 36px;
-}
-
+/* A note under the wall keeps a reading measure. */
 .g-contributor-wall__note {
-  margin-block-start: var(--spacing-8);
   max-inline-size: 44rem;
-}
-
-.g-contributor-wall[data-surface="accent"] .g-contributor-wall__lead,
-.g-contributor-wall[data-surface="accent"] .g-contributor-wall__note,
-.g-contributor-wall[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 480px) {

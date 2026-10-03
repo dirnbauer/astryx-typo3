@@ -1,67 +1,14 @@
 /*
  * Speaker Lineup
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The intro, the cards (one per list item, clickable where the
+ * talk links, a row stretched to one height), portraits, type and colour come
+ * from the components the template composes.
  */
 
-.g-speaker-lineup__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-speaker-lineup__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-speaker-lineup__speakers {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-speaker-lineup__speaker {
-  block-size: 100%;
-  gap: var(--spacing-2);
-}
-
-.g-speaker-lineup__affiliation {
-  margin: 0;
-}
-
-/* The talk sits at the foot of the card, so a row of cards ends level whatever
-   the affiliations above them did. */
+/* The talk sits at the foot of the card, so a row of cards ends level
+   whatever the affiliations above them did. */
 .g-speaker-lineup__talk {
-  margin: 0;
   margin-block-start: auto;
-  padding-block-start: var(--spacing-3);
-  color: var(--color-text-primary);
-}
-
-.g-speaker-lineup__talk a {
-  text-decoration: none;
-}
-
-.g-speaker-lineup__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-8);
-}
-
-.g-speaker-lineup[data-surface="accent"] .g-speaker-lineup__lead,
-.g-speaker-lineup[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-speaker-lineup__intro {
-    margin-block-end: var(--spacing-8);
-  }
-
-  .g-speaker-lineup__actions {
-    margin-block-start: var(--spacing-6);
-  }
+  padding-block-start: var(--spacing-2);
 }

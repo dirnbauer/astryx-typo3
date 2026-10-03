@@ -1,6 +1,6 @@
 {
     "_type": "team",
-    "eyebrow": "Offices with Contacts",
+    "eyebrow": "Offices with contacts",
     "header": "Each office with its address and contact",
     "lead": "Each card is headed by the office, because readers look for a place before a name. The role field holds the office and the text field holds the address.",
     "columns": "3",
@@ -8,10 +8,10 @@
     "width": "lg",
     "contacts": [
         {
-            "title": "The contact's name",
+            "title": "The contact’s name",
             "role": "The office is the heading",
             "text": "The address uses an address element\nset upright, not in italics\nand it keeps its line breaks",
-            "link": "#",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p08.jpg",
@@ -21,7 +21,7 @@
             ]
         },
         {
-            "title": "A link is optional",
+            "title": "A second contact",
             "role": "A second office",
             "text": "The contact row sits at the bottom of the card\nso a four-line address lines up with a two-line one",
             "image": [
@@ -30,7 +30,8 @@
                     "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

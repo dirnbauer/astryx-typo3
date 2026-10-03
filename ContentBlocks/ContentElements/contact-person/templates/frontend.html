@@ -15,49 +15,58 @@
     when the phone is picked up, and a reader who has not is going to read the
     whole panel anyway.
 
+    The panel is a band of its own, so the name heads it at level two, set at
+    the size of a section's sub-heading. Reverse is a layout choice and travels
+    on the section, where this element's stylesheet reads it; the card keeps
+    its own variant for what the card is.
+
     The alt names the person, as everywhere in this group where the portrait
     stands on its own beside the text.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-contact-person">
+<a:layout.section surface="{data.tone}" variant="{f:if(condition: data.reverse, then: 'reverse', else: 'default')}" class="g-contact-person">
     <a:layout.container size="{data.width}">
-        <a:molecule.card density="roomy" variant="{f:if(condition: data.reverse, then: 'portrait-end', else: 'default')}" class="g-contact-person__panel">
+        <a:molecule.card density="roomy">
+            <a:layout.stack orientation="horizontal" gap="6" class="g-contact-person__panel">
 
-            <f:if condition="{data.image}">
-                <a:atom.avatar size="xl" class="g-contact-person__portrait">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{data.header}" width="256c" height="256c" loading="lazy"/>
-                    </f:for>
-                </a:atom.avatar>
-            </f:if>
-
-            <div class="g-contact-person__body">
-                <a:atom.heading level="3" class="g-contact-person__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.subheader}">
-                    <a:atom.text type="label" class="g-contact-person__role">{data -> f:render.text(field: 'subheader')}</a:atom.text>
+                <f:if condition="{data.image}">
+                    <a:atom.avatar size="xl">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{data.header}" width="256c" height="256c" loading="lazy"/>
+                        </f:for>
+                    </a:atom.avatar>
                 </f:if>
 
-                <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-contact-person__text">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
+                <a:layout.stack gap="3" class="g-contact-person__body">
+                    <a:layout.stack gap="1">
+                        <a:atom.heading level="2" type="heading-3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-contact-person__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                        <f:if condition="{data.subheader}">
+                            <a:atom.text type="label" color="accent">{data -> f:render.text(field: 'subheader')}</a:atom.text>
                         </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.button variant="ghost" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
-                        </f:if>
-                    </a:molecule.buttonGroup>
-                </f:if>
+                    </a:layout.stack>
 
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-contact-person__hours">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-            </div>
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="body" color="secondary" class="g-contact-person__text">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
 
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <a:molecule.buttonGroup class="g-contact-person__actions">
+                            <f:if condition="{data.cta_label}">
+                                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <a:atom.button variant="secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                            </f:if>
+                        </a:molecule.buttonGroup>
+                    </f:if>
+
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
+
+            </a:layout.stack>
         </a:molecule.card>
     </a:layout.container>
 </a:layout.section>

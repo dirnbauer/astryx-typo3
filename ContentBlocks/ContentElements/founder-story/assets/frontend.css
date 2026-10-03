@@ -1,72 +1,32 @@
 /*
  * Founder Story
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The intro, the figure and its caption, the portrait frame
+ * (AspectRatio), the rule above the signature (Divider) and the type come
+ * from the components the template composes. This file sets the two columns
+ * and the reading measure.
  */
 
-/* A narrative column and a picture beside it, rather than two equal halves:
-   the story is the element and the portrait accompanies it. */
 .g-founder-story__grid {
   display: grid;
   gap: var(--spacing-8);
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.g-founder-story__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.g-founder-story__lead {
-  color: var(--color-text-secondary);
-}
-
-/* The measure is fixed at the reading width whatever the band was given: a
-   founder story set across a full page is a founder story nobody finishes. */
-.g-founder-story__body {
-  max-inline-size: 65ch;
-}
-
+/* The story keeps a reading measure whatever the band was given: a founder
+   story set across a full page is a founder story nobody finishes. The intro
+   above it keeps the measure SectionIntro gives it. */
+.g-founder-story__body,
 .g-founder-story__signature {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-  margin: 0;
-  padding-block-start: var(--spacing-3);
-  border-block-start: var(--border-width) solid var(--color-border);
   max-inline-size: 65ch;
 }
 
-.g-founder-story__actions {
-  margin: 0;
-}
-
-.g-founder-story__figure {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
-.g-founder-story__portrait {
-  inline-size: 100%;
-  block-size: auto;
-  display: block;
-  border-radius: var(--radius-container, var(--radius-element));
-}
-
-.g-founder-story[data-surface="accent"] .g-founder-story__lead,
-.g-founder-story[data-surface="accent"] .g-founder-story__role,
-.g-founder-story[data-surface="accent"] .astryx-eyebrow,
-.g-founder-story[data-surface="accent"] .g-founder-story__figure figcaption {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-founder-story[data-surface="accent"] .g-founder-story__signature {
-  border-block-start-color: currentColor;
+/* On a phone the portrait is a picture beside a story, not a poster above
+   the next band. */
+@media (max-width: 767px) {
+  .g-founder-story__figure {
+    max-inline-size: 20rem;
+  }
 }
 
 @media (min-width: 768px) {

@@ -1,6 +1,6 @@
 {
     "_type": "team",
-    "eyebrow": "Team by Function",
+    "eyebrow": "Team by function",
     "header": "Names in columns headed by function",
     "lead": "The columns come from the records: people are grouped by role, in order of first appearance. Sorting the people sets the headings and their order, and no portraits are shown.",
     "columns": "3",
@@ -17,7 +17,8 @@
                     "alternative": "Portrait of a woman in her forties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "People with that role appear here",
@@ -28,12 +29,13 @@
                     "alternative": "Portrait of a man in his forties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "A name can have a link",
             "role": "Grouped by role",
-            "link": "#",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p07.jpg",
@@ -51,7 +53,8 @@
                     "alternative": "Portrait of a man in his twenties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Sorting the records sorts the columns",
@@ -62,7 +65,8 @@
                     "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Columns start at the same height",
@@ -73,7 +77,8 @@
                     "alternative": "Portrait of a man in his fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Short and long columns still line up",
@@ -84,7 +89,8 @@
                     "alternative": "Portrait of a woman in her thirties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Compact makes the lists tighter",
@@ -95,7 +101,8 @@
                     "alternative": "Portrait of a man in his forties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

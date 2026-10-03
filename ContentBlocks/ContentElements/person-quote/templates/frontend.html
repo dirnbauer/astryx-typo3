@@ -10,51 +10,62 @@
     know why this person is speaking before reading what they said, or the
     sentence arrives without a subject.
 
-    Quotation, portrait and attribution are one figure, so the name is the
-    caption of the quote rather than a paragraph that happens to follow it.
+    Quotation and attribution are one Figure — Blockquote for the words,
+    Citation (a figcaption) for the person — so the name is the caption of the
+    quote rather than a paragraph that happens to follow it. Name and role sit
+    on two lines: run together with a comma, the whitespace a component leaves
+    after itself put a space in front of the comma. The quotation is
+    written straight into the blockquote, without a paragraph around it, so it
+    carries no paragraph margins inside the quotation rule.
+
+    Reverse is a layout choice and travels on the section, where this element's
+    stylesheet reads it; the card keeps its own variant for what the card is.
 
     The alt names the person. This is a colleague being introduced, not a
     decorative face beside a row of names, and the portrait is the only picture
     on the card.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-person-quote">
+<a:layout.section surface="{data.tone}" variant="{f:if(condition: data.reverse, then: 'reverse', else: 'default')}" class="g-person-quote">
     <a:layout.container size="{data.width}">
-        <a:molecule.card density="roomy" variant="{f:if(condition: data.reverse, then: 'portrait-end', else: 'default')}" class="g-person-quote__card">
+        <a:molecule.card density="roomy">
+            <a:layout.stack orientation="horizontal" align="start" gap="6" class="g-person-quote__layout">
 
-            <f:if condition="{data.image}">
-                <a:atom.avatar size="xl" class="g-person-quote__portrait">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{data.author}" width="256c" height="256c" loading="lazy"/>
-                    </f:for>
-                </a:atom.avatar>
-            </f:if>
-
-            <div class="g-person-quote__body">
-                <f:if condition="{data.text}">
-                    <a:atom.text type="supporting" class="g-person-quote__framing">{data -> f:render.text(field: 'text')}</a:atom.text>
+                <f:if condition="{data.image}">
+                    <a:atom.avatar size="xl">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{data.author}" width="256c" height="256c" loading="lazy"/>
+                        </f:for>
+                    </a:atom.avatar>
                 </f:if>
 
-                <a:molecule.blockquote class="g-person-quote__quote">
-                    <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </a:molecule.blockquote>
+                <a:layout.stack gap="3" class="g-person-quote__body">
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
 
-                <f:if condition="{data.author}">
-                    <a:molecule.citation class="g-person-quote__credit">
-                        <span class="g-person-quote__name">{data -> f:render.text(field: 'author')}</span>
-                        <f:if condition="{data.role}">
-                            <span class="g-person-quote__role">{data -> f:render.text(field: 'role')}</span>
+                    <a:molecule.figure>
+                        <a:molecule.blockquote>{data -> f:render.text(field: 'quote_text')}</a:molecule.blockquote>
+                        <f:if condition="{data.author}">
+                            <a:molecule.citation>
+                                <a:layout.stack gap="1">
+                                    <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                                    <f:if condition="{data.role}">
+                                        <span>{data -> f:render.text(field: 'role')}</span>
+                                    </f:if>
+                                </a:layout.stack>
+                            </a:molecule.citation>
                         </f:if>
-                    </a:molecule.citation>
-                </f:if>
+                    </a:molecule.figure>
 
-                <f:if condition="{data.cta_label}">
-                    <p class="g-person-quote__actions">
-                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                    </p>
-                </f:if>
-            </div>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.text>
+                            <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
+                        </a:atom.text>
+                    </f:if>
+                </a:layout.stack>
 
+            </a:layout.stack>
         </a:molecule.card>
     </a:layout.container>
 </a:layout.section>

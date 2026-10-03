@@ -17,54 +17,58 @@
     The name carries the link. A second "get in touch" underneath would be a
     duplicate target with vaguer wording, and a heading that is already the
     person's name is the clearest accessible name a link can have.
+
+    The role takes the accent and the biography the secondary text colour, both
+    from Text's own colour argument. Centring is the section's choice and moves
+    the intro and every cell together.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-leadership-row">
+<a:layout.section surface="{data.tone}" align="{data.align}" class="g-leadership-row">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-leadership-row__intro" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}"
+                align="{data.align}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.people}" as="person">
+                    <li class="g-leadership-row__person">
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-leadership-row__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" align="{data.align}" class="g-leadership-row__people">
-            <f:for each="{data.people}" as="person">
-                <a:layout.stack gap="2" class="g-leadership-row__person">
-
-                    <f:if condition="{person.image}">
-                        <a:atom.avatar size="xl" class="g-leadership-row__portrait">
-                            <f:for each="{person.image}" as="image">
-                                <f:image image="{image}" alt="{person.title}" width="256c" height="256c" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
-
-                    <a:atom.heading level="3" class="g-leadership-row__name">
-                        <f:if condition="{person.link.url}">
-                            <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
-                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        <f:if condition="{person.image}">
+                            <a:atom.avatar size="xl">
+                                <f:for each="{person.image}" as="image">
+                                    <f:image image="{image}" alt="{person.title}" width="256c" height="256c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.avatar>
                         </f:if>
-                    </a:atom.heading>
 
-                    <f:if condition="{person.role}">
-                        <a:atom.text type="label" class="g-leadership-row__role">{person -> f:render.text(field: 'role')}</a:atom.text>
-                    </f:if>
+                        <a:layout.stack gap="2">
+                            <a:layout.stack gap="1">
+                                <a:atom.heading level="3">
+                                    <f:if condition="{person.link.url}">
+                                        <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
+                                        <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                    </f:if>
+                                </a:atom.heading>
 
-                    <f:if condition="{person.text}">
-                        <a:atom.text type="body" class="g-leadership-row__bio">{person -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
+                                <f:if condition="{person.role}">
+                                    <a:atom.text type="label" color="accent">{person -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
 
-                </a:layout.stack>
-            </f:for>
-        </a:layout.grid>
+                            <f:if condition="{person.text}">
+                                <a:atom.text type="body" color="secondary" class="g-leadership-row__bio">{person -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
 
+                    </li>
+                </f:for>
+            </a:layout.grid>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

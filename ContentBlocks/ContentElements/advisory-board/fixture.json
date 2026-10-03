@@ -1,6 +1,6 @@
 {
     "_type": "team",
-    "eyebrow": "Advisory Board",
+    "eyebrow": "Advisory board",
     "header": "External advisers and where they come from",
     "lead": "Portrait, name, organisation and subject for each adviser. Two to twelve people, with a note below the grid.",
     "note": "Use the note for conflicts of interest, how often the board meets, or whether advisers are paid.",
@@ -9,10 +9,10 @@
     "width": "lg",
     "people": [
         {
-            "title": "The name",
-            "role": "Their organisation",
-            "text": "The subject they advise on",
-            "link": "#",
+            "title": "Name first",
+            "role": "Organisation on the line below",
+            "text": "Subject as a tag at the foot",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p07.jpg",
@@ -22,28 +22,30 @@
             ]
         },
         {
-            "title": "Organisation at equal weight",
-            "role": "to the name above it",
-            "text": "Because it shows why this person is on the board",
+            "title": "Organisation in full",
+            "role": "Never cut to an acronym",
+            "text": "It shows why this person was asked",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p08.jpg",
                     "alternative": "Portrait of a man in his twenties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
-            "title": "The subject wraps",
-            "role": "it is not a badge",
-            "text": "So a long subject breaks onto a new line instead of overflowing the card",
+            "title": "Subjects can be long",
+            "role": "The tag wraps instead of overflowing",
+            "text": "Municipal procurement, tendering and the contract law behind them",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p09.jpg",
                     "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

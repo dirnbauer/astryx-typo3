@@ -6,9 +6,15 @@
 <f:asset.css identifier="g-team-grid" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Every portrait is cropped server-side to one ratio, so an upload of any
-    proportion lands in the same box as its neighbours — mixed ratios are the
-    fastest way to make a good team look untidy.
+    Every portrait is cropped server-side to one ratio and framed by
+    AspectRatio, so an upload of any proportion lands in the same box as its
+    neighbours — mixed ratios are the fastest way to make a good team look
+    untidy. The frame is the card's media and bleeds to its edges.
+
+    A linked person makes the whole card clickable: Card's own clickable state
+    stretches the name's link over the card, so the cell is one link, not two.
+    Each card is the list item itself, and the grid's small items keep two
+    portraits to a row on a phone rather than one per screen.
 
     The alt is the person's name rather than empty, even though the name is
     printed underneath: when a portrait fails to load, a card in a grid of
@@ -23,46 +29,43 @@
 
 <a:layout.section surface="{data.tone}" class="g-team-grid">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-team-grid__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}" items="small">
+                <f:for each="{data.people}" as="person">
+                    <a:molecule.card as="li" clickable="{person.link.url}" media="{f:if(condition: person.image, then: 'top', else: 'default')}">
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-team-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-team-grid__people">
-            <f:for each="{data.people}" as="person">
-                <a:molecule.card clickable="{person.link.url}" media="{f:if(condition: person.image, then: 'top', else: 'default')}" class="g-team-grid__person">
-
-                    <f:if condition="{person.image}">
-                        <div class="g-team-grid__portrait">
-                            <f:for each="{person.image}" as="image">
-                                <f:image image="{image}" alt="{person.title}" width="480c" height="600c" loading="lazy"/>
-                            </f:for>
-                        </div>
-                    </f:if>
-
-                    <a:molecule.cardTitle class="g-team-grid__name">
-                        <f:if condition="{person.link.url}">
-                            <f:then><f:link.typolink parameter="{person.link}">{person.title}</f:link.typolink></f:then>
-                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        <f:if condition="{person.image}">
+                            <a:atom.aspectRatio ratio="portrait">
+                                <f:for each="{person.image}" as="image">
+                                    <f:image image="{image}" alt="{person.title}" width="480c" height="640c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.aspectRatio>
                         </f:if>
-                    </a:molecule.cardTitle>
 
-                    <f:if condition="{person.role}">
-                        <a:molecule.cardBody class="g-team-grid__role">{person -> f:render.text(field: 'role')}</a:molecule.cardBody>
-                    </f:if>
+                        <a:layout.stack gap="1">
+                            <a:molecule.cardTitle>
+                                <f:if condition="{person.link.url}">
+                                    <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
+                                    <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
 
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
+                            <f:if condition="{person.role}">
+                                <a:atom.text type="supporting">{person -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
 
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

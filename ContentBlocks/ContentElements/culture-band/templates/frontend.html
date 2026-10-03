@@ -12,44 +12,48 @@
     element that would know what is in the frame.
 
     The collage reflows on the number of pictures rather than on a variant
-    switch: one photograph fills the column, two sit side by side, three or
-    more tile. Nothing has to be re-chosen when a picture is added.
+    switch: two columns whatever the count — the grid's small items keep two
+    to a row on a phone too — and an odd last picture spans the row in a wider
+    frame instead of leaving a hole beside it. Each frame is an AspectRatio,
+    which crops, clips and rounds the picture; the element only decides which
+    frame a picture gets.
+
+    The single button sits in a paragraph of its own, so the copy column does
+    not stretch it to the column's width.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-culture-band">
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-culture-band__grid">
 
-            <div class="g-culture-band__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-culture-band__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
+            <a:layout.stack gap="4" class="g-culture-band__copy">
+                <a:molecule.sectionIntro
+                    eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                    heading="{data -> f:render.text(field: 'header')}"
+                    lead="{data -> f:render.text(field: 'lead')}" />
 
                 <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-culture-band__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                    <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <p class="g-culture-band__actions">
+                    <a:atom.text class="g-culture-band__actions">
                         <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
+                    </a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.images}">
-                <ul class="g-culture-band__collage">
-                    <f:for each="{data.images}" as="image">
-                        <li class="g-culture-band__frame">
-                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="640c" height="480c" loading="lazy" class="g-culture-band__image"/>
+                <a:layout.grid as="ul" fixed="2" items="small" gap="3">
+                    <f:for each="{data.images}" as="image" iteration="frame">
+                        <f:variable name="spansRow" value="{f:if(condition: '{frame.isLast} && {frame.isOdd}', then: 'row', else: 'cell')}"/>
+                        <li class="g-culture-band__frame" data-span="{spansRow}">
+                            <a:atom.aspectRatio ratio="{f:if(condition: '{spansRow} == \'row\'', then: 'default', else: 'landscape')}">
+                                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="{f:if(condition: '{spansRow} == \'row\'', then: '1280c', else: '640c')}" height="{f:if(condition: '{spansRow} == \'row\'', then: '720c', else: '480c')}" loading="lazy"/>
+                            </a:atom.aspectRatio>
                         </li>
                     </f:for>
-                </ul>
+                </a:layout.grid>
             </f:if>
 
         </a:layout.split>

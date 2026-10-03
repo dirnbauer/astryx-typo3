@@ -6,13 +6,16 @@
 <f:asset.css identifier="g-advisory-board" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The affiliation is set at the same weight as the name rather than as a
-    quiet subtitle: an advisory board earns its credibility from where its
-    members come from, and half-hiding that is the one thing this element must
-    not do.
+    The affiliation sits directly under the name and in the same column, not as
+    a quiet afterthought: an advisory board earns its credibility from where its
+    members come from. It is a line of text, not a second heading — the card
+    has one title, and it is the person.
 
     The subject is a token rather than a badge, because a badge refuses to wrap
     and "Municipal procurement and tendering" would then run out of its card.
+    It is pushed to the foot of the card, so the subjects of a row line up
+    however long the affiliations above them run. Each card is the list item
+    itself, so the cards of a row stretch to one height.
 
     The alt names the person, as everywhere in this group where a portrait
     heads a card; the picture is the first thing in the cell and an empty alt
@@ -21,56 +24,55 @@
 
 <a:layout.section surface="{data.tone}" class="g-advisory-board">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-advisory-board__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.people}" as="person">
+                    <a:molecule.card as="li">
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-advisory-board__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <a:layout.stack orientation="horizontal" gap="3" class="g-advisory-board__head">
+                            <f:if condition="{person.image}">
+                                <a:atom.avatar size="lg">
+                                    <f:for each="{person.image}" as="image">
+                                        <f:image image="{image}" alt="{person.title}" width="128c" height="128c" loading="lazy"/>
+                                    </f:for>
+                                </a:atom.avatar>
+                            </f:if>
 
-        <a:layout.grid cols="{data.columns}" class="g-advisory-board__people">
-            <f:for each="{data.people}" as="person">
-                <a:molecule.card class="g-advisory-board__person">
+                            <a:layout.stack gap="1" class="g-advisory-board__identity">
+                                <a:molecule.cardTitle>
+                                    <f:if condition="{person.link.url}">
+                                        <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
+                                        <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                    </f:if>
+                                </a:molecule.cardTitle>
 
-                    <f:if condition="{person.image}">
-                        <a:atom.avatar size="lg" class="g-advisory-board__portrait">
-                            <f:for each="{person.image}" as="image">
-                                <f:image image="{image}" alt="{person.title}" width="128c" height="128c" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
+                                <f:if condition="{person.role}">
+                                    <a:atom.text type="label" color="secondary">{person -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </a:layout.stack>
 
-                    <a:molecule.cardTitle class="g-advisory-board__name">
-                        <f:if condition="{person.link.url}">
-                            <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
-                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        <f:if condition="{person.text}">
+                            <p class="g-advisory-board__subject">
+                                <a:atom.token>{person -> f:render.text(field: 'text')}</a:atom.token>
+                            </p>
                         </f:if>
-                    </a:molecule.cardTitle>
 
-                    <f:if condition="{person.role}">
-                        <a:molecule.cardTitle class="g-advisory-board__affiliation">{person -> f:render.text(field: 'role')}</a:molecule.cardTitle>
-                    </f:if>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
 
-                    <f:if condition="{person.text}">
-                        <p class="g-advisory-board__subject">
-                            <a:atom.token>{person -> f:render.text(field: 'text')}</a:atom.token>
-                        </p>
-                    </f:if>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-advisory-board__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-advisory-board__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

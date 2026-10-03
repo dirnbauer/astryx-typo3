@@ -1,80 +1,45 @@
 /*
  * Team Directory
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The intro, the columns, the rules under the rows, the row
+ * density, avatars, type and colour come from the components the template
+ * composes; this file lays out the name and the role within a row.
  */
 
-.g-team-list__intro {
+/* The name takes the slack and the role sits at the trailing edge. */
+.g-team-list__detail {
   display: flex;
-  flex-direction: column;
+  flex: 1 1 0;
+  align-items: baseline;
   gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
+  min-inline-size: 0;
 }
 
-.g-team-list__lead {
-  color: var(--color-text-secondary);
+.g-team-list__name {
+  min-inline-size: 0;
 }
 
-/* Column gap only: the rules under the rows do the vertical separating, and a
-   row gap as well would break a column into unrelated pairs. */
-.g-team-list__people {
-  --grid-gap: 0 var(--spacing-8);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-team-list__row {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-  padding-block: var(--spacing-2);
-  border-block-end: var(--border-width) solid var(--color-border);
-}
-
-.g-team-list[data-spacing="tight"] .g-team-list__people .g-team-list__row {
-  padding-block: var(--spacing-1);
-  font-size: var(--text-supporting-size);
-}
-
-/* The role is pushed to the trailing edge and the name takes the slack, so a
-   column of rows has its two facts on two invisible verticals. */
 .g-team-list__role {
   margin-inline-start: auto;
   text-align: end;
-  padding-inline-start: var(--spacing-3);
 }
 
+/* A note under the list keeps a reading measure. */
 .g-team-list__note {
-  margin-block-start: var(--spacing-8);
   max-inline-size: 44rem;
 }
 
-.g-team-list[data-surface="accent"] .g-team-list__row {
-  border-block-end-color: currentColor;
-}
-
-.g-team-list[data-surface="accent"] .g-team-list__lead,
-.g-team-list[data-surface="accent"] .g-team-list__role,
-.g-team-list[data-surface="accent"] .g-team-list__note,
-.g-team-list[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
 /* Below this the two facts stop fitting on one line together, so the role
-   drops under the name rather than each of them wrapping into a paragraph. */
+   drops under the name — keeping the name's indent — rather than each of
+   them wrapping into a paragraph. */
 @media (max-width: 480px) {
-  .g-team-list__row {
-    flex-wrap: wrap;
+  .g-team-list__detail {
+    flex-direction: column;
+    gap: 0;
   }
 
   .g-team-list__role {
     margin-inline-start: 0;
     text-align: start;
-    padding-inline-start: 0;
-    flex-basis: 100%;
   }
 }

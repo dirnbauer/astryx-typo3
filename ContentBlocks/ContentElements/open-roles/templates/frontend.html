@@ -8,6 +8,10 @@
 <f:comment>
     The whole row is the link, not just the job title: a vacancy is one target,
     and somebody reading on a phone should not have to hit four words exactly.
+    Item resolves the link field itself and renders the row as an <a> — inside
+    a list item of its own, since a link cannot be the <li>. A chevron at the
+    end says the row goes somewhere. The job title is the row's label at the
+    large size and a heavier weight, not a heading in the page outline.
 
     The row's description carries the location and the contract type, because
     that is the pair of facts an applicant filters on before reading anything
@@ -15,42 +19,40 @@
 
     A role with no link is still rendered, as plain text: a vacancy that has
     been announced but whose posting is not written yet is a real state, and a
-    dead link would be worse than no link.
+    dead link would be worse than no link. Item then renders the <li> itself.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-open-roles">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-open-roles__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-open-roles__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.list dividers="with-dividers" class="g-open-roles__list">
-            <f:for each="{data.roles}" as="role">
-                <li class="g-open-roles__row">
+            <a:molecule.list dividers="with-dividers">
+                <f:for each="{data.roles}" as="role">
                     <f:if condition="{role.link.url}">
                         <f:then>
-                            <a:molecule.item interactive="interactive" density="spacious" class="g-open-roles__link" parameter="{role.link}">
-                                <a:molecule.itemContent>
-                                    <a:molecule.itemLabel class="g-open-roles__title">{role.title}</a:molecule.itemLabel>
-                                    <f:if condition="{role.description}">
-                                        <a:molecule.itemDescription>{role.description}</a:molecule.itemDescription>
-                                    </f:if>
-                                </a:molecule.itemContent>
-                            </a:molecule.item>
+                            <li>
+                                <a:molecule.item parameter="{role.link}" interactive="interactive" density="spacious">
+                                    <f:fragment>
+                                        <a:molecule.itemContent>
+                                            <a:molecule.itemLabel size="lg" weight="semibold">{role.title}</a:molecule.itemLabel>
+                                            <f:if condition="{role.description}">
+                                                <a:molecule.itemDescription>{role.description}</a:molecule.itemDescription>
+                                            </f:if>
+                                        </a:molecule.itemContent>
+                                    </f:fragment>
+                                    <f:fragment name="end"><a:atom.icon name="chevron-right" size="sm"/></f:fragment>
+                                </a:molecule.item>
+                            </li>
                         </f:then>
                         <f:else>
-                            <a:molecule.item density="spacious" class="g-open-roles__plain">
+                            <a:molecule.item density="spacious">
                                 <a:molecule.itemContent>
-                                    <a:molecule.itemLabel class="g-open-roles__title">{role -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                    <a:molecule.itemLabel size="lg" weight="semibold">{role -> f:render.text(field: 'title')}</a:molecule.itemLabel>
                                     <f:if condition="{role.description}">
                                         <a:molecule.itemDescription>{role -> f:render.text(field: 'description')}</a:molecule.itemDescription>
                                     </f:if>
@@ -58,23 +60,23 @@
                             </a:molecule.item>
                         </f:else>
                     </f:if>
-                </li>
-            </f:for>
-        </a:molecule.list>
+                </f:for>
+            </a:molecule.list>
 
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-open-roles__closing">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-open-roles__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <p class="g-open-roles__actions">
-                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack gap="4" class="g-open-roles__closing">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.text>
+                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                        </a:atom.text>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

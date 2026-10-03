@@ -1,6 +1,6 @@
 {
     "_type": "team",
-    "eyebrow": "Team Grid",
+    "eyebrow": "Team grid",
     "header": "Equal portraits, two to four per row",
     "lead": "A portrait, a name and a role in each cell. All portraits share one crop ratio, and a linked cell is one link, not two.",
     "columns": "4",
@@ -9,8 +9,8 @@
     "people": [
         {
             "title": "The name heads the card",
-            "role": "as a level-three heading, role below",
-            "link": "#",
+            "role": "A level-three heading, with the role below",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p01.jpg",
@@ -21,19 +21,20 @@
         },
         {
             "title": "One ratio for every portrait",
-            "role": "cropped to 4:5, whatever the upload",
+            "role": "Cropped to 3:4, whatever the upload",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p02.jpg",
                     "alternative": "Portrait of a man in his thirties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "A link makes the whole cell clickable",
-            "role": "and the name labels the link",
-            "link": "#",
+            "role": "The name labels the link",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p03.jpg",
@@ -44,14 +45,15 @@
         },
         {
             "title": "Cells in a row have equal height",
-            "role": "so the portraits line up",
+            "role": "So the portraits line up",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p04.jpg",
                     "alternative": "Portrait of a man in his sixties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

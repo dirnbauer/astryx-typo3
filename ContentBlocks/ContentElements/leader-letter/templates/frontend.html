@@ -14,46 +14,50 @@
     That also settles the alt: the picture is announced with the name, because
     for a signature the name is the only sensible description and for a
     portrait it is the right one anyway.
+
+    A Divider sets the sign-off apart from the letter. The alignment choice
+    travels on the section, where this element's stylesheet reads it to centre
+    the sheet and its sign-off.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-leader-letter">
+<a:layout.section surface="{data.tone}" align="{data.align}" class="g-leader-letter">
     <a:layout.container size="{data.width}">
-        <div class="g-leader-letter__sheet" data-align="{data.align}">
+        <a:layout.stack gap="6" class="g-leader-letter__sheet">
 
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
-
-            <a:atom.heading level="2" class="g-leader-letter__subject">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}" />
 
             <f:if condition="{data.bodytext}">
-                <div class="astryx-prose g-leader-letter__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
             </f:if>
 
-            <div class="g-leader-letter__sign-off">
-                <f:if condition="{data.image}">
-                    <span class="g-leader-letter__mark">
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="{data.author}" height="72" loading="lazy" class="g-leader-letter__mark-image"/>
-                        </f:for>
-                    </span>
-                </f:if>
+            <f:if condition="{data.image} || {data.author}">
+                <a:layout.stack gap="4" class="g-leader-letter__sign-off">
+                    <a:atom.divider class="g-leader-letter__rule" />
 
-                <f:if condition="{data.author}">
-                    <p class="g-leader-letter__credit">
-                        <a:atom.text type="label" as="span" class="g-leader-letter__name">{data -> f:render.text(field: 'author')}</a:atom.text>
-                        <f:if condition="{data.role}">
-                            <a:atom.text type="supporting" as="span" class="g-leader-letter__role">{data -> f:render.text(field: 'role')}</a:atom.text>
-                        </f:if>
-                    </p>
-                </f:if>
-            </div>
+                    <f:if condition="{data.image}">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{data.author}" height="144" loading="lazy" class="g-leader-letter__mark"/>
+                        </f:for>
+                    </f:if>
+
+                    <f:if condition="{data.author}">
+                        <a:layout.stack gap="1">
+                            <a:atom.text type="label">{data -> f:render.text(field: 'author')}</a:atom.text>
+                            <f:if condition="{data.role}">
+                                <a:atom.text type="supporting">{data -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-leader-letter__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

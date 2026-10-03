@@ -10,7 +10,7 @@
     "people": [
         {
             "title": "The heading is the department",
-            "role": "and each person is a level-four heading",
+            "role": "Each person is a level-three heading",
             "text": "Stacked bands form one outline, not five competing sections.",
             "image": [
                 {
@@ -18,11 +18,12 @@
                     "alternative": "Portrait of a man in his fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "The line belongs to the intro",
-            "role": "not to a separate divider",
+            "role": "It is not a separate divider",
             "text": "So a band without a heading never shows a line above nothing.",
             "image": [
                 {
@@ -30,11 +31,12 @@
                     "alternative": "Portrait of a woman in her fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Compact tightens the band",
-            "role": "and drops the line under each name",
+            "role": "It leaves out the note under each role",
             "text": "Use it when the names matter and the notes do not, for example in the middle of a long stack.",
             "image": [
                 {
@@ -42,7 +44,8 @@
                     "alternative": "Portrait of a man in his thirties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

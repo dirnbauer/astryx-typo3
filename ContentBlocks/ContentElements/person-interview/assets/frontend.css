@@ -1,79 +1,40 @@
 /*
  * Interview
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The standfirst (SectionIntro), the rule under it (Divider),
+ * type and colour come from the components the template composes (the
+ * question asks Heading for the accent). This file keeps the reading measure
+ * and pairs each question with its answer.
  */
 
-.g-person-interview__standfirst {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  max-inline-size: 62ch;
-  padding-block-end: var(--spacing-6);
-  border-block-end: var(--border-width) solid var(--color-border);
-  margin-block-end: var(--spacing-8);
-}
-
-.g-person-interview__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-person-interview__who {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-3);
-}
-
-.g-person-interview__credit {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-  margin: 0;
+/* The rule ends where the standfirst's text ends, and the conversation keeps
+   a reading measure whatever width the band was given: an answer set across a
+   full page stops being a conversation. */
+.g-person-interview__rule {
+  max-inline-size: 44rem;
 }
 
 .g-person-interview__conversation {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-8);
-  /* The conversation keeps a reading measure whatever width the band was
-     given: an answer set across a full page stops being a conversation. */
   max-inline-size: 65ch;
 }
 
+.g-person-interview__who {
+  flex-wrap: nowrap;
+}
+
+.g-person-interview__credit {
+  min-inline-size: 0;
+}
+
+/* The question sits closer to its own answer than to the answer above it, so
+   each pair reads as one unit. */
 .g-person-interview__pair {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-3);
-}
-
-/* The question is set in the accent so it can be found by eye when skimming,
-   without needing a quotation mark or a "Q:" that a screen reader would then
-   have to read out as a letter. */
-.g-person-interview__question {
-  color: var(--color-text-accent);
-}
-
-.g-person-interview[data-surface="accent"] .g-person-interview__question {
-  color: currentColor;
-}
-
-.g-person-interview[data-surface="accent"] .g-person-interview__standfirst {
-  border-block-end-color: currentColor;
-}
-
-.g-person-interview[data-surface="accent"] .g-person-interview__lead,
-.g-person-interview[data-surface="accent"] .g-person-interview__role,
-.g-person-interview[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
+  gap: var(--spacing-2);
 }
 
 @media (max-width: 640px) {
-  .g-person-interview__standfirst {
-    margin-block-end: var(--spacing-6);
-  }
-
   .g-person-interview__conversation {
     gap: var(--spacing-6);
   }

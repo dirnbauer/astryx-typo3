@@ -13,14 +13,17 @@
     the same rule as a progress bar drawn over a number: the picture is hidden,
     the number is not.
 
+    The size is the group's: every avatar in an AvatarGroup takes it, so the
+    discs and their overlap stay in step. Compact asks for the medium size.
+
     Only the portraits are rendered. Names, roles and links on the child
     records are ignored here; 'Contributor Wall' is the element for a cluster
-    where every name should be legible.
+    where every name should be legible. Centring is the section's choice.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-team-facepile">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" align="{data.align}" class="g-team-facepile">
     <a:layout.container size="{data.width}">
-        <div class="g-team-facepile__band" data-align="{data.align}" data-density="{f:if(condition: data.compact, then: 'compact')}">
+        <div class="g-team-facepile__band">
 
             <a:atom.avatarGroup size="{f:if(condition: data.compact, then: 'md', else: 'lg')}" class="g-team-facepile__pile" ariaHidden="true">
                 <f:for each="{data.people}" as="person">
@@ -34,26 +37,21 @@
                 </f:for>
             </a:atom.avatarGroup>
 
-            <div class="g-team-facepile__copy">
+            <a:layout.stack gap="2" class="g-team-facepile__copy">
                 <f:if condition="{data.value}">
-                    <a:atom.text type="large" class="g-team-facepile__count">
-                        <span class="g-team-facepile__value">{data -> f:render.text(field: 'value')}</span>
-                        <f:if condition="{data.unit}">
-                            <span class="g-team-facepile__unit">{data.unit}</span>
-                        </f:if>
-                    </a:atom.text>
+                    <a:atom.text type="large">{data -> f:render.text(field: 'value')}<f:if condition="{data.unit}"> <a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if></a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-team-facepile__text">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    <a:atom.text type="body">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <p class="g-team-facepile__actions">
+                    <a:atom.text class="g-team-facepile__actions">
                         <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
+                    </a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
         </div>
     </a:layout.container>

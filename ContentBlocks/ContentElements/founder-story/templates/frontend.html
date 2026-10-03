@@ -13,7 +13,13 @@
 
     The name closes the story rather than opening it: the reader is meant to
     arrive at the person, not to be introduced to them before there is any
-    reason to care.
+    reason to care. A Divider sets the signature off from the last paragraph.
+
+    The portrait is a Figure with its caption, cropped to one portrait ratio by
+    AspectRatio, so a founder who sent a landscape snapshot still fits the
+    column. The caption is written last into the figure's own slot, and only
+    when there is one, so a blank caption field leaves no empty figcaption
+    behind.
 
     The alt names the founder — this is a portrait, and it is the only picture
     on the band.
@@ -21,48 +27,48 @@
 
 <a:layout.section surface="{data.tone}" class="g-founder-story">
     <a:layout.container size="{data.width}">
-        <div class="g-founder-story__grid" data-layout="{f:if(condition: data.reverse, then: 'portrait-start')}">
+        <div class="g-founder-story__grid" data-layout="{f:if(condition: data.reverse, then: 'portrait-start', else: 'portrait-end')}">
 
-            <div class="g-founder-story__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-founder-story__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
+            <a:layout.stack gap="4" class="g-founder-story__copy">
+                <a:molecule.sectionIntro
+                    eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                    heading="{data -> f:render.text(field: 'header')}"
+                    lead="{data -> f:render.text(field: 'lead')}" />
 
                 <f:if condition="{data.bodytext}">
                     <div class="astryx-prose g-founder-story__body"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
                 <f:if condition="{data.author}">
-                    <p class="g-founder-story__signature">
-                        <a:atom.text type="label" as="span" class="g-founder-story__name">{data -> f:render.text(field: 'author')}</a:atom.text>
-                        <f:if condition="{data.role}">
-                            <a:atom.text type="supporting" as="span" class="g-founder-story__role">{data -> f:render.text(field: 'role')}</a:atom.text>
-                        </f:if>
-                    </p>
+                    <a:layout.stack gap="3" class="g-founder-story__signature">
+                        <a:atom.divider />
+                        <a:layout.stack gap="1">
+                            <a:atom.text type="label">{data -> f:render.text(field: 'author')}</a:atom.text>
+                            <f:if condition="{data.role}">
+                                <a:atom.text type="supporting">{data -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
+                    </a:layout.stack>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <p class="g-founder-story__actions">
+                    <a:atom.text>
                         <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                    </p>
+                    </a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <figure class="g-founder-story__figure">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{data.author}" width="640c" height="800c" loading="lazy" class="g-founder-story__portrait"/>
-                    </f:for>
+                <a:molecule.figure class="g-founder-story__figure">
+                    <a:atom.aspectRatio ratio="portrait">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{data.author}" width="600c" height="800c" loading="lazy"/>
+                        </f:for>
+                    </a:atom.aspectRatio>
                     <f:if condition="{data.caption}">
                         <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
                     </f:if>
-                </figure>
+                </a:molecule.figure>
             </f:if>
 
         </div>

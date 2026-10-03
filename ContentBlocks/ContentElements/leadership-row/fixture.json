@@ -1,6 +1,6 @@
 {
     "_type": "team",
-    "eyebrow": "Leadership Row",
+    "eyebrow": "Leadership row",
     "header": "Larger portraits, each with a short bio",
     "lead": "Two to six people at the largest avatar size, each with a role, a short bio and a linked name. For more people, use a team grid.",
     "columns": "3",
@@ -10,9 +10,9 @@
     "people": [
         {
             "title": "The portrait is a circle",
-            "role": "the avatar at its largest size",
+            "role": "The avatar at its largest size",
             "text": "This sets the row apart from the rectangular portraits of Team Grid on the same page.",
-            "link": "#",
+            "link": "{{page:components/team}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p14.jpg",
@@ -23,7 +23,7 @@
         },
         {
             "title": "The name is the link",
-            "role": "and the heading names the link",
+            "role": "One link per person, on the name",
             "text": "There is no second link below it that repeats the same target.",
             "image": [
                 {
@@ -31,11 +31,12 @@
                     "alternative": "Portrait of a woman in her twenties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         },
         {
             "title": "Centring moves the whole cell",
-            "role": "portrait, name, role and bio together",
+            "role": "Portrait, name, role and bio move together",
             "text": "The align setting centres the intro too, so no part stays at the start edge.",
             "image": [
                 {
@@ -43,7 +44,8 @@
                     "alternative": "Portrait of a man in his fifties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/team}}"
         }
     ]
 }

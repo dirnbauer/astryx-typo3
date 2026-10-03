@@ -1,28 +1,17 @@
 /*
  * Person Profile
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The portrait is cropped and rounded by AspectRatio; type,
+ * colour and buttons come from the atoms. This file sets the measure.
  */
 
 .g-person-profile__grid {
   align-items: start;
 }
 
-.g-person-profile__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.g-person-profile__role {
-  color: var(--color-text-accent);
-  margin: 0;
-}
-
+/* A biography is prose, and prose stops being readable past roughly this
+   measure however wide the column it was given. */
 .g-person-profile__bio {
-  /* A biography is prose, and prose stops being readable past roughly this
-     measure however wide the column it was given. */
   max-inline-size: 62ch;
 }
 
@@ -30,29 +19,15 @@
   margin-block-start: var(--spacing-2);
 }
 
-.g-person-profile__media {
-  /* The portrait is cropped 4:5 rather than left at its own proportions: a
-     profile page that has to be redesigned around whichever photograph the
-     subject happened to send is not a template. */
-  display: block;
-}
-
+/* On a phone the portrait follows the biography at a size that leaves the
+   next band in view. */
 .g-person-profile__portrait {
-  inline-size: 100%;
-  block-size: auto;
-  display: block;
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
+  max-inline-size: 22rem;
 }
 
-.g-person-profile[data-surface="accent"] .g-person-profile__role {
-  color: currentColor;
-  opacity: 0.85;
-}
-
+/* Given real room the portrait stops growing with the column; past this the
+   picture starts competing with the biography instead of introducing it. */
 @media (min-width: 1024px) {
-  /* Given real room the portrait stops growing with the column; past this the
-     picture starts competing with the biography instead of introducing it. */
   .g-person-profile__portrait {
     max-inline-size: 26rem;
   }

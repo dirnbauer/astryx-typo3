@@ -1,20 +1,20 @@
 {
     "_type": "team",
-    "eyebrow": "Mentor List",
+    "eyebrow": "Mentor list",
     "header": "Mentors, their subjects and a booking link",
     "lead": "Portrait, name, role and subjects for each mentor. Subjects are typed on one line, separated by semicolons, and the link opens the booking page.",
     "note": "A mentor without a link shows no button instead of a broken one. That is the normal state for most of a term.",
     "columns": "3",
-    "cta_label": "How it works",
-    "cta_link": "#",
+    "cta_label": "See the booking elements",
+    "cta_link": "{{page:components/conversion}}",
     "tone": "body",
     "width": "lg",
     "people": [
         {
             "title": "The name and the role",
-            "role": "sit beside the portrait",
-            "text": "One subject; another subject; a third",
-            "link": "#",
+            "role": "Side by side with the portrait",
+            "text": "Career change; Interview practice; Salary talks",
+            "link": "{{page:components/conversion}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p09.jpg",
@@ -25,9 +25,9 @@
         },
         {
             "title": "Subjects are tags",
-            "role": "split at each semicolon",
-            "text": "No extra records; just punctuation",
-            "link": "#",
+            "role": "Split at each semicolon",
+            "text": "No extra records; Just punctuation",
+            "link": "{{page:components/conversion}}",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p10.jpg",
@@ -37,16 +37,17 @@
             ]
         },
         {
-            "title": "Fully booked, no button",
-            "role": "the card still shows",
-            "text": "Because a broken booking link is worse than none",
+            "title": "One button per mentor",
+            "role": "Its hidden text names the mentor",
+            "text": "Screen readers; Link names",
             "image": [
                 {
                     "file": "EXT:astryx_typo3/Resources/Public/Images/portrait/p11.jpg",
                     "alternative": "Portrait of a woman in her thirties.",
                     "title": ""
                 }
-            ]
+            ],
+            "link": "{{page:components/conversion}}"
         }
     ]
 }

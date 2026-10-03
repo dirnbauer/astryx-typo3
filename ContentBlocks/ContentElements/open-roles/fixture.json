@@ -1,27 +1,28 @@
 {
     "_type": "team",
-    "eyebrow": "Open Roles",
+    "eyebrow": "Open roles",
     "header": "Job openings as rows, one link each",
     "lead": "Each row shows the job title, location, contract type and a link. The whole row is clickable, so it is easy to tap on a phone.",
     "note": "Use the note for readers who want to apply although no opening matches.",
-    "cta_label": "How applications work",
-    "cta_link": "#",
+    "cta_label": "See the form elements",
+    "cta_link": "{{page:components/conversion}}",
     "tone": "body",
     "width": "md",
     "roles": [
         {
             "title": "The job title labels the row",
-            "description": "and the description holds location and contract type",
-            "link": "#"
+            "description": "Location and contract type go in the description",
+            "link": "{{page:components/conversion}}"
         },
         {
             "title": "Lines between rows",
-            "description": "so the rows read as one list, not as separate cards",
-            "link": "#"
+            "description": "The rows read as one list, not as separate cards",
+            "link": "{{page:components/conversion}}"
         },
         {
-            "title": "A row without a link",
-            "description": "shows as plain text, because a broken link is worse than none"
+            "title": "The whole row is the link",
+            "description": "A chevron at the end says the row opens a page",
+            "link": "{{page:components/conversion}}"
         }
     ]
 }

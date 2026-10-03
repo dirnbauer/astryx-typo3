@@ -12,52 +12,56 @@
     adding a function means typing it on a person rather than editing this
     element.
 
-    No portraits at all. Credits panels and discipline lists are read by
-    scanning names, and a face beside every one of eighty names turns a list
-    into a wall.
+    A function is a level-three heading that wears the Eyebrow: the outline
+    gets a real heading per column, and the column reads as a labelled list
+    rather than as a run of competing titles. A Divider runs under it.
+
+    No portraits and no per-person text at all. Credits panels and discipline
+    lists are read by scanning names, and a face or a sentence beside every one
+    of eighty names turns a list into a wall. Compact asks the List for its
+    tightest rows and its small text size.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-team-function-columns">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-team-function-columns__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}"
+                leadType="body" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid cols="{data.columns}" class="g-team-function-columns__columns">
+                <f:groupedFor each="{data.people}" as="members" groupBy="role" groupKey="function">
+                    <a:layout.stack gap="3">
+                        <f:comment>
+                            A person with no function typed on them still belongs on
+                            the page, so the group renders — it just has no heading
+                            rather than an empty one.
+                        </f:comment>
+                        <f:if condition="{function}">
+                            <a:layout.stack gap="2">
+                                <a:atom.heading level="3"><a:atom.eyebrow as="span">{function}</a:atom.eyebrow></a:atom.heading>
+                                <a:atom.divider />
+                            </a:layout.stack>
+                        </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-team-function-columns__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <a:molecule.list density="{f:if(condition: data.compact, then: 'default', else: 'compact')}" size="{f:if(condition: data.compact, then: 'sm', else: 'default')}">
+                            <f:for each="{members}" as="person">
+                                <a:molecule.listItem>
+                                    <f:if condition="{person.link.url}">
+                                        <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
+                                        <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                    </f:if>
+                                </a:molecule.listItem>
+                            </f:for>
+                        </a:molecule.list>
+                    </a:layout.stack>
+                </f:groupedFor>
+            </a:layout.grid>
 
-        <a:layout.grid cols="{data.columns}" class="g-team-function-columns__columns">
-            <f:groupedFor each="{data.people}" as="members" groupBy="role" groupKey="function">
-                <section class="g-team-function-columns__column">
-                    <f:comment>
-                        A person with no function typed on them still belongs on
-                        the page, so the group renders — it just has no heading
-                        rather than an empty one.
-                    </f:comment>
-                    <f:if condition="{function}">
-                        <a:atom.heading level="3" class="g-team-function-columns__function">{function}</a:atom.heading>
-                    </f:if>
-
-                    <a:molecule.list class="g-team-function-columns__names">
-                        <f:for each="{members}" as="person">
-                            <li class="g-team-function-columns__name">
-                                <f:if condition="{person.link.url}">
-                                    <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
-                                    <f:else>{person -> f:render.text(field: 'title')}</f:else>
-                                </f:if>
-                            </li>
-                        </f:for>
-                    </a:molecule.list>
-                </section>
-            </f:groupedFor>
-        </a:layout.grid>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

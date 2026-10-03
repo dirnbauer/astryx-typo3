@@ -14,11 +14,13 @@
     Every booking button says the same three words, so each carries the
     mentor's name as text only a screen reader hears. A list of six identical
     links is unusable to anybody navigating by link, and putting the name in
-    the visible label would make the buttons ragged.
+    the visible label would make the buttons ragged. The button sits in the
+    card footer, which keeps the buttons of a row on one line.
 
-    The subjects are tokens split on the semicolon the editor typed. There is
-    no field for a list of subjects, and adding a second record type for the
-    sake of punctuation would cost more than it is worth.
+    The subjects are tokens split on the semicolon the editor typed, laid out
+    by a horizontal Stack that wraps. There is no field for a list of
+    subjects, and adding a second record type for the sake of punctuation would
+    cost more than it is worth.
 
     The alt names the mentor: a reader picks a person on this band, and a card
     whose face belongs to nobody is a card nobody picks.
@@ -26,71 +28,66 @@
 
 <a:layout.section surface="{data.tone}" class="g-mentor-list">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-mentor-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.people}" as="mentor">
+                    <a:molecule.card as="li">
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-mentor-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <a:layout.stack orientation="horizontal" gap="3" class="g-mentor-list__head">
+                            <f:if condition="{mentor.image}">
+                                <a:atom.avatar size="lg">
+                                    <f:for each="{mentor.image}" as="image">
+                                        <f:image image="{image}" alt="{mentor.title}" width="128c" height="128c" loading="lazy"/>
+                                    </f:for>
+                                </a:atom.avatar>
+                            </f:if>
 
-        <a:layout.grid cols="{data.columns}" class="g-mentor-list__mentors">
-            <f:for each="{data.people}" as="mentor">
-                <a:molecule.card class="g-mentor-list__mentor">
+                            <a:layout.stack gap="1" class="g-mentor-list__identity">
+                                <a:molecule.cardTitle>{mentor -> f:render.text(field: 'title')}</a:molecule.cardTitle>
+                                <f:if condition="{mentor.role}">
+                                    <a:atom.text type="supporting">{mentor -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </a:layout.stack>
 
-                    <div class="g-mentor-list__head">
-                        <f:if condition="{mentor.image}">
-                            <a:atom.avatar size="lg" class="g-mentor-list__portrait">
-                                <f:for each="{mentor.image}" as="image">
-                                    <f:image image="{image}" alt="{mentor.title}" width="128c" height="128c" loading="lazy"/>
+                        <f:if condition="{mentor.text}">
+                            <a:layout.stack as="ul" orientation="horizontal" gap="2">
+                                <f:for each="{mentor.text -> f:split(separator: ';')}" as="subject">
+                                    <a:atom.token as="li">{subject -> f:format.trim()}</a:atom.token>
                                 </f:for>
-                            </a:atom.avatar>
+                            </a:layout.stack>
                         </f:if>
 
-                        <div class="g-mentor-list__identity">
-                            <a:molecule.cardTitle class="g-mentor-list__name">{mentor -> f:render.text(field: 'title')}</a:molecule.cardTitle>
-                            <f:if condition="{mentor.role}">
-                                <a:atom.text type="supporting" class="g-mentor-list__role">{mentor -> f:render.text(field: 'role')}</a:atom.text>
-                            </f:if>
-                        </div>
-                    </div>
+                        <f:if condition="{mentor.link.url}">
+                            <a:molecule.cardFooter>
+                                <a:atom.button variant="secondary" parameter="{mentor.link}"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:team.requestSession" default="Request a session"/><a:atom.visuallyHidden as="span"> — {mentor.title}</a:atom.visuallyHidden></a:atom.button>
+                            </a:molecule.cardFooter>
+                        </f:if>
 
-                    <f:if condition="{mentor.text}">
-                        <ul class="g-mentor-list__subjects">
-                            <f:for each="{mentor.text -> f:split(separator: ';')}" as="subject">
-                                <a:atom.token as="li" class="g-mentor-list__subject">{subject -> f:format.trim()}</a:atom.token>
-                            </f:for>
-                        </ul>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
+
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack gap="3" class="g-mentor-list__closing">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                     </f:if>
-
-                    <f:if condition="{mentor.link.url}">
-                        <a:molecule.cardFooter class="g-mentor-list__actions">
-                            <a:atom.button variant="secondary" parameter="{mentor.link}"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:team.requestSession" default="Request a session"/><a:atom.visuallyHidden as="span"> — {mentor.title}</a:atom.visuallyHidden></a:atom.button>
-                        </a:molecule.cardFooter>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.text>
+                            <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
+                        </a:atom.text>
                     </f:if>
+                </a:layout.stack>
+            </f:if>
 
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.note} || {data.cta_label}">
-            <div class="g-mentor-list__closing">
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-mentor-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-                <f:if condition="{data.cta_label}">
-                    <p class="g-mentor-list__band-action">
-                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                    </p>
-                </f:if>
-            </div>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

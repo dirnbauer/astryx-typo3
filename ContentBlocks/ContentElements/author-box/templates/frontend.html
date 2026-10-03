@@ -7,12 +7,17 @@
 
 <f:comment>
     The band is sized to sit inside an article column: it never sets its own
-    width wider than the prose it follows, which is why the layout is capped
+    width wider than the prose it follows, which is why the byline is capped
     here rather than left to the width field alone.
 
-    The name is the block's own heading at level three. An author box is a
-    subsection of the article above it, not a band of the page, so it must not
-    reach for level two and break the article's outline.
+    The name is the block's own heading at level three, set at the size of a
+    card title. An author box is a subsection of the article above it, not a
+    band of the page, so it must not reach for level two and break the
+    article's outline.
+
+    Boxed puts a Divider between the article and the byline; compact drops it,
+    asks the avatar for its medium size and sets the two lines about the author
+    as supporting text, so the byline sits straight under the last paragraph.
 
     The alt names the author: the picture is small and sits before the name, and
     an unnamed face at the foot of an article is the definition of a broken
@@ -21,35 +26,43 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-author-box">
     <a:layout.container size="{data.width}">
-        <div class="g-author-box__box" data-variant="{f:if(condition: data.compact, then: 'compact', else: 'boxed')}">
+        <a:layout.stack gap="6" class="g-author-box__box">
 
-            <f:if condition="{data.image}">
-                <a:atom.avatar size="lg" class="g-author-box__portrait">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
-                    </f:for>
-                </a:atom.avatar>
+            <f:if condition="{data.compact}">
+                <f:else><a:atom.divider /></f:else>
             </f:if>
 
-            <div class="g-author-box__body">
-                <a:atom.heading level="4" class="g-author-box__name">{data -> f:render.text(field: 'author')}</a:atom.heading>
-
-                <f:if condition="{data.role}">
-                    <a:atom.text type="supporting" class="g-author-box__role">{data -> f:render.text(field: 'role')}</a:atom.text>
+            <a:layout.stack orientation="horizontal" align="start" gap="{f:if(condition: data.compact, then: '3', else: '4')}" class="g-author-box__byline">
+                <f:if condition="{data.image}">
+                    <a:atom.avatar size="{f:if(condition: data.compact, then: 'md', else: 'lg')}">
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{data.author}" width="128c" height="128c" loading="lazy"/>
+                        </f:for>
+                    </a:atom.avatar>
                 </f:if>
 
-                <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-author-box__text">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
+                <a:layout.stack gap="2" class="g-author-box__body">
+                    <a:layout.stack gap="1">
+                        <a:atom.heading level="3" type="heading-4">{data -> f:render.text(field: 'author')}</a:atom.heading>
 
-                <f:if condition="{data.cta_label}">
-                    <p class="g-author-box__actions">
-                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                    </p>
-                </f:if>
-            </div>
+                        <f:if condition="{data.role}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'role')}</a:atom.text>
+                        </f:if>
+                    </a:layout.stack>
 
-        </div>
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="{f:if(condition: data.compact, then: 'supporting', else: 'body')}" color="secondary">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.text>
+                            <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
+                        </a:atom.text>
+                    </f:if>
+                </a:layout.stack>
+            </a:layout.stack>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

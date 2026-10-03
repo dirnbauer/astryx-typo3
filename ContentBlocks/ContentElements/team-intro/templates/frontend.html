@@ -10,41 +10,38 @@
     and keeping the two apart is what lets a grid be swapped for a directory
     without anybody rewriting the copy above it.
 
-    The band therefore ends flush against what comes next: an introduction that
-    keeps a full band of air under it stops introducing and starts standing on
-    its own.
+    The whole element is one SectionIntro: eyebrow, heading and lead, with the
+    rich text and the two buttons in its default slot after the lead. Centring
+    is the editor's choice and SectionIntro carries it out for every part.
+
+    The band ends closer to what comes next: an introduction that keeps a full
+    band of air under it stops introducing and starts standing on its own.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-team-intro">
     <a:layout.container size="{data.width}">
-        <div class="g-team-intro__copy" data-align="{data.align}">
-
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
-
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-team-intro__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
+        <a:molecule.sectionIntro
+            eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+            heading="{data -> f:render.text(field: 'header')}"
+            lead="{data -> f:render.text(field: 'lead')}"
+            align="{data.align}">
 
             <f:if condition="{data.bodytext}">
                 <div class="astryx-prose g-team-intro__body"><f:format.html>{data.bodytext}</f:format.html></div>
             </f:if>
 
             <f:if condition="{data.cta_label} || {data.secondary_label}">
-                <a:molecule.buttonGroup class="g-team-intro__actions">
+                <a:molecule.buttonGroup align="{data.align}" class="g-team-intro__actions">
                     <f:if condition="{data.cta_label}">
                         <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                     </f:if>
                     <f:if condition="{data.secondary_label}">
-                        <a:atom.button variant="ghost" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
+                        <a:atom.button variant="secondary" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                     </f:if>
                 </a:molecule.buttonGroup>
             </f:if>
 
-        </div>
+        </a:molecule.sectionIntro>
     </a:layout.container>
 </a:layout.section>
 

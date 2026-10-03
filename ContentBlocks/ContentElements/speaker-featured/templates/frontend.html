@@ -13,56 +13,62 @@
 
     The badge is the slot or the stage — a marker, not a link. It is set before
     the heading in the source because "Keynote, 09:30" is what a reader
-    skimming a programme is looking for.
+    skimming a programme is looking for. On an accent band an accent badge
+    would vanish into its own background, so the template asks Badge for its
+    outline variant there instead of repainting it.
 
-    The alt names the speaker: this is the one portrait on the band and it
-    stands away from the name rather than beside it.
+    The portrait is cropped square by AspectRatio. The alt names the speaker:
+    this is the one portrait on the band and it stands away from the name
+    rather than beside it.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-speaker-featured">
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-speaker-featured__grid">
 
-            <div class="g-speaker-featured__copy">
+            <a:layout.stack gap="4">
                 <f:if condition="{data.eyebrow} || {data.badge_text}">
-                    <p class="g-speaker-featured__markers">
+                    <a:layout.stack orientation="horizontal" gap="3">
                         <f:if condition="{data.badge_text}">
-                            <a:atom.badge variant="accent" as="span" class="g-speaker-featured__slot">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                            <a:atom.badge variant="{f:if(condition: '{data.tone} == \'accent\'', then: 'outline', else: 'accent')}">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
                         </f:if>
                         <f:if condition="{data.eyebrow}">
-                            <a:atom.eyebrow as="span">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                            <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                         </f:if>
-                    </p>
+                    </a:layout.stack>
                 </f:if>
 
-                <a:atom.heading level="2" type="heading-1" class="g-speaker-featured__session">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-speaker-featured__abstract">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                    <a:atom.text type="body" color="secondary" class="g-speaker-featured__abstract">{data -> f:render.text(field: 'lead')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.author}">
-                    <p class="g-speaker-featured__credit">
-                        <a:atom.text type="label" as="span" class="g-speaker-featured__name">{data -> f:render.text(field: 'author')}</a:atom.text>
-                        <f:if condition="{data.role}">
-                            <a:atom.text type="supporting" as="span" class="g-speaker-featured__affiliation">{data -> f:render.text(field: 'role')}</a:atom.text>
-                        </f:if>
-                    </p>
+                    <a:layout.stack gap="3" class="g-speaker-featured__credit">
+                        <a:atom.divider />
+                        <a:layout.stack gap="1">
+                            <a:atom.text type="label">{data -> f:render.text(field: 'author')}</a:atom.text>
+                            <f:if condition="{data.role}">
+                                <a:atom.text type="supporting">{data -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
+                    </a:layout.stack>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <p class="g-speaker-featured__actions">
+                    <a:atom.text>
                         <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
+                    </a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
             <f:if condition="{data.image}">
-                <div class="g-speaker-featured__media">
+                <a:atom.aspectRatio ratio="square" class="g-speaker-featured__portrait">
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{data.author}" width="640c" height="640c" loading="lazy" class="g-speaker-featured__portrait"/>
+                        <f:image image="{image}" alt="{data.author}" width="640c" height="640c" loading="lazy"/>
                     </f:for>
-                </div>
+                </a:atom.aspectRatio>
             </f:if>
 
         </a:layout.split>

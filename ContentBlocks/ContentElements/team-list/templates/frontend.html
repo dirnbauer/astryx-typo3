@@ -6,61 +6,70 @@
 <f:asset.css identifier="g-team-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Rows stay one line tall at desktop widths. The avatar is decoration here
-    and carries an empty alt: two hundred names read twice is exactly the noise
-    a dense directory must not make, and a person whose portrait is missing
-    simply gets no picture rather than a gap in the rhythm.
+    The rows are a List in the editor's number of columns, with a rule under
+    every row. Rows stay one line tall at desktop widths: the name takes the
+    slack and the role sits at the trailing edge, so a column of rows has its
+    two facts on two invisible verticals. On a phone the role drops under the
+    name and keeps the name's indent. Compact asks the List for its compact
+    density and its small text size — the name takes the row's size, which is
+    why it is a plain span rather than a body-size Text — and the avatar for
+    its smallest size.
 
-    'Team Grid' is the element for portraits that mean something; this one is
-    for finding a name.
+    The avatar is decoration here and carries an empty alt: two hundred names
+    read twice is exactly the noise a dense directory must not make, and a
+    person whose portrait is missing simply gets no picture rather than a gap
+    in the rhythm. Compact asks the avatar for its smallest size.
+
+    The child's own text is not rendered: a directory row has room for a name
+    and a role, and a sentence on one person would break the one-line rhythm
+    for everybody. 'Team Grid' is the element for portraits that mean
+    something; this one is for finding a name.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-team-list">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-team-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}"
+                leadType="body" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.list columns="{data.columns}" dividers="with-dividers" density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" size="{f:if(condition: data.compact, then: 'sm', else: 'default')}">
+                <f:for each="{data.people}" as="person">
+                    <a:molecule.listItem>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-team-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid as="ul" cols="{data.columns}" class="g-team-list__people">
-            <f:for each="{data.people}" as="person">
-                <li class="g-team-list__row">
-
-                    <f:if condition="{person.image}">
-                        <a:atom.avatar size="sm" class="g-team-list__portrait" ariaHidden="true">
-                            <f:for each="{person.image}" as="image">
-                                <f:image image="{image}" alt="" width="64c" height="64c" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
-
-                    <span class="g-team-list__name">
-                        <f:if condition="{person.link.url}">
-                            <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
-                            <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                        <f:if condition="{person.image}">
+                            <a:atom.avatar size="{f:if(condition: data.compact, then: 'xsm', else: 'sm')}" ariaHidden="true">
+                                <f:for each="{person.image}" as="image">
+                                    <f:image image="{image}" alt="" width="64c" height="64c" loading="lazy"/>
+                                </f:for>
+                            </a:atom.avatar>
                         </f:if>
-                    </span>
 
-                    <f:if condition="{person.role}">
-                        <a:atom.text type="supporting" as="span" class="g-team-list__role">{person -> f:render.text(field: 'role')}</a:atom.text>
-                    </f:if>
+                        <span class="g-team-list__detail">
+                            <span class="g-team-list__name">
+                                <f:if condition="{person.link.url}">
+                                    <f:then><a:atom.link variant="quiet" parameter="{person.link}">{person.title}</a:atom.link></f:then>
+                                    <f:else>{person -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </span>
 
-                </li>
-            </f:for>
-        </a:layout.grid>
+                            <f:if condition="{person.role}">
+                                <a:atom.text type="supporting" as="span" class="g-team-list__role">{person -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </span>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-team-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-team-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
