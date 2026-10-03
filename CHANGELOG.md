@@ -2,6 +2,123 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.5.0] - 2026-10-03
+
+A top-down pass over the whole catalogue: the atoms, molecules and layouts
+first, then all 250 content elements recomposed from them. Elements now only
+compose Astryx components; their own stylesheets do layout and nothing else.
+
+### Added
+
+- **Slideshow** and **SlideshowSlide** molecules. The rotating backdrop hero
+  is a real slideshow now: one view at a time with a fade, a pause/play
+  control, dots that switch views without moving the page, and rotation
+  that holds while the hero is hovered, focused, off screen or in a hidden
+  tab, and never starts for visitors who ask for reduced motion.
+- New components: **Logo** (muted, original and ink tones, four heights),
+  **Rating** (partial stars from a value, right-to-left aware), **Stat**
+  (value, unit, label and note in tabular figures), **Price** (amount,
+  period and a former price with hidden "Regular price"/"Current price"
+  labels), **TabPanel** and **PaginationItem** (the current page is a span
+  with `aria-current`, not a dead button).
+- New arguments, all optional:
+  - SectionIntro: named slots `eyebrow`, `heading` and `lead`, plus
+    `leadColor` and `align`.
+  - Blockquote: `size`, `variant="plain"` and `marks="auto"`, which uses the
+    page language's own quotation marks.
+  - Icon `color`, Text `numeric="tabular"` and `as="code"`.
+  - Card `as="li"`, and `featured` draws a ring.
+  - Grid `gap` and `items="small"`, with a tablet step for fixed grids.
+  - MetadataList `columns` 1–4, `dividers` and `size`.
+  - List `marker="step"`, `columns`, `orientation` and `gap`.
+  - ItemLabel `size`/`weight`, ItemDescription `truncate`.
+  - FeatureIcon `size`.
+  - Banner `density`, BannerTitle `size`.
+  - Table cell `emphasis`.
+  - CollapsibleGroup `dividers`, Collapsible `headingLevel`.
+  - ProgressBar `size`.
+  - CodeBlock and IconButton copy controls.
+  - Carousel `statusLabel`.
+  - Dialog `size` and `variant="media"`.
+  - Section `dismissKey`, `elevation="floating"` and `surface="none"`.
+  - Overlay `radius`.
+  - The Stepper stylesheet, with horizontal and vertical connectors.
+- Runtime (`astryx.js`):
+  - the slideshow;
+  - copy buttons;
+  - carousel status announcements and arrows that keep focus when they switch off;
+  - tabs that start from `aria-selected` or the URL hash, with vertical and right-to-left keys;
+  - remembered dismissals;
+  - dialogs that stop their video when closed;
+  - a live value for the before/after compare slider.
+- Fixtures can link pages of the showcase as `{{page:<slug>}}`. The site
+  seeder turns that into a page link, so the catalogue no longer links to
+  example.com or to the root page.
+- `g:attribute` and `g:present` ViewHelpers. An optional attribute is printed
+  only when it has a value.
+
+### Changed
+
+- All 250 elements are rebuilt from the components, in two rounds: first
+  each group, then again once the components offered what the groups had
+  built by hand. Most element stylesheets now only place things; a dozen
+  elements need none. The demo copy is real, and the links go to real pages.
+  English and German library content is updated.
+- The quote carousel's description no longer promises dots, and the code
+  block's no longer says it has no copy button.
+- Fixture values the seeder must leave empty (`""` or a single space) stay
+  empty instead of being filled with demo values.
+- Element resets for media, `hr` and the focus ring moved to the first
+  cascade layer. In the chrome layer they overrode component styles: Divider
+  drew a double rule, icon toggles showed both glyphs, and focus rings lost
+  their radius.
+- Heading `type` sizes live in the theme layer. Display sizes grow fluidly
+  from phone to desktop.
+- Accent bands:
+  - cards, popovers and banners on the band keep the page colours;
+  - primary buttons invert;
+  - tables get the page surface;
+  - progress bars, feature icons and logos stay readable.
+- Touch targets are at least 44 px under a coarse pointer: buttons, icon
+  buttons, links in a list, tokens, tabs and pagination.
+
+- List `size="sm"`. A List item reached by its fragment (a footnote, a
+  step) gets an accent outline.
+- The accent-band inversion of the primary button is restated in the theme
+  layer, so a theme's own button rule cannot undo it.
+
+### Fixed
+
+- Components no longer print empty attributes (`aria-label=""`,
+  `tabindex=""`, `aria-current=""`, `data-cols=""`, `rel=""`).
+- An empty-looking slot (only whitespace, or an `f:if` that renders nothing)
+  no longer leaves an empty wrapper, for example an empty `figcaption`.
+- A TextInput placed directly in an InputGroup keeps its border, padding and
+  background. The search, docs and sign-up heroes showed only a placeholder
+  next to the button. The button keeps its width, and on touch screens the
+  whole row is 44 px tall.
+- Stat shows a figure of "0". Without a label it renders as a paragraph,
+  not as a `dd` without its `dt`.
+- The primary button on an accent band is readable in the y2k theme (it was
+  1.5:1).
+- Banner's close button is a 44 px target on touch screens.
+- Wordmarks wider than 5:1 line up with the text edge.
+- A horizontal MetadataList drops its dividers below 480 px, where the row
+  wraps.
+- Item ignored a Link field passed as `parameter`, so those rows linked
+  nowhere.
+- ProgressBar's fill was an inline span, so every bar showed an empty track.
+- Grids with a two-value gap fell back to one column.
+- The carousel arrows showed without the runtime and on phones.
+- Contrast:
+  - secondary text on muted bands now meets AA in every theme;
+  - status colours have a readable ink (`--g-ink-success`, `-warning`,
+    `-error`) in the themes whose status colour is a pale fill (y2k, matcha,
+    chocolate, retro);
+  - the audit checks 2,250 pairs.
+- The search results pagination marks the current page with a span
+  instead of a dead button.
+
 ## [2.4.0] - 2026-09-28
 
 ### Added
