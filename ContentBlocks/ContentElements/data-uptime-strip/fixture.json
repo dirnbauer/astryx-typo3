@@ -2,10 +2,10 @@
     "_type": "data",
     "eyebrow": "Uptime Strip",
     "header": "One tick per period, typed by an editor",
-    "value": "31",
-    "unit": "ticks, maximum",
+    "value": "99.90",
+    "unit": "% available",
     "lead": "A published record, not a live monitor. Ticks are coloured by status, because at typical availability figures every tick looks almost full.",
-    "note": "Give the period and the reporting date here. Any period with a comment is repeated below the strip, so incidents stay visible.",
+    "note": "Example figures for a library’s online catalogue, April to September 2026, measured from outside its network. Every period with a comment is repeated under the strip, so incidents stay visible.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
@@ -14,43 +14,43 @@
             "icon": "success",
             "value": "100",
             "unit": "%",
-            "title": "Period 1",
-            "text": ""
+            "title": "Apr",
+            "text": "No interruptions."
         },
         {
             "icon": "success",
-            "value": "100",
+            "value": "99.98",
             "unit": "%",
-            "title": "Period 2",
-            "text": ""
+            "title": "May",
+            "text": "9 minutes of planned maintenance, announced a week ahead."
         },
         {
             "icon": "warning",
-            "value": "99.4",
+            "value": "99.81",
             "unit": "%",
-            "title": "Period 3",
-            "text": "A period with a comment appears again below the strip."
+            "title": "Jun",
+            "text": "82 minutes slow or unavailable on 12 June while the database moved."
         },
         {
             "icon": "success",
             "value": "100",
             "unit": "%",
-            "title": "Period 4",
-            "text": ""
+            "title": "Jul",
+            "text": "No interruptions."
         },
         {
             "icon": "error",
-            "value": "97.1",
+            "value": "99.62",
             "unit": "%",
-            "title": "Period 5",
-            "text": "Three statuses are available: normal, degraded and down."
+            "title": "Aug",
+            "text": "Down for 2 hours 50 minutes on 21 August after a failed certificate renewal."
         },
         {
             "icon": "success",
-            "value": "100",
+            "value": "99.99",
             "unit": "%",
-            "title": "Period 6",
-            "text": ""
+            "title": "Sep",
+            "text": "4 minutes of planned maintenance."
         }
     ]
 }

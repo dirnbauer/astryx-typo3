@@ -8,42 +8,48 @@
 <f:comment>
     A figure with a caption is exactly what a figure element is for: the
     headline is not a section title here, it is the sentence the number
-    completes, so it belongs inside the caption rather than above it.
+    completes, so it belongs inside the caption rather than above it — and so
+    does the note, which says where the number comes from.
+
+    Figure and SectionIntro lay out and centre the parts, Stack aligns the
+    action with them; the stylesheet only sets the number and its unit on one
+    baseline.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-big-number">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-big-number" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8" align="{data.align}">
 
-        <figure class="g-data-big-number__block" data-align="{data.align}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.figure align="{data.align}">
+                <f:fragment>
+                    <f:if condition="{data.eyebrow}">
+                        <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+                    </f:if>
 
-            <p class="g-data-big-number__figure">
-                <a:atom.text type="display-1" as="span" class="g-data-big-number__value">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-big-number__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
-            </p>
+                    <p class="g-data-big-number__figure">
+                        <a:atom.text type="display-1" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                        <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                    </p>
+                </f:fragment>
 
-            <figcaption class="g-data-big-number__caption">
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-data-big-number__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </figcaption>
-        </figure>
-
-        <div class="g-data-big-number__after" data-align="{data.align}">
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-data-big-number__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-            </f:if>
+                <f:fragment name="caption">
+                    <a:molecule.sectionIntro align="{data.align}">
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                        <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                        <f:fragment>
+                            <f:if condition="{data.note}">
+                                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                            </f:if>
+                        </f:fragment>
+                    </a:molecule.sectionIntro>
+                </f:fragment>
+            </a:molecule.figure>
 
             <f:if condition="{data.cta_label}">
-                <p class="g-data-big-number__actions">
-                    <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </p>
+                <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </f:if>
-        </div>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

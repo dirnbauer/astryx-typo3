@@ -9,48 +9,54 @@
     The ring is a conic-gradient with the middle masked out — one background
     image, no SVG and nothing to compute. It is hidden from assistive
     technology because the percentage it draws is already written inside it.
+
+    Each ring is a centred Figure: the dial is the figure, the name and the
+    sentence under it are its caption. SectionIntro opens the band, Grid lays
+    the rings out, Text writes the reading; the ring itself is the only thing
+    this element draws.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-percent-ring" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-percent-ring__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:layout.grid cols="{data.columns}" class="g-data-percent-ring__rings">
+                <f:for each="{data.metrics}" as="metric">
+                    <a:molecule.figure align="center">
+                        <f:fragment>
+                            <div class="g-data-percent-ring__dial" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                                <span class="g-data-percent-ring__arc" aria-hidden="true"></span>
+                                <p class="g-data-percent-ring__reading">
+                                    <a:atom.text type="display-3" as="span">{metric -> f:render.text(field: 'value')}</a:atom.text>
+                                    <f:if condition="{metric.unit}"><a:atom.text type="label" color="secondary" as="span">{metric -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                                </p>
+                            </div>
+                        </f:fragment>
+
+                        <f:fragment name="caption">
+                            <a:layout.stack gap="2">
+                                <a:atom.heading level="3">{metric -> f:render.text(field: 'title')}</a:atom.heading>
+
+                                <f:if condition="{metric.text}">
+                                    <a:atom.text type="supporting">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </f:fragment>
+                    </a:molecule.figure>
+                </f:for>
+            </a:layout.grid>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-data-percent-ring__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-percent-ring__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-data-percent-ring__rings">
-            <f:for each="{data.metrics}" as="metric">
-                <figure class="g-data-percent-ring__ring">
-                    <div class="g-data-percent-ring__dial" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                        <span class="g-data-percent-ring__arc" aria-hidden="true"></span>
-                        <p class="g-data-percent-ring__reading">
-                            <a:atom.text type="display-3" as="span" class="g-data-percent-ring__value">{metric -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{metric.unit}"><span class="g-data-percent-ring__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
-                        </p>
-                    </div>
-
-                    <figcaption class="g-data-percent-ring__caption">
-                        <a:atom.heading level="3">{metric -> f:render.text(field: 'title')}</a:atom.heading>
-
-                        <f:if condition="{metric.text}">
-                            <a:atom.text type="supporting">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </figcaption>
-                </figure>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-percent-ring__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

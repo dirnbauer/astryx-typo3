@@ -1,103 +1,19 @@
 /*
  * Key Figures Band
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. SectionIntro, Grid and Stat draw the argument, the figures
+ * and the rule above each figure.
  */
 
+/* Both halves start at the top: a tall argument beside four short figures
+   would otherwise float the figures to its middle. */
 .g-data-key-figures__grid {
   align-items: start;
 }
 
-.g-data-key-figures__argument {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-}
-
-.g-data-key-figures__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-data-key-figures__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-2);
-}
-
-/* Layout/Grid renders the <dl> and owns the auto-fit columns keyed on the
-   editor's column count. What is left here is the browser's block margin on a
-   description list, which the grid has no opinion about, and the gap, which is
-   the band's own: the figures sit beside a column of prose and need more air
-   between them than the grid's default. */
+/* Grid renders the description list but resets only the margins of a ul or
+   an ol, so the reset's block margin would push the figures below the top
+   of the argument beside them. */
 .g-data-key-figures__figures {
-  --grid-gap: var(--spacing-8);
-  padding: 0;
   margin: 0;
-}
-
-/* Term first in the source so the pair survives being read out of order,
-   figure first on the page so the column scans as figures. */
-.g-data-key-figures__figure {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-  padding-block-start: var(--spacing-3);
-  border-block-start: var(--border-width) solid var(--color-border);
-}
-
-.g-data-key-figures__reading {
-  order: 1;
-  margin: 0;
-  display: flex;
-  align-items: baseline;
-  gap: var(--spacing-1);
-  color: var(--color-text-accent);
-}
-
-.g-data-key-figures__label {
-  order: 2;
-  color: var(--color-text-secondary);
-}
-
-.g-data-key-figures__detail {
-  order: 3;
-  margin: 0;
-}
-
-.g-data-key-figures__value {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-key-figures__unit {
-  font-size: var(--text-body-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-body-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-key-figures__note {
-  margin-block-start: var(--spacing-8);
-}
-
-.g-data-key-figures[data-surface="accent"] .g-data-key-figures__figure {
-  border-block-start-color: currentColor;
-}
-
-.g-data-key-figures[data-surface="accent"] .g-data-key-figures__reading {
-  color: currentColor;
-}
-
-.g-data-key-figures[data-surface="accent"] .g-data-key-figures__lead,
-.g-data-key-figures[data-surface="accent"] .g-data-key-figures__label,
-.g-data-key-figures[data-surface="accent"] .g-data-key-figures__unit,
-.g-data-key-figures[data-surface="accent"] .astryx-eyebrow,
-.g-data-key-figures[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 767px) {
-  .g-data-key-figures__figures {
-    --grid-gap: var(--spacing-6);
-  }
 }

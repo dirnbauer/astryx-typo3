@@ -2,27 +2,32 @@
     "_type": "data",
     "eyebrow": "Captioned Data Table",
     "header": "Rows, a caption above and a source below",
-    "lead": "Editors type every value into its row. The caption and the source line are part of the table, so readers can quote the figures correctly.",
-    "caption": "The caption names the data set, the period and the unit",
-    "note": "Put the source here. For product attributes, use Specification Table; when the order matters, use Ranking List.",
+    "lead": "Editors type every value into its row. The caption and the source line belong to the table, so readers can quote the figures correctly.",
+    "caption": "Fluid components in Astryx for TYPO3, by release",
+    "note": "Source: the release notes and tags of Astryx for TYPO3 on GitHub. For product attributes, use Specification Table; when the order matters, use Ranking List.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
     "rows": [
         {
-            "title": "The first column",
-            "value": "2",
-            "text": "Marked up as a row heading, so screen readers can name each cell."
+            "title": "1.0.0, 6 August 2026",
+            "value": "0",
+            "text": "All 250 elements wrote their own markup."
         },
         {
-            "title": "The middle column",
-            "value": "40",
-            "text": "Right-aligned with tabular figures, so the numbers line up digit by digit."
+            "title": "2.0.0, 13 September 2026",
+            "value": "89",
+            "text": "The component layer arrives: 6 layouts, 22 atoms, 53 molecules and 8 organisms."
         },
         {
-            "title": "The last column",
-            "value": "1",
-            "text": "An optional remark, in a lighter colour so it does not compete with the figure."
+            "title": "2.1.0, 19 September 2026",
+            "value": "189",
+            "text": "159 of upstream Astryx’s 164 components now have a Fluid counterpart."
+        },
+        {
+            "title": "2.4.0, 28 September 2026",
+            "value": "189",
+            "text": "No new components; conditional forms now start in their final state."
         }
     ]
 }

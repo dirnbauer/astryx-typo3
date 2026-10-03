@@ -3,36 +3,36 @@
     "eyebrow": "Status List",
     "header": "A status word and a dot per service",
     "lead": "Editors pick a status, never a colour. The status sets both the dot and the word, so the state never depends on colour alone.",
-    "note": "Put the date and time in this note. A status list shows what someone published, not what is happening now.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "note": "Written by hand on 3 October 2026. A status list shows what someone published, not what is happening now.",
+    "cta_label": "See the tests on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3/tree/main/Tests",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "metrics": [
         {
             "icon": "success",
-            "title": "A service that works",
-            "value": "Normal",
-            "text": ""
+            "title": "Element audit",
+            "value": "Passing",
+            "text": "Every element ships its ten files, a distinct title and tokens-only CSS."
+        },
+        {
+            "icon": "success",
+            "title": "Atomic design rules",
+            "value": "Passing",
+            "text": "Templates compose components and never apply an Astryx class directly."
         },
         {
             "icon": "warning",
-            "title": "A service that is degraded",
-            "value": "Reduced",
-            "text": "Use the detail line for the reason and the expected end date."
-        },
-        {
-            "icon": "error",
-            "title": "A service that is down",
-            "value": "Outage",
-            "text": ""
+            "title": "Design pass over all 250 elements",
+            "value": "In progress",
+            "text": "Ten chapters, checked at 390 and 1440 pixels, in light and dark."
         },
         {
             "icon": "",
-            "title": "A service with no status chosen",
-            "value": "Unknown",
-            "text": "Without a status the dot is neutral, never green."
+            "title": "Five React-only upstream components",
+            "value": "Not planned",
+            "text": "They render no markup, so there is nothing to port."
         }
     ]
 }

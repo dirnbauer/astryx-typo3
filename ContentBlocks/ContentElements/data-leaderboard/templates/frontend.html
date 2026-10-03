@@ -9,48 +9,53 @@
     An ordered list drawn with the shared decimal marker, so the position is
     both a real list index and a visible number. The order is the order of the
     child records: to re-rank, drag them.
+
+    SectionIntro opens the band. List numbers the rows and Item is each row —
+    without a link an Item renders as the li itself — with name (ItemLabel,
+    medium weight) and detail as its content and the figure in its end slot,
+    where every figure lines up against the far edge in tabular digits.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-leaderboard">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-leaderboard__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.list marker="decimal" dividers="with-dividers" density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-data-leaderboard__rows">
+                <f:for each="{data.metrics}" as="metric">
+                    <a:molecule.item align="start" density="compact" class="g-data-leaderboard__row" endClass="g-data-leaderboard__figure">
+                        <f:fragment>
+                            <a:molecule.itemContent>
+                                <a:molecule.itemLabel weight="medium">{metric -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                <f:if condition="{metric.text}">
+                                    <a:molecule.itemDescription>{metric -> f:render.text(field: 'text')}</a:molecule.itemDescription>
+                                </f:if>
+                            </a:molecule.itemContent>
+                        </f:fragment>
+
+                        <f:fragment name="end"><a:atom.text type="label" numeric="tabular" as="span">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text></f:fragment>
+                    </a:molecule.item>
+                </f:for>
+            </a:molecule.list>
+
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack gap="6" align="start">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-leaderboard__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.list marker="decimal" dividers="with-dividers" density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-data-leaderboard__rows">
-            <f:for each="{data.metrics}" as="metric">
-                <li class="g-data-leaderboard__row">
-                    <span class="g-data-leaderboard__entry">
-                        <span class="g-data-leaderboard__name">{metric -> f:render.text(field: 'title')}</span>
-                        <f:if condition="{metric.text}">
-                            <a:atom.text type="supporting" as="span" class="g-data-leaderboard__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </span>
-
-                    <span class="g-data-leaderboard__figure">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
-                </li>
-            </f:for>
-        </a:molecule.list>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-leaderboard__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
-        <f:if condition="{data.cta_label}">
-            <p class="g-data-leaderboard__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

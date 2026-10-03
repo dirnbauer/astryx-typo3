@@ -1,8 +1,8 @@
 /*
  * Distribution Bars
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only, plus the width of each decorative bar's fill, which the shared
+ * ProgressBar leaves to the element that knows the value.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,119 +15,60 @@
   initial-value: 0;
 }
 
-.g-data-distribution-bars__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
+/* The total and its unit on one baseline. */
 .g-data-distribution-bars__total {
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-1);
-  color: var(--color-text-accent);
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
-.g-data-distribution-bars__sum {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-distribution-bars__unit {
-  font-size: var(--text-large-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-distribution-bars__lead {
-  color: var(--color-text-secondary);
-}
-
+/* Name, plot and share on one line, the absolute count under them. The
+   buckets are subgrids of this one grid, so every bar shares one origin and
+   one length — a bucket sized on its own would let a wider share push its
+   bar shorter than its neighbours'. */
 .g-data-distribution-bars__buckets {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(6rem, 12rem) minmax(0, 1fr) auto;
   gap: var(--spacing-4);
   margin: 0;
-  padding: 0;
 }
 
 .g-data-distribution-bars__buckets[data-density="compact"] {
-  gap: var(--spacing-2);
+  row-gap: var(--spacing-2);
 }
 
-/* Name, plot, share on one line, the absolute count under them: the count is a
-   second reading of the same share and never competes with it for the row. */
 .g-data-distribution-bars__bucket {
   display: grid;
-  grid-template-columns: minmax(6rem, 12rem) 1fr auto;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: var(--spacing-1) var(--spacing-4);
+  row-gap: var(--spacing-1);
 }
 
-.g-data-distribution-bars__name {
-  margin: 0;
-  font-weight: var(--font-weight-medium);
-}
-
+/* The plot is a dd of this element's own list, which keeps the browser's
+   indent for a description otherwise. */
 .g-data-distribution-bars__plot {
   margin: 0;
-  block-size: var(--spacing-4);
-  border-radius: var(--radius-inner);
-  background-color: var(--color-track);
-  overflow: hidden;
 }
 
 /* The whole visualisation: a width taken from the share typed on the bucket. */
-.g-data-distribution-bars__bar {
-  display: block;
-  block-size: 100%;
+.g-data-distribution-bars__fill {
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-  border-radius: var(--radius-inner);
-  background-color: var(--color-accent);
 }
 
 .g-data-distribution-bars__share {
-  margin: 0;
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
+  text-align: end;
   white-space: nowrap;
 }
 
 .g-data-distribution-bars__count {
   grid-column: 1 / -1;
-  margin: 0;
-}
-
-.g-data-distribution-bars__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-distribution-bars[data-surface="accent"] .g-data-distribution-bars__total {
-  color: currentColor;
-}
-
-.g-data-distribution-bars[data-surface="accent"] .g-data-distribution-bars__bar {
-  background-color: currentColor;
-}
-
-.g-data-distribution-bars[data-surface="accent"] .g-data-distribution-bars__plot {
-  background-color: var(--color-overlay-hover);
-}
-
-.g-data-distribution-bars[data-surface="accent"] .g-data-distribution-bars__lead,
-.g-data-distribution-bars[data-surface="accent"] .g-data-distribution-bars__unit,
-.g-data-distribution-bars[data-surface="accent"] .astryx-eyebrow,
-.g-data-distribution-bars[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 640px) {
-  .g-data-distribution-bars__bucket {
-    grid-template-columns: 1fr auto;
+  .g-data-distribution-bars__buckets {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .g-data-distribution-bars__plot {

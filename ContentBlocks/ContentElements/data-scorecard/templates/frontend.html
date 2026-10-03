@@ -10,53 +10,57 @@
     row is entered as 4.5 and not as 90%. Every row writes its score out beside
     the segments, and a half-filled segment is a rendering of that number
     rather than a substitute for it.
+
+    The overall score, the names and the ratings are Text; the segments are the
+    one thing drawn here. The rows are subgrids of one grid, so the segments of
+    every row start and end on the same lines.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-scorecard">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-scorecard__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
-
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <p class="g-data-scorecard__overall">
-                <a:atom.text type="display-1" as="span" class="g-data-scorecard__score">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-scorecard__scale">{data -> f:render.text(field: 'unit')}</span></f:if>
-            </p>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-scorecard__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <dl class="g-data-scorecard__criteria">
-            <f:for each="{data.metrics}" as="metric">
-                <div class="g-data-scorecard__criterion" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <dt class="g-data-scorecard__name">{metric -> f:render.text(field: 'title')}</dt>
-
-                    <dd class="g-data-scorecard__segments" aria-hidden="true">
-                        <span class="g-data-scorecard__pip"></span>
-                        <span class="g-data-scorecard__pip"></span>
-                        <span class="g-data-scorecard__pip"></span>
-                        <span class="g-data-scorecard__pip"></span>
-                        <span class="g-data-scorecard__pip"></span>
-                    </dd>
-
-                    <dd class="g-data-scorecard__rating">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
-
-                    <f:if condition="{metric.text}">
-                        <a:atom.text type="supporting" as="dd" class="g-data-scorecard__remark">{metric -> f:render.text(field: 'text')}</a:atom.text>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.value}">
+                        <p class="g-data-scorecard__overall">
+                            <a:atom.text type="display-1" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                            <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                        </p>
                     </f:if>
-                </div>
-            </f:for>
-        </dl>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-scorecard__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <dl class="g-data-scorecard__criteria">
+                <f:for each="{data.metrics}" as="metric">
+                    <div class="g-data-scorecard__criterion" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                        <a:atom.text type="label" as="dt">{metric -> f:render.text(field: 'title')}</a:atom.text>
 
+                        <dd class="g-data-scorecard__segments" aria-hidden="true">
+                            <span class="g-data-scorecard__pip"></span>
+                            <span class="g-data-scorecard__pip"></span>
+                            <span class="g-data-scorecard__pip"></span>
+                            <span class="g-data-scorecard__pip"></span>
+                            <span class="g-data-scorecard__pip"></span>
+                        </dd>
+
+                        <a:atom.text type="label" numeric="tabular" as="dd" class="g-data-scorecard__rating">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text>
+
+                        <f:if condition="{metric.text}">
+                            <a:atom.text type="supporting" as="dd" class="g-data-scorecard__remark">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                        </f:if>
+                    </div>
+                </f:for>
+            </dl>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

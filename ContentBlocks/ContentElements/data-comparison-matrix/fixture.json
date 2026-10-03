@@ -3,27 +3,37 @@
     "eyebrow": "Comparison Matrix",
     "header": "A tick and an answer for each criterion",
     "lead": "For comparing two options. The tick shows whether this option covers a criterion, and the next column says how the alternative handles it.",
-    "caption": "Name both options here. The column headings stay generic, so the caption carries the real names.",
-    "note": "Each tick has a text label in the markup, so screen reader users know what it means.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "caption": "This option: an Astryx content element. The alternative: TYPO3’s core Text & Media element.",
+    "note": "Each tick has a text label in the markup, so screen readers announce what it means. The cross is grey, not red, because not every gap is a failure.",
+    "cta_label": "Browse all 250 elements",
+    "cta_link": "{{page:components}}",
     "tone": "body",
     "width": "lg",
     "rows": [
         {
-            "title": "A covered criterion",
+            "title": "Fields named after their content",
             "included": 1,
-            "text": "The text next to the tick says what the other option does instead."
+            "text": "A header, a rich-text field and a media field, for everything."
         },
         {
-            "title": "A criterion both sides cover",
+            "title": "Demo content in English and German",
             "included": 1,
-            "text": "Say so plainly. Readers do not trust a comparison that concedes nothing."
+            "text": "None: every new element starts empty."
         },
         {
-            "title": "A criterion this option does not cover",
+            "title": "Works without JavaScript",
+            "included": 1,
+            "text": "So does Text & Media."
+        },
+        {
+            "title": "25 themes from one set of templates",
+            "included": 1,
+            "text": "The look comes from the site package."
+        },
+        {
+            "title": "Any layout an editor can build in rich text",
             "included": 0,
-            "text": "The cross is grey, not red, because not every gap is a failure."
+            "text": "Text & Media’s rich-text field allows it."
         }
     ]
 }

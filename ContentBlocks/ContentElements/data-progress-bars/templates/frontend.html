@@ -10,44 +10,48 @@
     order matters, because the bar is the decoration and the number is the
     content. The track is hidden from assistive technology for the same reason
     — announcing it would read the same value twice.
+
+    SectionIntro opens the band, List carries the rows and their rhythm
+    (Compact switches its density), ProgressBar draws each row. The one thing
+    the stylesheet decides is the fill's width, from the number typed on the
+    row, which is how the shared component expects a decorative bar to be
+    driven.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-progress-bars">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-progress-bars__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.list density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}">
+                <f:for each="{data.metrics}" as="metric">
+                    <a:molecule.listItem>
+                        <div class="g-data-progress-bars__meter" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                            <a:atom.progressBar decorative="{true}" fillClass="g-data-progress-bars__fill">
+                                <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
+                                <f:fragment name="value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></f:fragment>
+
+                                <f:fragment>
+                                    <f:if condition="{metric.text}">
+                                        <a:atom.text type="supporting">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                                    </f:if>
+                                </f:fragment>
+                            </a:atom.progressBar>
+                        </div>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-progress-bars__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <ul class="g-data-progress-bars__rows" data-density="{f:if(condition: data.compact, then: 'compact')}">
-            <f:for each="{data.metrics}" as="metric">
-                <li class="g-data-progress-bars__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <a:atom.progressBar decorative="{true}" valueClass="g-data-progress-bars__reading" fillClass="g-data-progress-bars__fill">
-                        <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
-                        <f:fragment name="value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></f:fragment>
-
-                        <f:fragment>
-                            <f:if condition="{metric.text}">
-                                <a:atom.text type="supporting" class="g-data-progress-bars__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                            </f:if>
-                        </f:fragment>
-                    </a:atom.progressBar>
-                </li>
-            </f:for>
-        </ul>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-progress-bars__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

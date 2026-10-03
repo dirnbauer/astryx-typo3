@@ -2,37 +2,37 @@
     "_type": "data",
     "eyebrow": "Scorecard",
     "header": "An overall score, then one row per criterion",
-    "value": "4.1",
+    "value": "4.2",
     "unit": "of 5",
-    "lead": "Each row has five segments, so type 4.5, not 90%. The overall score is typed, not averaged from the rows; say in the note how it was worked out.",
-    "note": "For completion percentages, use Progress Bars. To show how many people gave each rating, use Distribution Bars.",
+    "lead": "Each row has five segments, so type 4.5, not 90 %. The overall score is typed, not averaged from the rows; say in the note how it was worked out.",
+    "note": "Example: a usability test with twelve library members, September 2026. The overall score is the testers’ own rating of the whole site, not the mean of the rows.",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "metrics": [
         {
-            "value": "5",
-            "unit": "",
-            "title": "A full row",
-            "text": "Five solid segments."
+            "value": "4.8",
+            "unit": "of 5",
+            "title": "Finding the opening hours",
+            "text": "All twelve testers found them in under ten seconds."
         },
         {
             "value": "4.5",
-            "unit": "",
-            "title": "A partial row",
-            "text": "Four full segments and one half: fractions are drawn, not rounded."
-        },
-        {
-            "value": "2",
-            "unit": "",
-            "title": "A low row",
-            "text": ""
+            "unit": "of 5",
+            "title": "Renewing a loan",
+            "text": "Two testers looked for the button under ‘Account’ first."
         },
         {
             "value": "3.9",
-            "unit": "",
-            "title": "Another row",
-            "text": "Leave the value empty and all five segments stay empty."
+            "unit": "of 5",
+            "title": "Booking an event",
+            "text": "The date picker was the slowest step."
+        },
+        {
+            "value": "3.4",
+            "unit": "of 5",
+            "title": "Searching the catalogue",
+            "text": "A typo returned no results; a fix is planned."
         }
     ]
 }

@@ -1,8 +1,8 @@
 /*
  * Progress Bars
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only, plus the one value the shared ProgressBar leaves to the
+ * element when it is decorative: how wide the fill is.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,72 +15,14 @@
   initial-value: 0;
 }
 
-.g-data-progress-bars__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-data-progress-bars__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-data-progress-bars__rows {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-data-progress-bars__rows[data-density="compact"] {
-  gap: var(--spacing-4);
+/* A list item lays its children out in a row; the meter is the whole row. */
+.g-data-progress-bars__meter {
+  flex: 1;
+  min-inline-size: 0;
 }
 
 /* The whole visualisation: a width, taken from the number the editor typed.
    Clamped, because a row entered as 140 would otherwise run past its track. */
 .g-data-progress-bars__fill {
-  display: block;
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-}
-
-.g-data-progress-bars__reading {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-progress-bars__detail {
-  margin: 0;
-}
-
-.g-data-progress-bars__note {
-  margin-block-start: var(--spacing-8);
-}
-
-.g-data-progress-bars[data-surface="accent"] .astryx-progress-bar-label,
-.g-data-progress-bars[data-surface="accent"] .astryx-progress-bar-value,
-.g-data-progress-bars[data-surface="accent"] .g-data-progress-bars__lead,
-.g-data-progress-bars[data-surface="accent"] .astryx-eyebrow,
-.g-data-progress-bars[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-}
-
-.g-data-progress-bars[data-surface="accent"] .astryx-progress-bar-value,
-.g-data-progress-bars[data-surface="accent"] .g-data-progress-bars__lead,
-.g-data-progress-bars[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-data-progress-bars__intro {
-    margin-block-end: var(--spacing-8);
-  }
-
-  .g-data-progress-bars__rows {
-    gap: var(--spacing-5);
-  }
 }

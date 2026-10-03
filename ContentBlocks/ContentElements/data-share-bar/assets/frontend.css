@@ -1,49 +1,28 @@
 /*
  * Share Bar
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, and the bar with its legend swatches: the one drawing on this band
+ * no component makes. Text sets every name and figure.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
-   types "about half" leaves the bar at zero instead of collapsing the row,
-   because an unparsable value falls back to the initial value rather than
-   poisoning the declaration that reads it. */
+   types "about half" collapses that segment to its minimum instead of breaking
+   the bar, because an unparsable value falls back to the initial value rather
+   than poisoning the declaration that reads it. */
 @property --value {
   syntax: '<number>';
   inherits: true;
   initial-value: 0;
 }
 
-.g-data-share-bar__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-6);
-}
-
+/* The total and its unit on one baseline. */
 .g-data-share-bar__total {
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-1);
-  color: var(--color-text-accent);
-}
-
-.g-data-share-bar__sum {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-share-bar__unit {
-  font-size: var(--text-large-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-share-bar__lead {
-  color: var(--color-text-secondary);
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
 /* One bar, several segments. The whole visualisation is a flex ratio per
@@ -52,7 +31,7 @@
    differently. */
 .g-data-share-bar__bar {
   display: flex;
-  gap: 2px;
+  gap: var(--spacing-0-5);
   inline-size: 100%;
   block-size: var(--spacing-6);
   border-radius: var(--radius-element);
@@ -61,17 +40,15 @@
 
 .g-data-share-bar__segment {
   flex: var(--value) 1 0%;
-  min-inline-size: 2px;
-  background-color: var(--seg-color, var(--color-accent));
+  min-inline-size: var(--spacing-0-5);
+  background-color: var(--seg-color);
 }
 
 .g-data-share-bar__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-4) var(--spacing-8);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(9rem, 100%), 1fr));
+  gap: var(--spacing-5) var(--spacing-6);
   margin: 0;
-  margin-block-start: var(--spacing-5);
-  padding: 0;
 }
 
 .g-data-share-bar__entry {
@@ -84,7 +61,13 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
-  color: var(--color-text-primary);
+}
+
+/* The share and the amount line up under the name rather than under the
+   swatch: the indent is the swatch plus the gap beside it. */
+.g-data-share-bar__share,
+.g-data-share-bar__amount {
+  padding-inline-start: calc(var(--spacing-3) + var(--spacing-2));
 }
 
 .g-data-share-bar__swatch {
@@ -92,59 +75,28 @@
   inline-size: var(--spacing-3);
   block-size: var(--spacing-3);
   border-radius: var(--radius-inner);
-  background-color: var(--seg-color, var(--color-accent));
-}
-
-.g-data-share-bar__share {
-  margin: 0;
-  padding-inline-start: var(--spacing-5);
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-share-bar__amount {
-  margin: 0;
-  padding-inline-start: var(--spacing-5);
+  background-color: var(--seg-color);
 }
 
 /* Position in the list is the only thing that decides a segment's colour, so
-   the bar and the legend can never disagree about which part is which. */
+   the bar and the legend can never disagree about which part is which. The
+   categorical data colours are the theme's palette for exactly this: told
+   apart from each other, and from both page schemes. */
 .g-data-share-bar__segment:nth-child(1),
-.g-data-share-bar__entry:nth-child(1) { --seg-color: var(--color-icon-teal); }
+.g-data-share-bar__entry:nth-child(1) { --seg-color: var(--color-data-categorical-blue); }
 .g-data-share-bar__segment:nth-child(2),
-.g-data-share-bar__entry:nth-child(2) { --seg-color: var(--color-icon-blue); }
+.g-data-share-bar__entry:nth-child(2) { --seg-color: var(--color-data-categorical-orange); }
 .g-data-share-bar__segment:nth-child(3),
-.g-data-share-bar__entry:nth-child(3) { --seg-color: var(--color-icon-purple); }
+.g-data-share-bar__entry:nth-child(3) { --seg-color: var(--color-data-categorical-purple); }
 .g-data-share-bar__segment:nth-child(4),
-.g-data-share-bar__entry:nth-child(4) { --seg-color: var(--color-icon-green); }
+.g-data-share-bar__entry:nth-child(4) { --seg-color: var(--color-data-categorical-green); }
 .g-data-share-bar__segment:nth-child(5),
-.g-data-share-bar__entry:nth-child(5) { --seg-color: var(--color-icon-orange); }
+.g-data-share-bar__entry:nth-child(5) { --seg-color: var(--color-data-categorical-pink); }
 .g-data-share-bar__segment:nth-child(6),
-.g-data-share-bar__entry:nth-child(6) { --seg-color: var(--color-icon-gray); }
-
-.g-data-share-bar__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-share-bar[data-surface="accent"] .g-data-share-bar__total,
-.g-data-share-bar[data-surface="accent"] .g-data-share-bar__name {
-  color: currentColor;
-}
-
-.g-data-share-bar[data-surface="accent"] .g-data-share-bar__lead,
-.g-data-share-bar[data-surface="accent"] .g-data-share-bar__unit,
-.g-data-share-bar[data-surface="accent"] .astryx-eyebrow,
-.g-data-share-bar[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
+.g-data-share-bar__entry:nth-child(6) { --seg-color: var(--color-data-categorical-teal); }
 
 @media (max-width: 640px) {
   .g-data-share-bar__bar {
     block-size: var(--spacing-5);
-  }
-
-  .g-data-share-bar__legend {
-    gap: var(--spacing-3) var(--spacing-6);
   }
 }

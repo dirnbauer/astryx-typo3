@@ -2,37 +2,43 @@
     "_type": "data",
     "eyebrow": "Distribution Bars",
     "header": "How one total splits into named groups",
-    "value": "100",
-    "unit": "%",
+    "value": "1,240",
+    "unit": "replies",
     "lead": "The large figure is the total, and each row shows its share as a bar and a number. Nothing checks that the shares add up to the total.",
-    "note": "To show the split as one bar, use Share Bar. For separate measures that do not add up, use Bar Comparison.",
+    "note": "Example: replies to ‘How easy was it to find what you needed?’ on a council website, September 2026. To show the split as one bar, use Share Bar.",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "metrics": [
         {
-            "value": "52",
+            "value": "41",
             "unit": "%",
-            "title": "The largest group",
-            "text": "Put the absolute count on this line"
+            "title": "Very easy",
+            "text": "508 replies"
         },
         {
-            "value": "28",
+            "value": "33",
             "unit": "%",
-            "title": "A medium group",
-            "text": ""
+            "title": "Easy",
+            "text": "409 replies"
         },
         {
-            "value": "14",
+            "value": "15",
             "unit": "%",
-            "title": "A small group",
-            "text": ""
+            "title": "Neither easy nor hard",
+            "text": "186 replies"
         },
         {
-            "value": "6",
+            "value": "8",
             "unit": "%",
-            "title": "The smallest group",
-            "text": "Below 640px the bar moves to its own line"
+            "title": "Hard",
+            "text": "99 replies"
+        },
+        {
+            "value": "3",
+            "unit": "%",
+            "title": "Very hard",
+            "text": "38 replies"
         }
     ]
 }

@@ -1,24 +1,19 @@
 /*
  * Figures List
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout and the rules between the rows. Type and colour come from Text and
+ * Heading; nothing here restyles them.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
-.g-data-metric-list__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  margin-block-end: var(--spacing-4);
-}
-
-.g-data-metric-list__lead {
-  color: var(--color-text-secondary);
-}
-
+/* At full band width one pair would run a metre wide, so the rows flow into
+   columns of a readable width; in a sidebar that is one column, as before. */
 .g-data-metric-list__rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  column-gap: var(--spacing-8);
   margin: 0;
-  padding: 0;
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
@@ -26,7 +21,7 @@
    figure stays where it is, which is the only behaviour that still reads. */
 .g-data-metric-list__row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
   gap: var(--spacing-1) var(--spacing-4);
   padding-block: var(--spacing-3);
@@ -37,44 +32,11 @@
   padding-block: var(--spacing-1);
 }
 
-.g-data-metric-list__label {
-  margin: 0;
-  color: var(--color-text-secondary);
-}
-
 .g-data-metric-list__value {
-  margin: 0;
   text-align: end;
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
 }
 
 .g-data-metric-list__detail {
   grid-column: 1 / -1;
-  margin: 0;
-}
-
-.g-data-metric-list__note {
-  margin-block-start: var(--spacing-4);
-}
-
-.g-data-metric-list[data-surface="accent"] .g-data-metric-list__rows,
-.g-data-metric-list[data-surface="accent"] .g-data-metric-list__row {
-  border-color: currentColor;
-}
-
-.g-data-metric-list[data-surface="accent"] .g-data-metric-list__label,
-.g-data-metric-list[data-surface="accent"] .g-data-metric-list__lead,
-.g-data-metric-list[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (min-width: 1024px) {
-  /* At full band width the pairs would run a metre wide; the list is built for
-     a column and keeps one. */
-  .g-data-metric-list__rows {
-    max-inline-size: 34rem;
-  }
 }

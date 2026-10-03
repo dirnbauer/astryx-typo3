@@ -10,52 +10,67 @@
     it names only the ones an editor wrote a sentence about. That is what keeps
     thirty-one ticks readable without hiding the months that actually went
     wrong, which are the only ones anyone came here for.
+
+    The editor picks a status per period from the icon list. Its key is mapped
+    to a state here, exactly as the Status List does it: the stored value is an
+    icon key (check-circle, alert-triangle, x-circle), never the word
+    "success", so a stylesheet keyed on the raw value coloured nothing and
+    every tick came out grey. SectionIntro opens the band and carries the
+    headline figure after its lead, right above the strip it sums up; the
+    labels are Text and the incident list a MetadataList; the ticks are the
+    one thing drawn here.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-uptime-strip">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-uptime-strip__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.value}">
+                        <p class="g-data-uptime-strip__headline">
+                            <a:atom.text type="display-3" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                            <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                        </p>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:layout.stack gap="6">
+                <ol class="g-data-uptime-strip__strip">
+                    <f:for each="{data.metrics}" as="metric" iteration="period">
+                        <f:variable name="state" value="neutral"/>
+                        <f:switch expression="{metric.icon}">
+                            <f:case value="check-circle"><f:variable name="state" value="success"/></f:case>
+                            <f:case value="alert-triangle"><f:variable name="state" value="warning"/></f:case>
+                            <f:case value="x-circle"><f:variable name="state" value="error"/></f:case>
+                        </f:switch>
+                        <li class="g-data-uptime-strip__period" data-position="{f:if(condition: '{period.isFirst} || {period.isLast}', then: 'edge', else: 'mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                            <span class="g-data-uptime-strip__tick" data-status="{state}" aria-hidden="true"><span class="g-data-uptime-strip__fill"></span></span>
+                            <a:atom.text type="supporting" color="accent" numeric="tabular" as="span" class="g-data-uptime-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text>
+                            <a:atom.text type="supporting" as="span" class="g-data-uptime-strip__label">{metric -> f:render.text(field: 'title')}</a:atom.text>
+                        </li>
+                    </f:for>
+                </ol>
+
+                <a:molecule.metadataList class="g-data-uptime-strip__incidents">
+                    <f:for each="{data.metrics}" as="metric">
+                        <f:if condition="{metric.text}">
+                            <dt>{metric -> f:render.text(field: 'title')}</dt>
+                            <dd>{metric -> f:render.text(field: 'text')}</dd>
+                        </f:if>
+                    </f:for>
+                </a:molecule.metadataList>
+            </a:layout.stack>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <p class="g-data-uptime-strip__headline">
-                <a:atom.text type="display-3" as="span" class="g-data-uptime-strip__total">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-uptime-strip__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
-            </p>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-uptime-strip__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <ol class="g-data-uptime-strip__strip">
-            <f:for each="{data.metrics}" as="metric" iteration="period">
-                <li class="g-data-uptime-strip__period" data-position="{f:if(condition: '{period.isFirst} || {period.isLast}', then: 'edge', else: 'mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <span class="g-data-uptime-strip__tick" data-status="{metric.icon}" aria-hidden="true"><span class="g-data-uptime-strip__fill"></span></span>
-                    <span class="g-data-uptime-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
-                    <span class="g-data-uptime-strip__label">{metric -> f:render.text(field: 'title')}</span>
-                </li>
-            </f:for>
-        </ol>
-
-        <dl class="g-data-uptime-strip__incidents">
-            <f:for each="{data.metrics}" as="metric">
-                <f:if condition="{metric.text}">
-                    <div class="g-data-uptime-strip__incident">
-                        <dt class="g-data-uptime-strip__when">{metric -> f:render.text(field: 'title')}</dt>
-                        <a:atom.text type="supporting" as="dd" class="g-data-uptime-strip__what">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                    </div>
-                </f:if>
-            </f:for>
-        </dl>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-uptime-strip__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

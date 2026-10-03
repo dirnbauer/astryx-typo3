@@ -1,55 +1,33 @@
 /*
  * Uptime Strip
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, and the ticks: the one thing on this band no component draws.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
-   types "about half" leaves the bar at zero instead of collapsing the row,
-   because an unparsable value falls back to the initial value rather than
-   poisoning the declaration that reads it. */
+   types "about half" leaves the tick at its minimum instead of breaking the
+   strip, because an unparsable value falls back to the initial value rather
+   than poisoning the declaration that reads it. */
 @property --value {
   syntax: '<number>';
   inherits: true;
   initial-value: 0;
 }
 
-.g-data-uptime-strip__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
+/* The headline figure and its unit on one baseline. */
 .g-data-uptime-strip__headline {
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-1);
-  color: var(--color-text-accent);
-}
-
-.g-data-uptime-strip__total {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-uptime-strip__unit {
-  font-size: var(--text-large-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-uptime-strip__lead {
-  color: var(--color-text-secondary);
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
 .g-data-uptime-strip__strip {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-auto-columns: minmax(0, 1fr);
   grid-template-rows: auto auto auto;
   gap: var(--spacing-1);
   margin: 0;
@@ -57,9 +35,12 @@
   list-style: none;
 }
 
+/* The period's own track is pinned to the period: an auto track would grow to
+   the width of the reading, and the tick, at 100% of that track, with it. */
 .g-data-uptime-strip__period {
   display: grid;
   grid-template-rows: subgrid;
+  grid-template-columns: minmax(0, 1fr);
   grid-row: span 3;
   justify-items: center;
   gap: var(--spacing-2);
@@ -68,8 +49,8 @@
 
 /* The tick is a track filled from the bottom to the figure typed on the
    period. At the availabilities a service page actually reports the ticks all
-   look full, which is the honest picture — the colour key is what separates a
-   month with an incident from a month without one. */
+   look full, which is the honest picture — the status colour is what
+   separates a month with an incident from a month without one. */
 .g-data-uptime-strip__tick {
   display: flex;
   align-items: flex-end;
@@ -83,32 +64,32 @@
 .g-data-uptime-strip__fill {
   inline-size: 100%;
   block-size: clamp(2px, calc(var(--value) * 1%), 100%);
-  border-radius: var(--radius-inner);
-  background-color: var(--color-text-secondary);
+  background-color: var(--color-data-neutral);
 }
 
 .g-data-uptime-strip__tick[data-status="success"] .g-data-uptime-strip__fill { background-color: var(--color-success); }
 .g-data-uptime-strip__tick[data-status="warning"] .g-data-uptime-strip__fill { background-color: var(--color-warning); }
 .g-data-uptime-strip__tick[data-status="error"] .g-data-uptime-strip__fill { background-color: var(--color-error); }
 
-.g-data-uptime-strip__reading {
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
+.g-data-uptime-strip__reading,
+.g-data-uptime-strip__label {
   white-space: nowrap;
 }
 
-.g-data-uptime-strip__label {
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-  color: var(--color-text-secondary);
-  white-space: nowrap;
+/* A crowded strip keeps only its two ends labelled, and each label is wider
+   than its tick: the first reads from the strip's start edge and the last
+   ends on its end edge, so neither hangs over the side of the band. */
+.g-data-uptime-strip__strip:has(> :nth-child(9)) > .g-data-uptime-strip__period:first-child {
+  justify-items: start;
+}
+
+.g-data-uptime-strip__strip:has(> :nth-child(9)) > .g-data-uptime-strip__period:last-child {
+  justify-items: end;
 }
 
 /* Nine ticks is where the labels start colliding. Past that the middle ones
-   leave the visual layer only: they are still read, still copied and still
-   found by a page search. */
+   leave the visual layer and nothing else — they are still read, still copied
+   and still found by a page search. */
 .g-data-uptime-strip__strip:has(> :nth-child(9)) .g-data-uptime-strip__period[data-position="mid"] > :where(.g-data-uptime-strip__reading, .g-data-uptime-strip__label) {
   position: absolute;
   inline-size: 1px;
@@ -120,60 +101,17 @@
   white-space: nowrap;
 }
 
-.g-data-uptime-strip__incidents {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  margin: 0;
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-uptime-strip__incidents:empty {
-  margin-block-start: 0;
-}
-
-.g-data-uptime-strip__incident {
-  display: grid;
-  grid-template-columns: minmax(4rem, 8rem) 1fr;
-  gap: var(--spacing-1) var(--spacing-4);
-}
-
-.g-data-uptime-strip__when {
-  margin: 0;
-  font-weight: var(--font-weight-medium);
-}
-
-.g-data-uptime-strip__what {
-  margin: 0;
-}
-
-.g-data-uptime-strip__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-uptime-strip[data-surface="accent"] .g-data-uptime-strip__headline {
-  color: currentColor;
-}
-
-.g-data-uptime-strip[data-surface="accent"] .g-data-uptime-strip__lead,
-.g-data-uptime-strip[data-surface="accent"] .g-data-uptime-strip__unit,
-.g-data-uptime-strip[data-surface="accent"] .g-data-uptime-strip__label,
-.g-data-uptime-strip[data-surface="accent"] .astryx-eyebrow,
-.g-data-uptime-strip[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
+/* No period with a comment, no list — and no gap left where it would be. */
+.g-data-uptime-strip__incidents:not(:has(dt)) {
+  display: none;
 }
 
 @media (max-width: 640px) {
   .g-data-uptime-strip__strip {
-    gap: 2px;
+    column-gap: var(--spacing-0-5);
   }
 
   .g-data-uptime-strip__tick {
     block-size: var(--spacing-9);
-  }
-
-  .g-data-uptime-strip__incident {
-    grid-template-columns: 1fr;
   }
 }

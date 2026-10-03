@@ -9,53 +9,53 @@
     The argument comes first in the source order whichever side the editor puts
     it on: figures read before the paragraph that motivates them are a list of
     numbers, and this element exists precisely so they are not.
+
+    Split lays out the two halves. The argument is a SectionIntro with the
+    prose and the action after its lead; the figures are one description list
+    of Stats, each ruled off at the top, in a Grid whose small items may share
+    a row even on a phone. The stylesheet only tops the two halves and takes
+    the browser's margin off the list.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-key-figures">
     <a:layout.container size="{data.width}">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-data-key-figures__grid">
+        <a:layout.stack gap="8">
 
-            <div class="g-data-key-figures__argument">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-data-key-figures__grid">
 
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-data-key-figures__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-data-key-figures__prose"><f:format.html>{data.bodytext}</f:format.html></div>
-                </f:if>
-
-                <f:if condition="{data.cta_label}">
-                    <p class="g-data-key-figures__actions">
-                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
-                </f:if>
-            </div>
-
-            <a:layout.grid as="dl" cols="{data.columns}" class="g-data-key-figures__figures">
-                <f:for each="{data.metrics}" as="metric">
-                    <div class="g-data-key-figures__figure">
-                        <a:atom.text type="label" as="dt" class="g-data-key-figures__label">{metric -> f:render.text(field: 'title')}</a:atom.text>
-                        <dd class="g-data-key-figures__reading">
-                            <a:atom.text type="display-3" as="span" class="g-data-key-figures__value">{metric -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{metric.unit}"><span class="g-data-key-figures__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
-                        </dd>
-                        <f:if condition="{metric.text}">
-                            <a:atom.text type="supporting" as="dd" class="g-data-key-figures__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                    <f:fragment>
+                        <f:if condition="{data.bodytext}">
+                            <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
                         </f:if>
-                    </div>
-                </f:for>
-            </a:layout.grid>
 
-        </a:layout.split>
+                        <f:if condition="{data.cta_label}">
+                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                        </f:if>
+                    </f:fragment>
+                </a:molecule.sectionIntro>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-key-figures__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+                <a:layout.grid as="dl" cols="{data.columns}" gap="8" items="small" class="g-data-key-figures__figures">
+                    <f:for each="{data.metrics}" as="metric">
+                        <a:molecule.stat size="sm" rule="top">
+                            <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
+                            <f:fragment name="value">{metric -> f:render.text(field: 'value')}</f:fragment>
+                            <f:fragment name="unit">{metric -> f:render.text(field: 'unit')}</f:fragment>
+                            <f:fragment name="note">{metric -> f:render.text(field: 'text')}</f:fragment>
+                        </a:molecule.stat>
+                    </f:for>
+                </a:layout.grid>
+
+            </a:layout.split>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

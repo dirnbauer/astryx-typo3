@@ -1,8 +1,9 @@
 /*
  * Milestone Progress
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only, plus the width of each decorative bar's fill, which the shared
+ * ProgressBar leaves to the element that knows the value. Stepper and Step
+ * draw the sequence and the states; Heading, Text and ProgressBar the rest.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,118 +16,44 @@
   initial-value: 0;
 }
 
-.g-data-roadmap-progress__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-data-roadmap-progress__lead {
-  color: var(--color-text-secondary);
-}
-
+/* A stage here is a block of four lines, so the stages stand further apart
+   than Stepper's default. The knob, not `gap`: Stepper's rule between two
+   indicators is measured against it. Compact tightens the band and the
+   sequence together. */
 .g-data-roadmap-progress__stages {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  --stepper-gap: var(--spacing-6);
 }
 
-.g-data-roadmap-progress__stages[data-density="compact"] {
-  gap: var(--spacing-4);
+.g-data-roadmap-progress[data-spacing="tight"] .g-data-roadmap-progress__stages {
+  --stepper-gap: var(--spacing-4);
 }
 
-/* The rule between two markers is what makes the list read as a sequence
-   rather than as five unrelated bars; the last stage has nothing after it, so
-   it has nothing to be connected to. */
+/* A stage is a block, not a one-line label: the indicator sits beside its
+   first line rather than half-way down the block. */
 .g-data-roadmap-progress__stage {
-  position: relative;
-  display: flex;
   align-items: flex-start;
   gap: var(--spacing-4);
 }
 
-.g-data-roadmap-progress__stage:not(:last-child)::before {
-  content: '';
-  position: absolute;
-  inset-block: var(--spacing-5);
-  inset-inline-start: calc(var(--spacing-2) - (var(--border-width) / 2));
-  inline-size: var(--border-width);
-  background-color: var(--color-border);
-}
-
-.g-data-roadmap-progress__marker {
-  flex-shrink: 0;
-  inline-size: var(--spacing-4);
-  block-size: var(--spacing-4);
-  margin-block-start: var(--spacing-1);
-  border-radius: var(--radius-full);
-  border: 2px solid var(--color-border-emphasized);
-  background-color: var(--color-background-body);
-}
-
-.g-data-roadmap-progress__marker[data-shape="check-circle"] {
-  border-color: var(--color-success);
-  background-color: var(--color-success);
-}
-
-.g-data-roadmap-progress__marker[data-shape="clock"] {
-  border-color: var(--color-accent);
-  background-color: var(--color-accent);
-}
-
 .g-data-roadmap-progress__body {
+  flex: 1;
   min-inline-size: 0;
 }
 
-.g-data-roadmap-progress__name {
-  font-family: var(--font-family-body);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-leading);
-  margin: 0;
+.g-data-roadmap-progress__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-1) var(--spacing-4);
 }
 
 .g-data-roadmap-progress__share {
-  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
 }
 
 /* The whole visualisation: a width taken from the percentage typed on the
    stage. Clamped, so a stage entered above a hundred stops at its track. */
 .g-data-roadmap-progress__fill {
-  display: block;
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-}
-
-.g-data-roadmap-progress__detail {
-  margin-block-start: var(--spacing-1);
-}
-
-.g-data-roadmap-progress__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__stage:not(:last-child)::before,
-.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__marker {
-  border-color: currentColor;
-  background-color: currentColor;
-}
-
-.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__lead,
-.g-data-roadmap-progress[data-surface="accent"] .g-data-roadmap-progress__share,
-.g-data-roadmap-progress[data-surface="accent"] .astryx-eyebrow,
-.g-data-roadmap-progress[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-data-roadmap-progress__stage {
-    gap: var(--spacing-3);
-  }
 }

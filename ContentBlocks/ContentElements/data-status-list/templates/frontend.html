@@ -10,72 +10,72 @@
     ever types a colour — and because the same key also sets the badge, the
     state is said in a word beside every dot. Colour alone would leave the list
     unreadable to a good share of the people reading it.
+
+    SectionIntro opens the band. List makes the rows a real list and Item is
+    each row — without a link an Item renders as the li itself — laying out
+    dot, name and state; ItemLabel sets the service name in medium weight, and
+    StatusDot, Badge and Icon draw the state.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-status-list">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-status-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <f:comment>
+                The editor picks an icon key per row; the key is a state, and the
+                state becomes a variant — the dot's colour and the badge's — while
+                the glyph itself is drawn by the Icon atom inside the badge.
+
+                `sparkles` is the icon vocabulary's "nothing chosen" (an empty key
+                normalises to it), so it stays neutral and draws no glyph: a row
+                without a status must never look like it has one.
+            </f:comment>
+            <a:molecule.list dividers="with-dividers">
+                <f:for each="{data.metrics}" as="metric">
+                    <f:variable name="state" value="neutral"/>
+                    <f:switch expression="{metric.icon}">
+                        <f:case value="check-circle"><f:variable name="state" value="success"/></f:case>
+                        <f:case value="alert-triangle"><f:variable name="state" value="warning"/></f:case>
+                        <f:case value="x-circle"><f:variable name="state" value="error"/></f:case>
+                    </f:switch>
+                    <a:molecule.item align="start" density="{f:if(condition: data.compact, then: 'compact', else: 'spacious')}" class="g-data-status-list__row" startClass="g-data-status-list__marker" endClass="g-data-status-list__state">
+                        <f:fragment name="start">
+                            <a:atom.statusDot variant="{state}"/>
+                        </f:fragment>
+
+                        <f:fragment>
+                            <a:molecule.itemContent>
+                                <a:molecule.itemLabel weight="medium">{metric -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                <f:if condition="{metric.text}">
+                                    <a:molecule.itemDescription>{metric -> f:render.text(field: 'text')}</a:molecule.itemDescription>
+                                </f:if>
+                            </a:molecule.itemContent>
+                        </f:fragment>
+
+                        <f:fragment name="end"><f:if condition="{metric.value}"><a:atom.badge variant="{state}"><f:if condition="{state} != 'neutral'"><a:atom.icon name="{metric.icon}" size="sm"/></f:if>{metric -> f:render.text(field: 'value')}</a:atom.badge></f:if></f:fragment>
+                    </a:molecule.item>
+                </f:for>
+            </a:molecule.list>
+
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack gap="6" align="start">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-status-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <f:comment>
-            The editor picks an icon key per row; the key is a state, and the
-            state becomes a variant — the dot's colour and the badge's — while
-            the glyph itself is drawn by the Icon atom inside the badge. The
-            key used to be written into the class attribute, where nothing
-            styled it: every dot and badge rendered neutral, and
-            `check-circle` sat in the markup as a class with no owner.
-
-            `sparkles` is the icon vocabulary's "nothing chosen" (an empty key
-            normalises to it), so it stays neutral and draws no glyph: a row
-            without a status must never look like it has one.
-        </f:comment>
-        <a:molecule.list dividers="with-dividers" class="g-data-status-list__rows">
-            <f:for each="{data.metrics}" as="metric">
-                <f:variable name="state" value="neutral"/>
-                <f:switch expression="{metric.icon}">
-                    <f:case value="check-circle"><f:variable name="state" value="success"/></f:case>
-                    <f:case value="alert-triangle"><f:variable name="state" value="warning"/></f:case>
-                    <f:case value="x-circle"><f:variable name="state" value="error"/></f:case>
-                </f:switch>
-                <a:molecule.item align="start" density="{f:if(condition: data.compact, then: 'compact', else: 'spacious')}" class="g-data-status-list__row">
-                    <f:fragment name="start">
-                        <a:atom.statusDot variant="{state}" class="g-data-status-list__dot" ariaHidden="true"></a:atom.statusDot>
-                    </f:fragment>
-
-                    <f:fragment>
-                        <a:molecule.itemContent>
-                            <a:molecule.itemLabel class="g-data-status-list__service">{metric -> f:render.text(field: 'title')}</a:molecule.itemLabel>
-                            <f:if condition="{metric.text}">
-                                <a:molecule.itemDescription>{metric -> f:render.text(field: 'text')}</a:molecule.itemDescription>
-                            </f:if>
-                        </a:molecule.itemContent>
-                    </f:fragment>
-
-                    <f:fragment name="end"><f:if condition="{metric.value}"><a:atom.badge as="span" variant="{state}" class="g-data-status-list__state"><f:if condition="{state} != 'neutral'"><a:atom.icon name="{metric.icon}" size="sm"/></f:if>{metric -> f:render.text(field: 'value')}</a:atom.badge></f:if></f:fragment>
-                </a:molecule.item>
-            </f:for>
-        </a:molecule.list>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-status-list__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
-        <f:if condition="{data.cta_label}">
-            <p class="g-data-status-list__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

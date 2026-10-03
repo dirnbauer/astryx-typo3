@@ -1,70 +1,25 @@
 /*
  * Metric with Trend
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. Card, SectionIntro, Text and Badge draw and space the parts;
+ * what is left here is the figure on one baseline with its unit, and the
+ * card's two columns on a wide screen.
  */
 
-.g-data-metric-trend__tile {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  max-inline-size: 34rem;
-}
-
-.g-data-metric-trend__tile[data-align="center"] {
-  margin-inline: auto;
-  align-items: center;
-  text-align: center;
-}
-
-.g-data-metric-trend__name {
-  color: var(--color-text-secondary);
-}
-
 .g-data-metric-trend__figure {
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-1);
-  color: var(--color-text-accent);
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
-.g-data-metric-trend__value {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-metric-trend__unit {
-  font-size: var(--text-large-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-metric-trend__change,
-.g-data-metric-trend__context,
-.g-data-metric-trend__note {
-  margin: 0;
-}
-
-.g-data-metric-trend__note {
-  margin-block-start: var(--spacing-2);
-}
-
-.g-data-metric-trend[data-surface="accent"] .g-data-metric-trend__figure,
-.g-data-metric-trend[data-surface="accent"] .g-data-metric-trend__name {
-  color: currentColor;
-}
-
-.g-data-metric-trend[data-surface="accent"] .g-data-metric-trend__unit,
-.g-data-metric-trend[data-surface="accent"] .astryx-eyebrow,
-.g-data-metric-trend[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-data-metric-trend__tile {
-    max-inline-size: none;
+/* Reading on the left, the sentence that explains it on the right: one
+   metric fills its band rather than sitting in a corner of it. */
+@media (min-width: 768px) {
+  .g-data-metric-trend__tile:has(> .g-data-metric-trend__context) {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    gap: var(--spacing-8);
   }
 }

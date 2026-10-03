@@ -1,53 +1,60 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
-
-<f:asset.css identifier="g-data-method-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
     The companion to every other element in this group. Since each figure above
     it was typed by an editor rather than measured by anything, this is the
     band where the editor says on what basis — and the pairs are a description
     list so period, sample and source can be quoted as pairs.
+
+    Composition only, so the element ships no stylesheet of its own. A flat
+    Card is the bordered box (small print that tints the page reads as a
+    callout), SectionIntro opens it with the heading set small — the band's
+    own h2, not an h4 under nothing — a Divider sets the pairs apart,
+    MetadataList lays them out and Link carries the download.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-method-note">
     <a:layout.container size="{data.width}">
 
-        <div class="g-data-method-note__box">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+        <a:molecule.card variant="flat">
+            <a:layout.stack gap="4">
+                <a:molecule.sectionIntro headingType="heading-4" leadType="body">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'text')}</f:fragment>
+                </a:molecule.sectionIntro>
 
-            <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.divider />
 
-            <f:if condition="{data.text}">
-                <a:atom.text type="body" class="g-data-method-note__summary">{data -> f:render.text(field: 'text')}</a:atom.text>
-            </f:if>
+                <a:molecule.metadataList columns="{data.columns}">
+                    <f:for each="{data.rows}" as="row">
+                        <a:molecule.metadataListItem>
+                            <f:fragment name="term">{row -> f:render.text(field: 'title')}</f:fragment>
+                            <f:fragment>
+                                {row -> f:render.text(field: 'value')}
+                                <f:if condition="{row.text}">
+                                    <a:atom.text type="supporting">{row -> f:render.text(field: 'text')}</a:atom.text>
+                                </f:if>
+                            </f:fragment>
+                        </a:molecule.metadataListItem>
+                    </f:for>
+                </a:molecule.metadataList>
 
-            <a:molecule.metadataList columns="{data.columns}" class="g-data-method-note__pairs">
-                <f:for each="{data.rows}" as="row">
-                    <a:molecule.metadataListItem class="g-data-method-note__pair">
-                        <dt class="g-data-method-note__term">{row -> f:render.text(field: 'title')}</dt>
-                        <dd class="g-data-method-note__value">{row -> f:render.text(field: 'value')}</dd>
-                        <f:if condition="{row.text}">
-                            <a:atom.text type="supporting" as="dd" class="g-data-method-note__detail">{row -> f:render.text(field: 'text')}</a:atom.text>
+                <f:if condition="{data.cta_label} || {data.note}">
+                    <a:layout.stack gap="3" align="start">
+                        <f:if condition="{data.cta_label}">
+                            <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                         </f:if>
-                    </a:molecule.metadataListItem>
-                </f:for>
-            </a:molecule.metadataList>
 
-            <f:if condition="{data.cta_label}">
-                <p class="g-data-method-note__actions">
-                    <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                </p>
-            </f:if>
-
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-data-method-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-            </f:if>
-        </div>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        </f:if>
+                    </a:layout.stack>
+                </f:if>
+            </a:layout.stack>
+        </a:molecule.card>
 
     </a:layout.container>
 </a:layout.section>

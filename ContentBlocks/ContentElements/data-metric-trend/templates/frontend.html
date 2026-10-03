@@ -10,32 +10,43 @@
     obvious once you know whether more is better, and this element cannot know
     that. The sign the editor typed and the period they named do the work that
     a green triangle would only pretend to do.
+
+    The metric's name is the band's heading, so it is an h2 sized down to a
+    card title rather than an h3 under nothing. SectionIntro carries eyebrow,
+    name, figure and change; on a wide screen the card splits into that
+    reading and the sentence that explains it, so a single metric fills its
+    band instead of leaving the right half empty.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-metric-trend">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-metric-trend" align="{data.align}">
     <a:layout.container size="{data.width}">
 
         <a:molecule.card align="{data.align}" class="g-data-metric-trend__tile">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro headingType="heading-3" align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment>
+                    <p class="g-data-metric-trend__figure">
+                        <a:atom.text type="display-2" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                        <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                    </p>
 
-            <a:atom.heading level="3" class="g-data-metric-trend__name">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                    <f:if condition="{data.badge_text}">
+                        <a:atom.badge variant="outline">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-            <p class="g-data-metric-trend__figure">
-                <a:atom.text type="display-2" as="span" class="g-data-metric-trend__value">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-metric-trend__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
-            </p>
+            <f:if condition="{data.text} || {data.note}">
+                <a:layout.stack gap="3" class="g-data-metric-trend__context">
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="body">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
 
-            <f:if condition="{data.badge_text}">
-                <p class="g-data-metric-trend__change"><a:atom.badge variant="outline" as="span">{data -> f:render.text(field: 'badge_text')}</a:atom.badge></p>
-            </f:if>
-
-            <f:if condition="{data.text}">
-                <a:atom.text type="body" class="g-data-metric-trend__context">{data -> f:render.text(field: 'text')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-data-metric-trend__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
         </a:molecule.card>
 

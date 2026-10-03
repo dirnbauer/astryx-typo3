@@ -1,54 +1,27 @@
 /*
  * Trend Strip
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, and the columns: the one thing on this band no component draws.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
-   types "about half" leaves the bar at zero instead of collapsing the row,
-   because an unparsable value falls back to the initial value rather than
-   poisoning the declaration that reads it. */
+   types "about half" leaves the column at its minimum instead of collapsing the
+   strip, because an unparsable value falls back to the initial value rather
+   than poisoning the declaration that reads it. */
 @property --value {
   syntax: '<number>';
   inherits: true;
   initial-value: 0;
 }
 
-.g-data-trend-strip__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
+/* The headline figure, its unit and the change on one baseline. */
 .g-data-trend-strip__headline {
-  margin: 0;
   display: flex;
-  align-items: baseline;
   flex-wrap: wrap;
-  gap: var(--spacing-1) var(--spacing-3);
-  color: var(--color-text-accent);
-}
-
-.g-data-trend-strip__total {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-trend-strip__unit {
-  font-size: var(--text-large-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-trend-strip__change {
-  color: var(--color-text-primary);
-}
-
-.g-data-trend-strip__lead {
-  color: var(--color-text-secondary);
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
 /* One grid for the whole strip with the columns as subgrids, so every column's
@@ -57,7 +30,7 @@
 .g-data-trend-strip__strip {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-auto-columns: minmax(0, 1fr);
   grid-template-rows: 1fr auto auto;
   gap: var(--spacing-1);
   block-size: 15rem;
@@ -66,9 +39,12 @@
   list-style: none;
 }
 
+/* The column's own track is pinned to the column: an auto track would grow to
+   the width of the reading, and the bar, at 100% of that track, with it. */
 .g-data-trend-strip__col {
   display: grid;
   grid-template-rows: subgrid;
+  grid-template-columns: minmax(0, 1fr);
   grid-row: span 3;
   justify-items: center;
   gap: var(--spacing-2);
@@ -82,26 +58,28 @@
   align-self: end;
   inline-size: 100%;
   block-size: clamp(2px, calc(var(--value) * 1%), 100%);
-  border-radius: var(--radius-inner) var(--radius-inner) var(--radius-none) var(--radius-none);
+  border-start-start-radius: var(--radius-inner);
+  border-start-end-radius: var(--radius-inner);
   background-color: var(--color-accent);
 }
 
-.g-data-trend-strip__reading {
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
-  white-space: nowrap;
-}
-
+.g-data-trend-strip__reading,
 .g-data-trend-strip__period {
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-  color: var(--color-text-secondary);
   white-space: nowrap;
 }
 
-/* Nine periods is where the labels start colliding. Past that the middle ones
+/* A crowded strip keeps only its two ends labelled, and each label is wider
+   than its column: the first reads from the strip's start edge and the last
+   ends on its end edge, so neither hangs over the side of the band. */
+.g-data-trend-strip__strip:has(> :nth-child(9)) > .g-data-trend-strip__col:first-child {
+  justify-items: start;
+}
+
+.g-data-trend-strip__strip:has(> :nth-child(9)) > .g-data-trend-strip__col:last-child {
+  justify-items: end;
+}
+
+/* Nine columns is where the labels start colliding. Past that the middle ones
    leave the visual layer and nothing else — they are still read, still copied
    and still found by a page search. */
 .g-data-trend-strip__strip:has(> :nth-child(9)) .g-data-trend-strip__col[data-position="mid"] > :where(.g-data-trend-strip__reading, .g-data-trend-strip__period) {
@@ -115,31 +93,14 @@
   white-space: nowrap;
 }
 
-.g-data-trend-strip__note {
-  margin-block-start: var(--spacing-6);
-}
-
+/* On an accent band the columns would vanish into the band they stand on. */
 .g-data-trend-strip[data-surface="accent"] .g-data-trend-strip__bar {
   background-color: currentColor;
-}
-
-.g-data-trend-strip[data-surface="accent"] .g-data-trend-strip__headline,
-.g-data-trend-strip[data-surface="accent"] .g-data-trend-strip__change {
-  color: currentColor;
-}
-
-.g-data-trend-strip[data-surface="accent"] .g-data-trend-strip__lead,
-.g-data-trend-strip[data-surface="accent"] .g-data-trend-strip__unit,
-.g-data-trend-strip[data-surface="accent"] .g-data-trend-strip__period,
-.g-data-trend-strip[data-surface="accent"] .astryx-eyebrow,
-.g-data-trend-strip[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 640px) {
   .g-data-trend-strip__strip {
     block-size: 11rem;
-    gap: 2px;
+    column-gap: var(--spacing-0-5);
   }
 }

@@ -5,27 +5,27 @@
     "lead": "The standard row of results. Editors type every figure, and nothing is measured or fetched when the page loads.",
     "columns": "3",
     "align": "start",
-    "note": "Put the reporting date in this note. Readers need to know when a figure was true.",
+    "note": "Counted in Astryx for TYPO3 2.4. A figure changes only when an editor changes it.",
     "tone": "body",
     "width": "lg",
     "metrics": [
         {
-            "value": "2",
-            "unit": "",
-            "title": "Cards, minimum",
-            "text": "For a single figure, use Big Number."
+            "value": "250",
+            "unit": "elements",
+            "title": "In the catalogue",
+            "text": "Ten chapters of 25, every one a Content Block."
         },
         {
-            "value": "4",
-            "unit": "",
-            "title": "Cards, maximum",
-            "text": "More than four cards no longer read as one row."
+            "value": "25",
+            "unit": "themes",
+            "title": "Switchable per site",
+            "text": "Every theme has a light and a dark scheme."
         },
         {
-            "value": "1",
-            "unit": "",
-            "title": "Column below 640px",
-            "text": "On phones the cards stack, whatever the column setting says."
+            "value": "0",
+            "unit": "chart libraries",
+            "title": "Needed for the charts",
+            "text": "Bars, rings and strips are drawn in CSS."
         }
     ]
 }

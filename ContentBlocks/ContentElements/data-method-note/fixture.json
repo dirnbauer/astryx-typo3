@@ -1,35 +1,35 @@
 {
     "_type": "data",
     "eyebrow": "Methodology Note",
-    "header": "Where the figures above come from",
-    "text": "Use it with any other data element. Editors type every figure, and this note says what it is based on: period, population, method and source.",
-    "columns": "3",
-    "cta_label": "Download the data",
-    "cta_link": "#",
-    "note": "Say who maintains the figures and how corrections are made. If you never mention revisions, readers assume there were none.",
+    "header": "Where the figures in this chapter come from",
+    "text": "Some elements here count Astryx for TYPO3 itself, from its code and its release notes. The others show example figures and say so in their notes. Nothing is measured when the page loads: an editor typed every number.",
+    "columns": "2",
+    "cta_label": "See the source on GitHub",
+    "cta_link": "https://github.com/dirnbauer/astryx-typo3",
+    "note": "Counts are as at version 2.4. A later release can change them, and its release notes say how.",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "rows": [
         {
             "title": "Period",
-            "value": "The reporting period",
-            "text": "Not the publication date; the two are rarely the same."
+            "value": "Releases 1.0.0 to 2.4.0",
+            "text": "6 August to 28 September 2026."
         },
         {
-            "title": "Sample",
-            "value": "How many of how many",
-            "text": "A percentage means little without the total it refers to."
+            "title": "Population",
+            "value": "250 element folders",
+            "text": "Every content element in the package."
         },
         {
             "title": "Method",
-            "value": "How it was collected",
-            "text": ""
+            "value": "Counted in the code",
+            "text": "Folders, files and components, plus the release notes."
         },
         {
             "title": "Source",
-            "value": "Where it can be checked",
-            "text": ""
+            "value": "The public repository",
+            "text": "github.com/dirnbauer/astryx-typo3"
         }
     ]
 }

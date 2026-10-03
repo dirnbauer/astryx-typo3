@@ -2,39 +2,39 @@
     "_type": "data",
     "eyebrow": "Key Figures Band",
     "header": "Reasons on one side, figures on the other",
-    "lead": "For figures that need an explanation next to them.",
-    "bodytext": "<p>The text column makes the argument and the figures column supports it. A switch swaps the two halves. In the source order the text always comes first, because figures without context are just a list of numbers.</p>",
+    "lead": "For figures that need an argument next to them.",
+    "bodytext": "<p>Astryx for TYPO3 has moved fast and kept its shape. Fifteen releases in eight weeks, and what each release is checked against stayed small: four layers of components, four breakpoints that every element shares and two languages for every label.</p><p>A switch swaps the two halves. In the source order the text always comes first, because figures without context are just a list of numbers.</p>",
     "columns": "2",
-    "cta_label": "Optional action",
-    "cta_link": "#",
-    "note": "Give the reporting period here, so readers do not assume the figures are current.",
+    "cta_label": "Browse all 250 elements",
+    "cta_link": "{{page:components}}",
+    "note": "Releases counted from 1.0.0 on 6 August to 2.4.0 on 28 September 2026.",
     "tone": "body",
     "width": "lg",
     "reverse": 0,
     "metrics": [
         {
+            "value": "15",
+            "unit": "releases",
+            "title": "In eight weeks",
+            "text": "From 1.0.0 to 2.4.0."
+        },
+        {
+            "value": "4",
+            "unit": "layers",
+            "title": "Of components",
+            "text": "Atoms, molecules, organisms and layouts."
+        },
+        {
+            "value": "4",
+            "unit": "breakpoints",
+            "title": "Shared by every element",
+            "text": "At 480, 640, 768 and 1024 pixels."
+        },
+        {
             "value": "2",
-            "unit": "",
-            "title": "Figures, minimum",
-            "text": "For a single figure, use Big Number."
-        },
-        {
-            "value": "6",
-            "unit": "",
-            "title": "Figures, maximum",
-            "text": "With more than six, the column gets longer than the text."
-        },
-        {
-            "value": "2",
-            "unit": "columns",
-            "title": "Default grid",
-            "text": "Two, three or four."
-        },
-        {
-            "value": "1",
-            "unit": "toggle",
-            "title": "Reverse",
-            "text": "Puts the figures first."
+            "unit": "languages",
+            "title": "For every label",
+            "text": "English and German, demo content included."
         }
     ]
 }

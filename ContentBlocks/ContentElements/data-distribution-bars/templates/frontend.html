@@ -6,50 +6,51 @@
 <f:asset.css identifier="g-data-distribution-bars" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The total sits above the buckets rather than beside them, because every
-    share below is a share of it and a reader who missed it reads five
-    unrelated percentages. Nothing checks that the shares add up: that is the
+    The total sits directly above the buckets rather than beside them — the
+    last line of the intro, after the lead — because every share below is a
+    share of it and a reader who missed it reads five unrelated percentages. Nothing checks that the shares add up: that is the
     editor's arithmetic, and the note is where they own it.
+
+    Each bucket's bar is the shared ProgressBar, decorative; the buckets are
+    subgrids of one grid so every bar starts and ends on the same lines.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-distribution-bars">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-distribution-bars__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
-
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.value}">
-                <p class="g-data-distribution-bars__total">
-                    <a:atom.text type="display-3" as="span" class="g-data-distribution-bars__sum">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-distribution-bars__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
-                </p>
-            </f:if>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-distribution-bars__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <dl class="g-data-distribution-bars__buckets" data-density="{f:if(condition: data.compact, then: 'compact')}">
-            <f:for each="{data.metrics}" as="metric">
-                <div class="g-data-distribution-bars__bucket" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <dt class="g-data-distribution-bars__name">{metric -> f:render.text(field: 'title')}</dt>
-                    <dd class="g-data-distribution-bars__plot" aria-hidden="true"><span class="g-data-distribution-bars__bar"></span></dd>
-                    <dd class="g-data-distribution-bars__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
-                    <f:if condition="{metric.text}">
-                        <a:atom.text type="supporting" as="dd" class="g-data-distribution-bars__count">{metric -> f:render.text(field: 'text')}</a:atom.text>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.value}">
+                        <p class="g-data-distribution-bars__total">
+                            <a:atom.text type="display-3" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                            <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                        </p>
                     </f:if>
-                </div>
-            </f:for>
-        </dl>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-distribution-bars__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <dl class="g-data-distribution-bars__buckets" data-density="{f:if(condition: data.compact, then: 'compact')}">
+                <f:for each="{data.metrics}" as="metric">
+                    <div class="g-data-distribution-bars__bucket" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                        <a:atom.text type="label" as="dt">{metric -> f:render.text(field: 'title')}</a:atom.text>
+                        <dd class="g-data-distribution-bars__plot" aria-hidden="true"><a:atom.progressBar decorative="{true}" fillClass="g-data-distribution-bars__fill" /></dd>
+                        <a:atom.text type="label" numeric="tabular" as="dd" class="g-data-distribution-bars__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text>
+                        <f:if condition="{metric.text}">
+                            <a:atom.text type="supporting" as="dd" class="g-data-distribution-bars__count">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                        </f:if>
+                    </div>
+                </f:for>
+            </dl>
 
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

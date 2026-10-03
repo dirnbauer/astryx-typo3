@@ -10,38 +10,39 @@
     here would suggest something is being counted live, which is exactly what
     is not happening — and it would leave the band unreadable for the second
     and a half it took.
+
+    The heading is the band's own, so it is an h2 at the size of a small
+    heading rather than an h3 under nothing. Each counter is a Stat — the word
+    is the term, the figure its description, shown figure first — inside one
+    description list; the stylesheet only flows the counters along the band.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-counter-band" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-data-counter-band__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro headingType="heading-3" leadType="body" align="{data.align}">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-data-counter-band__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <dl class="g-data-counter-band__counters">
+                <f:for each="{data.metrics}" as="metric">
+                    <a:molecule.stat align="{data.align}">
+                        <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
+                        <f:fragment name="value">{metric -> f:render.text(field: 'value')}</f:fragment>
+                        <f:fragment name="unit">{metric -> f:render.text(field: 'unit')}</f:fragment>
+                    </a:molecule.stat>
+                </f:for>
+            </dl>
 
-        <dl class="g-data-counter-band__counters">
-            <f:for each="{data.metrics}" as="metric">
-                <div class="g-data-counter-band__counter">
-                    <dt class="g-data-counter-band__word">{metric -> f:render.text(field: 'title')}</dt>
-                    <dd class="g-data-counter-band__figure">
-                        <a:atom.text type="display-2" as="span" class="g-data-counter-band__value">{metric -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{metric.unit}"><span class="g-data-counter-band__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
-                    </dd>
-                </div>
-            </f:for>
-        </dl>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-data-counter-band__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-counter-band__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

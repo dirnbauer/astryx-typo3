@@ -1,8 +1,11 @@
 /*
  * Allocation Breakdown
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, the rules between the lines, and the width of each decorative
+ * bar's fill. SectionIntro, Text and ProgressBar draw everything else; the
+ * rules use --color-border, which an accent band redefines for itself.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,131 +18,62 @@
   initial-value: 0;
 }
 
-.g-data-allocation-breakdown__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
+/* The total and its unit on one baseline. */
 .g-data-allocation-breakdown__total {
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-1);
-  color: var(--color-text-accent);
-}
-
-.g-data-allocation-breakdown__sum {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-allocation-breakdown__unit {
-  font-size: var(--text-large-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-large-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-allocation-breakdown__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-data-allocation-breakdown__lines {
-  margin: 0;
-  padding: 0;
-  border-block-start: var(--border-width) solid var(--color-border);
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
 /* Item, plot, share and amount on one line: the amount is the figure a reader
-   came for, so it gets the far edge and the tabular figures. */
-.g-data-allocation-breakdown__line {
+   came for, so it gets the far edge. The lines are subgrids of one grid, so a
+   longer amount on one line cannot shorten the bar on another. */
+.g-data-allocation-breakdown__lines {
+  --line-padding: var(--spacing-3);
   display: grid;
   grid-template-columns: minmax(8rem, 1fr) minmax(4rem, 10rem) auto auto;
+  column-gap: var(--spacing-4);
+  margin: 0;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.g-data-allocation-breakdown__lines[data-density="compact"] {
+  --line-padding: var(--spacing-2);
+}
+
+.g-data-allocation-breakdown__line {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: var(--spacing-1) var(--spacing-4);
-  padding-block: var(--spacing-3);
+  row-gap: var(--spacing-1);
+  padding-block: var(--line-padding);
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
-.g-data-allocation-breakdown__lines[data-density="compact"] .g-data-allocation-breakdown__line {
-  padding-block: var(--spacing-2);
-}
-
-.g-data-allocation-breakdown__item {
-  margin: 0;
-  font-weight: var(--font-weight-medium);
-}
-
+/* The plot is a dd of this element's own list, which keeps the browser's
+   indent for a description otherwise. */
 .g-data-allocation-breakdown__plot {
   margin: 0;
-  block-size: var(--spacing-2);
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-  overflow: hidden;
 }
 
 /* The whole visualisation: a width taken from the share typed on the line. */
-.g-data-allocation-breakdown__bar {
-  display: block;
-  block-size: 100%;
+.g-data-allocation-breakdown__fill {
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
 }
 
-.g-data-allocation-breakdown__share {
-  margin: 0;
-  color: var(--color-text-secondary);
-  font-variant-numeric: tabular-nums lining-nums;
-  white-space: nowrap;
-}
-
+.g-data-allocation-breakdown__share,
 .g-data-allocation-breakdown__amount {
-  margin: 0;
-  min-inline-size: 6rem;
   text-align: end;
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
-}
-
-.g-data-allocation-breakdown__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__total {
-  color: currentColor;
-}
-
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__bar {
-  background-color: currentColor;
-}
-
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__plot {
-  background-color: var(--color-overlay-hover);
-}
-
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__lines,
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__line {
-  border-color: currentColor;
-}
-
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__lead,
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__share,
-.g-data-allocation-breakdown[data-surface="accent"] .g-data-allocation-breakdown__unit,
-.g-data-allocation-breakdown[data-surface="accent"] .astryx-eyebrow,
-.g-data-allocation-breakdown[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 767px) {
   /* Four columns in a tablet width squeeze the item name to two words a line;
-     the plot is the one that can be given up first. */
-  .g-data-allocation-breakdown__line {
-    grid-template-columns: 1fr auto auto;
+     the plot is the one that can be given up first, to a line of its own. */
+  .g-data-allocation-breakdown__lines {
+    grid-template-columns: minmax(0, 1fr) auto auto;
   }
 
   .g-data-allocation-breakdown__plot {

@@ -2,34 +2,40 @@
     "_type": "data",
     "header": "Figures List",
     "lead": "A compact list with labels on the left and figures on the right, separated by lines. Made for narrow columns.",
-    "note": "For a full-width band of figures, use KPI Card Row. For product attributes, use Specification Table.",
+    "note": "As at version 2.4, 28 September 2026. For a full-width band of figures, use KPI Card Row; for product attributes, use Specification Table.",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "metrics": [
         {
+            "value": "250",
+            "unit": "in 10 chapters",
+            "title": "Content elements",
+            "text": "Every one a Content Block."
+        },
+        {
+            "value": "189",
+            "unit": "in 4 layers",
+            "title": "Fluid components",
+            "text": "Atoms, molecules, organisms and layouts."
+        },
+        {
+            "value": "25",
+            "unit": "with dark mode",
+            "title": "Themes",
+            "text": "Switchable per site."
+        },
+        {
             "value": "2",
-            "unit": "",
-            "title": "Rows, minimum",
-            "text": ""
+            "unit": "per element",
+            "title": "Languages",
+            "text": "English and German labels and demo content."
         },
         {
-            "value": "14",
-            "unit": "",
-            "title": "Rows, maximum",
-            "text": ""
-        },
-        {
-            "value": "14",
-            "unit": "",
-            "title": "Any figure",
-            "text": "No bars or icons: they are the first thing to break at 300px"
-        },
-        {
-            "value": "34",
-            "unit": "rem",
-            "title": "Capped width above 1024px",
-            "text": ""
+            "value": "15",
+            "unit": "releases",
+            "title": "Since 6 August 2026",
+            "text": "From 1.0.0 to 2.4.0."
         }
     ]
 }

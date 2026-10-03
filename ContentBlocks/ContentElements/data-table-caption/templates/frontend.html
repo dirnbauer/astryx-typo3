@@ -10,49 +10,53 @@
     their heading attached rather than as five loose numbers. The column
     headings come from this block's own labels: the editor fills rows and never
     types a header row that could then disagree with the columns under it.
+
+    SectionIntro opens the band; Table and its parts draw the grid, style the
+    row headers and set every figure in tabular digits. The stylesheet only
+    aligns the figure column to the end, where digits line up. At phone width
+    the columns wrap rather than forcing a scroll, so the caption stays
+    readable in full.
 </f:comment>
+
+<f:variable name="labels">LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-table-caption/language/labels.xlf</f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-data-table-caption">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-table-caption__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.table scroll="{true}" scrollLabel="{data.caption}" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-data-table-caption__table">
+                <f:if condition="{data.caption}">
+                    <caption class="g-data-table-caption__caption"><a:atom.text type="label" as="span">{data -> f:render.text(field: 'caption')}</a:atom.text></caption>
+                </f:if>
+                <a:molecule.tableHeader>
+                    <a:molecule.tableRow>
+                        <a:molecule.tableHeaderCell><f:translate key="{labels}:column.item" default="Item"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell class="g-data-table-caption__figure"><f:translate key="{labels}:column.value" default="Figure"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell><f:translate key="{labels}:column.note" default="Note"/></a:molecule.tableHeaderCell>
+                    </a:molecule.tableRow>
+                </a:molecule.tableHeader>
+                <a:molecule.tableBody>
+                    <f:for each="{data.rows}" as="row">
+                        <a:molecule.tableRow>
+                            <a:molecule.tableHeaderCell scope="row">{row -> f:render.text(field: 'title')}</a:molecule.tableHeaderCell>
+                            <a:molecule.tableCell class="g-data-table-caption__figure">{row -> f:render.text(field: 'value')}</a:molecule.tableCell>
+                            <a:molecule.tableCell><a:atom.text color="secondary" as="span">{row -> f:render.text(field: 'text')}</a:atom.text></a:molecule.tableCell>
+                        </a:molecule.tableRow>
+                    </f:for>
+                </a:molecule.tableBody>
+            </a:molecule.table>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-table-caption__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.table scroll="{true}" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-data-table-caption__table">
-            <f:if condition="{data.caption}">
-                <caption class="g-data-table-caption__caption">{data -> f:render.text(field: 'caption')}</caption>
-            </f:if>
-            <thead>
-                <tr>
-                    <th scope="col"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-table-caption/language/labels.xlf:column.item" default="Item"/></th>
-                    <th scope="col" class="g-data-table-caption__figure-head"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-table-caption/language/labels.xlf:column.value" default="Figure"/></th>
-                    <th scope="col"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-table-caption/language/labels.xlf:column.note" default="Note"/></th>
-                </tr>
-            </thead>
-            <tbody>
-                <f:for each="{data.rows}" as="row">
-                    <tr>
-                        <th scope="row" class="g-data-table-caption__item">{row -> f:render.text(field: 'title')}</th>
-                        <td class="g-data-table-caption__figure">{row -> f:render.text(field: 'value')}</td>
-                        <td class="g-data-table-caption__remark">{row -> f:render.text(field: 'text')}</td>
-                    </tr>
-                </f:for>
-            </tbody>
-        </a:molecule.table>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-table-caption__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

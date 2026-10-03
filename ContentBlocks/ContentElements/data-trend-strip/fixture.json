@@ -2,44 +2,86 @@
     "_type": "data",
     "eyebrow": "Trend Strip",
     "header": "One column per period, drawn as a height",
-    "value": "24",
-    "unit": "periods, maximum",
-    "badge_text": "No script involved",
-    "lead": "Each column is as tall as the percentage an editor typed for its period. At least three periods are needed, because two make a comparison, not a trend.",
-    "note": "With more than eight periods, the middle labels are hidden from view but stay available to screen readers. This keeps a 12-month strip legible.",
+    "value": "69",
+    "unit": "% of rooms occupied",
+    "badge_text": "+5 points on 2025",
+    "lead": "Each column is as tall as the percentage typed for its period. At least three periods are needed, because two make a comparison, not a trend.",
+    "note": "Example figures: hotel rooms occupied in a lake region, month by month in 2026; the headline is the year’s average. With more than eight periods, the middle labels leave the view but stay available to screen readers.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
     "metrics": [
         {
-            "value": "40",
+            "value": "41",
             "unit": "%",
-            "title": "First"
+            "title": "Jan",
+            "text": "Ski weekends only."
         },
         {
-            "value": "62",
+            "value": "46",
             "unit": "%",
-            "title": "Second"
+            "title": "Feb",
+            "text": "School half-term week."
         },
         {
             "value": "55",
             "unit": "%",
-            "title": "Third"
+            "title": "Mar",
+            "text": "Two trade fairs in town."
         },
         {
-            "value": "78",
+            "value": "68",
             "unit": "%",
-            "title": "Fourth"
+            "title": "Apr",
+            "text": "Easter fell in early April."
         },
         {
-            "value": "91",
+            "value": "79",
             "unit": "%",
-            "title": "Fifth"
+            "title": "May",
+            "text": "Boat services resumed."
         },
         {
-            "value": "84",
+            "value": "88",
             "unit": "%",
-            "title": "Sixth"
+            "title": "Jun",
+            "text": "Lake festival weekend."
+        },
+        {
+            "value": "94",
+            "unit": "%",
+            "title": "Jul",
+            "text": "Summer holidays."
+        },
+        {
+            "value": "96",
+            "unit": "%",
+            "title": "Aug",
+            "text": "The busiest month."
+        },
+        {
+            "value": "83",
+            "unit": "%",
+            "title": "Sep",
+            "text": "Hiking season."
+        },
+        {
+            "value": "66",
+            "unit": "%",
+            "title": "Oct",
+            "text": "Wine harvest weekends."
+        },
+        {
+            "value": "49",
+            "unit": "%",
+            "title": "Nov",
+            "text": "Most boat services paused."
+        },
+        {
+            "value": "58",
+            "unit": "%",
+            "title": "Dec",
+            "text": "Christmas markets."
         }
     ]
 }

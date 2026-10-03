@@ -2,8 +2,8 @@
     "_type": "data",
     "eyebrow": "Progress Bars",
     "header": "One bar and one percentage per row",
-    "lead": "The number in each row sets the width of its bar through CSS. There is no script and no chart library: every bar shows a number an editor typed.",
-    "note": "Each row is a separate percentage. For shares of one total, use Distribution Bars; for a single target, use Goal Meter.",
+    "lead": "The number in each row sets the width of its bar. There is no script and no chart library: every bar shows a number an editor typed.",
+    "note": "Example figures for a museum website relaunch, as at 30 September 2026. For shares of one total, use Distribution Bars; for a single target, use Goal Meter.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
@@ -11,20 +11,26 @@
         {
             "value": "100",
             "unit": "%",
-            "title": "A full row",
-            "text": "Values above 100 stop at the full width, so 140 does not overflow."
+            "title": "Collection pages",
+            "text": "1,240 of 1,240 object pages moved and checked by the curators."
         },
         {
-            "value": "62",
+            "value": "72",
             "unit": "%",
-            "title": "A partial row",
-            "text": "The number appears next to the label. The bar only repeats it."
+            "title": "Exhibition archive",
+            "text": "308 of 428 past exhibitions, newest first."
         },
         {
-            "value": "61",
+            "value": "45",
             "unit": "%",
-            "title": "A third row",
-            "text": "A row left empty shows as zero, not as full."
+            "title": "Audio guide transcripts",
+            "text": "54 of 120 stops. The rest follow the new recordings in November."
+        },
+        {
+            "value": "15",
+            "unit": "%",
+            "title": "German translation",
+            "text": "Starts in earnest once the English pages are signed off."
         }
     ]
 }

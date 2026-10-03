@@ -3,36 +3,42 @@
     "eyebrow": "Ranking List",
     "header": "A numbered list where the order matters",
     "lead": "Drag the rows to change the ranking. The list numbers itself, so nothing needs renumbering when a row moves.",
-    "note": "If the gaps between values matter more than the order, use Bar Comparison. For plain labelled numbers, use Figures List.",
-    "cta_label": "Optional action",
-    "cta_link": "#",
+    "note": "Example figures for a city library’s website, September 2026. If the gaps between values matter more than the order, use Bar Comparison.",
+    "cta_label": "Search this site",
+    "cta_link": "{{page:search}}",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "metrics": [
         {
-            "value": "1",
-            "unit": "",
-            "title": "First place",
-            "text": "An optional detail line sits under the name."
+            "value": "18,420",
+            "unit": "views",
+            "title": "Opening hours",
+            "text": "Read most on Saturday mornings."
         },
         {
-            "value": "2",
-            "unit": "",
-            "title": "Second place",
-            "text": ""
+            "value": "12,960",
+            "unit": "views",
+            "title": "Renew a loan",
+            "text": "Up by a third since renewals moved online."
         },
         {
-            "value": "3",
-            "unit": "",
-            "title": "Third place",
-            "text": ""
+            "value": "9,310",
+            "unit": "views",
+            "title": "Events this month",
+            "text": "The children’s readings fill up first."
         },
         {
-            "value": "20",
-            "unit": "",
-            "title": "Twentieth place, at most",
-            "text": "Beyond 20 rows, a ranking turns into a directory."
+            "value": "7,045",
+            "unit": "views",
+            "title": "Join the library",
+            "text": "Half of new members sign up on a phone."
+        },
+        {
+            "value": "5,880",
+            "unit": "views",
+            "title": "Contact and directions",
+            "text": "Most visitors arrive from the map link."
         }
     ]
 }

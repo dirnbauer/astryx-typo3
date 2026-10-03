@@ -3,7 +3,7 @@
     "eyebrow": "Milestone Progress",
     "header": "Ordered stages with a status and a percentage",
     "lead": "Each stage gets a status and a typed percentage. Editors set both, so give the date in the note.",
-    "note": "A stage at 0 % has not started, and one at 100 % is finished. The marker colour only repeats what the percentage says.",
+    "note": "Example: a museum website relaunch, as at 30 September 2026. A stage at 0 % has not started and one at 100 % is finished; the marker repeats what the percentage says.",
     "tone": "body",
     "width": "md",
     "compact": 0,
@@ -12,22 +12,29 @@
             "icon": "check-circle",
             "value": "100",
             "unit": "%",
-            "title": "A finished stage",
-            "text": "Marked done, and the bar is full."
+            "title": "Content audit",
+            "text": "Every page reviewed: 1,140 kept, 380 merged, 220 retired."
+        },
+        {
+            "icon": "check-circle",
+            "value": "100",
+            "unit": "%",
+            "title": "Design and prototype",
+            "text": "Signed off on 12 August after two rounds of user testing."
         },
         {
             "icon": "clock",
             "value": "45",
             "unit": "%",
-            "title": "A stage in progress",
-            "text": "Put the next date in the detail line."
+            "title": "Build and migration",
+            "text": "Templates are done; the content moves across until November."
         },
         {
             "icon": "calendar",
-            "value": "64",
+            "value": "0",
             "unit": "%",
-            "title": "A planned stage",
-            "text": "At 0 % the bar is empty and the marker hollow."
+            "title": "Editor training",
+            "text": "Four sessions booked for January 2027."
         }
     ]
 }

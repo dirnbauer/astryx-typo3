@@ -1,8 +1,8 @@
 /*
  * Bar Comparison
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only, plus the width of each decorative bar's fill, which the shared
+ * ProgressBar leaves to the element that knows the value.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,114 +15,54 @@
   initial-value: 0;
 }
 
-.g-data-bar-comparison__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-data-bar-comparison__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-data-bar-comparison__chart {
-  margin: 0;
-}
-
-.g-data-bar-comparison__caption {
-  display: block;
-  margin-block-end: var(--spacing-5);
-  color: var(--color-text-secondary);
-}
-
+/* One grid for every row: label, plot and figure columns are shared, so each
+   bar starts at the same origin and is measured against the same length. A
+   row of its own would size its figure column to its own figure, and the
+   bars would drift apart by the width of a digit. */
 .g-data-bar-comparison__rows {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-5);
+  display: grid;
+  grid-template-columns: minmax(6rem, 14rem) minmax(0, 1fr) auto;
+  gap: var(--spacing-5) var(--spacing-4);
   margin: 0;
-  padding: 0;
 }
 
 .g-data-bar-comparison__rows[data-density="compact"] {
-  gap: var(--spacing-3);
+  row-gap: var(--spacing-3);
 }
 
-/* Label, plot and figure on one line: the plot column takes whatever is left,
-   which is what puts every bar on the same origin and the same scale. */
 .g-data-bar-comparison__row {
   display: grid;
-  grid-template-columns: minmax(6rem, 14rem) 1fr auto;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: var(--spacing-1) var(--spacing-4);
+  row-gap: var(--spacing-1);
 }
 
-.g-data-bar-comparison__label {
-  margin: 0;
-  font-weight: var(--font-weight-medium);
-}
-
+/* The plot is a dd of this element's own list, which keeps the browser's
+   indent for a description otherwise. */
 .g-data-bar-comparison__plot {
   margin: 0;
-  block-size: var(--spacing-3);
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-  overflow: hidden;
 }
 
 /* The whole visualisation: a width taken from the digits the editor typed. */
-.g-data-bar-comparison__bar {
-  display: block;
-  block-size: 100%;
+.g-data-bar-comparison__fill {
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
 }
 
 .g-data-bar-comparison__value {
-  margin: 0;
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
+  text-align: end;
   white-space: nowrap;
 }
 
 .g-data-bar-comparison__detail {
   grid-column: 1 / -1;
-  margin: 0;
-}
-
-.g-data-bar-comparison__note {
-  margin-block-start: var(--spacing-8);
-}
-
-.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__bar {
-  background-color: currentColor;
-}
-
-.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__plot {
-  background-color: var(--color-overlay-hover);
-}
-
-.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__lead,
-.g-data-bar-comparison[data-surface="accent"] .g-data-bar-comparison__caption,
-.g-data-bar-comparison[data-surface="accent"] .astryx-eyebrow,
-.g-data-bar-comparison[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 640px) {
-  .g-data-bar-comparison__intro {
-    margin-block-end: var(--spacing-8);
-  }
-
   /* Three columns in a phone width leave the plot about a centimetre wide, at
      which point the bar stops comparing anything. */
-  .g-data-bar-comparison__row {
-    grid-template-columns: 1fr auto;
+  .g-data-bar-comparison__rows {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .g-data-bar-comparison__plot {

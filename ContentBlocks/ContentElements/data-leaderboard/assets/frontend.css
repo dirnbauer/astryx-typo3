@@ -1,81 +1,25 @@
 /*
  * Ranking List
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. List draws the numbers and the rules, Item the row, Text the
+ * type; nothing here restyles them.
  */
 
-.g-data-leaderboard__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-6);
-}
-
-.g-data-leaderboard__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-data-leaderboard__rows {
-  border-block: var(--border-width) solid var(--color-border);
-}
-
-.g-data-leaderboard__row {
-  align-items: baseline;
-}
-
-.g-data-leaderboard__entry {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-  min-inline-size: 0;
-}
-
-.g-data-leaderboard__name {
-  font-weight: var(--font-weight-medium);
-}
-
-/* The figure is set against the far edge so the column of numbers reads down
-   the list rather than chasing the length of each name. */
 .g-data-leaderboard__figure {
-  margin-inline-start: auto;
-  padding-inline-start: var(--spacing-4);
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
 }
 
-.g-data-leaderboard__note {
-  margin-block-start: var(--spacing-5);
-}
-
-.g-data-leaderboard__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-5);
-}
-
-.g-data-leaderboard[data-surface="accent"] .g-data-leaderboard__rows {
-  border-color: currentColor;
-}
-
-.g-data-leaderboard[data-surface="accent"] .g-data-leaderboard__lead,
-.g-data-leaderboard[data-surface="accent"] .g-data-leaderboard__detail,
-.g-data-leaderboard[data-surface="accent"] .astryx-eyebrow,
-.g-data-leaderboard[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
 @media (max-width: 480px) {
+  /* A long name beside its figure leaves the name two words a line; under the
+     name, the figure reads as the next fact about it. */
   .g-data-leaderboard__row {
     flex-wrap: wrap;
   }
 
+  /* Under the name, not under the rank: the indent is the rank's column
+     plus the gap the row puts after it. */
   .g-data-leaderboard__figure {
-    margin-inline-start: var(--spacing-6);
-    padding-inline-start: 0;
+    flex-basis: 100%;
+    padding-inline-start: calc(var(--spacing-4) + var(--spacing-2));
   }
 }

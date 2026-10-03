@@ -10,41 +10,49 @@
     column carries its period and its figure as text; once there are more than
     eight the middle labels are taken out of the visual layer only, so a
     crowded strip still reads value by value to anything that is not looking.
+
+    SectionIntro opens the band and carries the headline figure and the
+    change after its lead, right above the strip they sum up; every label is
+    Text, the change a Badge, and the columns are the one thing this element
+    draws. A period's own
+    text field is not shown: a strip has no room for a sentence per column,
+    and the note is where a period that needs explaining gets explained.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-trend-strip">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-trend-strip__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.value}">
+                        <p class="g-data-trend-strip__headline">
+                            <a:atom.text type="display-3" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                            <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
+                            <f:if condition="{data.badge_text}"><a:atom.badge variant="outline">{data -> f:render.text(field: 'badge_text')}</a:atom.badge></f:if>
+                        </p>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
+
+            <ol class="g-data-trend-strip__strip">
+                <f:for each="{data.metrics}" as="metric" iteration="period">
+                    <li class="g-data-trend-strip__col" data-position="{f:if(condition: '{period.isFirst} || {period.isLast}', then: 'edge', else: 'mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                        <span class="g-data-trend-strip__bar" aria-hidden="true"></span>
+                        <a:atom.text type="label" numeric="tabular" as="span" class="g-data-trend-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text>
+                        <a:atom.text type="supporting" as="span" class="g-data-trend-strip__period">{metric -> f:render.text(field: 'title')}</a:atom.text>
+                    </li>
+                </f:for>
+            </ol>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <p class="g-data-trend-strip__headline">
-                <a:atom.text type="display-3" as="span" class="g-data-trend-strip__total">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-trend-strip__unit">{data -> f:render.text(field: 'unit')}</span></f:if><f:if condition="{data.badge_text}"><a:atom.badge variant="outline" as="span" class="g-data-trend-strip__change">{data -> f:render.text(field: 'badge_text')}</a:atom.badge></f:if>
-            </p>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-trend-strip__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <ol class="g-data-trend-strip__strip">
-            <f:for each="{data.metrics}" as="metric" iteration="period">
-                <li class="g-data-trend-strip__col" data-position="{f:if(condition: '{period.isFirst} || {period.isLast}', then: 'edge', else: 'mid')}" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <span class="g-data-trend-strip__bar" aria-hidden="true"></span>
-                    <span class="g-data-trend-strip__reading">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></span>
-                    <span class="g-data-trend-strip__period">{metric -> f:render.text(field: 'title')}</span>
-                </li>
-            </f:for>
-        </ol>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-trend-strip__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

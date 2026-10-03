@@ -2,37 +2,49 @@
     "_type": "data",
     "eyebrow": "Allocation Breakdown",
     "header": "Where a total goes, line by line",
-    "value": "100",
-    "unit": "% of a total",
-    "lead": "Each row's percentage draws its bar. The amount next to it appears exactly as typed, including the currency symbol, and is never recalculated.",
-    "note": "For counts rather than money, use Distribution Bars. For one stacked bar, use Share Bar.",
+    "value": "€ 48,000",
+    "unit": "in total",
+    "lead": "Each row’s percentage draws its bar. The amount beside it appears exactly as typed, currency symbol and all, and is never recalculated.",
+    "note": "Example budget for a museum website relaunch, net of VAT. For counts rather than money, use Distribution Bars; for one stacked bar, use Share Bar.",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "metrics": [
         {
-            "value": "45",
+            "value": "40",
             "unit": "%",
-            "title": "The largest line",
-            "text": "€ 45,000"
+            "title": "Build and migration",
+            "text": "€ 19,200"
         },
         {
-            "value": "30",
+            "value": "25",
             "unit": "%",
-            "title": "A second line",
-            "text": "€ 30,000"
+            "title": "Design and prototype",
+            "text": "€ 12,000"
         },
         {
             "value": "18",
             "unit": "%",
-            "title": "A third line",
-            "text": "€ 18,000"
+            "title": "Content and translation",
+            "text": "€ 8,640"
         },
         {
-            "value": "7",
+            "value": "9",
             "unit": "%",
-            "title": "Everything else",
-            "text": "€ 7,000"
+            "title": "Accessibility testing",
+            "text": "€ 4,320"
+        },
+        {
+            "value": "5",
+            "unit": "%",
+            "title": "Editor training",
+            "text": "€ 2,400"
+        },
+        {
+            "value": "3",
+            "unit": "%",
+            "title": "Contingency",
+            "text": "€ 1,440"
         }
     ]
 }

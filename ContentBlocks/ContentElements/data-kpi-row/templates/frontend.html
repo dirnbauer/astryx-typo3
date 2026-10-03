@@ -6,45 +6,44 @@
 <f:asset.css identifier="g-data-kpi-row" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A description list, because a figure and its label are one pair: pulled
-    apart they are a number nobody can name and a name with no number. The card
-    is only the surface around the pair, never what ties it together, and the
-    source order stays term-then-value however the CSS reorders them.
+    Each card holds one Stat: the label is the term and the figure its
+    description, so a figure and its name stay one pair however the layout
+    reorders them — the Stat writes term-first and shows figure-first. The
+    cards are the items of a list, so a reader hears how many figures there
+    are before the first one.
+
+    SectionIntro, Grid, Card and Stat own the type, the surfaces, the order
+    and the spacing; the stylesheet only centres the note with the rest.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-kpi-row" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-kpi-row__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.metrics}" as="metric">
+                    <a:molecule.card as="li" align="{data.align}">
+                        <a:molecule.stat as="dl" align="{data.align}">
+                            <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
+                            <f:fragment name="value">{metric -> f:render.text(field: 'value')}</f:fragment>
+                            <f:fragment name="unit">{metric -> f:render.text(field: 'unit')}</f:fragment>
+                            <f:fragment name="note">{metric -> f:render.text(field: 'text')}</f:fragment>
+                        </a:molecule.stat>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-data-kpi-row__note">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-kpi-row__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid as="dl" cols="{data.columns}" class="g-data-kpi-row__cards">
-            <f:for each="{data.metrics}" as="metric">
-                <a:molecule.card class="g-data-kpi-row__card">
-                    <a:atom.text type="label" as="dt" class="g-data-kpi-row__label">{metric -> f:render.text(field: 'title')}</a:atom.text>
-                    <dd class="g-data-kpi-row__figure">
-                        <a:atom.text type="display-2" as="span" class="g-data-kpi-row__value">{metric -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{metric.unit}"><span class="g-data-kpi-row__unit">{metric -> f:render.text(field: 'unit')}</span></f:if>
-                    </dd>
-                    <f:if condition="{metric.text}">
-                        <a:atom.text type="supporting" as="dd" class="g-data-kpi-row__context">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-kpi-row__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

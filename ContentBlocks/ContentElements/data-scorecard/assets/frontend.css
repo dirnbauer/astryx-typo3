@@ -1,12 +1,14 @@
 /*
  * Scorecard
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, the rules between the rows, and the five segments: the one drawing
+ * on this band no component makes. Text sets every name and figure.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
-   types "about half" leaves the bar at zero instead of collapsing the row,
+   types "about half" leaves the segments empty instead of breaking the row,
    because an unparsable value falls back to the initial value rather than
    poisoning the declaration that reads it. */
 @property --value {
@@ -15,62 +17,38 @@
   initial-value: 0;
 }
 
-.g-data-scorecard__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
+/* The overall score and its scale on one baseline. */
 .g-data-scorecard__overall {
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--spacing-2);
-  color: var(--color-text-accent);
+  gap: var(--spacing-1) var(--spacing-2);
 }
 
-.g-data-scorecard__score {
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-.g-data-scorecard__scale {
-  font-family: var(--font-family-heading);
-  font-size: var(--text-heading-3-size);
-  font-weight: var(--font-weight-medium);
-  line-height: var(--text-heading-3-leading);
-  color: var(--color-text-secondary);
-}
-
-.g-data-scorecard__lead {
-  color: var(--color-text-secondary);
-}
-
+/* One grid for every criterion: name, segments and rating columns are shared,
+   so the segments of a 4.5 and of a 5 start at the same line. */
 .g-data-scorecard__criteria {
+  display: grid;
+  grid-template-columns: minmax(8rem, 1fr) minmax(6rem, 12rem) auto;
+  column-gap: var(--spacing-4);
   margin: 0;
-  padding: 0;
   border-block-start: var(--border-width) solid var(--color-border);
 }
 
 .g-data-scorecard__criterion {
   display: grid;
-  grid-template-columns: minmax(8rem, 1fr) minmax(6rem, 12rem) auto;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: var(--spacing-1) var(--spacing-4);
+  row-gap: var(--spacing-1);
   padding-block: var(--spacing-3);
   border-block-end: var(--border-width) solid var(--color-border);
 }
 
-.g-data-scorecard__name {
-  margin: 0;
-  font-weight: var(--font-weight-medium);
-}
-
 .g-data-scorecard__segments {
-  margin: 0;
   display: flex;
   gap: var(--spacing-1);
+  margin: 0;
 }
 
 /* Five equal pips, and the fill is an overlay whose opacity is the distance
@@ -101,50 +79,27 @@
 .g-data-scorecard__pip:nth-child(5) { --pip: 5; }
 
 .g-data-scorecard__rating {
-  margin: 0;
-  min-inline-size: 2.5rem;
   text-align: end;
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
 }
 
 .g-data-scorecard__remark {
   grid-column: 1 / -1;
-  margin: 0;
 }
 
-.g-data-scorecard__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-scorecard[data-surface="accent"] .g-data-scorecard__overall {
-  color: currentColor;
-}
-
+/* On an accent band the pips take the band's ink, as ProgressBar does
+   there: the band's own wash for the empty part, its ink for the score. */
 .g-data-scorecard[data-surface="accent"] .g-data-scorecard__pip {
-  background-color: var(--color-overlay-hover);
+  background-color: var(--color-neutral);
 }
 
 .g-data-scorecard[data-surface="accent"] .g-data-scorecard__pip::after {
   background-color: currentColor;
 }
 
-.g-data-scorecard[data-surface="accent"] .g-data-scorecard__criteria,
-.g-data-scorecard[data-surface="accent"] .g-data-scorecard__criterion {
-  border-color: currentColor;
-}
-
-.g-data-scorecard[data-surface="accent"] .g-data-scorecard__lead,
-.g-data-scorecard[data-surface="accent"] .g-data-scorecard__scale,
-.g-data-scorecard[data-surface="accent"] .astryx-eyebrow,
-.g-data-scorecard[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
 @media (max-width: 640px) {
-  .g-data-scorecard__criterion {
-    grid-template-columns: 1fr auto;
+  .g-data-scorecard__criteria {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
   .g-data-scorecard__segments {

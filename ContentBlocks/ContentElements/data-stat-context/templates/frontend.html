@@ -10,39 +10,43 @@
     because a reader who never sees the layout should meet the claim before the
     explanation of it. The source line is deliberately not optional in practice:
     an interpreted figure with no provenance is an assertion.
+
+    The claim is the band's heading, so it is an h2 set at the size an h3 used
+    to have. Split lays out the halves, a Divider sets the source line apart
+    and Link carries the action; the stylesheet only weights the columns.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-stat-context">
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-data-stat-context__grid">
 
-            <div class="g-data-stat-context__figure-side">
+            <a:layout.stack gap="4">
                 <f:if condition="{data.eyebrow}">
                     <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
                 </f:if>
 
                 <p class="g-data-stat-context__figure">
-                    <a:atom.text type="display-1" as="span" class="g-data-stat-context__value">{data -> f:render.text(field: 'value')}</a:atom.text><f:if condition="{data.unit}"><span class="g-data-stat-context__unit">{data -> f:render.text(field: 'unit')}</span></f:if>
+                    <a:atom.text type="display-1" as="span">{data -> f:render.text(field: 'value')}</a:atom.text>
+                    <f:if condition="{data.unit}"><a:atom.text type="large" color="secondary" as="span">{data -> f:render.text(field: 'unit')}</a:atom.text></f:if>
                 </p>
 
-                <a:atom.heading level="3" class="g-data-stat-context__claim">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            </div>
+                <a:atom.heading level="2" type="heading-3">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            </a:layout.stack>
 
-            <div class="g-data-stat-context__prose-side">
+            <a:layout.stack gap="4" align="start">
                 <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-data-stat-context__prose"><f:format.html>{data.bodytext}</f:format.html></div>
+                    <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-data-stat-context__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <a:atom.divider />
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <p class="g-data-stat-context__actions">
-                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                    </p>
+                    <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
         </a:layout.split>
     </a:layout.container>

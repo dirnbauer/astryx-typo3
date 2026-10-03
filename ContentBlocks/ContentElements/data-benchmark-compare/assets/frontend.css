@@ -1,8 +1,10 @@
 /*
  * Benchmark Comparison
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout, the legend swatches, and the width of each decorative bar's fill.
+ * ProgressBar draws the bars and Text the labels and figures.
+ * Tokens only — no raw colour, no literal font family, no light-dark() and no
+ * prefers-color-scheme; the theme carries all four, and the audit enforces it.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,31 +17,10 @@
   initial-value: 0;
 }
 
-.g-data-benchmark-compare__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-data-benchmark-compare__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-data-benchmark-compare__chart {
-  margin: 0;
-}
-
 .g-data-benchmark-compare__legend {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-2) var(--spacing-6);
-  margin-block-end: var(--spacing-6);
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
 }
 
 .g-data-benchmark-compare__key {
@@ -48,109 +29,74 @@
   gap: var(--spacing-2);
 }
 
+/* The swatches repeat the fills ProgressBar paints for its accent and neutral
+   variants, so the legend and the bars cannot disagree. */
 .g-data-benchmark-compare__swatch {
+  flex-shrink: 0;
   inline-size: var(--spacing-3);
   block-size: var(--spacing-3);
   border-radius: var(--radius-inner);
-}
-
-.g-data-benchmark-compare__swatch[data-series="ours"],
-.g-data-benchmark-compare__series[data-series="ours"] .g-data-benchmark-compare__bar {
   background-color: var(--color-accent);
 }
 
-/* The reference series is deliberately quieter: it is the thing being measured
-   against, not a second claim competing with the first. */
-.g-data-benchmark-compare__swatch[data-series="reference"],
-.g-data-benchmark-compare__series[data-series="reference"] .g-data-benchmark-compare__bar {
+.g-data-benchmark-compare__swatch[data-series="reference"] {
   background-color: var(--color-text-disabled);
 }
 
+/* One grid for every row, with the rows and each row's two series as
+   subgrids: both bars of a row and the bars of every other row start on one
+   line and end on another, whatever the figures beside them. */
 .g-data-benchmark-compare__rows {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
+  display: grid;
+  grid-template-columns: minmax(8rem, 16rem) minmax(0, 1fr) auto;
+  gap: var(--spacing-6) var(--spacing-4);
   margin: 0;
-  padding: 0;
 }
 
 .g-data-benchmark-compare__row {
   display: grid;
-  grid-template-columns: minmax(8rem, 16rem) 1fr;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: var(--spacing-1) var(--spacing-4);
+  row-gap: var(--spacing-2);
 }
 
 .g-data-benchmark-compare__criterion {
-  margin: 0;
-  grid-row: span 2;
-  font-weight: var(--font-weight-medium);
+  grid-column: 1;
+  grid-row: 1 / span 2;
 }
 
 .g-data-benchmark-compare__series {
-  margin: 0;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-column: 2 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: var(--spacing-3);
-}
-
-.g-data-benchmark-compare__track {
-  block-size: var(--spacing-3);
-  border-radius: var(--radius-full);
-  background-color: var(--color-track);
-  overflow: hidden;
+  margin: 0;
 }
 
 /* The whole visualisation: two widths on one 0 to 100 scale, taken from the
    digits typed into the row's value and its text. */
-.g-data-benchmark-compare__bar {
-  display: block;
-  block-size: 100%;
+.g-data-benchmark-compare__fill {
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-  border-radius: var(--radius-full);
 }
 
 .g-data-benchmark-compare__figure {
-  min-inline-size: 3rem;
   text-align: end;
-  font-weight: var(--font-weight-semibold);
-  font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
 }
 
-.g-data-benchmark-compare__series[data-series="reference"] .g-data-benchmark-compare__figure {
-  font-weight: var(--font-weight-normal);
-  color: var(--color-text-secondary);
-}
-
-.g-data-benchmark-compare__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__track {
-  background-color: var(--color-overlay-hover);
-}
-
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__swatch[data-series="ours"],
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__series[data-series="ours"] .g-data-benchmark-compare__bar {
+.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__swatch[data-series="ours"] {
   background-color: currentColor;
 }
 
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__lead,
-.g-data-benchmark-compare[data-surface="accent"] .g-data-benchmark-compare__legend,
-.g-data-benchmark-compare[data-surface="accent"] .astryx-eyebrow,
-.g-data-benchmark-compare[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
 @media (max-width: 640px) {
-  .g-data-benchmark-compare__row {
-    grid-template-columns: 1fr;
+  .g-data-benchmark-compare__rows {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
-  .g-data-benchmark-compare__criterion {
+  .g-data-benchmark-compare__criterion,
+  .g-data-benchmark-compare__series {
+    grid-column: 1 / -1;
     grid-row: auto;
   }
 }

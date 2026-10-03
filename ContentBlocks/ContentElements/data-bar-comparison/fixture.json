@@ -2,36 +2,42 @@
     "_type": "data",
     "eyebrow": "Bar Comparison",
     "header": "One bar per item, on one shared scale",
-    "lead": "Each bar's width is the number typed on its row, as a percentage of the plot. Scale the values yourself and name the scale in the caption.",
-    "caption": "The caption names the scale, so readers can compare the lengths",
-    "note": "Below 640px each bar moves to its own line. On a phone, three columns would leave the bar too narrow to read.",
+    "lead": "Each bar’s width is the number typed on its row, as a percentage of the plot. Scale the values yourself and name the scale in the caption.",
+    "caption": "Enquiries answered within one working day, by channel, 2026, on a scale of 0 to 100 %",
+    "note": "Example figures for a city’s citizen service. Below 640px each bar moves to its own line, because three columns on a phone leave a bar too narrow to read.",
     "tone": "body",
     "width": "lg",
     "compact": 0,
     "metrics": [
         {
-            "value": "100",
-            "unit": "",
-            "title": "The top of the scale",
-            "text": "Values above 100 stop at the full width."
+            "value": "94",
+            "unit": "%",
+            "title": "Phone",
+            "text": "Staffed from 8 am to 6 pm on weekdays."
         },
         {
-            "value": "64",
-            "unit": "",
-            "title": "A medium row",
-            "text": ""
+            "value": "81",
+            "unit": "%",
+            "title": "Chat",
+            "text": "Answered by the same team as the phone line."
         },
         {
-            "value": "31",
-            "unit": "",
-            "title": "A short row",
-            "text": ""
+            "value": "63",
+            "unit": "%",
+            "title": "Email",
+            "text": "Sorted by hand before it reaches a case worker."
         },
         {
             "value": "47",
-            "unit": "",
-            "title": "Another row",
-            "text": "A row left empty reads as zero, never as full."
+            "unit": "%",
+            "title": "Contact form",
+            "text": "Joins the email queue one step later."
+        },
+        {
+            "value": "12",
+            "unit": "%",
+            "title": "Letter",
+            "text": "Scanned once a day, then handled like email."
         }
     ]
 }

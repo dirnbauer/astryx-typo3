@@ -13,5 +13,23 @@
         <target>Zeigt Meilensteine in ihrer Reihenfolge, jeder mit Statusicon, eigenem Prozentwert und einer Detailzeile. Verwenden für: eine öffentliche Produkt-Roadmap, Bauphasen auf einer Projektseite, die Etappen einer Finanzierungsrunde, einen Rollout-Plan je Region. Haben die Zeilen weder Reihenfolge noch Status, besser &apos;Fortschrittsbalken&apos;; zählt nur der Status ohne Prozentangabe, besser &apos;Statusliste&apos;.</target>
       </segment>
     </unit>
+    <unit id="stage.complete">
+      <segment state="final">
+        <source>Finished</source>
+        <target>Abgeschlossen</target>
+      </segment>
+    </unit>
+    <unit id="stage.current">
+      <segment state="final">
+        <source>Under way</source>
+        <target>In Arbeit</target>
+      </segment>
+    </unit>
+    <unit id="stage.upcoming">
+      <segment state="final">
+        <source>Planned</source>
+        <target>Geplant</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

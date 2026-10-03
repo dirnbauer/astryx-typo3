@@ -1,8 +1,8 @@
 /*
  * Goal Meter
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only, plus the width of the decorative meter's fill, which the
+ * shared ProgressBar leaves to the element that knows the value.
  */
 
 /* Registering the property is the guard the inline hand-off needs: an editor who
@@ -15,62 +15,26 @@
   initial-value: 0;
 }
 
+/* One reading measure for the whole block, centred with the band when the
+   editor centres it. */
 .g-data-goal-meter__block {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
   max-inline-size: 44rem;
 }
 
-.g-data-goal-meter__block[data-align="center"] {
+.g-data-goal-meter[data-align="center"] .g-data-goal-meter__block {
   margin-inline: auto;
-  align-items: center;
   text-align: center;
 }
 
-.g-data-goal-meter__reading {
-  color: var(--color-text-accent);
-  font-variant-numeric: tabular-nums lining-nums;
-}
-
-/* One goal deserves a heavier track than a list of parallel ones: the size is
-   set here rather than on the shared component, which every other element in
-   the group still gets at its own scale. */
-.g-data-goal-meter__track {
-  block-size: var(--spacing-3);
-}
-
-.g-data-goal-meter__block[data-align="center"] .g-data-goal-meter__track {
-  inline-size: 100%;
+/* The reading and the meter are one reading of one value, and the meter runs
+   the full width of the block however the block is aligned. */
+.g-data-goal-meter__gauge {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  align-self: stretch;
 }
 
 .g-data-goal-meter__fill {
-  display: block;
   inline-size: clamp(0%, calc(var(--value) * 1%), 100%);
-}
-
-.g-data-goal-meter__figures,
-.g-data-goal-meter__note,
-.g-data-goal-meter__actions {
-  margin: 0;
-}
-
-.g-data-goal-meter__actions {
-  margin-block-start: var(--spacing-3);
-}
-
-.g-data-goal-meter[data-surface="accent"] .g-data-goal-meter__reading {
-  color: currentColor;
-}
-
-.g-data-goal-meter[data-surface="accent"] .astryx-eyebrow,
-.g-data-goal-meter[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-data-goal-meter__block {
-    max-inline-size: none;
-  }
 }

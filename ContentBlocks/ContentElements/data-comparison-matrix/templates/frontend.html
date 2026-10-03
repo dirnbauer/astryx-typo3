@@ -10,64 +10,70 @@
     its shape is unreadable to anyone using the table without seeing it. The
     column headings are generic on purpose: which two subjects are being
     compared is content, and it belongs in the caption where both names fit.
+
+    SectionIntro opens the band. Table and its parts draw the grid and style
+    the row headers, Icon draws the mark, names it and colours it — success
+    for a tick, the quiet secondary tone for a cross. The table only scrolls
+    when a cell cannot wrap; at phone width the columns wrap instead, so the
+    caption is never cut off.
 </f:comment>
+
+<f:variable name="labels">LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-comparison-matrix/language/labels.xlf</f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-data-comparison-matrix">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-comparison-matrix__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.table scroll="{true}" scrollLabel="{data.caption}" class="g-data-comparison-matrix__table">
+                <f:if condition="{data.caption}">
+                    <caption class="g-data-comparison-matrix__caption"><a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'caption')}</a:atom.text></caption>
+                </f:if>
+                <a:molecule.tableHeader>
+                    <a:molecule.tableRow>
+                        <a:molecule.tableHeaderCell class="g-data-comparison-matrix__criterion-head"><f:translate key="{labels}:column.criterion" default="Criterion"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell class="g-data-comparison-matrix__mark-head"><f:translate key="{labels}:column.this" default="This option"/></a:molecule.tableHeaderCell>
+                        <a:molecule.tableHeaderCell><f:translate key="{labels}:column.alternative" default="The alternative"/></a:molecule.tableHeaderCell>
+                    </a:molecule.tableRow>
+                </a:molecule.tableHeader>
+                <a:molecule.tableBody>
+                    <f:for each="{data.rows}" as="row">
+                        <a:molecule.tableRow>
+                            <a:molecule.tableHeaderCell scope="row">{row -> f:render.text(field: 'title')}</a:molecule.tableHeaderCell>
+                            <a:molecule.tableCell class="g-data-comparison-matrix__mark">
+                                <f:if condition="{row.included}">
+                                    <f:then>
+                                        <a:atom.icon name="check" color="success" ariaLabel="{f:translate(key: '{labels}:row.included', default: 'Covered')}"/>
+                                    </f:then>
+                                    <f:else>
+                                        <a:atom.icon name="x" color="secondary" ariaLabel="{f:translate(key: '{labels}:row.excluded', default: 'Not covered')}"/>
+                                    </f:else>
+                                </f:if>
+                            </a:molecule.tableCell>
+                            <a:molecule.tableCell><a:atom.text color="secondary" as="span">{row -> f:render.text(field: 'text')}</a:atom.text></a:molecule.tableCell>
+                        </a:molecule.tableRow>
+                    </f:for>
+                </a:molecule.tableBody>
+            </a:molecule.table>
+
+            <f:if condition="{data.note} || {data.cta_label}">
+                <a:layout.stack gap="6" align="start">
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-comparison-matrix__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.table scroll="{true}" class="g-data-comparison-matrix__table">
-            <f:if condition="{data.caption}">
-                <caption class="g-data-comparison-matrix__caption">{data -> f:render.text(field: 'caption')}</caption>
-            </f:if>
-            <thead>
-                <tr>
-                    <th scope="col"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-comparison-matrix/language/labels.xlf:column.criterion" default="Criterion"/></th>
-                    <th scope="col" class="g-data-comparison-matrix__mark-head"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-comparison-matrix/language/labels.xlf:column.this" default="This option"/></th>
-                    <th scope="col"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-comparison-matrix/language/labels.xlf:column.alternative" default="The alternative"/></th>
-                </tr>
-            </thead>
-            <tbody>
-                <f:for each="{data.rows}" as="row">
-                    <tr>
-                        <th scope="row" class="g-data-comparison-matrix__criterion">{row -> f:render.text(field: 'title')}</th>
-                        <td class="g-data-comparison-matrix__mark" data-included="{f:if(condition: row.included, then: 'yes', else: 'no')}">
-                            <f:if condition="{row.included}">
-                                <f:then>
-                                    <svg class="g-data-comparison-matrix__glyph" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-comparison-matrix/language/labels.xlf:row.included" default="Covered"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </f:then>
-                                <f:else>
-                                    <svg class="g-data-comparison-matrix__glyph" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-comparison-matrix/language/labels.xlf:row.excluded" default="Not covered"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-                                </f:else>
-                            </f:if>
-                        </td>
-                        <td class="g-data-comparison-matrix__alternative">{row -> f:render.text(field: 'text')}</td>
-                    </tr>
-                </f:for>
-            </tbody>
-        </a:molecule.table>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-comparison-matrix__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
-        <f:if condition="{data.cta_label}">
-            <p class="g-data-comparison-matrix__actions">
-                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

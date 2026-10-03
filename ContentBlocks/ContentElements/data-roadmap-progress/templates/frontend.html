@@ -6,57 +6,64 @@
 <f:asset.css identifier="g-data-roadmap-progress" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    An ordered list, because the stages happen in an order and that order is
-    content. The state marker is coloured from the semantic key on the child,
-    but it never carries the state on its own: the percentage beside it says
-    the same thing in figures, which is what a reader gets with the colour
-    stripped out.
+    An ordered sequence of stages with a state each is what Stepper and Step
+    are: the list is an ol, the current stage carries aria-current="step", and
+    the state is said in words to assistive technology as well as drawn by the
+    indicator. The editor's icon key is the state: check-circle is a finished
+    stage, clock one under way, anything else a planned one.
+
+    Each stage is a section of the page, so its name is a real h3, with the
+    percentage beside it as Text and the shared ProgressBar under both as the
+    drawing. The percentage says in figures what the indicator says in colour,
+    and Stepper joins the indicators with its own rule.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-data-roadmap-progress">
+<f:variable name="labels">LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/data-roadmap-progress/language/labels.xlf</f:variable>
+
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-roadmap-progress">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-roadmap-progress__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-roadmap-progress__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <ol class="g-data-roadmap-progress__stages" data-density="{f:if(condition: data.compact, then: 'compact')}">
-            <f:for each="{data.metrics}" as="metric">
-                <li class="g-data-roadmap-progress__stage" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                    <span class="g-data-roadmap-progress__marker" data-shape="{metric.icon}" aria-hidden="true"></span>
-
-                    <a:atom.progressBar
-                        decorative="{true}"
-                        labelAs="h3"
-                        labelClass="g-data-roadmap-progress__name"
-                        valueClass="g-data-roadmap-progress__share"
-                        fillClass="g-data-roadmap-progress__fill"
-                        class="g-data-roadmap-progress__body">
-                        <f:fragment name="label">{metric -> f:render.text(field: 'title')}</f:fragment>
-                        <f:fragment name="value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></f:fragment>
-
+            <a:molecule.stepper orientation="vertical" class="g-data-roadmap-progress__stages">
+                <f:for each="{data.metrics}" as="metric" iteration="stage">
+                    <f:variable name="status" value="upcoming"/>
+                    <f:switch expression="{metric.icon}">
+                        <f:case value="check-circle"><f:variable name="status" value="complete"/></f:case>
+                        <f:case value="clock"><f:variable name="status" value="current"/></f:case>
+                    </f:switch>
+                    <a:molecule.step status="{status}" statusLabel="{f:translate(key: '{labels}:stage.{status}')}" class="g-data-roadmap-progress__stage">
+                        <f:fragment name="indicator"><f:if condition="{status} == 'complete'"><f:then><a:atom.icon name="check" size="sm"/></f:then><f:else>{stage.cycle}</f:else></f:if></f:fragment>
                         <f:fragment>
-                            <f:if condition="{metric.text}">
-                                <a:atom.text type="supporting" class="g-data-roadmap-progress__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                            </f:if>
+                            <a:layout.stack gap="2" class="g-data-roadmap-progress__body">
+                                <div class="g-data-roadmap-progress__head">
+                                    <a:atom.heading level="3" type="heading-4">{metric -> f:render.text(field: 'title')}</a:atom.heading>
+                                    <a:atom.text type="label" color="secondary" numeric="tabular" as="span" class="g-data-roadmap-progress__share">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text>
+                                </div>
+
+                                <div class="g-data-roadmap-progress__meter" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                                    <a:atom.progressBar decorative="{true}" fillClass="g-data-roadmap-progress__fill" />
+                                </div>
+
+                                <f:if condition="{metric.text}">
+                                    <a:atom.text type="supporting">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
                         </f:fragment>
-                    </a:atom.progressBar>
-                </li>
-            </f:for>
-        </ol>
+                    </a:molecule.step>
+                </f:for>
+            </a:molecule.stepper>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-roadmap-progress__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -2,30 +2,30 @@
     "_type": "data",
     "eyebrow": "Percentage Rings",
     "header": "One to four rings, drawn with CSS",
-    "lead": "Each ring fills to the number you type, so enter 72% rather than three quarters. No chart library and no SVG are involved.",
+    "lead": "Each ring fills to the number typed on its row, so enter 72 rather than three quarters. No chart library and no SVG are involved.",
     "columns": "3",
     "align": "start",
-    "note": "The percentage appears as text in the centre of each ring. Without the drawing, the band still says the same thing.",
+    "note": "Example figures for a district waste service, 2026. The percentage is written in the centre of each ring, so the band says the same without the drawing.",
     "tone": "body",
     "width": "lg",
     "metrics": [
         {
-            "value": "100",
+            "value": "92",
             "unit": "%",
-            "title": "A full ring",
-            "text": "Values above 100 stop at a closed circle."
+            "title": "Paper and card recycled",
+            "text": "Of 4,180 t collected from blue bins."
         },
         {
-            "value": "72",
+            "value": "88",
             "unit": "%",
-            "title": "A partial ring",
-            "text": "The fill starts at the top and runs clockwise."
+            "title": "Glass recycled",
+            "text": "The rest was too contaminated to melt down."
         },
         {
-            "value": "68",
+            "value": "61",
             "unit": "%",
-            "title": "Another partial ring",
-            "text": "Leave the value empty and the ring stays empty, never full."
+            "title": "Garden waste composted",
+            "text": "Up from 54 % since the second weekly collection."
         }
     ]
 }

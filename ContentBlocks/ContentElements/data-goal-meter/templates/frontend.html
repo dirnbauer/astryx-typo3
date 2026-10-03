@@ -9,40 +9,43 @@
     The percentage sits above the meter as text and the absolute figures are
     spelled out under it, so the band still says what it means with the bar
     removed. The meter itself carries nothing an assistive reader needs.
+
+    SectionIntro opens the band, the reading is accent Text and the meter is
+    the shared ProgressBar at its large size — this bar is the point of the
+    band — driven by the typed percentage. Stack keeps the four steps apart
+    and aligns them; the meter alone always runs the full measure.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-goal-meter">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-data-goal-meter" align="{data.align}">
     <a:layout.container size="{data.width}">
 
-        <div class="g-data-goal-meter__block" data-align="{data.align}" style="--value: {data.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+        <a:layout.stack gap="6" align="{data.align}" class="g-data-goal-meter__block">
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <div class="g-data-goal-meter__gauge" style="--value: {data.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                <a:atom.text type="display-2" color="accent">{data -> f:render.text(field: 'value')}</a:atom.text>
+                <a:atom.progressBar decorative="{true}" size="lg" fillClass="g-data-goal-meter__fill" />
+            </div>
 
-            <a:atom.text type="display-2" class="g-data-goal-meter__reading">{data -> f:render.text(field: 'value')}</a:atom.text>
+            <f:if condition="{data.text} || {data.note}">
+                <a:layout.stack gap="3">
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="large">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
 
-            <a:atom.progressBar
-                decorative="{true}"
-                trackClass="g-data-goal-meter__track"
-                fillClass="g-data-goal-meter__fill"
-                class="g-data-goal-meter__meter" />
-
-            <f:if condition="{data.text}">
-                <a:atom.text type="large" class="g-data-goal-meter__figures">{data -> f:render.text(field: 'text')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-data-goal-meter__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
             <f:if condition="{data.cta_label}">
-                <p class="g-data-goal-meter__actions">
-                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                </p>
+                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
             </f:if>
-        </div>
+        </a:layout.stack>
 
     </a:layout.container>
 </a:layout.section>

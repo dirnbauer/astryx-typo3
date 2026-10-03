@@ -10,46 +10,46 @@
     bars are drawn against; without it the lengths compare nothing. The label
     and the number are a description-list pair, and the bar between them is the
     only part that is decoration.
+
+    Every bar is the shared ProgressBar, decorative, and every row sits on one
+    grid: the rows are subgrids of the list, so the bars share their origin
+    and their length however long a label or a figure gets.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-data-bar-comparison">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-data-bar-comparison__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.figure>
+                <f:if condition="{data.caption}">
+                    <a:atom.text type="label" color="secondary" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
+                </f:if>
+
+                <dl class="g-data-bar-comparison__rows" data-density="{f:if(condition: data.compact, then: 'compact')}">
+                    <f:for each="{data.metrics}" as="metric">
+                        <div class="g-data-bar-comparison__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.htmlspecialchars()}">
+                            <a:atom.text type="label" as="dt" class="g-data-bar-comparison__label">{metric -> f:render.text(field: 'title')}</a:atom.text>
+                            <dd class="g-data-bar-comparison__plot" aria-hidden="true"><a:atom.progressBar decorative="{true}" fillClass="g-data-bar-comparison__fill" /></dd>
+                            <a:atom.text type="label" numeric="tabular" as="dd" class="g-data-bar-comparison__value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></a:atom.text>
+                            <f:if condition="{metric.text}">
+                                <a:atom.text type="supporting" as="dd" class="g-data-bar-comparison__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </div>
+                    </f:for>
+                </dl>
+            </a:molecule.figure>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-data-bar-comparison__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <figure class="g-data-bar-comparison__chart">
-            <f:if condition="{data.caption}">
-                <a:atom.text type="label" as="figcaption" class="g-data-bar-comparison__caption">{data -> f:render.text(field: 'caption')}</a:atom.text>
-            </f:if>
-
-            <dl class="g-data-bar-comparison__rows" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                <f:for each="{data.metrics}" as="metric">
-                    <div class="g-data-bar-comparison__row" style="--value: {metric.value -> f:replace(search: '%', replace: '') -> f:replace(search: ',', replace: '.') -> f:format.raw()}">
-                        <dt class="g-data-bar-comparison__label">{metric -> f:render.text(field: 'title')}</dt>
-                        <dd class="g-data-bar-comparison__plot" aria-hidden="true"><span class="g-data-bar-comparison__bar"></span></dd>
-                        <dd class="g-data-bar-comparison__value">{metric -> f:render.text(field: 'value')}<f:if condition="{metric.unit}">&#160;{metric -> f:render.text(field: 'unit')}</f:if></dd>
-                        <f:if condition="{metric.text}">
-                            <a:atom.text type="supporting" as="dd" class="g-data-bar-comparison__detail">{metric -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </div>
-                </f:for>
-            </dl>
-        </figure>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-data-bar-comparison__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
