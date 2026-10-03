@@ -6,54 +6,70 @@
 <f:asset.css identifier="g-feature-before-after" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    At rest the wipe already sits on the halfway line, so both states are on
-    screen before anybody hovers: the reveal moves a boundary rather than
-    uncovering something a keyboard could not reach.
+    The first two images, each a Figure with its file title as the caption and
+    the picture in an AspectRatio, so both states share one frame and the reveal
+    can lay one exactly over the other.
+
+    At rest the reveal already sits on the halfway line, so both states are on
+    screen before anybody touches anything. The range control under the pair
+    moves the boundary (astryx.js, data-g-compare); it shows only once the
+    runtime has bound it, and until then hover does the same for a pointer.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-before-after" variant="{data.variant}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-before-after__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <div class="g-feature-before-after__pair" data-g-compare>
+                <f:for each="{data.images}" as="image" iteration="position">
+                    <f:if condition="{position.isFirst} || {position.index} == 1">
+                        <a:molecule.figure class="g-feature-before-after__state">
+                            <f:fragment>
+                                <a:atom.aspectRatio>
+                                    <f:image image="{image}" alt="{image.alternative}" width="1200" loading="lazy"/>
+                                </a:atom.aspectRatio>
+                            </f:fragment>
+                            <f:fragment name="caption">{image.title}</f:fragment>
+                        </a:molecule.figure>
+                    </f:if>
+                </f:for>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-before-after__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <div class="g-feature-before-after__pair">
-            <f:for each="{data.images}" as="image" iteration="position">
-                <f:if condition="{position.isFirst} || {position.index} == 1">
-                    <figure class="g-feature-before-after__state" data-state="{position.cycle}">
-                        <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-before-after__image"/>
-
-                        <f:if condition="{image.title}">
-                            <a:atom.text type="supporting" as="figcaption">{image.title}</a:atom.text>
-                        </f:if>
-                    </figure>
+                <f:if condition="{data.variant} == 'overlay-reveal'">
+                    <a:atom.slider
+                        class="g-feature-before-after__compare"
+                        min="0"
+                        max="100"
+                        step="1"
+                        value="50"
+                        ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-before-after/language/labels.xlf:compare.label', default: 'Move the boundary between before and after')}" />
                 </f:if>
-            </f:for>
-        </div>
+            </div>
 
-        <f:if condition="{data.caption}">
-            <a:atom.text type="supporting" class="g-feature-before-after__caption">{data -> f:render.text(field: 'caption')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.caption} || {data.note}">
+                <a:layout.stack gap="2" class="g-feature-before-after__notes">
+                    <f:if condition="{data.caption}">
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'caption')}</a:atom.text>
+                    </f:if>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="body" class="g-feature-before-after__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="body">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
+            </f:if>
 
-        <f:if condition="{data.cta_label}">
-            <p class="g-feature-before-after__actions">
-                <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
+            <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                <a:molecule.buttonGroup>
+                    <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

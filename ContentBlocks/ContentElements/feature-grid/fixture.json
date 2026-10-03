@@ -2,7 +2,7 @@
     "_type": "feature",
     "eyebrow": "Feature Grid",
     "header": "An icon, a title and one sentence",
-    "lead": "The standard feature grid, in two to four columns. The card style gives each cell a surface, the plain style removes it.",
+    "lead": "The standard feature grid, in two, three or four columns. The card style gives each cell a surface; the plain style sets the same cells straight on the band.",
     "columns": "3",
     "variant": "card",
     "tone": "body",
@@ -10,24 +10,40 @@
     "align": "start",
     "items": [
         {
-            "icon": "columns",
-            "title": "Two to four columns",
-            "text": "Editors choose the number of columns. The grid adapts to the space it has, not to the screen width."
+            "icon": "layout-grid",
+            "title": "Two, three or four columns",
+            "text": "The editor’s count holds on wide screens. Tablets show two columns and phones one.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout"
         },
         {
-            "icon": "square",
+            "icon": "layers",
             "title": "Card or plain",
-            "text": "The style adds or removes the card surface. Spacing, order and icons stay the same."
+            "text": "The card style lifts each cell onto a surface. The plain style drops it and keeps everything else.",
+            "link": "https://github.com/facebook/astryx"
         },
         {
-            "icon": "align",
-            "title": "Cells of equal height",
-            "text": "Each cell stretches to the tallest cell in its row, so the icons line up."
+            "icon": "component",
+            "title": "Icons chosen by name",
+            "text": "Editors pick an icon from one shared set, and the theme draws it in Lucide.",
+            "link": "https://lucide.dev/icons/"
+        },
+        {
+            "icon": "list-checks",
+            "title": "A real list",
+            "text": "The cells are list items, so a screen reader announces how many features there are.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ul"
         },
         {
             "icon": "link",
             "title": "One link per cell",
-            "text": "Give a cell a link and the whole cell becomes clickable. The title names the link for screen readers."
+            "text": "Give a cell a link and the whole card becomes the target. The title names it for screen readers.",
+            "link": "https://inclusive-components.design/cards/"
+        },
+        {
+            "icon": "scale",
+            "title": "Equal heights in a row",
+            "text": "Each card stretches to the tallest one beside it, so icons and titles line up.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/align-items"
         }
     ]
 }

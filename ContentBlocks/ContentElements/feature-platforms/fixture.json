@@ -2,36 +2,36 @@
     "_type": "feature",
     "eyebrow": "Platform Availability",
     "header": "Supported platforms, each with a link",
-    "lead": "Rows with an icon for each platform your product supports. For logos of other companies' products, use the integration grid.",
-    "note": "The note holds one support caveat for the whole row, so entries don't repeat it.",
+    "lead": "One row per platform the product runs on, with the version underneath. For other companies’ logos, use the integration grid.",
+    "note": "Requirements as the extension declares them in its composer.json.",
     "columns": "4",
     "tone": "muted",
     "width": "lg",
     "compact": false,
     "platforms": [
         {
-            "icon": "browser",
-            "title": "Name on the first line",
-            "description": "Version or requirement underneath",
-            "link": "#"
+            "icon": "layers",
+            "title": "TYPO3",
+            "description": "14.3 LTS or later",
+            "link": "https://get.typo3.org/version/14"
         },
         {
-            "icon": "link",
-            "title": "Each entry can link",
-            "description": "To a download or its documentation",
-            "link": "#"
+            "icon": "code",
+            "title": "PHP",
+            "description": "8.4 or later",
+            "link": "https://www.php.net/"
         },
         {
-            "icon": "columns",
-            "title": "Two to four columns",
-            "description": "The compact option makes them narrower",
-            "link": ""
+            "icon": "component",
+            "title": "Content Blocks",
+            "description": "2.2 or later",
+            "link": "https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/"
         },
         {
-            "icon": "note",
-            "title": "A closing note",
-            "description": "For the caveat that covers the row",
-            "link": ""
+            "icon": "monitor",
+            "title": "Browsers",
+            "description": "Current versions with light-dark() support",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/color_value/light-dark"
         }
     ]
 }

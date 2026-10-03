@@ -2,32 +2,42 @@
     "_type": "feature",
     "eyebrow": "Feature Rail",
     "header": "One row that scrolls sideways",
-    "lead": "Built with CSS scroll snapping and nothing else. The element stays one row tall however many cards it has, so a long feature list fits on a short page.",
-    "cta_label": "Secondary action",
-    "cta_link": "#",
+    "lead": "Built on CSS scroll snapping, with two buttons on top. The band stays one row tall however many cards it holds, so a long feature list fits on a short page.",
+    "cta_label": "Browse all chapters",
+    "cta_link": "{{page:components}}",
     "tone": "surface",
     "width": "lg",
     "compact": false,
     "items": [
         {
-            "icon": "scroll",
-            "title": "Snap points, no script",
-            "text": "The browser handles dragging, momentum and keyboard scrolling."
+            "icon": "arrow-right",
+            "title": "Snap points do the scrolling",
+            "text": "The browser handles dragging, momentum and keyboard scrolling, with or without script.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll_snap"
         },
         {
-            "icon": "focus",
-            "title": "The row can take focus",
-            "text": "Keyboard users can scroll it with the arrow keys."
+            "icon": "chevron-right",
+            "title": "Buttons page one card at a time",
+            "text": "Each arrow moves by a card and switches itself off at its end of the rail.",
+            "link": "https://www.w3.org/WAI/ARIA/apg/patterns/carousel/"
         },
         {
-            "icon": "resize",
+            "icon": "accessibility",
+            "title": "The rail takes focus",
+            "text": "Keyboard users scroll it with the arrow keys, and the band’s heading names it.",
+            "link": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html"
+        },
+        {
+            "icon": "layout-grid",
             "title": "Compact makes cards narrower",
-            "text": "More cards are visible at once, but each has room for less text."
+            "text": "More cards fit at once, each with room for less text. The navigation carousel uses the same rail for links.",
+            "link": "{{page:components/navigation}}"
         },
         {
-            "icon": "eye",
-            "title": "The next card shows at the edge",
-            "text": "A card cut off at the edge tells readers there is more to scroll."
+            "icon": "monitor",
+            "title": "The next card peeks in",
+            "text": "A card cut off at the edge tells readers there is more to scroll. The testimonial carousel works the same way.",
+            "link": "{{page:components/social-proof}}"
         }
     ]
 }

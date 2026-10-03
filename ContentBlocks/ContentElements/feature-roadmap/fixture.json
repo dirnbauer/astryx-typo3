@@ -3,35 +3,36 @@
     "eyebrow": "Shipping Status List",
     "header": "Features, each with its current status",
     "lead": "Shipped, in progress or planned, shown as a list. Use it for a public roadmap; use the included checklist when the status is only yes or no.",
-    "note": "The note holds the caveat about target dates and commitments.",
-    "cta_label": "Secondary action",
-    "cta_link": "#",
+    "note": "States are a snapshot, not a promise: the list changes as plans do.",
+    "cta_label": "See roadmap progress bars",
+    "cta_link": "{{page:components/data}}",
     "tone": "body",
     "width": "md",
     "compact": false,
     "items": [
         {
-            "title": "Editors write the status word",
+            "title": "Editors write the state word",
             "value": "Shipped",
             "included": true,
-            "text": "It appears as a badge and can be in any language."
+            "text": "It appears as a badge and can be written in any language."
         },
         {
             "title": "The dot follows a switch",
             "value": "Shipped",
             "included": true,
-            "text": "The colour comes from a switch, not from the text, so it never contradicts the word."
+            "text": "The colour comes from the shipped switch, not from the word, so the two never contradict each other."
         },
         {
-            "title": "Unshipped rows are dimmed",
+            "title": "Unshipped rows step back",
             "value": "In progress",
             "included": false,
-            "text": "Their titles use the secondary colour, so readers notice shipped features first."
+            "text": "Their titles use the secondary colour, so readers notice what has shipped first."
         },
         {
             "title": "Two to fifteen entries",
             "value": "Planned",
-            "included": false
+            "included": false,
+            "text": "Past fifteen, a roadmap reads better split into one list per quarter."
         }
     ]
 }

@@ -2,26 +2,29 @@
     "_type": "feature",
     "eyebrow": "Benefit List",
     "header": "Full-width rows with room for a paragraph",
-    "lead": "Each row has an icon and a full paragraph, with a line between rows. Use it when a grid cell is too small for the text.",
+    "lead": "Each row has an icon and a whole paragraph, with a rule between rows: for when a grid cell is too small for the argument. The three rows below are true of this theme.",
     "tone": "surface",
     "width": "lg",
     "align": "start",
     "compact": false,
     "items": [
         {
-            "icon": "text",
-            "title": "A paragraph per row, not a caption",
-            "text": "Each row spans the full width, so it can hold a claim, the reason and the result. That is the difference from the feature grid."
+            "icon": "layers",
+            "title": "Twenty-five themes, one set of markup",
+            "text": "A theme is a set of tokens. Switching it changes colour, type and corner radius on every element, and no template is touched.",
+            "link": "{{page:themes}}"
         },
         {
-            "icon": "divider",
-            "title": "A line instead of a gap",
-            "text": "A thin line separates the rows, so a long list reads as one group. The line matches every other divided list on the page."
+            "icon": "accessibility",
+            "title": "Contrast checked in all fifty palettes",
+            "text": "Twenty-five themes in light and dark make fifty palettes. A build script measures every text and control colour in them against WCAG 2.2 AA.",
+            "link": "{{page:accessibility}}"
         },
         {
-            "icon": "resize",
-            "title": "Compact when the list gets long",
-            "text": "The compact option reduces the space between rows but keeps the font sizes. A list of ten rows then takes less space on the page."
+            "icon": "code",
+            "title": "Native HTML before script",
+            "text": "Disclosures are details elements, dialogs are dialog elements and rails use scroll snap. One small script adds what HTML has no element for: tabs, carousel buttons and search suggestions.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details"
         }
     ]
 }

@@ -7,51 +7,53 @@
 
 <f:comment>
     The tick and the cross are the only thing distinguishing two otherwise
-    identical rows, so each one carries its own name rather than relying on
-    colour — a red cross and a green tick are the same shape to a lot of
-    readers.
+    identical rows, so each is an Icon with its own name ("Included", "Not
+    included") and its own shape; the colour (Icon's `color`: success for the
+    tick, secondary for the cross) only repeats what the shape says. A row that
+    is not included also reads in the secondary text colour, set through
+    Text's own `color`.
+
+    The row's longer text field is deliberately not rendered: this band is a
+    dense list of one-liners, and a row that needs a sentence belongs in the
+    spec sheet or the benefit list.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-checklist" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-checklist__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.list density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-feature-checklist__rows">
+                <f:for each="{data.rows}" as="row">
+                    <a:molecule.listItem class="g-feature-checklist__row">
+                        <f:if condition="{row.included}">
+                            <f:then>
+                                <a:atom.icon name="check" size="sm" color="success" class="g-feature-checklist__mark" ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-checklist/language/labels.xlf:row.included', default: 'Included')}" />
+                                <a:atom.text type="body" as="span" class="g-feature-checklist__label">{row -> f:render.text(field: 'title')}</a:atom.text>
+                            </f:then>
+                            <f:else>
+                                <a:atom.icon name="x" size="sm" color="secondary" class="g-feature-checklist__mark" ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-checklist/language/labels.xlf:row.excluded', default: 'Not included')}" />
+                                <a:atom.text type="body" as="span" color="secondary" class="g-feature-checklist__label">{row -> f:render.text(field: 'title')}</a:atom.text>
+                            </f:else>
+                        </f:if>
+
+                        <f:if condition="{row.value}">
+                            <a:atom.badge variant="outline" class="g-feature-checklist__qualifier">{row -> f:render.text(field: 'value')}</a:atom.badge>
+                        </f:if>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-checklist__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.list density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-feature-checklist__rows">
-            <f:for each="{data.rows}" as="row">
-                <li class="g-feature-checklist__row" data-included="{f:if(condition: row.included, then: 'yes', else: 'no')}">
-                    <f:if condition="{row.included}">
-                        <f:then>
-                            <svg class="g-feature-checklist__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-checklist/language/labels.xlf:row.included" default="Included"/></title><path d="M3.5 8.4 6.4 11.3 12.5 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </f:then>
-                        <f:else>
-                            <svg class="g-feature-checklist__mark" viewBox="0 0 16 16" role="img" focusable="false"><title><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-checklist/language/labels.xlf:row.excluded" default="Not included"/></title><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-                        </f:else>
-                    </f:if>
-
-                    <span class="g-feature-checklist__label">{row -> f:render.text(field: 'title')}</span>
-
-                    <f:if condition="{row.value}">
-                        <a:atom.badge variant="outline" as="span" class="g-feature-checklist__qualifier">{row.value}</a:atom.badge>
-                    </f:if>
-                </li>
-            </f:for>
-        </a:molecule.list>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-feature-checklist__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

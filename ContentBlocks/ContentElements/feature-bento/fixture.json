@@ -2,7 +2,7 @@
     "_type": "feature",
     "eyebrow": "Bento Grid",
     "header": "Tiles in different sizes",
-    "lead": "One large tile leads, and the others fill the grid around it. Use it when one feature matters most; use the feature grid when all are equal.",
+    "lead": "One large tile leads and the others fill the grid around it. Use it when one feature matters most; use the feature grid when they are equal.",
     "tone": "body",
     "width": "lg",
     "align": "start",
@@ -10,22 +10,32 @@
         {
             "icon": "star",
             "title": "The lead tile takes two cells",
-            "text": "It also gets a larger title, so the layout shows what matters by size alone. Only the first tile gets this, and only when there is room for three columns."
+            "text": "It gets a larger title as well, so the layout says what matters before anyone reads a word. Only the first tile leads, and only where three columns fit.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-column"
         },
         {
-            "icon": "grid",
+            "icon": "monitor",
             "title": "Three columns on wide screens",
-            "text": "Two on medium screens and one on a phone. Nothing else moves."
+            "text": "Two on tablets, where the lead tile has the first row to itself, and one on phones.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout"
         },
         {
-            "icon": "square",
-            "title": "The other tiles are standard",
-            "text": "The same card, icon and optional link as in the other feature elements."
+            "icon": "layers",
+            "title": "The rest are standard cards",
+            "text": "Icon, title and a sentence or two: the same card as in the feature grid.",
+            "link": "https://github.com/facebook/astryx"
         },
         {
             "icon": "link",
-            "title": "Any tile can be a link",
-            "text": "The whole tile becomes clickable, and the title names the link for screen readers."
+            "title": "Any tile can link",
+            "text": "The whole tile becomes the target, and its title names the link for screen readers.",
+            "link": "https://inclusive-components.design/cards/"
+        },
+        {
+            "icon": "check-circle",
+            "title": "No gap at the end",
+            "text": "When the count would leave a hole in the last row, the last tile widens to close it.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/:nth-child"
         }
     ]
 }

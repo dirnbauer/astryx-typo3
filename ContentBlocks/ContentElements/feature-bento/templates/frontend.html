@@ -6,55 +6,54 @@
 <f:asset.css identifier="g-feature-bento" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Only the first tile is given the double cell, and only where there is room
-    for three columns. A mosaic that rearranges itself at every width stops
-    being a composition and becomes an accident.
+    A Grid list of Cards, each card the list item itself (Card as="li"), so
+    every tile in a row is as tall as the tallest. The first tile leads: it
+    takes two of the three cells and a heading set one size up through
+    Heading's own `type`. Every other tile is the same Card and Feature as in
+    the feature grid. Where the count of tiles would leave a hole in the last
+    row, the stylesheet widens the last tile into it — a mosaic with a gap at
+    the end reads as unfinished.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-bento" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-bento__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-bento__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <ul class="g-feature-bento__tiles">
-            <f:for each="{data.tiles}" as="tile">
-                <f:comment>
-                    Card is the tile, but a ul may only contain li, so the li is
-                    the grid cell and the card fills it. The cell, not the card,
-                    therefore carries the lead tile's two-column span.
-                </f:comment>
-                <li class="g-feature-bento__cell">
-                    <a:molecule.card clickable="{tile.link.url}" class="g-feature-bento__tile">
-                        <f:if condition="{tile.icon}">
-                            <a:atom.featureIcon icon="{tile.icon}" />
-                        </f:if>
-
-                        <a:molecule.cardTitle>
-                            <f:if condition="{tile.link.url}">
-                                <f:then><f:link.typolink parameter="{tile.link}">{tile.title}</f:link.typolink></f:then>
-                                <f:else>{tile -> f:render.text(field: 'title')}</f:else>
+            <a:layout.grid as="ul" fixed="3" gap="4" class="g-feature-bento__tiles">
+                <f:for each="{data.tiles}" as="tile" iteration="position">
+                    <a:molecule.card as="li" clickable="{tile.link.url}" class="g-feature-bento__tile">
+                        <a:molecule.feature icon="{tile.icon}">
+                            <f:if condition="{position.isFirst}">
+                                <f:then>
+                                    <a:atom.heading level="3" type="heading-2">
+                                        <f:render section="title" arguments="{tile: tile}"/>
+                                    </a:atom.heading>
+                                </f:then>
+                                <f:else>
+                                    <a:molecule.cardTitle>
+                                        <f:render section="title" arguments="{tile: tile}"/>
+                                    </a:molecule.cardTitle>
+                                </f:else>
                             </f:if>
-                        </a:molecule.cardTitle>
 
-                        <f:if condition="{tile.text}">
-                            <a:molecule.cardBody>{tile -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                        </f:if>
+                            <f:if condition="{tile.text}">
+                                <a:molecule.cardBody class="g-feature-bento__text">{tile -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                            </f:if>
+                        </a:molecule.feature>
                     </a:molecule.card>
-                </li>
-            </f:for>
-        </ul>
+                </f:for>
+            </a:layout.grid>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
+
+<f:section name="title"><f:if condition="{tile.link.url}"><f:then><a:atom.link parameter="{tile.link}">{tile.title}</a:atom.link></f:then><f:else>{tile -> f:render.text(field: 'title')}</f:else></f:if></f:section>
 
 </html>

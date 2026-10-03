@@ -6,56 +6,55 @@
 <f:asset.css identifier="g-feature-roadmap" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The dot follows the shipped toggle rather than the state word: the word is
-    whatever an editor typed and may be in any language, while the toggle is a
-    fact. The word is still what a reader reads.
+    A divided List: per row a StatusDot, the feature and a Badge with the state
+    word. The dot and the badge's colour follow the shipped toggle rather than
+    the state word: the word is whatever an editor typed, in any language,
+    while the toggle is a fact. The word is still what a reader reads, and an
+    unshipped row's title steps back to the secondary colour through Heading's
+    own `color`.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-roadmap">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-roadmap__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}">
+                <f:for each="{data.items}" as="item">
+                    <a:molecule.listItem class="g-feature-roadmap__item">
+                        <a:atom.statusDot variant="{f:if(condition: item.included, then: 'success', else: 'accent')}" class="g-feature-roadmap__dot" />
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-roadmap__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <a:layout.stack gap="1" class="g-feature-roadmap__body">
+                            <a:atom.heading level="3" color="{f:if(condition: item.included, then: 'default', else: 'secondary')}">{item -> f:render.text(field: 'title')}</a:atom.heading>
 
-        <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-roadmap__items">
-            <f:for each="{data.items}" as="item">
-                <li class="g-feature-roadmap__item" data-shipped="{f:if(condition: item.included, then: 'yes', else: 'no')}">
-                    <a:atom.statusDot variant="{f:if(condition: item.included, then: 'success', else: 'accent')}" class="g-feature-roadmap__dot" ariaHidden="true"></a:atom.statusDot>
+                            <f:if condition="{item.text}">
+                                <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
 
-                    <div class="g-feature-roadmap__body">
-                        <a:atom.heading level="3">{item -> f:render.text(field: 'title')}</a:atom.heading>
-
-                        <f:if condition="{item.text}">
-                            <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>
+                        <f:if condition="{item.value}">
+                            <a:atom.badge variant="{f:if(condition: item.included, then: 'success', else: 'outline')}" class="g-feature-roadmap__state">{item -> f:render.text(field: 'value')}</a:atom.badge>
                         </f:if>
-                    </div>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
-                    <f:if condition="{item.value}">
-                        <a:atom.badge variant="{f:if(condition: item.included, then: 'success', else: 'outline')}" as="span" class="g-feature-roadmap__state">{item -> f:render.text(field: 'value')}</a:atom.badge>
-                    </f:if>
-                </li>
-            </f:for>
-        </a:molecule.list>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-feature-roadmap__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                <a:molecule.buttonGroup>
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
+            </f:if>
 
-        <f:if condition="{data.cta_label}">
-            <p class="g-feature-roadmap__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -1,48 +1,24 @@
 /*
  * Workflow Stages
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only — plus the arrow this band draws for itself in the gap between
+ * two stages. The intro is SectionIntro's, the list and its gap Stack's, the
+ * stages (centred too) Feature's and the type Heading's and Text's: no raw
+ * colour, font family, light-dark() or prefers-color-scheme here, which the
+ * audit enforces.
+ *
+ * The arrow's place reads two things from the components: the gap it sits in
+ * is --spacing-8 (Stack's gap="8") and the tile it points at is --spacing-10
+ * square (FeatureIcon's default size).
  */
-
-.g-feature-workflow__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-feature-workflow__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-feature-workflow[data-align='center'] .g-feature-workflow__intro {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.g-feature-workflow__stages {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-8);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 
 .g-feature-workflow__stage {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
   min-inline-size: 0;
 }
 
-/* The arrow occupies exactly the gap between two stages, so it is centred on
-   the join rather than nudged towards one of them. */
+/* Narrow first: the chain is a column and the arrow points down, centred on
+   the tile above it. */
 .g-feature-workflow__stage + .g-feature-workflow__stage::before {
   content: '↓';
   position: absolute;
@@ -55,29 +31,24 @@
   color: var(--color-icon-secondary);
 }
 
-.g-feature-workflow__note {
-  margin-block-start: var(--spacing-8);
+.g-feature-workflow[data-align='center'] .g-feature-workflow__stage + .g-feature-workflow__stage::before {
+  inset-inline-start: 50%;
 }
 
-.g-feature-workflow[data-surface="accent"] .g-feature-workflow__lead,
-.g-feature-workflow[data-surface="accent"] .astryx-eyebrow,
-.g-feature-workflow[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
+/* Only where there is room does the chain become a row: an arrow that wraps
+   to the start of a new line points at nothing. */
 @media (min-width: 768px) {
   .g-feature-workflow__stages {
     flex-direction: row;
     align-items: stretch;
-    gap: var(--spacing-8);
   }
 
   .g-feature-workflow__stage {
     flex: 1 1 0;
   }
 
-  .g-feature-workflow__stage + .g-feature-workflow__stage::before {
+  .g-feature-workflow__stage + .g-feature-workflow__stage::before,
+  .g-feature-workflow[data-align='center'] .g-feature-workflow__stage + .g-feature-workflow__stage::before {
     content: '→';
     inset-inline-start: calc(-1 * var(--spacing-8));
     inset-block-start: var(--spacing-5);
@@ -85,16 +56,5 @@
     block-size: auto;
     justify-content: center;
     translate: 0 -50%;
-  }
-
-  .g-feature-workflow[data-align='center'] .g-feature-workflow__stage {
-    align-items: center;
-    text-align: center;
-  }
-}
-
-@media (max-width: 640px) {
-  .g-feature-workflow__intro {
-    margin-block-end: var(--spacing-8);
   }
 }

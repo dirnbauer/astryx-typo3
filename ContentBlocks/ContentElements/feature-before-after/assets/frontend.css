@@ -1,106 +1,70 @@
 /*
  * Before and After Images
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the two states side by side, or laid over each other in the
+ * reveal, and where the range control appears. The intro is SectionIntro's,
+ * the figures are Figure's and AspectRatio's, the control is Slider's — no raw
+ * colour, font family, light-dark() or prefers-color-scheme here, which the
+ * audit enforces.
  */
-
-.g-feature-before-after__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-feature-before-after__lead {
-  color: var(--color-text-secondary);
-}
 
 .g-feature-before-after__pair {
   display: grid;
-  gap: var(--spacing-4);
+  gap: var(--spacing-6);
 }
 
-.g-feature-before-after__state {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  min-inline-size: 0;
-}
-
-.g-feature-before-after__image {
-  inline-size: 100%;
-  block-size: auto;
-  border-radius: var(--radius-container, var(--radius-element));
-}
-
-.g-feature-before-after__note {
-  margin-block-start: var(--spacing-4);
+.g-feature-before-after__notes {
   max-inline-size: 62ch;
 }
 
-.g-feature-before-after__caption {
-  margin-block-start: var(--spacing-3);
-}
-
-.g-feature-before-after__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-6);
-}
-
-.g-feature-before-after[data-surface="accent"] .g-feature-before-after__lead,
-.g-feature-before-after[data-surface="accent"] .astryx-eyebrow,
-.g-feature-before-after[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
+/* The range control only exists in the reveal, and only does something once
+   astryx.js has bound it (data-g-compare-ready). */
+.g-feature-before-after__compare {
+  display: none;
 }
 
 @media (min-width: 768px) {
   .g-feature-before-after__pair {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  /* The reveal stacks the two states in one cell and slides the boundary. It
-     is deliberately confined to wide viewports: on a phone the two pictures
-     stacked are both larger and easier to compare. */
+  /* The reveal stacks the two states in one cell and moves the boundary. It is
+     confined to wide viewports on purpose: on a phone the two pictures stacked
+     are both larger and easier to compare. */
   .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair {
-    grid-template-columns: 1fr;
-    position: relative;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--spacing-4);
   }
 
   .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state {
     grid-area: 1 / 1;
   }
 
-  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state[data-state='2'] {
-    clip-path: inset(0 0 0 50%);
-    transition: clip-path var(--duration-medium) var(--ease-standard);
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state + .g-feature-before-after__state {
+    clip-path: inset(0 0 0 var(--g-compare, 50%));
+    transition: clip-path var(--duration-fast-max) var(--ease-standard);
   }
 
-  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair:hover .g-feature-before-after__state[data-state='2'],
-  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair:focus-within .g-feature-before-after__state[data-state='2'] {
-    clip-path: inset(0 0 0 0);
-  }
-
-  /* Two captions in one cell would sit on top of each other. */
-  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state[data-state='2'] figcaption {
+  /* Two captions share one cell: the second sits at the other end. */
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state + .g-feature-before-after__state > figcaption {
     text-align: end;
+  }
+
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair[data-g-compare-ready] .g-feature-before-after__compare {
+    display: block;
+  }
+}
+
+/* Without the script the pointer is the control. With it the slider is, and a
+   hover that fought the slider's position would undo what the reader set. */
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__pair:not([data-g-compare-ready]):hover .g-feature-before-after__state + .g-feature-before-after__state {
+    clip-path: inset(0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state[data-state='2'] {
+  .g-feature-before-after[data-variant='overlay-reveal'] .g-feature-before-after__state + .g-feature-before-after__state {
     transition: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .g-feature-before-after__intro {
-    margin-block-end: var(--spacing-8);
   }
 }

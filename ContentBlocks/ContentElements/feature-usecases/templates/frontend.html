@@ -6,50 +6,51 @@
 <f:asset.css identifier="g-feature-usecases" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The whole card is one link and the title carries its name, so the card never
-    becomes an anchor inside an anchor and a reader tabbing through gets one
-    stop per use case rather than two.
+    A Grid list of Cards, one signpost per audience, each card the list item
+    itself. The editor's column count is Grid's `cols`, a ceiling, so a tablet
+    gets fewer columns rather than narrower cards. A card with a link is a
+    clickable Card whose title is the one link, so the card never becomes an
+    anchor inside an anchor and a reader tabbing through gets one stop per use
+    case rather than two. A card without a link stays a plain card instead of
+    pretending to go somewhere.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-usecases">
+<a:layout.section surface="{data.tone}" class="g-feature-usecases" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-usecases__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.cases}" as="case">
+                    <a:molecule.card as="li" clickable="{case.link.url}">
+                        <a:molecule.feature icon="{case.icon}">
+                            <a:molecule.cardTitle>
+                                <f:if condition="{case.link.url}">
+                                    <f:then><a:atom.link parameter="{case.link}">{case.title}</a:atom.link></f:then>
+                                    <f:else>{case -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
+
+                            <f:if condition="{case.description}">
+                                <a:molecule.cardBody class="g-feature-usecases__description">{case -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                            </f:if>
+                        </a:molecule.feature>
+                    </a:molecule.card>
+                </f:for>
+            </a:layout.grid>
+
+            <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                <a:molecule.buttonGroup>
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-usecases__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-feature-usecases__cases">
-            <f:for each="{data.cases}" as="case">
-                <a:molecule.card clickable="{true}" class="g-feature-usecases__card">
-                    <f:if condition="{case.icon}">
-                        <a:atom.featureIcon icon="{case.icon}" />
-                    </f:if>
-
-                    <a:molecule.cardTitle>
-                        <f:link.typolink parameter="{case.link}">{case.title}</f:link.typolink>
-                    </a:molecule.cardTitle>
-
-                    <f:if condition="{case.description}">
-                        <a:molecule.cardBody class="g-feature-usecases__description">{case -> f:render.text(field: 'description')}</a:molecule.cardBody>
-                    </f:if>
-                </a:molecule.card>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.cta_label}">
-            <p class="g-feature-usecases__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -1,86 +1,48 @@
 /*
  * Shipping Status List
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: where the dot, the feature and the state badge sit in a row,
+ * and where the badge goes on a phone. The intro is SectionIntro's, the rule
+ * between rows List's, the dot StatusDot's and the badge Badge's — no raw
+ * colour, font family, light-dark() or prefers-color-scheme here, which the
+ * audit enforces.
  */
-
-.g-feature-roadmap__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-feature-roadmap__lead {
-  color: var(--color-text-secondary);
-}
 
 .g-feature-roadmap__item {
   gap: var(--spacing-3);
-  align-items: flex-start;
 }
 
-/* The dot sits on the title's first line rather than on the top of the row,
-   which is where it would land in a list item that has two lines of text.
-   The nudge was `0.5em`, which lands on whatever half the inherited font size
-   happens to be — 7px here, off the scale in both directions. A spacing token
-   puts it on the same grid as everything else and still meets the first line. */
+/* The dot sits on the title's first line rather than on the top of the row. */
 .g-feature-roadmap__dot {
+  flex: 0 0 auto;
   margin-block-start: var(--spacing-2);
 }
 
 .g-feature-roadmap__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
   flex: 1 1 auto;
   min-inline-size: 0;
 }
 
+/* Nudged down onto the title's first line. */
 .g-feature-roadmap__state {
   flex: 0 0 auto;
-  /* Nudged down onto the title's first line. A token, not `0.15em`: spacing
-     comes from the scale, and 0.15em resolved to 2.1px. */
   margin-block-start: var(--spacing-0-5);
 }
 
-.g-feature-roadmap__item[data-shipped='no'] .astryx-heading {
-  color: var(--color-text-secondary);
-}
-
-.g-feature-roadmap__note {
-  margin-block-start: var(--spacing-6);
-}
-
-.g-feature-roadmap__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-6);
-}
-
-.g-feature-roadmap[data-surface="accent"] .g-feature-roadmap__lead,
-.g-feature-roadmap[data-surface="accent"] .astryx-eyebrow,
-.g-feature-roadmap[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
+/* On a phone the state badge drops under the text rather than squeezing the
+   title to a word per line: a two-column grid keeps the dot beside the title
+   and puts the badge on its own line, aligned with the title's edge. */
 @media (max-width: 640px) {
-  .g-feature-roadmap__intro {
-    margin-block-end: var(--spacing-8);
-  }
-
-  /* The state badge drops under the title rather than squeezing it to a word
-     per line. */
   .g-feature-roadmap__item {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--spacing-3);
+    row-gap: var(--spacing-2);
   }
 
   .g-feature-roadmap__state {
-    order: 3;
-    margin-inline-start: var(--spacing-5);
+    grid-column: 2;
+    justify-self: start;
+    margin-block-start: 0;
   }
 }

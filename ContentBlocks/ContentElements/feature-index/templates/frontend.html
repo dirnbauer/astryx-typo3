@@ -6,43 +6,61 @@
 <f:asset.css identifier="g-feature-index" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    CSS columns rather than a grid, so a list of forty flows evenly and still
-    reads top-to-bottom in each column: a grid would put the second entry beside
-    the first and make the alphabet unusable.
+    A List of Item rows flowed into CSS columns rather than laid on a grid, so a
+    list of forty flows evenly and still reads top to bottom in each column: a
+    grid would put the second entry beside the first and make an alphabetical
+    order unusable. A linked entry is an interactive Item, which is itself the
+    anchor, inside its list item; an entry without a page is the Item's own
+    list item, unlinked, so it still appears. The one-line description is
+    ItemDescription's `truncate`.
+
+    The child's icon is deliberately not drawn: forty glyphs in a reference list
+    are noise, and the same records keep their icons wherever they are shown as
+    cards.
 </f:comment>
+
+<f:variable name="density" value="{f:if(condition: data.compact, then: 'compact', else: 'default')}" />
 
 <a:layout.section surface="{data.tone}" class="g-feature-index" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-index__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-index__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.list density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-feature-index__entries">
-            <f:for each="{data.entries}" as="entry">
-                <li class="g-feature-index__entry">
-                    <span class="g-feature-index__name">
-                        <f:if condition="{entry.link.url}">
-                            <f:then><a:atom.link variant="quiet" parameter="{entry.link}">{entry.title}</a:atom.link></f:then>
-                            <f:else>{entry -> f:render.text(field: 'title')}</f:else>
-                        </f:if>
-                    </span>
-
-                    <f:if condition="{entry.description}">
-                        <a:atom.text type="supporting" as="span" class="g-feature-index__description">{entry -> f:render.text(field: 'description')}</a:atom.text>
+            <a:molecule.list class="g-feature-index__entries">
+                <f:for each="{data.entries}" as="entry">
+                    <f:if condition="{entry.link.url}">
+                        <f:then>
+                            <li class="g-feature-index__entry">
+                                <a:molecule.item parameter="{entry.link}" interactive="interactive" density="{density}">
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel weight="medium">{entry.title}</a:molecule.itemLabel>
+                                        <f:if condition="{entry.description}">
+                                            <a:molecule.itemDescription truncate="truncate">{entry.description}</a:molecule.itemDescription>
+                                        </f:if>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
+                            </li>
+                        </f:then>
+                        <f:else>
+                            <a:molecule.item density="{density}" class="g-feature-index__entry">
+                                <a:molecule.itemContent>
+                                    <a:molecule.itemLabel weight="medium">{entry -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                    <f:if condition="{entry.description}">
+                                        <a:molecule.itemDescription truncate="truncate">{entry -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                    </f:if>
+                                </a:molecule.itemContent>
+                            </a:molecule.item>
+                        </f:else>
                     </f:if>
-                </li>
-            </f:for>
-        </a:molecule.list>
+                </f:for>
+            </a:molecule.list>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

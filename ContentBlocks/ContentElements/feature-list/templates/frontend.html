@@ -6,61 +6,55 @@
 <f:asset.css identifier="g-feature-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The row text is a plain textarea on purpose: an entry that needs headings of
-    its own has outgrown a list row and belongs in a band of its own.
+    A divided List of full-width rows. A row that goes somewhere is a
+    ClickableCard, so the whole row is the link target; one that does not is a
+    plain ListItem. Only the wrapper differs, so only the wrapper is written
+    twice.
+
+    The row text is a plain textarea on purpose: an entry that needs headings
+    of its own has outgrown a list row and belongs in a band of its own.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-list" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}">
+                <f:for each="{data.items}" as="item">
+                    <f:if condition="{item.link.url}">
+                        <f:then><a:molecule.clickableCard as="li" class="g-feature-list__row"><f:render section="row" arguments="{item: item}" /></a:molecule.clickableCard></f:then>
+                        <f:else><a:molecule.listItem class="g-feature-list__row"><f:render section="row" arguments="{item: item}" /></a:molecule.listItem></f:else>
+                    </f:if>
+                </f:for>
+            </a:molecule.list>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.list dividers="with-dividers" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-list__items">
-            <f:for each="{data.items}" as="item">
-                <f:if condition="{item.link.url}">
-                    <f:then><a:molecule.clickableCard as="li" class="g-feature-list__row"><f:render section="row" arguments="{item: item}" /></a:molecule.clickableCard></f:then>
-                    <f:else><li class="g-feature-list__row"><f:render section="row" arguments="{item: item}" /></li></f:else>
-                </f:if>
-            </f:for>
-        </a:molecule.list>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
-
-<f:comment>
-    The row body, rendered from both branches of the link test above. A row
-    that goes somewhere is a ClickableCard so the whole row is the link
-    target; one that does not is a plain list item. Only the wrapper differs,
-    so only the wrapper is written twice.
-</f:comment>
 <f:section name="row">
-                    <f:if condition="{item.icon}">
-                        <a:atom.featureIcon icon="{item.icon}" />
-                    </f:if>
+    <f:if condition="{item.icon}">
+        <a:atom.featureIcon icon="{item.icon}" />
+    </f:if>
 
-                    <div class="g-feature-list__body">
-                        <a:atom.heading level="3">
-                            <f:if condition="{item.link.url}">
-                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
-                            </f:if>
-                        </a:atom.heading>
+    <a:layout.stack gap="2" class="g-feature-list__body">
+        <a:atom.heading level="3">
+            <f:if condition="{item.link.url}">
+                <f:then><a:atom.link parameter="{item.link}">{item.title}</a:atom.link></f:then>
+                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+            </f:if>
+        </a:atom.heading>
 
-                        <f:if condition="{item.text}">
-                            <a:atom.text type="body" class="g-feature-list__text">{item -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </div>
+        <f:if condition="{item.text}">
+            <a:atom.text type="body" color="secondary">{item -> f:render.text(field: 'text')}</a:atom.text>
+        </f:if>
+    </a:layout.stack>
 </f:section>
 
 </html>

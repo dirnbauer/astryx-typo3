@@ -6,43 +6,60 @@
 <f:asset.css identifier="g-feature-code" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Outside edit mode the snippet is printed verbatim: the inline-edit wrapper
-    turns newlines into markup, and inside a pre element that doubles every
-    line break in the sample.
+    Prose on one side, a CodeBlock on the other. Outside edit mode the snippet is
+    printed verbatim and escaped: the inline-edit wrapper turns newlines into
+    break elements, and inside a pre element that doubles every line break in
+    the sample. In the editor the same field goes through f:render.text, so the
+    block becomes a plain-text editable.
+
+    The block scrolls sideways inside its own named frame (CodeBlock's
+    `scroll`), and its copy button is CodeBlock's too: `id` plus `copyLabel`
+    put it in the header strip, and astryx.js copies the listing exactly as
+    typed and says `copiedLabel` once it has.
 </f:comment>
+
+<f:variable name="codeLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-code/language/labels.xlf:code.label', default: 'Code example')}" />
+<f:if condition="{data.caption}"><f:variable name="codeLabel" value="{data.caption}" /></f:if>
 
 <a:layout.section surface="{data.tone}" class="g-feature-code">
     <a:layout.container size="{data.width}">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-feature-code__grid">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}">
 
-            <div class="g-feature-code__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack gap="4" class="g-feature-code__copy">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
 
                 <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-feature-code__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                    <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-feature-code__actions">
-                        <f:if condition="{data.cta_label}">
+                <f:if condition="({data.cta_label} && {data.cta_link.url}) || ({data.secondary_label} && {data.secondary_link.url})">
+                    <a:molecule.buttonGroup>
+                        <f:if condition="{data.cta_label} && {data.cta_link.url}">
                             <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
-                        <f:if condition="{data.secondary_label}">
+                        <f:if condition="{data.secondary_label} && {data.secondary_link.url}">
                             <a:atom.button variant="ghost" parameter="{data.secondary_link}">{data.secondary_label}</a:atom.button>
                         </f:if>
                     </a:molecule.buttonGroup>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
-            <a:molecule.codeBlock scroll="{true}" class="g-feature-code__block">
+            <a:molecule.codeBlock
+                id="g-feature-code-{data.uid}"
+                scroll="{true}"
+                scrollLabel="{codeLabel}"
+                copyLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-code/language/labels.xlf:code.copy', default: 'Copy code')}"
+                copiedLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-code/language/labels.xlf:code.copied', default: 'Copied')}">
                 <f:fragment name="header"><f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if></f:fragment>
 
                 <f:fragment>
-                    <pre><code><f:editMode><f:then>{data -> f:render.text(field: 'text')}</f:then><f:else>{data.text}</f:else></f:editMode></code></pre>
+                    <f:editMode>
+                        <f:then><pre><code>{data -> f:render.text(field: 'text')}</code></pre></f:then>
+                        <f:else><pre><code>{data.text -> f:format.htmlspecialchars()}</code></pre></f:else>
+                    </f:editMode>
                 </f:fragment>
             </a:molecule.codeBlock>
 

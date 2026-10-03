@@ -2,7 +2,7 @@
     "_type": "feature",
     "eyebrow": "Before and After",
     "header": "One subject, before and after",
-    "lead": "The element uses the first two images and takes each caption from the file's metadata. By default they sit side by side; the reveal style stacks them with a slider.",
+    "lead": "The element uses the first two images and takes each caption from the file’s title. They sit side by side by default; the reveal style lays one over the other.",
     "images": [
         {
             "file": "EXT:astryx_typo3/Resources/Public/Images/pair/refit-before.jpg",
@@ -15,11 +15,11 @@
             "title": "After — September"
         }
     ],
-    "caption": "Each image takes its caption from the file's title.",
-    "note": "The reveal divider starts in the middle, so both states show before anyone moves it. Where the slider cannot be drawn, the images are stacked.",
+    "caption": "The same shopfront in March and in September, photographed from the same spot.",
+    "note": "In the reveal style the boundary starts in the middle, so both states show before anyone moves it. On phones the two pictures stack instead.",
     "variant": "side-by-side",
-    "cta_label": "Primary action",
-    "cta_link": "#",
+    "cta_label": "See before-and-after results",
+    "cta_link": "{{page:components/social-proof}}",
     "tone": "muted",
     "width": "lg"
 }

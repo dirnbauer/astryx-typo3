@@ -6,46 +6,48 @@
 <f:asset.css identifier="g-feature-workflow" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Narrow first: the chain is a column with the arrows turned downwards, and
-    only where there is room does it become a row. An arrow that wraps to the
-    start of a new line points at nothing.
+    An ordered list of stages, each a Feature (tile, title, sentence). The
+    arrows between them are the band's own drawing, placed in the gap: narrow
+    first, the chain is a column with the arrows pointing down, and only where
+    there is room does it become a row — an arrow that wraps to the start of a
+    new line points at nothing. The arrows are decoration; the ordered list is
+    what tells a screen reader the sequence.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-workflow" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-workflow__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:layout.stack as="ol" gap="8" class="g-feature-workflow__stages">
+                <f:for each="{data.stages}" as="stage">
+                    <li class="g-feature-workflow__stage">
+                        <a:molecule.feature icon="{stage.icon}" align="{data.align}">
+                            <a:atom.heading level="3">
+                                <f:if condition="{stage.link.url}">
+                                    <f:then><a:atom.link parameter="{stage.link}">{stage.title}</a:atom.link></f:then>
+                                    <f:else>{stage -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:atom.heading>
+
+                            <f:if condition="{stage.text}">
+                                <a:atom.text type="supporting">{stage -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </a:molecule.feature>
+                    </li>
+                </f:for>
+            </a:layout.stack>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-workflow__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <ol class="g-feature-workflow__stages">
-            <f:for each="{data.stages}" as="stage">
-                <li class="g-feature-workflow__stage">
-                    <f:if condition="{stage.icon}">
-                        <a:atom.featureIcon icon="{stage.icon}" />
-                    </f:if>
-
-                    <a:atom.heading level="3">{stage -> f:render.text(field: 'title')}</a:atom.heading>
-
-                    <f:if condition="{stage.text}">
-                        <a:atom.text type="supporting">{stage -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
-                </li>
-            </f:for>
-        </ol>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-feature-workflow__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

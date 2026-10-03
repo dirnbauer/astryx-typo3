@@ -1,62 +1,31 @@
 /*
  * Feature Rail
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: how wide a card is on the rail. The intro is SectionIntro's;
+ * the rail, its buttons, its status and the cards are Carousel's and Card's —
+ * no raw colour, font family, light-dark() or prefers-color-scheme here, which
+ * the audit enforces.
  */
 
-.g-feature-rail__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-feature-rail__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-feature-rail__track {
-  margin: 0;
-  padding-inline-start: var(--spacing-1);
-  list-style: none;
-}
-
-/* A rail with no visible edge looks like a grid that ran out of room, so the
-   last card is allowed to sit short of the container's end. */
+/* Cards a little narrower than a column, so a rail whose last card ends flush
+   with the container never passes for a grid that ran out of room: the next
+   card always shows at the edge. */
 .g-feature-rail__item {
   inline-size: 20rem;
   max-inline-size: 80%;
 }
 
-.g-feature-rail[data-spacing="tight"] .g-feature-rail__track .g-feature-rail__item {
+.g-feature-rail[data-spacing='tight'] .g-feature-rail__item {
   inline-size: 15rem;
 }
 
+/* The item is a flex box; the card fills it, so cards with less copy are not
+   narrower than their neighbours. */
 .g-feature-rail__card {
   inline-size: 100%;
 }
 
-.g-feature-rail__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-6);
-}
-
-.g-feature-rail[data-surface="accent"] .g-feature-rail__lead,
-.g-feature-rail[data-surface="accent"] .astryx-eyebrow,
-.g-feature-rail[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
 @media (max-width: 640px) {
-  .g-feature-rail__intro {
-    margin-block-end: var(--spacing-8);
-  }
-
   .g-feature-rail__item {
     inline-size: 17rem;
   }

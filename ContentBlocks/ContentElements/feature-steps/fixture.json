@@ -10,19 +10,22 @@
     "align": "start",
     "steps": [
         {
-            "icon": "sort",
+            "icon": "list-checks",
             "title": "Numbers follow the order",
-            "text": "Move a step and the numbers update, because they come from the list itself."
+            "text": "Move a step and the numbers update, because they are counted from the list itself.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol"
         },
         {
-            "icon": "layout",
+            "icon": "layout-grid",
             "title": "Two to four across",
-            "text": "The number of columns is fixed, so a three-step process never breaks into two columns."
+            "text": "The column count is held, so a three-step process never breaks into two columns.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout"
         },
         {
-            "icon": "rotate",
+            "icon": "arrow-down",
             "title": "Horizontal or vertical",
-            "text": "The vertical style keeps the line at the side on every screen width. It suits steps with longer text."
+            "text": "The vertical style keeps the line at the side at every width. For long instructions, use the numbered steps in Content.",
+            "link": "{{page:components/content}}"
         }
     ]
 }

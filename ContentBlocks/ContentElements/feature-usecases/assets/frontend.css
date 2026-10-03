@@ -1,57 +1,18 @@
 /*
  * Use-Case Cards
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: how much of a description a signpost shows. The intro is
+ * SectionIntro's, the columns Grid's and the cards Card's — no raw colour,
+ * font family, light-dark() or prefers-color-scheme here, which the audit
+ * enforces.
  */
 
-.g-feature-usecases__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
-}
-
-.g-feature-usecases__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-feature-usecases__cases {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-feature-usecases__card {
-  block-size: 100%;
-}
-
-/* One line, because a use-case card is a signpost: the page it points at is
-   where the argument belongs. */
+/* Two lines at most: a use-case card is a signpost, and the page it points at
+   is where the argument belongs. */
 .g-feature-usecases__description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
-}
-
-.g-feature-usecases__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-8);
-}
-
-.g-feature-usecases[data-surface="accent"] .g-feature-usecases__lead,
-.g-feature-usecases[data-surface="accent"] .astryx-eyebrow,
-.g-feature-usecases[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-feature-usecases__intro {
-    margin-block-end: var(--spacing-8);
-  }
 }

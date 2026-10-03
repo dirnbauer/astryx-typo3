@@ -1,85 +1,29 @@
 /*
  * Bento Grid
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: which tile takes which cells. The intro, the cards, the icons
+ * and the type are the components' — no raw colour, font family, light-dark()
+ * or prefers-color-scheme here, which the audit enforces.
  */
 
-.g-feature-bento__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-10);
+.g-feature-bento__tile:first-child .g-feature-bento__text {
+  max-inline-size: 48ch;
 }
 
-.g-feature-bento__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-feature-bento[data-align='center'] .g-feature-bento__intro {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.g-feature-bento__tiles {
-  display: grid;
-  gap: var(--spacing-4);
-  grid-template-columns: 1fr;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* The li is the grid item, so it has to hand its whole cell to the card:
-   without this the card sizes to its own content and a row loses its equal
-   heights. */
-.g-feature-bento__cell {
-  display: grid;
-}
-
-.g-feature-bento__tile {
-  gap: var(--spacing-3);
-}
-
-.g-feature-bento[data-surface="accent"] .g-feature-bento__lead,
-.g-feature-bento[data-surface="accent"] .astryx-eyebrow,
-.g-feature-bento[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (min-width: 768px) {
-  .g-feature-bento__tiles {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .g-feature-bento__tiles {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* The lead tile takes two cells and gets a larger title with it, so the
-     composition is legible from the size alone rather than from the copy. */
-  .g-feature-bento__cell:first-child {
+/* Three columns from 641px (Grid holds the count), the lead tile on two of
+   them. Whatever the count leaves over in the last row, the last tile closes:
+   one tile alone takes the row, two tiles leave one cell, which the last of
+   them takes. Below 641px the grid is one column and nothing spans. */
+@media (min-width: 641px) {
+  .g-feature-bento__tile:first-child {
     grid-column: span 2;
   }
 
-  .g-feature-bento__cell:first-child .astryx-card-title {
-    font-size: var(--text-heading-2-size);
-    line-height: var(--text-heading-2-leading);
+  .g-feature-bento__tile:last-child:nth-child(3n) {
+    grid-column: 1 / -1;
   }
 
-  .g-feature-bento__cell:first-child .astryx-card-body {
-    max-inline-size: 48ch;
-  }
-}
-
-@media (max-width: 640px) {
-  .g-feature-bento__intro {
-    margin-block-end: var(--spacing-8);
+  .g-feature-bento__tile:last-child:nth-child(3n + 1):not(:first-child) {
+    grid-column: span 2;
   }
 }

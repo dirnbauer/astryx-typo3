@@ -2,38 +2,48 @@
     "_type": "feature",
     "eyebrow": "Spec Sheet",
     "header": "Name and value, in a description list",
-    "lead": "Pairs in two to four columns, each with an optional note below. It uses a real description list, so the pairs stay intact when copied into a document.",
+    "lead": "Pairs in two to four columns, each with an optional caveat below. It is a real description list, so the pairs stay intact when copied into a document. The sheet below is this theme’s own.",
     "columns": "2",
-    "note": "If the answer is only yes or no, use the included checklist. It reads faster than a column of the same word.",
+    "note": "If the answer is only yes or no, use the included checklist: it reads faster than a column of the same word.",
     "tone": "body",
     "width": "lg",
     "compact": false,
     "rows": [
         {
-            "title": "Pairs per element",
-            "value": "2 to 30"
+            "title": "Content elements",
+            "value": "250",
+            "text": "Ten chapters of 25.",
+            "included": true
         },
         {
-            "title": "Columns",
-            "value": "2, 3 or 4",
-            "text": "Narrower screens show two columns, then one."
+            "title": "Fluid components",
+            "value": "191",
+            "text": "Atoms, molecules, organisms and layouts.",
+            "included": true
         },
         {
-            "title": "Note under a pair",
-            "value": "7 years"
+            "title": "Themes",
+            "value": "25",
+            "text": "Each in light and dark.",
+            "included": true
         },
         {
-            "title": "Numerals",
-            "value": "tabular",
-            "text": "Values line up on the decimal point, so they are easy to compare."
+            "title": "TYPO3",
+            "value": "14.3 LTS",
+            "text": "14.3.7 or a later 14 release.",
+            "included": true
         },
         {
-            "title": "Markup",
-            "value": "dl / dt / dd"
+            "title": "PHP",
+            "value": "8.4 or later",
+            "text": "As declared in composer.json.",
+            "included": true
         },
         {
-            "title": "Compact spacing",
-            "value": "toggle"
+            "title": "Licence",
+            "value": "GPL-2.0-or-later",
+            "text": "The upstream Astryx design system is MIT.",
+            "included": true
         }
     ]
 }

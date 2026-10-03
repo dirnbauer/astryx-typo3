@@ -1,8 +1,10 @@
 /*
  * Sticky Intro with Feature List
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the two columns, which side the intro takes and where it pins.
+ * The intro is SectionIntro's, the rows List's, the tiles FeatureIcon's and
+ * the type Heading's and Text's — no raw colour, font family, light-dark() or
+ * prefers-color-scheme here, which the audit enforces.
  */
 
 .g-feature-sticky-list__grid {
@@ -11,50 +13,27 @@
   align-items: start;
 }
 
-.g-feature-sticky-list__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-}
-
-.g-feature-sticky-list__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-feature-sticky-list__actions {
-  margin: 0;
-  margin-block-start: var(--spacing-2);
-}
-
+/* A tile needs more air beside it than a bullet does. */
 .g-feature-sticky-list__item {
   gap: var(--spacing-4);
 }
 
 .g-feature-sticky-list__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
+  flex: 1 1 auto;
   min-inline-size: 0;
-}
-
-.g-feature-sticky-list[data-surface="accent"] .g-feature-sticky-list__lead,
-.g-feature-sticky-list[data-surface="accent"] .astryx-eyebrow,
-.g-feature-sticky-list[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (min-width: 768px) {
   .g-feature-sticky-list__grid {
-    grid-template-columns: 22rem 1fr;
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
     gap: var(--spacing-12);
   }
 
-  .g-feature-sticky-list__grid[data-layout="reversed"] {
-    grid-template-columns: 1fr 22rem;
+  .g-feature-sticky-list__grid[data-layout='reversed'] {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
   }
 
-  .g-feature-sticky-list__grid[data-layout="reversed"] > .g-feature-sticky-list__intro {
+  .g-feature-sticky-list__grid[data-layout='reversed'] > .g-feature-sticky-list__intro {
     order: 2;
   }
 

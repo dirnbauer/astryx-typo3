@@ -6,34 +6,37 @@
 <f:asset.css identifier="g-feature-ribbon" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The child's text is deliberately not rendered: this strip names things in one
-    or two words. Leaving the field alone rather than forbidding it is what lets
-    the same records be reused in a fuller grid further down the page.
+    A quiet strip: a Grid list of small FeatureIcon tiles, each beside a label
+    of one or two words. The editor's column count is held and the items are
+    small, so a phone keeps two to a row; compact tightens the grid's gap. The
+    child's text and link are deliberately not rendered — this band names
+    things, it does not explain or send anywhere. Leaving those fields alone
+    rather than forbidding them is what lets the same records be reused in a
+    fuller grid further down the page.
 </f:comment>
 
 <a:layout.section spacing="tight" surface="{data.tone}" class="g-feature-ribbon" columns="{data.columns}" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <div class="g-feature-ribbon__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro headingType="heading-3" align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-        </div>
+            <a:layout.grid as="ul" fixed="{data.columns}" items="small" gap="{f:if(condition: data.compact, then: '3', else: '4')}">
+                <f:for each="{data.items}" as="item">
+                    <li class="g-feature-ribbon__item">
+                        <f:if condition="{item.icon}">
+                            <a:atom.featureIcon icon="{item.icon}" size="sm" />
+                        </f:if>
 
-        <ul class="g-feature-ribbon__items" data-density="{f:if(condition: data.compact, then: 'compact')}">
-            <f:for each="{data.items}" as="item">
-                <li class="g-feature-ribbon__item">
-                    <f:if condition="{item.icon}">
-                        <a:atom.featureIcon icon="{item.icon}" class="g-feature-ribbon__icon" />
-                    </f:if>
+                        <a:atom.text type="label" as="span">{item -> f:render.text(field: 'title')}</a:atom.text>
+                    </li>
+                </f:for>
+            </a:layout.grid>
 
-                    <a:atom.text type="label" as="span" class="g-feature-ribbon__label">{item -> f:render.text(field: 'title')}</a:atom.text>
-                </li>
-            </f:for>
-        </ul>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

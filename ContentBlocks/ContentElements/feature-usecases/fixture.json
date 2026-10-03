@@ -2,36 +2,48 @@
     "_type": "feature",
     "eyebrow": "Use-Case Cards",
     "header": "Cards that link each audience to its page",
-    "lead": "Use it as the entry point to a set of pages. Each card names a role or a sector and links to a page with the details.",
+    "lead": "The entry point to a set of pages: each card names a need and links to the page with the details. These six lead to chapters of this catalogue.",
     "columns": "3",
-    "cta_label": "Secondary action",
-    "cta_link": "#",
+    "cta_label": "See every chapter",
+    "cta_link": "{{page:components}}",
     "tone": "muted",
     "width": "lg",
     "cases": [
         {
-            "icon": "link",
-            "title": "The whole card is the link",
-            "description": "One tab stop per card. The title names the link for screen readers.",
-            "link": "#"
+            "icon": "rocket",
+            "title": "Opening a page",
+            "description": "Heroes for home, product and campaign pages.",
+            "link": "{{page:components/hero}}"
         },
         {
-            "icon": "text",
-            "title": "The description stays short",
-            "description": "Two lines at most. The details belong on the linked page.",
-            "link": "#"
+            "icon": "tag",
+            "title": "Selling a plan",
+            "description": "Prices, plan comparisons and calculators.",
+            "link": "{{page:components/pricing}}"
         },
         {
-            "icon": "columns",
-            "title": "Two to four columns",
-            "description": "The same grid as the feature grid, so pages that use both stay consistent.",
-            "link": "#"
+            "icon": "star",
+            "title": "Earning trust",
+            "description": "Reviews, logos, awards and case studies.",
+            "link": "{{page:components/social-proof}}"
         },
         {
-            "icon": "compass",
-            "title": "A see-all button",
-            "description": "For sets with more than nine cards, link to a full directory.",
-            "link": "#"
+            "icon": "users",
+            "title": "Introducing people",
+            "description": "Teams, speakers and the people to contact.",
+            "link": "{{page:components/team}}"
+        },
+        {
+            "icon": "chart",
+            "title": "Showing numbers",
+            "description": "Key figures, progress bars and status lists.",
+            "link": "{{page:components/data}}"
+        },
+        {
+            "icon": "send",
+            "title": "Asking for action",
+            "description": "Calls to action, sign-ups and contact forms.",
+            "link": "{{page:components/conversion}}"
         }
     ]
 }

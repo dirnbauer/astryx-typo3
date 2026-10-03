@@ -1,77 +1,72 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
-<f:asset.css identifier="g-feature-grid" href="{cb:assetPath()}/frontend.css"/>
-
 <f:comment>
-    A cell that carries a link wraps its own title rather than growing a "read
-    more": the title is already the accessible name, and one link per cell is
-    what lets the whole card become the target.
+    Composition only. The intro is a SectionIntro and each cell a Feature; the
+    "card" variant makes the cell a Card that is itself the list item
+    (Card as="li"), so every card in a row is as tall as the tallest. The
+    "plain" variant drops the surface: a ClickableCard list item when the cell
+    links, a bare list item when it does not. One link per cell, on the title:
+    the title is already the accessible name, and one link is what lets the
+    whole card become the target.
 
-    The "card" variant puts a real Card around the Feature rather than pasting
-    `astryx-card` onto it. A molecule wearing a second molecule's root class
-    inherits whatever that class grows next, in a place no one would think to
-    look; nested, each component keeps its own box — the surface, padding and
-    click affordance are the Card's, the icon-over-title-over-prose rhythm is
-    the Feature's, and the pair render the same as the merged node did because
-    both are a flex column with the same gap.
+    The grid is a list, so a screen reader announces how many features there
+    are. The editor's column count is Grid's `cols`, a ceiling: three means at
+    most three, and fewer where three would be too narrow to read.
 
-    The tile's own class stays on the Feature in both variants, so the band's
-    centred alignment and the equal-height rule keep addressing the same node.
+    Everything here is composed of components, so the element ships no
+    stylesheet of its own.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-feature-grid" variant="{data.variant}" align="{data.align}">
+<a:layout.section surface="{data.tone}" class="g-feature-grid" variant="{data.variant}" align="{data.align}" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-grid__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ul" cols="{data.columns}">
+                <f:for each="{data.items}" as="item">
+                    <f:if condition="{data.variant} == 'plain'">
+                        <f:then>
+                            <f:if condition="{item.link.url}">
+                                <f:then>
+                                    <a:molecule.clickableCard as="li">
+                                        <f:render section="feature" arguments="{item: item, align: data.align}"/>
+                                    </a:molecule.clickableCard>
+                                </f:then>
+                                <f:else>
+                                    <li><f:render section="feature" arguments="{item: item, align: data.align}"/></li>
+                                </f:else>
+                            </f:if>
+                        </f:then>
+                        <f:else>
+                            <a:molecule.card as="li" clickable="{item.link.url}">
+                                <f:render section="feature" arguments="{item: item, align: data.align}"/>
+                            </a:molecule.card>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </a:layout.grid>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid cols="{data.columns}" class="g-feature-grid__items">
-            <f:for each="{data.items}" as="item">
-                <f:if condition="{data.variant} == 'card'">
-                    <f:then>
-                        <a:molecule.card clickable="{item.link.url}" class="g-feature-grid__cell">
-                            <f:render section="tile" arguments="{item: item}"/>
-                        </a:molecule.card>
-                    </f:then>
-                    <f:else>
-                        <f:if condition="{item.link.url}">
-                            <f:then>
-                                <a:molecule.clickableCard class="g-feature-grid__cell">
-                                    <f:render section="tile" arguments="{item: item}"/>
-                                </a:molecule.clickableCard>
-                            </f:then>
-                            <f:else><f:render section="tile" arguments="{item: item}"/></f:else>
-                        </f:if>
-                    </f:else>
-                </f:if>
-            </f:for>
-        </a:layout.grid>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
 <f:comment>
-    One tile, rendered into whichever wrapper the variant asked for. The tile
-    carries the semantic key rather than a glyph, so swapping icon library
-    never reaches into a template.
+    One cell, rendered into whichever wrapper the variant asked for. The cell
+    carries the semantic icon key rather than a glyph, so a different icon
+    library never reaches into this template.
 </f:comment>
-<f:section name="tile">
-    <a:molecule.feature icon="{item.icon}" class="g-feature-grid__item">
+<f:section name="feature">
+    <a:molecule.feature icon="{item.icon}" align="{align}">
         <a:molecule.cardTitle>
             <f:if condition="{item.link.url}">
-                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                <f:then><a:atom.link parameter="{item.link}">{item.title}</a:atom.link></f:then>
                 <f:else>{item -> f:render.text(field: 'title')}</f:else>
             </f:if>
         </a:molecule.cardTitle>

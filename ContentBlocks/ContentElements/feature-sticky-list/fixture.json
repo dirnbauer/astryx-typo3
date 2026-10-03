@@ -2,37 +2,42 @@
     "_type": "feature",
     "eyebrow": "Sticky Intro List",
     "header": "An intro that stays while the list scrolls",
-    "lead": "One column stays in place while the other holds up to 12 entries. Use it on long feature pages, so readers always see what the list is about.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
+    "lead": "One column stays in place while the other holds up to twelve entries. Use it on long feature pages, so readers always see what the list is about.",
+    "cta_label": "Browse the chapters",
+    "cta_link": "{{page:components}}",
     "reverse": false,
     "tone": "surface",
     "width": "lg",
     "items": [
         {
-            "icon": "pin",
-            "title": "Sticky on medium and wide screens",
-            "text": "On small screens the columns stack and nothing is pinned."
+            "icon": "arrow-down",
+            "title": "Pinned on tablets and wider",
+            "text": "On phones the columns stack and nothing is pinned.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position"
         },
         {
-            "icon": "header",
-            "title": "Stays below the site header",
-            "text": "The offset is the header height plus a gap, so the first line is never hidden."
+            "icon": "layout-sidebar-right",
+            "title": "Clear of the site header",
+            "text": "The offset is the header’s height plus a gap, so the intro’s first line is never hidden.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/position"
         },
         {
-            "icon": "swap",
+            "icon": "arrow-left",
             "title": "Reverse moves the intro",
-            "text": "The columns swap sides. The order in the HTML stays the same."
+            "text": "The columns swap sides; the order in the HTML stays the same.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order"
         },
         {
-            "icon": "list",
+            "icon": "list-checks",
             "title": "Three to twelve entries",
-            "text": "With fewer than three, there is nothing to scroll past the intro."
+            "text": "With fewer than three there is nothing to scroll past the intro.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ul"
         },
         {
             "icon": "link",
             "title": "Entries can link",
-            "text": "The whole row becomes clickable, as in the other feature elements."
+            "text": "The whole row becomes the target, as in the other feature elements.",
+            "link": "https://inclusive-components.design/cards/"
         }
     ]
 }

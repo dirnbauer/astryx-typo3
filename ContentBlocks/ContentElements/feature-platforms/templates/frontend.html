@@ -1,59 +1,75 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
-<f:asset.css identifier="g-feature-platforms" href="{cb:assetPath()}/frontend.css"/>
-
 <f:comment>
-    The child description holds the version or the requirement, which is why it
-    sits under the name rather than beside it: a requirement read as a subtitle
-    is read, and one read as a suffix is not.
+    A Grid list of Items: the platform's small tile at the start, its name and
+    the version or requirement underneath. The requirement sits under the name
+    rather than beside it, because a requirement read as a subtitle is read and
+    one read as a suffix is not.
+
+    A platform with a link is an interactive Item, which is itself the anchor,
+    so the whole row is the target; Item renders that anchor in place of its
+    li, which is why the list item is written around it here. One without a
+    link is the Item's own li.
+
+    Everything here is composed of components, so the element ships no
+    stylesheet of its own.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-feature-platforms">
+<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-feature-platforms" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-platforms__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:layout.grid as="ul" fixed="{data.columns}" gap="3">
+                <f:for each="{data.platforms}" as="platform">
+                    <f:if condition="{platform.link.url}">
+                        <f:then>
+                            <li>
+                                <a:molecule.item parameter="{platform.link}" interactive="interactive" align="start">
+                                    <f:fragment name="start"><f:render section="tile" arguments="{platform: platform}" /></f:fragment>
+                                    <f:fragment>
+                                        <a:molecule.itemContent>
+                                            <a:molecule.itemLabel weight="medium">{platform.title}</a:molecule.itemLabel>
+                                            <f:if condition="{platform.description}">
+                                                <a:molecule.itemDescription>{platform.description}</a:molecule.itemDescription>
+                                            </f:if>
+                                        </a:molecule.itemContent>
+                                    </f:fragment>
+                                </a:molecule.item>
+                            </li>
+                        </f:then>
+                        <f:else>
+                            <a:molecule.item align="start">
+                                <f:fragment name="start"><f:render section="tile" arguments="{platform: platform}" /></f:fragment>
+                                <f:fragment>
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel weight="medium">{platform -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                        <f:if condition="{platform.description}">
+                                            <a:molecule.itemDescription>{platform -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                        </f:if>
+                                    </a:molecule.itemContent>
+                                </f:fragment>
+                            </a:molecule.item>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </a:layout.grid>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-platforms__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:layout.grid as="ul" cols="{data.columns}" class="g-feature-platforms__platforms">
-            <f:for each="{data.platforms}" as="platform">
-                <a:molecule.item align="start" interactive="{f:if(condition: platform.link.url, then: 'interactive', else: 'default')}" class="g-feature-platforms__platform">
-                    <f:fragment name="start"><f:if condition="{platform.icon}"><a:atom.featureIcon icon="{platform.icon}" /></f:if></f:fragment>
-
-                    <f:fragment>
-                        <a:molecule.itemContent>
-                            <a:molecule.itemLabel class="g-feature-platforms__name">
-                                <f:if condition="{platform.link.url}">
-                                    <f:then><f:link.typolink parameter="{platform.link}">{platform.title}</f:link.typolink></f:then>
-                                    <f:else>{platform -> f:render.text(field: 'title')}</f:else>
-                                </f:if>
-                            </a:molecule.itemLabel>
-
-                            <f:if condition="{platform.description}">
-                                <a:molecule.itemDescription>{platform -> f:render.text(field: 'description')}</a:molecule.itemDescription>
-                            </f:if>
-                        </a:molecule.itemContent>
-                    </f:fragment>
-                </a:molecule.item>
-            </f:for>
-        </a:layout.grid>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-feature-platforms__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
+
+<f:section name="tile"><f:if condition="{platform.icon}"><a:atom.featureIcon icon="{platform.icon}" size="sm" /></f:if></f:section>
 
 </html>

@@ -8,12 +8,12 @@
     "align": "start",
     "stages": [
         {
-            "icon": "tap",
+            "icon": "smartphone",
             "title": "Record",
             "text": "The employee clocks in. The device signs the time and stores it if there is no network."
         },
         {
-            "icon": "compare",
+            "icon": "scale",
             "title": "Match",
             "text": "The time is compared with the planned shift. Any difference above the tolerance is flagged."
         },
@@ -23,7 +23,7 @@
             "text": "The manager confirms or corrects the time. A correction keeps both values and the reason."
         },
         {
-            "icon": "file-export",
+            "icon": "file-spreadsheet",
             "title": "Export",
             "text": "Approved minutes are totalled per contract and written to the payroll file at month end."
         }

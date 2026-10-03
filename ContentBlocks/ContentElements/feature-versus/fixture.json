@@ -1,33 +1,37 @@
 {
     "_type": "feature",
-    "eyebrow": "Versus Status Quo",
+    "eyebrow": "Us vs the Status Quo",
     "header": "The status quo and yours, row by row",
-    "lead": "Two labelled columns with one row per point, so readers compare line by line. Your column has a tint, which guides the eye down the table.",
-    "subheader": "The status quo",
-    "badge_text": "Your way",
+    "lead": "Two labelled columns with one row per point, so readers compare line by line. The rows below set a theme built per project against this one.",
+    "subheader": "Theme built per project",
+    "badge_text": "Astryx for TYPO3",
     "note": "If there is nothing to compare against, use the included checklist instead of inventing an opponent.",
     "tone": "body",
     "width": "lg",
     "rows": [
         {
-            "title": "What each row holds",
-            "text": "A sentence on how it is done today",
-            "value": "A short answer"
+            "title": "Content elements",
+            "text": "Built one at a time, for each site",
+            "value": "250 ready, each with a preview",
+            "included": true
         },
         {
-            "title": "Where the labels come from",
-            "text": "The subheader names the status-quo column",
-            "value": "Badge text"
+            "title": "A second brand",
+            "text": "New templates and a new stylesheet",
+            "value": "Switch the theme",
+            "included": true
         },
         {
-            "title": "Reading direction",
-            "text": "Down the page, one point per row",
-            "value": "Line by line"
+            "title": "Dark mode",
+            "text": "A second set of colours to keep in step",
+            "value": "Every token carries both schemes",
+            "included": true
         },
         {
-            "title": "Narrow screens",
-            "text": "Three text columns don't fit on a phone",
-            "value": "It scrolls sideways"
+            "title": "Contrast",
+            "text": "Checked by eye, if at all",
+            "value": "Measured in 50 palettes",
+            "included": true
         }
     ]
 }

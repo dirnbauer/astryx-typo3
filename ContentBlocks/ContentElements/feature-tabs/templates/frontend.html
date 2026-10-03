@@ -6,57 +6,58 @@
 <f:asset.css identifier="g-feature-tabs" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Every panel is in the markup and none of them starts hidden, so the band is
-    indexed, printed and searched in full. The script is what takes the others
-    out of the flow — without it the page is longer, never broken.
+    Tabs, TabList, Tab and TabPanel, wired by astryx.js (data-g-tabs): arrow
+    keys move between tabs, Home and End jump, and only the selected tab is a
+    tab stop. Every panel is in the markup and none starts hidden, so the band
+    is indexed, printed and searched in full; the script is what takes the
+    other panels out — without it the page is a stack of sections, never
+    broken. The strip scrolls sideways on a phone rather than wrapping, which
+    is TabList's own doing.
+
+    Each panel keeps its title on screen (`titleDisplay="visible"`): here the
+    panel is the capability and its heading belongs to it. The title is passed
+    as the plain field, because TabPanel escapes its arguments.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-tabs" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-tabs__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.tabs>
+                <a:molecule.tabList variant="divided" ariaLabel="{data.header}">
+                    <f:for each="{data.panels}" as="panel" iteration="position">
+                        <a:molecule.tab
+                            id="g-feature-tabs-{data.uid}-tab-{position.index}"
+                            controls="g-feature-tabs-{data.uid}-panel-{position.index}"
+                            selected="{position.isFirst}"><f:if condition="{panel.icon}"><a:atom.icon name="{panel.icon}" size="sm" /></f:if>{panel.title}</a:molecule.tab>
+                    </f:for>
+                </a:molecule.tabList>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-tabs__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.tabs class="g-feature-tabs__tabs">
-            <a:molecule.tabList variant="divided" class="g-feature-tabs__list">
                 <f:for each="{data.panels}" as="panel" iteration="position">
-                    <a:molecule.tab
-                        id="g-feature-tabs-{data.uid}-tab-{position.index}"
-                        controls="g-feature-tabs-{data.uid}-panel-{position.index}"
-                        selected="{position.isFirst}">{panel.title}</a:molecule.tab>
-                </f:for>
-            </a:molecule.tabList>
+                    <a:molecule.tabPanel
+                        id="g-feature-tabs-{data.uid}-panel-{position.index}"
+                        ariaLabelledby="g-feature-tabs-{data.uid}-tab-{position.index}"
+                        title="{panel.title}"
+                        titleDisplay="visible"
+                        class="g-feature-tabs__panel">
+                        <f:if condition="{panel.text}">
+                            <a:atom.text type="body" color="secondary">{panel -> f:render.text(field: 'text')}</a:atom.text>
+                        </f:if>
 
-            <f:for each="{data.panels}" as="panel" iteration="position">
-                <div class="g-feature-tabs__panel"
-                     role="tabpanel"
-                     id="g-feature-tabs-{data.uid}-panel-{position.index}"
-                     aria-labelledby="g-feature-tabs-{data.uid}-tab-{position.index}"
-                     tabindex="0">
-                    <a:atom.heading level="3">{panel -> f:render.text(field: 'title')}</a:atom.heading>
-
-                    <f:if condition="{panel.text}">
-                        <a:atom.text type="body" class="g-feature-tabs__text">{panel -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
-
-                    <f:if condition="{panel.link.url}">
-                        <p class="g-feature-tabs__action">
+                        <f:if condition="{panel.link.url}">
                             <a:atom.link variant="cta" parameter="{panel.link}">{panel.title}</a:atom.link>
-                        </p>
-                    </f:if>
-                </div>
-            </f:for>
-        </a:molecule.tabs>
+                        </f:if>
+                    </a:molecule.tabPanel>
+                </f:for>
+            </a:molecule.tabs>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

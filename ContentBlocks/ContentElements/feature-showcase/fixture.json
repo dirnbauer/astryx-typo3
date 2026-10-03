@@ -3,25 +3,31 @@
     "eyebrow": "Feature Showcase Row",
     "header": "One feature, with the image on either side",
     "bodytext": "<p>Rich text on one side, a screenshot or photo on the other, and a switch that swaps them. Stack several rows and swap every second one to build a product tour.</p><p>Up to four short points sit under the text as bullets, and one button ends the row.</p>",
-    "caption": "The image keeps its proportions at every screen width.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
+    "caption": "The picture keeps its proportions at every width, so a screenshot is never cropped.",
+    "cta_label": "See the themes",
+    "cta_link": "{{page:themes}}",
     "reverse": false,
     "featured": false,
     "tone": "body",
     "width": "lg",
     "points": [
         {
+            "icon": "arrow-left",
             "title": "Reverse",
-            "text": "Swaps the two columns. The order in the HTML stays the same."
+            "text": "Swaps the two columns. The order in the HTML stays the same.",
+            "link": "{{page:components/features}}"
         },
         {
+            "icon": "star",
             "title": "Featured",
-            "text": "Puts one row on its own surface, so it stands out from the others."
+            "text": "Lifts one row onto a card, so it stands out from the rows around it.",
+            "link": "{{page:components/features}}"
         },
         {
+            "icon": "file-text",
             "title": "Rich text",
-            "text": "The main text uses the rich text editor, not a plain text field."
+            "text": "The main text uses the rich text editor, not a plain text field.",
+            "link": "{{page:components/features}}"
         }
     ],
     "image": [

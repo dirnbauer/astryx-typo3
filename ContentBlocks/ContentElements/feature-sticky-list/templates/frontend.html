@@ -6,38 +6,39 @@
 <f:asset.css identifier="g-feature-sticky-list" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Stickiness is dropped below the medium breakpoint rather than merely made
-    smaller: a pinned intro on a phone would eat a third of the screen the list
-    is being read in.
+    A SectionIntro beside a divided List. The intro carries the band's button
+    in its own extra slot, and its lead is set at body size, because the
+    column it stands in is narrow. The intro stays in place while the list
+    scrolls past it — pure CSS, position: sticky — and only from the medium
+    breakpoint up: a pinned intro on a phone would eat a third of the screen
+    the list is being read in.
+
+    A row that goes somewhere is a ClickableCard, so the whole row is the link
+    target; one that does not is a plain ListItem.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-sticky-list">
     <a:layout.container size="{data.width}">
-        <div class="g-feature-sticky-list__grid" data-layout="{f:if(condition: data.reverse, then: 'reversed')}">
+        <div class="g-feature-sticky-list__grid" data-layout="{f:if(condition: data.reverse, then: 'reversed', else: 'default')}">
 
-            <div class="g-feature-sticky-list__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:molecule.sectionIntro leadType="body" class="g-feature-sticky-list__intro">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                        <a:molecule.buttonGroup>
+                            <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                        </a:molecule.buttonGroup>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-feature-sticky-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
-                <f:if condition="{data.cta_label}">
-                    <p class="g-feature-sticky-list__actions">
-                        <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
-                </f:if>
-            </div>
-
-            <a:molecule.list dividers="with-dividers" density="spacious" class="g-feature-sticky-list__items">
+            <a:molecule.list dividers="with-dividers" density="spacious">
                 <f:for each="{data.items}" as="item">
                     <f:if condition="{item.link.url}">
                         <f:then><a:molecule.clickableCard as="li" class="g-feature-sticky-list__item"><f:render section="row" arguments="{item: item}" /></a:molecule.clickableCard></f:then>
-                        <f:else><li class="g-feature-sticky-list__item"><f:render section="row" arguments="{item: item}" /></li></f:else>
+                        <f:else><a:molecule.listItem class="g-feature-sticky-list__item"><f:render section="row" arguments="{item: item}" /></a:molecule.listItem></f:else>
                     </f:if>
                 </f:for>
             </a:molecule.list>
@@ -46,30 +47,23 @@
     </a:layout.container>
 </a:layout.section>
 
-
-<f:comment>
-    The row body, rendered from both branches of the link test above. A row
-    that goes somewhere is a ClickableCard so the whole row is the link
-    target; one that does not is a plain list item. Only the wrapper differs,
-    so only the wrapper is written twice.
-</f:comment>
 <f:section name="row">
-                        <f:if condition="{item.icon}">
-                            <a:atom.featureIcon icon="{item.icon}" />
-                        </f:if>
+    <f:if condition="{item.icon}">
+        <a:atom.featureIcon icon="{item.icon}" />
+    </f:if>
 
-                        <div class="g-feature-sticky-list__body">
-                            <a:atom.heading level="3">
-                                <f:if condition="{item.link.url}">
-                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
-                                </f:if>
-                            </a:atom.heading>
+    <a:layout.stack gap="1" class="g-feature-sticky-list__body">
+        <a:atom.heading level="3">
+            <f:if condition="{item.link.url}">
+                <f:then><a:atom.link parameter="{item.link}">{item.title}</a:atom.link></f:then>
+                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+            </f:if>
+        </a:atom.heading>
 
-                            <f:if condition="{item.text}">
-                                <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>
-                            </f:if>
-                        </div>
+        <f:if condition="{item.text}">
+            <a:atom.text type="supporting">{item -> f:render.text(field: 'text')}</a:atom.text>
+        </f:if>
+    </a:layout.stack>
 </f:section>
 
 </html>

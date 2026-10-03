@@ -6,54 +6,61 @@
 <f:asset.css identifier="g-feature-proof" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The quotation marks are drawn by the stylesheet with quotes: auto, so a
-    German page gets its own pair and an English one gets another — which is
-    also why the field is stored without them.
+    Prose on one side; on the other a raised Card holding a figure: the
+    Blockquote and, as its caption, a Citation with the portrait, the name and
+    the role. The quote sits on a card already, so it is the plain Blockquote
+    (no rule, no indent) a step up in size, and its quotation marks are drawn
+    in the page's language (`marks="auto"`) — which is why the field is stored
+    without them. The portrait sits beside the name it shows, so it is
+    decoration and takes an empty alt.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-proof">
     <a:layout.container size="{data.width}">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-feature-proof__grid">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}">
 
-            <div class="g-feature-proof__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack gap="4" class="g-feature-proof__copy">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
 
                 <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-feature-proof__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                    <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
-                <f:if condition="{data.cta_label}">
-                    <p class="g-feature-proof__actions">
+                <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                    <a:molecule.buttonGroup>
                         <a:atom.button variant="primary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </p>
+                    </a:molecule.buttonGroup>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
-            <a:molecule.card variant="raised" class="g-feature-proof__proof">
-                <a:molecule.blockquote class="g-feature-proof__quote">
-                    <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </a:molecule.blockquote>
+            <a:molecule.card variant="raised">
+                <a:molecule.figure>
+                    <f:fragment>
+                        <a:molecule.blockquote size="lg" variant="plain" marks="auto">
+                            <p>{data -> f:render.text(field: 'quote_text')}</p>
+                        </a:molecule.blockquote>
 
-                <figcaption class="g-feature-proof__attribution">
-                    <f:if condition="{data.image}">
-                        <a:atom.avatar size="lg" class="g-feature-proof__portrait">
-                            <f:for each="{data.image}" as="image">
-                                <f:image image="{image}" alt="{image.alternative}" width="96" height="96" loading="lazy"/>
-                            </f:for>
-                        </a:atom.avatar>
-                    </f:if>
+                        <a:molecule.citation class="g-feature-proof__attribution">
+                            <f:if condition="{data.image}">
+                                <a:atom.avatar size="lg" ariaHidden="true">
+                                    <f:for each="{data.image}" as="image">
+                                        <f:image image="{image}" alt="" width="96" height="96" loading="lazy"/>
+                                    </f:for>
+                                </a:atom.avatar>
+                            </f:if>
 
-                    <span class="g-feature-proof__who">
-                        <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
-                        <f:if condition="{data.role}">
-                            <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
-                        </f:if>
-                    </span>
-                </figcaption>
+                            <a:layout.stack gap="1">
+                                <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                                <f:if condition="{data.role}">
+                                    <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </a:molecule.citation>
+                    </f:fragment>
+                </a:molecule.figure>
             </a:molecule.card>
 
         </a:layout.split>

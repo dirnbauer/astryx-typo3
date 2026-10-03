@@ -2,31 +2,35 @@
     "_type": "feature",
     "eyebrow": "Workflow Stages",
     "header": "Stages joined by arrows, from input to output",
-    "lead": "Use it when the boxes are system states, not tasks for the reader. For steps the reader performs, use the How It Works element.",
-    "note": "The note holds a legend or a caveat that doesn't fit in the diagram.",
+    "lead": "Use it when the boxes are system states, not tasks for the reader; for steps the reader performs, use How It Works. The chain below is how this catalogue renders an element.",
+    "note": "Each stage can change on its own: a new theme leaves the templates alone, and a new template leaves the fields alone.",
     "tone": "body",
     "width": "lg",
     "align": "start",
     "stages": [
         {
-            "icon": "arrow-down",
-            "title": "A column on phones",
-            "text": "On a phone the stages and arrows run from top to bottom."
+            "icon": "file-code",
+            "title": "Field definition",
+            "text": "A Content Block’s config.yaml declares the fields an editor fills in.",
+            "link": "https://docs.typo3.org/p/friendsoftypo3/content-blocks/main/en-us/"
         },
         {
-            "icon": "arrow-right",
-            "title": "Row above 768px",
-            "text": "The arrows turn sideways and sit in the gap between two stages."
+            "icon": "component",
+            "title": "Fluid template",
+            "text": "The element composes Astryx components and adds only its own layout.",
+            "link": "https://docs.typo3.org/other/typo3fluid/fluid/main/en-us/"
         },
         {
-            "icon": "hash",
-            "title": "Two to six stages",
-            "text": "With more than six, the stages get too narrow to read."
+            "icon": "layers",
+            "title": "Theme tokens",
+            "text": "The active theme supplies colour, type and corner radius.",
+            "link": "{{page:themes}}"
         },
         {
-            "icon": "note",
-            "title": "A closing note",
-            "text": "For a caveat that doesn't fit in the boxes."
+            "icon": "monitor",
+            "title": "Rendered page",
+            "text": "Plain HTML from the server, with one small script for tabs and carousels.",
+            "link": "{{page:components}}"
         }
     ]
 }

@@ -1,65 +1,14 @@
 /*
  * Feature Demo Video
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the copy column's measure. The intro is SectionIntro's, the
+ * poster Figure's, Overlay's and AspectRatio's, and the player Dialog's media
+ * stage — no raw colour, font family, light-dark() or prefers-color-scheme
+ * here, which the audit enforces.
  */
 
-.g-feature-demo__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-4);
-  max-inline-size: 34rem;
-}
-
-.g-feature-demo__media {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-}
-
-.g-feature-demo__poster {
-  border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
-}
-
-.g-feature-demo__image {
-  inline-size: 100%;
-  block-size: auto;
-}
-
-/* The scrim is only there to keep the control legible over whatever frame the
-   editor picked; it must not become a second surface. */
-.g-feature-demo__scrim {
-  background-color: var(--color-overlay);
-}
-
-.g-feature-demo__dialog {
-  inline-size: 56rem;
-  max-block-size: 90vh;
-}
-
-.g-feature-demo__frame {
-  --aspect: 16 / 9;
-}
-
-.g-feature-demo__close {
-  flex: 0 0 auto;
-}
-
-.g-feature-demo[data-surface="accent"] .astryx-eyebrow,
-.g-feature-demo[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 767px) {
+@media (min-width: 768px) {
   .g-feature-demo__copy {
-    max-inline-size: none;
-  }
-
-  .g-feature-demo__dialog {
-    inline-size: 100%;
+    max-inline-size: 34rem;
   }
 }

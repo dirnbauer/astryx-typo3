@@ -2,51 +2,83 @@
     "_type": "feature",
     "eyebrow": "Full Feature Index",
     "header": "A dense index of short, linked entries",
-    "lead": "A reference list, not a sales section. It lists every feature in the editor's order, on the page where search engines should find each term.",
+    "lead": "A reference list, not a sales section: every entry in the editor’s order, one line each. This one indexes the whole catalogue.",
     "columns": "3",
     "tone": "body",
-    "width": "xl",
+    "width": "lg",
     "compact": true,
     "entries": [
         {
-            "title": "CSS columns",
-            "description": "Not a grid, so the list flows evenly",
-            "link": "#"
+            "title": "Heroes",
+            "description": "Twenty-five ways to open a page",
+            "link": "{{page:components/hero}}",
+            "icon": "rocket"
         },
         {
-            "title": "Reads top to bottom",
-            "description": "Down each column, not across",
-            "link": "#"
+            "title": "Features",
+            "description": "Grids, tabs, steps and comparisons",
+            "link": "{{page:components/features}}",
+            "icon": "layout-grid"
         },
         {
-            "title": "Five to sixty entries",
-            "description": "Below five, use a feature grid",
-            "link": "#"
+            "title": "Content",
+            "description": "Text, media, quotes and code",
+            "link": "{{page:components/content}}",
+            "icon": "file-text"
         },
         {
-            "title": "One line of description",
-            "description": "Cut off, not wrapped",
-            "link": "#"
+            "title": "Pricing",
+            "description": "Plans, prices and calculators",
+            "link": "{{page:components/pricing}}",
+            "icon": "tag"
         },
         {
-            "title": "Subtle links",
-            "description": "Underlines would make the list hard to read",
-            "link": "#"
+            "title": "Social proof",
+            "description": "Reviews, logos and case studies",
+            "link": "{{page:components/social-proof}}",
+            "icon": "star"
         },
         {
-            "title": "Two to four columns",
-            "description": "Two on medium screens",
-            "link": "#"
+            "title": "Team",
+            "description": "People, roles and offices",
+            "link": "{{page:components/team}}",
+            "icon": "users"
         },
         {
-            "title": "Compact spacing",
-            "description": "For very long lists",
-            "link": "#"
+            "title": "Data",
+            "description": "Figures, charts and status",
+            "link": "{{page:components/data}}",
+            "icon": "chart"
         },
         {
-            "title": "Entries without a link",
-            "description": "A name without its own page still appears",
-            "link": ""
+            "title": "Conversion",
+            "description": "Calls to action and sign-up forms",
+            "link": "{{page:components/conversion}}",
+            "icon": "send"
+        },
+        {
+            "title": "Navigation",
+            "description": "Menus, tabs and link lists",
+            "link": "{{page:components/navigation}}",
+            "icon": "menu"
+        },
+        {
+            "title": "Footer",
+            "description": "Imprint, contact and legal links",
+            "link": "{{page:components/footer}}",
+            "icon": "layout-sidebar-right"
+        },
+        {
+            "title": "Themes",
+            "description": "Twenty-five themes, one set of markup",
+            "link": "{{page:themes}}",
+            "icon": "layers"
+        },
+        {
+            "title": "Search",
+            "description": "Results and suggestions from Solr",
+            "link": "{{page:search}}",
+            "icon": "search"
         }
     ]
 }

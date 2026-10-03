@@ -2,27 +2,35 @@
     "_type": "feature",
     "eyebrow": "Annotated Screenshot",
     "header": "An image with a numbered legend",
-    "lead": "Each entry names a numbered spot in the image and explains it in one sentence. The numbers follow the order of the entries.",
-    "caption": "The image takes the wider of the two columns.",
+    "lead": "Each entry explains one numbered spot in a sentence. Draw the numbers into the image itself; the legend follows their order.",
+    "caption": "Swap in a screenshot with the numbers drawn on it — this fixture photo has none.",
     "reverse": false,
     "tone": "body",
     "width": "xl",
     "callouts": [
         {
-            "title": "Markers are part of the image",
-            "text": "Markers placed over a responsive image would only be correct at one screen width."
+            "icon": "file-image",
+            "title": "Numbers live in the image",
+            "text": "A marker laid over a responsive image is right at one screen width only, so the artwork carries the numbers.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figure"
         },
         {
+            "icon": "list-checks",
             "title": "The legend is an ordered list",
-            "text": "Screen reader users get the sequence without seeing the numbered circles."
+            "text": "Screen readers announce the order without having to see the numbered squares.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol"
         },
         {
-            "title": "Reverse swaps the columns",
-            "text": "The order in the HTML stays the same. Only the layout changes sides."
+            "icon": "arrow-left",
+            "title": "Reverse swaps the sides",
+            "text": "The image moves to the other side. The order in the HTML stays the same.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/order"
         },
         {
-            "title": "The image gets the wider column",
-            "text": "The ratio is three to two, so the numbers in the image stay readable."
+            "icon": "layout-grid",
+            "title": "The image takes the wider column",
+            "text": "Three parts to two, so the numbers in the picture stay readable.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout"
         }
     ],
     "image": [

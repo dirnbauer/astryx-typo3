@@ -6,47 +6,50 @@
 <f:asset.css identifier="g-feature-steps" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The figures are drawn from the list's own counter, so reordering the children
-    renumbers the band and nobody has to retype "3.". The ordered list already
-    carries that sequence for anything that cannot see the drawing.
+    An ordered Grid list. Each step's number sits in the same tinted square a
+    feature's icon does — FeatureIcon carries a numeral in its slot for exactly
+    this — and is counted from the list itself, so reordering the children
+    renumbers the band and nobody retypes "3.". The square is decoration; the
+    ordered list is what carries the sequence for anything that cannot see it.
+    The child's icon field is therefore not drawn here.
+
+    The line joining the steps is the band's own drawing: it runs through the
+    grid gap from one square to the next, across in the horizontal variant and
+    down the side in the vertical one and on phones.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-steps" variant="{data.variant}" columns="{data.columns}" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-steps__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.grid as="ol" fixed="{data.columns}" gap="8" class="g-feature-steps__steps">
+                <f:for each="{data.steps}" as="step" iteration="position">
+                    <li class="g-feature-steps__step">
+                        <a:atom.featureIcon>{position.cycle}</a:atom.featureIcon>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-steps__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
+                        <a:layout.stack gap="2" class="g-feature-steps__body">
+                            <a:atom.heading level="3">
+                                <f:if condition="{step.link.url}">
+                                    <f:then><a:atom.link parameter="{step.link}">{step.title}</a:atom.link></f:then>
+                                    <f:else>{step -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:atom.heading>
 
-        <a:layout.grid as="ol" fixed="{data.columns}" class="g-feature-steps__steps">
-            <f:for each="{data.steps}" as="step">
-                <li class="g-feature-steps__step">
-                    <span class="g-feature-steps__number" aria-hidden="true"></span>
-
-                    <div class="g-feature-steps__body">
-                        <a:atom.heading level="3">
-                            <f:if condition="{step.link.url}">
-                                <f:then><f:link.typolink parameter="{step.link}">{step.title}</f:link.typolink></f:then>
-                                <f:else>{step -> f:render.text(field: 'title')}</f:else>
+                            <f:if condition="{step.text}">
+                                <a:atom.text type="body" color="secondary">{step -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
-                        </a:atom.heading>
+                        </a:layout.stack>
+                    </li>
+                </f:for>
+            </a:layout.grid>
 
-                        <f:if condition="{step.text}">
-                            <a:atom.text type="body" class="g-feature-steps__text">{step -> f:render.text(field: 'text')}</a:atom.text>
-                        </f:if>
-                    </div>
-                </li>
-            </f:for>
-        </a:layout.grid>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

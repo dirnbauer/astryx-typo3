@@ -6,38 +6,36 @@
 <f:asset.css identifier="g-feature-disclosure" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Built on details and summary, so there is nothing to initialise and nothing
-    to break: the open state, the keyboard handling and the accessible name are
-    the browser's. The print rule is the one thing the platform does not give.
+    A CollapsibleGroup of Collapsibles, which are details and summary, so there
+    is nothing to initialise and nothing to break: the open state, the keyboard
+    handling and the accessible name are the browser's. Each row's summary is
+    an h3 (Collapsible's `headingLevel`), so the rows are in the outline; the
+    rows share no name, so several can be open at once. The group stands in
+    open page, so it draws a rule above the first row and below the last
+    (`dividers="all"`). The print rule in the stylesheet is the one thing the
+    platform does not give.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-feature-disclosure">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-disclosure__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.collapsibleGroup dividers="all">
+                <f:for each="{data.entries}" as="entry">
+                    <a:molecule.collapsible headingLevel="3" density="{f:if(condition: data.compact, then: 'balanced', else: 'spacious')}" class="g-feature-disclosure__entry" contentClass="astryx-prose g-feature-disclosure__body">
+                        <f:fragment name="summary">{entry -> f:render.text(field: 'title')}</f:fragment>
+                        <f:fragment><f:format.html>{entry.bodytext}</f:format.html></f:fragment>
+                    </a:molecule.collapsible>
+                </f:for>
+            </a:molecule.collapsibleGroup>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-disclosure__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.collapsibleGroup class="g-feature-disclosure__entries">
-            <f:for each="{data.entries}" as="entry">
-                <a:molecule.collapsible density="{f:if(condition: data.compact, then: 'compact', else: 'balanced')}" class="g-feature-disclosure__entry" contentClass="astryx-prose g-feature-disclosure__body">
-                    <f:fragment name="summary">
-                        <a:atom.heading level="3" class="g-feature-disclosure__title">{entry -> f:render.text(field: 'title')}</a:atom.heading>
-                    </f:fragment>
-
-                    <f:fragment><f:format.html>{entry.bodytext}</f:format.html></f:fragment>
-                </a:molecule.collapsible>
-            </f:for>
-        </a:molecule.collapsibleGroup>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

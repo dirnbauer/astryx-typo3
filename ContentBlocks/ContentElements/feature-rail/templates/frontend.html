@@ -6,59 +6,57 @@
 <f:asset.css identifier="g-feature-rail" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Scroll snapping and overflow do the whole job, so there is nothing to
-    initialise. The row is a focus stop because a scroll container that only a
-    pointer can reach is a scroll container half the readers cannot use.
+    A Carousel of Cards. Scroll snapping and overflow do the scrolling itself,
+    with or without script, and the track is a focus stop named by the band's
+    heading, so arrow keys scroll it. The previous and next buttons are
+    Carousel's own: astryx.js pages them a card at a time, switches each off at
+    its end of the rail and hides both where the rail fits; once a scroll comes
+    to rest, `statusLabel` tells a screen reader which card it is on.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-feature-rail">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-feature-rail__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <a:molecule.sectionIntro headingId="g-feature-rail-{data.uid}-heading">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+            </a:molecule.sectionIntro>
+
+            <a:molecule.carousel
+                gap="4"
+                trackLabelledby="g-feature-rail-{data.uid}-heading"
+                previousLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-rail/language/labels.xlf:rail.previous', default: 'Previous cards')}"
+                nextLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-rail/language/labels.xlf:rail.next', default: 'Next cards')}"
+                statusLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-rail/language/labels.xlf:rail.status', default: 'Card %1$s of %2$s')}">
+                <f:for each="{data.items}" as="item">
+                    <a:molecule.carouselItem class="g-feature-rail__item">
+                        <a:molecule.card clickable="{item.link.url}" class="g-feature-rail__card">
+                            <a:molecule.feature icon="{item.icon}">
+                                <a:molecule.cardTitle>
+                                    <f:if condition="{item.link.url}">
+                                        <f:then><a:atom.link parameter="{item.link}">{item.title}</a:atom.link></f:then>
+                                        <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                    </f:if>
+                                </a:molecule.cardTitle>
+
+                                <f:if condition="{item.text}">
+                                    <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
+                                </f:if>
+                            </a:molecule.feature>
+                        </a:molecule.card>
+                    </a:molecule.carouselItem>
+                </f:for>
+            </a:molecule.carousel>
+
+            <f:if condition="{data.cta_label} && {data.cta_link.url}">
+                <a:molecule.buttonGroup>
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                </a:molecule.buttonGroup>
             </f:if>
 
-            <a:atom.heading level="2" id="g-feature-rail-{data.uid}-heading">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-feature-rail__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.carousel
-            gap="4"
-            class="g-feature-rail__rail"
-            trackClass="g-feature-rail__track"
-            trackLabelledby="g-feature-rail-{data.uid}-heading">
-            <f:for each="{data.items}" as="item">
-                <a:molecule.carouselItem class="g-feature-rail__item">
-                    <a:molecule.card clickable="{item.link.url}" class="g-feature-rail__card">
-                        <f:if condition="{item.icon}">
-                            <a:atom.featureIcon icon="{item.icon}" />
-                        </f:if>
-
-                        <a:molecule.cardTitle>
-                            <f:if condition="{item.link.url}">
-                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
-                            </f:if>
-                        </a:molecule.cardTitle>
-
-                        <f:if condition="{item.text}">
-                            <a:molecule.cardBody>{item -> f:render.text(field: 'text')}</a:molecule.cardBody>
-                        </f:if>
-                    </a:molecule.card>
-                </a:molecule.carouselItem>
-            </f:for>
-        </a:molecule.carousel>
-
-        <f:if condition="{data.cta_label}">
-            <p class="g-feature-rail__actions">
-                <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-            </p>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

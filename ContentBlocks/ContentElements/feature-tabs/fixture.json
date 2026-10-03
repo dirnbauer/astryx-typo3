@@ -8,22 +8,22 @@
     "align": "start",
     "panels": [
         {
-            "icon": "list",
+            "icon": "file-text",
             "title": "All panels in the markup",
-            "text": "Nothing is loaded later and nothing starts hidden. Search engines, printers and readers without JavaScript get all the content.",
-            "link": ""
+            "text": "Nothing loads later and nothing starts hidden. Search engines, printers and readers without JavaScript get every panel.",
+            "link": "https://www.w3.org/WAI/ARIA/apg/patterns/tabs/"
         },
         {
-            "icon": "keyboard",
+            "icon": "accessibility",
             "title": "Works with the keyboard",
-            "text": "Arrow keys move between tabs. Home and End jump to the first and last tab. Tab reaches only the selected tab.",
-            "link": ""
+            "text": "Arrow keys move between tabs, Home and End jump to the first and last, and Tab reaches only the selected one.",
+            "link": "https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html"
         },
         {
-            "icon": "scroll",
+            "icon": "arrow-right",
             "title": "Tabs scroll, they never wrap",
-            "text": "On a narrow screen, six tabs scroll sideways. A second row of tabs would look like a separate group.",
-            "link": ""
+            "text": "On a narrow screen six tabs scroll sideways. A second row of tabs would look like a separate group.",
+            "link": "https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/overflow-x"
         }
     ]
 }

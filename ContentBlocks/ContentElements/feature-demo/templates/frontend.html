@@ -6,63 +6,70 @@
 <f:asset.css identifier="g-feature-demo" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The frame is lazy and lives inside a closed dialog, so nothing about the
-    recording is fetched until somebody opens it: a closed dialog is not
-    rendered, and a lazy frame in an unrendered box never starts loading.
+    The poster is a Figure holding an Overlay on a 16:9 AspectRatio, the frame
+    a film plays in; the play control is a Button in the overlay's scrim that
+    opens a Dialog (astryx.js, data-g-dialog-open). The dialog is the media
+    stage (`size="lg" variant="media"`): dark in either scheme, and the
+    runtime stops the film when it closes. The frame is lazy and lives inside
+    the closed dialog, so nothing about the recording is fetched until
+    somebody opens it.
+
+    The control and the dialog both depend on the link being a real URL. A label
+    without one would be a play button that opens nothing, so neither renders.
 </f:comment>
 
 <f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-feature-demo">
     <a:layout.container size="{data.width}">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-feature-demo__grid">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}">
 
-            <div class="g-feature-demo__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack gap="4" class="g-feature-demo__copy">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
 
                 <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-feature-demo__body"><f:format.html>{data.bodytext}</f:format.html></div>
+                    <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-feature-demo__runtime">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:layout.stack>
 
-            <figure class="g-feature-demo__media">
-                <a:molecule.overlay align="center" class="g-feature-demo__poster" scrimClass="g-feature-demo__scrim">
-                    <f:fragment>
-                        <f:for each="{data.image}" as="image">
-                            <f:image image="{image}" alt="{image.alternative}" width="960" loading="lazy" class="g-feature-demo__image"/>
-                        </f:for>
-                    </f:fragment>
+            <a:molecule.figure>
+                <f:fragment>
+                    <a:molecule.overlay align="center">
+                        <f:fragment>
+                            <a:atom.aspectRatio>
+                                <f:for each="{data.image}" as="image">
+                                    <f:image image="{image}" alt="{image.alternative}" width="1200" loading="lazy"/>
+                                </f:for>
+                            </a:atom.aspectRatio>
+                        </f:fragment>
 
-                    <f:fragment name="scrim"><f:if condition="{data.cta_label} && {data.cta_link}"><a:atom.button variant="primary" size="lg" class="g-feature-demo__play" dialogOpen="g-feature-demo-{data.uid}">{data.cta_label}</a:atom.button></f:if></f:fragment>
-                </a:molecule.overlay>
-
-                <f:if condition="{data.caption}">
-                    <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
-                </f:if>
-            </figure>
+                        <f:fragment name="scrim"><f:if condition="{data.cta_label} && {data.cta_link.url}"><a:atom.button variant="primary" size="lg" dialogOpen="g-feature-demo-{data.uid}">{data.cta_label}</a:atom.button></f:if></f:fragment>
+                    </a:molecule.overlay>
+                </f:fragment>
+                <f:fragment name="caption">{data -> f:render.text(field: 'caption')}</f:fragment>
+            </a:molecule.figure>
 
         </a:layout.split>
     </a:layout.container>
 
-    <f:if condition="{data.cta_link.url}">
+    <f:if condition="{data.cta_label} && {data.cta_link.url}">
         <a:molecule.dialog
-            class="g-feature-demo__dialog"
             id="g-feature-demo-{data.uid}"
+            size="lg"
+            variant="media"
             title="{data.header}"
             titleLevel="3"
-            closeLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close')}"
-            closeClass="g-feature-demo__close">
+            closeLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/feature-demo/language/labels.xlf:dialog.close', default: 'Close the video')}">
             <f:fragment name="body">
-                <a:atom.aspectRatio class="g-feature-demo__frame">
-                    <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                <a:atom.aspectRatio>
+                    <iframe src="{videoUri}" title="{data.header}" loading="lazy" allow="fullscreen; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </a:atom.aspectRatio>
             </f:fragment>
         </a:molecule.dialog>

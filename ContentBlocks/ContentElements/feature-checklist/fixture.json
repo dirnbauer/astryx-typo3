@@ -1,8 +1,8 @@
 {
     "_type": "feature",
     "eyebrow": "Included Checklist",
-    "header": "Ticks, crosses and an optional short note",
-    "lead": "A dense list in which each row answers yes or no. An optional word at the end of a row adds a condition to the yes.",
+    "header": "Ticks, crosses and a short qualifier",
+    "lead": "A dense list in which each row answers yes or no. A word or two at the end of a row adds a condition to the answer.",
     "columns": "2",
     "note": "If each row has a measured value instead of yes or no, use the spec sheet.",
     "tone": "body",
@@ -11,24 +11,28 @@
     "rows": [
         {
             "title": "Two, three or four columns",
-            "included": true
+            "included": true,
+            "value": "two by default"
         },
         {
             "title": "A tick or a cross per row",
-            "included": true
+            "included": true,
+            "value": "named for screen readers"
         },
         {
-            "title": "Qualifier at the end of a row",
+            "title": "A qualifier after any row",
             "included": true,
             "value": "optional"
         },
         {
-            "title": "Marks with text labels, not just colour",
-            "included": true
+            "title": "Rows read down each column",
+            "included": true,
+            "value": "not across"
         },
         {
             "title": "Compact spacing for long lists",
-            "included": true
+            "included": true,
+            "value": "one switch"
         },
         {
             "title": "A closing note under the list",
@@ -37,11 +41,13 @@
         },
         {
             "title": "Measured values per row",
-            "included": false
+            "included": false,
+            "value": "use the spec sheet"
         },
         {
-            "title": "A second column to compare against",
-            "included": false
+            "title": "A column to compare against",
+            "included": false,
+            "value": "use the versus table"
         }
     ]
 }

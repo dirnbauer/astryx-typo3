@@ -13,5 +13,23 @@
         <target>Rendert eine Funktion, links in Prosa erklärt, rechts in einem syntaxhervorgehobenen Ausschnitt gezeigt, darunter ein Link zur Referenz. Einsatz für: API- und SDK-Abschnitte, Konfigurationsbeispiele, Kommandozeilenfunktionen, Webhook-Nutzdaten, Entwicklerplattformen. Trägt ein Screenshot dasselbe Argument, besser &apos;Funktions-Zeile mit Medium&apos;; will der Leser Grenzwerte statt eines lauffähigen Beispiels, &apos;Technische Daten&apos;.</target>
       </segment>
     </unit>
+    <unit id="code.label">
+      <segment state="final">
+        <source>Code example</source>
+        <target>Codebeispiel</target>
+      </segment>
+    </unit>
+    <unit id="code.copy">
+      <segment state="final">
+        <source>Copy code</source>
+        <target>Code kopieren</target>
+      </segment>
+    </unit>
+    <unit id="code.copied">
+      <segment state="final">
+        <source>Copied</source>
+        <target>Kopiert</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

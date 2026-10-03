@@ -2,31 +2,34 @@
     "_type": "feature",
     "eyebrow": "Outcome Numbers",
     "header": "A measured result and what caused it",
-    "lead": "A large figure, its unit beside it and one line of text below. That line matters most, because it names the feature behind the number.",
+    "lead": "A large figure, its unit beside it and one line below that names the feature behind the number. The three below are this theme’s own.",
     "note": "If the figures are properties to look up rather than results, use the spec sheet.",
     "columns": "3",
-    "cta_label": "Primary action",
-    "cta_link": "#",
+    "cta_label": "Compare the themes",
+    "cta_link": "{{page:themes}}",
     "tone": "surface",
     "width": "lg",
     "metrics": [
         {
-            "value": "2",
-            "unit": "to 6",
-            "title": "Entries per element",
-            "text": "With more than six, the figures are hard to remember and read like a table."
+            "value": "250",
+            "unit": "elements",
+            "title": "Content elements in the catalogue",
+            "text": "Ten chapters of 25, each element with a backend preview and its own demo content.",
+            "icon": "layout-grid"
         },
         {
-            "value": "100",
-            "unit": "%",
-            "title": "Tabular numerals",
-            "text": "Every digit has the same width, so the figures in a row line up."
+            "value": "50",
+            "unit": "palettes",
+            "title": "Palettes checked for contrast",
+            "text": "Twenty-five themes in light and dark, measured against WCAG 2.2 AA by a build script.",
+            "icon": "accessibility"
         },
         {
-            "value": "1",
-            "unit": "line",
-            "title": "The feature behind it",
-            "text": "This line is the difference from a plain statistics row."
+            "value": "0",
+            "unit": "frameworks",
+            "title": "Client-side frameworks",
+            "text": "Native HTML does the interaction; one small script adds tabs, carousel buttons and search suggestions.",
+            "icon": "code"
         }
     ]
 }
