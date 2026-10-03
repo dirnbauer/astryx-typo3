@@ -1,0 +1,50 @@
+<f:comment>
+    PaginationItem — one page number in a Pagination row.
+
+    What it renders follows from what it is given, the way Button decides
+    between a link and a button:
+
+      current     a `span` with aria-current="page". The page a reader is on
+                  is not a destination: a link back to itself reloads the page
+                  for nothing, and a `button` there is a control that does
+                  nothing. The stylesheet paints the tint and the weight from
+                  the attribute, so the mark and the announcement cannot
+                  disagree.
+      parameter   a TYPO3 link field, resolved with f:link.typolink.
+      href        a URL the template has already resolved.
+      neither     a `span` again, drawn muted: a part of a series whose page
+                  does not exist yet keeps its number without pretending to be
+                  somewhere to go.
+
+    The number is the slot. A bare "3" says nothing to a screen reader about
+    where it leads, so give a link `ariaLabel` ("Page 3") or put a visually
+    hidden phrase in the slot beside the number. The `span` forms take no
+    `ariaLabel` — a name on an element with no role is not announced, and axe
+    reports it — so the current page carries its phrase in the slot:
+    "Current page, 3".
+
+    The size follows the Pagination it sits in (`size` there), so a row cannot
+    end up with two heights of number. Under a coarse pointer every number is
+    44px square, the same rule as every other button.
+</f:comment>
+
+<f:argument name="current" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="parameter" type="mixed" optional="{true}" default="" />
+<f:argument name="href" type="string" optional="{true}" default="" />
+<f:argument name="rel" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>Last one wins: being the current page outranks having a link.</f:comment>
+<f:variable name="mode" value="none" />
+<f:if condition="{href}"><f:variable name="mode" value="link" /></f:if>
+<f:if condition="{parameter}"><f:variable name="mode" value="typolink" /></f:if>
+<f:if condition="{current}"><f:variable name="mode" value="current" /></f:if>
+
+<f:switch expression="{mode}">
+    <f:case value="current"><span class="astryx-pagination-item {class}" aria-current="page"><f:slot /></span></f:case>
+    <f:case value="typolink"><f:variable name="presentAttributes"><g:present of="{'aria-label': ariaLabel, 'rel': rel}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-pagination-item {class}" title="{title}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-pagination-item {class}"{g:attribute(name: 'rel', value: rel)}{g:attribute(name: 'title', value: title)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></a></f:case>
+    <f:defaultCase><span class="astryx-pagination-item {class}" data-disabled="disabled"><f:slot /></span></f:defaultCase>
+</f:switch>

@@ -45,7 +45,7 @@
             data-align="{align}"
             data-orientation="{orientation}"
             data-dividers="{dividers}"
-            aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'start') -> f:format.trim()}"><div class="astryx-toolbar-start {startClass}"><f:slot name="start" /></div></f:if><f:slot /><f:if condition="{f:slot(name: 'end') -> f:format.trim()}"><div class="astryx-toolbar-end {endClass}"><f:slot name="end" /></div></f:if></nav>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot(name: 'start') -> f:format.trim()}"><div class="astryx-toolbar-start {startClass}"><f:slot name="start" /></div></f:if><f:slot /><f:if condition="{f:slot(name: 'end') -> f:format.trim()}"><div class="astryx-toolbar-end {endClass}"><f:slot name="end" /></div></f:if></nav>
     </f:then>
     <f:else>
         <div

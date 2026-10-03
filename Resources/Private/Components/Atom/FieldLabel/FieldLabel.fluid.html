@@ -25,7 +25,7 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 
 <label
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     class="astryx-field-label {class}"
-    for="{inputId}"
+   {g:attribute(name: 'for', value: inputId)}
     data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:slot /><f:if condition="{optionalityLabel}"><span data-optionality="{optionality}">{optionalityLabel}</span></f:if></label>

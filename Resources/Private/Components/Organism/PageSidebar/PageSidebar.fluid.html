@@ -32,7 +32,7 @@
     <div><f:slot /></div>
 
     <f:if condition="{items}">
-        <nav class="astryx-sidebar" aria-label="{ariaLabel}">
+        <nav class="astryx-sidebar"{g:attribute(name: 'aria-label', value: ariaLabel)}>
             <ul class="astryx-nav__list">
                 <f:for each="{items}" as="item">
                     <li>

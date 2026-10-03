@@ -35,14 +35,14 @@
         <a
             href="{href}"
             class="astryx-avatar-group-overflow {class}"
-            aria-label="{ariaLabel}"
-            aria-hidden="{ariaHidden}"><f:slot /></a>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
+           {g:attribute(name: 'aria-hidden', value: ariaHidden)}><f:slot /></a>
     </f:then>
     <f:else>
         <span
             class="astryx-avatar-group-overflow {class}"
             role="{f:if(condition: ariaLabel, then: 'img')}"
-            aria-label="{ariaLabel}"
-            aria-hidden="{ariaHidden}"><f:slot /></span>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
+           {g:attribute(name: 'aria-hidden', value: ariaHidden)}><f:slot /></span>
     </f:else>
 </f:if>

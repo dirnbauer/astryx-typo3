@@ -12,37 +12,70 @@
     name. Each part is still its own atom underneath, so the type scale, the
     colours and the heading levels stay in one place.
 
-    `headingLevel` defaults to 2 because the page title is the document's only
-    h1 and a section heading sits directly under it. An element that really is
-    the top of its page, such as an article header, says level="1" rather than
-    styling an h2 to look like one.
+    Each part is a named slot as well as an argument, and the slot wins:
 
-    Everything is optional: an element with only a heading renders only the
-    heading, and the default slot carries whatever else belongs to the
-    introduction — a byline, a date, a link back to the parent page.
+        <a:molecule.sectionIntro headingLevel="2" align="{data.align}">
+            <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+            <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+            <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+        </a:molecule.sectionIntro>
+
+    A slot carries what f:render.text returns as markup, which is what lets the
+    visual editor edit the part in place. A string argument cannot: Fluid casts
+    the value to a plain string on the way in and the template escapes it again
+    on the way out, so the editor's markup arrived as visible text and an
+    ampersand as `&amp;amp;`. The three arguments are `mixed` for the same
+    reason — they still work, and now pass that markup through unescaped too —
+    but a slot is the way to write a new call site. A part whose slot renders
+    nothing but whitespace counts as empty, so a fragment wrapping an empty
+    field adds no empty paragraph.
+
+    Once any fragment is named, Fluid hands the component nothing outside the
+    fragments: whatever else belongs to the introduction — a byline, a date, a
+    link back to the parent page — goes into an unnamed <f:fragment>, which is
+    the default slot and renders after the lead. A call site with no fragments
+    at all is one default slot, which is how the catalogue composed the atoms
+    by hand before the slots existed, and still works.
+
+    `headingLevel` defaults to 2 because the page title is the document's only
+    h1 and a section heading sits directly under it. An element that has to
+    look larger says headingType="heading-1" rather than claiming the page's
+    level. The lead is secondary-coloured at the large step, which is what the
+    catalogue's intros wrote by hand two hundred times; `leadType` and
+    `leadColor` change it.
+
+    The stylesheet owns the column, the gap between the parts and the reading
+    measure of the lead; there is no outer margin, because the Stack around an
+    intro is what spaces it from the content below. `align` is `default` (the
+    start edge, which `start` also names), `center`, or `end` — `right` is
+    accepted for the header position of a core content element.
 </f:comment>
 
-<f:argument name="eyebrow" type="string" optional="{true}" default="" />
-<f:argument name="heading" type="string" optional="{true}" default="" />
+<f:argument name="eyebrow" type="mixed" optional="{true}" default="" />
+<f:argument name="heading" type="mixed" optional="{true}" default="" />
 <f:argument name="headingLevel" type="string" optional="{true}" default="2" />
 <f:argument name="headingType" type="string" optional="{true}" default="default" />
 <f:argument name="headingId" type="string" optional="{true}" default="" />
-<f:argument name="lead" type="string" optional="{true}" default="" />
+<f:argument name="lead" type="mixed" optional="{true}" default="" />
 <f:argument name="leadType" type="string" optional="{true}" default="large" />
+<f:argument name="leadColor" type="string" optional="{true}" default="secondary" />
 <f:argument name="align" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div
     class="astryx-section-intro {class}"
     data-align="{align}">
-    <f:if condition="{eyebrow}">
-        <a:atom.eyebrow>{eyebrow}</a:atom.eyebrow>
+    <f:if condition="{f:slot(name: 'eyebrow') -> f:format.trim()}">
+        <f:then><a:atom.eyebrow><f:slot name="eyebrow" /></a:atom.eyebrow></f:then>
+        <f:else if="{eyebrow}"><a:atom.eyebrow>{eyebrow}</a:atom.eyebrow></f:else>
     </f:if>
-    <f:if condition="{heading}">
-        <a:atom.heading level="{headingLevel}" type="{headingType}" id="{headingId}">{heading}</a:atom.heading>
+    <f:if condition="{f:slot(name: 'heading') -> f:format.trim()}">
+        <f:then><a:atom.heading level="{headingLevel}" type="{headingType}" id="{headingId}"><f:slot name="heading" /></a:atom.heading></f:then>
+        <f:else if="{heading}"><a:atom.heading level="{headingLevel}" type="{headingType}" id="{headingId}">{heading}</a:atom.heading></f:else>
     </f:if>
-    <f:if condition="{lead}">
-        <a:atom.text type="{leadType}">{lead}</a:atom.text>
+    <f:if condition="{f:slot(name: 'lead') -> f:format.trim()}">
+        <f:then><a:atom.text type="{leadType}" color="{leadColor}"><f:slot name="lead" /></a:atom.text></f:then>
+        <f:else if="{lead}"><a:atom.text type="{leadType}" color="{leadColor}">{lead}</a:atom.text></f:else>
     </f:if>
     <f:slot />
 </div>

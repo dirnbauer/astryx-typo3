@@ -34,4 +34,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div class="astryx-markdown {class}" id="{id}" data-density="{density}"><f:slot /></div>
+<div class="astryx-markdown {class}"{g:attribute(name: 'id', value: id)} data-density="{density}"><f:slot /></div>

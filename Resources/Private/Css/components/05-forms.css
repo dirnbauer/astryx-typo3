@@ -268,7 +268,11 @@
    second border inside its first. `:is()` takes the weight of the heaviest
    thing in it, which is one class, and that ties with the shell rule; this one
    is written later, so it wins. */
-:is(.astryx-text-input, .astryx-text-area, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-date-time-input, .astryx-time-input, .astryx-date-range-input, .astryx-tokenizer, .astryx-input-group, .astryx-file-input) :where(input, select, textarea) {
+/* An input that is itself a segment of an InputGroup is the field, not
+   something inside one: it keeps its own border, padding and background.
+   Without the :not() a bare TextInput in a group (search and sign-up bands)
+   lost all three and showed only its placeholder beside the button. */
+:is(.astryx-text-input, .astryx-text-area, .astryx-selector, .astryx-number-input, .astryx-date-input, .astryx-date-time-input, .astryx-time-input, .astryx-date-range-input, .astryx-tokenizer, .astryx-input-group, .astryx-file-input) :where(input, select, textarea):not(.astryx-input-group > *) {
   flex: 1;
   min-inline-size: 0;
   block-size: auto;
@@ -616,6 +620,24 @@ select.astryx-selector,
    neighbour happens to be painted later. */
 .astryx-input-group > :focus-within {
   z-index: 1;
+}
+
+/* Buttons and add-on text keep their own width; the field takes the rest. */
+.astryx-input-group > :where(.astryx-button, .astryx-icon-button, .astryx-input-group-text) {
+  flex: 0 0 auto;
+}
+
+/* On a touch screen the buttons grow to 44px; the whole row grows with them,
+   so the field is never shorter than the button beside it. */
+@media (pointer: coarse) {
+  .astryx-input-group {
+    block-size: auto;
+    min-block-size: 2.75rem;
+  }
+
+  .astryx-input-group > * {
+    block-size: auto;
+  }
 }
 
 .astryx-input-group-text {

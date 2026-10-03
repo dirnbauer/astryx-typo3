@@ -19,13 +19,25 @@
    scroll container any more: the two were the same three declarations, and the
    one that had a tab stop and a focus ring was the other one. */
 
+/* Tabular figures throughout: a column of prices or counts lines up digit
+   under digit, and text cells are unaffected — the setting only changes the
+   width of the digits. */
 .astryx-table,
 .astryx-base-table {
   inline-size: 100%;
   border-collapse: collapse;
   border-spacing: 0;
   font-family: inherit;
+  font-variant-numeric: tabular-nums;
   color: var(--color-text-primary);
+}
+
+/* On an accent band a table takes the page's text colours back (the band's
+   surface reset in 00-primitives.css lists it), so it needs the page's surface
+   under them too, or that is page-coloured text on the accent. No radius: a
+   collapsed-border table ignores one. */
+.astryx-section[data-surface="accent"] .astryx-table {
+  background-color: var(--color-background-surface);
 }
 
 /* Auto layout, not upstream's fixed: editors write the cells here and column
@@ -57,6 +69,30 @@
   font-size: var(--text-label-size);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-secondary);
+}
+
+/* A row header names its row, and looks like the cells beside it rather than
+   like a column heading turned on its side: the body size, and whatever weight
+   and colour its row has — ordinary in the body, the footer's heavier weight
+   on a total. Its `th` and `scope` are what make it a header to a screen
+   reader. */
+.astryx-table :where(tbody th[scope="row"], tfoot th[scope="row"]),
+.astryx-table-header-cell[scope="row"] {
+  font-size: var(--text-body-size);
+  font-weight: inherit;
+  color: inherit;
+}
+
+/* The column a comparison argues for: a light wash of the accent on every one
+   of its cells, light enough that text and links in it keep their contrast,
+   and the column's heading in the accent text colour. */
+.astryx-table-cell[data-emphasis="accent"],
+.astryx-table-header-cell[data-emphasis="accent"] {
+  background-color: color-mix(in srgb, var(--color-accent) 8%, transparent);
+}
+
+.astryx-table-header-cell[data-emphasis="accent"]:not([scope="row"]) {
+  color: var(--color-text-accent);
 }
 
 /* The last body row's rule would sit directly on top of whatever follows the

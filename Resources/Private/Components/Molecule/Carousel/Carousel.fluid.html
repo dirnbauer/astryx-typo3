@@ -24,6 +24,12 @@
     `ariaLabel` decides the element, as it does for Toolbar: a rail of links
     that moves a visitor around the site is navigation and needs a named `nav`
     landmark; an unnamed rail of cards is a plain `div`.
+
+    `statusLabel` is the sentence a screen reader hears once a scroll comes to
+    rest, with `%1$s` for the item the reader is on and `%2$s` for how many
+    there are — "Quote %1$s of %2$s". It renders a visually hidden polite live
+    region that stays empty until the reader moves: nothing is said on page
+    load, and nothing is rendered at all without the label.
 </f:comment>
 
 <f:argument name="gap" type="string" optional="{true}" default="1" />
@@ -34,18 +40,27 @@
 <f:argument name="previousLabel" type="string" optional="{true}" default="" />
 <f:argument name="nextLabel" type="string" optional="{true}" default="" />
 <f:argument name="controlClass" type="string" optional="{true}" default="" />
+<f:argument name="statusLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:comment>
     The arrows are pinned to the ends of the rail by IconButton's own
     `position`, which it renders as `data-position` — the stylesheet reads that
     and the control needs no second spelling of the same fact.
+
+    The status region is built once and printed in both branches, first: it is
+    out of the flow, and as the last child of the row its static position would
+    sit at the far end of a right-to-left rail and read as an arrow that never
+    flipped. The label is the attribute's value, so g:attribute escapes it; the
+    literals around it have nothing to escape.
 </f:comment>
+<f:variable name="status"><f:if condition="{statusLabel}"><span class="astryx-carousel-status"{g:attribute(name: 'data-g-carousel-status', value: statusLabel)} aria-live="polite" aria-atomic="true"></span></f:if></f:variable>
+
 <f:if condition="{ariaLabel}">
     <f:then>
-        <nav class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel aria-label="{ariaLabel}"><f:if condition="{previousLabel}"><a:atom.iconButton carousel="previous" position="start" class="astryx-carousel-control {controlClass}" ariaLabel="{previousLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if><ul class="astryx-carousel-track {trackClass}" data-g-carousel-track tabindex="0" aria-label="{trackLabel}" aria-labelledby="{trackLabelledby}"><f:slot /></ul><f:if condition="{nextLabel}"><a:atom.iconButton carousel="next" position="end" class="astryx-carousel-control {controlClass}" ariaLabel="{nextLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m9.5 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if></nav>
+        <nav class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel{g:attribute(name: 'aria-label', value: ariaLabel)}>{status -> f:format.raw()}<f:if condition="{previousLabel}"><a:atom.iconButton carousel="previous" position="start" class="astryx-carousel-control {controlClass}" ariaLabel="{previousLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if><ul class="astryx-carousel-track {trackClass}" data-g-carousel-track tabindex="0"{g:attribute(name: 'aria-label', value: trackLabel)}{g:attribute(name: 'aria-labelledby', value: trackLabelledby)}><f:slot /></ul><f:if condition="{nextLabel}"><a:atom.iconButton carousel="next" position="end" class="astryx-carousel-control {controlClass}" ariaLabel="{nextLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m9.5 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if></nav>
     </f:then>
     <f:else>
-        <div class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel><f:if condition="{previousLabel}"><a:atom.iconButton carousel="previous" position="start" class="astryx-carousel-control {controlClass}" ariaLabel="{previousLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if><ul class="astryx-carousel-track {trackClass}" data-g-carousel-track tabindex="0" aria-label="{trackLabel}" aria-labelledby="{trackLabelledby}"><f:slot /></ul><f:if condition="{nextLabel}"><a:atom.iconButton carousel="next" position="end" class="astryx-carousel-control {controlClass}" ariaLabel="{nextLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m9.5 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if></div>
+        <div class="astryx-carousel {class}" data-gap="{gap}" data-g-carousel>{status -> f:format.raw()}<f:if condition="{previousLabel}"><a:atom.iconButton carousel="previous" position="start" class="astryx-carousel-control {controlClass}" ariaLabel="{previousLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if><ul class="astryx-carousel-track {trackClass}" data-g-carousel-track tabindex="0"{g:attribute(name: 'aria-label', value: trackLabel)}{g:attribute(name: 'aria-labelledby', value: trackLabelledby)}><f:slot /></ul><f:if condition="{nextLabel}"><a:atom.iconButton carousel="next" position="end" class="astryx-carousel-control {controlClass}" ariaLabel="{nextLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m9.5 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:if></div>
     </f:else>
 </f:if>

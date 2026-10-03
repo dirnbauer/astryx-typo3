@@ -28,4 +28,4 @@
 <f:argument name="triggerClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<span class="astryx-tooltip-anchor {class}"><span class="astryx-tooltip-trigger {triggerClass}" tabindex="0" aria-describedby="{id}"><f:slot name="trigger" /></span><span id="{id}" class="astryx-tooltip" role="tooltip" data-placement="{placement}"><f:slot /></span></span>
+<span class="astryx-tooltip-anchor {class}"><span class="astryx-tooltip-trigger {triggerClass}" tabindex="0"{g:attribute(name: 'aria-describedby', value: id)}><f:slot name="trigger" /></span><span{g:attribute(name: 'id', value: id)} class="astryx-tooltip" role="tooltip" data-placement="{placement}"><f:slot /></span></span>

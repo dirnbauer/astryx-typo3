@@ -33,6 +33,5 @@
     class="astryx-top-nav-mega-menu-item {row} {class}"
     data-layout="{layout}"
     data-selected="{selected}"
-    aria-current="{current}"
-    target="{target}"
-    rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-mega-menu-item-text"><span class="astryx-top-nav-mega-menu-item-title">{title}</span><f:if condition="{body}"><span class="astryx-top-nav-mega-menu-item-body">{body}</span></f:if><f:slot /></span></a>
+   {g:attribute(name: 'aria-current', value: current)}
+   {g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-mega-menu-item-text"><span class="astryx-top-nav-mega-menu-item-title">{title}</span><f:if condition="{body}"><span class="astryx-top-nav-mega-menu-item-body">{body}</span></f:if><f:slot /></span></a>

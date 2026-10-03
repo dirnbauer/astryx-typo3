@@ -26,15 +26,13 @@
 <f:if condition="{microdata}">
     <f:then>
         <li
-            class="astryx-breadcrumb-item {class}"
-            aria-current="{f:if(condition: current, then: 'page')}"
+            class="astryx-breadcrumb-item {class}"{f:if(condition: current, then: ' aria-current="page"') -> f:format.raw()}
             itemprop="itemListElement"
             itemscope
             itemtype="https://schema.org/ListItem"><f:slot /></li>
     </f:then>
     <f:else>
         <li
-            class="astryx-breadcrumb-item {class}"
-            aria-current="{f:if(condition: current, then: 'page')}"><f:slot /></li>
+            class="astryx-breadcrumb-item {class}"{f:if(condition: current, then: ' aria-current="page"') -> f:format.raw()}><f:slot /></li>
     </f:else>
 </f:if>

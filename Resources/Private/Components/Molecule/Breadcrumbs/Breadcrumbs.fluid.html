@@ -18,4 +18,4 @@
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<nav class="astryx-breadcrumbs {class}" data-type="{type}" aria-label="{ariaLabel}"><f:slot /></nav>
+<nav class="astryx-breadcrumbs {class}" data-type="{type}"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></nav>

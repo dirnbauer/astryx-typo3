@@ -22,7 +22,7 @@
     data-align="{align}"
     data-width="{width}">
     <f:slot />
-    <f:if condition="{f:slot(name: 'caption')}">
+    <f:if condition="{f:slot(name: 'caption') -> f:format.trim()}">
         <figcaption><f:slot name="caption" /></figcaption>
     </f:if>
 </figure>

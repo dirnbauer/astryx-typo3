@@ -48,7 +48,7 @@
             data-layout="{layout}"
             data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
             data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
-            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table></a:layout.scrollableArea>
+            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption') -> f:format.trim()}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head') -> f:format.trim()}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body') -> f:format.trim()}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot') -> f:format.trim()}"><tfoot><f:slot name="foot" /></tfoot></f:if></table></a:layout.scrollableArea>
     </f:then>
     <f:else>
         <table
@@ -57,6 +57,6 @@
             data-layout="{layout}"
             data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
             data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"
-            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption')}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head')}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body')}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot')}"><tfoot><f:slot name="foot" /></tfoot></f:if></table>
+            data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"><f:slot /><f:if condition="{f:slot(name: 'caption') -> f:format.trim()}"><caption><f:slot name="caption" /></caption></f:if><f:if condition="{f:slot(name: 'head') -> f:format.trim()}"><thead><f:slot name="head" /></thead></f:if><f:if condition="{f:slot(name: 'body') -> f:format.trim()}"><tbody><f:slot name="body" /></tbody></f:if><f:if condition="{f:slot(name: 'foot') -> f:format.trim()}"><tfoot><f:slot name="foot" /></tfoot></f:if></table>
     </f:else>
 </f:if>

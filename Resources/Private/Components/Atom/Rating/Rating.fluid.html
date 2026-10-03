@@ -1,0 +1,50 @@
+<f:comment>
+    Rating — a row of five stars filled to a score.
+
+    The stars are drawn from the score rather than rounded to it: 4.6 is four
+    stars and six tenths of the fifth, because rounding to a half or a whole
+    star is a claim nobody made. Each star is a square filled from its start
+    edge by a hard gradient stop and clipped to a star outline — no glyph font,
+    no image, and the fill follows the text direction.
+
+    `value` is the score as an editor typed it, so a decimal comma is read as a
+    point (a German "4,6" is 4.6), and anything that is not a number is nought.
+    `scale` is what the score is out of — 5 unless the source rates out of 10 —
+    and the five stars always show the score as a share of it.
+
+    What a screen reader hears is the caller's choice, and there are three:
+
+      - nothing, which is the default: the stars are decoration because the
+        score is printed beside them as text, as it should be — five graphics
+        announcing themselves would say less than "4.6 out of 5";
+      - the slot: text rendered after the stars ("4/5", "128 reviews"), read
+        as it is shown while the stars stay silent;
+      - `label`: a self-contained rating with no text beside it, announced as
+        one image with that name ("Rated 4.6 out of 5").
+
+    `size` is the star: `sm` 16px for a review row, `md` 20px, `lg` 24px for a
+    summary band.
+</f:comment>
+
+<f:argument name="value" type="string" optional="{true}" default="0" />
+<f:argument name="scale" type="string" optional="{true}" default="5" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="label" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>
+    Both numbers go into a style attribute, so both are reduced to a number
+    first: a comma becomes a point and f:round casts whatever is left. A scale
+    of nought or less would divide by nought, and falls back to 5.
+</f:comment>
+<f:variable name="score">{value -> f:replace(search: ',', replace: '.') -> f:round(precision: 2)}</f:variable>
+<f:variable name="outOf">{scale -> f:replace(search: ',', replace: '.') -> f:round(precision: 2)}</f:variable>
+<f:if condition="{outOf} <= 0"><f:variable name="outOf" value="5" /></f:if>
+
+<span class="astryx-rating {class}" data-size="{size}" style="--_rating-value: {score}; --_rating-scale: {outOf}">
+    <f:if condition="{label}">
+        <f:then><span class="astryx-rating-stars" role="img"{g:attribute(name: 'aria-label', value: label)}><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span></span></f:then>
+        <f:else><span class="astryx-rating-stars" aria-hidden="true"><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span><span class="astryx-rating-star"></span></span></f:else>
+    </f:if>
+    <f:if condition="{f:slot() -> f:format.trim()}"><span class="astryx-rating-text"><f:slot /></span></f:if>
+</span>

@@ -39,7 +39,7 @@
 
 <f:variable name="titleId"><f:if condition="{title}">{id}-title</f:if></f:variable>
 
-<dialog id="{id}" class="astryx-bottom-sheet-switcher {class}" aria-labelledby="{titleId}" aria-label="{ariaLabel}">
+<dialog{g:attribute(name: 'id', value: id)} class="astryx-bottom-sheet-switcher {class}"{g:attribute(name: 'aria-labelledby', value: titleId)}{g:attribute(name: 'aria-label', value: ariaLabel)}>
     <f:if condition="{title} || {closeLabel}">
         <a:molecule.dialogHeader title="{title}" titleLevel="{titleLevel}" titleId="{titleId}" closeLabel="{closeLabel}" />
     </f:if>

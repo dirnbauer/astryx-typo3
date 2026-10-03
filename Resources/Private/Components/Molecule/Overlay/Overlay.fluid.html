@@ -6,6 +6,13 @@
     of a rounded image without a second border radius. The media goes in the
     default slot and the strip laid over it in `scrim`.
 
+    The root clips only to corners it has, and a square root put a square
+    scrim over a rounded picture — dark corners standing out past the image's
+    own. So the root takes the media's radius: by itself when the media is an
+    AspectRatio (`radius="auto"`, the default), or as told with `radius` set to
+    `element` or `container` for media rounded some other way. `none` keeps a
+    full-bleed hero square whatever is inside it.
+
     Root and scrim carry the same four attributes because they describe the same
     arrangement from two sides: the root positions the strip, the scrim draws it.
     Stating them once here is what keeps the two in step.
@@ -25,6 +32,7 @@
 <f:argument name="align" type="string" optional="{true}" default="start" />
 <f:argument name="tone" type="string" optional="{true}" default="dark" />
 <f:argument name="reveal" type="string" optional="{true}" default="always" />
+<f:argument name="radius" type="string" optional="{true}" default="auto" />
 <f:argument name="scrimClass" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
@@ -36,4 +44,5 @@
     data-fill="{fill}"
     data-align="{align}"
     data-tone="{tone}"
-    data-reveal="{reveal}"><f:slot /><f:if condition="{f:slot(name: 'scrim') -> f:format.trim()}"><div class="astryx-overlay-scrim {scrimClass}" data-position="{position}" data-fill="{fill}" data-align="{align}" data-tone="{tone}" data-reveal="{reveal}"><f:slot name="scrim" /></div></f:if></div>
+    data-reveal="{reveal}"
+    data-radius="{radius}"><f:slot /><f:if condition="{f:slot(name: 'scrim') -> f:format.trim()}"><div class="astryx-overlay-scrim {scrimClass}" data-position="{position}" data-fill="{fill}" data-align="{align}" data-tone="{tone}" data-reveal="{reveal}"><f:slot name="scrim" /></div></f:if></div>

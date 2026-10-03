@@ -40,7 +40,7 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <textarea
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     class="astryx-text-area {class}"
     name="{name}"
     placeholder="{placeholder}"
@@ -51,8 +51,8 @@
     data-status="{status}"
     data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
     aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
-    aria-describedby="{describedBy}"
-    aria-label="{ariaLabel}"
+   {g:attribute(name: 'aria-describedby', value: describedBy)}
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
     {f:if(condition: disabled, then: 'disabled')}
     {f:if(condition: required, then: 'required')}
     {f:if(condition: readonly, then: 'readonly')}>{value}</textarea>

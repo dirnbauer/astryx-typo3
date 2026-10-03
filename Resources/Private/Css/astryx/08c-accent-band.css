@@ -1,0 +1,20 @@
+/*
+ * The primary button on an accent band, restated in the theme layer.
+ *
+ * On the band a primary button inverts (00-primitives.css): the band's ink as
+ * its fill, the accent as its label, because accent on accent is invisible.
+ * Themes that style their own primary button do it in the astryx-theme layer,
+ * and a layer beats specificity: y2k's rule (fill --color-text-primary, label
+ * --color-background-body) won on the band and left a 1.5:1 button there.
+ * The same inversion, in this layer and more specific than any theme rule,
+ * holds in every theme. Inside a card on the band the button is an ordinary
+ * primary button again, so the card exception is restated too.
+ */
+
+[data-astryx-theme] .astryx-section[data-surface="accent"] .astryx-button[data-variant="primary"]:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-popover
+) *) {
+  background-color: var(--color-on-accent);
+  color: var(--color-accent);
+  border-color: transparent;
+}

@@ -27,7 +27,7 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div class="astryx-metadata-list-item {class}" data-preferred="{preferred}">
-    <f:if condition="{f:slot(name: 'term')}">
+    <f:if condition="{f:slot(name: 'term') -> f:format.trim()}">
         <f:then><dt><f:slot name="term" /></dt><dd><f:slot /></dd></f:then>
         <f:else><f:slot /></f:else>
     </f:if>

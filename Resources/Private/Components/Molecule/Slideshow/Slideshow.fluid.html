@@ -1,0 +1,36 @@
+<f:comment>
+    Slideshow — one view at a time, all of them stacked in the same place, the
+    next one fading in over the last.
+
+    Without script it is the PaginationDots pattern: every SlideshowSlide has
+    an id, a dot links to it and `:target` shows it; with no fragment in the
+    address the first slide shows. The runtime then takes the dots over, so a
+    dot no longer scrolls the page to its slide, and keeps `aria-current` on
+    the dot whose slide is showing.
+
+    `interval` (seconds) makes the slides rotate. A view that changes by
+    itself needs a way to stop it (WCAG 2.2.2), so the rotation exists only
+    once `pauseLabel` and `playLabel` name the pause/play control this
+    component then renders. It never runs for visitors who ask for reduced
+    motion, waits while the slideshow is hovered, focused, off screen or in a
+    background tab, and stops for good when a visitor picks a slide.
+
+    The dots are the caller's: they belong wherever the design puts them, which
+    on a hero is over the photo, outside this element. The runtime finds them by
+    the slide ids they link to.
+</f:comment>
+
+<f:argument name="interval" type="integer" optional="{true}" default="0" />
+<f:argument name="pauseLabel" type="string" optional="{true}" default="" />
+<f:argument name="playLabel" type="string" optional="{true}" default="" />
+<f:argument name="controlClass" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:comment>Nested conditions: a label is free text, and inside one boolean expression its spaces would be read as operators.</f:comment>
+<f:variable name="rotation"><f:if condition="{interval} > 0"><f:if condition="{pauseLabel}"><f:if condition="{playLabel}">{interval}</f:if></f:if></f:if></f:variable>
+
+<f:variable name="labels"><f:if condition="{rotation}">{g:attribute(name: 'data-g-slideshow-pause-label', value: pauseLabel)}{g:attribute(name: 'data-g-slideshow-play-label', value: playLabel)}</f:if></f:variable>
+
+<div
+    class="astryx-slideshow {class}"
+    data-g-slideshow{g:attribute(name: 'data-g-slideshow-interval', value: rotation)}{labels -> f:format.raw()}><f:slot /><f:if condition="{rotation}"><a:atom.iconButton slideshow="toggle" variant="secondary" size="md" class="astryx-slideshow-toggle {controlClass}" ariaLabel="{pauseLabel}"><svg class="astryx-slideshow-toggle-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg><svg class="astryx-slideshow-toggle-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M8 5.6v12.8a.8.8 0 0 0 1.2.7l10-6.4a.8.8 0 0 0 0-1.4l-10-6.4A.8.8 0 0 0 8 5.6z"/></svg></a:atom.iconButton></f:if></div>

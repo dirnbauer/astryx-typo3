@@ -37,7 +37,7 @@
             class="astryx-side-nav-collapse-button {class}"
             aria-expanded="{f:if(condition: expanded, then: 'true', else: 'false')}"
             aria-controls="{controls}"
-            aria-label="{ariaLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </f:then>
     <f:else>
         <button
@@ -47,6 +47,6 @@
             value="{value}"
             aria-expanded="{f:if(condition: expanded, then: 'true', else: 'false')}"
             aria-controls="{controls}"
-            aria-label="{ariaLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m15 6-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </f:else>
 </f:if>

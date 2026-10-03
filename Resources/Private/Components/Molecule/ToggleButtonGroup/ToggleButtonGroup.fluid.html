@@ -27,9 +27,9 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     class="astryx-toggle-button-group {class}"
     role="group"
     data-variant="{variant}"
-    aria-label="{ariaLabel}"
-    aria-labelledby="{ariaLabelledby}"><f:slot /></div>
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
+   {g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}><f:slot /></div>

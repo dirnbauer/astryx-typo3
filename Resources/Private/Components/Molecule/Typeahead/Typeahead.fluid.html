@@ -36,11 +36,11 @@
 
 <ul
     class="astryx-typeahead {class}"
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     role="listbox"
     data-width="{width}"
-    aria-label="{ariaLabel}"
-    aria-labelledby="{ariaLabelledby}"
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
+   {g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
     {f:if(condition: hidden, then: 'hidden')}>
     <f:if condition="{heading}">
         <li class="astryx-typeahead-group" role="presentation">{heading}</li>

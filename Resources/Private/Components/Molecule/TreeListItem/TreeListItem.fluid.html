@@ -55,7 +55,7 @@
     <f:then>
         <li>
             <details {f:if(condition: open, then: 'open')}>
-                <summary class="astryx-tree-list-item {class}" data-density="{density}" data-selected="{selected}" data-disabled="{disabledValue}" aria-current="{current}" aria-label="{ariaLabel}"><span class="astryx-tree-list-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" focusable="false"><path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-tree-list-item-label">{label}</span></summary>
+                <summary class="astryx-tree-list-item {class}" data-density="{density}" data-selected="{selected}" data-disabled="{disabledValue}"{g:attribute(name: 'aria-current', value: current)}{g:attribute(name: 'aria-label', value: ariaLabel)}><span class="astryx-tree-list-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" focusable="false"><path d="m9 6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-tree-list-item-label">{label}</span></summary>
                 <ul><li class="astryx-tree-list-guide" aria-hidden="true"></li><f:slot /></ul>
             </details>
         </li>
@@ -68,10 +68,10 @@
         </f:comment>
         <f:if condition="{linkHref}">
             <f:then>
-                <li><a href="{linkHref}" class="astryx-tree-list-item {class}" data-density="{density}" data-selected="{selected}" data-disabled="{disabledValue}" aria-current="{current}" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-tree-list-item-label">{label}</span></a></li>
+                <li><a href="{linkHref}" class="astryx-tree-list-item {class}" data-density="{density}" data-selected="{selected}" data-disabled="{disabledValue}"{g:attribute(name: 'aria-current', value: current)}{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-tree-list-item-label">{label}</span></a></li>
             </f:then>
             <f:else>
-                <li><span class="astryx-tree-list-item {class}" data-density="{density}" data-selected="{selected}" data-disabled="{disabledValue}" aria-current="{current}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-tree-list-item-label">{label}</span></span></li>
+                <li><span class="astryx-tree-list-item {class}" data-density="{density}" data-selected="{selected}" data-disabled="{disabledValue}"{g:attribute(name: 'aria-current', value: current)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-tree-list-item-label">{label}</span></span></li>
             </f:else>
         </f:if>
     </f:else>

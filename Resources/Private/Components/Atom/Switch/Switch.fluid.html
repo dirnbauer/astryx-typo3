@@ -41,13 +41,13 @@
     class="astryx-switch-field {class}"
     data-layout="{layout}"
     data-placement="{placement}"><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         type="checkbox"
         role="switch"
         name="{name}"
         value="{value}"
-        aria-describedby="{describedBy}"
-        aria-label="{ariaLabel}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
+       {g:attribute(name: 'aria-label', value: ariaLabel)}
         {f:if(condition: checked, then: 'checked')}
         {f:if(condition: disabled, then: 'disabled')}
         {f:if(condition: required, then: 'required')} /><span class="astryx-switch"><span class="astryx-switch-thumb"></span></span><f:slot /></label>

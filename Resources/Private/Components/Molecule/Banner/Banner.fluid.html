@@ -22,10 +22,22 @@
     region nobody is listening to is a message only sighted visitors get. It
     stays an aria-live attribute rather than role="status" because the element
     is already a complementary landmark, and a role would take that away to say
-    something the attribute says on its own.
+    something the attribute says on its own. It is written only when set: an
+    empty `aria-live` is not a politeness value, and it was on every banner.
+
+    `density="compact"` is the tight box for a one-line strip — an inline CTA,
+    an offer, a short callout — where the default padding made a sentence look
+    like a panel. `tight` is accepted as the same thing, because Card calls its
+    small padding that.
+
+    Below 480px the icon stands above the message rather than beside it: a
+    20px glyph beside a 320px column costs the text a sixth of its line, and a
+    title wrapped onto four lines is harder to read than one with an icon on
+    top. The dismiss button stays in the corner either way.
 </f:comment>
 
 <f:argument name="status" type="string" optional="{true}" default="default" />
+<f:argument name="density" type="string" optional="{true}" default="default" />
 <f:argument name="title" type="string" optional="{true}" default="" />
 <f:argument name="titleLevel" type="string" optional="{true}" default="2" />
 <f:argument name="dismissible" type="boolean" optional="{true}" default="{false}" />
@@ -46,10 +58,11 @@
 <aside
     class="astryx-banner {class}"
     data-status="{status}"
-    aria-label="{ariaLabel}"
-    aria-labelledby="{ariaLabelledby}"
-    aria-live="{ariaLive}">
-    <f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if>
+    data-density="{density}"
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
+   {g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
+   {g:attribute(name: 'aria-live', value: ariaLive)}>
+    <f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if>
     <f:if condition="{title}">
         <f:then>
             <div class="astryx-banner-content">
@@ -72,7 +85,7 @@
             script the button simply does nothing and the message stays, which
             is the right failure for a message.
         </f:comment>
-        <button type="button" class="astryx-banner-dismiss {dismissClass}" aria-label="{dismissName}" data-g-dismiss="1">
+        <button type="button" class="astryx-banner-dismiss {dismissClass}"{g:attribute(name: 'aria-label', value: dismissName)} data-g-dismiss="1">
             <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.6 4.6 11.4 11.4M11.4 4.6 4.6 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
         </button>
     </f:if>

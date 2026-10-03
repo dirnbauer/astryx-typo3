@@ -11,14 +11,33 @@
     `columns` is a number, not a token, and follows Grid's convention of a
     numeric data attribute. Above one column the grid stops aligning values
     across the whole list and packs the pairs instead, which is why each pair
-    has to be a MetadataListItem to stay one unbreakable cell.
+    has to be a MetadataListItem to stay one unbreakable cell. The count is a
+    ceiling, as Grid's is: two to four pairs a row where there is room, fewer
+    where there is not, never more than asked for.
+
+    `dividers="with-dividers"` draws a rule under each pair, the same word List
+    uses for the same thing: a specification sheet, a credits list, opening
+    hours. In one column the last pair has none, because a rule under the last
+    row reads as the edge of something else; in several columns every pair has
+    one, because no rule can know which pairs end the last row. A horizontal
+    list draws the rule between the pairs instead.
+
+    `size="sm"` sets both halves at the supporting size, for the lists that
+    live in a footer and are read rather than scanned.
+
+    Values are set in tabular figures, so prices, times and quantities in one
+    column line up digit under digit.
 </f:comment>
 
 <f:argument name="orientation" type="string" optional="{true}" default="default" />
 <f:argument name="columns" type="integer" optional="{true}" default="1" />
+<f:argument name="dividers" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <dl
     class="astryx-metadata-list {class}"
     data-orientation="{orientation}"
-    data-columns="{columns}"><f:slot /></dl>
+    data-columns="{columns}"
+    data-dividers="{dividers}"
+    data-size="{size}"><f:slot /></dl>

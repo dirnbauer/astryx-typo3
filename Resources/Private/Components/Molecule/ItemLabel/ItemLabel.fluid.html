@@ -5,11 +5,22 @@
     It is opt-in rather than the default because a clipped label is a label a
     visitor cannot finish reading, and in most lists wrapping onto a second
     line is the better failure.
+
+    `size` and `weight` are for the rows whose label is a title rather than a
+    name: a job opening, a document, a course. `size="lg"` sets it at the
+    large text size, `weight="medium"` or `"semibold"` gives it a title's
+    weight; together they let a row of openings read as a list of headlines
+    without the label becoming a heading — the row is still one item of a list,
+    and its outline belongs to whatever heads the list.
 </f:comment>
 
 <f:argument name="truncate" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="default" />
+<f:argument name="weight" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <span
     class="astryx-item-label {class}"
-    data-truncate="{truncate}"><f:slot /></span>
+    data-truncate="{truncate}"
+    data-size="{size}"
+    data-weight="{weight}"><f:slot /></span>

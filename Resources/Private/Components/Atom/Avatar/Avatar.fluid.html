@@ -10,6 +10,11 @@
     fallback, the status dot and an avatar group's overlap are all derived
     from the same single dimension; an image with its own width would put the
     two out of step.
+
+    Inside an AvatarGroup the group's size wins over this one, whatever either
+    says: the group's overlap is computed from its own size, and an avatar that
+    kept a size of its own drew circles the overlap was not made for. Size the
+    group, not its avatars.
 </f:comment>
 
 <f:argument name="size" type="string" optional="{true}" default="md" />
@@ -17,5 +22,5 @@
 <f:argument name="ariaHidden" type="string" optional="{true}" default="" />
 
 <span
-    class="astryx-avatar {class}" aria-hidden="{ariaHidden}"
+    class="astryx-avatar {class}"{g:attribute(name: 'aria-hidden', value: ariaHidden)}
     data-size="{size}"><f:slot /></span>

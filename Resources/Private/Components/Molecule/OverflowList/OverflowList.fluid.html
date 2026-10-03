@@ -17,7 +17,7 @@
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 
 <ul
-    class="astryx-overflow-list {class}" aria-labelledby="{ariaLabelledby}"
+    class="astryx-overflow-list {class}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
     data-wrap="{wrap}"
-    aria-label="{ariaLabel}"
-    aria-labelledby="{labelledBy}"><f:slot /></ul>
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
+   {g:attribute(name: 'aria-labelledby', value: labelledBy)}><f:slot /></ul>

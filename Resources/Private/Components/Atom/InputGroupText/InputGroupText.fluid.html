@@ -18,4 +18,4 @@
 <f:argument name="ariaHidden" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<span class="astryx-input-group-text {class}" aria-hidden="{ariaHidden}"><f:slot /></span>
+<span class="astryx-input-group-text {class}"{g:attribute(name: 'aria-hidden', value: ariaHidden)}><f:slot /></span>

@@ -31,7 +31,7 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div class="astryx-tab-menu-group">
-    <button type="button" class="astryx-tab-menu {class}" data-selected="{selected}" popovertarget="{id}" aria-label="{ariaLabel}"><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="astryx-tab-menu {class}" data-selected="{selected}" popovertarget="{id}"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <f:comment>
         The rows go in the `menu` slot, and Item is what they are: a compact
         interactive row with an href and, on the one the visitor is on,
@@ -40,5 +40,5 @@
         components; it has been deleted, because two ways to write one row is
         how a design system starts drifting.
     </f:comment>
-    <div id="{id}" class="astryx-tab-menu-dropdown" popover="auto"><f:slot name="menu" /></div>
+    <div{g:attribute(name: 'id', value: id)} class="astryx-tab-menu-dropdown" popover="auto"><f:slot name="menu" /></div>
 </div>

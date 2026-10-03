@@ -17,7 +17,7 @@
 
 <f:if condition="{id}">
     <f:then>
-        <div id="{id}" class="astryx-page-header {class}">
+        <div{g:attribute(name: 'id', value: id)} class="astryx-page-header {class}">
             <a:layout.container>
                 <h1 class="astryx-page-title">{title}</h1>
                 <f:slot />

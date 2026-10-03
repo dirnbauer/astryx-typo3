@@ -13,7 +13,24 @@
     control inside it is pressed — the script walks up to the nearest
     `[data-g-dismissible]`, so the attribute has to be absent rather than empty
     everywhere else, or the first dismissible offer on a page would take the
-    section above it with it.
+    section above it with it. Focus moves on to the next control after the
+    band, so a keyboard is not dropped on the page body. `dismissKey` makes the
+    decision stick: the band is remembered as closed in this browser for
+    thirty days (`g-dismissed:<key>` in localStorage) and removed again on
+    every page carrying the same key — one key per offer, and a new key for a
+    new offer, which every visitor then sees once more. Editors always see it:
+    the runtime ignores the memory inside a frame, which is where the visual
+    editor and the element library show a page.
+
+    `surface="none"` paints nothing: the band lets whatever is behind it show,
+    for content that brings its own surface. `elevation="floating"` takes the
+    band out of the column and floats it over the page in the bottom corner
+    of the window (across the bottom on a phone), sized to its content and
+    lifted by a shadow — a corner card, an offer that waits to be dismissed.
+    A floating band keeps its place in the source, so the reading and tab
+    order stay where the editor put it; its default surface is the popover's,
+    and a muted one is laid over that, because a see-through card over moving
+    text cannot be read.
 </f:comment>
 
 <f:argument name="spacing" type="string" optional="{true}" default="default" />
@@ -26,6 +43,8 @@
 <f:argument name="variant" type="string" optional="{true}" default="" />
 <f:argument name="media" type="string" optional="{true}" default="" />
 <f:argument name="dismissible" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="dismissKey" type="string" optional="{true}" default="" />
+<f:argument name="elevation" type="string" optional="{true}" default="flat" />
 <f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
 
 <f:variable
@@ -43,10 +62,11 @@
 
 <f:comment>
     Built as a fragment of attribute source, so the hook is absent rather than
-    empty on the 249 sections that are not dismissible. It is a literal: there
-    is nothing in it for a fragment's raw output to let through.
+    empty on the 249 sections that are not dismissible. The flag is a literal;
+    the key goes through g:attribute, which escapes it and prints nothing for
+    an empty one. `data-elevation` is printed only for a band that floats.
 </f:comment>
-<f:variable name="hooks"><f:if condition="{dismissible}">data-g-dismissible="1"</f:if></f:variable>
+<f:variable name="hooks"><f:if condition="{dismissible}">data-g-dismissible="1"{g:attribute(name: 'data-g-dismiss-key', value: dismissKey)}</f:if><f:if condition="{elevation} == 'floating'"> data-elevation="floating"</f:if></f:variable>
 
 <f:comment>
     The id branch is not duplication for its own sake: `id=""` is not a
@@ -56,8 +76,8 @@
 <f:if condition="{id}">
     <f:then>
         <section
-            id="{id}"
-            class="astryx-section {class}" aria-labelledby="{ariaLabelledby}"
+           {g:attribute(name: 'id', value: id)}
+            class="astryx-section {class}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
             data-spacing="{spacing}"
             data-surface="{effectiveSurface}"
             data-align="{align}"
@@ -68,7 +88,7 @@
     </f:then>
     <f:else>
         <section
-            class="astryx-section {class}" aria-labelledby="{ariaLabelledby}"
+            class="astryx-section {class}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
             data-spacing="{spacing}"
             data-surface="{effectiveSurface}"
             data-align="{align}"

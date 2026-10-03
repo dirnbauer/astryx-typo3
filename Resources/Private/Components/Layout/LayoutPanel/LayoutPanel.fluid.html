@@ -25,7 +25,7 @@
 
 <f:if condition="{as} == 'aside'">
     <f:then>
-        <aside class="astryx-layout-panel {class}" data-placement="{placement}" aria-label="{ariaLabel}"><f:slot /></aside>
+        <aside class="astryx-layout-panel {class}" data-placement="{placement}"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></aside>
     </f:then>
     <f:else>
         <div class="astryx-layout-panel {class}" data-placement="{placement}"><f:slot /></div>

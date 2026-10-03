@@ -36,12 +36,12 @@
 <label
     class="astryx-toggle-button {class}"
     data-size="{size}"><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         class="astryx-toggle-button-control"
         type="{type}"
         name="{name}"
         value="{value}"
-        aria-describedby="{describedBy}"
-        aria-label="{ariaLabel}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
+       {g:attribute(name: 'aria-label', value: ariaLabel)}
         {f:if(condition: checked, then: 'checked')}
         {f:if(condition: disabled, then: 'disabled')} /><f:slot /></label>

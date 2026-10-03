@@ -55,22 +55,31 @@
 </f:comment>
 <f:variable name="current"><f:if condition="{ariaCurrent}"><f:then>{ariaCurrent}</f:then><f:else>{f:if(condition: '{selected} == \'selected\'', then: 'true')}</f:else></f:if></f:variable>
 
-<f:if condition="{href}">
+<f:comment>
+    `parameter` is a TYPO3 link (a Link field's value or a t3:// string) and wins
+    over a plain `href`; it also brings its own target. It was declared and then
+    ignored, so every caller passing a Link field rendered a row that linked
+    nowhere.
+</f:comment>
+<f:variable name="link">{f:if(condition: parameter, then: '{f:uri.typolink(parameter: parameter)}', else: href)}</f:variable>
+<f:variable name="linkTarget">{f:if(condition: parameter.target, then: parameter.target, else: target)}</f:variable>
+
+<f:if condition="{link}">
     <f:then>
         <a
-            href="{href}"
+            href="{link}"
             class="astryx-item {class}"
             data-interactive="{interactive}"
             data-density="{density}"
             data-align="{align}"
             data-selected="{selected}"
-            aria-current="{current}"
-            aria-label="{ariaLabel}"
-            target="{target}"
-            rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}">
-            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start {startClass}"><f:slot name="start" /></span></f:if>
+           {g:attribute(name: 'aria-current', value: current)}
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
+           {g:attribute(name: 'target', value: linkTarget)}
+           {f:if(condition: '{linkTarget} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}>
+            <f:if condition="{f:slot(name: 'start') -> f:format.trim()}"><span class="astryx-item-start {startClass}"><f:slot name="start" /></span></f:if>
             <f:slot />
-            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end {endClass}"><f:slot name="end" /></span></f:if>
+            <f:if condition="{f:slot(name: 'end') -> f:format.trim()}"><span class="astryx-item-end {endClass}"><f:slot name="end" /></span></f:if>
         </a>
     </f:then>
     <f:else>
@@ -80,10 +89,10 @@
             data-density="{density}"
             data-align="{align}"
             data-selected="{selected}"
-            aria-current="{current}">
-            <f:if condition="{f:slot(name: 'start')}"><span class="astryx-item-start {startClass}"><f:slot name="start" /></span></f:if>
+           {g:attribute(name: 'aria-current', value: current)}>
+            <f:if condition="{f:slot(name: 'start') -> f:format.trim()}"><span class="astryx-item-start {startClass}"><f:slot name="start" /></span></f:if>
             <f:slot />
-            <f:if condition="{f:slot(name: 'end')}"><span class="astryx-item-end {endClass}"><f:slot name="end" /></span></f:if>
+            <f:if condition="{f:slot(name: 'end') -> f:format.trim()}"><span class="astryx-item-end {endClass}"><f:slot name="end" /></span></f:if>
         </li>
     </f:else>
 </f:if>

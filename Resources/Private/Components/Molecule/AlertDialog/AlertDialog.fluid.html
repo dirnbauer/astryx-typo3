@@ -40,11 +40,11 @@
 <f:variable name="titleId"><f:if condition="{title}">{id}-title</f:if></f:variable>
 
 <dialog
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     class="astryx-alert-dialog {class}"
     role="alertdialog"
-    aria-labelledby="{titleId}"
-    aria-label="{ariaLabel}"
+   {g:attribute(name: 'aria-labelledby', value: titleId)}
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
     aria-describedby="{id}-description">
     <a:molecule.dialogHeader title="{title}" titleLevel="{titleLevel}" titleId="{titleId}" />
 

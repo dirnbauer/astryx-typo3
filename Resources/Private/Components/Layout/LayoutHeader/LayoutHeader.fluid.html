@@ -19,6 +19,6 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:if condition="{id}">
-    <f:then><header id="{id}" class="astryx-layout-header {class}"><f:slot /></header></f:then>
+    <f:then><header{g:attribute(name: 'id', value: id)} class="astryx-layout-header {class}"><f:slot /></header></f:then>
     <f:else><header class="astryx-layout-header {class}"><f:slot /></header></f:else>
 </f:if>

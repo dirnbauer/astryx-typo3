@@ -20,9 +20,16 @@
     equal heights — which is why ClickableCard, a year on, has no call site at
     all. ClickableCard stays for the rows that are not cards.
 
-    `featured` is the editor's "this is the plan we recommend", which a plan
-    card's own stylesheet keys off; `as` exists only so that a card which is a
-    self-contained piece of writing can say so with an `article`.
+    `featured="yes"` is the editor's "this is the plan we recommend": the card
+    takes an accent ring, drawn so that the hover lift of a clickable card and
+    the theme's own shadow both leave it in place. Any other value, "no"
+    included, is an ordinary card, and an empty one writes no attribute.
+
+    `as` says what the card is in the document. `article` is for a card that is
+    a self-contained piece of writing; `li` is for a card that is one item of a
+    list — a Grid rendered `as="ul"` — so that the card itself is the list item
+    and the grid needs no hand-built `li` around each card, which would also
+    become the grid item and cost the row its equal heights.
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
@@ -37,31 +44,39 @@
 
 <f:variable name="affordance">{f:if(condition: clickable, then: 'astryx-clickable-card')}</f:variable>
 
-<f:if condition="{as} == 'article'">
-    <f:then>
+<f:comment>
+    An unfilled slot renders as null, so the media region costs nothing when a
+    caller has no media to give it.
+</f:comment>
+<f:switch expression="{as}">
+    <f:case value="article">
         <article
-            class="astryx-card {affordance} {class}" data-align="{align}" aria-labelledby="{ariaLabelledby}"
+            class="astryx-card {affordance} {class}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
             data-variant="{variant}"
             data-density="{density}"
-            data-media="{media}"
-            data-featured="{featured}">
-            <f:if condition="{f:slot(name: 'media')}"><f:slot name="media" /></f:if>
+            data-media="{media}"{g:attribute(name: 'data-align', value: align)}{g:attribute(name: 'data-featured', value: featured)}>
+            <f:if condition="{f:slot(name: 'media') -> f:format.trim()}"><f:slot name="media" /></f:if>
             <f:slot />
         </article>
-    </f:then>
-    <f:else>
-        <div
-            class="astryx-card {affordance} {class}" data-align="{align}" aria-labelledby="{ariaLabelledby}"
+    </f:case>
+    <f:case value="li">
+        <li
+            class="astryx-card {affordance} {class}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
             data-variant="{variant}"
             data-density="{density}"
-            data-media="{media}"
-            data-featured="{featured}">
-            <f:comment>
-                An unfilled slot renders as null, so the media region costs
-                nothing when a caller has no media to give it.
-            </f:comment>
-            <f:if condition="{f:slot(name: 'media')}"><f:slot name="media" /></f:if>
+            data-media="{media}"{g:attribute(name: 'data-align', value: align)}{g:attribute(name: 'data-featured', value: featured)}>
+            <f:if condition="{f:slot(name: 'media') -> f:format.trim()}"><f:slot name="media" /></f:if>
+            <f:slot />
+        </li>
+    </f:case>
+    <f:defaultCase>
+        <div
+            class="astryx-card {affordance} {class}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
+            data-variant="{variant}"
+            data-density="{density}"
+            data-media="{media}"{g:attribute(name: 'data-align', value: align)}{g:attribute(name: 'data-featured', value: featured)}>
+            <f:if condition="{f:slot(name: 'media') -> f:format.trim()}"><f:slot name="media" /></f:if>
             <f:slot />
         </div>
-    </f:else>
-</f:if>
+    </f:defaultCase>
+</f:switch>

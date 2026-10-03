@@ -30,6 +30,71 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+  /** Smooth where motion is welcome, an instant jump where it is not. */
+  function scrollBehavior() {
+    return reduceMotion.matches ? 'auto' : 'smooth';
+  }
+
+  /** Whether the inline axis runs right to left at this element. */
+  function isRtl(element) {
+    return window.getComputedStyle(element).direction === 'rtl';
+  }
+
+  /**
+   * Fill `%1$s`, `%2$s` (and bare `%s`, in order) the way f:translate's
+   * arguments would, so a label is written once in the XLIFF file with its
+   * placeholders and the runtime only supplies the numbers.
+   */
+  function format(template, values) {
+    var next = 0;
+    return String(template).replace(/%(?:(\d+)\$)?[sd]/g, function (match, position) {
+      var index = position ? parseInt(position, 10) - 1 : next++;
+      return values[index] === undefined ? match : String(values[index]);
+    });
+  }
+
+  /**
+   * A polite live region of its own beside a control.
+   *
+   * Beside it and not one shared region on <body>: a control inside an open
+   * modal dialog is the only live thing on the page, everything outside the
+   * dialog is inert, and an inert region is never read out. The region exists
+   * from the moment the control is bound, because a region that appears
+   * together with its message is not announced by every screen reader.
+   */
+  function liveRegion(after) {
+    var region = document.createElement('span');
+    region.className = 'astryx-visually-hidden';
+    region.setAttribute('aria-live', 'polite');
+    region.setAttribute('aria-atomic', 'true');
+    after.insertAdjacentElement('afterend', region);
+    return region;
+  }
+
+  /** Say something through a live region, even when it is the same thing again. */
+  function announce(region, message) {
+    region.textContent = '';
+    window.setTimeout(function () { region.textContent = message; }, 60);
+  }
+
+  var FOCUSABLE = 'a[href], area[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), '
+    + 'select:not([disabled]), textarea:not([disabled]), summary, iframe, [contenteditable="true"], '
+    + '[tabindex]:not([tabindex="-1"])';
+
+  /** The first control after `node` in document order that a keyboard can reach. */
+  function nextFocusable(node) {
+    var candidates = document.querySelectorAll(FOCUSABLE);
+    for (var i = 0; i < candidates.length; i++) {
+      var candidate = candidates[i];
+      if (node.contains(candidate)) continue;
+      if (!(node.compareDocumentPosition(candidate) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
+      if (candidate.closest('[inert], [hidden]')) continue;
+      if (candidate.getClientRects().length === 0) continue;
+      return candidate;
+    }
+    return null;
+  }
+
   /* ------------------------------------------------------- colour scheme */
   /*
    * The scheme lives as a class on <html>; the stylesheet turns that into a
@@ -125,12 +190,76 @@
   }
 
   /* ---------------------------------------------------------- dismissal */
+  /*
+   * A dismissible band goes when a data-g-dismiss control inside it is
+   * pressed. Two things follow it out. The keyboard: focus was on the close
+   * control, and a removed control drops focus on <body>, so it moves on to
+   * the next control after the band (or to <main>) instead. And the decision:
+   * a band with data-g-dismiss-key is remembered for thirty days in this
+   * browser, and taken out again on every page that carries the same key.
+   *
+   * Not inside a frame. The visual editor and the element library show the
+   * page in one, and an editor who once closed an offer on the live site
+   * would otherwise find the element missing from the page they are editing.
+   */
+  var DISMISS_PREFIX = 'g-dismissed:';
+  var DISMISS_FOR = 30 * 24 * 60 * 60 * 1000;
+
+  function framed() {
+    try {
+      return window.self !== window.top;
+    } catch (error) {
+      return true;
+    }
+  }
+
+  function rememberDismissal(key) {
+    try {
+      window.localStorage.setItem(DISMISS_PREFIX + key, String(Date.now()));
+    } catch (error) {
+      /* Private mode or a full quota: the band goes for this page view only. */
+    }
+  }
+
+  function wasDismissed(key) {
+    try {
+      var stamp = parseInt(window.localStorage.getItem(DISMISS_PREFIX + key) || '', 10);
+      if (!stamp) return false;
+      if (Date.now() - stamp < DISMISS_FOR) return true;
+      window.localStorage.removeItem(DISMISS_PREFIX + key);
+    } catch (error) {
+      /* Unreadable storage forgets, which shows the band again: the safe way round. */
+    }
+    return false;
+  }
+
   function initDismiss() {
+    if (!framed()) {
+      each('[data-g-dismissible][data-g-dismiss-key]', function (band) {
+        bind(band, 'DismissKey', function (element) {
+          if (wasDismissed(element.getAttribute('data-g-dismiss-key'))) element.remove();
+        });
+      });
+    }
+
     each('[data-g-dismiss]', function (button) {
       bind(button, 'Dismiss', function (element) {
         element.addEventListener('click', function () {
           var target = element.closest('[data-g-dismissible]');
-          if (target) target.remove();
+          if (!target) return;
+
+          var hadFocus = target.contains(document.activeElement);
+          var next = hadFocus ? nextFocusable(target) : null;
+          var key = target.getAttribute('data-g-dismiss-key');
+          if (key) rememberDismissal(key);
+          target.remove();
+
+          if (!hadFocus) return;
+          if (!next) {
+            next = document.querySelector('main');
+            if (next && !next.hasAttribute('tabindex')) next.setAttribute('tabindex', '-1');
+          }
+          if (next) next.focus();
         });
       });
     });
@@ -141,18 +270,48 @@
    * Tabs need roving focus and arrow keys, which no native element provides.
    * The markup is a plain list of buttons plus panels, so without JavaScript
    * every panel is simply visible — degraded, never broken.
+   *
+   * The tab that starts selected is the one the markup marks aria-selected,
+   * or the one whose panel the address names; a strip too wide for its column
+   * scrolls, so the selected tab is scrolled into it — the strip only, never
+   * the page.
    */
+
+  /** Scroll a tab strip, and nothing else, until `tab` is inside its padding. */
+  function revealTab(tab, smooth) {
+    var list = tab.closest('[role="tablist"]');
+    if (!list || list.scrollWidth <= list.clientWidth) return;
+    var style = window.getComputedStyle(list);
+    var box = list.getBoundingClientRect();
+    var start = box.left + (parseFloat(style.borderLeftWidth) || 0) + (parseFloat(style.paddingLeft) || 0);
+    var end = box.right - (parseFloat(style.borderRightWidth) || 0) - (parseFloat(style.paddingRight) || 0);
+    var edges = tab.getBoundingClientRect();
+    var delta = edges.left < start ? edges.left - start : (edges.right > end ? edges.right - end : 0);
+    if (delta !== 0) list.scrollBy({left: delta, behavior: smooth ? scrollBehavior() : 'auto'});
+  }
+
   function initTabs() {
     each('[data-g-tabs]', function (tabs) {
       bind(tabs, 'Tabs', function (element) {
-        var triggers = Array.prototype.slice.call(element.querySelectorAll('[data-g-tab]'));
+        // Only this set's own triggers: a tab set nested in a panel binds itself.
+        var triggers = Array.prototype.filter.call(element.querySelectorAll('[data-g-tab]'), function (trigger) {
+          return trigger.closest('[data-g-tabs]') === element;
+        });
         if (triggers.length === 0) return;
 
         var panels = triggers.map(function (trigger) {
-          return element.querySelector('#' + trigger.getAttribute('aria-controls'));
+          var panel = document.getElementById(trigger.getAttribute('aria-controls') || '');
+          if (panel) {
+            if (!panel.hasAttribute('role')) panel.setAttribute('role', 'tabpanel');
+            if (!panel.hasAttribute('aria-labelledby') && trigger.id) panel.setAttribute('aria-labelledby', trigger.id);
+          }
+          return panel;
         });
 
-        function select(index, moveFocus) {
+        var list = triggers[0].closest('[role="tablist"]');
+        var vertical = list !== null && list.getAttribute('aria-orientation') === 'vertical';
+
+        function select(index, moveFocus, smooth) {
           triggers.forEach(function (trigger, position) {
             var active = position === index;
             trigger.setAttribute('aria-selected', active ? 'true' : 'false');
@@ -160,27 +319,48 @@
             if (panels[position]) panels[position].hidden = !active;
           });
           if (moveFocus) triggers[index].focus();
+          revealTab(triggers[index], smooth);
         }
 
         triggers.forEach(function (trigger, index) {
           trigger.addEventListener('click', function () {
-            select(index, false);
+            select(index, false, true);
           });
 
           trigger.addEventListener('keydown', function (event) {
             var last = triggers.length - 1;
+            var forward = vertical ? 'ArrowDown' : (isRtl(trigger) ? 'ArrowLeft' : 'ArrowRight');
+            var backward = vertical ? 'ArrowUp' : (isRtl(trigger) ? 'ArrowRight' : 'ArrowLeft');
             var next = null;
-            if (event.key === 'ArrowRight') next = index === last ? 0 : index + 1;
-            else if (event.key === 'ArrowLeft') next = index === 0 ? last : index - 1;
+            if (event.key === forward) next = index === last ? 0 : index + 1;
+            else if (event.key === backward) next = index === 0 ? last : index - 1;
             else if (event.key === 'Home') next = 0;
             else if (event.key === 'End') next = last;
             if (next === null) return;
             event.preventDefault();
-            select(next, true);
+            select(next, true, true);
           });
         });
 
-        select(0, false);
+        var initial = 0;
+        triggers.some(function (trigger, index) {
+          if (trigger.getAttribute('aria-selected') !== 'true') return false;
+          initial = index;
+          return true;
+        });
+        var named = '';
+        try {
+          named = decodeURIComponent(window.location.hash.slice(1));
+        } catch (error) {
+          /* A malformed fragment names nothing. */
+        }
+        if (named) {
+          triggers.forEach(function (trigger, index) {
+            if (trigger.id === named || trigger.getAttribute('aria-controls') === named) initial = index;
+          });
+        }
+
+        select(initial, false, false);
       });
     });
   }
@@ -188,8 +368,19 @@
   /* ----------------------------------------------------------- carousel */
   /*
    * Scrolling and snapping are CSS. The buttons are the affordance a mouse
-   * user needs, and they disable themselves at either end so they never lie
-   * about what they will do.
+   * user needs, and they switch themselves off at either end so they never
+   * lie about what they will do.
+   *
+   * Off is aria-disabled, not disabled. A disabled button drops focus on
+   * <body> the moment it switches off, which is exactly what happened to a
+   * keyboard user paging to the end of a rail: "Next" disabled itself while
+   * focused. An aria-disabled control keeps focus and ignores the press; it
+   * leaves the tab order only once focus has moved on, as a disabled one would.
+   *
+   * A rail that fits its column has nothing to page through, and is marked
+   * data-g-carousel-fits so the stylesheet takes both arrows away. A rail
+   * whose component was given a status label says where the reader is —
+   * "Quote 3 of 8" — once a scroll has come to rest, never on page load.
    */
   function initCarousels() {
     each('[data-g-carousel]', function (carousel) {
@@ -199,40 +390,253 @@
 
         var previous = element.querySelector('[data-g-carousel-prev]');
         var next = element.querySelector('[data-g-carousel-next]');
+        var status = element.querySelector('[data-g-carousel-status]');
+        var statusTemplate = status ? status.getAttribute('data-g-carousel-status') : '';
+
+        function off(control) {
+          return control.getAttribute('aria-disabled') === 'true';
+        }
+
+        function setOff(control, value) {
+          if (!control || off(control) === value) return;
+          if (value) {
+            control.setAttribute('aria-disabled', 'true');
+            if (document.activeElement !== control) control.setAttribute('tabindex', '-1');
+          } else {
+            control.removeAttribute('aria-disabled');
+            control.removeAttribute('tabindex');
+          }
+        }
 
         function page(direction) {
           var first = track.firstElementChild;
-          var step = first ? first.getBoundingClientRect().width + 16 : track.clientWidth;
-          track.scrollBy({
-            left: step * direction,
-            behavior: reduceMotion.matches ? 'auto' : 'smooth',
-          });
+          // The gap is the track's own: a rail at gap 6 used to be paged as
+          // though it were at gap 4, and drifted a little further per press.
+          var gap = parseFloat(window.getComputedStyle(track).columnGap) || 0;
+          var step = first ? first.getBoundingClientRect().width + gap : track.clientWidth;
+          track.scrollBy({left: step * direction * (isRtl(track) ? -1 : 1), behavior: scrollBehavior()});
         }
 
+        // Math.abs: a right-to-left track scrolls from 0 towards negative values.
         function sync() {
-          var atStart = track.scrollLeft <= 1;
-          var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
-          if (previous) previous.disabled = atStart;
-          if (next) next.disabled = atEnd;
+          var offset = Math.abs(track.scrollLeft);
+          setOff(previous, offset <= 1);
+          setOff(next, offset + track.clientWidth >= track.scrollWidth - 1);
+          element.toggleAttribute('data-g-carousel-fits', track.scrollWidth <= track.clientWidth + 1);
         }
 
-        if (previous) previous.addEventListener('click', function () { page(-1); });
-        if (next) next.addEventListener('click', function () { page(1); });
-        track.addEventListener('scroll', sync, {passive: true});
+        /** The first item at least half in view: the one the reader is on. */
+        function position() {
+          var items = track.children;
+          var view = track.getBoundingClientRect();
+          for (var i = 0; i < items.length; i++) {
+            var box = items[i].getBoundingClientRect();
+            var visible = Math.min(box.right, view.right) - Math.max(box.left, view.left);
+            if (box.width > 0 && visible >= box.width / 2) return i;
+          }
+          return 0;
+        }
+
+        var announced = position();
+        var settleTimer = 0;
+
+        // Only a reader who has touched the rail is told where it went: a
+        // browser restoring a scroll position on load is not news.
+        var engaged = false;
+        ['pointerdown', 'keydown', 'wheel', 'touchstart', 'focusin'].forEach(function (type) {
+          element.addEventListener(type, function () { engaged = true; }, {passive: true});
+        });
+
+        function settle() {
+          window.clearTimeout(settleTimer);
+          sync();
+          if (!status || !statusTemplate) return;
+          var index = position();
+          if (index === announced) return;
+          announced = index;
+          if (engaged) status.textContent = format(statusTemplate, [index + 1, track.children.length]);
+        }
+
+        [previous, next].forEach(function (control) {
+          if (!control) return;
+          control.addEventListener('click', function () {
+            if (!off(control)) page(control === next ? 1 : -1);
+          });
+          control.addEventListener('blur', function () {
+            if (off(control)) control.setAttribute('tabindex', '-1');
+          });
+        });
+
+        track.addEventListener('scroll', function () {
+          sync();
+          // scrollend where the browser has it, a quiet moment where it has not.
+          window.clearTimeout(settleTimer);
+          settleTimer = window.setTimeout(settle, 120);
+        }, {passive: true});
+        track.addEventListener('scrollend', settle);
         window.addEventListener('resize', sync);
+        if ('ResizeObserver' in window) {
+          // Images arriving late change what fits without resizing the window.
+          var observer = new ResizeObserver(sync);
+          observer.observe(track);
+          Array.prototype.forEach.call(track.children, function (item) { observer.observe(item); });
+        }
         sync();
       });
     });
   }
 
+  /* ----------------------------------------------------------- slideshow */
+  /*
+   * A slideshow works without script: its dots are fragment links and
+   * `:target` shows the slide. The runtime keeps the page still when a dot is
+   * used, keeps aria-current on the dot of the slide on show, and rotates the
+   * slides when the component asks for it — never under reduced motion,
+   * waiting while the slideshow is hovered, focused, off screen or in a
+   * background tab, and stopping for good once a visitor picks a slide.
+   */
+  function initSlideshows() {
+    each('[data-g-slideshow]', function (slideshow) {
+      bind(slideshow, 'Slideshow', function (element) {
+        var slides = Array.prototype.slice.call(element.querySelectorAll('[data-g-slide]'));
+        var dots = [];
+        var index = 0;
+        slides.forEach(function (slide, n) {
+          if (!slide.id) return;
+          if (window.location.hash === '#' + slide.id) index = n;
+          each('a[href="#' + slide.id + '"]', function (dot) {
+            dots.push({ dot: dot, index: n });
+          });
+        });
+
+        function show(n) {
+          index = (n + slides.length) % slides.length;
+          slides.forEach(function (slide, i) {
+            slide.toggleAttribute('data-active', i === index);
+            if (i === index) slide.removeAttribute('aria-hidden');
+            else slide.setAttribute('aria-hidden', 'true');
+          });
+          dots.forEach(function (entry) {
+            if (entry.index === index) entry.dot.setAttribute('aria-current', 'true');
+            else entry.dot.removeAttribute('aria-current');
+          });
+        }
+
+        show(index);
+        if (slides.length < 2) return;
+
+        var toggle = element.querySelector('[data-g-slideshow-toggle]');
+        var interval = parseInt(element.getAttribute('data-g-slideshow-interval') || '0', 10) * 1000;
+        var rotates = interval > 0 && toggle;
+        var region = element.closest('.astryx-overlay') || element;
+        var timer = 0;
+        var paused = reduceMotion.matches;
+        var holds = {};
+
+        function held() {
+          return Object.keys(holds).some(function (reason) { return holds[reason]; });
+        }
+
+        function schedule() {
+          window.clearTimeout(timer);
+          if (rotates && !paused && !held()) {
+            timer = window.setTimeout(function () {
+              show(index + 1);
+              schedule();
+            }, interval);
+          }
+        }
+
+        function setPaused(value) {
+          if (!rotates) return;
+          paused = value;
+          element.toggleAttribute('data-g-paused', paused);
+          toggle.setAttribute('aria-label', element.getAttribute(paused ? 'data-g-slideshow-play-label' : 'data-g-slideshow-pause-label') || '');
+          schedule();
+        }
+
+        function hold(reason, on) {
+          holds[reason] = on;
+          schedule();
+        }
+
+        dots.forEach(function (entry) {
+          entry.dot.addEventListener('click', function (event) {
+            event.preventDefault();
+            show(entry.index);
+            setPaused(true);
+          });
+        });
+
+        if (!rotates) return;
+
+        // Play means play now, although the pointer and the focus are still
+        // on the slideshow: the button lifts those holds until they recur.
+        toggle.addEventListener('click', function () {
+          holds.hover = false;
+          holds.focus = false;
+          setPaused(!paused);
+        });
+        region.addEventListener('focusin', function (event) {
+          hold('focus', event.target !== toggle);
+        });
+        region.addEventListener('focusout', function (event) {
+          if (!region.contains(event.relatedTarget)) hold('focus', false);
+        });
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+          region.addEventListener('pointerenter', function () { hold('hover', true); });
+          region.addEventListener('pointerleave', function () { hold('hover', false); });
+        }
+        document.addEventListener('visibilitychange', function () {
+          hold('page', document.hidden);
+        });
+        if ('IntersectionObserver' in window) {
+          holds.view = true;
+          new IntersectionObserver(function (entries) {
+            hold('view', !entries[entries.length - 1].isIntersecting);
+          }, { threshold: 0.35 }).observe(element);
+        }
+        setPaused(paused);
+      });
+    });
+  }
+
   /* -------------------------------------------------------------- dialog */
-  /* <dialog> handles focus trapping and Escape; it only needs opening. */
+  /*
+   * <dialog> handles focus trapping and Escape; it only needs opening.
+   *
+   * And quietening. A closed dialog is out of sight, not out of earshot: a
+   * film playing in one went on playing after Escape. So on close every
+   * <video> and <audio> inside is paused, and every iframe is parked — its
+   * address moved to data-g-src and the frame pointed at about:blank, which is
+   * the one way to stop a third-party player from outside. The address goes
+   * back when the dialog opens again, however it is opened.
+   */
+  function quieten(dialog) {
+    Array.prototype.forEach.call(dialog.querySelectorAll('video, audio'), function (media) {
+      if (!media.paused) media.pause();
+    });
+    Array.prototype.forEach.call(dialog.querySelectorAll('iframe'), function (frame) {
+      var source = frame.getAttribute('src');
+      if (!source || source === 'about:blank') return;
+      frame.setAttribute('data-g-src', source);
+      frame.setAttribute('src', 'about:blank');
+    });
+  }
+
+  function wake(dialog) {
+    Array.prototype.forEach.call(dialog.querySelectorAll('iframe[data-g-src]'), function (frame) {
+      frame.setAttribute('src', frame.getAttribute('data-g-src'));
+      frame.removeAttribute('data-g-src');
+    });
+  }
+
   function initDialogs() {
     each('[data-g-dialog-open]', function (button) {
       bind(button, 'DialogOpen', function (element) {
         element.addEventListener('click', function () {
           var dialog = document.getElementById(element.getAttribute('data-g-dialog-open'));
-          if (dialog && typeof dialog.showModal === 'function') dialog.showModal();
+          if (dialog && typeof dialog.showModal === 'function' && !dialog.open) dialog.showModal();
         });
       });
     });
@@ -243,6 +647,20 @@
           var dialog = element.closest('dialog');
           if (dialog) dialog.close();
         });
+      });
+    });
+
+    each('dialog', function (dialog) {
+      bind(dialog, 'DialogMedia', function (element) {
+        element.addEventListener('close', function () { quieten(element); });
+        // The open attribute is the one thing every way of opening a dialog
+        // sets — showModal(), show(), an invoker command or another script.
+        if ('MutationObserver' in window) {
+          new MutationObserver(function () {
+            if (element.open) wake(element);
+            else quieten(element);
+          }).observe(element, {attributes: true, attributeFilter: ['open']});
+        }
       });
     });
   }
@@ -651,15 +1069,112 @@
     });
   }
 
+  /* ---------------------------------------------------------------- copy */
+  /*
+   * A control carrying data-g-copy="<id>" copies the text of that element —
+   * a code listing, a licence key, an address. The clipboard API where the
+   * page is allowed it; otherwise the text is selected (and the old copy
+   * command tried), so Ctrl+C or a long press finishes the job.
+   *
+   * For two seconds afterwards the control carries data-g-copy-state —
+   * "copied", or "selected" when only the selection worked — which the
+   * stylesheet turns into a tick, and a polite live region beside it says the
+   * control's data-g-copied-label ("Copied" when none is given). Without the
+   * script the control does nothing, and the text is still there to select.
+   */
+  function initCopy() {
+    each('[data-g-copy]', function (control) {
+      bind(control, 'Copy', function (element) {
+        var region = liveRegion(element);
+        var timer = 0;
+
+        function finish(state) {
+          element.setAttribute('data-g-copy-state', state);
+          if (state === 'copied') announce(region, element.getAttribute('data-g-copied-label') || 'Copied');
+          window.clearTimeout(timer);
+          timer = window.setTimeout(function () { element.removeAttribute('data-g-copy-state'); }, 2000);
+        }
+
+        function selectSource(source) {
+          var selection = window.getSelection();
+          var range = document.createRange();
+          range.selectNodeContents(source);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          var copied = false;
+          try {
+            copied = document.execCommand('copy');
+          } catch (error) {
+            copied = false;
+          }
+          if (copied) selection.removeAllRanges();
+          finish(copied ? 'copied' : 'selected');
+        }
+
+        element.addEventListener('click', function () {
+          var target = document.getElementById(element.getAttribute('data-g-copy') || '');
+          if (!target) return;
+          // The listing itself, not the indentation a template wrote around
+          // its <pre>; and without the newline before </code>, so a pasted
+          // command does not run on its own.
+          var source = target.matches('pre, code') ? target : (target.querySelector('pre') || target.querySelector('code') || target);
+          var text = source.textContent.replace(/\n$/, '');
+
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(
+              function () { finish('copied'); },
+              function () { selectSource(source); }
+            );
+          } else {
+            selectSource(source);
+          }
+        });
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------- compare */
+  /*
+   * A before/after pair with a range input in it. The pair is marked
+   * data-g-compare-ready once bound, which is when the stylesheet shows the
+   * slider at all, and --g-compare follows the thumb as a percentage of the
+   * range, ready for a clip-path to read.
+   */
+  function initCompare() {
+    each('[data-g-compare]', function (pair) {
+      bind(pair, 'Compare', function (element) {
+        var input = element.querySelector('input[type="range"]');
+        if (!input) return;
+
+        function update() {
+          var min = parseFloat(input.min);
+          var max = parseFloat(input.max);
+          if (isNaN(min)) min = 0;
+          if (isNaN(max)) max = 100;
+          var value = parseFloat(input.value);
+          var share = max > min && !isNaN(value) ? (value - min) / (max - min) * 100 : 50;
+          element.style.setProperty('--g-compare', Math.min(100, Math.max(0, share)) + '%');
+        }
+
+        input.addEventListener('input', update);
+        update();
+        element.setAttribute('data-g-compare-ready', '');
+      });
+    });
+  }
+
   function init() {
     initSchemeToggles();
     initMenus();
     initDismiss();
     initTabs();
     initCarousels();
+    initSlideshows();
     initDialogs();
     initHeaderSearch();
     initSuggest();
+    initCopy();
+    initCompare();
   }
 
   if (document.readyState === 'loading') {

@@ -101,6 +101,55 @@
   line-height: 1.2;
 }
 
+/* A token that is a link — a filter, a tag to browse by — behaves like one:
+   no underline, the shared hover overlay where a pointer hovers, a focus
+   ring. */
+a.astryx-token {
+  text-decoration: none;
+  transition-property: background-color, color, box-shadow;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.astryx-token:hover {
+    background-image: linear-gradient(var(--color-overlay-hover), var(--color-overlay-hover));
+  }
+}
+
+a.astryx-token:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* The chosen token (the active filter) says so three ways — tint, outline and
+   weight — so it never depends on colour alone. */
+.astryx-token[data-selected="selected"] {
+  background-color: var(--color-accent-muted);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+  color: var(--color-text-accent, var(--color-text-primary));
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-token[data-size="sm"] {
+  padding-block: var(--spacing-0-5);
+  padding-inline: var(--spacing-1-5);
+}
+
+/* On a card the muted fill can be the card's own colour (neutral, dark), and
+   the chips vanished. There the token takes the translucent neutral wash,
+   which reads on any surface. */
+:where(.astryx-card, .astryx-clickable-card, .astryx-selectable-card) .astryx-token:not([data-selected="selected"]) {
+  background-color: var(--color-neutral);
+}
+
+/* A finger needs more than a 24px pill. */
+@media (pointer: coarse) {
+  a.astryx-token {
+    min-block-size: 2.75rem;
+  }
+}
+
 /* ------------------------------------------------------------ StatusDot */
 .astryx-status-dot {
   display: inline-block;
@@ -126,12 +175,31 @@
   padding: var(--spacing-4);
   border-radius: var(--radius-element);
   background-color: var(--color-background-muted);
+  /* A hairline keeps the box when the band behind it is the same muted tone
+     (or the body is, in themes where the two are nearly equal). */
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
   color: var(--color-text-primary);
   font-size: var(--text-body-size);
   line-height: var(--text-body-leading);
 }
 
-.astryx-banner > svg {
+.astryx-section[data-surface="muted"] .astryx-banner {
+  background-color: var(--color-background-surface);
+}
+
+/* A one-line strip — an inline CTA, an offer, a short callout — in a box that
+   does not make a sentence look like a panel. `tight` is Card's word for the
+   same thing and is accepted here too. */
+.astryx-banner[data-density="compact"],
+.astryx-banner[data-density="tight"] {
+  gap: var(--spacing-2);
+  padding-block: var(--spacing-2);
+  padding-inline: var(--spacing-3);
+}
+
+/* The glyph is either a bare svg or Atom/Icon's box around one; the icon slot
+   gets both, and both need the same nudge. */
+.astryx-banner > :where(svg, .astryx-icon) {
   flex-shrink: 0;
   inline-size: var(--spacing-5);
   block-size: var(--spacing-5);
@@ -140,6 +208,42 @@
      which is on no step of the scale — the design review reported it once per
      banner on the site, 118 times in a single run. */
   margin-block-start: var(--spacing-0-5);
+}
+
+/*
+ * Below 480px the icon goes above the message. Beside it, a 20px glyph and its
+ * gap took a sixth of a 320px line, and the title wrapped onto four lines.
+ *
+ * A grid rather than a wrapping flex row, because the dismiss control has to
+ * stay in the top corner: the icon and the dismiss button share the first row,
+ * and the message takes the full width under them. Without an icon the message
+ * is the first row and the dismiss button sits beside it, as it does wider.
+ */
+@media (max-width: 480px) {
+  .astryx-banner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .astryx-banner > * {
+    grid-column: 1 / -1;
+  }
+
+  .astryx-banner > :where(svg, .astryx-icon) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .astryx-banner > .astryx-banner-dismiss {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* No icon to share the first row with: the message sits beside the button. */
+  .astryx-banner:not(:has(> :where(svg, .astryx-icon))):has(> .astryx-banner-dismiss) > :not(.astryx-banner-dismiss) {
+    grid-column: 1;
+  }
 }
 
 .astryx-banner[data-status="info"] {
@@ -162,9 +266,23 @@
   color: var(--color-text-red);
 }
 
+/* A banner title names a note, not a section: the banner's own size and
+   family, one weight heavier. Every part of that is stated, because the title
+   is an h2 to h6 and the theme's reset layer sizes those by level — an h2 here
+   came out at 25px and four lines deep on a phone. */
 .astryx-banner-title {
+  font-family: inherit;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-leading);
   font-weight: var(--font-weight-semibold);
+  color: inherit;
   margin: 0 0 var(--spacing-1);
+}
+
+/* One step up, for a banner that is the only thing in its band. */
+.astryx-banner-title[data-size="lg"] {
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
 }
 
 .astryx-banner-body {
@@ -178,7 +296,16 @@
 
 /* The dismiss control keeps its own colour so it never competes with the
    message tone. */
+.astryx-banner-dismiss > svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
 .astryx-banner-dismiss {
+  display: inline-grid;
+  place-items: center;
+  min-inline-size: var(--spacing-6);
+  min-block-size: var(--spacing-6);
   flex-shrink: 0;
   background: none;
   border: 0;
@@ -192,5 +319,14 @@
 @media (hover: hover) {
   .astryx-banner-dismiss:hover {
     opacity: 1;
+  }
+}
+
+/* On a touch screen the close control is a 44px target like every button;
+   the glyph stays 16px in the middle of it. */
+@media (pointer: coarse) {
+  .astryx-banner-dismiss {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
   }
 }

@@ -50,7 +50,7 @@
         <div class="astryx-toast-actions">
             <f:slot name="actions" />
             <f:if condition="{dismissLabel}">
-                <button type="button" class="astryx-icon-button" data-variant="ghost" data-size="sm" data-g-dismiss aria-label="{dismissLabel}">
+                <button type="button" class="astryx-icon-button" data-variant="ghost" data-size="sm" data-g-dismiss{g:attribute(name: 'aria-label', value: dismissLabel)}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
                     </svg>

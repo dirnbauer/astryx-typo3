@@ -24,11 +24,11 @@
 <f:if condition="{id}">
     <f:then>
         <f:switch expression="{level}">
-            <f:case value="2"><h2 id="{id}" class="astryx-card-title {class}"><f:slot /></h2></f:case>
-            <f:case value="4"><h4 id="{id}" class="astryx-card-title {class}"><f:slot /></h4></f:case>
-            <f:case value="5"><h5 id="{id}" class="astryx-card-title {class}"><f:slot /></h5></f:case>
-            <f:case value="6"><h6 id="{id}" class="astryx-card-title {class}"><f:slot /></h6></f:case>
-            <f:defaultCase><h3 id="{id}" class="astryx-card-title {class}"><f:slot /></h3></f:defaultCase>
+            <f:case value="2"><h2{g:attribute(name: 'id', value: id)} class="astryx-card-title {class}"><f:slot /></h2></f:case>
+            <f:case value="4"><h4{g:attribute(name: 'id', value: id)} class="astryx-card-title {class}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5{g:attribute(name: 'id', value: id)} class="astryx-card-title {class}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6{g:attribute(name: 'id', value: id)} class="astryx-card-title {class}"><f:slot /></h6></f:case>
+            <f:defaultCase><h3{g:attribute(name: 'id', value: id)} class="astryx-card-title {class}"><f:slot /></h3></f:defaultCase>
         </f:switch>
     </f:then>
     <f:else>

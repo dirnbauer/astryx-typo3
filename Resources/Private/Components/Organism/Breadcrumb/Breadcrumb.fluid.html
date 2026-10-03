@@ -27,7 +27,7 @@
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<nav class="astryx-breadcrumb {class}" aria-label="{ariaLabel}">
+<nav class="astryx-breadcrumb {class}"{g:attribute(name: 'aria-label', value: ariaLabel)}>
     <a:layout.container>
         <ol class="astryx-breadcrumb__list">
             <f:for each="{items}" as="item" iteration="i">

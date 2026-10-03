@@ -12,40 +12,51 @@
     header cells are; a `th` at the start of a body row is `scope="row"`, and
     that is the one case a caller has to remember.
 
+    A row header looks like the body cells beside it — body size, body weight,
+    the primary text colour — rather than like a column heading. It names its
+    row, and set in the small secondary label style a column of them read as a
+    second header row turned on its side; five pricing tables wrapped every row
+    header in a Text atom to undo that. The `th` and its scope are what tell a
+    screen reader it is a header; the eye needs no second signal.
+
     `colgroup` and `rowgroup` exist for the two-level headings, and once a table
     needs those it usually needs TableCell's `headers` instead — the two-level
     case is exactly where scope stops being expressive enough. `id` is here for
     that: it is what a cell's `headers` points at.
 
     There is no `abbr` argument, which is a decision rather than an oversight.
-    Every other attribute here is emitted whether or not it is set, on the
-    grounds that an empty value is inert; `abbr` is the one where that is not
-    safe, because a reader that honours it at all substitutes it for the
-    heading, and substituting an empty string would silence the column. A
-    heading short enough to be repeated in front of every cell is the better
-    fix anyway.
+    A reader that honours `abbr` substitutes it for the heading in front of
+    every cell, so an abbreviation that is wrong or empty silences the column.
+    A heading short enough to be repeated in front of every cell is the better
+    fix anyway. `colspan` and `rowspan` are written only when they are set.
 
-    The size, weight and colour of a header cell are already in the stylesheet
-    for both spellings — `.astryx-table :where(thead th)` and
+    `emphasis="accent"` is TableCell's: the header cell of the column a
+    comparison is arguing for, tinted with the rest of that column's cells and
+    its label in the accent text colour.
+
+    The size, weight and colour of a column header are already in the
+    stylesheet for both spellings — `.astryx-table :where(thead th)` and
     `.astryx-table-header-cell` — so a bare `th` inside Table's `head` slot and
     this component look the same. The difference is that this one can carry its
-    own `data-bordered`, `data-truncate` and `data-wrap`.
+    own `data-bordered`, `data-truncate`, `data-wrap` and `data-emphasis`.
 </f:comment>
 
 <f:argument name="scope" type="string" optional="{true}" default="col" />
 <f:argument name="bordered" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="truncate" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="wrap" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="emphasis" type="string" optional="{true}" default="default" />
 <f:argument name="colspan" type="string" optional="{true}" default="" />
 <f:argument name="rowspan" type="string" optional="{true}" default="" />
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <th
-    class="astryx-table-header-cell {class}" id="{id}"
+    class="astryx-table-header-cell {class}"{g:attribute(name: 'id', value: id)}
     scope="{scope}"
-    colspan="{colspan}"
-    rowspan="{rowspan}"
+   {g:attribute(name: 'colspan', value: colspan)}
+   {g:attribute(name: 'rowspan', value: rowspan)}
     data-bordered="{f:if(condition: bordered, then: 'bordered', else: 'false')}"
     data-truncate="{f:if(condition: truncate, then: 'truncate', else: 'false')}"
-    data-wrap="{f:if(condition: wrap, then: 'wrap', else: 'false')}"><f:slot /></th>
+    data-wrap="{f:if(condition: wrap, then: 'wrap', else: 'false')}"
+    data-emphasis="{emphasis}"><f:slot /></th>

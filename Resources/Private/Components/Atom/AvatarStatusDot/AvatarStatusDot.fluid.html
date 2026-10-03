@@ -31,7 +31,7 @@
             class="astryx-avatar-status-dot {class}"
             data-variant="{variant}"
             role="img"
-            aria-label="{ariaLabel}"><f:if condition="{f:slot() -> f:format.trim()}"><span class="astryx-avatar-status-dot-glyph"><f:slot /></span></f:if></span>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot() -> f:format.trim()}"><span class="astryx-avatar-status-dot-glyph"><f:slot /></span></f:if></span>
     </f:then>
     <f:else>
         <span

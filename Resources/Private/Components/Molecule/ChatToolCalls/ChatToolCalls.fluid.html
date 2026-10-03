@@ -35,7 +35,7 @@
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<ol class="astryx-chat-tool-calls {class}" role="list" aria-label="{ariaLabel}">
+<ol class="astryx-chat-tool-calls {class}" role="list"{g:attribute(name: 'aria-label', value: ariaLabel)}>
     <f:if condition="{calls}">
         <f:then>
             <f:for each="{calls}" as="call">

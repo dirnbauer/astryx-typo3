@@ -24,4 +24,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<li class="astryx-chat-system-message {class}" id="{id}" data-status="{status}"><f:slot /></li>
+<li class="astryx-chat-system-message {class}"{g:attribute(name: 'id', value: id)} data-status="{status}"><f:slot /></li>

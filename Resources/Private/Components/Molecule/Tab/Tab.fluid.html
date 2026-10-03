@@ -25,6 +25,6 @@
     class="astryx-tab {class}"
     role="tab"
     data-g-tab
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     aria-controls="{controls}"
     aria-selected="{f:if(condition: selected, then: 'true', else: 'false')}"><f:slot /></button>

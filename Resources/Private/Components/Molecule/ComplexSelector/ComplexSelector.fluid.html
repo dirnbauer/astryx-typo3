@@ -31,7 +31,7 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <details
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     class="astryx-complex-selector {class}"
     data-status="{status}"
-    {f:if(condition: open, then: 'open')}><summary class="astryx-complex-selector-trigger" aria-label="{ariaLabel}" aria-describedby="{describedBy}"><span class="astryx-complex-selector-value">{summaryLabel}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="astryx-complex-selector-panel"><f:slot /></div></details>
+    {f:if(condition: open, then: 'open')}><summary class="astryx-complex-selector-trigger"{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'aria-describedby', value: describedBy)}><span class="astryx-complex-selector-value">{summaryLabel}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="astryx-complex-selector-panel"><f:slot /></div></details>

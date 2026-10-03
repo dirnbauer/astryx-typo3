@@ -35,11 +35,11 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     popover
     class="astryx-dropdown-menu {class}"
     role="{f:if(condition: '{type} == \'menu\'', then: 'menu')}"
-    aria-label="{ariaLabel}"
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
     data-type="{type}"
     data-placement="{placement}"
     data-width="{width}"><f:slot /></div>

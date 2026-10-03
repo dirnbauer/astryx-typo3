@@ -31,9 +31,9 @@
 <div class="astryx-dialog-header {class}">
     <f:if condition="{title}">
         <f:switch expression="{titleLevel}">
-            <f:case value="3"><h3 class="astryx-dialog-title" id="{titleId}">{title}</h3></f:case>
-            <f:case value="4"><h4 class="astryx-dialog-title" id="{titleId}">{title}</h4></f:case>
-            <f:defaultCase><h2 class="astryx-dialog-title" id="{titleId}">{title}</h2></f:defaultCase>
+            <f:case value="3"><h3 class="astryx-dialog-title"{g:attribute(name: 'id', value: titleId)}>{title}</h3></f:case>
+            <f:case value="4"><h4 class="astryx-dialog-title"{g:attribute(name: 'id', value: titleId)}>{title}</h4></f:case>
+            <f:defaultCase><h2 class="astryx-dialog-title"{g:attribute(name: 'id', value: titleId)}>{title}</h2></f:defaultCase>
         </f:switch>
     </f:if>
 

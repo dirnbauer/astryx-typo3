@@ -1,0 +1,83 @@
+<f:comment>
+    Price — an amount, what period it is for, and the price it replaces.
+
+    Eight pricing elements built this line by hand, and the part they each had
+    to remember is the part a reader never sees: a struck-through number is
+    read out by a screen reader as just another number, so "€ 59 € 39 per
+    month" sounds like two prices and no offer. When there is a former price,
+    each figure is preceded by a visually hidden label — "Regular price",
+    "Current price" by default, in the site's language — and the former one is
+    an `<s>`, the element for something that is no longer accurate.
+
+    The parts are named slots as well as arguments, and the slot wins, as on
+    SectionIntro: a slot carries the markup f:render.text returns, which is
+    what makes a price editable on the page; a string argument would arrive
+    escaped. The amount may also be the default slot when no part is named.
+
+      amount   the price, at a display size and in tabular digits
+      period   after it on its baseline: "/ month", "per seat", "one-off"
+      former   the price it replaces, struck through, before the amount
+
+    `size` sets the amount — `sm` display-3, `md` display-2, `lg` display-1 —
+    and the others follow it down the scale: the former price one display step
+    smaller, so the saving still reads at a glance, and the period at the large
+    text size (the label size beside a small amount). `align`
+    centres the line (`center`) for a centred plan card. `as="div"` is for a
+    price inside something that cannot hold a paragraph; the default is a `p`,
+    because a price is a sentence: "€ 39 per month".
+
+    `formerLabel` and `currentLabel` replace the hidden labels, for a former
+    price that is not a regular one: "Bought separately", "Launch price".
+</f:comment>
+
+<f:argument name="amount" type="mixed" optional="{true}" default="" />
+<f:argument name="period" type="mixed" optional="{true}" default="" />
+<f:argument name="former" type="mixed" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="align" type="string" optional="{true}" default="start" />
+<f:argument name="as" type="string" optional="{true}" default="p" />
+<f:argument name="formerLabel" type="string" optional="{true}" default="" />
+<f:argument name="currentLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:switch expression="{size}">
+    <f:case value="sm"><f:variable name="amountType" value="display-3" /><f:variable name="formerType" value="large" /><f:variable name="sideType" value="label" /></f:case>
+    <f:case value="lg"><f:variable name="amountType" value="display-1" /><f:variable name="formerType" value="display-2" /><f:variable name="sideType" value="large" /></f:case>
+    <f:defaultCase><f:variable name="amountType" value="display-2" /><f:variable name="formerType" value="display-3" /><f:variable name="sideType" value="large" /></f:defaultCase>
+</f:switch>
+
+<f:variable name="formerFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:component.price.former" default="Regular price"/></f:variable>
+<f:variable name="currentFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:component.price.current" default="Current price"/></f:variable>
+<f:variable name="formerName" value="{f:if(condition: formerLabel, then: formerLabel, else: formerFallback)}" />
+<f:variable name="currentName" value="{f:if(condition: currentLabel, then: currentLabel, else: currentFallback)}" />
+
+<f:comment>Whether there is a former price decides whether the amounts need their hidden labels.</f:comment>
+<f:variable name="hasFormer" value="0" />
+<f:if condition="{former}"><f:variable name="hasFormer" value="1" /></f:if>
+<f:if condition="{f:slot(name: 'former') -> f:format.trim()}"><f:variable name="hasFormer" value="1" /></f:if>
+
+<f:variable name="parts">
+    <f:if condition="{hasFormer}">
+        <span class="astryx-price-former">
+            <a:atom.visuallyHidden>{formerName}</a:atom.visuallyHidden>
+            <a:atom.text type="{formerType}" color="secondary" as="span" class="astryx-price-former-amount"><s><f:if condition="{f:slot(name: 'former') -> f:format.trim()}"><f:then><f:slot name="former" /></f:then><f:else>{former}</f:else></f:if></s></a:atom.text>
+        </span>
+    </f:if>
+    <span class="astryx-price-current">
+        <f:if condition="{hasFormer}"><a:atom.visuallyHidden>{currentName}</a:atom.visuallyHidden></f:if>
+        <f:if condition="{f:slot(name: 'amount') -> f:format.trim()}">
+            <f:then><a:atom.text type="{amountType}" as="span" class="astryx-price-amount"><f:slot name="amount" /></a:atom.text></f:then>
+            <f:else if="{f:slot() -> f:format.trim()}"><a:atom.text type="{amountType}" as="span" class="astryx-price-amount"><f:slot /></a:atom.text></f:else>
+            <f:else><a:atom.text type="{amountType}" as="span" class="astryx-price-amount">{amount}</a:atom.text></f:else>
+        </f:if>
+        <f:if condition="{f:slot(name: 'period') -> f:format.trim()}">
+            <f:then><a:atom.text type="{sideType}" color="secondary" as="span" class="astryx-price-period"><f:slot name="period" /></a:atom.text></f:then>
+            <f:else if="{period}"><a:atom.text type="{sideType}" color="secondary" as="span" class="astryx-price-period">{period}</a:atom.text></f:else>
+        </f:if>
+    </span>
+</f:variable>
+
+<f:if condition="{as} == 'div'">
+    <f:then><div class="astryx-price {class}" data-size="{size}" data-align="{align}"><f:format.raw>{parts}</f:format.raw></div></f:then>
+    <f:else><p class="astryx-price {class}" data-size="{size}" data-align="{align}"><f:format.raw>{parts}</f:format.raw></p></f:else>
+</f:if>

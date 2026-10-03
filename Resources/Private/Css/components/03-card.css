@@ -9,6 +9,12 @@
 
 .astryx-card {
   --card-padding: var(--spacing-6);
+  /* The featured ring rides in front of whatever shadow the card has. Hover
+     swaps the shadow and the flat variant has none, so a ring written as the
+     shadow itself was lost the moment a pointer came near the card; as a
+     layer of its own it survives both. Zero and transparent when the card is
+     not featured. */
+  --_card-ring: 0 0 0 0 transparent;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
@@ -16,16 +22,29 @@
   background-color: var(--color-background-card);
   color: var(--color-text-primary);
   border-radius: var(--radius-container, var(--radius-element));
-  box-shadow: var(--shadow-low);
+  box-shadow: var(--_card-ring), var(--shadow-low);
 }
 
 .astryx-card[data-variant="flat"] {
-  box-shadow: none;
+  box-shadow: var(--_card-ring);
   border: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
 }
 
 .astryx-card[data-variant="raised"] {
-  box-shadow: var(--shadow-med);
+  box-shadow: var(--_card-ring), var(--shadow-med);
+}
+
+/* The recommended plan. An outer ring rather than a border, so a featured card
+   in a row is exactly as big as its neighbours and its media still bleeds to
+   the edge. */
+.astryx-card[data-featured="yes"] {
+  --_card-ring: 0 0 0 2px var(--color-accent);
+}
+
+/* On an accent band the accent ring would be the band's own colour. The band
+   shows through as a gap and the ring is drawn outside it in the band's ink. */
+.astryx-section[data-surface="accent"] .astryx-card[data-featured="yes"] {
+  --_card-ring: 0 0 0 2px var(--color-accent), 0 0 0 4px var(--color-on-accent);
 }
 
 .astryx-card[data-density="tight"] {
@@ -45,6 +64,29 @@
 .astryx-card[data-media="top"] > :first-child {
   margin-inline: calc(var(--card-padding) * -1);
   margin-block-end: var(--spacing-2);
+  /* The negative margins only widen a box that has no width of its own; a
+     picture keeps `width: 100%` and stopped one padding short on the right. */
+  inline-size: calc(100% + 2 * var(--card-padding));
+  max-inline-size: none;
+}
+
+/* The card clips its media to its own top corners; the media's own radius
+   would leave rounded corners at the bottom edge, inside the card. */
+.astryx-card[data-media="top"] > :first-child,
+.astryx-card[data-media="top"] > :first-child :where(img, picture, video) {
+  border-radius: 0;
+}
+
+/* Content aligned to the end: the card's text and actions sit at the far
+   edge, as the argument always promised. */
+.astryx-card[data-align="center"] {
+  text-align: center;
+  align-items: center;
+}
+
+.astryx-card[data-align="end"] {
+  text-align: end;
+  align-items: flex-end;
 }
 
 .astryx-card > img,
@@ -96,9 +138,12 @@
   outline-offset: 3px;
 }
 
-@media (hover: hover) {
+/* Both states keep the featured ring in front of the shadow they swap in. On a
+   ClickableCard that wraps something other than a card there is no ring, and
+   the fallback is the empty one. */
+@media (hover: hover) and (pointer: fine) {
   .astryx-clickable-card:hover {
-    box-shadow: var(--shadow-med);
+    box-shadow: var(--_card-ring, 0 0 0 0 transparent), var(--shadow-med);
   }
 }
 
@@ -108,7 +153,7 @@
  * and the next page arriving.
  */
 .astryx-clickable-card:active {
-  box-shadow: var(--shadow-low);
+  box-shadow: var(--_card-ring, 0 0 0 0 transparent), var(--shadow-low);
   transform: var(--card-press-scale, scale(0.995));
 }
 
@@ -161,20 +206,61 @@
   gap: var(--spacing-3);
 }
 
+/* The tile never shrinks: beside a long title in a flex row it used to be
+   squeezed into an oblong, and ten elements carried a `flex-shrink: 0` (or a
+   `flex: none`) of their own to stop it. */
 .astryx-feature-icon {
   display: inline-flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   inline-size: var(--spacing-10);
   block-size: var(--spacing-10);
   border-radius: var(--radius-element);
   background-color: var(--color-accent-muted);
+  /* The tint can equal a muted band (neutral, light); a hairline keeps the
+     tile. A number in it is set like a figure. */
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
   color: var(--color-icon-accent);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
 }
 
 .astryx-feature-icon > svg {
   inline-size: var(--spacing-5);
   block-size: var(--spacing-5);
+}
+
+/* The small tile, for rows where the 40px square outweighs the line beside it:
+   a contact channel, a footer note, a short benefit. */
+.astryx-feature-icon[data-size="sm"] {
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+}
+
+.astryx-feature-icon[data-size="sm"] > svg {
+  inline-size: var(--spacing-4);
+  block-size: var(--spacing-4);
+}
+
+/*
+ * On an accent band the tile is accent on accent and the glyph is the accent
+ * colour too — the band redefines the text tokens, but the tile is drawn from
+ * the accent ones, so both vanished (a hotline band showed an empty rounded
+ * square). There the tile takes the band's own translucent wash, which the
+ * band defines as its --color-neutral, and the glyph takes the band's ink.
+ *
+ * A tile inside a surface on the band — a card, a banner — sits on the page's
+ * colours again and keeps its ordinary accent tile; the list of surfaces is
+ * the one the band's own token reset in 00-primitives.css uses.
+ */
+.astryx-section[data-surface="accent"] .astryx-feature-icon:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *) {
+  background-color: var(--color-neutral);
+  color: var(--color-on-accent);
 }
 
 /* ----------------------------------------------------------- EmptyState */

@@ -8,13 +8,43 @@
     about themselves.
 
     The accent rule down the inline start edge is the quotation mark. There is
-    no decorative glyph, so a quote still reads as a quote when the stylesheet
-    fails and when it is copied into plain text.
+    no decorative glyph by default, so a quote still reads as a quote when the
+    stylesheet fails and when it is copied into plain text.
+
+    A bare paragraph inside takes the quote's voice: its size, face, weight and
+    colour, and no margins of its own. A Text atom inside keeps the type it was
+    given.
+
+    `size` is a scale, each step a clear move up from the last:
+      default   the large step at body weight — one quote among several
+      lg        the large step at its own weight — a featured quote
+      xl        the heading face at the third heading size, balanced — a
+                pull quote; `large` is the older name for the same step
+      display   the third display step, balanced and fluid on a phone — a
+                quote that is the whole band
+
+    `variant="plain"` drops the accent rule and its indent, for a quote that
+    already sits apart — on a card, under a portrait, alone in a band.
+
+    `marks="auto"` sets the quotation marks around the words, drawn by the
+    stylesheet in the marks of the page's language: “…” in English, „…“ in
+    German, «…» in French. The marks follow the `lang` of the page or of any
+    ancestor, so a translated page needs nothing from the template, and they
+    stay out of the editable text, where an editor would type them a second
+    time. They mark the first and the last paragraph of the quote, or the
+    quote's own text when it has no paragraph.
+
+    `data-variant` and `data-marks` are written only when they are asked for.
 </f:comment>
 
 <f:argument name="size" type="string" optional="{true}" default="default" />
+<f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="marks" type="string" optional="{true}" default="none" />
 <f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:variable name="variantValue" value="{f:if(condition: '{variant} != \'default\'', then: variant)}" />
+<f:variable name="marksValue" value="{f:if(condition: '{marks} != \'none\'', then: marks)}" />
 
 <blockquote
     class="astryx-blockquote {class}"
-    data-size="{size}"><f:slot /></blockquote>
+    data-size="{size}"{g:attribute(name: 'data-variant', value: variantValue)}{g:attribute(name: 'data-marks', value: marksValue)}><f:slot /></blockquote>

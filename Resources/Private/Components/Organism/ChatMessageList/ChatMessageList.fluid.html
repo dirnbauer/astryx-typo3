@@ -40,7 +40,7 @@
 
 <ol
     class="astryx-chat-message-list {class}"
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     data-density="{density}"
     role="list"
-    aria-label="{ariaLabel}"><f:slot /></ol>
+   {g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></ol>

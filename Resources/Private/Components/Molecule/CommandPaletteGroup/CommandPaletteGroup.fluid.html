@@ -29,8 +29,8 @@
 <li
     class="astryx-command-palette-group {class}"
     role="group"
-    aria-labelledby="{headingId}"
-    aria-label="{ariaLabel}">
+   {g:attribute(name: 'aria-labelledby', value: headingId)}
+   {g:attribute(name: 'aria-label', value: ariaLabel)}>
     <f:if condition="{heading}">
         <span class="astryx-command-palette-group-label" id="{id}-label">{heading}</span>
     </f:if>

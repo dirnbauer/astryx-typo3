@@ -1,0 +1,108 @@
+<f:comment>
+    Stat — one figure and what it counts: "98 %", "uptime", "over the last
+    twelve months".
+
+    Nine elements built this by hand from two or three Text atoms and a few
+    lines of their own CSS each, and every one of them made the same two
+    decisions, which are the reason this is a component:
+
+      - it is a description list group. The label is the term and the figure
+        is its description, in that order in the source, so the pair survives
+        being read out of context; a list of stats announced as loose text has
+        no count and no pairing.
+      - it reads figure first. The figure is what the eye is meant to land on,
+        so it is moved above its label on screen while the source keeps the
+        term first.
+
+    `as="div"` (the default) is the group for a parent description list — a
+    Grid or a MetadataList rendered as a `dl`, holding one Stat per figure.
+    `as="dl"` makes the stat a description list of its own, for a stat that
+    stands alone: in a card, beside a quote, in a band of one.
+
+    The four parts are named slots as well as arguments, and the slot wins, as
+    on SectionIntro: a slot carries the markup f:render.text returns, which is
+    what makes the part editable on the page; a string argument would arrive
+    escaped. `value` may also be the default slot when no part is named.
+
+      value   the figure, at a display size and in tabular digits
+      unit    after the figure on its baseline: "%", "ms", "per month"
+      label   the term: what the figure counts
+      note    a quieter line under the label: the period, the source
+
+    `size` sets the figure — `sm` display-3, `md` display-2, `lg` display-1 —
+    and the unit follows it. `color="accent"` sets the figure in the accent
+    text colour. `align="center"` centres the stat. `rule="top"` draws a
+    hairline above it, the way a row of figures is ruled off from the copy
+    above it; with two columns a rule between figures would land in the middle
+    of the band, so the rule belongs to each figure instead.
+</f:comment>
+
+<f:argument name="value" type="mixed" optional="{true}" default="" />
+<f:argument name="unit" type="mixed" optional="{true}" default="" />
+<f:argument name="label" type="mixed" optional="{true}" default="" />
+<f:argument name="note" type="mixed" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="color" type="string" optional="{true}" default="default" />
+<f:argument name="align" type="string" optional="{true}" default="start" />
+<f:argument name="rule" type="string" optional="{true}" default="none" />
+<f:argument name="as" type="string" optional="{true}" default="div" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<f:switch expression="{size}">
+    <f:case value="sm"><f:variable name="valueType" value="display-3" /><f:variable name="unitType" value="label" /></f:case>
+    <f:case value="lg"><f:variable name="valueType" value="display-1" /><f:variable name="unitType" value="large" /></f:case>
+    <f:defaultCase><f:variable name="valueType" value="display-2" /><f:variable name="unitType" value="large" /></f:defaultCase>
+</f:switch>
+
+<f:comment>
+    Every part is tested against the empty string, never for truth: a figure
+    of "0" is a figure ("0 incidents"), and Fluid reads "0" as false.
+
+    Without a label there is no term, and a `dd` without its `dt` is invalid:
+    the stat is then a paragraph of spans — `as="dl"` becomes a `p`, the
+    figure and the note are spans. As the group in a parent description list
+    (`as="div"`) a stat needs its label; the parent list is the caller's.
+</f:comment>
+<f:variable name="hasLabel" value="0" />
+<f:if condition="{f:slot(name: 'label') -> f:format.trim()} != ''"><f:variable name="hasLabel" value="1" /></f:if>
+<f:if condition="{label} != ''"><f:variable name="hasLabel" value="1" /></f:if>
+<f:variable name="noteAs" value="{f:if(condition: hasLabel, then: 'dd', else: 'span')}" />
+
+<f:comment>The four parts, rendered once and placed by the shapes below.</f:comment>
+<f:variable name="figure">
+    <f:if condition="{f:slot(name: 'value') -> f:format.trim()} != ''">
+        <f:then><a:atom.text type="{valueType}" color="{color}" as="span" class="astryx-stat-value"><f:slot name="value" /></a:atom.text></f:then>
+        <f:else if="{f:slot() -> f:format.trim()} != ''"><a:atom.text type="{valueType}" color="{color}" as="span" class="astryx-stat-value"><f:slot /></a:atom.text></f:else>
+        <f:else><a:atom.text type="{valueType}" color="{color}" as="span" class="astryx-stat-value">{value}</a:atom.text></f:else>
+    </f:if>
+    <f:if condition="{f:slot(name: 'unit') -> f:format.trim()} != ''">
+        <f:then><a:atom.text type="{unitType}" color="secondary" as="span" class="astryx-stat-unit"><f:slot name="unit" /></a:atom.text></f:then>
+        <f:else if="{unit} != ''"><a:atom.text type="{unitType}" color="secondary" as="span" class="astryx-stat-unit">{unit}</a:atom.text></f:else>
+    </f:if>
+</f:variable>
+<f:variable name="parts">
+    <f:if condition="{hasLabel}">
+        <f:if condition="{f:slot(name: 'label') -> f:format.trim()} != ''">
+            <f:then><a:atom.text type="label" color="secondary" as="dt" class="astryx-stat-label"><f:slot name="label" /></a:atom.text></f:then>
+            <f:else><a:atom.text type="label" color="secondary" as="dt" class="astryx-stat-label">{label}</a:atom.text></f:else>
+        </f:if>
+    </f:if>
+    <f:if condition="{hasLabel}">
+        <f:then><dd class="astryx-stat-figure"><f:format.raw>{figure}</f:format.raw></dd></f:then>
+        <f:else><span class="astryx-stat-figure"><f:format.raw>{figure}</f:format.raw></span></f:else>
+    </f:if>
+    <f:if condition="{f:slot(name: 'note') -> f:format.trim()} != ''">
+        <f:then><a:atom.text type="supporting" as="{noteAs}" class="astryx-stat-note"><f:slot name="note" /></a:atom.text></f:then>
+        <f:else if="{note} != ''"><a:atom.text type="supporting" as="{noteAs}" class="astryx-stat-note">{note}</a:atom.text></f:else>
+    </f:if>
+</f:variable>
+
+<f:if condition="{as} == 'dl'">
+    <f:then>
+        <f:if condition="{hasLabel}">
+            <f:then><dl class="astryx-stat {class}" data-size="{size}" data-align="{align}" data-rule="{rule}"><f:format.raw>{parts}</f:format.raw></dl></f:then>
+            <f:else><p class="astryx-stat {class}" data-size="{size}" data-align="{align}" data-rule="{rule}"><f:format.raw>{parts}</f:format.raw></p></f:else>
+        </f:if>
+    </f:then>
+    <f:else><div class="astryx-stat {class}" data-size="{size}" data-align="{align}" data-rule="{rule}"><f:format.raw>{parts}</f:format.raw></div></f:else>
+</f:if>

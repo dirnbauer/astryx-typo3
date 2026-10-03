@@ -4,8 +4,14 @@
     Smaller and in the secondary text colour, which is the whole of it. It sits
     inside ItemContent so that the label and the description stack as one
     column while the row's leading and trailing regions stay beside them.
+
+    `truncate="truncate"` clips it to one line with an ellipsis, as ItemLabel's
+    does: for a row of fixed height — a menu, a result list — where a second
+    line of description would make one row taller than its neighbours. The
+    stylesheet had the rule all along; the component never passed it.
 </f:comment>
 
+<f:argument name="truncate" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<span class="astryx-item-description {class}"><f:slot /></span>
+<span class="astryx-item-description {class}" data-truncate="{truncate}"><f:slot /></span>

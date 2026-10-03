@@ -18,5 +18,4 @@
 
 <a
     href="{href}"
-    class="astryx-pagination-dot {class}"
-    aria-current="{f:if(condition: current, then: 'page')}"><f:slot /></a>
+    class="astryx-pagination-dot {class}"{f:if(condition: current, then: ' aria-current="page"') -> f:format.raw()}><f:slot /></a>

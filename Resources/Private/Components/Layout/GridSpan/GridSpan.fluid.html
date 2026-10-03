@@ -28,10 +28,12 @@
 
 <f:comment>
     Like Grid's own counts, an unset `cols` is genuinely absent rather than a
-    span of no columns, so it is emitted only when it has a value.
+    span of no columns, so it is emitted only when it has a value: the f:if
+    turns 0 into an empty string and g:attribute prints nothing for that,
+    where the bare f:if used to leave an empty `data-cols=""` behind.
 </f:comment>
 <f:switch expression="{as}">
-    <f:case value="li"><li class="astryx-grid-span {class}" data-cols="{f:if(condition: cols, then: cols)}" data-width="{width}"><f:slot /></li></f:case>
-    <f:case value="section"><section class="astryx-grid-span {class}" data-cols="{f:if(condition: cols, then: cols)}" data-width="{width}"><f:slot /></section></f:case>
-    <f:defaultCase><div class="astryx-grid-span {class}" data-cols="{f:if(condition: cols, then: cols)}" data-width="{width}"><f:slot /></div></f:defaultCase>
+    <f:case value="li"><li class="astryx-grid-span {class}"{g:attribute(name: 'data-cols', value: '{f:if(condition: cols, then: cols)}')} data-width="{width}"><f:slot /></li></f:case>
+    <f:case value="section"><section class="astryx-grid-span {class}"{g:attribute(name: 'data-cols', value: '{f:if(condition: cols, then: cols)}')} data-width="{width}"><f:slot /></section></f:case>
+    <f:defaultCase><div class="astryx-grid-span {class}"{g:attribute(name: 'data-cols', value: '{f:if(condition: cols, then: cols)}')} data-width="{width}"><f:slot /></div></f:defaultCase>
 </f:switch>

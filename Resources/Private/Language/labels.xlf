@@ -445,6 +445,16 @@
         <source>Profile links</source>
       </segment>
     </unit>
+    <unit id="slideshow.pause">
+      <segment>
+        <source>Pause the slideshow</source>
+      </segment>
+    </unit>
+    <unit id="slideshow.play">
+      <segment>
+        <source>Play the slideshow</source>
+      </segment>
+    </unit>
     <unit id="hero.showImage">
       <segment>
         <source>Show image</source>
@@ -624,6 +634,20 @@
     <unit id="conversion.dismiss">
       <segment>
         <source>Close</source>
+      </segment>
+    </unit>
+
+    <!-- Molecule/Price: the hidden labels in front of a struck-through former
+         price and the amount that replaces it, so a screen reader hears an
+         offer rather than two prices. -->
+    <unit id="component.price.former">
+      <segment>
+        <source>Regular price</source>
+      </segment>
+    </unit>
+    <unit id="component.price.current">
+      <segment>
+        <source>Current price</source>
       </segment>
     </unit>
 

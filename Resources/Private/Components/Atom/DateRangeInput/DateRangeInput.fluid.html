@@ -42,25 +42,25 @@
     data-size="{size}"
     data-status="{status}"
     data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><input
-        id="{startId}"
+       {g:attribute(name: 'id', value: startId)}
         type="date"
         name="{startName}"
         value="{startValue}"
         min="{min}"
         max="{max}"
-        aria-label="{startLabel}"
-        aria-describedby="{describedBy}"
+       {g:attribute(name: 'aria-label', value: startLabel)}
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
         aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
         {f:if(condition: disabled, then: 'disabled')}
         {f:if(condition: required, then: 'required')} /><span class="astryx-date-range-input-separator" aria-hidden="true">{separator}</span><input
-        id="{endId}"
+       {g:attribute(name: 'id', value: endId)}
         type="date"
         name="{endName}"
         value="{endValue}"
         min="{min}"
         max="{max}"
-        aria-label="{endLabel}"
-        aria-describedby="{describedBy}"
+       {g:attribute(name: 'aria-label', value: endLabel)}
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
         aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
         {f:if(condition: disabled, then: 'disabled')}
         {f:if(condition: required, then: 'required')} /></div>

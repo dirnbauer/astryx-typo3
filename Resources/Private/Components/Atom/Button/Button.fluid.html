@@ -68,17 +68,17 @@
     what a plain <a> would allow and what the first version of this component
     wrongly did.
 </f:comment>
-    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-button {class}" title="{title}" additionalAttributes="{'data-variant': variant, 'data-size': size, 'data-width': width, 'aria-label': ariaLabel, 'aria-current': ariaCurrent, 'aria-hidden': ariaHidden, 'tabindex': tabindex}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="typolink"><f:variable name="presentAttributes"><g:present of="{'data-variant': variant, 'data-size': size, 'data-width': width, 'aria-label': ariaLabel, 'aria-current': ariaCurrent, 'aria-hidden': ariaHidden, 'tabindex': tabindex}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-button {class}" title="{title}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:case>
     <f:comment>
         rel="noopener noreferrer" only where it means something: a target that
         opens a new browsing context.
     </f:comment>
-    <f:case value="link"><a href="{href}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}" tabindex="{tabindex}"><f:slot /></a></f:case>
-    <f:case value="summary"><summary class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}"><f:slot /></summary></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-button {class}"{g:attribute(name: 'aria-current', value: ariaCurrent)} data-variant="{variant}" data-size="{size}" data-width="{width}"{g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}{g:attribute(name: 'title', value: title)}{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'aria-hidden', value: ariaHidden)}{g:attribute(name: 'tabindex', value: tabindex)}><f:slot /></a></f:case>
+    <f:case value="summary"><summary class="astryx-button {class}"{g:attribute(name: 'aria-current', value: ariaCurrent)} data-variant="{variant}" data-size="{size}" data-width="{width}"{g:attribute(name: 'title', value: title)}{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'aria-hidden', value: ariaHidden)}><f:slot /></summary></f:case>
     <f:defaultCase>
         <f:if condition="{disabled}">
-            <f:then><button type="{type}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}" tabindex="{tabindex}" {hooks -> f:format.raw()} disabled="disabled"><f:slot /></button></f:then>
-            <f:else><button type="{type}" class="astryx-button {class}" aria-current="{ariaCurrent}" data-variant="{variant}" data-size="{size}" data-width="{width}" title="{title}" aria-label="{ariaLabel}" aria-hidden="{ariaHidden}" tabindex="{tabindex}" {hooks -> f:format.raw()}><f:slot /></button></f:else>
+            <f:then><button type="{type}" class="astryx-button {class}"{g:attribute(name: 'aria-current', value: ariaCurrent)} data-variant="{variant}" data-size="{size}" data-width="{width}"{g:attribute(name: 'title', value: title)}{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'aria-hidden', value: ariaHidden)}{g:attribute(name: 'tabindex', value: tabindex)} {hooks -> f:format.raw()} disabled="disabled"><f:slot /></button></f:then>
+            <f:else><button type="{type}" class="astryx-button {class}"{g:attribute(name: 'aria-current', value: ariaCurrent)} data-variant="{variant}" data-size="{size}" data-width="{width}"{g:attribute(name: 'title', value: title)}{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'aria-hidden', value: ariaHidden)}{g:attribute(name: 'tabindex', value: tabindex)} {hooks -> f:format.raw()}><f:slot /></button></f:else>
         </f:if>
     </f:defaultCase>
 </f:switch>

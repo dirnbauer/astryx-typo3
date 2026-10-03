@@ -14,4 +14,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<tfoot class="astryx-table-footer {class}" id="{id}"><f:slot /></tfoot>
+<tfoot class="astryx-table-footer {class}"{g:attribute(name: 'id', value: id)}><f:slot /></tfoot>

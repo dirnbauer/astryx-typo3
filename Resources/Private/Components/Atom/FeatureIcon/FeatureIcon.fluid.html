@@ -15,9 +15,15 @@
     The slot is for the handful of places that put a numeral in the square
     instead of a glyph — a numbered step keeps the same tinted box and the same
     size, and drawing it as an icon would mean an icon key per digit.
+
+    `size="sm"` is the 32px tile for rows where the 40px one outweighs the text
+    beside it: a contact channel, a footer note, a list of short benefits. The
+    tile never shrinks in a flex row, whichever size it is — a long title next
+    to it used to squeeze it into a narrow oblong.
 </f:comment>
 
 <f:argument name="icon" type="string" optional="{true}" default="" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<span class="astryx-feature-icon {class}" data-icon="{icon}" aria-hidden="true"><g:icon name="{icon}"/><f:slot /></span>
+<span class="astryx-feature-icon {class}" data-icon="{icon}" data-size="{size}" aria-hidden="true"><g:icon name="{icon}"/><f:slot /></span>

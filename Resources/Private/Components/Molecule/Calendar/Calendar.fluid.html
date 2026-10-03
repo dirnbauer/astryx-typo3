@@ -34,11 +34,11 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<table id="{id}" class="astryx-calendar {class}" aria-label="{ariaLabel}">
+<table{g:attribute(name: 'id', value: id)} class="astryx-calendar {class}"{g:attribute(name: 'aria-label', value: ariaLabel)}>
     <f:if condition="{caption}"><caption>{caption}</caption></f:if>
     <f:if condition="{weekdays}">
         <thead>
-            <tr><f:for each="{weekdays}" as="weekday"><th scope="col"><abbr title="{weekday.long}">{weekday.short}</abbr></th></f:for></tr>
+            <tr><f:for each="{weekdays}" as="weekday"><th scope="col"><abbr{g:attribute(name: 'title', value: weekday.long)}>{weekday.short}</abbr></th></f:for></tr>
         </thead>
     </f:if>
     <tbody>

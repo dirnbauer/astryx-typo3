@@ -54,7 +54,7 @@
 
 <form
     class="astryx-chat-composer {class}"
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     action="{action}"
     method="{method}"
     data-variant="{variant}"
@@ -88,7 +88,7 @@
     </div>
 
     <f:if condition="{hint}">
-        <p class="astryx-chat-composer-hint" id="{hintId}">{hint}</p>
+        <p class="astryx-chat-composer-hint"{g:attribute(name: 'id', value: hintId)}>{hint}</p>
     </f:if>
 
     <f:slot />

@@ -44,7 +44,7 @@
             data-size="{size}"
             data-status="{status}"
             data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><input
-                id="{id}"
+               {g:attribute(name: 'id', value: id)}
                 type="number"
                 name="{name}"
                 value="{value}"
@@ -55,15 +55,15 @@
                 autocomplete="{autocomplete}"
                 inputmode="{inputmode}"
                 aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
-                aria-describedby="{describedBy}"
-                aria-label="{ariaLabel}"
+               {g:attribute(name: 'aria-describedby', value: describedBy)}
+               {g:attribute(name: 'aria-label', value: ariaLabel)}
                 {f:if(condition: disabled, then: 'disabled')}
                 {f:if(condition: required, then: 'required')}
                 {f:if(condition: readonly, then: 'readonly')} /><span class="astryx-number-input-units" aria-hidden="true">{units}</span></div>
     </f:then>
     <f:else>
         <input
-            id="{id}"
+           {g:attribute(name: 'id', value: id)}
             class="astryx-number-input {class}"
             type="number"
             name="{name}"
@@ -78,8 +78,8 @@
             data-status="{status}"
             data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
             aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
-            aria-describedby="{describedBy}"
-            aria-label="{ariaLabel}"
+           {g:attribute(name: 'aria-describedby', value: describedBy)}
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
             {f:if(condition: disabled, then: 'disabled')}
             {f:if(condition: required, then: 'required')}
             {f:if(condition: readonly, then: 'readonly')} />

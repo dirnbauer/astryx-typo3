@@ -35,7 +35,7 @@
 
 <f:switch expression="{mode}">
     <f:case value="link">
-        <a href="{href}" class="astryx-top-nav-heading {class}" data-interactive="interactive" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></a>
+        <a href="{href}" class="astryx-top-nav-heading {class}" data-interactive="interactive"{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></a>
     </f:case>
     <f:comment>
         A heading that opens something takes `popovertarget`, which is the
@@ -46,9 +46,9 @@
         know.
     </f:comment>
     <f:case value="button">
-        <button type="button" class="astryx-top-nav-heading {class}" data-interactive="interactive" popovertarget="{popovertarget}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></button>
+        <button type="button" class="astryx-top-nav-heading {class}" data-interactive="interactive" popovertarget="{popovertarget}"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></button>
     </f:case>
     <f:defaultCase>
-        <div class="astryx-top-nav-heading {class}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></div>
+        <div class="astryx-top-nav-heading {class}"><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-top-nav-heading-text"><f:if condition="{super}"><span class="astryx-top-nav-heading-super">{super}</span></f:if><span class="astryx-top-nav-heading-title">{title}</span><f:if condition="{sub}"><span class="astryx-top-nav-heading-sub">{sub}</span></f:if></span><f:slot /></div>
     </f:defaultCase>
 </f:switch>

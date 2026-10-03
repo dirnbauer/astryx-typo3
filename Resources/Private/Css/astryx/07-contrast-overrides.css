@@ -9,6 +9,11 @@
  * This is a deliberate divergence from upstream, and the reason is that a theme
  * sold for public-sector and corporate TYPO3 has to meet AA.
  *
+ * The --g-ink-* tokens are the one exception to "move the token itself": the
+ * status colours double as pale fills, so their readable ink version goes to a
+ * token of its own, which Icon and Text read with the status colour as the
+ * fallback.
+ *
  * The build puts this file in the astryx-theme layer (see build-astryx-css.mjs)
  * — in any earlier layer the theme block it corrects would simply win.
  *
@@ -31,16 +36,22 @@
   --color-text-green: light-dark(#537000, #a8d43a);
   --color-text-orange: light-dark(#935816, #e0a04a);
   --color-on-error: light-dark(#FFFFFF, #fbfbfb);
+  --g-ink-success: light-dark(#527000, #96bf2a);
+  --g-ink-warning: light-dark(#855f00, #ffc940);
+  --g-ink-error: light-dark(#cf0000, #ff5c5c);
 }
 
 [data-astryx-theme="matcha"] {
-  --color-text-secondary: light-dark(#65713f, #94a468);
+  --color-text-secondary: light-dark(#65713f, #a9b686);
   --color-text-red: light-dark(#b10000, #ff7a7a);
   --color-text-yellow: light-dark(#855f00, #ffd960);
   --color-text-green: light-dark(#366b00, #80d43a);
   --color-text-orange: light-dark(#885214, #e0a04a);
   --color-text-pink: light-dark(#9b3857, #f08aaa);
   --color-on-error: light-dark(#FFFFFF, #fbfbfa);
+  --g-ink-success: light-dark(#3e7a00, #79c43b);
+  --g-ink-warning: light-dark(#8c6400, #ffc940);
+  --g-ink-error: light-dark(#dc0000, #ff9292);
 }
 
 [data-astryx-theme="stone"] {
@@ -56,6 +67,9 @@
 [data-astryx-theme="y2k"] {
   --color-text-secondary: light-dark(#63594f, #a6acd6);
   --color-on-error: light-dark(#dfc0c2, #fcfafa);
+  --g-ink-success: light-dark(#535f33, #C5E17A);
+  --g-ink-warning: light-dark(#665a37, #FFE08A);
+  --g-ink-error: light-dark(#6b5352, #FFC5C3);
 }
 
 [data-astryx-theme="harbour"] {
@@ -63,35 +77,42 @@
 }
 
 [data-astryx-theme="ember"] {
+  --color-text-secondary: light-dark(#8A5637, #c7af9f);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="linen"] {
+  --color-text-secondary: light-dark(#6E6455, #a49c8f);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="orchid"] {
+  --color-text-secondary: light-dark(#6E5385, #ac9db8);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="cobalt"] {
+  --color-text-secondary: light-dark(#4763A0, #97a5bd);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="moss"] {
+  --color-text-secondary: light-dark(#4C6B57, #92a49a);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="clay"] {
+  --color-text-secondary: light-dark(#96604B, #ccbab2);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="plum"] {
+  --color-text-secondary: light-dark(#764767, #a98ea0);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="sand"] {
-  --color-text-secondary: light-dark(#876b3b, #aa9976);
+  --color-text-secondary: light-dark(#876b3b, #c0b49a);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
@@ -100,10 +121,12 @@
 }
 
 [data-astryx-theme="lagoon"] {
+  --color-text-secondary: light-dark(#3F7576, #99b4b3);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="rose"] {
+  --color-text-secondary: light-dark(#9C5A6E, #c6adb4);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
@@ -117,17 +140,22 @@
 }
 
 [data-astryx-theme="latte"] {
+  --color-text-secondary: light-dark(#5C5F77, #c2c7d7);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="solar"] {
+  --color-text-secondary: light-dark(#586E75, #c6cbc2);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }
 
 [data-astryx-theme="retro"] {
+  --color-text-secondary: light-dark(#665C54, #d2cab7);
   --color-on-error: light-dark(#ffffff, #fafafa);
+  --g-ink-success: light-dark(#00490b, #a6d7a5);
 }
 
 [data-astryx-theme="midnight"] {
+  --color-text-secondary: light-dark(#565F89, #afb5ce);
   --color-on-error: light-dark(#ffffff, #fafafa);
 }

@@ -1,7 +1,9 @@
 /*
- * Data display — List, Item, MetadataList, TreeList, OverflowList, Divider,
- * Timestamp, Kbd, Code, CodeBlock, Markdown, ProgressBar, Skeleton, Spinner,
- * Avatar, AvatarGroup, Thumbnail. Table is next door in 06b-table.css.
+ * Data display — List, Item, MetadataList, Stat, Price, TreeList,
+ * OverflowList, Divider, Timestamp, Kbd, Code, CodeBlock, Markdown,
+ * ProgressBar, Skeleton, Spinner, Avatar, AvatarGroup, Thumbnail, Logo,
+ * Rating, and what Collapsible's heading and CollapsibleGroup's dividers add
+ * to the disclosure in 08-overlay.css. Table is next door in 06b-table.css.
  *
  * Two things separate this file from the upstream components it transcribes.
  * The React versions receive their content already wrapped in per-part
@@ -14,14 +16,24 @@
 
 
 /* ------------------------------------------------------------------ List */
+/* --_list-gap is the `gap` argument: the space between the rows of a vertical
+   list and between the items of a horizontal one. Unset, each orientation
+   keeps its own default. */
 .astryx-list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-0-5);
+  gap: var(--_list-gap, var(--spacing-0-5));
   margin: 0;
   padding-inline-start: 0;
   list-style-type: none;
 }
+
+.astryx-list[data-gap="1"] { --_list-gap: var(--spacing-1); }
+.astryx-list[data-gap="2"] { --_list-gap: var(--spacing-2); }
+.astryx-list[data-gap="3"] { --_list-gap: var(--spacing-3); }
+.astryx-list[data-gap="4"] { --_list-gap: var(--spacing-4); }
+.astryx-list[data-gap="6"] { --_list-gap: var(--spacing-6); }
+.astryx-list[data-gap="8"] { --_list-gap: var(--spacing-8); }
 
 /* Dividers replace the gap — a rule with air on both sides reads as two
    separate groups rather than one list. */
@@ -46,6 +58,26 @@
   font-size: var(--text-body-size);
   line-height: var(--text-body-leading);
   color: var(--color-text-primary);
+}
+
+/* A list item reached by its fragment — a footnote from its superscript, a
+   step from a contents link — shows where the reader landed: an accent
+   outline a little outside the text. Not a wash: secondary text on the
+   accent's muted tint falls below 4.5:1 in a quarter of the themes, while
+   the accent itself clears 3:1 on every surface (the audit's focus-ring
+   pair). No motion, so nothing to switch off for reduced motion. */
+.astryx-list > li:target,
+.astryx-list-item:target {
+  outline: 2px solid var(--color-accent);
+  outline-offset: var(--spacing-1);
+  border-radius: var(--radius-element);
+}
+
+/* size="sm": the supporting text size, for a compact strip of jump links or
+   facts beside running text. */
+.astryx-list[data-size="sm"] > :where(li, .astryx-list-item) {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
 }
 
 .astryx-list[data-density="compact"] > :where(li, .astryx-list-item) { padding-block: var(--spacing-1); }
@@ -88,6 +120,133 @@
   color: var(--color-text-primary);
 }
 
+/* A numbered tile: FeatureIcon's tinted square with a numeral in it, for a
+   short process told as a list. The tile sits on the first line's baseline, so
+   its number reads on the same line as the step it numbers however tall the
+   step's text grows below it. */
+.astryx-list[data-marker="step"] {
+  counter-reset: astryx-list;
+}
+
+.astryx-list[data-marker="step"] > :where(li, .astryx-list-item) {
+  counter-increment: astryx-list;
+  align-items: baseline;
+  gap: var(--spacing-3);
+}
+
+.astryx-list[data-marker="step"] > :where(li, .astryx-list-item)::before {
+  content: counter(astryx-list);
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--spacing-8);
+  block-size: var(--spacing-8);
+  border-radius: var(--radius-element);
+  background-color: var(--color-accent-muted);
+  box-shadow: inset 0 0 0 var(--border-width) var(--color-border);
+  color: var(--color-icon-accent);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* On an accent band the tile would be accent on accent: it takes the band's
+   wash and ink, as FeatureIcon does. */
+.astryx-section[data-surface="accent"] .astryx-list[data-marker="step"]:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *) > :where(li, .astryx-list-item)::before {
+  background-color: var(--color-neutral);
+  color: var(--color-on-accent);
+}
+
+/* ---------------------------------------------------------- List columns */
+/* Two to four columns of rows, a ceiling as on Grid: each track is at least a
+   fifth, a quarter or a third of the row, so the count is never exceeded, and
+   below its minimum the list reflows. The ceiling does not read the gap, so an
+   element that sets its own gap cannot break it. */
+.astryx-list[data-columns="2"] { --_list-columns: 2; --_list-min: 16rem; }
+.astryx-list[data-columns="3"] { --_list-columns: 3; --_list-min: 13rem; }
+.astryx-list[data-columns="4"] { --_list-columns: 4; --_list-min: 11rem; }
+
+.astryx-list:is([data-columns="2"], [data-columns="3"], [data-columns="4"]):not([data-orientation="horizontal"]) {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(min(var(--_list-min), 100%), calc(100% / (var(--_list-columns) + 1) + 1px)), 1fr)
+  );
+  column-gap: var(--spacing-8);
+}
+
+/* With dividers every row in a column keeps its rule, the last one included:
+   which rows end the last line depends on the width, and a list with one rule
+   missing in the bottom corner looks broken rather than finished. */
+.astryx-list[data-dividers="with-dividers"]:is([data-columns="2"], [data-columns="3"], [data-columns="4"]):not([data-orientation="horizontal"]) > :last-child {
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+/* ------------------------------------------------------- List horizontal */
+/* Items along a line that wraps: legal links, languages, short facts. Rows of
+   a vertical list get their air from padding; here the gap is the air, so the
+   density's padding and the dividers' rule under each row go. */
+.astryx-list[data-orientation="horizontal"] {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: var(--_list-gap, var(--spacing-4));
+  row-gap: var(--spacing-2);
+}
+
+.astryx-list[data-orientation="horizontal"][data-density="compact"] {
+  column-gap: var(--_list-gap, var(--spacing-3));
+  row-gap: var(--spacing-1);
+}
+
+/* Each item's baseline is its text's: with the rule as its first box, an item
+   would otherwise take the rule's bottom edge as its baseline and sit a pixel
+   or two off the first one, which has no rule. */
+.astryx-list[data-orientation="horizontal"] > :is(li, .astryx-list-item),
+.astryx-list[data-orientation="horizontal"][data-dividers="with-dividers"] > :is(li, .astryx-list-item) {
+  align-items: baseline;
+  padding-block: 0;
+  border-block-end: 0;
+}
+
+/* The dividers stand between two items as a short upright rule, centred in
+   the gap: the rule's own end margin plus the item's gap after it make up the
+   list's gap on that side. The first item has nothing before it, and a marker
+   would compete with the rule, so the rule takes the marker's place. */
+.astryx-list[data-orientation="horizontal"][data-dividers="with-dividers"] > :is(li, .astryx-list-item)::before {
+  content: none;
+}
+
+.astryx-list[data-orientation="horizontal"][data-dividers="with-dividers"] > :is(li, .astryx-list-item) + :is(li, .astryx-list-item)::before {
+  content: '';
+  flex-shrink: 0;
+  align-self: center;
+  inline-size: var(--border-width);
+  block-size: var(--spacing-3);
+  margin: 0;
+  margin-inline-end: max(0px, calc(var(--_list-gap, var(--spacing-4)) - var(--spacing-2)));
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: var(--color-border-emphasized);
+}
+
+.astryx-list[data-orientation="horizontal"][data-dividers="with-dividers"][data-density="compact"] > :is(li, .astryx-list-item) + :is(li, .astryx-list-item)::before {
+  margin-inline-end: max(0px, calc(var(--_list-gap, var(--spacing-3)) - var(--spacing-2)));
+}
+
+/* Wrapped onto several lines, a leading rule marks the start of a line rather
+   than a boundary between two items, so on a phone the rules go. */
+@media (max-width: 480px) {
+  .astryx-list[data-orientation="horizontal"][data-dividers="with-dividers"] > :is(li, .astryx-list-item) + :is(li, .astryx-list-item)::before {
+    content: none;
+  }
+}
+
 /* ------------------------------------------------------------------ Item */
 /* One row of a list, menu or result set: optional leading media, a label with
    an optional description, optional trailing action. */
@@ -101,6 +260,32 @@
   padding-inline: var(--spacing-2);
   border-radius: var(--radius-element);
   text-align: start;
+}
+
+/* A row that is a link is still a row: it keeps the list's text colour and no
+   underline, and when it is the focused thing itself it carries the ring. */
+a.astryx-item {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.astryx-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* In a List the row is the list item's only child and fills it — and may
+   shrink below its content, or a truncated label or description pushed the
+   row, and the page, out to the full width of the text it was meant to clip. */
+.astryx-list > li > .astryx-item {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+@media (pointer: coarse) {
+  a.astryx-item {
+    min-block-size: 2.75rem;
+  }
 }
 
 .astryx-item[data-align="start"] { align-items: flex-start; }
@@ -165,6 +350,17 @@
   color: var(--color-text-secondary);
 }
 
+/* A label that is a title — a job opening, a document — reads as one at the
+   large size and a heavier weight, and stays the row's label rather than
+   becoming a heading in the page outline. */
+.astryx-item-label[data-size="lg"] {
+  font-size: var(--text-large-size);
+  line-height: var(--text-large-leading);
+}
+
+.astryx-item-label[data-weight="medium"] { font-weight: var(--font-weight-medium); }
+.astryx-item-label[data-weight="semibold"] { font-weight: var(--font-weight-semibold); }
+
 .astryx-item-label[data-truncate="truncate"],
 .astryx-item-description[data-truncate="truncate"] {
   overflow: hidden;
@@ -196,15 +392,36 @@
   padding: 0;
 }
 
-.astryx-metadata-list[data-columns="2"],
-.astryx-metadata-list[data-columns="3"] {
-  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
-  gap: var(--spacing-4);
+/* In one column a pair written as a MetadataListItem is a row of its own. The
+   wrapper is a single grid cell, and an `auto 1fr` grid set two of them side
+   by side: a one-column list of items rendered as two columns. A list that is
+   not a grid at all (an element that flows its pairs in CSS columns) ignores
+   this. */
+.astryx-metadata-list:not([data-columns="2"], [data-columns="3"], [data-columns="4"]) > .astryx-metadata-list-item {
+  grid-column: 1 / -1;
 }
 
 .astryx-metadata-list[data-orientation="stacked"] {
   grid-template-columns: 1fr;
   gap: var(--spacing-3);
+}
+
+/* Two to four pairs a row, and the count is a ceiling as it is on Grid: each
+   track is at least a fifth, a quarter or a third of the row, so a four-column
+   list never shows five, and below its minimum it reflows. The ceiling is
+   written without the gap, so a list whose gap an element overrides keeps
+   working. `4` used to have no rule at all and fell back to the one-column
+   `auto 1fr`, which packed the pairs two to a row. */
+.astryx-metadata-list[data-columns="2"] { --_metadata-columns: 2; --_metadata-min: 17.5rem; }
+.astryx-metadata-list[data-columns="3"] { --_metadata-columns: 3; --_metadata-min: 14rem; }
+.astryx-metadata-list[data-columns="4"] { --_metadata-columns: 4; --_metadata-min: 11rem; }
+
+.astryx-metadata-list:is([data-columns="2"], [data-columns="3"], [data-columns="4"]) {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(max(min(var(--_metadata-min), 100%), calc(100% / (var(--_metadata-columns) + 1) + 1px)), 1fr)
+  );
+  gap: var(--spacing-4);
 }
 
 .astryx-metadata-list[data-orientation="horizontal"] {
@@ -227,12 +444,15 @@
   word-break: break-word;
 }
 
+/* Values are figures more often than not — a price, a time, a quantity — and
+   tabular ones line up digit under digit down the column. */
 .astryx-metadata-list :where(dd) {
   margin: 0;
   padding: 0;
   font-size: var(--text-body-size);
   line-height: var(--text-body-leading);
   color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
   word-break: break-word;
 }
 
@@ -242,6 +462,173 @@
   flex-direction: column;
   gap: var(--spacing-0-5);
   min-inline-size: 0;
+}
+
+/* The small size: a footer's credits, imprint, opening hours. Both halves at
+   the supporting size, and the gaps a step tighter to match. */
+.astryx-metadata-list[data-size="sm"] {
+  gap: var(--spacing-1) var(--spacing-3);
+}
+
+.astryx-metadata-list[data-size="sm"] :where(dt, dd) {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+}
+
+/* --------------------------------------------------- MetadataList dividers */
+/* A rule under each pair, and the rule replaces the row gap: with air above
+   and below it as well, one list reads as a stack of separate ones. */
+.astryx-metadata-list[data-dividers="with-dividers"] {
+  --_metadata-rule-space: var(--spacing-3);
+  row-gap: 0;
+}
+
+.astryx-metadata-list[data-dividers="with-dividers"][data-size="sm"] {
+  --_metadata-rule-space: var(--spacing-2);
+}
+
+/* A pair written as an item carries its own rule. */
+.astryx-metadata-list[data-dividers="with-dividers"] > .astryx-metadata-list-item {
+  padding-block: var(--_metadata-rule-space);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+/* Bare pairs in the aligned grid: both halves carry the rule, and the column
+   gap becomes the term's own end padding so the rule runs unbroken across the
+   row. The cells stretch to the row's height for the same reason — aligned on
+   their baselines, a one-line term beside a two-line value drew its half of
+   the rule a line higher. */
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="default"]:not([data-columns="2"], [data-columns="3"], [data-columns="4"]) {
+  column-gap: 0;
+  align-items: stretch;
+}
+
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="default"] > :where(dt, dd) {
+  padding-block: var(--_metadata-rule-space);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="default"] > dt {
+  padding-inline-end: var(--spacing-4);
+}
+
+/* Stacked bare pairs: the term sits on its value, and the rule goes under the
+   value alone. */
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="stacked"] > dd {
+  padding-block-end: var(--_metadata-rule-space);
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="stacked"] > dt {
+  padding-block-start: var(--_metadata-rule-space);
+}
+
+/* In one column the last pair has no rule: under the last row it reads as the
+   edge of whatever follows. In several columns no rule can know which pairs
+   end the last row, so every pair keeps its own. */
+.astryx-metadata-list[data-dividers="with-dividers"]:not([data-columns="2"], [data-columns="3"], [data-columns="4"]) > .astryx-metadata-list-item:last-child,
+.astryx-metadata-list[data-dividers="with-dividers"]:not([data-columns="2"], [data-columns="3"], [data-columns="4"]) > dd:last-child,
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="default"]:not([data-columns="2"], [data-columns="3"], [data-columns="4"]) > dt:nth-last-child(2) {
+  border-block-end: 0;
+}
+
+/* A horizontal list runs its pairs along a line, so the rule stands between
+   them instead of under them. */
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="horizontal"] > .astryx-metadata-list-item {
+  padding-block: 0;
+  border-block-end: 0;
+}
+
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="horizontal"] > .astryx-metadata-list-item + .astryx-metadata-list-item,
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="horizontal"] > dt:not(:first-child) {
+  padding-inline-start: var(--spacing-4);
+  border-inline-start: var(--border-width) solid var(--color-border);
+}
+
+.astryx-metadata-list[data-dividers="with-dividers"][data-orientation="horizontal"] {
+  row-gap: var(--spacing-2);
+}
+
+/* Below 480px the row wraps, and a rule would start a line instead of
+   separating two pairs — dropped there, as List drops its own. */
+@media (max-width: 480px) {
+  .astryx-metadata-list[data-dividers="with-dividers"][data-orientation="horizontal"] > .astryx-metadata-list-item + .astryx-metadata-list-item,
+  .astryx-metadata-list[data-dividers="with-dividers"][data-orientation="horizontal"] > dt:not(:first-child) {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ Stat */
+/* One figure and what it counts. The term comes first in the source, so the
+   pair survives being read out of context; the figure comes first on screen,
+   because it is what the eye is meant to land on. The type of each part is
+   Atom/Text's; what is here is their order and their spacing. */
+.astryx-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-1);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.astryx-stat > :where(dt, dd) {
+  margin: 0;
+}
+
+/* The figure and its unit share a baseline, so the unit reads as part of the
+   number; digits are tabular so figures stacked in a column line up. */
+.astryx-stat-figure {
+  order: -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.astryx-stat[data-align="center"] {
+  align-items: center;
+  text-align: center;
+}
+
+.astryx-stat[data-align="center"] .astryx-stat-figure {
+  justify-content: center;
+}
+
+/* A hairline above each figure rather than between figures: in two columns a
+   rule between them lands in the middle of the band. */
+.astryx-stat[data-rule="top"] {
+  padding-block-start: var(--spacing-4);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* ----------------------------------------------------------------- Price */
+/* The amount and its period share a baseline; a former price stands before
+   them, struck through by its <s>, and the whole line wraps as one sentence. */
+.astryx-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-4);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.astryx-price-former,
+.astryx-price-current {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-1) var(--spacing-2);
+}
+
+.astryx-price[data-align="center"],
+.astryx-price[data-align="center"] .astryx-price-current {
+  justify-content: center;
+  text-align: center;
 }
 
 /* -------------------------------------------------------------- TreeList */
@@ -382,7 +769,10 @@
   padding-inline-start: 0;
   gap: var(--spacing-2);
   min-inline-size: 0;
-  overflow: hidden;
+  /* clip, with a margin for the focus ring: hidden cut the ring of a focused
+     link in the list. */
+  overflow: clip;
+  overflow-clip-margin: var(--spacing-1);
   white-space: nowrap;
 }
 
@@ -673,21 +1063,58 @@
   color: var(--color-text-primary);
 }
 
+/* The figure beside a bar changes as the bar does, and tabular digits keep it
+   from shifting sideways between one value and the next. */
 .astryx-progress-bar-value {
   color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 /* overflow:hidden is load-bearing: the fill keeps the full pill radius so its
-   leading edge stays round, and the track clips the trailing one. */
+   leading edge stays round, and the track clips the trailing one.
+
+   The track is the theme's track colour. It used to be the muted background,
+   which is exactly the colour of a muted band, and there the empty part of
+   every bar vanished. */
 .astryx-progress-bar-track {
   inline-size: 100%;
-  block-size: 8px;
+  block-size: var(--spacing-2);
   border-radius: var(--radius-full);
-  background-color: var(--color-background-muted);
+  background-color: var(--color-track);
   overflow: hidden;
 }
 
+/* The heavier track, for the one bar that is the point of its band. */
+.astryx-progress-bar[data-size="lg"] .astryx-progress-bar-track {
+  block-size: var(--spacing-3);
+}
+
+/* On an accent band an accent fill is the band's own colour: only the empty
+   part showed, and the bar read backwards. There the fill is the band's ink and
+   the track a translucent wash of it — the band defines that wash as its
+   --color-neutral. A bar inside a surface on the band (a card, a banner) sits
+   on the page's colours again and keeps its ordinary ones; status fills keep
+   theirs everywhere, because their colour is the message. */
+.astryx-section[data-surface="accent"] .astryx-progress-bar:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *) .astryx-progress-bar-track {
+  background-color: var(--color-neutral);
+}
+
+.astryx-section[data-surface="accent"] .astryx-progress-bar:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *):not([data-variant="success"], [data-variant="warning"], [data-variant="error"], [data-variant="neutral"], [data-state="disabled"]) .astryx-progress-bar-fill {
+  background-color: var(--color-on-accent);
+}
+
+/* A block, because the component renders the fill as a span: inline, it
+   ignored the width it was given and every bar that was not decorative showed
+   an empty track — the elements that drew a fill had each set this on their
+   own class. */
 .astryx-progress-bar-fill {
+  display: block;
   block-size: 100%;
   border-radius: var(--radius-full);
   background-color: var(--color-accent);
@@ -806,6 +1233,15 @@
 .astryx-avatar-group[data-size="lg"] { --_avatar-size: 48px; }
 .astryx-avatar[data-size="xl"],
 .astryx-avatar-group[data-size="xl"] { --_avatar-size: 128px; }
+
+/* In a group, the group's size wins. Avatar always writes a size of its own —
+   `md` when its caller says nothing — and the rule above sets the value on the
+   avatar itself, so a `size="sm"` group of default avatars drew 36px circles
+   with an overlap computed for 24px ones. Inside a group every avatar takes
+   the group's value instead, wherever in the group it sits. */
+.astryx-avatar-group .astryx-avatar {
+  --_avatar-size: inherit;
+}
 
 .astryx-avatar > img {
   inline-size: 100%;
@@ -963,6 +1399,239 @@
   pointer-events: none;
 }
 
+/* ------------------------------------------------------------------ Logo */
+/* A mark in a box of fixed height. The height is what marks are normalised on,
+   so it is the one dimension the box owns; the width follows the artwork, to
+   at most five times the height and never past the box it sits in. A name set
+   as type in place of missing artwork may wrap, so the box has a minimum
+   height rather than a fixed one.
+
+   --_logo-ink is the lift that keeps dark ink visible: the chrome's
+   --g-ink-filter (brightness(1) in the light scheme, an inversion in the dark
+   one), or a silhouette in the band's ink on an accent band. The three values
+   under it change with the scheme, below. */
+.astryx-logo {
+  --_logo-height: var(--spacing-8);
+  --_logo-ink: var(--g-ink-filter, brightness(1));
+  --_logo-plate: transparent;
+  --_logo-plate-ink: var(--color-text-secondary);
+  --_logo-hover-grey: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-inline-size: 100%;
+  min-block-size: var(--_logo-height);
+  vertical-align: middle;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family-heading);
+  font-size: var(--text-large-size);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--text-large-leading);
+  text-align: center;
+}
+
+.astryx-logo[data-size="sm"] { --_logo-height: var(--spacing-6); }
+.astryx-logo[data-size="lg"] { --_logo-height: var(--spacing-10); }
+.astryx-logo[data-size="xl"] { --_logo-height: var(--spacing-12); }
+
+.astryx-logo > :where(img, svg, picture) {
+  display: block;
+  block-size: var(--_logo-height);
+  inline-size: auto;
+  /* No percentage here: inside an inline-flex box sized by its content a
+     percentage is cyclic, so the box took the mark's unclamped width and
+     centred the clamped mark in it — a wordmark wider than 5:1 sat up to 40px
+     in from the edge of a left-aligned row. The cap is absolute; the box's
+     own max-inline-size: 100% and a shrinkable flex item keep it inside a
+     narrow column. */
+  max-inline-size: calc(var(--_logo-height) * 5);
+  min-inline-size: 0;
+  flex-shrink: 1;
+  object-fit: contain;
+}
+
+.astryx-logo > picture > img {
+  display: block;
+  block-size: 100%;
+  inline-size: auto;
+  max-inline-size: 100%;
+  object-fit: contain;
+}
+
+/* Muted: grey and a little faint, so no single brand colour pulls a wall of
+   marks towards itself. The filter is on the artwork alone; a name set as type
+   stays at the secondary text colour, which already passes contrast. */
+.astryx-logo[data-tone="muted"] > :where(img, svg, picture) {
+  filter: var(--_logo-ink) grayscale(1);
+  opacity: 0.7;
+  transition-property: opacity, filter;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+/* A mark someone points at or tabs to is one they are trying to read: full
+   strength, and in the light scheme its own colours back. The hover is a fine
+   pointer's only; the focus ring's link is anyone's. */
+@media (hover: hover) and (pointer: fine) {
+  :where(a, .astryx-clickable-card):hover .astryx-logo[data-tone="muted"] > :where(img, svg, picture) {
+    opacity: 1;
+    filter: var(--_logo-ink) grayscale(var(--_logo-hover-grey));
+  }
+}
+
+a:focus-visible .astryx-logo[data-tone="muted"] > :where(img, svg, picture),
+.astryx-clickable-card:focus-within .astryx-logo[data-tone="muted"] > :where(img, svg, picture) {
+  opacity: 1;
+  filter: var(--_logo-ink) grayscale(var(--_logo-hover-grey));
+}
+
+/* Ink: full strength, lifted on a dark surface. */
+.astryx-logo[data-tone="ink"] {
+  color: var(--color-text-primary);
+}
+
+.astryx-logo[data-tone="ink"] > :where(img, svg, picture) {
+  filter: var(--_logo-ink);
+}
+
+/* Original: the mark's own colours, on a light plate where the surface is
+   dark. The plate's padding is there in both schemes, so a row of marks does
+   not change size when the scheme does. */
+.astryx-logo[data-tone="original"] {
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  background-color: var(--_logo-plate);
+  color: var(--_logo-plate-ink);
+}
+
+/*
+ * The scheme switch. A filter cannot be a light-dark() pair, so this asks the
+ * question --g-ink-filter asks in astryx/01-base.css, with the same three
+ * answers: the operating system's dark scheme unless the page is pinned light,
+ * a page pinned dark, and the gothic theme, which is dark in both. If that
+ * question ever changes there, it changes here too.
+ *
+ * In the dark scheme the ink lift inverts a mark's colours along with its
+ * lightness, so a muted mark keeps its grey on hover and only gains strength;
+ * and an original-colour mark gets its light plate, with dark type on it.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .astryx-logo {
+    --_logo-plate: var(--color-on-dark);
+    --_logo-plate-ink: var(--color-on-light);
+    --_logo-hover-grey: 1;
+  }
+}
+
+:root.dark .astryx-logo,
+[data-astryx-theme="gothic"] .astryx-logo {
+  --_logo-plate: var(--color-on-dark);
+  --_logo-plate-ink: var(--color-on-light);
+  --_logo-hover-grey: 1;
+}
+
+/*
+ * On an accent band a mark has nothing it can be drawn in. Grey is a smudge on
+ * the band colour, and the band's own ink cannot be had: a filter takes no
+ * colour, and whether the band is dark or light depends on the theme rather
+ * than on the scheme — the neutral theme's dark-scheme accent is near white.
+ * So on the band every mark sits on a small plate of the page's surface and
+ * takes the page's colours back, as every other surface on the band does
+ * (00-primitives.css); on that plate the scheme's ink lift is right again. An
+ * original-colour mark keeps its light plate in the dark scheme. A mark inside
+ * a surface on the band (a card) is on the page's colours already and is left
+ * alone.
+ */
+.astryx-section[data-surface="accent"] .astryx-logo:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *) {
+  --color-text-primary: var(--_page-text-primary);
+  --color-text-secondary: var(--_page-text-secondary);
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  background-color: var(--color-background-surface);
+}
+
+.astryx-section[data-surface="accent"] .astryx-logo[data-tone="original"]:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *) {
+  background-color: var(--color-on-dark);
+}
+
+/* ---------------------------------------------------------------- Rating */
+/* Five stars filled to a score. Each star is a square filled from its start
+   edge by a hard gradient stop, clipped to a star outline; the stop is worked
+   out per star from the one score, so 4.6 draws four stars and six tenths of
+   the fifth. clamp() keeps a score off the end of the scale from spilling into
+   the neighbouring star. */
+.astryx-rating {
+  --_rating-on: var(--color-accent);
+  --_rating-off: var(--color-track);
+  --_rating-star: var(--spacing-5);
+  --_rating-gap: var(--spacing-0-5);
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-1) var(--spacing-2);
+  color: var(--color-text-secondary);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  font-variant-numeric: tabular-nums;
+}
+
+.astryx-rating[data-size="sm"] { --_rating-star: var(--spacing-4); }
+.astryx-rating[data-size="lg"] { --_rating-star: var(--spacing-6); --_rating-gap: var(--spacing-1); }
+
+.astryx-rating-stars {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--_rating-gap);
+}
+
+.astryx-rating-star {
+  --_star-fill: clamp(0, var(--_rating-value, 0) * 5 / var(--_rating-scale, 5) - var(--_star-index) + 1, 1);
+  inline-size: var(--_rating-star);
+  block-size: var(--_rating-star);
+  background-image: linear-gradient(
+    to right,
+    var(--_rating-on) calc(var(--_star-fill) * 100%),
+    var(--_rating-off) 0
+  );
+  clip-path: polygon(
+    50% 0%, 61.8% 34.5%, 98% 34.5%, 69% 56%, 79.4% 90.5%,
+    50% 69%, 20.6% 90.5%, 31% 56%, 2% 34.5%, 38.2% 34.5%
+  );
+}
+
+/* Right to left the stars run from the right, and so does the fill. */
+.astryx-rating-star:dir(rtl) {
+  background-image: linear-gradient(
+    to left,
+    var(--_rating-on) calc(var(--_star-fill) * 100%),
+    var(--_rating-off) 0
+  );
+}
+
+.astryx-rating-star:nth-child(1) { --_star-index: 1; }
+.astryx-rating-star:nth-child(2) { --_star-index: 2; }
+.astryx-rating-star:nth-child(3) { --_star-index: 3; }
+.astryx-rating-star:nth-child(4) { --_star-index: 4; }
+.astryx-rating-star:nth-child(5) { --_star-index: 5; }
+
+/* Accent on accent would be invisible: on the band the filled part takes the
+   band's ink and the empty part its wash. */
+.astryx-section[data-surface="accent"] .astryx-rating:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-banner, .astryx-popover, .astryx-tooltip, .astryx-table, .astryx-toast
+) *) {
+  --_rating-on: var(--color-on-accent);
+  --_rating-off: var(--color-neutral);
+}
+
 /* --------------------------------------------------------------- GridSpan */
 /* A Layout component in the data sheet, because the two v0.6.2 layout parts
    arrived with this set of components and one partial is easier to follow than
@@ -1031,6 +1700,28 @@
   outline-offset: 2px;
 }
 
+/* --------------------------------------- Collapsible heading, group edges */
+/* The disclosure itself — the summary row, the chevron, the reveal — is in
+   08-overlay.css. What is here is what its `headingLevel` and the group's
+   `dividers` argument add, kept with the other list components because that
+   is what a group of disclosures is.
+
+   The heading inside a summary takes the summary's type. Left to the reset
+   layer an h3 there came out at the page's h3 size, so a list of questions
+   read as a list of section titles, and pricing-faq had to undo it with
+   `font: inherit` of its own. */
+.astryx-collapsible-heading {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+/* A group that stands in open page: rules above the first row and below the
+   last, the same hairline as the ones between. */
+.astryx-collapsible-group[data-dividers="all"] {
+  border-block: var(--border-width) solid var(--color-border);
+}
+
 /* --------------------------------------------------------- reduced motion */
 /* Loading indicators are the reason this query exists: a page can carry a dozen
    skeletons at once, and a pulsing grid of them is the exact effect the setting
@@ -1051,7 +1742,8 @@
   .astryx-item[data-interactive="interactive"],
   .astryx-tree-list-item,
   .astryx-tree-list-chevron,
-  .astryx-thumbnail[data-interactive="interactive"] {
+  .astryx-thumbnail[data-interactive="interactive"],
+  .astryx-logo[data-tone="muted"] > :where(img, svg, picture) {
     transition-duration: 0s;
   }
 }

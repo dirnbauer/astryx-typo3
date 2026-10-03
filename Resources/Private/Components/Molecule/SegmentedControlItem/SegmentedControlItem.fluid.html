@@ -20,6 +20,6 @@
 <f:argument name="ariaCurrent" type="string" optional="{true}" default="" />
 
 <f:if condition="{parameter}">
-    <f:then><f:link.typolink parameter="{parameter}" class="astryx-segmented-control-item {class}" additionalAttributes="{'aria-current': ariaCurrent, 'data-size': size}"><f:slot /></f:link.typolink></f:then>
-    <f:else><a href="{href}" class="astryx-segmented-control-item {class}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></a></f:else>
+    <f:then><f:variable name="presentAttributes"><g:present of="{'aria-current': ariaCurrent, 'data-size': size}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-segmented-control-item {class}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-segmented-control-item {class}" data-size="{size}"{g:attribute(name: 'aria-current', value: ariaCurrent)}><f:slot /></a></f:else>
 </f:if>

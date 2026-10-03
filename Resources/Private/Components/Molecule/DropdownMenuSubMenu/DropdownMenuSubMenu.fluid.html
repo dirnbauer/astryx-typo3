@@ -30,4 +30,4 @@
 <f:argument name="open" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<details class="astryx-dropdown-menu-sub-menu {class}" {f:if(condition: open, then: 'open')}><summary>{label}</summary><div role="group" aria-label="{label}"><f:slot /></div></details>
+<details class="astryx-dropdown-menu-sub-menu {class}" {f:if(condition: open, then: 'open')}><summary>{label}</summary><div role="group"{g:attribute(name: 'aria-label', value: label)}><f:slot /></div></details>

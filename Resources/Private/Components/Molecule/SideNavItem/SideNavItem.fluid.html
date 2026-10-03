@@ -49,7 +49,7 @@
                 nothing.
             </f:comment>
             <details {f:if(condition: open, then: 'open')}>
-                <summary class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}" aria-current="{current}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+                <summary class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: current)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
                 <ul class="astryx-side-nav-item-children"><f:slot /></ul>
             </details>
         </li>
@@ -57,10 +57,10 @@
     <f:else>
         <f:if condition="{href}">
             <f:then>
-                <li><a href="{href}" class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}" aria-current="{current}" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span></a></li>
+                <li><a href="{href}" class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: current)}{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span></a></li>
             </f:then>
             <f:else>
-                <li><button type="button" class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}" aria-current="{current}" aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span></button></li>
+                <li><button type="button" class="astryx-nav-item astryx-side-nav-item {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: current)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label">{label}</span></button></li>
             </f:else>
         </f:if>
     </f:else>

@@ -215,16 +215,41 @@
 }
 
 /* --------------------------------------------------------------- TabList */
+/* --_tab-list-bleed is the room a scrolling strip keeps around its tabs (see
+   below); zero for a strip that does not scroll, which then sits exactly in
+   its column as it always has. */
 .astryx-tab-list {
+  --_tab-list-bleed: 0px;
   display: flex;
   align-items: stretch;
   gap: var(--spacing-0-5);
-  max-inline-size: 100%;
+  max-inline-size: calc(100% + 2 * var(--_tab-list-bleed));
   min-inline-size: 0;
 }
 
+/* A tab strip never wraps — a second row of tabs reads as a second,
+   unrelated group — so on a narrow screen it scrolls sideways itself, which
+   two elements used to arrange by hand. A scroll container clips at its
+   padding box, and a tab's focus ring sits outside the tab: the strip keeps a
+   --spacing-1 of padding all round for the ring and gives the same back as a
+   negative margin, so not one tab moves. scroll-padding keeps the ring clear
+   when a focused tab is scrolled into view, and the runtime does the same for
+   a tab selected by a click. Not inside a Toolbar, whose own rail the
+   indicator is pushed down onto — a clip would cut it off. */
+.astryx-tab-list:not([data-orientation="vertical"], .astryx-toolbar *) {
+  --_tab-list-bleed: var(--spacing-1);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: var(--_tab-list-bleed);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-track) transparent;
+  padding: var(--_tab-list-bleed);
+  margin: calc(-1 * var(--_tab-list-bleed));
+}
+
 .astryx-tab-list[data-variant="fill"] {
-  inline-size: 100%;
+  inline-size: calc(100% + 2 * var(--_tab-list-bleed));
 }
 
 .astryx-tab-list[data-orientation="vertical"] {
@@ -232,13 +257,21 @@
   align-items: stretch;
 }
 
-/* The divider rail. The reserved gap keeps the hover pill off the underline;
-   --_tab-indicator-bottom drops the indicator through the gap (plus the
-   border) so it still lands on the rail rather than floating above it. */
+/* The divider rail. The reserved gap keeps the hover pill off the underline,
+   and --_tab-indicator-bottom drops the indicator through it so it lands on
+   the rail rather than floating above it. The rail is a background line on
+   the padding box rather than a border, because a scrolling strip clips at
+   its padding box: an indicator pushed down onto a border lost half its
+   thickness to the clip. It is inset by the bleed, so it starts and ends with
+   the column, not with the strip's breathing room. */
 .astryx-tab-list[data-variant="divided"] {
-  --_tab-indicator-bottom: calc(-1 * (var(--spacing-1) + var(--border-width)));
-  border-block-end: var(--border-width) solid var(--color-border);
+  --_tab-indicator-bottom: calc(-1 * var(--spacing-1));
   padding-block-end: var(--spacing-1);
+  margin-block-end: 0;
+  background-image: linear-gradient(var(--color-border), var(--color-border));
+  background-size: calc(100% - 2 * var(--_tab-list-bleed)) var(--border-width);
+  background-position: 50% 100%;
+  background-repeat: no-repeat;
 }
 
 .astryx-tab,
@@ -274,6 +307,14 @@
 
 .astryx-tab-list[data-size="sm"] :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-sm); }
 .astryx-tab-list[data-size="lg"] :where(.astryx-tab, .astryx-tab-menu) { block-size: var(--size-element-lg); }
+
+/* A finger gets 44px whatever the strip's size step, as every button does. */
+@media (pointer: coarse) {
+  .astryx-tab,
+  .astryx-tab-menu {
+    min-block-size: 2.75rem;
+  }
+}
 
 .astryx-tab-list[data-variant="fill"] .astryx-tab {
   flex: 1;
@@ -357,6 +398,63 @@
   }
 }
 
+/* -------------------------------------------------------------- TabPanel */
+/* A column with the band's rhythm under the strip. [hidden] is restated at a
+   higher weight than the display: an author display beats the browser's own
+   [hidden] rule, which is how every panel of two elements once showed at
+   once. */
+.astryx-tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  min-inline-size: 0;
+  padding-block-start: var(--spacing-6);
+}
+
+.astryx-tab-panel[hidden] {
+  display: none;
+}
+
+.astryx-tab-panel:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-tab-panel-title {
+  margin: 0;
+}
+
+/* Before the runtime has run, every panel is on the page: a stack of
+   sections, kept apart by a rule with the same air above it as below. */
+.astryx-tabs:not([data-g-bound-tabs]) .astryx-tab-panel + .astryx-tab-panel {
+  margin-block-start: var(--spacing-6);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+/* After it, the selected tab names the panel on show and the heading would
+   only repeat it: it leaves the screen, not the document or the outline. */
+.astryx-tabs[data-g-bound-tabs] .astryx-tab-panel[data-title-display="auto"] > .astryx-tab-panel-title {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+@media (max-width: 640px) {
+  .astryx-tab-panel {
+    padding-block-start: var(--spacing-5);
+  }
+
+  .astryx-tabs:not([data-g-bound-tabs]) .astryx-tab-panel + .astryx-tab-panel {
+    margin-block-start: var(--spacing-5);
+  }
+}
+
 /* ------------------------------------------------------ SegmentedControl */
 /* The one control here that swaps selection without a page load, so it must
    not reflow: the weight stays put and the raised surface plus shadow do the
@@ -432,6 +530,18 @@
 
 .astryx-segmented-control-item[data-size="lg"] {
   block-size: calc(var(--size-element-lg) - var(--spacing-1));
+}
+
+/* A segment can be a link (a letter bar, a jump to a section): it stays a
+   segment, with no underline. */
+a.astryx-segmented-control-item {
+  text-decoration: none;
+}
+
+@media (pointer: coarse) {
+  .astryx-segmented-control-item {
+    min-block-size: 2.75rem;
+  }
 }
 
 .astryx-segmented-control[data-variant="fill"] .astryx-segmented-control-item {
@@ -603,6 +713,76 @@
   font-weight: var(--font-weight-semibold);
 }
 
+/* PaginationItem: the same ghost square, for a number that may not be a
+   link. The current page is a span, so it is drawn here rather than borrowed
+   from Button; an unlinked part keeps its number, muted. */
+.astryx-pagination-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-inline-size: var(--size-element-md);
+  block-size: var(--size-element-md);
+  padding-inline: var(--spacing-2);
+  border-radius: var(--radius-element);
+  color: var(--color-text-primary);
+  font-family: inherit;
+  font-size: var(--text-label-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--text-label-leading);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-decoration: none;
+  transition-property: background-color;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-pagination[data-size="sm"] .astryx-pagination-item {
+  min-inline-size: var(--size-element-sm);
+  block-size: var(--size-element-sm);
+}
+
+.astryx-pagination[data-size="lg"] .astryx-pagination-item {
+  min-inline-size: var(--size-element-lg);
+  block-size: var(--size-element-lg);
+}
+
+a.astryx-pagination-item {
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  a.astryx-pagination-item:hover {
+    background-color: var(--color-overlay-hover);
+  }
+}
+
+a.astryx-pagination-item:active {
+  background-color: var(--color-overlay-pressed);
+}
+
+a.astryx-pagination-item:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.astryx-pagination-item[aria-current='page'] {
+  background-color: var(--color-neutral);
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-pagination-item[data-disabled="disabled"] {
+  color: var(--color-text-disabled);
+}
+
+@media (pointer: coarse) {
+  .astryx-pagination-item {
+    min-inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+  }
+}
+
 .astryx-pagination-ellipsis {
   display: inline-flex;
   align-items: center;
@@ -627,29 +807,47 @@
   font-size: var(--text-supporting-size);
   line-height: var(--text-supporting-leading);
   color: var(--color-text-secondary);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .astryx-pagination-dots {
   display: flex;
   align-items: center;
-  gap: var(--spacing-1);
+  /* Each dot's padding is its spacing (below), so a gap would only push the
+     row apart twice. */
+  gap: 0;
 }
 
+/* The mark stays small and the padding does the growing: a dot drawn at 8px
+   is an 8px tap target, and WCAG 2.2 wants 24. Content-box sizing keeps the
+   declared size on the mark, and clipping the background to the content box
+   keeps the paint on it. The resting mark is the secondary text colour
+   thinned, which reads on every surface (the neutral fill it used before all
+   but vanished on white), and follows a dark overlay because the overlay
+   redefines the text tokens. */
 .astryx-pagination-dot {
+  box-sizing: content-box;
   inline-size: var(--spacing-2);
   block-size: var(--spacing-2);
-  padding: 0;
+  padding: calc((1.5rem - var(--spacing-2)) / 2);
   border-width: 0;
   border-style: none;
   border-radius: var(--radius-full);
-  background-color: var(--color-neutral);
+  background-clip: content-box;
+  background-color: color-mix(in srgb, var(--color-text-secondary) 70%, transparent);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard);
+  transition-property: background-color, transform;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-standard);
 }
 
 .astryx-pagination-dot[data-size="sm"] {
   inline-size: var(--spacing-1-5);
   block-size: var(--spacing-1-5);
+  /* 6px plus the 8px step on each side: 22px, the nearest the spacing scale
+     comes to 24 for the small dot. */
+  padding: var(--spacing-2);
 }
 
 .astryx-pagination-dot:focus-visible {
@@ -660,8 +858,9 @@
 /* A dot has no room for a weight or a border, so the active one grows as well
    as changing colour — size is the cue that survives a flat palette. */
 .astryx-pagination-dot[data-selected="selected"],
-.astryx-pagination-dot[aria-current='page'] {
-  background-color: var(--color-accent);
+.astryx-pagination-dot[aria-current='page'],
+.astryx-pagination-dot[aria-current='true'] {
+  background-color: var(--_indicator-active, var(--color-accent));
   transform: scale(1.5);
 }
 
@@ -785,7 +984,193 @@
   .astryx-tab-menu,
   .astryx-segmented-control-item,
   .astryx-outline-item,
-  .astryx-pagination-dot {
+  .astryx-pagination-dot,
+  .astryx-pagination-item {
     transition: none;
   }
+}
+
+/* ------------------------------------------------------- Stepper, Step */
+/* A numbered sequence. A row of steps from 768px, a column below that and
+   wherever the stepper is vertical. The indicator is a circle on the small
+   element size: upcoming is outlined, the current step is ringed in the
+   accent on its muted tint, a complete one is filled. The themes tint the
+   indicator through `--color-accent` and `--color-success` on its
+   data-status, so this file only names those tokens. A rule joins the steps
+   of a row; the complete part of it takes the success colour. */
+.astryx-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.astryx-step {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  min-inline-size: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-leading);
+}
+
+.astryx-step[data-status="complete"] {
+  color: var(--color-text-primary);
+}
+
+.astryx-step[data-status="current"] {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.astryx-step-indicator {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  inline-size: var(--size-element-sm);
+  block-size: var(--size-element-sm);
+  border: 2px solid var(--color-border-emphasized);
+  border-radius: var(--radius-full);
+  color: var(--color-text-secondary);
+  font-size: var(--text-supporting-size);
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.astryx-step-indicator[data-status="accent"] {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-muted);
+  color: var(--color-text-primary);
+}
+
+.astryx-step-indicator[data-status="success"] {
+  border-color: var(--color-success);
+  background-color: var(--color-success);
+  color: var(--color-on-success);
+}
+
+.astryx-step-indicator > svg {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+@media (min-width: 768px) {
+  .astryx-stepper[data-orientation="horizontal"] {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-3);
+  }
+
+  .astryx-stepper[data-orientation="horizontal"] > .astryx-step {
+    flex: 1;
+  }
+
+  .astryx-stepper[data-orientation="horizontal"] > .astryx-step:last-child {
+    flex: 0 1 auto;
+  }
+
+  .astryx-stepper[data-orientation="horizontal"] > .astryx-step:not(:last-child)::after {
+    content: "";
+    flex: 1;
+    min-inline-size: var(--spacing-4);
+    block-size: var(--border-width);
+    background-color: var(--color-border-emphasized);
+  }
+
+  .astryx-stepper[data-orientation="horizontal"] > .astryx-step[data-status="complete"]:not(:last-child)::after {
+    background-color: var(--color-success);
+  }
+}
+
+/* The column layout — a vertical stepper anywhere, every stepper below 768px
+   — joins its indicators with a vertical rule, in the success colour after a
+   complete step, the way the row above joins them with a horizontal one.
+
+   The rule hangs off the indicator rather than the step, because where the
+   indicator sits is the step's business: centred beside a one-line label,
+   at the top of a multi-line stage where an element aligns it there. Each
+   indicator draws its piece below (to the next step) and above (from the one
+   before), both touching its ring; the step clips both to itself plus
+   --stepper-gap, so the two pieces meet in the gap however tall either step
+   is. That holds for any real gap up to twice --stepper-gap; an element that
+   spaces its steps further apart sets --stepper-gap rather than gap. Layout
+   containment keeps the long, clipped pieces out of the page's scroll
+   height. */
+.astryx-stepper {
+  --stepper-gap: var(--spacing-3);
+  row-gap: var(--stepper-gap);
+}
+
+.astryx-step-indicator {
+  position: relative;
+}
+
+.astryx-stepper[data-orientation="vertical"] {
+  --_step-rule: "";
+}
+
+@media not all and (min-width: 768px) {
+  .astryx-stepper {
+    --_step-rule: "";
+  }
+}
+
+/* A row inside a column must not inherit the column's switch. */
+@media (min-width: 768px) {
+  .astryx-stepper[data-orientation="horizontal"] {
+    --_step-rule: none;
+  }
+}
+
+/* The colours are taken on the step, not on the indicator the rule hangs
+   from: a theme re-tints --color-success on a complete indicator's fill, and
+   the two halves of one rule, drawn from two indicators, would not match
+   each other or the row's rule. */
+.astryx-stepper > .astryx-step {
+  --_step-rule-reach: var(--stepper-gap);
+  --_step-rule-color: var(--color-border-emphasized);
+  --_step-rule-done: var(--color-success);
+}
+
+.astryx-stepper[data-orientation="vertical"] > .astryx-step {
+  contain: layout;
+  clip-path: inset(calc(-1 * var(--_step-rule-reach)) -100vw);
+}
+
+@media not all and (min-width: 768px) {
+  .astryx-stepper > .astryx-step {
+    contain: layout;
+    clip-path: inset(calc(-1 * var(--_step-rule-reach)) -100vw);
+  }
+}
+
+.astryx-stepper > .astryx-step:not(:last-child) > .astryx-step-indicator::after,
+.astryx-stepper > .astryx-step:not(:first-child) > .astryx-step-indicator::before {
+  content: var(--_step-rule, none);
+  position: absolute;
+  /* The indicator's padding box is the containing block; its 2px ring sits
+     outside it. A 1px rule cannot be centred on an even width, so it takes
+     the whole pixel left of centre and stays sharp. */
+  inset-inline-start: calc(50% - var(--border-width));
+  inline-size: var(--border-width);
+  block-size: 100vh;
+  background-color: var(--_step-rule-color);
+  pointer-events: none;
+}
+
+.astryx-stepper > .astryx-step:not(:last-child) > .astryx-step-indicator::after {
+  inset-block-start: calc(100% + 2px);
+}
+
+.astryx-stepper > .astryx-step:not(:first-child) > .astryx-step-indicator::before {
+  inset-block-end: calc(100% + 2px);
+}
+
+.astryx-stepper > .astryx-step[data-status="complete"]:not(:last-child) > .astryx-step-indicator::after,
+.astryx-stepper > .astryx-step[data-status="complete"] + .astryx-step > .astryx-step-indicator::before {
+  background-color: var(--_step-rule-done);
 }

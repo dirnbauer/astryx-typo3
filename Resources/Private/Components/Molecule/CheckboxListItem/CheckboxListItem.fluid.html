@@ -27,11 +27,11 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <label class="astryx-checkbox-list-item {class}"><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         type="checkbox"
         name="{name}"
         value="{value}"
-        aria-describedby="{describedBy}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
         {f:if(condition: checked, then: 'checked')}
         {f:if(condition: disabled, then: 'disabled')}
         {f:if(condition: required, then: 'required')} /><f:if condition="{label}"><f:then>{label}</f:then><f:else><f:slot /></f:else></f:if></label>

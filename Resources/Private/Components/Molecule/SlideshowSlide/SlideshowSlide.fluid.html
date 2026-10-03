@@ -1,0 +1,13 @@
+<f:comment>
+    SlideshowSlide — one view of a Slideshow.
+
+    A figure with the id its dot links to. The first slide shows until a dot
+    picks another, with or without script; the runtime marks the showing one
+    `data-active` and hides the others from assistive technology, since only
+    one of them is on screen.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<figure{g:attribute(name: 'id', value: id)} class="astryx-slideshow-slide {class}" data-g-slide><f:slot /></figure>

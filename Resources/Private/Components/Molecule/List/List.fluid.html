@@ -1,15 +1,36 @@
 <f:comment>
-    List — a vertical run of rows: bullets, steps, links, Items.
+    List — a run of rows: bullets, steps, links, Items.
 
-    `marker="decimal"` renders an <ol> rather than a <ul>, because a numbered
-    list is an ordered list and the number is the meaning, not the decoration.
-    Every other marker leaves the list unordered. The markers themselves are
-    drawn by the CSS rather than left to `list-style-type`, so that a bullet can
-    take the text colour and line up with the first line of an item that wraps.
+    `marker="decimal"` and `marker="step"` render an <ol> rather than a <ul>,
+    because a numbered list is an ordered list and the number is the meaning,
+    not the decoration. `step` draws the number in the tinted tile FeatureIcon
+    uses for its numerals, for a short process told as a list: how to join, how
+    a referral works. Every other marker leaves the list unordered. The markers
+    themselves are drawn by the CSS rather than left to `list-style-type`, so
+    that a bullet can take the text colour and line up with the first line of
+    an item that wraps.
 
     `dividers` and `density` are separate on purpose: a rule between rows
     replaces the gap entirely, and the padding that gives that rule its air is
     the density's job.
+
+    `columns` (2 to 4) lays the rows out in columns, a ceiling as on Grid: a
+    directory of people, a list of alumni. With dividers every row keeps its
+    rule there, because no rule can know which rows end the last line.
+
+    `orientation="horizontal"` runs the items along a line and wraps them: the
+    legal links under a footer, a row of languages, a strip of short facts.
+    `dividers` then draws a short upright rule between two items instead of a
+    line under each — drawn, not typed, so it never lands in a copied line or in
+    what a screen reader reads out — and drops it below 480px, where the row
+    wraps and a leading rule would mark the start of a line rather than a
+    boundary. In a horizontal list the dividers take the place of a marker.
+
+    `gap` (1 to 8, a step of the spacing scale) sets the space between items:
+    between the rows of a vertical list, between the items of a horizontal one.
+
+    `size="sm"` sets the items in the supporting text size: a compact strip of
+    jump links or facts beside running text. The default is body text.
 
     `facetName` and `facetLabel` are EXT:solr's own markup contract for a facet
     option list, read back by its show-all and ajaxify scripts. They are
@@ -22,28 +43,36 @@
 <f:argument name="marker" type="string" optional="{true}" default="default" />
 <f:argument name="dividers" type="string" optional="{true}" default="default" />
 <f:argument name="density" type="string" optional="{true}" default="default" />
+<f:argument name="orientation" type="string" optional="{true}" default="vertical" />
+<f:argument name="columns" type="integer" optional="{true}" default="1" />
+<f:argument name="gap" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="default" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="facetName" type="string" optional="{true}" default="" />
 <f:argument name="facetLabel" type="string" optional="{true}" default="" />
 
-<f:if condition="{marker} == 'decimal'">
+<f:if condition="{marker} == 'decimal' || {marker} == 'step'">
     <f:then>
         <ol
-            class="astryx-list {class}" id="{id}"
+            class="astryx-list {class}"{g:attribute(name: 'id', value: id)}
             data-marker="{marker}"
             data-dividers="{dividers}"
             data-density="{density}"
-            data-facet-name="{facetName}"
-            data-facet-label="{facetLabel}"><f:slot /></ol>
+            data-orientation="{orientation}"
+            data-columns="{columns}"
+            data-gap="{gap}"
+            data-size="{size}"{g:attribute(name: 'data-facet-name', value: facetName)}{g:attribute(name: 'data-facet-label', value: facetLabel)}><f:slot /></ol>
     </f:then>
     <f:else>
         <ul
-            class="astryx-list {class}" id="{id}"
+            class="astryx-list {class}"{g:attribute(name: 'id', value: id)}
             data-marker="{marker}"
             data-dividers="{dividers}"
             data-density="{density}"
-            data-facet-name="{facetName}"
-            data-facet-label="{facetLabel}"><f:slot /></ul>
+            data-orientation="{orientation}"
+            data-columns="{columns}"
+            data-gap="{gap}"
+            data-size="{size}"{g:attribute(name: 'data-facet-name', value: facetName)}{g:attribute(name: 'data-facet-label', value: facetLabel)}><f:slot /></ul>
     </f:else>
 </f:if>

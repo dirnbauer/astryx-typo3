@@ -26,6 +26,6 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div class="astryx-top-nav-mega-menu-group">
-    <button type="button" class="astryx-top-nav-mega-menu {class}" popovertarget="{id}" aria-label="{ariaLabel}"><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-    <div id="{id}" class="astryx-top-nav-mega-menu-panel" popover="auto"><f:slot name="menu" /></div>
+    <button type="button" class="astryx-top-nav-mega-menu {class}" popovertarget="{id}"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div{g:attribute(name: 'id', value: id)} class="astryx-top-nav-mega-menu-panel" popover="auto"><f:slot name="menu" /></div>
 </div>

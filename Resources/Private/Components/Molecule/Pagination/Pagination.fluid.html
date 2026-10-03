@@ -24,7 +24,11 @@
     The current page belongs in the markup as a `span` carrying
     aria-current="page" rather than as a link to itself; the stylesheet paints
     it from that attribute, pairing a tint with a weight so it stays findable
-    in a theme whose accent sits close to the text colour.
+    in a theme whose accent sits close to the text colour. PaginationItem is
+    that number: `current="{true}"` renders the span, a `parameter` or `href`
+    the link, and neither a muted number with nowhere to go. A ghost Button
+    with `ariaCurrent="page"` is still painted the same way, for the rows
+    written before the item existed.
 
     One trap comes with the named slots, and it is Fluid's rather than this
     component's: a call that contains even one `<f:fragment name="…">` stops
@@ -48,4 +52,4 @@
     so they stay where an element's own stylesheet can make them, now that the
     markup they were written against is no longer the element's to write.
 </f:comment>
-<nav class="astryx-pagination {class}" data-size="{size}" aria-label="{ariaLabel}"><div class="astryx-pagination-controls {controlsClass}"><f:slot name="previous" /><f:if condition="{truncatedStart}"><span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span></f:if><f:slot /><f:if condition="{truncatedEnd}"><span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span></f:if><f:slot name="next" /></div><f:if condition="{f:slot(name: 'info')}"><p class="astryx-pagination-info {infoClass}"><f:slot name="info" /></p></f:if></nav>
+<nav class="astryx-pagination {class}" data-size="{size}"{g:attribute(name: 'aria-label', value: ariaLabel)}><div class="astryx-pagination-controls {controlsClass}"><f:slot name="previous" /><f:if condition="{truncatedStart}"><span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span></f:if><f:slot /><f:if condition="{truncatedEnd}"><span class="astryx-pagination-ellipsis" aria-hidden="true">&#8230;</span></f:if><f:slot name="next" /></div><f:if condition="{f:slot(name: 'info') -> f:format.trim()}"><p class="astryx-pagination-info {infoClass}"><f:slot name="info" /></p></f:if></nav>

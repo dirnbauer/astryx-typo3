@@ -56,6 +56,10 @@ const UNLAYERED = new Set([
  */
 const LAYER_OVERRIDES = new Map([
   ['07-contrast-overrides.css', 'astryx-theme'],
+  // Heading types restated after the generated level rules, in their layer.
+  ['08-heading-types.css', 'astryx-theme'],
+  // The accent-band button inversion has to beat themes' own button rules.
+  ['08c-accent-band.css', 'astryx-theme'],
   // An element-level reset must not outrank the components it resets, and a
   // layer beats specificity outright — so this partial is emitted into the
   // first layer rather than into the chrome layer the rest of astryx.css uses.

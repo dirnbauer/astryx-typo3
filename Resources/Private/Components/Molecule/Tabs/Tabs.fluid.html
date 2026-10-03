@@ -7,6 +7,10 @@
     here hides a panel: with the script absent every panel stays in the page,
     so the band degrades into a longer document rather than a broken one, and
     the text is still indexed, printed and found by the browser's own search.
+
+    Inside it go one TabList of Tabs and one TabPanel per Tab. Once the
+    runtime has bound it, it carries `data-g-bound-tabs`, which is what tells a
+    TabPanel's heading that the tab above already names it.
 </f:comment>
 
 <f:argument name="class" type="string" optional="{true}" default="" />

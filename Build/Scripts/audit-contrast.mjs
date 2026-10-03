@@ -52,6 +52,8 @@ function pairs(scheme) {
     ['secondary text', '--color-text-secondary', '--color-background-body', 4.5],
     ['secondary text on surface', '--color-text-secondary', '--color-background-surface', 4.5],
     ['secondary text on card', '--color-text-secondary', '--color-background-card', 4.5],
+    // Muted bands carry secondary text too (leads, captions, meta lines).
+    ['secondary text on muted', '--color-text-secondary', '--color-background-muted', 4.5],
     // --color-neutral is a translucent wash, so what a label on it actually
     // resolves to depends on the surface underneath. This audit measures token
     // pairs and cannot composite; the segmented control therefore writes its
@@ -89,6 +91,16 @@ function pairs(scheme) {
     ['secondary icon', '--color-icon-secondary', '--color-background-body', 3],
   ];
 
+  // Status ink: Icon and Text `color="success|warning|error"` read
+  // var(--g-ink-*, var(--color-*)) — the corrected ink where the theme has
+  // one, the status colour itself where it does not. Held to the text
+  // threshold, because Text uses it for words.
+  for (const status of ['success', 'warning', 'error']) {
+    for (const [where, surface] of [['page', 'body'], ['surface', 'surface'], ['card', 'card'], ['muted', 'muted']]) {
+      list.push([`${status} ink on ${where}`, [`--g-ink-${status}`, `--color-${status}`], `--color-background-${surface}`, 4.5]);
+    }
+  }
+
   // Badges: each hue's text on its own background. Nine per theme, and they are
   // the most likely place for a palette to slip.
   for (const hue of HUES) {
@@ -111,7 +123,8 @@ for (const theme of THEMES) {
     const canvas = resolve(theme, '--color-background-body', scheme) ?? [255, 255, 255, 1];
 
     for (const [role, fgToken, bgToken, min] of pairs(scheme)) {
-      const rawFg = resolve(theme, fgToken, scheme);
+      // A list is a var() with fallbacks: the first token the theme declares.
+      const rawFg = [fgToken].flat().map(t => resolve(theme, t, scheme)).find(Boolean) ?? null;
       const rawBg = resolve(theme, bgToken, scheme);
       if (!rawFg || !rawBg) continue;
 

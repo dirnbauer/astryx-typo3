@@ -34,12 +34,12 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <label class="astryx-selectable-card {class}"><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         type="{type}"
         name="{name}"
         value="{value}"
-        aria-describedby="{describedBy}"
-        aria-label="{ariaLabel}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
+       {g:attribute(name: 'aria-label', value: ariaLabel)}
         {f:if(condition: checked, then: 'checked')}
         {f:if(condition: disabled, then: 'disabled')}
         {f:if(condition: required, then: 'required')} /><span class="astryx-selectable-card-body"><f:slot /></span></label>

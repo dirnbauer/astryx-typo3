@@ -34,9 +34,9 @@
     what a plain <a> would allow and what the first version of this component
     wrongly did.
 </f:comment>
-    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-token {class}" additionalAttributes="{'data-selected': selected, 'data-size': size, 'aria-current': ariaCurrent}"><f:slot /></f:link.typolink></f:case>
-    <f:case value="link"><a href="{href}" class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></a></f:case>
-    <f:case value="li"><li class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></li></f:case>
-    <f:case value="div"><div class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></div></f:case>
-    <f:defaultCase><span class="astryx-token {class}" data-selected="{selected}" data-size="{size}" aria-current="{ariaCurrent}"><f:slot /></span></f:defaultCase>
+    <f:case value="typolink"><f:variable name="presentAttributes"><g:present of="{'data-selected': selected, 'data-size': size, 'aria-current': ariaCurrent}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-token {class}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-token {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: ariaCurrent)}><f:slot /></a></f:case>
+    <f:case value="li"><li class="astryx-token {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: ariaCurrent)}><f:slot /></li></f:case>
+    <f:case value="div"><div class="astryx-token {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: ariaCurrent)}><f:slot /></div></f:case>
+    <f:defaultCase><span class="astryx-token {class}" data-selected="{selected}" data-size="{size}"{g:attribute(name: 'aria-current', value: ariaCurrent)}><f:slot /></span></f:defaultCase>
 </f:switch>

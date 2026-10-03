@@ -41,9 +41,9 @@
 </f:comment>
 <f:if condition="{popover}">
     <f:then>
-        <div class="astryx-hover-card-anchor {class}"><button type="button" class="astryx-hover-card-trigger {triggerClass}" popovertarget="{id}" aria-describedby="{id}"><f:slot name="trigger" /></button><div id="{id}" popover class="astryx-hover-card"><f:slot /></div></div>
+        <div class="astryx-hover-card-anchor {class}"><button type="button" class="astryx-hover-card-trigger {triggerClass}" popovertarget="{id}"{g:attribute(name: 'aria-describedby', value: id)}><f:slot name="trigger" /></button><div{g:attribute(name: 'id', value: id)} popover class="astryx-hover-card"><f:slot /></div></div>
     </f:then>
     <f:else>
-        <div class="astryx-hover-card-anchor {class}"><span class="astryx-hover-card-trigger {triggerClass}" tabindex="0" aria-describedby="{id}"><f:slot name="trigger" /></span><div id="{id}" class="astryx-hover-card"><f:slot /></div></div>
+        <div class="astryx-hover-card-anchor {class}"><span class="astryx-hover-card-trigger {triggerClass}" tabindex="0"{g:attribute(name: 'aria-describedby', value: id)}><f:slot name="trigger" /></span><div{g:attribute(name: 'id', value: id)} class="astryx-hover-card"><f:slot /></div></div>
     </f:else>
 </f:if>

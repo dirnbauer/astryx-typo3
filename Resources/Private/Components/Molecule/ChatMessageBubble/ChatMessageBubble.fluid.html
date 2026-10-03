@@ -21,4 +21,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div class="astryx-chat-message-bubble {class}" id="{id}" data-variant="{variant}"><f:slot /></div>
+<div class="astryx-chat-message-bubble {class}"{g:attribute(name: 'id', value: id)} data-variant="{variant}"><f:slot /></div>

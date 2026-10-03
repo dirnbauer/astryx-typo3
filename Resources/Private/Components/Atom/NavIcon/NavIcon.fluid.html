@@ -19,7 +19,7 @@
 
 <f:if condition="{ariaLabel}">
     <f:then>
-        <span class="astryx-nav-icon {class}" role="img" aria-label="{ariaLabel}"><f:slot /></span>
+        <span class="astryx-nav-icon {class}" role="img"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></span>
     </f:then>
     <f:else>
         <span class="astryx-nav-icon {class}" aria-hidden="true"><f:slot /></span>

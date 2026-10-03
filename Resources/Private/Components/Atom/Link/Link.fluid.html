@@ -39,6 +39,6 @@
     what a plain <a> would allow and what the first version of this component
     wrongly did.
 </f:comment>
-    <f:then><f:link.typolink parameter="{parameter}" class="astryx-link {class}" title="{title}" additionalAttributes="{'data-variant': variant, 'aria-label': ariaLabel}"><f:slot /></f:link.typolink></f:then>
-    <f:else><a href="{href}" class="astryx-link {class}" data-variant="{variant}" target="{target}" rel="{effectiveRel}" title="{title}" aria-label="{ariaLabel}"><f:slot /></a></f:else>
+    <f:then><f:variable name="presentAttributes"><g:present of="{'data-variant': variant, 'aria-label': ariaLabel}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-link {class}" title="{title}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-link {class}" data-variant="{variant}"{g:attribute(name: 'target', value: target)} rel="{effectiveRel}"{g:attribute(name: 'title', value: title)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></a></f:else>
 </f:if>

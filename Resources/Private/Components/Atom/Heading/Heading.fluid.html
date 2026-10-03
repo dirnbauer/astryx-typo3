@@ -21,12 +21,12 @@
 <f:if condition="{id}">
     <f:then>
         <f:switch expression="{level}">
-            <f:case value="1"><h1 id="{id}" class="astryx-heading {class}" data-level="1" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h1></f:case>
-            <f:case value="3"><h3 id="{id}" class="astryx-heading {class}" data-level="3" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h3></f:case>
-            <f:case value="4"><h4 id="{id}" class="astryx-heading {class}" data-level="4" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h4></f:case>
-            <f:case value="5"><h5 id="{id}" class="astryx-heading {class}" data-level="5" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h5></f:case>
-            <f:case value="6"><h6 id="{id}" class="astryx-heading {class}" data-level="6" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h6></f:case>
-            <f:defaultCase><h2 id="{id}" class="astryx-heading {class}" data-level="2" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h2></f:defaultCase>
+            <f:case value="1"><h1{g:attribute(name: 'id', value: id)} class="astryx-heading {class}" data-level="1" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h1></f:case>
+            <f:case value="3"><h3{g:attribute(name: 'id', value: id)} class="astryx-heading {class}" data-level="3" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h3></f:case>
+            <f:case value="4"><h4{g:attribute(name: 'id', value: id)} class="astryx-heading {class}" data-level="4" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h4></f:case>
+            <f:case value="5"><h5{g:attribute(name: 'id', value: id)} class="astryx-heading {class}" data-level="5" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h5></f:case>
+            <f:case value="6"><h6{g:attribute(name: 'id', value: id)} class="astryx-heading {class}" data-level="6" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h6></f:case>
+            <f:defaultCase><h2{g:attribute(name: 'id', value: id)} class="astryx-heading {class}" data-level="2" data-type="{type}" data-weight="{weight}" data-color="{color}"><f:slot /></h2></f:defaultCase>
         </f:switch>
     </f:then>
     <f:else>

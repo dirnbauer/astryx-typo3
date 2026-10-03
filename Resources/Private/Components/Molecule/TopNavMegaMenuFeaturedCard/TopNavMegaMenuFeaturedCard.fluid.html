@@ -30,7 +30,7 @@
 
 <f:if condition="{href}">
     <f:then>
-        <a href="{href}" class="astryx-top-nav-mega-menu-featured-card {class}" aria-label="{ariaLabel}" target="{target}" rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{image}"><img src="{image}" alt="{imageAlt}" loading="lazy" decoding="async" /></f:if><span><f:slot /></span></a>
+        <a href="{href}" class="astryx-top-nav-mega-menu-featured-card {class}"{g:attribute(name: 'aria-label', value: ariaLabel)}{g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}><f:if condition="{image}"><img src="{image}" alt="{imageAlt}" loading="lazy" decoding="async" /></f:if><span><f:slot /></span></a>
     </f:then>
     <f:else>
         <div class="astryx-top-nav-mega-menu-featured-card {class}"><f:if condition="{image}"><img src="{image}" alt="{imageAlt}" loading="lazy" decoding="async" /></f:if><span><f:slot /></span></div>

@@ -39,6 +39,17 @@
     Note that the root carries `role="progressbar"`, which replaces whatever
     the element would otherwise have meant. A progress bar inside a list is a
     `<div>` within the `<li>`, never the `<li>`, or the list loses its item.
+
+    `size="lg"` is the heavier 12px track, for the one bar that is the point
+    of its band — a fundraising goal, a quota — rather than one row of many.
+
+    The track is drawn in the theme's track colour, which is tuned to read on
+    the page, on a card and on a muted band alike; the muted background it used
+    to take was the muted band's own colour, and there the empty part of a bar
+    disappeared. On an accent band the bar takes the band's ink: the fill is
+    `--color-on-accent` and the track a translucent wash of it, because an
+    accent fill on the accent band left only the empty part visible and the
+    bar read backwards.
 </f:comment>
 
 <f:argument name="value" type="integer" optional="{true}" default="0" />
@@ -46,6 +57,7 @@
 <f:argument name="max" type="integer" optional="{true}" default="100" />
 <f:argument name="variant" type="string" optional="{true}" default="accent" />
 <f:argument name="state" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
 <f:argument name="decorative" type="boolean" optional="{true}" default="{false}" />
 <f:argument name="labelAs" type="string" optional="{true}" default="span" />
 <f:argument name="labelClass" type="string" optional="{true}" default="" />
@@ -73,17 +85,18 @@
     class="astryx-progress-bar {class}"
     data-variant="{variant}"
     data-state="{state}"
-    aria-label="{ariaLabel}"
+    data-size="{size}"
+   {g:attribute(name: 'aria-label', value: ariaLabel)}
     {rootStyle -> f:format.raw()}
     {measure -> f:format.raw()}>
-    <f:if condition="{f:slot(name: 'label')}">
+    <f:if condition="{f:slot(name: 'label') -> f:format.trim()}">
         <div class="astryx-progress-bar-header">
             <f:switch expression="{labelAs}">
                 <f:case value="h3"><h3 class="astryx-progress-bar-label {labelClass}"><f:slot name="label" /></h3></f:case>
                 <f:case value="h4"><h4 class="astryx-progress-bar-label {labelClass}"><f:slot name="label" /></h4></f:case>
                 <f:defaultCase><span class="astryx-progress-bar-label {labelClass}"><f:slot name="label" /></span></f:defaultCase>
             </f:switch>
-            <f:if condition="{f:slot(name: 'value')}"><span class="astryx-progress-bar-value {valueClass}"><f:slot name="value" /></span></f:if>
+            <f:if condition="{f:slot(name: 'value') -> f:format.trim()}"><span class="astryx-progress-bar-value {valueClass}"><f:slot name="value" /></span></f:if>
         </div>
     </f:if>
     <div class="astryx-progress-bar-track {trackClass}" {trackHidden -> f:format.raw()}><span class="astryx-progress-bar-fill {fillClass}" {fillStyle -> f:format.raw()}></span></div>

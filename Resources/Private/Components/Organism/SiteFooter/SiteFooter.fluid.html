@@ -41,7 +41,7 @@
             </div>
 
             <f:if condition="{languages}">
-                <nav aria-label="{languageLabel}">
+                <nav{g:attribute(name: 'aria-label', value: languageLabel)}>
                     <ul class="astryx-footer__list">
                         <f:for each="{languages}" as="language">
                             <f:if condition="{language.available}">
@@ -74,7 +74,7 @@
             </p>
 
             <f:if condition="{legalMenu}">
-                <nav aria-label="{legalLabel}">
+                <nav{g:attribute(name: 'aria-label', value: legalLabel)}>
                     <ul class="astryx-footer__list">
                         <f:for each="{legalMenu}" as="item">
                             <li>

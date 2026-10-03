@@ -1,0 +1,34 @@
+<f:comment>
+    TabPanel — the content one Tab opens.
+
+    `role="tabpanel"`, the `id` its Tab's `controls` names, and
+    `ariaLabelledby` pointing back at that Tab's `id`: the three facts that
+    make a tab and its panel one control for assistive technology. It is a tab
+    stop of its own, as the tab pattern asks, so a keyboard can reach a panel
+    that holds no link.
+
+    Every panel is in the markup and none starts hidden. Without astryx.js the
+    band is a stack of sections, one after the other, divided by a rule; the
+    runtime is what selects a tab and puts `hidden` on the panels that are not
+    on show. The panel is a flex column, and `[hidden]` is restated in its own
+    stylesheet for that reason — an author `display` beats the browser's own
+    `[hidden]` rule, which is how two elements once showed every panel at once.
+    An element's own class on the panel must leave `display` alone for the
+    same reason.
+
+    `title` is the panel's own heading, plain text (it is an argument, so an
+    f:render.text value would arrive escaped; pass the field itself). Without
+    the script it heads its section of the stack. Once the runtime has turned
+    the stack into tabs, the selected tab already names the panel on show, so
+    with `titleDisplay="auto"` the heading leaves the screen but stays in the
+    document and in the outline; `titleDisplay="visible"` keeps it on screen.
+</f:comment>
+
+<f:argument name="id" type="string" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="3" />
+<f:argument name="titleDisplay" type="string" optional="{true}" default="auto" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<div{g:attribute(name: 'id', value: id)} class="astryx-tab-panel {class}" role="tabpanel"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)} data-title-display="{titleDisplay}" tabindex="0"><f:if condition="{title}"><a:atom.heading level="{titleLevel}" class="astryx-tab-panel-title">{title}</a:atom.heading></f:if><f:slot /></div>

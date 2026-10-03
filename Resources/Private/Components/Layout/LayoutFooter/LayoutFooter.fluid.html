@@ -17,6 +17,6 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:if condition="{id}">
-    <f:then><footer id="{id}" class="astryx-layout-footer {class}"><f:slot /></footer></f:then>
+    <f:then><footer{g:attribute(name: 'id', value: id)} class="astryx-layout-footer {class}"><f:slot /></footer></f:then>
     <f:else><footer class="astryx-layout-footer {class}"><f:slot /></footer></f:else>
 </f:if>

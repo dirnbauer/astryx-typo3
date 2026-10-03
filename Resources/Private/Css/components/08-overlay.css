@@ -286,7 +286,19 @@
   }
 }
 
-.astryx-dialog[data-variant="fullscreen"] {
+/* Wider steps for what a confirmation is too narrow for. `lg` is a player or
+   a gallery, and may take more of the height as well. */
+.astryx-dialog[data-size="md"] {
+  inline-size: 40rem;
+}
+
+.astryx-dialog[data-size="lg"] {
+  inline-size: 64rem;
+  max-block-size: 90dvh;
+}
+
+.astryx-dialog[data-variant="fullscreen"],
+.astryx-dialog[data-size="full"] {
   inset: 0;
   margin: 0;
   inline-size: 100dvw;
@@ -294,6 +306,16 @@
   max-inline-size: 100dvw;
   max-block-size: 100dvh;
   border-radius: var(--radius-none);
+}
+
+/* A stage for a film. The dialog resolves the theme's tokens as dark in
+   either scheme — every token is a light-dark() pair — so the surface goes
+   dark and the title, the close control and any text go light with it; the
+   body colour is the darkest the theme has, which is what a letterbox wants
+   to disappear into. */
+.astryx-dialog[data-variant="media"] {
+  color-scheme: dark;
+  background-color: var(--color-background-body);
 }
 
 .astryx-dialog:focus-visible,
@@ -343,6 +365,17 @@
   font-size: var(--text-body-size);
   line-height: var(--text-body-leading);
   color: var(--color-text-secondary);
+}
+
+/* The header and the footer pad the body's two ends; a dialog without one
+   of them would leave its content against the edge — a player touching the
+   bottom of the frame. */
+.astryx-dialog > .astryx-dialog-body:first-child {
+  padding-block-start: var(--dialog-padding, var(--spacing-6));
+}
+
+.astryx-dialog > .astryx-dialog-body:last-child {
+  padding-block-end: var(--dialog-padding, var(--spacing-6));
 }
 
 /* Actions sit apart from the body and stay put while it scrolls, so the
@@ -607,7 +640,11 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   padding-inline: var(--spacing-1);
-  padding-block-end: var(--spacing-2);
+  /* A scroll container clips at its padding box, so the padding is the room
+     the cards' shadows and focus rings get: above them as much as below,
+     where the scrollbar also sits. With none on top the shadow of every card
+     was cut off flat along its upper edge. */
+  padding-block: var(--spacing-2) var(--spacing-3);
   scroll-padding-inline: var(--spacing-1);
   /* Upstream hides the scrollbar and fades the edges instead. Here it stays:
      a thin tinted bar is the only affordance that tells a reader there is
@@ -643,6 +680,60 @@
 
 .astryx-carousel-control[data-position="start"] { inset-inline-start: 0; }
 .astryx-carousel-control[data-position="end"] { inset-inline-end: 0; }
+
+/* The arrows are a pointer convenience: a finger swipes, and the scrollbar
+   already says there is more. They show only once the runtime has bound them
+   (before that they would do nothing), only for a fine pointer from 768px,
+   not on a rail that fits its column (the runtime marks it
+   data-g-carousel-fits), not while there is nothing to page to — and in a
+   gutter of their own beside the track rather than over its cards. */
+.astryx-carousel-control {
+  display: none;
+}
+
+@media (min-width: 768px) and (hover: hover) and (pointer: fine) {
+  .astryx-carousel[data-g-bound-carousel]:not([data-g-carousel-fits]) > .astryx-carousel-control {
+    display: flex;
+  }
+
+  .astryx-carousel[data-g-bound-carousel]:not([data-g-carousel-fits]):has(> .astryx-carousel-control) {
+    padding-inline: calc(var(--size-element-md) / 2 + var(--spacing-2));
+  }
+}
+
+/* At either end the runtime switches an arrow off with aria-disabled rather
+   than disabled, so a focused arrow keeps focus. It fades out like a disabled
+   one — except while a keyboard is on it: an invisible focused control is
+   focus nobody can see, so it stays, drawn disabled, until focus moves on. */
+.astryx-carousel-control[disabled],
+.astryx-carousel-control[aria-disabled='true'] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.astryx-carousel-control[aria-disabled='true']:focus-visible {
+  opacity: 1;
+}
+
+/* The chevrons are drawn pointing left and right; in a right-to-left rail the
+   start is on the right, and "previous" points there. */
+.astryx-carousel-control:dir(rtl) > svg {
+  scale: -1 1;
+}
+
+/* Where the reader is in the rail, said once a scroll comes to rest; read by
+   a screen reader, never drawn. */
+.astryx-carousel-status {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
 
 /* The arrow sits over whatever the rail is showing, so its focus state lifts
    the shadow as well as drawing the ring: an outline alone disappears into a
@@ -737,10 +828,31 @@
 
 /* --------------------------------------------------------------- Overlay */
 /* Content laid over media — a caption strip, a play button, a hover scrim.
-   The container clips so a scrim can bleed to the corners of a rounded image. */
+   The container clips so a scrim can bleed to the corners of a rounded image —
+   which it can only do with corners of its own: a square root left a square
+   scrim over a rounded picture, its dark corners standing out past the
+   image's. The root takes the media's radius: an AspectRatio's by itself,
+   any other as `data-radius` says. */
 .astryx-overlay {
   position: relative;
   overflow: clip;
+  border-radius: var(--_overlay-radius, 0);
+}
+
+.astryx-overlay:has(> .astryx-aspect-ratio) {
+  --_overlay-radius: var(--radius-element);
+}
+
+.astryx-overlay[data-radius="none"] {
+  --_overlay-radius: 0;
+}
+
+.astryx-overlay[data-radius="element"] {
+  --_overlay-radius: var(--radius-element);
+}
+
+.astryx-overlay[data-radius="container"] {
+  --_overlay-radius: var(--radius-container);
 }
 
 .astryx-overlay-scrim {
@@ -766,13 +878,44 @@
 
 .astryx-overlay-scrim[data-tone="dark"] {
   background-color: var(--color-overlay);
+  /* Every theme token is a light-dark() pair: on the scrim they resolve to
+     their dark values, so a primary button, a badge or a link on the photo is
+     what it would be in dark mode — not a near-black pill on a dark image. */
+  color-scheme: dark;
+
+  /* What sits on the photo takes its colours from the scrim, the way the
+     accent band does it: the scrim redefines the text, icon and neutral
+     tokens instead of setting `color` and hoping. A heading, a link or a
+     ghost or secondary button pins its colour to those tokens, and on a dark
+     scrim they were tuned for the page — dark on dark, and the second action
+     of a photo hero vanished. Redefining them here fixes every element that
+     lays content over media, including ones written later. */
+  --color-text-primary: var(--color-on-dark);
+  --color-text-secondary: color-mix(in srgb, var(--color-on-dark) 84%, transparent);
+  --color-text-accent: var(--color-on-dark);
+  --color-icon-primary: var(--color-on-dark);
+  --color-icon-secondary: var(--color-on-dark);
+  --color-neutral: color-mix(in srgb, var(--color-on-dark) 16%, transparent);
+  --color-overlay-hover: color-mix(in srgb, var(--color-on-dark) 12%, transparent);
+  --color-overlay-pressed: color-mix(in srgb, var(--color-on-dark) 20%, transparent);
+  /* Indicators (the current pagination dot) are the accent colour on a page;
+     on a photo the accent can be as dark as the scrim, so they turn white. */
+  --_indicator-active: var(--color-on-dark);
 }
 
 /* The light scrim has no token of its own: it is the on-dark colour thinned
-   to 60%, which lands on white in every theme without naming one. */
+   to 60%, which lands on white in every theme without naming one. Its
+   content takes the on-light colour the same way the dark scrim's takes the
+   on-dark one. */
 .astryx-overlay-scrim[data-tone="light"] {
   background-color: color-mix(in srgb, var(--color-on-dark) 60%, transparent);
+  color-scheme: light;
   color: var(--color-on-light);
+  --color-text-primary: var(--color-on-light);
+  --color-text-secondary: color-mix(in srgb, var(--color-on-light) 84%, transparent);
+  --color-text-accent: var(--color-on-light);
+  --color-icon-primary: var(--color-on-light);
+  --color-icon-secondary: var(--color-on-light);
 }
 
 .astryx-overlay-scrim[data-reveal="always"] {
@@ -871,4 +1014,142 @@
  */
 .astryx-toast :where(.astryx-link, .astryx-text, .astryx-heading, .astryx-icon-button) {
   color: inherit;
+}
+
+/* ------------------------------------------------------------ Slideshow */
+/* One view at a time: every slide sits in the same grid cell and the one on
+   show fades in over the last. Without script `:target` picks it and the
+   first slide shows by default; once the runtime is bound, `data-active`
+   decides alone, so a dot no longer moves the page to its slide. */
+.astryx-slideshow {
+  position: relative;
+  display: grid;
+}
+
+.astryx-slideshow-slide {
+  grid-area: 1 / 1;
+  margin: 0;
+  min-inline-size: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, visibility;
+  transition-duration: var(--duration-medium);
+  transition-timing-function: var(--ease-standard);
+}
+
+.astryx-slideshow > .astryx-slideshow-slide:first-of-type {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* A targeted slide replaces the first one. The two rules weigh the same, so
+   their order decides. */
+.astryx-slideshow:has(> .astryx-slideshow-slide:target) > .astryx-slideshow-slide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.astryx-slideshow > .astryx-slideshow-slide:target {
+  opacity: 1;
+  visibility: visible;
+}
+
+.astryx-slideshow[data-g-bound-slideshow] > .astryx-slideshow-slide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.astryx-slideshow[data-g-bound-slideshow] > .astryx-slideshow-slide[data-active] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* The pause/play control of a rotating slideshow sits in its corner, above
+   the slides, and shows the glyph of what it will do. */
+.astryx-slideshow-toggle {
+  position: absolute;
+  inset-block-end: var(--spacing-3);
+  inset-inline-end: var(--spacing-3);
+  z-index: 1;
+
+  /* It sits on the pictures, so it wears the overlay's colours: the button's
+     own variant reads these tokens, which keeps its hover and focus states. */
+  --color-neutral: var(--color-overlay);
+  --color-text-primary: var(--color-on-dark);
+  --color-icon-primary: var(--color-on-dark);
+  --color-overlay-hover: color-mix(in srgb, var(--color-on-dark) 14%, transparent);
+  --color-overlay-pressed: color-mix(in srgb, var(--color-on-dark) 22%, transparent);
+}
+
+/* The icon button sizes its own glyph; these only decide which of the two
+   shows, so they name the button as well to outrank its `> svg` rule. */
+.astryx-slideshow-toggle > .astryx-slideshow-toggle-play,
+.astryx-slideshow[data-g-paused] .astryx-slideshow-toggle > .astryx-slideshow-toggle-pause {
+  display: none;
+}
+
+.astryx-slideshow[data-g-paused] .astryx-slideshow-toggle > .astryx-slideshow-toggle-play {
+  display: block;
+}
+
+/* ------------------------------------------------ Section: floating bands */
+/* Two Section cases that are overlays in all but name, so they live with the
+   overlays rather than with the band rhythm in the primitives partial.
+
+   `surface="none"` paints nothing: the band shows whatever is behind it, for
+   content that brings its own surface. */
+.astryx-section[data-surface="none"] {
+  background-color: transparent;
+}
+
+/* `elevation="floating"` takes the band out of the column and floats it over
+   the page: across the bottom of a phone, in the bottom corner of a wider
+   window, sized to its content and lifted by the high shadow. Its rhythm is a
+   card's, not a band's, and an opaque surface is what makes text readable
+   over a page scrolling beneath it — so the default surface is the popover's
+   and a muted one is laid over that instead of over nothing. A band with no
+   surface drops the shadow too, which would only outline an empty box: its
+   content brings both. */
+.astryx-section[data-elevation="floating"] {
+  position: fixed;
+  inset-block-end: var(--spacing-4);
+  inset-inline: var(--spacing-4);
+  z-index: 40;
+  box-sizing: border-box;
+  max-block-size: calc(100dvh - 2 * var(--spacing-4));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-radius: var(--radius-container);
+  box-shadow: var(--shadow-high);
+}
+
+.astryx-section[data-elevation="floating"]:not([data-spacing="flush"]) {
+  --section-gap: var(--spacing-4);
+}
+
+.astryx-section[data-elevation="floating"]:is([data-surface="default"], [data-surface=""]) {
+  background-color: var(--color-background-popover);
+}
+
+.astryx-section[data-elevation="floating"][data-surface="muted"] {
+  background-color: var(--color-background-popover);
+  background-image: linear-gradient(var(--color-background-muted), var(--color-background-muted));
+}
+
+.astryx-section[data-elevation="floating"][data-surface="none"] {
+  border-radius: var(--radius-none);
+  box-shadow: none;
+}
+
+@media (min-width: 768px) {
+  .astryx-section[data-elevation="floating"] {
+    inset-inline-start: auto;
+    inline-size: min(26rem, calc(100% - 2 * var(--spacing-4)));
+  }
+}
+
+/* A control tabbed to near the bottom of the window is scrolled clear of the
+   card rather than left underneath it (WCAG 2.4.11). */
+:root:has(.astryx-section[data-elevation="floating"]) {
+  scroll-padding-block-end: 12rem;
 }

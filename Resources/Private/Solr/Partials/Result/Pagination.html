@@ -18,9 +18,11 @@
     <f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
 
     <f:comment>
-        Astryx Pagination: ghost buttons in a row, the current page marked with
-        aria-current so the stylesheet's [aria-current='page'] rule paints it —
-        weight and tint together, never colour alone.
+        Astryx Pagination: PaginationItem numbers in a row. The current page is
+        a span with aria-current="page", not a button: it is not somewhere to
+        go, and the dead button it used to be was a control that did nothing.
+        The stylesheet paints it from the attribute — weight and tint together,
+        never colour alone.
 
         The two handles fill the component's `previous` and `next` slots, and
         the elisions are the two booleans: the row itself and the gaps in it
@@ -61,10 +63,10 @@
         <f:for each="{pagination.allPageNumbers}" as="page">
             <f:if condition="{page} == {currentPage}">
                 <f:then>
-                    <a:atom.button variant="ghost" size="sm" ariaCurrent="page">
+                    <a:molecule.paginationItem current="{true}">
                         <a:atom.visuallyHidden as="span"><f:translate key="{labels}:search.paginationCurrent" default="Current page"/>,</a:atom.visuallyHidden>
                         {page}
-                    </a:atom.button>
+                    </a:molecule.paginationItem>
                 </f:then>
                 <f:else>
                     <f:comment>
@@ -73,7 +75,7 @@
                         and only the bare one is the canonical first page.
                     </f:comment>
                     <f:variable name="pageUri"><f:if condition="{page} > 1"><f:then>{s:uri.paginate.resultPage(page: page)}</f:then><f:else>{s:uri.paginate.resultPage()}</f:else></f:if></f:variable>
-                    <a:atom.button variant="ghost" size="sm" class="solr-ajaxified" href="{pageUri}" ariaLabel="{f:translate(key: '{labels}:search.paginationPage', arguments: {page: page}, default: 'Page {page}')}">{page}</a:atom.button>
+                    <a:molecule.paginationItem class="solr-ajaxified" href="{pageUri}" ariaLabel="{f:translate(key: '{labels}:search.paginationPage', arguments: {page: page}, default: 'Page {page}')}">{page}</a:molecule.paginationItem>
                 </f:else>
             </f:if>
         </f:for>

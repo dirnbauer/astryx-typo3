@@ -1,0 +1,81 @@
+/*
+ * Heading type over heading level, and fluid display steps, in every theme.
+ *
+ * The generated themes size headings by level in the astryx-theme layer, and
+ * a layer beats specificity: the component layer's `data-type` sizes never
+ * reached a heading whose level and look differ — an h2 set as heading-4
+ * rendered at heading-2 size, in seven navigation elements alone. These rules
+ * sit in the same layer, after the themes and at the same specificity, so
+ * `type` wins where a caller sets it, and `data-type="default"` (which
+ * matches nothing here) still leaves the level in charge.
+ */
+
+[data-astryx-theme] .astryx-heading[data-type="heading-1"] {
+  font-size: var(--text-heading-1-size);
+  font-weight: var(--text-heading-1-weight);
+  line-height: var(--text-heading-1-leading);
+}
+
+[data-astryx-theme] .astryx-heading[data-type="heading-2"] {
+  font-size: var(--text-heading-2-size);
+  font-weight: var(--text-heading-2-weight);
+  line-height: var(--text-heading-2-leading);
+}
+
+[data-astryx-theme] .astryx-heading[data-type="heading-3"] {
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--text-heading-3-weight);
+  line-height: var(--text-heading-3-leading);
+}
+
+[data-astryx-theme] .astryx-heading[data-type="heading-4"] {
+  font-size: var(--text-heading-4-size);
+  font-weight: var(--text-heading-4-weight);
+  line-height: var(--text-heading-4-leading);
+}
+
+[data-astryx-theme] .astryx-heading[data-type="heading-5"] {
+  font-size: var(--text-heading-5-size);
+  font-weight: var(--text-heading-5-weight);
+  line-height: var(--text-heading-5-leading);
+}
+
+[data-astryx-theme] .astryx-heading[data-type="heading-6"] {
+  font-size: var(--text-heading-6-size);
+  font-weight: var(--text-heading-6-weight);
+  line-height: var(--text-heading-6-leading);
+}
+
+/*
+ * The display steps, fluid.
+ *
+ * The themes state every display step of Heading and Text at one fixed size,
+ * after the levels and in this layer — so a statement hero kept a desktop's
+ * 42px claim on a 390px screen, and a hotline number set at display-3 wrapped
+ * onto two lines in a footer column. Restated here, after the themes and at
+ * the same specificity, each step starts two steps further down the theme's
+ * own scale on a phone — display-1 at display-3, display-2 at heading-1,
+ * display-3 at heading-2 — and grows with the viewport from 400px until it
+ * reaches the step itself, by 1200px at the latest (sooner in the 14px
+ * themes, whose steps lie closer together). Both ends are the theme's tokens;
+ * only the size moves, the family, weight and leading stay the theme's.
+ *
+ * Text that also asks for a `size` keeps it. The theme's `data-size` rules
+ * follow its type rules in this layer at the same specificity, and this one,
+ * coming later still, would otherwise outrank them.
+ */
+
+[data-astryx-theme] .astryx-heading[data-type="display-1"],
+[data-astryx-theme] .astryx-text[data-type="display-1"]:where(:not([data-size]), [data-size="default"]) {
+  font-size: clamp(var(--text-display-3-size), calc(var(--text-display-3-size) + 2.75vw - 0.6875rem), var(--text-display-1-size));
+}
+
+[data-astryx-theme] .astryx-heading[data-type="display-2"],
+[data-astryx-theme] .astryx-text[data-type="display-2"]:where(:not([data-size]), [data-size="default"]) {
+  font-size: clamp(var(--text-heading-1-size), calc(var(--text-heading-1-size) + 2.75vw - 0.6875rem), var(--text-display-2-size));
+}
+
+[data-astryx-theme] .astryx-heading[data-type="display-3"],
+[data-astryx-theme] .astryx-text[data-type="display-3"]:where(:not([data-size]), [data-size="default"]) {
+  font-size: clamp(var(--text-heading-2-size), calc(var(--text-heading-2-size) + 2.75vw - 0.6875rem), var(--text-display-3-size));
+}

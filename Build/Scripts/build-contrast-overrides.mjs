@@ -28,6 +28,9 @@ import {
 
 const TARGET = 4.5;
 
+/** The four surfaces running text sits on. */
+const SURFACES = ['--color-background-body', '--color-background-surface', '--color-background-card', '--color-background-muted'];
+
 /**
  * The token to correct, and EVERY background it is read against.
  *
@@ -37,7 +40,7 @@ const TARGET = 4.5;
  * that clears the threshold on both, because CSS gives us one value.
  */
 const CORRECT = [
-  {token: '--color-text-secondary', on: ['--color-background-body', '--color-background-surface', '--color-background-card']},
+  {token: '--color-text-secondary', on: ['--color-background-body', '--color-background-surface', '--color-background-card', '--color-background-muted']},
 
   // Badge labels; three of the hues double as field status messages, which sit
   // on the same hue tint (see 05-forms.css) rather than on --color-*-muted.
@@ -53,6 +56,18 @@ const CORRECT = [
 
   // The error toast.
   {token: '--color-on-error', on: ['--color-background-error-inverted']},
+
+  // Status colours drawn as ink: a tick, a cross or a status word on the page
+  // (Icon and Text `color="success|warning|error"`). Several palettes set
+  // --color-success/-warning/-error to a pale tint meant as a FILL (y2k light:
+  // 1.04:1 on its own page), so the token itself cannot change without
+  // breaking the fills and their labels. `as` writes the corrected value to a
+  // separate --g-ink-* token instead, read as
+  // `var(--g-ink-success, var(--color-success))`, and only for the themes
+  // that need it.
+  {token: '--color-success', as: '--g-ink-success', on: SURFACES},
+  {token: '--color-warning', as: '--g-ink-warning', on: SURFACES},
+  {token: '--color-error', as: '--g-ink-error', on: SURFACES},
 ];
 
 // Measure the upstream palette, never our own previous output: that keeps
@@ -97,7 +112,7 @@ let fixed = 0;
 for (const theme of THEMES) {
   const declarations = [];
 
-  for (const {token, on} of CORRECT) {
+  for (const {token, as, on} of CORRECT) {
     const value = {};
     let needed = false;
     let usable = true;
@@ -116,8 +131,10 @@ for (const theme of THEMES) {
       const worst = Math.min(...surfaces.map(bg => contrast(fg, bg)));
 
       if (worst >= TARGET) {
-        // Keep this side exactly as upstream wrote it.
-        value[scheme] = side(theme, token, scheme);
+        // Keep this side exactly as upstream wrote it. A derived token cannot
+        // point back at a var() of the theme, so it gets the resolved colour.
+        const written = side(theme, token, scheme);
+        value[scheme] = as && !parseColor(written) ? toHex(fg) : written;
         continue;
       }
 
@@ -133,7 +150,7 @@ for (const theme of THEMES) {
       fixed++;
       const after = Math.min(...surfaces.map(bg => contrast(corrected, bg)));
       console.log(
-        `  ${theme.padEnd(10)} ${scheme.padEnd(5)} ${token.padEnd(24)} ` +
+        `  ${theme.padEnd(10)} ${scheme.padEnd(5)} ${(as ?? token).padEnd(24)} ` +
         `${worst.toFixed(2)}:1 -> ${after.toFixed(2)}:1  ${toHex(fg)} -> ${toHex(corrected)}`
       );
       continue;
@@ -142,7 +159,7 @@ for (const theme of THEMES) {
     // A light-dark() pair needs both halves; emit nothing rather than half a
     // correction, and never emit a side we could not parse.
     if (needed && usable && parseColor(value.light) && parseColor(value.dark)) {
-      declarations.push(`  ${token}: light-dark(${value.light}, ${value.dark});`);
+      declarations.push(`  ${as ?? token}: light-dark(${value.light}, ${value.dark});`);
     }
   }
 
@@ -161,6 +178,11 @@ const header = `/*
  *
  * This is a deliberate divergence from upstream, and the reason is that a theme
  * sold for public-sector and corporate TYPO3 has to meet AA.
+ *
+ * The --g-ink-* tokens are the one exception to "move the token itself": the
+ * status colours double as pale fills, so their readable ink version goes to a
+ * token of its own, which Icon and Text read with the status colour as the
+ * fallback.
  *
  * The build puts this file in the astryx-theme layer (see build-astryx-css.mjs)
  * — in any earlier layer the theme block it corrects would simply win.

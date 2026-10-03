@@ -32,7 +32,7 @@
 <f:argument name="layout" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<nav class="astryx-top-nav {class}" aria-label="{ariaLabel}" data-align="{align}" data-layout="{layout}">
+<nav class="astryx-top-nav {class}"{g:attribute(name: 'aria-label', value: ariaLabel)} data-align="{align}" data-layout="{layout}">
     <f:comment>
         The default slot is the start, because that is the region every bar
         fills: the heading and the entries beside it. `center` and `end` are

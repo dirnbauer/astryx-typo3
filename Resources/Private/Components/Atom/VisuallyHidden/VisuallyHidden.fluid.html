@@ -21,7 +21,7 @@
 
 <f:switch expression="{as}">
     <f:case value="div"><div class="astryx-visually-hidden {class}"><f:slot /></div></f:case>
-    <f:case value="label"><label for="{for}" class="astryx-visually-hidden {class}"><f:slot /></label></f:case>
+    <f:case value="label"><label{g:attribute(name: 'for', value: for)} class="astryx-visually-hidden {class}"><f:slot /></label></f:case>
     <f:case value="caption"><caption class="astryx-visually-hidden {class}"><f:slot /></caption></f:case>
     <f:case value="legend"><legend class="astryx-visually-hidden {class}"><f:slot /></legend></f:case>
     <f:case value="h1"><h1 class="astryx-visually-hidden {class}"><f:slot /></h1></f:case>

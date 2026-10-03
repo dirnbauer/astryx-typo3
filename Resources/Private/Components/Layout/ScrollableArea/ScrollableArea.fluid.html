@@ -32,16 +32,16 @@
 <f:if condition="{ariaLabel} || {ariaLabelledby}">
     <f:then>
         <div
-            class="astryx-scrollable-area {class}" id="{id}"
+            class="astryx-scrollable-area {class}"{g:attribute(name: 'id', value: id)}
             data-orientation="{orientation}"
             role="region"
-            aria-label="{ariaLabel}"
-            aria-labelledby="{ariaLabelledby}"
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
+           {g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}
             tabindex="0"><f:slot /></div>
     </f:then>
     <f:else>
         <div
-            class="astryx-scrollable-area {class}" id="{id}"
+            class="astryx-scrollable-area {class}"{g:attribute(name: 'id', value: id)}
             data-orientation="{orientation}"
             tabindex="0"><f:slot /></div>
     </f:else>

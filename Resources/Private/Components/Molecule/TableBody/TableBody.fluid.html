@@ -18,4 +18,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<tbody class="astryx-table-body {class}" id="{id}"><f:slot /></tbody>
+<tbody class="astryx-table-body {class}"{g:attribute(name: 'id', value: id)}><f:slot /></tbody>

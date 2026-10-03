@@ -23,7 +23,7 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div class="astryx-chat-message-metadata {class}" id="{id}">
+<div class="astryx-chat-message-metadata {class}"{g:attribute(name: 'id', value: id)}>
     <f:if condition="{time}">
         <a:atom.timestamp datetime="{datetime}" class="astryx-chat-message-metadata-time">{time}</a:atom.timestamp>
     </f:if>

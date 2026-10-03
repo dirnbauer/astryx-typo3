@@ -44,9 +44,9 @@
 </f:comment>
 <f:if condition="{id}">
     <f:then>
-        <nav id="{id}" class="astryx-side-nav {class}" aria-label="{ariaLabel}" data-state="{state}" data-layout="{layout}"><f:if condition="{f:slot(name: 'top') -> f:format.trim()}"><div class="astryx-side-nav-top"><f:slot name="top" /></div></f:if><div class="astryx-side-nav-scroll"><f:slot /></div><f:if condition="{f:slot(name: 'bottom') -> f:format.trim()}"><div class="astryx-side-nav-bottom"><f:slot name="bottom" /></div></f:if></nav>
+        <nav{g:attribute(name: 'id', value: id)} class="astryx-side-nav {class}"{g:attribute(name: 'aria-label', value: ariaLabel)} data-state="{state}" data-layout="{layout}"><f:if condition="{f:slot(name: 'top') -> f:format.trim()}"><div class="astryx-side-nav-top"><f:slot name="top" /></div></f:if><div class="astryx-side-nav-scroll"><f:slot /></div><f:if condition="{f:slot(name: 'bottom') -> f:format.trim()}"><div class="astryx-side-nav-bottom"><f:slot name="bottom" /></div></f:if></nav>
     </f:then>
     <f:else>
-        <nav class="astryx-side-nav {class}" aria-label="{ariaLabel}" data-state="{state}" data-layout="{layout}"><f:if condition="{f:slot(name: 'top') -> f:format.trim()}"><div class="astryx-side-nav-top"><f:slot name="top" /></div></f:if><div class="astryx-side-nav-scroll"><f:slot /></div><f:if condition="{f:slot(name: 'bottom') -> f:format.trim()}"><div class="astryx-side-nav-bottom"><f:slot name="bottom" /></div></f:if></nav>
+        <nav class="astryx-side-nav {class}"{g:attribute(name: 'aria-label', value: ariaLabel)} data-state="{state}" data-layout="{layout}"><f:if condition="{f:slot(name: 'top') -> f:format.trim()}"><div class="astryx-side-nav-top"><f:slot name="top" /></div></f:if><div class="astryx-side-nav-scroll"><f:slot /></div><f:if condition="{f:slot(name: 'bottom') -> f:format.trim()}"><div class="astryx-side-nav-bottom"><f:slot name="bottom" /></div></f:if></nav>
     </f:else>
 </f:if>

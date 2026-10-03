@@ -98,6 +98,37 @@
   outline: 2px solid var(--color-accent);
 }
 
+/* On a touch screen every button is finger-sized: 44px, whatever its size
+   step. A large button measured 36px on a phone. */
+@media (pointer: coarse) {
+  .astryx-button,
+  .astryx-icon-button {
+    min-block-size: 2.75rem;
+  }
+
+  .astryx-icon-button {
+    min-inline-size: 2.75rem;
+  }
+
+  /* A call-to-action link stands on its own line; it gets the height too. */
+  .astryx-link[data-variant="cta"] {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+
+  /* So does a link that is a list entry on its own — a footer column, a row
+     of legal links, a sitemap. As running text those measured 17 to 21px, a
+     row of targets a thumb covers two of. `:only-child` counts elements, so a
+     link with a word of text beside it still qualifies; the line grows, the
+     link stays in it. */
+  :where(li) > a.astryx-link:only-child {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+  }
+}
+
 .astryx-button[data-variant="destructive"] {
   background-color: var(--color-error);
   color: var(--color-on-error, var(--color-on-accent));
@@ -204,6 +235,28 @@
 
 .astryx-button[data-size="lg"] > svg {
   font-size: 1.25rem;
+}
+
+/* A copy control (IconButton `copy`, data-g-copy) can carry a second glyph,
+   marked astryx-icon-button-done: the tick that replaces the others for the
+   two seconds the runtime keeps data-g-copy-state="copied" on the button. */
+.astryx-icon-button > .astryx-icon-button-done,
+.astryx-icon-button[data-g-copy-state="copied"] > :not(.astryx-icon-button-done) {
+  display: none;
+}
+
+.astryx-icon-button[data-g-copy-state="copied"] > .astryx-icon-button-done {
+  display: block;
+}
+
+/* CodeBlock's copy control sits at the end of the header strip. The negative
+   block margin keeps the strip as slim as its caption makes it — the button
+   is taller than a line of supporting text — and the inline one lines the
+   glyph up with the strip's padding rather than the button's. */
+.astryx-codeblock-copy {
+  flex-shrink: 0;
+  margin-block: calc(-1 * var(--spacing-1));
+  margin-inline-end: calc(-1 * var(--spacing-2));
 }
 
 /* ---------------------------------------------------------- ButtonGroup */

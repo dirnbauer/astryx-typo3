@@ -45,13 +45,13 @@
         and ARIA attributes travel through additionalAttributes — the same trap
         IconButton documents, and the same way out of it.
     </f:comment>
-    <f:case value="typolink"><f:link.typolink parameter="{parameter}" class="astryx-dropdown-menu-item {class}" additionalAttributes="{'data-variant': variant, 'aria-current': ariaCurrent, 'aria-label': ariaLabel}"><f:slot /></f:link.typolink></f:case>
-    <f:case value="link"><a href="{href}" class="astryx-dropdown-menu-item {class}" data-variant="{variant}" target="{target}" rel="{relValue}" aria-current="{ariaCurrent}" aria-label="{ariaLabel}"><f:slot /></a></f:case>
+    <f:case value="typolink"><f:variable name="presentAttributes"><g:present of="{'data-variant': variant, 'aria-current': ariaCurrent, 'aria-label': ariaLabel}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-dropdown-menu-item {class}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:case>
+    <f:case value="link"><a href="{href}" class="astryx-dropdown-menu-item {class}" data-variant="{variant}"{g:attribute(name: 'target', value: target)} rel="{relValue}"{g:attribute(name: 'aria-current', value: ariaCurrent)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></a></f:case>
     <f:defaultCase><button
             type="{type}"
             class="astryx-dropdown-menu-item {class}"
             role="menuitem"
             data-variant="{variant}"
-            aria-label="{ariaLabel}"
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
             {f:if(condition: disabled, then: 'disabled')}><f:slot /></button></f:defaultCase>
 </f:switch>

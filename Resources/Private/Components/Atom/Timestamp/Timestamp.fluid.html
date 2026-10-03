@@ -25,12 +25,12 @@
             datetime="{datetime}"
             class="astryx-timestamp {class}"
             data-color="{color}"
-            title="{title}"><f:slot /></time>
+           {g:attribute(name: 'title', value: title)}><f:slot /></time>
     </f:then>
     <f:else>
         <span
             class="astryx-timestamp {class}"
             data-color="{color}"
-            title="{title}"><f:slot /></span>
+           {g:attribute(name: 'title', value: title)}><f:slot /></span>
     </f:else>
 </f:if>

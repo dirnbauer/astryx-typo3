@@ -20,14 +20,14 @@
 <f:if condition="{ariaLabel}">
     <f:then>
         <span
-            class="astryx-status-dot {class}" aria-hidden="{ariaHidden}"
+            class="astryx-status-dot {class}"{g:attribute(name: 'aria-hidden', value: ariaHidden)}
             data-variant="{variant}"
             role="img"
-            aria-label="{ariaLabel}"></span>
+           {g:attribute(name: 'aria-label', value: ariaLabel)}></span>
     </f:then>
     <f:else>
         <span
-            class="astryx-status-dot {class}" aria-hidden="{ariaHidden}"
+            class="astryx-status-dot {class}"{g:attribute(name: 'aria-hidden', value: ariaHidden)}
             data-variant="{variant}"
             aria-hidden="true"></span>
     </f:else>

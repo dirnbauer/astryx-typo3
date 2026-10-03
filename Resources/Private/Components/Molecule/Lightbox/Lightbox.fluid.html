@@ -44,7 +44,7 @@
 </f:comment>
 <f:variable name="label" value="{f:if(condition: ariaLabel, then: ariaLabel, else: caption)}" />
 
-<dialog id="{id}" class="astryx-lightbox {class}" aria-label="{label}">
+<dialog{g:attribute(name: 'id', value: id)} class="astryx-lightbox {class}"{g:attribute(name: 'aria-label', value: label)}>
     <f:if condition="{counter}"><p class="astryx-lightbox-counter">{counter}</p></f:if>
 
     <f:if condition="{closeLabel}">

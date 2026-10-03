@@ -29,7 +29,7 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<li class="astryx-chat-message {class}" id="{id}" data-role="{role}">
+<li class="astryx-chat-message {class}"{g:attribute(name: 'id', value: id)} data-role="{role}">
     <f:if condition="{f:slot(name: 'avatar') -> f:format.trim()}">
         <span class="astryx-chat-message-avatar" aria-hidden="true"><f:slot name="avatar" /></span>
     </f:if>

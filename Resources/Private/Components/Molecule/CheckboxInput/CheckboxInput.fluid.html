@@ -40,11 +40,11 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <div class="astryx-checkbox-input {class}"><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         type="checkbox"
         name="{name}"
         value="{value}"
-        aria-describedby="{describedBy}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
         {f:if(condition: checked, then: 'checked')}
         {f:if(condition: disabled, then: 'disabled')}
-        {f:if(condition: required, then: 'required')} /><span class="astryx-checkbox" data-size="{size}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false"><path d="m5 12.5 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg></span><label class="astryx-checkbox-input-label" for="{id}"><f:if condition="{label}"><f:then>{label}</f:then><f:else><f:slot /></f:else></f:if><f:if condition="{description}"><span class="astryx-checkbox-input-description">{description}</span></f:if></label></div>
+        {f:if(condition: required, then: 'required')} /><span class="astryx-checkbox" data-size="{size}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true" focusable="false"><path d="m5 12.5 5 5 9-11" stroke-linecap="round" stroke-linejoin="round"/></svg></span><label class="astryx-checkbox-input-label"{g:attribute(name: 'for', value: id)}><f:if condition="{label}"><f:then>{label}</f:then><f:else><f:slot /></f:else></f:if><f:if condition="{description}"><span class="astryx-checkbox-input-description">{description}</span></f:if></label></div>

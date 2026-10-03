@@ -25,6 +25,6 @@
 <f:variable name="currentValue" value="{f:if(condition: current, then: 'location')}" />
 
 <f:if condition="{parameter}">
-    <f:then><f:link.typolink parameter="{parameter}" class="astryx-outline-item {class}" additionalAttributes="{'aria-current': currentValue, 'data-level': level}"><f:slot /></f:link.typolink></f:then>
-    <f:else><a href="{href}" class="astryx-outline-item {class}" data-level="{level}" aria-current="{currentValue}"><f:slot /></a></f:else>
+    <f:then><f:variable name="presentAttributes"><g:present of="{'aria-current': currentValue, 'data-level': level}" /></f:variable><f:link.typolink parameter="{parameter}" class="astryx-outline-item {class}" additionalAttributes="{presentAttributes}"><f:slot /></f:link.typolink></f:then>
+    <f:else><a href="{href}" class="astryx-outline-item {class}" data-level="{level}"{g:attribute(name: 'aria-current', value: currentValue)}><f:slot /></a></f:else>
 </f:if>

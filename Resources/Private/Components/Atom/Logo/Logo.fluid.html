@@ -1,0 +1,47 @@
+<f:comment>
+    Logo — a customer's, a partner's or the site's own mark, in a box of fixed
+    height.
+
+    Marks are normalised on height, not on width: a wide wordmark and a square
+    emblem set to the same width read as two different sizes, set to the same
+    height they read as one row. `size` picks the height — `sm` 24px, `md`
+    32px, `lg` 40px, `xl` 48px — and a mark is never wider than five times it,
+    nor than the box it is placed in.
+
+    The picture comes from the caller, as Avatar's does: only the caller knows
+    the file reference, the crop and the alternative text — which is the
+    organisation's name, never "logo". With no artwork the slot can hold the
+    name itself, and it is then set as type in the same box, which is still
+    proof and better than an empty slot.
+
+    `tone` is how loud the mark may be:
+
+      muted     (the default) grey and a little faint at rest, so no one brand
+                colour pulls a wall of logos towards itself. Pointing at the
+                link the mark is in, or tabbing to it, brings it to full
+                strength — and, in the light scheme, back to its own colours.
+                In the dark scheme it stays grey: the ink lift that makes a
+                dark mark visible there inverts its colours as well.
+      original  the mark's own colours, always. In the dark scheme it sits on
+                a light plate, because a mark drawn for white paper needs white
+                paper under it.
+      ink       full strength, its own colours in the light scheme, lifted to
+                light ink in the dark one: the site's own logo in a footer, a
+                single customer mark beside a quote.
+
+    The ink lift is the chrome's `--g-ink-filter` (brightness(1) in the light
+    scheme, an inversion in the dark one), so marks drawn as dark ink on
+    transparency stay visible on a dark surface. On an accent band there is no
+    colour a mark could safely be drawn in — the band is dark in one theme and
+    near white in another — so there every mark sits on a small plate of the
+    page's surface, as every other surface on the band does.
+
+    The hover is on the link around the logo, not on the logo: put the Logo
+    inside the Link (or inside a clickable Card), never the other way round.
+</f:comment>
+
+<f:argument name="tone" type="string" optional="{true}" default="muted" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+
+<span class="astryx-logo {class}" data-tone="{tone}" data-size="{size}"><f:slot /></span>

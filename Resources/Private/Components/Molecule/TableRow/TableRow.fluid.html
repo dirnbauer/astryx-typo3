@@ -22,6 +22,6 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <tr
-    class="astryx-table-row {class}" id="{id}"
+    class="astryx-table-row {class}"{g:attribute(name: 'id', value: id)}
     data-hoverable="{f:if(condition: hoverable, then: 'hoverable', else: 'false')}"
     data-striped="{f:if(condition: striped, then: 'striped', else: 'false')}"><f:slot /></tr>

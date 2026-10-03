@@ -21,12 +21,26 @@
     Overlay is a separate component and stays separate: a scrim over a picture
     is a decoration, a dialog is a mode. Sharing markup between the two would
     put a focus trap around a caption.
+
+    `size` is the width: `sm` (the default, a confirmation), `md`, `lg` for a
+    player or a gallery, and `full` for the whole viewport — what
+    `variant="fullscreen"` has always meant, now a size so that it can be
+    combined with a variant. `variant="media"` is the stage for a film: the
+    dialog turns dark in either colour scheme, its title and close control
+    with it, so a player's letterbox reads as the edge of the screen rather
+    than as a white frame.
+
+    A dialog closed with something still playing in it stops it: astryx.js
+    pauses every video and audio element inside on close, and parks every
+    iframe (its address restored on the next open), so a film does not go on
+    talking behind the page.
 </f:comment>
 
 <f:argument name="id" type="string" />
 <f:argument name="title" type="string" optional="{true}" default="" />
 <f:argument name="titleLevel" type="string" optional="{true}" default="2" />
 <f:argument name="variant" type="string" optional="{true}" default="default" />
+<f:argument name="size" type="string" optional="{true}" default="sm" />
 <f:argument name="closeLabel" type="string" optional="{true}" default="" />
 <f:argument name="closeClass" type="string" optional="{true}" default="" />
 <f:argument name="ariaLabel" type="string" optional="{true}" default="" />
@@ -43,11 +57,12 @@
 <f:variable name="labelledby" value="{f:if(condition: ariaLabelledby, then: ariaLabelledby, else: titleId)}" />
 
 <dialog
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     class="astryx-dialog {class}"
     data-variant="{variant}"
-    aria-labelledby="{labelledby}"
-    aria-label="{ariaLabel}">
+    data-size="{size}"
+   {g:attribute(name: 'aria-labelledby', value: labelledby)}
+   {g:attribute(name: 'aria-label', value: ariaLabel)}>
     <f:if condition="{title} || {closeLabel}">
         <div class="astryx-dialog-header">
             <f:if condition="{title}">
@@ -69,7 +84,7 @@
                     data-variant="ghost"
                     data-size="sm"
                     data-g-dialog-close
-                    aria-label="{closeLabel}">
+                   {g:attribute(name: 'aria-label', value: closeLabel)}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
                     </svg>
@@ -85,13 +100,13 @@
         writes: what goes in `body` scrolls, what goes in the default slot
         fills.
     </f:comment>
-    <f:if condition="{f:slot(name: 'body')}">
+    <f:if condition="{f:slot(name: 'body') -> f:format.trim()}">
         <div class="astryx-dialog-body"><f:slot name="body" /></div>
     </f:if>
 
     <f:slot />
 
-    <f:if condition="{f:slot(name: 'footer')}">
+    <f:if condition="{f:slot(name: 'footer') -> f:format.trim()}">
         <div class="astryx-dialog-footer"><f:slot name="footer" /></div>
     </f:if>
 </dialog>

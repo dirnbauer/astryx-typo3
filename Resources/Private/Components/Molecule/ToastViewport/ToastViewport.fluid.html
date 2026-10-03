@@ -22,4 +22,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<div class="astryx-toast-viewport {class}" data-placement="{placement}" id="{id}"><f:slot /></div>
+<div class="astryx-toast-viewport {class}" data-placement="{placement}"{g:attribute(name: 'id', value: id)}><f:slot /></div>

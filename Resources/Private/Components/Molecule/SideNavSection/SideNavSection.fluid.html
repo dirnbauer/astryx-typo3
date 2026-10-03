@@ -28,9 +28,9 @@
 <div class="astryx-side-nav-section {class}">
     <f:if condition="{title}">
         <f:if condition="{id}">
-            <f:then><div class="astryx-side-nav-section-title" id="{id}">{title}</div></f:then>
+            <f:then><div class="astryx-side-nav-section-title"{g:attribute(name: 'id', value: id)}>{title}</div></f:then>
             <f:else><div class="astryx-side-nav-section-title">{title}</div></f:else>
         </f:if>
     </f:if>
-    <ul class="astryx-side-nav-section-items" aria-labelledby="{id}"><f:slot /></ul>
+    <ul class="astryx-side-nav-section-items"{g:attribute(name: 'aria-labelledby', value: id)}><f:slot /></ul>
 </div>

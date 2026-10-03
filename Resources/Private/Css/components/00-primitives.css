@@ -48,6 +48,58 @@
   --color-icon-secondary: var(--color-on-accent);
 }
 
+/* The page's own text colours, kept under a second name where the theme sets
+   them. The accent band below redefines the text tokens for everything on it,
+   and a surface on that band — a card, a field, a token — paints its own
+   page-coloured background: it needs the page's text colours back, and once
+   the band has redefined them there would be nothing left to go back to. */
+[data-astryx-theme] {
+  --_page-text-primary: var(--color-text-primary);
+  --_page-text-secondary: var(--color-text-secondary);
+  --_page-text-accent: var(--color-text-accent);
+  --_page-icon-primary: var(--color-icon-primary);
+  --_page-icon-secondary: var(--color-icon-secondary);
+  --_page-border: var(--color-border);
+  --_page-border-emphasized: var(--color-border-emphasized);
+  --_page-neutral: var(--color-neutral);
+}
+
+/* On the band, rules and translucent fills are drawn in the band's ink too,
+   or dividers and secondary buttons disappear into the accent. */
+.astryx-section[data-surface="accent"] {
+  --color-border: color-mix(in srgb, var(--color-on-accent) 30%, transparent);
+  --color-border-emphasized: color-mix(in srgb, var(--color-on-accent) 50%, transparent);
+  --color-neutral: color-mix(in srgb, var(--color-on-accent) 16%, transparent);
+}
+
+/* Surfaces on the accent band take the page's colours back: white text on
+   a white card was every card element on an accent band. */
+.astryx-section[data-surface="accent"] :where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-hover-card,
+  .astryx-token, .astryx-banner, .astryx-popover, .astryx-tooltip,
+  .astryx-selector, .astryx-input-group, .astryx-tokenizer, .astryx-file-input,
+  .astryx-segmented-control, .astryx-typeahead, .astryx-toast
+) {
+  --color-text-primary: var(--_page-text-primary);
+  --color-text-secondary: var(--_page-text-secondary);
+  --color-text-accent: var(--_page-text-accent);
+  --color-icon-primary: var(--_page-icon-primary);
+  --color-icon-secondary: var(--_page-icon-secondary);
+  --color-border: var(--_page-border);
+  --color-border-emphasized: var(--_page-border-emphasized);
+  --color-neutral: var(--_page-neutral);
+}
+
+/* A primary button on the band would be accent on accent. On the band itself
+   it inverts — the band's ink as its fill, the accent as its label — and
+   inside a card on the band it is an ordinary primary button again. */
+.astryx-section[data-surface="accent"] .astryx-button[data-variant="primary"]:not(:where(
+  .astryx-card, .astryx-clickable-card, .astryx-selectable-card, .astryx-popover
+) *) {
+  background-color: var(--color-on-accent);
+  color: var(--color-accent);
+}
+
 .astryx-section[data-spacing="tight"] {
   --section-gap: var(--astryx-band-tight);
 }
@@ -141,21 +193,84 @@
   grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-min), 100%), 1fr));
 }
 
-.astryx-grid[data-cols="2"] { --grid-min: 22rem; }
-.astryx-grid[data-cols="3"] { --grid-min: 16rem; }
-.astryx-grid[data-cols="4"] { --grid-min: 12rem; }
+/* The `gap` argument: a step of the spacing scale, the values Stack takes. */
+.astryx-grid[data-gap="1"] { --grid-gap: var(--spacing-1); }
+.astryx-grid[data-gap="2"] { --grid-gap: var(--spacing-2); }
+.astryx-grid[data-gap="3"] { --grid-gap: var(--spacing-3); }
+.astryx-grid[data-gap="4"] { --grid-gap: var(--spacing-4); }
+.astryx-grid[data-gap="6"] { --grid-gap: var(--spacing-6); }
+.astryx-grid[data-gap="8"] { --grid-gap: var(--spacing-8); }
+.astryx-grid[data-gap="10"] { --grid-gap: var(--spacing-10); }
+.astryx-grid[data-gap="12"] { --grid-gap: var(--spacing-12); }
+
+.astryx-grid[data-cols="2"] { --grid-min: 22rem; --grid-max-cols: 2; }
+.astryx-grid[data-cols="3"] { --grid-min: 16rem; --grid-max-cols: 3; }
+.astryx-grid[data-cols="4"] { --grid-min: 12rem; --grid-max-cols: 4; }
+
+/* Small items — logos, short figures, photo tiles — may narrow further before
+   the grid gives up a column. */
+.astryx-grid[data-items="small"] { --grid-min: 8rem; }
+
+/*
+ * `cols` is a ceiling as well as a target: each track is at least its share
+ * of the row, so three cards never spread into four columns and leave two
+ * orphans below, and narrower than `--grid-min` the grid still reflows.
+ *
+ * "Its share" is written as a little more than 1/(n+1) of the row rather than
+ * as the exact (row - gaps)/n. Both cap the count at n, but the exact share
+ * read --grid-gap, and an element that set a row and a column gap there
+ * (`0 var(--spacing-8)`, two values) made the calc invalid and the whole
+ * declaration with it: the grid fell back to `none` and every column of a
+ * three-column directory stacked into one. This one never reads the gap. The
+ * selector names the counts it has a share for, because Grid used to print an
+ * empty `data-cols` on every grid and `[data-cols]` matched those too.
+ */
+.astryx-grid:is([data-cols="2"], [data-cols="3"], [data-cols="4"]) {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(max(min(var(--grid-min), 100%), calc(100% / (var(--grid-max-cols) + 1) + 1px)), 1fr)
+  );
+}
+
+/* As a list, a stack or a grid keeps its own spacing: no marker, no indent and
+   no list margin from the user agent or the reset. */
+:where(ul, ol).astryx-stack,
+:where(ul, ol).astryx-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
 /* Fixed column counts, for layouts whose meaning depends on the count
-   (a three-step process must not reflow into two). */
-.astryx-grid[data-fixed="2"] { grid-template-columns: repeat(2, 1fr); }
-.astryx-grid[data-fixed="3"] { grid-template-columns: repeat(3, 1fr); }
-.astryx-grid[data-fixed="4"] { grid-template-columns: repeat(4, 1fr); }
+   (a three-step process must not reflow into two). minmax(0, 1fr), so a long
+   word or URL in one cell cannot widen its column past the others. */
+.astryx-grid[data-fixed="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.astryx-grid[data-fixed="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.astryx-grid[data-fixed="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-@media (max-width: 640px) {
-  .astryx-grid[data-fixed="2"],
-  .astryx-grid[data-fixed="3"],
+/* On a tablet four columns are too narrow to read and become two. Three stay
+   three: that is the count a three-step process must keep. A span wider than
+   the two columns that are left takes the row instead of making a third. */
+@media (max-width: 1023px) {
   .astryx-grid[data-fixed="4"] {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .astryx-grid[data-fixed="4"] > .astryx-grid-span:is([data-cols="3"], [data-cols="4"]) {
+    grid-column: 1 / -1;
+  }
+}
+
+/* On a phone a fixed grid is one column — unless its items are small, when two
+   to a row is still legible and one would turn a wall of logos into a column a
+   thumb has to scroll past. */
+@media (max-width: 640px) {
+  .astryx-grid:is([data-fixed="2"], [data-fixed="3"], [data-fixed="4"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .astryx-grid[data-items="small"]:is([data-fixed="2"], [data-fixed="3"], [data-fixed="4"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -164,12 +279,13 @@
   display: grid;
   gap: var(--spacing-8);
   align-items: center;
-  grid-template-columns: 1fr;
+  /* minmax(0, …): a long code line or URL in one column must not widen it. */
+  grid-template-columns: minmax(0, 1fr);
 }
 
 @media (min-width: 768px) {
   .astryx-split {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--spacing-12);
   }
 
@@ -202,6 +318,7 @@
 
 .astryx-aspect-ratio[data-ratio="square"] { --aspect: 1 / 1; }
 .astryx-aspect-ratio[data-ratio="portrait"] { --aspect: 3 / 4; }
+.astryx-aspect-ratio[data-ratio="landscape"] { --aspect: 4 / 3; }
 .astryx-aspect-ratio[data-ratio="wide"] { --aspect: 21 / 9; }
 
 .astryx-aspect-ratio > img,
@@ -211,6 +328,10 @@
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+.astryx-aspect-ratio > iframe {
+  border: 0;
 }
 
 /* --------------------------------------------------------- VisuallyHidden */

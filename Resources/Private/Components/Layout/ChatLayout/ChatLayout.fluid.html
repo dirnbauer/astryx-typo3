@@ -31,7 +31,7 @@
 
 <div
     class="astryx-chat-layout {class}"
-    id="{id}"
+   {g:attribute(name: 'id', value: id)}
     data-variant="{variant}"
     data-density="{density}">
     <div class="astryx-chat-layout-transcript">
@@ -41,7 +41,7 @@
             the `ol`, and a marker inside it would have to be an `li` that a
             screen reader counts as a turn nobody wrote.
         </f:comment>
-        <div class="astryx-chat-layout-end" id="{endId}" tabindex="-1"></div>
+        <div class="astryx-chat-layout-end"{g:attribute(name: 'id', value: endId)} tabindex="-1"></div>
     </div>
 
     <f:if condition="{f:slot(name: 'scrollButton') -> f:format.trim()}">

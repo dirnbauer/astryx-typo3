@@ -27,6 +27,15 @@
     to take the overflow; without the container the widest line of code decides
     how wide the band is. It is asked for rather than assumed because a block
     set to wrap its lines has nothing to scroll.
+
+    `copyLabel` puts a copy button at the end of the header strip — an
+    IconButton whose name it is ("Copy code") — and `id` is what it copies
+    by: the listing is wrapped as `{id}-source`, and the button's `copy` hook
+    points there. Both are needed; a copy button with nothing to point at is
+    not rendered. The runtime copies the listing's text exactly as typed, shows
+    a tick for two seconds and says `copiedLabel` ("Copied", translated) in a
+    polite live region. The header appears for the button even when there is
+    no caption, the button sitting at its end.
 </f:comment>
 
 <f:argument name="variant" type="string" optional="{true}" default="default" />
@@ -34,10 +43,21 @@
 <f:argument name="size" type="string" optional="{true}" default="md" />
 <f:argument name="scrollLabel" type="string" optional="{true}" default="" />
 <f:argument name="scroll" type="boolean" optional="{true}" default="{false}" />
+<f:argument name="id" type="string" optional="{true}" default="" />
+<f:argument name="copyLabel" type="string" optional="{true}" default="" />
+<f:argument name="copiedLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
+<f:comment>
+    Nested conditions: a label is free text, and inside one boolean expression
+    its spaces would be read as operators.
+</f:comment>
+<f:variable name="source"><f:if condition="{id}"><f:if condition="{copyLabel}">{id}-source</f:if></f:if></f:variable>
+<f:variable name="hasHeader"><f:if condition="{source}"><f:then>1</f:then><f:else><f:if condition="{f:slot(name: 'header') -> f:format.trim()}">1</f:if></f:else></f:if></f:variable>
+
 <div
+   {g:attribute(name: 'id', value: id)}
     class="astryx-codeblock {class}"
     data-variant="{variant}"
     data-wrap="{wrap}"
-    data-size="{size}"><f:if condition="{f:slot(name: 'header') -> f:format.trim()}"><div class="astryx-codeblock-header"><f:slot name="header" /></div></f:if><f:if condition="{scroll}"><f:then><a:layout.scrollableArea orientation="horizontal" ariaLabel="{scrollLabel}"><f:slot /></a:layout.scrollableArea></f:then><f:else><f:slot /></f:else></f:if></div>
+    data-size="{size}"><f:if condition="{hasHeader}"><div class="astryx-codeblock-header"><f:if condition="{source}"><f:then><span><f:slot name="header" /></span><a:atom.iconButton variant="ghost" size="sm" class="astryx-codeblock-copy" ariaLabel="{copyLabel}" copy="{source}" copiedLabel="{copiedLabel}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5V5.5a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3" stroke-linecap="round" stroke-linejoin="round"/></svg><svg class="astryx-icon-button-done" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="m4.5 12.5 5 5 10-11" stroke-linecap="round" stroke-linejoin="round"/></svg></a:atom.iconButton></f:then><f:else><f:slot name="header" /></f:else></f:if></div></f:if><f:if condition="{scroll}"><f:then><a:layout.scrollableArea orientation="horizontal" ariaLabel="{scrollLabel}" id="{source}"><f:slot /></a:layout.scrollableArea></f:then><f:else><f:if condition="{source}"><f:then><div{g:attribute(name: 'id', value: source)}><f:slot /></div></f:then><f:else><f:slot /></f:else></f:if></f:else></f:if></div>

@@ -22,4 +22,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<thead class="astryx-table-header {class}" id="{id}"><f:slot /></thead>
+<thead class="astryx-table-header {class}"{g:attribute(name: 'id', value: id)}><f:slot /></thead>

@@ -43,14 +43,14 @@
 <div
     class="astryx-slider {class}"
     data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         type="range"
         name="{name}"
         value="{value}"
         min="{min}"
         max="{max}"
         step="{step}"
-        aria-describedby="{describedBy}"
-        aria-label="{ariaLabel}"
-        aria-valuetext="{valueText}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
+       {g:attribute(name: 'aria-label', value: ariaLabel)}
+       {g:attribute(name: 'aria-valuetext', value: valueText)}
         {f:if(condition: disabled, then: 'disabled')} /><f:if condition="{valueLabel}"><span class="astryx-slider-value">{valueLabel}</span></f:if></div>

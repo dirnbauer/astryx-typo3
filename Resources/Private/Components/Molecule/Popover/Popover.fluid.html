@@ -19,7 +19,7 @@
 
 <f:if condition="{id}">
     <f:then>
-        <div id="{id}" class="astryx-popover {class}"><div class="astryx-popover-body"><f:slot /></div></div>
+        <div{g:attribute(name: 'id', value: id)} class="astryx-popover {class}"><div class="astryx-popover-body"><f:slot /></div></div>
     </f:then>
     <f:else>
         <div class="astryx-popover {class}"><div class="astryx-popover-body"><f:slot /></div></div>

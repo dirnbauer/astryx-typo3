@@ -33,7 +33,7 @@
 <f:argument name="closeLabel" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<dialog id="{id}" class="astryx-mobile-nav {class}" data-placement="{placement}" aria-label="{ariaLabel}">
+<dialog{g:attribute(name: 'id', value: id)} class="astryx-mobile-nav {class}" data-placement="{placement}"{g:attribute(name: 'aria-label', value: ariaLabel)}>
     <div class="astryx-mobile-nav-drawer">
         <div class="astryx-mobile-nav-header">
             <f:slot name="header" />
@@ -49,13 +49,13 @@
                     data-variant="ghost"
                     data-size="sm"
                     data-g-dialog-close
-                    aria-label="{closeLabel}">
+                   {g:attribute(name: 'aria-label', value: closeLabel)}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <path d="m6 6 12 12M18 6 6 18" stroke-linecap="round"/>
                     </svg>
                 </button>
             </f:if>
         </div>
-        <nav class="astryx-mobile-nav-content" aria-label="{ariaLabel}"><f:slot /></nav>
+        <nav class="astryx-mobile-nav-content"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></nav>
     </div>
 </dialog>

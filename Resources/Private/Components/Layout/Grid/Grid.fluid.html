@@ -9,8 +9,24 @@
     process needs, because reflowing it into two columns would misrepresent
     the process. Pass one or the other, never both.
 
-    Neither is a modifier token, so neither is emitted when it is zero: an
-    absent column count is genuinely absent rather than a grid of no columns.
+    The promise has two exceptions, both made in the stylesheet rather than by
+    every element that used to make them itself. Four fixed columns are two on
+    a tablet (641 to 1023px), where four would leave each one too narrow to
+    read. And every fixed grid is one column on a phone — unless its items are
+    small, see `items`.
+
+    Neither count is a modifier token, so neither is emitted when it is zero:
+    an absent column count is genuinely absent rather than a grid of no columns
+    — and not an empty `data-cols=""` either, which a `[data-cols]` selector
+    still matches.
+
+    `gap` is a step of the spacing scale (1 to 12), the same values Stack
+    takes; unset, the grid keeps its own 24px.
+
+    `items="small"` is for grids of small things — logos, short figures,
+    photo tiles, badges. On a phone a fixed grid of them keeps two columns
+    rather than stacking into a column a thumb has to scroll past, and an
+    auto-fitting one lets its columns narrow to 8rem before it gives one up.
 
     `as` exists because a grid of people or of steps is a list before it is a
     layout, and a list whose items are not in a `ul` or `ol` is announced to a
@@ -22,13 +38,18 @@
 
 <f:argument name="cols" type="integer" optional="{true}" default="0" />
 <f:argument name="fixed" type="integer" optional="{true}" default="0" />
+<f:argument name="gap" type="string" optional="{true}" default="default" />
+<f:argument name="items" type="string" optional="{true}" default="default" />
 <f:argument name="align" type="string" optional="{true}" default="default" />
 <f:argument name="as" type="string" optional="{true}" default="div" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
+<f:variable name="colsValue" value="{f:if(condition: cols, then: cols)}" />
+<f:variable name="fixedValue" value="{f:if(condition: fixed, then: fixed)}" />
+
 <f:switch expression="{as}">
-    <f:case value="ul"><ul class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></ul></f:case>
-    <f:case value="dl"><dl class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></dl></f:case>
-    <f:case value="ol"><ol class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></ol></f:case>
-    <f:defaultCase><div class="astryx-grid {class}" data-cols="{f:if(condition: cols, then: cols)}" data-fixed="{f:if(condition: fixed, then: fixed)}" data-align="{align}"><f:slot /></div></f:defaultCase>
+    <f:case value="ul"><ul class="astryx-grid {class}"{g:attribute(name: 'data-cols', value: colsValue)}{g:attribute(name: 'data-fixed', value: fixedValue)} data-gap="{gap}" data-items="{items}" data-align="{align}"><f:slot /></ul></f:case>
+    <f:case value="dl"><dl class="astryx-grid {class}"{g:attribute(name: 'data-cols', value: colsValue)}{g:attribute(name: 'data-fixed', value: fixedValue)} data-gap="{gap}" data-items="{items}" data-align="{align}"><f:slot /></dl></f:case>
+    <f:case value="ol"><ol class="astryx-grid {class}"{g:attribute(name: 'data-cols', value: colsValue)}{g:attribute(name: 'data-fixed', value: fixedValue)} data-gap="{gap}" data-items="{items}" data-align="{align}"><f:slot /></ol></f:case>
+    <f:defaultCase><div class="astryx-grid {class}"{g:attribute(name: 'data-cols', value: colsValue)}{g:attribute(name: 'data-fixed', value: fixedValue)} data-gap="{gap}" data-items="{items}" data-align="{align}"><f:slot /></div></f:defaultCase>
 </f:switch>

@@ -72,46 +72,26 @@ main {
   flex: 1 0 auto;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-inline-size: 100%;
-}
+/* The form-element reset and the media defaults that used to live here now
+   sit in 00-reset.css, in the astryx-reset layer — from this layer they
+   outranked every component rule they touched. */
 
-img,
-video {
-  block-size: auto;
-}
+/* The document's focus ring now sits in 00-reset.css: from this layer it beat
+   every component that draws its own ring (a row or card ringed twice) and
+   squared off rounded buttons while they had focus. */
 
-/* The form-element reset that used to live here now sits in 00-reset.css, in
-   the astryx-reset layer — from this layer it outranked every component rule
-   it touched. */
-
-/* One focus treatment for the whole document, so a keyboard user never has to
-   guess where they are. Components that need a different offset set
-   --focus-offset rather than redefining the ring. */
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: var(--focus-offset, 2px);
-  border-radius: var(--radius-none);
-}
-
-:focus:not(:focus-visible) {
-  outline: none;
+/* An in-page jump (skip link, back to top, a footnote, #c123) stops below the
+   sticky header instead of under it. */
+html {
+  scroll-padding-block-start: calc(var(--astryx-header-height) + var(--spacing-4));
 }
 
 ::selection {
   background-color: var(--color-accent-muted);
 }
 
-hr {
-  border: 0;
-  border-block-start: var(--border-width) solid var(--color-border-neutral, var(--color-neutral));
-  margin-block: var(--spacing-8);
-}
+/* The default rule for <hr> sits in 00-reset.css: from this layer it beat
+   the Divider component's emphasis, orientation and spacing. */
 
 /* Skip link: off-screen until focused, then pinned over the header. */
 .astryx-skip-link {
@@ -156,7 +136,7 @@ hr {
  * scheme is on screen, and the element just applies the token.
  */
 :root {
-  --g-ink-filter: none;
+  --g-ink-filter: brightness(1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -166,7 +146,7 @@ hr {
 }
 
 :root.light {
-  --g-ink-filter: none;
+  --g-ink-filter: brightness(1);
 }
 
 :root.dark {

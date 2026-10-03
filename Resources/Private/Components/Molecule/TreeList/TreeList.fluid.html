@@ -13,6 +13,6 @@
 <f:argument name="class" type="string" optional="{true}" default="" />
 
 <f:if condition="{ariaLabel}">
-    <f:then><ul class="astryx-tree-list {class}" role="tree" aria-label="{ariaLabel}"><f:slot /></ul></f:then>
+    <f:then><ul class="astryx-tree-list {class}" role="tree"{g:attribute(name: 'aria-label', value: ariaLabel)}><f:slot /></ul></f:then>
     <f:else><ul class="astryx-tree-list {class}"><f:slot /></ul></f:else>
 </f:if>

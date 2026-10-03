@@ -48,10 +48,9 @@
             data-layout="{layout}"
             data-variant="{variant}"
             data-size="{size}"
-            aria-current="{current}"
-            aria-label="{ariaLabel}"
-            target="{target}"
-            rel="{f:if(condition: '{target} == \'_blank\'', then: 'noopener noreferrer')}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label"><f:slot /></span></a>
+           {g:attribute(name: 'aria-current', value: current)}
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
+           {g:attribute(name: 'target', value: target)}{f:if(condition: '{target} == \'_blank\'', then: ' rel="noopener noreferrer"') -> f:format.raw()}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label"><f:slot /></span></a>
     </f:then>
     <f:else>
         <button
@@ -61,7 +60,7 @@
             data-layout="{layout}"
             data-variant="{variant}"
             data-size="{size}"
-            aria-current="{current}"
-            aria-label="{ariaLabel}"><f:if condition="{f:slot(name: 'icon')}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label"><f:slot /></span></button>
+           {g:attribute(name: 'aria-current', value: current)}
+           {g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{f:slot(name: 'icon') -> f:format.trim()}"><f:slot name="icon" /></f:if><span class="astryx-nav-item-label"><f:slot /></span></button>
     </f:else>
 </f:if>

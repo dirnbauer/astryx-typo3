@@ -42,7 +42,7 @@
 <f:if condition="{id}">
     <f:then>
         <input
-            id="{id}"
+           {g:attribute(name: 'id', value: id)}
             class="astryx-text-input {class}"
             type="{type}"
             name="{name}"
@@ -54,8 +54,8 @@
             data-status="{status}"
             data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
             aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
-            aria-describedby="{describedBy}"
-            aria-label="{ariaLabel}"
+           {g:attribute(name: 'aria-describedby', value: describedBy)}
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
             {f:if(condition: disabled, then: 'disabled')}
             {f:if(condition: required, then: 'required')}
             {f:if(condition: readonly, then: 'readonly')}
@@ -74,8 +74,8 @@
             data-status="{status}"
             data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"
             aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
-            aria-describedby="{describedBy}"
-            aria-label="{ariaLabel}"
+           {g:attribute(name: 'aria-describedby', value: describedBy)}
+           {g:attribute(name: 'aria-label', value: ariaLabel)}
             {f:if(condition: disabled, then: 'disabled')}
             {f:if(condition: required, then: 'required')}
             {f:if(condition: readonly, then: 'readonly')}

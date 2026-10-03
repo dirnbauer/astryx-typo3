@@ -44,12 +44,12 @@
     data-density="{density}"
     data-status="{status}"
     data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:slot /><input
-        id="{id}"
+       {g:attribute(name: 'id', value: id)}
         type="file"
         name="{name}"
         accept="{accept}"
-        aria-describedby="{describedBy}"
-        aria-label="{ariaLabel}"
+       {g:attribute(name: 'aria-describedby', value: describedBy)}
+       {g:attribute(name: 'aria-label', value: ariaLabel)}
         aria-invalid="{f:if(condition: '{status} == \'error\'', then: 'true', else: 'false')}"
         {f:if(condition: multiple, then: 'multiple')}
         {f:if(condition: disabled, then: 'disabled')}

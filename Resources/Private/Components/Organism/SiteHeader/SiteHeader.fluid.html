@@ -55,21 +55,21 @@
             <span class="astryx-header__wordmark">{wordmark}</span>
         </a>
 
-        <nav class="astryx-header__nav" aria-label="{navigationLabel}">
+        <nav class="astryx-header__nav"{g:attribute(name: 'aria-label', value: navigationLabel)}>
             <ul class="astryx-nav__list">
                 <f:for each="{menu}" as="item">
                     <li class="astryx-nav__item">
                         <a
                             href="{item.link}"
                             class="astryx-nav__link"
-                            target="{item.target}"
+                           {g:attribute(name: 'target', value: item.target)}
                             aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
                         >{item.title}</a>
                         <f:if condition="{item.children}">
                             <ul class="astryx-nav__sub">
                                 <f:for each="{item.children}" as="child">
                                     <li>
-                                        <a href="{child.link}" class="astryx-nav__link" target="{child.target}">{child.title}</a>
+                                        <a href="{child.link}" class="astryx-nav__link"{g:attribute(name: 'target', value: child.target)}>{child.title}</a>
                                     </li>
                                 </f:for>
                             </ul>
@@ -83,7 +83,7 @@
             <f:slot />
 
             <details class="astryx-menu" data-g-menu>
-                <summary class="astryx-menu__toggle" aria-label="{menuLabel}">
+                <summary class="astryx-menu__toggle"{g:attribute(name: 'aria-label', value: menuLabel)}>
                     <svg data-glyph="open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
                         <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/>
                     </svg>
@@ -93,14 +93,14 @@
                 </summary>
 
                 <div class="astryx-menu__panel">
-                    <nav aria-label="{navigationLabel}">
+                    <nav{g:attribute(name: 'aria-label', value: navigationLabel)}>
                         <ul class="astryx-nav__list">
                             <f:for each="{menu}" as="item">
                                 <li class="astryx-nav__item">
                                     <a
                                         href="{item.link}"
                                         class="astryx-nav__link"
-                                        target="{item.target}"
+                                       {g:attribute(name: 'target', value: item.target)}
                                         aria-current="{f:if(condition: item.current, then: 'page', else: 'false')}"
                                     >{item.title}</a>
                                     <f:if condition="{item.children}">

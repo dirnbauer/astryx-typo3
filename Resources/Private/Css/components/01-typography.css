@@ -1,10 +1,14 @@
 /*
- * Text and Heading.
+ * Text and Heading, and the content molecules built from them: Eyebrow,
+ * SectionIntro, prose, Figure, Blockquote and Citation — plus the tone of an
+ * Icon and the centred alignment of Feature and ButtonGroup, whose other rules
+ * live with the primitives, the cards and the buttons.
  *
  * The type scale itself is a theme decision — every size, weight and leading
  * below reads a --text-* token that the active theme sets (neutral computes
  * them from base 14 / ratio 1.2, the others differ). Nothing here hard-codes a
- * pixel size or a font family.
+ * pixel size or a font family; the fluid display steps interpolate between two
+ * of those tokens.
  */
 
 /* -------------------------------------------------------------- Heading */
@@ -120,23 +124,44 @@
   line-height: var(--text-heading-6-leading);
 }
 
+/*
+ * The display steps are fluid. On a phone each one starts two steps further
+ * down the theme's own scale — display-1 at display-3, display-2 at heading-1,
+ * display-3 at heading-2 — and grows with the viewport from 400px until it
+ * reaches the step itself, by 1200px at the latest. Both ends are tokens, so
+ * every theme keeps its scale at both ends; a fixed display step kept a
+ * desktop's 42px claim on a 390px screen and wrapped a display-3 phone number
+ * onto two lines. The themes state these sizes again in the theme layer, where
+ * Css/astryx/08-heading-types.css restates them fluid; this is the same value
+ * for a page without a theme.
+ */
 .astryx-heading[data-type="display-1"] {
-  font-size: var(--text-display-1-size);
+  font-size: clamp(var(--text-display-3-size), calc(var(--text-display-3-size) + 2.75vw - 0.6875rem), var(--text-display-1-size));
   font-weight: var(--text-display-1-weight);
   line-height: var(--text-display-1-leading);
 }
 
 .astryx-heading[data-type="display-2"] {
-  font-size: var(--text-display-2-size);
+  font-size: clamp(var(--text-heading-1-size), calc(var(--text-heading-1-size) + 2.75vw - 0.6875rem), var(--text-display-2-size));
   font-weight: var(--text-display-2-weight);
   line-height: var(--text-display-2-leading);
 }
 
 .astryx-heading[data-type="display-3"] {
-  font-size: var(--text-display-3-size);
+  font-size: clamp(var(--text-heading-2-size), calc(var(--text-heading-2-size) + 2.75vw - 0.6875rem), var(--text-display-3-size));
   font-weight: var(--text-display-3-weight);
   line-height: var(--text-display-3-leading);
 }
+
+/*
+ * Tone. The themes state these in their own layer, which outranks this one,
+ * and a heading's type rules never touch its colour, so `color` holds over any
+ * `type`. Stated here as well so a heading keeps its tone where no theme is
+ * active, and so the design review probes every tone a heading can take.
+ */
+.astryx-heading[data-color="secondary"] { color: var(--color-text-secondary); }
+.astryx-heading[data-color="disabled"] { color: var(--color-text-disabled); }
+.astryx-heading[data-color="accent"] { color: var(--color-text-accent); }
 
 /* ----------------------------------------------------------------- Text */
 .astryx-text {
@@ -178,35 +203,45 @@
 }
 
 /* Display sizes carry the message on their own — a price, a metric, a count —
-   so they inherit the heading family and get the tightest leading. */
+   so they inherit the heading family and get the tightest leading. They are
+   fluid the way the display headings are (see there): two steps down on a
+   phone, the step itself from 1200px at the latest. */
 .astryx-text[data-type="display-1"] {
   font-family: var(--font-family-heading);
-  font-size: var(--text-display-1-size);
+  font-size: clamp(var(--text-display-3-size), calc(var(--text-display-3-size) + 2.75vw - 0.6875rem), var(--text-display-1-size));
   font-weight: var(--text-display-1-weight);
   line-height: var(--text-display-1-leading);
 }
 
 .astryx-text[data-type="display-2"] {
   font-family: var(--font-family-heading);
-  font-size: var(--text-display-2-size);
+  font-size: clamp(var(--text-heading-1-size), calc(var(--text-heading-1-size) + 2.75vw - 0.6875rem), var(--text-display-2-size));
   font-weight: var(--text-display-2-weight);
   line-height: var(--text-display-2-leading);
 }
 
 .astryx-text[data-type="display-3"] {
   font-family: var(--font-family-heading);
-  font-size: var(--text-display-3-size);
+  font-size: clamp(var(--text-heading-2-size), calc(var(--text-heading-2-size) + 2.75vw - 0.6875rem), var(--text-display-3-size));
   font-weight: var(--text-display-3-weight);
   line-height: var(--text-display-3-leading);
 }
 
-/* Tone modifiers */
+/* Tone modifiers. `secondary` and `accent` are also stated by every theme, in
+   the theme layer, with the same tokens. */
 .astryx-text[data-color="secondary"] { color: var(--color-text-secondary); }
 .astryx-text[data-color="disabled"] { color: var(--color-text-disabled); }
 .astryx-text[data-color="accent"] { color: var(--color-text-accent); }
-.astryx-text[data-color="success"] { color: var(--color-success); }
-.astryx-text[data-color="warning"] { color: var(--color-warning); }
-.astryx-text[data-color="error"] { color: var(--color-error); }
+.astryx-text[data-color="success"] { color: var(--g-ink-success, var(--color-success)); }
+.astryx-text[data-color="warning"] { color: var(--g-ink-warning, var(--color-warning)); }
+.astryx-text[data-color="error"] { color: var(--g-ink-error, var(--color-error)); }
+
+/* Figures of equal width, so prices and quantities stacked in a list or a
+   table line up digit under digit. Running text keeps proportional figures,
+   which read better in a sentence. */
+.astryx-text[data-numeric="tabular"] {
+  font-variant-numeric: tabular-nums;
+}
 
 /* An eyebrow labels the band it sits above; uppercase needs the extra
    tracking to stay readable. */
@@ -219,6 +254,54 @@
   text-transform: uppercase;
   color: var(--color-text-accent);
   margin: 0;
+}
+
+/* --------------------------------------------------------- SectionIntro */
+/*
+ * The eyebrow, heading and lead that open a band: one column, and the gap is
+ * the whole relationship between its parts. Items keep their own width rather
+ * than stretching, so a badge or a link in the default slot is not drawn
+ * across the band. The lead keeps a reading measure — an introduction run the
+ * full width of the container stops introducing and becomes body copy — while
+ * the heading may run wider and balances its lines. No outer margin: the
+ * Stack an intro sits in is what spaces it from the content below.
+ */
+.astryx-section-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+/* A bare paragraph or heading in the default slot keeps the column's rhythm
+   instead of adding the reset's flow margin on top of the gap. */
+.astryx-section-intro > :where(p, h1, h2, h3, h4, h5, h6, ul, ol, dl) {
+  margin-block: 0;
+}
+
+.astryx-section-intro > :where(.astryx-text, p) {
+  max-inline-size: 44rem;
+}
+
+/* Centred, the parts and their lines centre, and the intro centres itself
+   where its parent lets it shrink to its content (a Stack aligned to the
+   start, a grid cell). */
+.astryx-section-intro[data-align="center"] {
+  align-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* The end edge: a core content element's header set to "right" passes its
+   header position straight through. Logical, as the classic content's own
+   rule for it is, so it mirrors in a right-to-left language. */
+.astryx-section-intro[data-align="right"],
+.astryx-section-intro[data-align="end"] {
+  align-items: flex-end;
+  margin-inline-start: auto;
+  text-align: end;
 }
 
 /* --------------------------------------------------------- prose blocks */
@@ -269,7 +352,71 @@
   margin-block-end: var(--spacing-3);
 }
 
-/* Blockquote */
+/* Display text is mostly figures (a price, a count, a result): digits line up
+   when two of them sit side by side. */
+.astryx-text[data-type^="display"],
+.astryx-heading[data-type^="display"] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* A display line that wraps is balanced, as a heading is, so a two-line
+   claim or price does not leave one word alone on the second line. */
+.astryx-text[data-type^="display"] {
+  text-wrap: balance;
+}
+
+/* A word longer than the line — a German compound in a display heading on a
+   phone, in a 16px theme — breaks instead of pushing the page sideways. Only
+   such a word: a line that fits is left exactly as it was. */
+.astryx-heading,
+.astryx-text[data-type^="display"] {
+  overflow-wrap: break-word;
+}
+
+/* Text written as an <address> is still body text, not the browser's italic. */
+address.astryx-text {
+  font-style: normal;
+}
+
+/* The block's own spacing frames rich text; the first and last element of it
+   add nothing on top (a banner, an accordion answer, a text column). */
+.astryx-prose > :first-child {
+  margin-block-start: 0;
+}
+
+.astryx-prose > :last-child {
+  margin-block-end: 0;
+}
+
+/* ---------------------------------------------------------------- Figure */
+/* Media with an optional caption: a column with a small gap, the picture full
+   width with the container radius, the caption in the supporting style. */
+.astryx-figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.astryx-figure > :where(img, picture, video),
+.astryx-figure > :where(a) > :where(img, picture) {
+  inline-size: 100%;
+  border-radius: var(--radius-container);
+}
+
+.astryx-figure > figcaption {
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+
+.astryx-figure[data-align="center"] {
+  align-items: center;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------ Blockquote */
 .astryx-blockquote {
   margin: 0;
   padding-inline-start: var(--spacing-5);
@@ -277,6 +424,117 @@
   font-size: var(--text-large-size);
   line-height: var(--text-large-leading);
   color: var(--color-text-primary);
+  text-wrap: pretty;
+}
+
+/*
+ * A bare paragraph inside the quote speaks in the quote's voice.
+ *
+ * Every theme resets `:where(p)` to the body step, and the element reset gives
+ * every paragraph a 12px flow margin. Both rules match the paragraph itself,
+ * and a rule that matches an element beats anything it would have inherited —
+ * so every quote in the catalogue rendered at body size, whatever size its
+ * blockquote asked for, with 24px of margin stacked inside it. Both sit in the
+ * astryx-reset layer, which this one outranks, so the correction needs no
+ * higher layer: a Text atom inside a quote keeps the type it was given, and an
+ * element's own stylesheet still has the last word.
+ */
+.astryx-blockquote :where(p:not(.astryx-text)) {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.astryx-blockquote :where(p:not(.astryx-text)) + :where(p:not(.astryx-text)) {
+  margin-block-start: var(--spacing-3);
+}
+
+/*
+ * The size scale, each step a clear move up from the last: the default is the
+ * large step at the weight around it, one quote among several; `lg` is the
+ * large step as the scale states it, weight included, a featured quote; `xl`
+ * (and `large`, its older name) is a pull quote in the heading face at the
+ * third heading size; `display` is a quote that is the whole band, at the
+ * third display step and fluid on a phone like every display step. The
+ * heading-face steps balance their lines.
+ */
+.astryx-blockquote[data-size="lg"] {
+  font-size: var(--text-large-size);
+  font-weight: var(--text-large-weight);
+  line-height: var(--text-large-leading);
+}
+
+.astryx-blockquote[data-size="large"],
+.astryx-blockquote[data-size="xl"] {
+  font-family: var(--font-family-heading);
+  font-size: var(--text-heading-3-size);
+  font-weight: var(--text-heading-3-weight);
+  line-height: var(--text-heading-3-leading);
+  text-wrap: balance;
+}
+
+.astryx-blockquote[data-size="display"] {
+  font-family: var(--font-family-heading);
+  font-size: clamp(var(--text-heading-2-size), calc(var(--text-heading-2-size) + 2.75vw - 0.6875rem), var(--text-display-3-size));
+  font-weight: var(--text-display-3-weight);
+  line-height: var(--text-display-3-leading);
+  text-wrap: balance;
+}
+
+/* Plain: no accent rule and no indent, for a quote that already sits apart —
+   on a card, under a portrait, alone in a band. Centred in a figure a quote
+   loses the rule too, which would sit oddly beside centred lines. */
+.astryx-blockquote[data-variant="plain"],
+.astryx-figure[data-align="center"] > .astryx-blockquote {
+  padding-inline-start: 0;
+  border-inline-start: 0;
+}
+
+/*
+ * Quotation marks in the language of the page.
+ *
+ * `quotes: auto` takes the marks from the `lang` in force — “…” in English,
+ * „…“ in German, «…» in French — so a translated page needs nothing from the
+ * template. They open the first paragraph and close the last one; a quote
+ * written straight into the blockquote, with nothing but line breaks inside,
+ * carries them itself. Generated content stays out of the editable text and
+ * out of a copied quotation. Where the browser can hang punctuation, the
+ * opening mark hangs into the indent so the first line starts flush with the
+ * rest.
+ */
+.astryx-blockquote[data-marks="auto"] {
+  quotes: auto;
+  hanging-punctuation: first last;
+}
+
+.astryx-blockquote[data-marks="auto"] > :first-child::before {
+  content: open-quote;
+}
+
+.astryx-blockquote[data-marks="auto"] > :last-child::after {
+  content: close-quote;
+}
+
+/* Its own rules, so a browser without :has() keeps the two above. */
+.astryx-blockquote[data-marks="auto"]:not(:has(> :not(br)))::before {
+  content: open-quote;
+}
+
+.astryx-blockquote[data-marks="auto"]:not(:has(> :not(br)))::after {
+  content: close-quote;
+}
+
+/* The credit starts where the quote's words start, not under its rule. */
+.astryx-blockquote + .astryx-citation,
+.astryx-blockquote + figcaption > .astryx-citation:first-child {
+  padding-inline-start: calc(var(--spacing-5) + var(--border-width));
+}
+
+.astryx-blockquote[data-variant="plain"] + .astryx-citation,
+.astryx-blockquote[data-variant="plain"] + figcaption > .astryx-citation:first-child,
+.astryx-figure[data-align="center"] > .astryx-blockquote + .astryx-citation,
+.astryx-figure[data-align="center"] > .astryx-blockquote + figcaption > .astryx-citation:first-child {
+  padding-inline-start: 0;
 }
 
 .astryx-blockquote > footer,
@@ -286,4 +544,48 @@
   line-height: var(--text-supporting-leading);
   color: var(--color-text-secondary);
   font-style: normal;
+}
+
+/* ------------------------------------------------------------ Icon colour */
+/*
+ * Atom/Icon's `color`: a glyph painted from a token instead of the text beside
+ * it. Its box and size live with the other primitives (00-primitives.css);
+ * this is only the tone, and it outranks the box's `color: inherit` by being
+ * more specific, whatever the order of the two files.
+ *
+ * `accent` reads the accent TEXT token rather than the accent icon token: an
+ * accent band redefines the text tokens to its own ink and leaves the icon
+ * token alone, so a marker in --color-icon-accent would vanish into the band.
+ * `secondary` is the icon token, which the band does redefine. The status
+ * tones are the theme's semantic status colours, the ones the status dot and
+ * the progress bar paint with.
+ */
+.astryx-icon[data-color="accent"] { color: var(--color-text-accent); }
+.astryx-icon[data-color="secondary"] { color: var(--color-icon-secondary); }
+.astryx-icon[data-color="success"] { color: var(--g-ink-success, var(--color-success)); }
+.astryx-icon[data-color="warning"] { color: var(--g-ink-warning, var(--color-warning)); }
+.astryx-icon[data-color="error"] { color: var(--g-ink-error, var(--color-error)); }
+
+/* -------------------------------------------------------- Feature, centred */
+/* Molecule/Feature declared `align` without a rule behind it. Centred, the
+   icon tile, the title and the paragraph share one axis. The rest of the
+   feature lives in 03-card.css. */
+.astryx-feature[data-align="center"] {
+  align-items: center;
+  text-align: center;
+}
+
+/* ---------------------------------------------------- ButtonGroup, centred */
+/*
+ * The group is inline-flex, and an inline box ignores auto margins, so
+ * centring it takes a block-level flex box as wide as its buttons: centred in
+ * a block, in a Stack aligned to the start and in a grid cell alike. When the
+ * buttons wrap, the box fills the line and every row of them centres. The
+ * rest of the group lives in 02-button.css.
+ */
+.astryx-button-group[data-align="center"] {
+  display: flex;
+  inline-size: fit-content;
+  margin-inline: auto;
+  justify-content: center;
 }

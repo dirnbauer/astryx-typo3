@@ -29,4 +29,4 @@
 <div
     class="astryx-input-group {class}"
     data-size="{size}"
-    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:if condition="{f:slot(name: 'addon')}"><span class="astryx-input-group-text"><f:slot name="addon" /></span></f:if><f:slot /></div>
+    data-disabled="{f:if(condition: disabled, then: 'disabled', else: 'false')}"><f:if condition="{f:slot(name: 'addon') -> f:format.trim()}"><span class="astryx-input-group-text"><f:slot name="addon" /></span></f:if><f:slot /></div>

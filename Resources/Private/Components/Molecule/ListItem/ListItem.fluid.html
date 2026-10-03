@@ -22,4 +22,4 @@
 <f:argument name="id" type="string" optional="{true}" default="" />
 <f:argument name="class" type="string" optional="{true}" default="" />
 
-<li class="astryx-list-item {class}" id="{id}"><f:slot /></li>
+<li class="astryx-list-item {class}"{g:attribute(name: 'id', value: id)}><f:slot /></li>
