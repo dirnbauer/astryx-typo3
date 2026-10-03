@@ -7,38 +7,47 @@
 
 <f:comment>
     A plain anchor and nothing else: no scroll listener, no button that fades in
-    after eight hundred pixels, no smooth-scroll hijack. The link moves the
-    reading position as well as the viewport, which a scripted scroll does not,
-    and #main-content is the same target the skip link at the top of every page
-    already uses.
+    after eight hundred pixels. #main-content is the same target the skip link
+    at the top of every page uses, and <main> carries tabindex="-1", so
+    following the link moves keyboard focus to the start of the content as well
+    as the viewport. The document scrolls smoothly unless the visitor asked for
+    reduced motion, and stops below the sticky header — both are the base
+    stylesheet's (scroll-behavior and scroll-padding on html).
 
     An editor who needs the band to jump somewhere else fills in the link; left
-    empty it goes to the top of this page.
+    empty it goes to the top of the content.
 </f:comment>
 
 <f:variable name="label" value="{data.cta_label}"/>
 <f:if condition="!{data.cta_label}">
     <f:variable name="label" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-back-to-top/language/labels.xlf:link.label', default: 'Back to top')}"/>
 </f:if>
+<f:variable name="centred" value="{f:if(condition: '{data.align} == \'center\'', then: 'yes', else: '')}"/>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footer-back-to-top" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <div class="g-footer-back-to-top__bar">
+        <a:layout.stack gap="3">
+            <a:atom.divider />
 
-            <f:if condition="{data.text}">
-                <a:atom.text type="supporting" class="g-footer-back-to-top__text">{data -> f:render.text(field: 'text')}</a:atom.text>
-            </f:if>
+            <a:layout.stack
+                orientation="{f:if(condition: centred, then: 'vertical', else: 'horizontal')}"
+                justify="{f:if(condition: centred, then: 'default', else: 'between')}"
+                align="{f:if(condition: centred, then: 'center', else: 'default')}"
+                gap="3">
+                <f:if condition="{data.text}">
+                    <a:atom.text type="supporting" class="g-footer-back-to-top__text">{data -> f:render.text(field: 'text')}</a:atom.text>
+                </f:if>
 
-            <f:if condition="{data.cta_link.url}">
-                <f:then>
-                    <a:atom.button variant="ghost" class="g-footer-back-to-top__link" parameter="{data.cta_link}">{label}</a:atom.button>
-                </f:then>
-                <f:else>
-                    <a:atom.button variant="ghost" class="g-footer-back-to-top__link" href="#main-content">{label}</a:atom.button>
-                </f:else>
-            </f:if>
-
-        </div>
+                <f:if condition="{data.cta_link.url}">
+                    <f:then>
+                        <a:atom.button variant="ghost" parameter="{data.cta_link}">{label}<a:atom.icon name="arrow-up" size="sm" /></a:atom.button>
+                    </f:then>
+                    <f:else>
+                        <a:atom.button variant="ghost" href="#main-content">{label}<a:atom.icon name="arrow-up" size="sm" /></a:atom.button>
+                    </f:else>
+                </f:if>
+            </a:layout.stack>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

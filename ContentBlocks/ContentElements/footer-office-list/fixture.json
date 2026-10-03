@@ -3,7 +3,7 @@
     "eyebrow": "Office List",
     "header": "Several locations, one card each",
     "lead": "Each card has a pin, the city as its heading, the address and a directions link. One to twelve cards, two to four per row.",
-    "columns": "3",
+    "columns": "2",
     "note": "Each directions link names its destination. Twelve links all called 'Directions' would sound the same to a screen reader user.",
     "tone": "body",
     "width": "lg",
@@ -11,21 +11,15 @@
     "items": [
         {
             "icon": "map-pin",
-            "title": "The title is the city",
-            "text": "The text holds the address\nand keeps its line breaks\nso it can be copied",
-            "link": "#"
+            "title": "Mattersburg",
+            "text": "Johann Nepomuk Berger-Straße 7/2/14\n7210 Mattersburg\n+43 2626 20156",
+            "link": "https://maps.google.com/?q=Johann+Nepomuk+Berger-Stra%C3%9Fe+7,+7210+Mattersburg"
         },
         {
             "icon": "map-pin",
-            "title": "Each card is an address element",
-            "text": "Street and number\nPostcode and town\nPhone",
-            "link": "#"
-        },
-        {
-            "icon": "map-pin",
-            "title": "Cards of equal height",
-            "text": "Each card stretches to the tallest\nin its row, so the pins\nline up",
-            "link": ""
+            "title": "Vienna",
+            "text": "Ungargasse 64-66/3/404\n1030 Vienna",
+            "link": "https://maps.google.com/?q=Ungargasse+64-66,+1030+Wien"
         }
     ]
 }

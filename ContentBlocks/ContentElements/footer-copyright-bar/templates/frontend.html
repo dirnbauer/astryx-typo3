@@ -12,35 +12,43 @@
     having reviewed it — so this needs a review when the year turns, and says so.
 
     The bar has no heading of its own; the small link row therefore takes its
-    accessible name from a translated default.
+    accessible name from a translated default. The rule above it is a Divider,
+    the notice and the links share one Stack row while there is room, and the
+    links are a horizontal List.
 </f:comment>
 
 <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-copyright-bar/language/labels.xlf:nav.label', default: 'Legal links')}"/>
+<f:variable name="centred" value="{f:if(condition: '{data.align} == \'center\'', then: 'yes', else: '')}"/>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footer-copyright-bar" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <div class="g-footer-copyright-bar__bar">
+        <a:layout.stack gap="3">
+            <a:atom.divider />
 
-            <a:atom.text type="supporting" class="g-footer-copyright-bar__notice">{data -> f:render.text(field: 'text')}</a:atom.text>
+            <a:layout.stack
+                orientation="{f:if(condition: centred, then: 'vertical', else: 'horizontal')}"
+                justify="{f:if(condition: centred, then: 'default', else: 'between')}"
+                align="{f:if(condition: centred, then: 'center', else: 'default')}"
+                gap="3">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'text')}</a:atom.text>
 
-            <f:if condition="{data.links}">
-                <nav aria-label="{navLabel}">
-                    <ul class="g-footer-copyright-bar__links">
-                        <f:for each="{data.links}" as="item">
-                            <li class="g-footer-copyright-bar__link">
-                                <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
-                            </li>
-                        </f:for>
-                    </ul>
-                </nav>
+                <f:if condition="{data.links}">
+                    <nav aria-label="{navLabel}">
+                        <a:molecule.list orientation="horizontal" size="sm" class="g-footer-copyright-bar__links">
+                            <f:for each="{data.links}" as="item">
+                                <a:molecule.listItem>
+                                    <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
+                                </a:molecule.listItem>
+                            </f:for>
+                        </a:molecule.list>
+                    </nav>
+                </f:if>
+            </a:layout.stack>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-footer-copyright-bar__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
-
-        </div>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-footer-copyright-bar__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

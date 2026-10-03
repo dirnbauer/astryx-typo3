@@ -1,25 +1,19 @@
 /*
  * Sitemap Footer
  *
+ * Layout only: the intro is a SectionIntro; section headings, hints and page
+ * links are Text and Link; this file sets the column flow and the indent.
  * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * prefers-color-scheme — the theme carries all four, and the audit enforces
+ * it.
  */
 
-.g-footer-sitemap__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
+.g-footer-sitemap__measure {
   max-inline-size: 70ch;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-footer-sitemap__lead {
-  color: var(--color-text-secondary);
 }
 
 .g-footer-sitemap__list {
   display: block;
-  columns: 1;
   column-gap: var(--spacing-10);
   margin: 0;
   padding: 0;
@@ -30,8 +24,11 @@
   break-inside: avoid;
 }
 
+/* The pages of a section are indented under it, which is the second level the
+   element promises — the hierarchy is not carried by the heading alone. */
 .g-footer-sitemap__entry[data-kind="page"] {
   padding-block: var(--spacing-1);
+  padding-inline-start: var(--spacing-3);
 }
 
 .g-footer-sitemap__list[data-density="compact"] .g-footer-sitemap__entry[data-kind="page"] {
@@ -45,39 +42,11 @@
   flex-direction: column;
   gap: var(--spacing-0-5);
   break-after: avoid;
-  padding-block-start: var(--spacing-6);
-  padding-block-end: var(--spacing-2);
+  padding-block: var(--spacing-6) var(--spacing-2);
 }
 
 .g-footer-sitemap__entry[data-kind="section"]:first-child {
   padding-block-start: 0;
-}
-
-.g-footer-sitemap__section {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  margin: 0;
-}
-
-/* The pages of a section are indented under it, which is the second level the
-   element promises — the hierarchy is not carried by the heading alone. */
-.g-footer-sitemap__entry[data-kind="page"] {
-  padding-inline-start: var(--spacing-3);
-}
-
-.g-footer-sitemap__note {
-  margin-block-start: var(--spacing-8);
-  max-inline-size: 70ch;
-}
-
-.g-footer-sitemap[data-surface="accent"] .g-footer-sitemap__lead,
-.g-footer-sitemap[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-footer-sitemap[data-surface="accent"] .g-footer-sitemap__link {
-  color: currentColor;
 }
 
 @media (min-width: 641px) {
@@ -91,10 +60,4 @@
 @media (min-width: 1024px) {
   .g-footer-sitemap[data-columns='3'] .g-footer-sitemap__list { columns: 3; }
   .g-footer-sitemap[data-columns='4'] .g-footer-sitemap__list { columns: 4; }
-}
-
-@media (max-width: 640px) {
-  .g-footer-sitemap__intro {
-    margin-block-end: var(--spacing-6);
-  }
 }

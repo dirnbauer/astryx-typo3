@@ -12,56 +12,73 @@
     than the small print of a field nobody filled in.
 
     The logo's alt stays empty: the organisation's name is the heading directly
-    beside it, and announcing it twice only slows a screen reader down.
+    beside it, and announcing it twice only slows a screen reader down. It is an
+    ink Logo, lifted on a dark surface, and processed at three times the height
+    it is shown at, so it stays sharp on a high-density screen and in the themes
+    whose spacing scale is larger.
 </f:comment>
 
 <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-brand-newsletter/language/labels.xlf:nav.label', default: 'Footer links')}"/>
+<f:variable name="navLabelledby" value=""/>
+<f:variable name="navName" value="{navLabel}"/>
+<f:if condition="{data.header}">
+    <f:variable name="navLabelledby" value="g-footer-brand-newsletter-{data.uid}"/>
+    <f:variable name="navName" value=""/>
+</f:if>
 
 <a:layout.section surface="{data.tone}" class="g-footer-brand-newsletter">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-footer-brand-newsletter__grid">
+            <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-footer-brand-newsletter__grid">
 
-            <div class="g-footer-brand-newsletter__brand">
-                <f:if condition="{data.image}">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="" height="40" loading="lazy" class="g-footer-brand-newsletter__logo"/>
-                    </f:for>
-                </f:if>
+                <a:layout.stack gap="4" align="start" class="g-footer-brand-newsletter__brand">
+                    <f:if condition="{data.image}">
+                        <a:atom.logo tone="ink" size="lg">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="" height="120" loading="lazy"/>
+                            </f:for>
+                        </a:atom.logo>
+                    </f:if>
 
-                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            </div>
+                    <a:atom.heading level="2" type="heading-3" id="g-footer-brand-newsletter-{data.uid}">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                </a:layout.stack>
 
-            <div class="g-footer-brand-newsletter__signup">
-                <f:if condition="{data.text}">
-                    <a:atom.text type="large" class="g-footer-brand-newsletter__prompt">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
+                <a:layout.stack gap="4" align="start">
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="large" color="secondary">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
 
-                <f:if condition="{data.cta_label}">
-                    <a:molecule.buttonGroup>
-                        <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
-                    </a:molecule.buttonGroup>
-                </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:molecule.buttonGroup>
+                            <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
+                        </a:molecule.buttonGroup>
+                    </f:if>
 
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-footer-brand-newsletter__small-print">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
-            </div>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-footer-brand-newsletter__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
 
-        </a:layout.split>
+            </a:layout.split>
 
-        <f:if condition="{data.links}">
-            <nav class="g-footer-brand-newsletter__nav" aria-label="{navLabel}">
-                <ul class="g-footer-brand-newsletter__links">
-                    <f:for each="{data.links}" as="item">
-                        <li class="g-footer-brand-newsletter__link">
-                            <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
-                        </li>
-                    </f:for>
-                </ul>
-            </nav>
-        </f:if>
+            <f:if condition="{data.links}">
+                <a:layout.stack gap="4">
+                    <a:atom.divider />
+                    <f:comment>The link row is named after the organisation heading beside the logo, so two footer bands on one page never offer two landmarks of the same name.</f:comment>
+                    <nav{g:attribute(name: 'aria-labelledby', value: navLabelledby)}{g:attribute(name: 'aria-label', value: navName)}>
+                        <a:molecule.list orientation="horizontal" size="sm" gap="6">
+                            <f:for each="{data.links}" as="item">
+                                <a:molecule.listItem>
+                                    <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
+                                </a:molecule.listItem>
+                            </f:for>
+                        </a:molecule.list>
+                    </nav>
+                </a:layout.stack>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

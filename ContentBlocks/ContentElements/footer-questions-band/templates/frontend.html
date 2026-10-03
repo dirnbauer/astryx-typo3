@@ -15,23 +15,26 @@
     footer stays where it is and is not affected.
 </f:comment>
 
+<f:comment>Centring only makes sense without a picture: a centred column beside a photo reads as a column that failed to fill its half.</f:comment>
+<f:variable name="centred" value=""/>
+<f:if condition="{data.align} == 'center'">
+    <f:if condition="{data.image}">
+        <f:else><f:variable name="centred" value="yes"/></f:else>
+    </f:if>
+</f:if>
+
 <a:layout.section surface="{data.tone}" align="{data.align}" media="{f:if(condition: data.image, then: 'yes', else: 'no')}" class="g-footer-questions-band">
     <a:layout.container size="{data.width}">
         <div class="g-footer-questions-band__grid">
 
-            <div class="g-footer-questions-band__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-footer-questions-band__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'lead')}"
+                align="{f:if(condition: centred, then: 'center', else: 'default')}"
+                class="g-footer-questions-band__copy">
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <a:molecule.buttonGroup class="g-footer-questions-band__actions">
+                    <a:molecule.buttonGroup align="{f:if(condition: centred, then: 'center', else: 'default')}">
                         <f:if condition="{data.cta_label}">
                             <a:atom.button variant="primary" size="lg" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                         </f:if>
@@ -42,16 +45,16 @@
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-footer-questions-band__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:molecule.sectionIntro>
 
             <f:if condition="{data.image}">
-                <div class="g-footer-questions-band__media">
+                <a:molecule.figure>
                     <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="720" loading="lazy" class="g-footer-questions-band__image"/>
+                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="lazy"/>
                     </f:for>
-                </div>
+                </a:molecule.figure>
             </f:if>
 
         </div>

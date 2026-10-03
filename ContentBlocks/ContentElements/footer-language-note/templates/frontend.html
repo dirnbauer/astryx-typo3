@@ -13,63 +13,60 @@
 
     The entry with no link is the current version. It carries aria-current and
     says so in words as well, because a reader who cannot see the emphasis still
-    has to know which one they are on.
+    has to know which one they are on. The versions are a horizontal List under
+    a SectionIntro; compact tightens the list, not the band.
 </f:comment>
 
 <f:variable name="navLabel" value="{data.header}"/>
 <f:if condition="!{data.header}">
     <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:nav.label', default: 'Language and region')}"/>
 </f:if>
+<f:variable name="centred" value="{f:if(condition: '{data.align} == \'center\'', then: 'yes', else: '')}"/>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-language-note" align="{data.align}">
+<a:layout.section surface="{data.tone}" spacing="tight" class="g-footer-language-note" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <div class="g-footer-language-note__inner">
+        <a:layout.stack orientation="{f:if(condition: centred, then: 'vertical', else: 'horizontal')}" gap="4" align="{f:if(condition: centred, then: 'center', else: 'start')}" class="g-footer-language-note__inner">
 
             <f:if condition="{data.icon}">
-                <a:atom.featureIcon icon="{data.icon}" class="g-footer-language-note__icon" />
+                <a:atom.featureIcon icon="{data.icon}" size="sm" />
             </f:if>
 
-            <div class="g-footer-language-note__body">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-
-                <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-footer-language-note__statement">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
-
+            <a:molecule.sectionIntro
+                heading="{data -> f:render.text(field: 'header')}"
+                headingType="heading-4"
+                lead="{data -> f:render.text(field: 'text')}"
+                leadType="body"
+                align="{f:if(condition: centred, then: 'center', else: 'default')}"
+                class="g-footer-language-note__body">
                 <nav aria-label="{navLabel}">
-                    <ul class="g-footer-language-note__versions">
+                    <a:molecule.list orientation="horizontal" gap="{f:if(condition: data.compact, then: '4', else: '6')}" class="g-footer-language-note__versions">
                         <f:for each="{data.links}" as="version">
-                            <li class="g-footer-language-note__version">
+                            <a:molecule.listItem>
                                 <f:if condition="{version.link.url}">
                                     <f:then>
                                         <a:atom.link variant="quiet" parameter="{version.link}">{version.title}</a:atom.link>
-                                        <f:if condition="{version.description}">
-                                            <a:atom.text type="supporting" as="span" class="g-footer-language-note__hint">{version.description}</a:atom.text>
-                                        </f:if>
                                     </f:then>
                                     <f:else>
-                                        <span class="g-footer-language-note__current" aria-current="true">
-                                            {version.title}
+                                        <span aria-current="true">
+                                            <a:atom.text type="label" as="span">{version.title}</a:atom.text>
                                             <a:atom.visuallyHidden as="span"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-language-note/language/labels.xlf:version.current" default="— the version you are reading"/></a:atom.visuallyHidden>
                                         </span>
-                                        <f:if condition="{version.description}">
-                                            <a:atom.text type="supporting" as="span" class="g-footer-language-note__hint">{version.description}</a:atom.text>
-                                        </f:if>
                                     </f:else>
                                 </f:if>
-                            </li>
+                                <f:if condition="{version.description -> f:format.trim()}">
+                                    <a:atom.text type="supporting" as="span">{version.description}</a:atom.text>
+                                </f:if>
+                            </a:molecule.listItem>
                         </f:for>
-                    </ul>
+                    </a:molecule.list>
                 </nav>
 
                 <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-footer-language-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
-            </div>
+            </a:molecule.sectionIntro>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

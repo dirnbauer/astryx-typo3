@@ -1,25 +1,18 @@
 /*
  * Footer Link Columns
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the intro is a SectionIntro; the group headings, links and
+ * hints are Text and Link; this file sets the column flow. Tokens only: no raw
+ * colour, no literal font family, no light-dark() and no prefers-color-scheme
+ * — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-link-columns__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
+.g-footer-link-columns__measure {
   max-inline-size: 70ch;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-footer-link-columns__lead {
-  color: var(--color-text-secondary);
 }
 
 .g-footer-link-columns__list {
   display: block;
-  columns: 1;
   column-gap: var(--spacing-10);
   margin: 0;
   padding: 0;
@@ -29,6 +22,7 @@
 .g-footer-link-columns__entry {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: var(--spacing-0-5);
   padding-block: var(--spacing-1-5);
   break-inside: avoid;
@@ -38,71 +32,63 @@
   padding-block: var(--spacing-0-5);
 }
 
-/* An unlinked entry opens the next column, which is the whole grouping rule of
-   this element; the first one has no column to leave. */
+/* A heading never ends a column, and takes air above it whenever it shares a
+   column with the group before. */
 .g-footer-link-columns__entry[data-kind="heading"] {
-  break-before: column;
   break-after: avoid;
-  padding-block-start: 0;
-  padding-block-end: var(--spacing-2);
+  padding-block: 0 var(--spacing-2);
 }
 
-.g-footer-link-columns__entry[data-kind="heading"]:first-child {
-  break-before: auto;
+.g-footer-link-columns__entry[data-kind="heading"]:not(:first-child) {
+  padding-block-start: var(--spacing-6);
 }
 
-.g-footer-link-columns__group {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-  margin: 0;
-}
-
-.g-footer-link-columns__link {
-  display: inline-block;
-}
-
-.g-footer-link-columns__note {
-  margin-block-start: var(--spacing-8);
-  max-inline-size: 70ch;
-}
-
-/* On the accent band the secondary text colour is tuned for the page
-   background and would drop out of contrast. */
-.g-footer-link-columns[data-surface="accent"] .g-footer-link-columns__lead,
-.g-footer-link-columns[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-footer-link-columns[data-surface="accent"] .g-footer-link-columns__link {
-  color: currentColor;
-}
-
+/*
+ * Whole groups are spread evenly over the columns on screen: group g opens a
+ * new column when floor((g - 1) * C / N) changes, C being the columns and N
+ * the groups the template counted (data-groups on the list, data-group on each
+ * heading). Forcing a break before every heading with more groups than
+ * columns would push the rest into overflow columns beside the band; past
+ * eight groups the list simply flows and balances.
+ */
 @media (min-width: 641px) {
   .g-footer-link-columns[data-columns='2'] .g-footer-link-columns__list,
   .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list,
   .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list {
     columns: 2;
   }
+
+  /* Two columns */
+  .g-footer-link-columns__list:is([data-groups='1'], [data-groups='2']) .g-footer-link-columns__entry[data-kind="heading"]:not(:first-child),
+  .g-footer-link-columns__list:is([data-groups='3'], [data-groups='4']) .g-footer-link-columns__entry:is([data-group='3']),
+  .g-footer-link-columns__list:is([data-groups='5'], [data-groups='6']) .g-footer-link-columns__entry:is([data-group='4']),
+  .g-footer-link-columns__list:is([data-groups='7'], [data-groups='8']) .g-footer-link-columns__entry:is([data-group='5']) {
+    break-before: column;
+    padding-block-start: 0;
+  }
 }
 
 @media (min-width: 1024px) {
   .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list { columns: 3; }
   .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list { columns: 4; }
-}
 
-/* In one column a forced column break does nothing, so the heading takes air
-   above it instead — otherwise every group would run into the one before. */
-@media (max-width: 640px) {
-  .g-footer-link-columns__entry[data-kind="heading"] + .g-footer-link-columns__entry[data-kind="link"] {
-    padding-block-start: 0;
-  }
-
-  .g-footer-link-columns__entry[data-kind="heading"]:not(:first-child) {
+  /* The two-column breaks give way to the three- and four-column ones. */
+  .g-footer-link-columns:is([data-columns='3'], [data-columns='4']) .g-footer-link-columns__entry[data-kind="heading"]:not(:first-child) {
+    break-before: auto;
     padding-block-start: var(--spacing-6);
   }
 
-  .g-footer-link-columns__intro {
-    margin-block-end: var(--spacing-6);
+  /* Three and four columns */
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list:is([data-groups='1'], [data-groups='2'], [data-groups='3']) .g-footer-link-columns__entry[data-kind="heading"]:not(:first-child),
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list:is([data-groups='4']) .g-footer-link-columns__entry:is([data-group='3'], [data-group='4']),
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list:is([data-groups='5'], [data-groups='6']) .g-footer-link-columns__entry:is([data-group='3'], [data-group='5']),
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list:is([data-groups='7']) .g-footer-link-columns__entry:is([data-group='4'], [data-group='6']),
+  .g-footer-link-columns[data-columns='3'] .g-footer-link-columns__list:is([data-groups='8']) .g-footer-link-columns__entry:is([data-group='4'], [data-group='7']),
+  .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list:is([data-groups='1'], [data-groups='2'], [data-groups='3'], [data-groups='4']) .g-footer-link-columns__entry[data-kind="heading"]:not(:first-child),
+  .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list:is([data-groups='5']) .g-footer-link-columns__entry:is([data-group='3'], [data-group='4'], [data-group='5']),
+  .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list:is([data-groups='6']) .g-footer-link-columns__entry:is([data-group='3'], [data-group='4'], [data-group='6']),
+  .g-footer-link-columns[data-columns='4'] .g-footer-link-columns__list:is([data-groups='7'], [data-groups='8']) .g-footer-link-columns__entry:is([data-group='3'], [data-group='5'], [data-group='7']) {
+    break-before: column;
+    padding-block-start: 0;
   }
 }

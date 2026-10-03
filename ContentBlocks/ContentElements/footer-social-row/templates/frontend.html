@@ -10,8 +10,11 @@
     reader who does not recognise a logo, an icon set that fails to load and a
     screen reader — the icon is a tile beside the name, never the name itself.
 
-    The icon key comes from the shared library, so switching library never
-    rewrites a record.
+    Each profile is a flat clickable Card in a horizontal List: the network's
+    name is the one link, and the card's clickable affordance spreads it over
+    the whole tile, so the target is the tile rather than a line of text.
+    Compact tightens the row and takes the small icon tile. The icon key comes
+    from the shared library, so switching library never rewrites a record.
 </f:comment>
 
 <f:variable name="navLabel" value="{data.header}"/>
@@ -21,38 +24,45 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-social-row" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <f:if condition="{data.header} || {data.text}">
-            <div class="g-footer-social-row__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-footer-social-row__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.text}">
+                <a:molecule.sectionIntro
+                    heading="{data -> f:render.text(field: 'header')}"
+                    headingType="heading-3"
+                    lead="{data -> f:render.text(field: 'text')}"
+                    leadType="body"
+                    align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'default')}" />
+            </f:if>
 
-        <nav aria-label="{navLabel}">
-            <ul class="g-footer-social-row__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                <f:for each="{data.links}" as="profile">
-                    <li class="g-footer-social-row__item">
-                        <a:molecule.item interactive="interactive" class="g-footer-social-row__link" parameter="{profile.link}">
-                            <f:fragment name="start"><a:atom.featureIcon icon="{profile.icon}" class="g-footer-social-row__icon" /></f:fragment>
-                            <f:fragment>
-                                <a:molecule.itemContent>
-                                    <a:molecule.itemLabel class="g-footer-social-row__name">{profile.title}</a:molecule.itemLabel>
-                                    <f:if condition="{profile.description}">
-                                        <a:molecule.itemDescription>{profile.description}</a:molecule.itemDescription>
+            <nav aria-label="{navLabel}">
+                <a:molecule.list orientation="horizontal" gap="{f:if(condition: data.compact, then: '2', else: '3')}" class="g-footer-social-row__list">
+                    <f:for each="{data.links}" as="profile">
+                        <a:molecule.listItem class="g-footer-social-row__item">
+                            <a:molecule.card variant="flat" density="tight" clickable="{true}" class="g-footer-social-row__card">
+                                <a:layout.stack orientation="horizontal" gap="3" class="g-footer-social-row__tile">
+                                    <f:if condition="{profile.icon}">
+                                        <a:atom.featureIcon icon="{profile.icon}" size="{f:if(condition: data.compact, then: 'sm', else: 'md')}" />
                                     </f:if>
-                                </a:molecule.itemContent>
-                            </f:fragment>
-                        </a:molecule.item>
-                    </li>
-                </f:for>
-            </ul>
-        </nav>
+                                    <a:layout.stack gap="1">
+                                        <a:atom.text type="label" as="span">
+                                            <f:if condition="{profile.link.url}">
+                                                <f:then><a:atom.link variant="quiet" parameter="{profile.link}">{profile.title}</a:atom.link></f:then>
+                                                <f:else>{profile.title}</f:else>
+                                            </f:if>
+                                        </a:atom.text>
+                                        <f:if condition="{profile.description -> f:format.trim()}">
+                                            <a:atom.text type="supporting" as="span">{profile.description}</a:atom.text>
+                                        </f:if>
+                                    </a:layout.stack>
+                                </a:layout.stack>
+                            </a:molecule.card>
+                        </a:molecule.listItem>
+                    </f:for>
+                </a:molecule.list>
+            </nav>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

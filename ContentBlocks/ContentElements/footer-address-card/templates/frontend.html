@@ -12,18 +12,20 @@
 
     The address is a real address element and keeps the line breaks the editor
     typed — a postal address read as one run-on line is a postal address nobody
-    can copy.
+    can copy. The heading is the band's h2; the card only lifts the address off
+    the page. The picture keeps the proportions it was exported at: a map crop
+    is chosen for what it shows.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-footer-address-card">
     <a:layout.container size="{data.width}">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-footer-address-card__grid">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}">
 
-            <a:molecule.card class="g-footer-address-card__card">
-                <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.card>
+                <a:atom.heading level="2" type="heading-3">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
                 <f:if condition="{data.text}">
-                    <a:atom.text type="body" as="address" class="g-footer-address-card__address">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    <a:atom.text type="body" color="secondary" as="address">{data -> f:render.text(field: 'text')}</a:atom.text>
                 </f:if>
 
                 <f:if condition="{data.cta_label} || {data.secondary_label}">
@@ -38,19 +40,19 @@
                 </f:if>
 
                 <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-footer-address-card__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    <a:atom.text type="supporting" class="g-footer-address-card__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
                 </f:if>
             </a:molecule.card>
 
             <f:if condition="{data.image}">
-                <figure class="g-footer-address-card__media">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="900" loading="lazy" class="g-footer-address-card__image"/>
-                    </f:for>
-                    <f:if condition="{data.caption}">
-                        <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
-                    </f:if>
-                </figure>
+                <a:molecule.figure>
+                    <f:fragment name="caption"><f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if></f:fragment>
+                    <f:fragment>
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="lazy"/>
+                        </f:for>
+                    </f:fragment>
+                </a:molecule.figure>
             </f:if>
 
         </a:layout.split>

@@ -11,7 +11,8 @@
     corrected typo also does; this line says when a human last read the page and
     decided it was still correct.
 
-    A real description list, so each date keeps the label that explains it
+    A real description list — the small MetadataList, set in one line with a
+    rule between the pairs — so each date keeps the label that explains it
     rather than becoming a loose number in a row. The short value is capped at
     twenty-four characters, which a date fits and a department name often does
     not, so a row with no value falls back to its longer text.
@@ -19,25 +20,26 @@
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footer-page-meta" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <div class="g-footer-page-meta__bar">
+        <a:layout.stack gap="3">
+            <a:atom.divider />
 
             <f:if condition="{data.header} || {data.text}">
-                <div class="g-footer-page-meta__intro">
+                <a:layout.stack gap="1" class="g-footer-page-meta__measure">
                     <f:if condition="{data.header}">
-                        <a:atom.text type="label" as="h2" class="g-footer-page-meta__title">{data -> f:render.text(field: 'header')}</a:atom.text>
+                        <a:atom.text type="label" as="h2">{data -> f:render.text(field: 'header')}</a:atom.text>
                     </f:if>
                     <f:if condition="{data.text}">
-                        <a:atom.text type="supporting" class="g-footer-page-meta__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
+                        <a:atom.text type="supporting">{data -> f:render.text(field: 'text')}</a:atom.text>
                     </f:if>
-                </div>
+                </a:layout.stack>
             </f:if>
 
-            <a:molecule.metadataList orientation="horizontal" class="g-footer-page-meta__rows">
+            <a:molecule.metadataList orientation="horizontal" size="sm" dividers="with-dividers" class="g-footer-page-meta__rows">
                 <f:for each="{data.rows}" as="row">
                     <a:molecule.metadataListItem class="g-footer-page-meta__row">
-                        <dt class="g-footer-page-meta__term">{row -> f:render.text(field: 'title')}</dt>
-                        <dd class="g-footer-page-meta__value">
-                            <f:if condition="{row.value}">
+                        <dt>{row -> f:render.text(field: 'title')}</dt>
+                        <dd>
+                            <f:if condition="{row.value -> f:format.trim()}">
                                 <f:then>{row -> f:render.text(field: 'value')}</f:then>
                                 <f:else>{row -> f:render.text(field: 'text')}</f:else>
                             </f:if>
@@ -47,10 +49,9 @@
             </a:molecule.metadataList>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" class="g-footer-page-meta__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting" class="g-footer-page-meta__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
-
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

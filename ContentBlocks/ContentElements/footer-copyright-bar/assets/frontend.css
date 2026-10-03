@@ -1,66 +1,24 @@
 /*
  * Copyright Bar
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the rule is a Divider, the row a Stack, the notice Text and the
+ * links a small horizontal List. Tokens only: no raw colour, no literal font family,
+ * no light-dark() and no prefers-color-scheme — the theme carries all four,
+ * and the audit enforces it.
  */
 
-.g-footer-copyright-bar__bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--spacing-2) var(--spacing-6);
-  padding-block: var(--spacing-4);
-  border-block-start: var(--border-width) solid var(--color-border);
-}
-
-.g-footer-copyright-bar__notice {
-  margin: 0;
-}
-
-.g-footer-copyright-bar__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-2) var(--spacing-4);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-}
-
-.g-footer-copyright-bar__note {
-  margin-block-start: var(--spacing-2);
+.g-footer-copyright-bar__measure {
   max-inline-size: 70ch;
 }
 
-.g-footer-copyright-bar[data-align='center'] .g-footer-copyright-bar__bar {
-  flex-direction: column;
-  align-items: center;
+.g-footer-copyright-bar[data-align='center'] {
   text-align: center;
 }
 
-.g-footer-copyright-bar[data-align='center'] .g-footer-copyright-bar__note {
+.g-footer-copyright-bar[data-align='center'] .g-footer-copyright-bar__links {
+  justify-content: center;
+}
+
+.g-footer-copyright-bar[data-align='center'] .g-footer-copyright-bar__measure {
   margin-inline: auto;
-  text-align: center;
-}
-
-.g-footer-copyright-bar[data-surface="accent"] .g-footer-copyright-bar__bar {
-  border-block-start-color: currentColor;
-}
-
-.g-footer-copyright-bar[data-surface="accent"] .astryx-text[data-type="supporting"],
-.g-footer-copyright-bar[data-surface="accent"] .g-footer-copyright-bar__links a {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  /* Notice and links on one line put two words per line at this width. */
-  .g-footer-copyright-bar__bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-3);
-  }
 }

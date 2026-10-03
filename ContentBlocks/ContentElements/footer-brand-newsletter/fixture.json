@@ -2,24 +2,24 @@
     "_type": "footer",
     "header": "Logo and statement beside a sign-up prompt",
     "text": "The second half is a prompt, not a form. The button opens the sign-up page, so this band collects no addresses and needs no consent.",
-    "cta_label": "Primary action",
-    "cta_link": "#",
+    "cta_label": "See the sign-up elements",
+    "cta_link": "{{page:components/conversion}}",
     "note": "The note says how often you send and how to unsubscribe. A switch swaps the halves; below 768px they stack, text first.",
     "tone": "surface",
     "width": "lg",
     "reverse": false,
     "links": [
         {
-            "title": "The small link row",
-            "link": "#"
+            "title": "Imprint",
+            "link": "{{page:imprint}}"
         },
         {
-            "title": "sits under both halves",
-            "link": "#"
+            "title": "Privacy",
+            "link": "{{page:privacy}}"
         },
         {
-            "title": "and holds up to eight links",
-            "link": "#"
+            "title": "Accessibility",
+            "link": "{{page:accessibility}}"
         }
     ],
     "image": [

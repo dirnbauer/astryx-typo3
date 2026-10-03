@@ -3,47 +3,76 @@
     "header": "Brand column, link columns and a closing line",
     "text": "The complete footer as one element, for pages that don't use the site's template footer.",
     "columns": "3",
-    "cta_label": "Brand column link",
-    "cta_link": "#",
+    "cta_label": "Browse all components",
+    "cta_link": "{{page:components}}",
     "note": "Use this only where the template footer is switched off, or the page gets two footers. It is a section, not a footer landmark: two contentinfo landmarks make the landmark list useless.",
     "tone": "surface",
     "width": "xl",
     "links": [
         {
-            "title": "An entry without a link",
-            "link": ""
+            "title": "Components",
+            "description": " ",
+            "link": " "
         },
         {
-            "title": "starts the next column",
-            "link": "#"
+            "title": "Hero",
+            "description": " ",
+            "link": "{{page:components/hero}}"
         },
         {
-            "title": "and becomes its heading",
-            "link": "#"
+            "title": "Pricing",
+            "description": " ",
+            "link": "{{page:components/pricing}}"
         },
         {
-            "title": "The second heading",
-            "link": ""
+            "title": "Conversion",
+            "description": " ",
+            "link": "{{page:components/conversion}}"
         },
         {
-            "title": "Three to twenty-four links",
-            "link": "#"
+            "title": "Footer",
+            "description": " ",
+            "link": "{{page:components/footer}}"
         },
         {
-            "title": "Two, three or four columns",
-            "link": "#"
+            "title": "Themes",
+            "description": " ",
+            "link": " "
         },
         {
-            "title": "The third heading",
-            "link": ""
+            "title": "All themes",
+            "description": " ",
+            "link": "{{page:themes}}"
         },
         {
-            "title": "One column below 641px",
-            "link": "#"
+            "title": "Neutral",
+            "description": " ",
+            "link": "{{page:themes/neutral}}"
         },
         {
-            "title": "The note closes the block",
-            "link": "#"
+            "title": "Gothic",
+            "description": " ",
+            "link": "{{page:themes/gothic}}"
+        },
+        {
+            "title": "Service",
+            "description": " ",
+            "link": " "
+        },
+        {
+            "title": "Search",
+            "description": " ",
+            "link": "{{page:search}}"
+        },
+        {
+            "title": "Imprint",
+            "description": " ",
+            "link": "{{page:imprint}}"
+        },
+        {
+            "title": "Privacy",
+            "description": " ",
+            "link": "{{page:privacy}}"
         }
     ],
     "image": [

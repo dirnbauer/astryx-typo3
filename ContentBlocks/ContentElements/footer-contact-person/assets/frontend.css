@@ -1,77 +1,32 @@
 /*
  * Contact Person
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
+ * Layout only: the intro is a SectionIntro; the card, the avatar, the title,
+ * the body and the buttons are components, and Stacks place them. Tokens only:
+ * no raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-contact-person__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  max-inline-size: 60ch;
-  margin-block-end: var(--spacing-6);
-}
-
 .g-footer-contact-person__card {
-  flex-direction: row;
-  align-items: flex-start;
-  gap: var(--spacing-6);
-  max-inline-size: 46rem;
+  inline-size: 100%;
+  max-inline-size: 48rem;
 }
 
-.g-footer-contact-person__portrait {
-  flex-shrink: 0;
+/* The portrait and the copy share one row while the copy keeps a readable
+   measure beside a 128px portrait; below that the copy wraps under it. */
+.g-footer-contact-person__layout {
+  flex-wrap: wrap;
 }
 
-.g-footer-contact-person__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
+.g-footer-contact-person:not([data-align='center']) .g-footer-contact-person__body {
+  flex: 1 1 18rem;
   min-inline-size: 0;
 }
 
-.g-footer-contact-person__role {
-  color: var(--color-text-secondary);
-}
-
-.g-footer-contact-person__remit {
+.g-footer-contact-person__measure {
   max-inline-size: 60ch;
 }
 
-.g-footer-contact-person__actions {
-  margin-block-start: var(--spacing-2);
-}
-
-.g-footer-contact-person[data-align='center'] .g-footer-contact-person__intro {
-  margin-inline: auto;
+.g-footer-contact-person[data-align='center'] {
   text-align: center;
-}
-
-.g-footer-contact-person[data-align='center'] .g-footer-contact-person__card {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
-}
-
-.g-footer-contact-person[data-align='center'] .g-footer-contact-person__body {
-  align-items: center;
-}
-
-.g-footer-contact-person[data-surface="accent"] .g-footer-contact-person__role,
-.g-footer-contact-person[data-surface="accent"] .astryx-eyebrow,
-.g-footer-contact-person[data-surface="accent"] .astryx-card-body,
-.g-footer-contact-person[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  /* Beside a 128px portrait the copy has barely twenty characters of measure
-     left at this width, so the card stacks. */
-  .g-footer-contact-person__card {
-    flex-direction: column;
-    gap: var(--spacing-4);
-  }
 }

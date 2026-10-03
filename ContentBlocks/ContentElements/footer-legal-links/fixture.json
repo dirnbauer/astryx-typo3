@@ -9,24 +9,19 @@
     "compact": true,
     "links": [
         {
-            "title": "Two to ten links",
-            "description": "The description becomes the link's title attribute",
-            "link": "#"
+            "title": "Imprint",
+            "description": "Who runs this site",
+            "link": "{{page:imprint}}"
         },
         {
-            "title": "They wrap on narrow screens",
-            "description": "",
-            "link": "#"
+            "title": "Privacy",
+            "description": "What this site stores and loads",
+            "link": "{{page:privacy}}"
         },
         {
-            "title": "No dividers below 480px",
-            "description": "A divider at a line start marks no boundary",
-            "link": "#"
-        },
-        {
-            "title": "Compact tightens the spacing",
-            "description": "",
-            "link": "#"
+            "title": "Accessibility",
+            "description": "How this site works with a keyboard and a screen reader",
+            "link": "{{page:accessibility}}"
         }
     ]
 }

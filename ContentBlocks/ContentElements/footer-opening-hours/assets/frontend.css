@@ -1,41 +1,25 @@
 /*
  * Opening Hours
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the intro is a SectionIntro, the schedule a small MetadataList
+ * with dividers, the closed state and the qualifier Text. Tokens only: no raw
+ * colour, no literal font family, no light-dark() and no prefers-color-scheme
+ * — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-opening-hours__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 60ch;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-footer-opening-hours__lead {
-  color: var(--color-text-secondary);
-}
-
+/* A schedule is read by running down one column, so it keeps a measure. */
 .g-footer-opening-hours__rows {
-  display: block;
+  inline-size: 100%;
   max-inline-size: 34rem;
 }
 
 /* Day on the left, hours on the right, the qualifier on its own line beneath:
-   a schedule is read by running down one column, so the pair has to be a row
-   even though the shared metadata list stacks its items. */
+   the pair is a row even though the shared list stacks its items. */
 .g-footer-opening-hours__row {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--spacing-1) var(--spacing-4);
-  padding-block: var(--spacing-3);
-  border-block-end: var(--border-width) solid var(--color-border);
-}
-
-.g-footer-opening-hours[data-spacing="tight"] .g-footer-opening-hours__rows .g-footer-opening-hours__row {
-  padding-block: var(--spacing-1-5);
 }
 
 .g-footer-opening-hours__day {
@@ -48,63 +32,26 @@
   gap: var(--spacing-2);
   margin-inline-start: auto;
   text-align: end;
-  font-weight: var(--font-weight-medium);
-  /* Times line up on the colon when the figures are tabular. */
-  font-variant-numeric: tabular-nums;
 }
 
 .g-footer-opening-hours__qualifier {
   flex: 1 0 100%;
 }
 
-.g-footer-opening-hours__state {
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-normal);
-}
-
-/* The disabled colour was borrowed here for "these hours no longer apply", and
-   at 2.8:1 on the surface it failed contrast. The strike-through and the word
-   "Closed" beside it already carry that meaning, so the times only have to be
-   quieter than the open days — which is what the secondary colour is for. */
-.g-footer-opening-hours__struck {
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-normal);
-}
-
-.g-footer-opening-hours__note {
-  margin-block-start: var(--spacing-6);
+.g-footer-opening-hours__measure {
   max-inline-size: 70ch;
 }
 
-.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__intro,
-.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__rows,
-.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__note {
-  margin-inline: auto;
-}
-
-.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__intro {
+.g-footer-opening-hours[data-align='center'] .g-footer-opening-hours__measure {
   text-align: center;
-}
-
-.g-footer-opening-hours[data-surface="accent"] .g-footer-opening-hours__lead,
-.g-footer-opening-hours[data-surface="accent"] .astryx-eyebrow,
-.g-footer-opening-hours[data-surface="accent"] .g-footer-opening-hours__state,
-.g-footer-opening-hours[data-surface="accent"] .g-footer-opening-hours__struck,
-.g-footer-opening-hours[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 480px) {
   /* Under a phone's width the hours would be pushed onto their own line by the
      day anyway; giving them one keeps the pair from breaking mid-range. */
   .g-footer-opening-hours__hours {
+    flex-basis: 100%;
     margin-inline-start: 0;
     text-align: start;
-    flex-basis: 100%;
-  }
-
-  .g-footer-opening-hours__intro {
-    margin-block-end: var(--spacing-6);
   }
 }

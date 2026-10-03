@@ -11,6 +11,10 @@
     and the feedback link is the part that matters most — an accessibility
     statement with no way to report a barrier is a statement written for an
     auditor rather than for a reader.
+
+    Composed from the Banner molecule. The banner is the only thing in its band,
+    so its title takes the large size; below 480px the banner itself puts the
+    icon above the message.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-accessibility-note">
@@ -18,36 +22,38 @@
         <a:molecule.banner class="g-footer-accessibility-note__box" ariaLabelledby="g-footer-accessibility-note-{data.uid}">
 
             <f:if condition="{data.icon}">
-                <a:atom.featureIcon icon="{data.icon}" class="g-footer-accessibility-note__icon" />
+                <a:atom.featureIcon icon="{data.icon}" size="sm" />
             </f:if>
 
             <a:molecule.bannerContent>
-                <div class="g-footer-accessibility-note__head">
-                    <a:molecule.bannerTitle level="2" id="g-footer-accessibility-note-{data.uid}" class="g-footer-accessibility-note__title">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
+                <a:layout.stack gap="3">
+                    <a:layout.stack orientation="horizontal" gap="2">
+                        <a:molecule.bannerTitle level="2" size="lg" id="g-footer-accessibility-note-{data.uid}">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
 
-                    <f:if condition="{data.badge_text}">
-                        <a:atom.badge variant="outline" as="span" class="g-footer-accessibility-note__level">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                        <f:if condition="{data.badge_text}">
+                            <a:atom.badge variant="outline">{data -> f:render.text(field: 'badge_text')}</a:atom.badge>
+                        </f:if>
+                    </a:layout.stack>
+
+                    <f:if condition="{data.text}">
+                        <a:molecule.bannerBody class="g-footer-accessibility-note__measure">{data -> f:render.text(field: 'text')}</a:molecule.bannerBody>
                     </f:if>
-                </div>
 
-                <f:if condition="{data.text}">
-                    <a:molecule.bannerBody class="g-footer-accessibility-note__body">{data -> f:render.text(field: 'text')}</a:molecule.bannerBody>
-                </f:if>
+                    <f:if condition="{data.cta_label} || {data.secondary_label}">
+                        <a:layout.stack orientation="horizontal" gap="3">
+                            <f:if condition="{data.cta_label}">
+                                <a:atom.link parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
+                            </f:if>
+                            <f:if condition="{data.secondary_label}">
+                                <a:atom.link parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
+                            </f:if>
+                        </a:layout.stack>
+                    </f:if>
 
-                <f:if condition="{data.cta_label} || {data.secondary_label}">
-                    <p class="g-footer-accessibility-note__actions">
-                        <f:if condition="{data.cta_label}">
-                            <a:atom.link parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                        </f:if>
-                        <f:if condition="{data.secondary_label}">
-                            <a:atom.link parameter="{data.secondary_link}">{data.secondary_label}</a:atom.link>
-                        </f:if>
-                    </p>
-                </f:if>
-
-                <f:if condition="{data.note}">
-                    <a:atom.text type="supporting" class="g-footer-accessibility-note__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-                </f:if>
+                    <f:if condition="{data.note}">
+                        <a:atom.text type="supporting" class="g-footer-accessibility-note__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
+                    </f:if>
+                </a:layout.stack>
             </a:molecule.bannerContent>
 
         </a:molecule.banner>

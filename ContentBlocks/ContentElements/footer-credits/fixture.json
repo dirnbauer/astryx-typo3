@@ -1,7 +1,7 @@
 {
     "_type": "footer",
     "header": "Picture credits as label and value pairs",
-    "text": "One to thirty credits in a description list. What is credited sits on the left, the rights holder on the right. An optional licence appears as a second description under the holder.",
+    "text": "One to thirty credits in a description list. Each names what is credited, then who holds the rights; an optional licence follows as a badge.",
     "columns": "2",
     "note": "Long lists are easier to read in two or more columns. The pairs run down each column, not across.",
     "tone": "muted",
@@ -9,27 +9,27 @@
     "compact": true,
     "rows": [
         {
-            "title": "The title is what is credited",
-            "value": "",
-            "text": "The text is the rights holder",
+            "title": "Photographs and portraits",
+            "value": " ",
+            "text": "Generated for this demo with GPT Image 2",
             "included": false
         },
         {
-            "title": "A credit under a licence",
-            "value": "CC BY 4.0",
-            "text": "The value appears as a badge under the holder",
+            "title": "Logos and signatures",
+            "value": " ",
+            "text": "Generated for this demo with Gemini",
             "included": false
         },
         {
-            "title": "The badge is plain text",
-            "value": "ODbL",
-            "text": "so the licence is read out with its credit",
+            "title": "Component design",
+            "value": "MIT",
+            "text": "Astryx by Meta Open Source",
             "included": false
         },
         {
-            "title": "A credit with no licence",
-            "value": "",
-            "text": "has no badge",
+            "title": "Icons",
+            "value": "ISC",
+            "text": "Lucide contributors",
             "included": false
         }
     ]

@@ -1,14 +1,14 @@
 /*
  * Newsletter Strip
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the picture is a Thumbnail, the copy a SectionIntro, the action
+ * a Button. Tokens only: no raw colour, no literal font family, no light-dark()
+ * and no prefers-color-scheme — the theme carries all four, and the audit
+ * enforces it.
  */
 
-.g-footer-newsletter-strip {
-  --section-gap: var(--astryx-band-tight);
-}
-
+/* Picture, copy and button share one row while there is room; the copy takes
+   whatever the other two leave. */
 .g-footer-newsletter-strip__strip {
   display: flex;
   flex-wrap: wrap;
@@ -16,69 +16,28 @@
   gap: var(--spacing-5);
 }
 
+.g-footer-newsletter-strip__strip[data-density="compact"] {
+  gap: var(--spacing-3);
+}
+
 .g-footer-newsletter-strip__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
   flex: 1 1 20rem;
-  min-inline-size: 0;
 }
 
-.g-footer-newsletter-strip__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-footer-newsletter-strip__mark {
-  flex-shrink: 0;
-}
-
-.g-footer-newsletter-strip__image {
-  display: block;
-  inline-size: var(--spacing-12);
-  block-size: var(--spacing-12);
-  object-fit: cover;
-  border-radius: var(--radius-element);
-}
-
-.g-footer-newsletter-strip__action {
-  flex-shrink: 0;
-}
-
-.g-footer-newsletter-strip__small-print {
-  margin-block-start: var(--spacing-4);
+.g-footer-newsletter-strip__measure {
   max-inline-size: 70ch;
 }
 
 .g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__strip {
   flex-direction: column;
-  text-align: center;
 }
 
+/* In the centred column the copy's flex basis would become a height. */
 .g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__copy {
-  align-items: center;
   flex-basis: auto;
 }
 
-.g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__small-print {
+.g-footer-newsletter-strip[data-align='center'] .g-footer-newsletter-strip__measure {
   margin-inline: auto;
   text-align: center;
-}
-
-.g-footer-newsletter-strip[data-surface="accent"] .g-footer-newsletter-strip__lead,
-.g-footer-newsletter-strip[data-surface="accent"] .astryx-eyebrow,
-.g-footer-newsletter-strip[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  /* Stacked, the button is the last thing before the small print and takes the
-     full width rather than sitting as a stub under a wrapped sentence. */
-  .g-footer-newsletter-strip__action {
-    inline-size: 100%;
-  }
-
-  .g-footer-newsletter-strip__action > .astryx-button {
-    inline-size: 100%;
-  }
 }

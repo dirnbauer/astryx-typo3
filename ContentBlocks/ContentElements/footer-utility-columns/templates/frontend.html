@@ -12,59 +12,80 @@
 
     It is still a content element, so it stays a section rather than claiming
     the footer landmark: a page with two contentinfo landmarks is a page whose
-    landmark list has stopped meaning anything.
+    landmark list has stopped meaning anything. An entry without a link opens
+    the next column and becomes its h3.
 </f:comment>
 
 <f:variable name="navLabel" value="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-utility-columns/language/labels.xlf:nav.label', default: 'Footer links')}"/>
+<f:variable name="navLabelledby" value=""/>
+<f:variable name="navName" value="{navLabel}"/>
+<f:if condition="{data.header}">
+    <f:variable name="navLabelledby" value="g-footer-utility-columns-{data.uid}"/>
+    <f:variable name="navName" value=""/>
+</f:if>
+
+<f:comment>Count the groups — the first entry opens one, every later heading opens one. With the count on the list and each heading's own number, the stylesheet can spread whole groups evenly over however many columns are on screen.</f:comment>
+<f:variable name="groups" value="0"/>
+<f:for each="{data.links}" as="item" iteration="entry"><f:if condition="!{item.link.url} || {entry.isFirst}"><f:variable name="groups" value="{groups + 1}"/></f:if></f:for>
 
 <a:layout.section surface="{data.tone}" class="g-footer-utility-columns" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-footer-utility-columns__grid">
+            <div class="g-footer-utility-columns__grid">
 
-            <div class="g-footer-utility-columns__brand">
-                <f:if condition="{data.image}">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="" height="40" loading="lazy" class="g-footer-utility-columns__logo"/>
-                    </f:for>
-                </f:if>
+                <a:layout.stack gap="3" align="start" class="g-footer-utility-columns__brand">
+                    <f:if condition="{data.image}">
+                        <a:atom.logo tone="ink" size="lg">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="" height="120" loading="lazy"/>
+                            </f:for>
+                        </a:atom.logo>
+                    </f:if>
 
-                <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                    <a:atom.heading level="2" type="heading-4" id="g-footer-utility-columns-{data.uid}">{data -> f:render.text(field: 'header')}</a:atom.heading>
 
-                <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-footer-utility-columns__statement">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
+                    <f:if condition="{data.text}">
+                        <a:atom.text type="body" color="secondary">{data -> f:render.text(field: 'text')}</a:atom.text>
+                    </f:if>
 
-                <f:if condition="{data.cta_label}">
-                    <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                </f:if>
+                    <f:if condition="{data.cta_label}">
+                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
+                    </f:if>
+                </a:layout.stack>
+
+                <f:comment>The link columns are named after the brand heading, so two footer bands on one page never offer two landmarks of the same name.</f:comment>
+                <nav{g:attribute(name: 'aria-labelledby', value: navLabelledby)}{g:attribute(name: 'aria-label', value: navName)}>
+                    <ul class="g-footer-utility-columns__list" data-groups="{groups}">
+                        <f:variable name="group" value="0"/>
+                        <f:for each="{data.links}" as="item" iteration="entry">
+                            <f:if condition="!{item.link.url} || {entry.isFirst}"><f:variable name="group" value="{group + 1}"/></f:if>
+                            <f:if condition="{item.link.url}">
+                                <f:then>
+                                    <li class="g-footer-utility-columns__entry" data-kind="link">
+                                        <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
+                                    </li>
+                                </f:then>
+                                <f:else>
+                                    <li class="g-footer-utility-columns__entry" data-kind="heading" data-group="{group}">
+                                        <a:atom.text type="label" as="h3">{item -> f:render.text(field: 'title')}</a:atom.text>
+                                    </li>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                    </ul>
+                </nav>
+
             </div>
 
-            <nav class="g-footer-utility-columns__nav" aria-label="{navLabel}">
-                <ul class="g-footer-utility-columns__list">
-                    <f:for each="{data.links}" as="item">
-                        <f:if condition="{item.link.url}">
-                            <f:then>
-                                <li class="g-footer-utility-columns__entry" data-kind="link">
-                                    <a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link>
-                                </li>
-                            </f:then>
-                            <f:else>
-                                <li class="g-footer-utility-columns__entry" data-kind="heading">
-                                    <a:atom.text type="label" as="h3" class="g-footer-utility-columns__group">{item -> f:render.text(field: 'title')}</a:atom.text>
-                                </li>
-                            </f:else>
-                        </f:if>
-                    </f:for>
-                </ul>
-            </nav>
+            <f:if condition="{data.note}">
+                <a:layout.stack gap="4">
+                    <a:atom.divider />
+                    <a:atom.text type="supporting" class="g-footer-utility-columns__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
+                </a:layout.stack>
+            </f:if>
 
-        </div>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-footer-utility-columns__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

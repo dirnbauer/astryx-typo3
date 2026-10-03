@@ -13,52 +13,53 @@
     where a human keeps them true.
 
     A closed day says the word as well as striking the hours through, so the
-    state survives being read aloud.
+    state survives being read aloud. The schedule is the small MetadataList
+    with a rule under each day; the stylesheet only sets day and hours side by
+    side, with the line of text under them.
 </f:comment>
+
+<f:variable name="stackAlign" value="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'default')}"/>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-opening-hours" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8" align="{stackAlign}">
 
-        <div class="g-footer-opening-hours__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro
+                eyebrow="{data -> f:render.text(field: 'eyebrow')}"
+                heading="{data -> f:render.text(field: 'header')}"
+                lead="{data -> f:render.text(field: 'text')}"
+                leadType="body"
+                align="{stackAlign}" />
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.metadataList size="sm" dividers="with-dividers" class="g-footer-opening-hours__rows">
+                <f:for each="{data.rows}" as="row">
+                    <a:molecule.metadataListItem class="g-footer-opening-hours__row">
+                        <dt class="g-footer-opening-hours__day">{row -> f:render.text(field: 'title')}</dt>
 
-            <f:if condition="{data.text}">
-                <a:atom.text type="body" class="g-footer-opening-hours__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
-            </f:if>
-        </div>
+                        <dd class="g-footer-opening-hours__hours">
+                            <f:if condition="{row.included}">
+                                <f:then>{row -> f:render.text(field: 'value')}</f:then>
+                                <f:else>
+                                    <a:atom.text type="supporting" as="span"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-opening-hours/language/labels.xlf:row.closed" default="Closed"/></a:atom.text>
+                                    <f:if condition="{row.value -> f:format.trim()}">
+                                        <a:atom.text type="supporting" as="span"><s>{row.value}</s></a:atom.text>
+                                    </f:if>
+                                </f:else>
+                            </f:if>
+                        </dd>
 
-        <a:molecule.metadataList class="g-footer-opening-hours__rows">
-            <f:for each="{data.rows}" as="row">
-                <a:molecule.metadataListItem class="g-footer-opening-hours__row">
-                    <dt class="g-footer-opening-hours__day">{row -> f:render.text(field: 'title')}</dt>
-
-                    <dd class="g-footer-opening-hours__hours">
-                        <f:if condition="{row.included}">
-                            <f:then>{row -> f:render.text(field: 'value')}</f:then>
-                            <f:else>
-                                <span class="g-footer-opening-hours__state"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/footer-opening-hours/language/labels.xlf:row.closed" default="Closed"/></span>
-                                <f:if condition="{row.value}">
-                                    <s class="g-footer-opening-hours__struck">{row.value}</s>
-                                </f:if>
-                            </f:else>
+                        <f:if condition="{row.text -> f:format.trim()}">
+                            <a:atom.text type="supporting" as="dd" class="g-footer-opening-hours__qualifier">{row -> f:render.text(field: 'text')}</a:atom.text>
                         </f:if>
-                    </dd>
+                    </a:molecule.metadataListItem>
+                </f:for>
+            </a:molecule.metadataList>
 
-                    <f:if condition="{row.text}">
-                        <a:atom.text type="supporting" as="dd" class="g-footer-opening-hours__qualifier">{row -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
-                </a:molecule.metadataListItem>
-            </f:for>
-        </a:molecule.metadataList>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-footer-opening-hours__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-footer-opening-hours__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

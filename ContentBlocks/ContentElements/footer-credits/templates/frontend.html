@@ -6,46 +6,50 @@
 <f:asset.css identifier="g-footer-credits" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    One pair per credit: what is being credited on the left, who holds the right
-    to it on the right. A licence short name is a second description on the same
-    term rather than a line of its own, because "CC BY 4.0" is a property of
-    that credit and not a separate fact.
+    One pair per credit: what is being credited is the term, who holds the right
+    to it is its description. A licence short name is a second description on
+    the same term rather than a line of its own, because "CC BY 4.0" is a
+    property of that credit and not a separate fact.
 
-    The licence chip is text in a badge, so a reader who cannot see the tint
-    still gets the licence read out with the credit it belongs to.
+    The licence chip is text in a Badge, so a reader who cannot see the tint
+    still gets the licence read out with the credit it belongs to. The list is
+    the small MetadataList with a rule under each credit; the stylesheet flows
+    it down the columns rather than across them, so a long list of credits
+    reads down each column. `columns` is passed on so the list knows it is
+    laid out in several, and keeps the rule under every pair.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-credits" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <div class="g-footer-credits__intro">
-            <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.sectionIntro
+                heading="{data -> f:render.text(field: 'header')}"
+                headingType="heading-3"
+                lead="{data -> f:render.text(field: 'text')}"
+                leadType="body" />
 
-            <f:if condition="{data.text}">
-                <a:atom.text type="body" class="g-footer-credits__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
+            <a:molecule.metadataList size="sm" dividers="with-dividers" columns="{data.columns}" class="g-footer-credits__rows">
+                <f:for each="{data.rows}" as="credit">
+                    <a:molecule.metadataListItem class="g-footer-credits__row">
+                        <dt>{credit -> f:render.text(field: 'title')}</dt>
+
+                        <f:if condition="{credit.text -> f:format.trim()}">
+                            <dd>{credit -> f:render.text(field: 'text')}</dd>
+                        </f:if>
+
+                        <f:if condition="{credit.value -> f:format.trim()}">
+                            <dd><a:atom.badge variant="outline">{credit -> f:render.text(field: 'value')}</a:atom.badge></dd>
+                        </f:if>
+                    </a:molecule.metadataListItem>
+                </f:for>
+            </a:molecule.metadataList>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-footer-credits__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
-        </div>
 
-        <a:molecule.metadataList class="g-footer-credits__rows">
-            <f:for each="{data.rows}" as="credit">
-                <a:molecule.metadataListItem class="g-footer-credits__row">
-                    <dt class="g-footer-credits__subject">{credit -> f:render.text(field: 'title')}</dt>
-
-                    <f:if condition="{credit.text}">
-                        <dd class="g-footer-credits__holder">{credit -> f:render.text(field: 'text')}</dd>
-                    </f:if>
-
-                    <f:if condition="{credit.value}">
-                        <dd class="g-footer-credits__licence"><a:atom.badge variant="outline" as="span">{credit -> f:render.text(field: 'value')}</a:atom.badge></dd>
-                    </f:if>
-                </a:molecule.metadataListItem>
-            </f:for>
-        </a:molecule.metadataList>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-footer-credits__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

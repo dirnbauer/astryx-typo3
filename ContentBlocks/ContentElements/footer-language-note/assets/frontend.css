@@ -1,93 +1,22 @@
 /*
  * Language and Region Note
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
+ * Layout only: a small FeatureIcon beside a SectionIntro, the versions a
+ * horizontal List of Links, the current one a label-sized Text. Tokens only: no
+ * raw colour, no literal font family, no light-dark() and no
  * prefers-color-scheme — the theme carries all four, and the audit enforces it.
  */
 
-.g-footer-language-note {
-  --section-gap: var(--astryx-band-tight);
-}
-
+/* Icon and copy stay side by side; the copy takes the rest of the line. */
 .g-footer-language-note__inner {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-4);
-}
-
-.g-footer-language-note__icon {
-  flex-shrink: 0;
+  flex-wrap: nowrap;
 }
 
 .g-footer-language-note__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  min-inline-size: 0;
+  flex: 1 1 auto;
   max-inline-size: 70ch;
-}
-
-.g-footer-language-note__statement {
-  color: var(--color-text-secondary);
-}
-
-.g-footer-language-note__versions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--spacing-1) var(--spacing-5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-footer-language-note__version {
-  display: flex;
-  align-items: baseline;
-  gap: var(--spacing-2);
-}
-
-/* The current entry is not a link, so weight and colour are all that separate
-   it visually — which is why it also carries aria-current and a hidden phrase
-   saying so. */
-.g-footer-language-note__current {
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-text-primary);
-}
-
-.g-footer-language-note__note {
-  margin-block-start: var(--spacing-1);
-}
-
-.g-footer-language-note[data-align='center'] .g-footer-language-note__inner {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.g-footer-language-note[data-align='center'] .g-footer-language-note__body {
-  align-items: center;
-  margin-inline: auto;
 }
 
 .g-footer-language-note[data-align='center'] .g-footer-language-note__versions {
   justify-content: center;
-}
-
-.g-footer-language-note[data-surface="accent"] .g-footer-language-note__statement,
-.g-footer-language-note[data-surface="accent"] .astryx-text[data-type="supporting"] {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-footer-language-note[data-surface="accent"] .g-footer-language-note__current,
-.g-footer-language-note[data-surface="accent"] .g-footer-language-note__versions a {
-  color: currentColor;
-}
-
-@media (max-width: 480px) {
-  /* One version per line: two half-width entries break their own names. */
-  .g-footer-language-note__version {
-    flex: 1 0 100%;
-  }
 }

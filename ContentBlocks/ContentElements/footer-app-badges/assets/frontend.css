@@ -1,10 +1,14 @@
 /*
  * App Store Badges
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the copy is a SectionIntro, the badges a horizontal List of
+ * flat clickable Cards, the QR tile a Card. Tokens only: no raw colour, no
+ * literal font family, no light-dark() and no prefers-color-scheme — the theme
+ * carries all four, and the audit enforces it.
  */
 
+/* Copy and QR code side by side while both fit, the QR code under the copy
+   when they do not. */
 .g-footer-app-badges__inner {
   display: flex;
   flex-wrap: wrap;
@@ -13,132 +17,41 @@
 }
 
 .g-footer-app-badges__copy {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
   flex: 1 1 22rem;
   max-inline-size: 44rem;
 }
 
-.g-footer-app-badges__lead {
-  color: var(--color-text-secondary);
-}
-
+/* The badge row takes the column's full width, so a badge can take a whole
+   line of it on a phone. */
 .g-footer-app-badges__stores {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-3);
-  margin: var(--spacing-2) 0 0;
-  padding: 0;
-  list-style: none;
+  align-self: stretch;
 }
 
-/* The badge is drawn from tokens rather than shipped as artwork: a store's own
-   image asset goes out of date silently, and a picture of a word cannot be
-   read out. */
+/* The card fills its list item; the icon and the two lines of text stay on
+   one row inside it. */
 .g-footer-app-badges__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-3);
-  padding-block: var(--spacing-2);
-  padding-inline: var(--spacing-4);
-  border: var(--border-width) solid var(--color-border-emphasized);
-  border-radius: var(--radius-element);
-  color: inherit;
-  text-decoration: none;
-  transition: background-color var(--duration-fast) var(--ease-standard);
+  flex: 1 1 auto;
 }
 
-@media (hover: hover) {
-  .g-footer-app-badges__badge:hover {
-    background-color: var(--color-overlay-hover);
-  }
+.g-footer-app-badges__badge-row {
+  flex-wrap: nowrap;
 }
 
-.g-footer-app-badges__badge:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+/* A QR code stops scanning below roughly 120px on a phone screen, so the tile
+   keeps a floor rather than shrinking with the column. */
+.g-footer-app-badges__qr {
+  flex: none;
+  inline-size: clamp(9rem, 22vw, 12rem);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .g-footer-app-badges__badge {
-    transition: none;
-  }
-}
-
-.g-footer-app-badges__glyph {
-  flex-shrink: 0;
-  inline-size: var(--spacing-6);
-  block-size: var(--spacing-6);
-  border-radius: var(--radius-inner);
-  background-color: var(--color-accent-muted);
-  color: var(--color-icon-accent);
-}
-
-.g-footer-app-badges__labels {
-  display: flex;
-  flex-direction: column;
-  line-height: var(--text-supporting-leading);
-}
-
-.g-footer-app-badges__kicker {
-  font-size: var(--text-supporting-size);
-  color: var(--color-text-secondary);
-}
-
-.g-footer-app-badges__store {
-  font-size: var(--text-label-size);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* A QR code stops scanning below roughly 120px on a phone screen, so it keeps
-   a floor rather than shrinking with the column. */
-.g-footer-app-badges__qr-image {
-  display: block;
-  inline-size: clamp(7.5rem, 20vw, 10rem);
-  block-size: auto;
-  border-radius: var(--radius-element);
-  background-color: var(--color-background-card);
-  padding: var(--spacing-2);
-  box-shadow: var(--shadow-low);
-}
-
-.g-footer-app-badges[data-align='center'] .g-footer-app-badges__inner {
-  justify-content: center;
-}
-
-.g-footer-app-badges[data-align='center'] .g-footer-app-badges__copy {
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
-}
-
+.g-footer-app-badges[data-align='center'] .g-footer-app-badges__inner,
 .g-footer-app-badges[data-align='center'] .g-footer-app-badges__stores {
   justify-content: center;
 }
 
-.g-footer-app-badges[data-surface="accent"] .g-footer-app-badges__lead,
-.g-footer-app-badges[data-surface="accent"] .astryx-eyebrow,
-.g-footer-app-badges[data-surface="accent"] .g-footer-app-badges__kicker {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-.g-footer-app-badges[data-surface="accent"] .g-footer-app-badges__badge {
-  border-color: currentColor;
-}
-
-@media (max-width: 640px) {
-  .g-footer-app-badges__inner {
-    gap: var(--spacing-6);
-  }
-
+@media (max-width: 480px) {
   /* Two badges side by side at this width put three words on three lines. */
-  .g-footer-app-badges__stores > li {
-    flex: 1 0 100%;
-  }
-
-  .g-footer-app-badges__badge {
-    inline-size: 100%;
+  .g-footer-app-badges__store {
+    flex: 1 1 100%;
   }
 }

@@ -7,62 +7,67 @@
 
 <f:comment>
     A payment mark is a promise about what happens at the till, so the name of
-    the method is always text: the artwork carries it as its alt, and a method
-    with no artwork uploaded yet is set as type rather than left as a gap. The
-    marks share one height, because a wide wordmark and a square emblem set to
-    the same width read as two different sizes.
+    the method is always text: the artwork carries the name as its alt, and a
+    method with no artwork uploaded yet is set as a Token rather than left as a
+    gap. The artwork is a Logo in its original colours — a payment network's
+    mark is not to be greyed — and the Logo gives every mark one height,
+    because a wide wordmark and a square emblem set to the same width read as
+    two different sizes. The marks are a horizontal List; the band is always a
+    tight one, and compact draws the marks closer together.
 
     Conditions that need words — delivery times, surcharges, minimum order —
     belong in the note, not on a mark nobody can read.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footer-payment-row" align="{data.align}">
+<a:layout.section surface="{data.tone}" spacing="tight" class="g-footer-payment-row" align="{data.align}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="4">
 
-        <f:if condition="{data.header} || {data.text}">
-            <div class="g-footer-payment-row__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="4">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.text}">
-                    <a:atom.text type="body" class="g-footer-payment-row__lead">{data -> f:render.text(field: 'text')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.text}">
+                <a:molecule.sectionIntro
+                    heading="{data -> f:render.text(field: 'header')}"
+                    headingType="heading-4"
+                    lead="{data -> f:render.text(field: 'text')}"
+                    leadType="body"
+                    align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'default')}" />
+            </f:if>
 
-        <a:molecule.overflowList wrap="multi-row" class="g-footer-payment-row__marks">
-            <f:for each="{data.logos}" as="mark">
-                <li class="g-footer-payment-row__mark">
-                    <f:if condition="{mark.link.url}">
-                        <f:then>
-                            <f:link.typolink parameter="{mark.link}" class="g-footer-payment-row__link">
+            <a:molecule.list orientation="horizontal" gap="{f:if(condition: data.compact, then: '2', else: '3')}" class="g-footer-payment-row__marks">
+                <f:for each="{data.logos}" as="mark">
+                    <a:molecule.listItem>
+                        <f:if condition="{mark.link.url}">
+                            <f:then>
+                                <a:atom.link variant="quiet" parameter="{mark.link}">
+                                    <f:render section="mark" arguments="{mark: mark}"/>
+                                </a:atom.link>
+                            </f:then>
+                            <f:else>
                                 <f:render section="mark" arguments="{mark: mark}"/>
-                            </f:link.typolink>
-                        </f:then>
-                        <f:else>
-                            <f:render section="mark" arguments="{mark: mark}"/>
-                        </f:else>
-                    </f:if>
-                </li>
-            </f:for>
-        </a:molecule.overflowList>
+                            </f:else>
+                        </f:if>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-footer-payment-row__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-footer-payment-row__measure">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 
 <f:section name="mark">
     <f:if condition="{mark.image}">
         <f:then>
-            <f:for each="{mark.image}" as="image">
-                <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: mark.title)}" height="32" loading="lazy" class="g-footer-payment-row__image"/>
-            </f:for>
+            <a:atom.logo tone="original">
+                <f:for each="{mark.image}" as="image">
+                    <f:image image="{image}" alt="{f:if(condition: image.alternative, then: image.alternative, else: mark.title)}" height="96" loading="lazy"/>
+                </f:for>
+            </a:atom.logo>
         </f:then>
         <f:else>
-            <span class="g-footer-payment-row__wordmark">{mark.title}</span>
+            <a:atom.token>{mark.title}</a:atom.token>
         </f:else>
     </f:if>
 </f:section>
