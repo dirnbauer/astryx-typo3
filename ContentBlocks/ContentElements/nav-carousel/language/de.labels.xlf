@@ -13,5 +13,23 @@
         <target>Rendert viele Ziele als eine Kartenreihe, die seitlich scrollt, auf breiten Bildschirmen mit Pfeilen und am Touchscreen per Wischgeste. Einsetzen für: eine lange Kategorienliste unter einer Shopseite, die übrigen Kurse eines Katalogs, eine Reihe von Standortseiten, verwandte Themen, bei denen ein Raster den Rest der Seite zu weit nach unten drücken würde. Wenn der ganze Satz auf einen Blick sichtbar sein soll, besser &apos;Seitenmenü als Karten&apos; verwenden, bei kurzen Beschriftungen &apos;Linkraster&apos;.</target>
       </segment>
     </unit>
+    <unit id="carousel.previous">
+      <segment state="final">
+        <source>Show previous cards</source>
+        <target>Vorherige Karten zeigen</target>
+      </segment>
+    </unit>
+    <unit id="carousel.next">
+      <segment state="final">
+        <source>Show next cards</source>
+        <target>Nächste Karten zeigen</target>
+      </segment>
+    </unit>
+    <unit id="carousel.status">
+      <segment state="final">
+        <source>Card %1$s of %2$s</source>
+        <target>Karte %1$s von %2$s</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

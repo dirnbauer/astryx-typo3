@@ -8,16 +8,26 @@
 <f:comment>
     The current step is the child whose link resolves to this page, or the one
     whose link the editor left empty. Everything before it is complete,
-    everything after it is a plain link, and each of the three states is
-    written out for a screen reader as well as drawn: a tick and a tint are
-    not information anybody can hear.
+    everything after it is still to come.
 
-    An ordered list, because the order is the whole message — these are stages
-    of one process and not a set of choices.
+    The steps are a Stepper of Steps, the component made for exactly this: an
+    ordered list, because the order is the whole message, with upstream's
+    three states — complete, current, upcoming. The current step carries
+    aria-current="step"; the other two spell their state out in a hidden
+    status line, because a filled circle and a hollow one are not information
+    anybody can hear. The circle holds the step's number.
+
+    Completed and upcoming steps keep their links, so a reader can go back to
+    a finished stage or look ahead; the current step is plain text.
+
+    "Compact" stacks the steps vertically, which is the form that fits a side
+    column; the default runs them side by side.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.steps" default="Steps"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="doneLabel"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepDone" default="Completed"/></f:variable>
+<f:variable name="openLabel"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepOpen" default="Still to come"/></f:variable>
 <f:variable name="selfUri"><f:uri.page/></f:variable>
 
 <f:variable name="currentIndex" value="-1"/>
@@ -38,52 +48,42 @@
 <a:layout.section spacing="tight" surface="{data.tone}" class="g-step-nav">
     <a:layout.container size="{data.width}">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-step-nav__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-step-nav__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+        <a:layout.stack gap="6">
 
-        <nav class="g-step-nav__nav" aria-label="{navLabel}">
-            <ol class="g-step-nav__steps" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                <f:for each="{data.steps}" as="step" iteration="position">
-                    <f:variable name="state">upcoming</f:variable>
-                    <f:if condition="{position.index} < {currentIndex}"><f:variable name="state">done</f:variable></f:if>
-                    <f:if condition="{position.index} == {currentIndex} || !{step.link.url}"><f:variable name="state">current</f:variable></f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro headingType="heading-3" leadType="body">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-                    <li class="g-step-nav__step" data-state="{state}">
-                        <span class="g-step-nav__marker" aria-hidden="true">{position.cycle}</span>
+            <nav aria-label="{navLabel}">
+                <a:molecule.stepper orientation="{f:if(condition: data.compact, then: 'vertical', else: 'horizontal')}">
+                    <f:for each="{data.steps}" as="step" iteration="position">
+                        <f:variable name="state">upcoming</f:variable>
+                        <f:if condition="{position.index} < {currentIndex}"><f:variable name="state">complete</f:variable></f:if>
+                        <f:if condition="{position.index} == {currentIndex}"><f:variable name="state">current</f:variable></f:if>
+                        <f:variable name="stateLabel">{f:if(condition: '{state} == \'complete\'', then: doneLabel)}{f:if(condition: '{state} == \'upcoming\'', then: openLabel)}</f:variable>
 
-                        <span class="g-step-nav__body">
-                            <f:if condition="{state} == 'current'">
-                                <f:then>
-                                    <span class="g-step-nav__title" aria-current="step">{step.title}</span>
-                                </f:then>
-                                <f:else>
-                                    <a:atom.link variant="quiet" class="g-step-nav__title" parameter="{step.link}">{step.title}</a:atom.link>
-                                </f:else>
-                            </f:if>
+                        <a:molecule.step status="{state}" statusLabel="{stateLabel}">
+                            <f:fragment name="indicator">{position.cycle}</f:fragment>
+                            <f:fragment>
+                                <a:layout.stack gap="1">
+                                    <f:if condition="{state} == 'current' || !{step.link.url}">
+                                        <f:then><span>{step.title}</span></f:then>
+                                        <f:else><a:atom.link variant="quiet" parameter="{step.link}">{step.title}</a:atom.link></f:else>
+                                    </f:if>
+                                    <f:if condition="{step.description}">
+                                        <a:atom.text as="span" type="supporting">{step.description}</a:atom.text>
+                                    </f:if>
+                                </a:layout.stack>
+                            </f:fragment>
+                        </a:molecule.step>
+                    </f:for>
+                </a:molecule.stepper>
+            </nav>
 
-                            <a:atom.visuallyHidden as="span">
-                                <f:if condition="{state} == 'done'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepDone" default="Completed"/></f:if>
-                                <f:if condition="{state} == 'current'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.currentStep" default="Current step"/></f:if>
-                                <f:if condition="{state} == 'upcoming'"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.stepOpen" default="Still to come"/></f:if>
-                            </a:atom.visuallyHidden>
-
-                            <f:if condition="{step.description}">
-                                <a:atom.text type="supporting" as="span" class="g-step-nav__note">{step.description}</a:atom.text>
-                            </f:if>
-                        </span>
-                    </li>
-                </f:for>
-            </ol>
-        </nav>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

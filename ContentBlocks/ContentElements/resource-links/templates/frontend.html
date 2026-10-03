@@ -6,54 +6,76 @@
 <f:asset.css identifier="g-resource-links" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Every link here leaves the site, so every row says so twice: a drawn marker
-    for a reader who sees it, and a short line inside the link for one who does
-    not. rel="noopener" goes on regardless of whether the editor set a target —
-    a resource list is the one place where the target is somebody else's page.
+    Every link here leaves the site, so every row says so twice: a glyph in the
+    row's end region for a reader who sees it, and a short line inside the link
+    for one who does not. The glyph is an Icon and hidden from assistive
+    technology, because the hidden line already says it.
 
-    The child's description is the name of the source, not a summary: "the
-    provincial education portal" is what tells a reader whether the link is
-    worth following.
+    Each row is an Item: given a link field it is the link, so the whole row is
+    the target. The child's description is the name of the source, not a
+    summary — "the W3C's Web Accessibility Initiative" is what tells a reader
+    whether the link is worth following — and it is the Item's description
+    line. A row whose link is empty is an Item without a link, the list item
+    itself.
+
+    The band's own heading is an h2, drawn at the size of an h3.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.resources" default="External sources"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="externalLabel"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.externalLink" default="opens on another site"/></f:variable>
+<f:variable name="rowDensity">{f:if(condition: data.compact, then: 'compact', else: 'default')}</f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-resource-links">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6" class="g-resource-links__column">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-resource-links__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-resource-links__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro headingType="heading-3" leadType="body">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <nav class="g-resource-links__nav" aria-label="{navLabel}">
-            <ul class="g-resource-links__items" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                <f:for each="{data.links}" as="link">
-                    <li class="g-resource-links__item">
-                        <f:link.typolink parameter="{link.link}" class="g-resource-links__link" additionalAttributes="{rel: 'noopener'}">
-                            <span class="g-resource-links__title">{link.title}</span>
-                            <a:atom.visuallyHidden as="span"> (<f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.externalLink" default="opens on another site"/>)</a:atom.visuallyHidden>
-                        </f:link.typolink>
-
-                        <f:if condition="{link.description}">
-                            <a:molecule.citation class="g-resource-links__source">{link -> f:render.text(field: 'description')}</a:molecule.citation>
+            <nav aria-label="{navLabel}">
+                <a:molecule.list dividers="with-dividers">
+                    <f:for each="{data.links}" as="link">
+                        <f:if condition="{link.link.url}">
+                            <f:then>
+                                <li>
+                                    <a:molecule.item parameter="{link.link}" interactive="interactive" density="{rowDensity}" align="start">
+                                        <f:fragment>
+                                            <a:molecule.itemContent>
+                                                <a:molecule.itemLabel weight="medium">{link.title}<a:atom.visuallyHidden> ({externalLabel})</a:atom.visuallyHidden></a:molecule.itemLabel>
+                                                <f:if condition="{link.description}">
+                                                    <a:molecule.itemDescription>{link.description}</a:molecule.itemDescription>
+                                                </f:if>
+                                            </a:molecule.itemContent>
+                                        </f:fragment>
+                                        <f:fragment name="end"><a:atom.icon name="globe" size="sm" color="secondary"/></f:fragment>
+                                    </a:molecule.item>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <a:molecule.item density="{rowDensity}" align="start">
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel weight="medium">{link -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                        <f:if condition="{link.description}">
+                                            <a:molecule.itemDescription>{link -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                        </f:if>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
+                            </f:else>
                         </f:if>
-                    </li>
-                </f:for>
-            </ul>
-        </nav>
+                    </f:for>
+                </a:molecule.list>
+            </nav>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-resource-links__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

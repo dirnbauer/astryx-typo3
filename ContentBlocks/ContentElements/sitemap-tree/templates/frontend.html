@@ -16,6 +16,12 @@
     the point of deriving the tree rather than curating it — nothing here can
     fall out of date, and nothing has to be maintained twice.
 
+    Every page in the tree is a link, the top level included, so each branch
+    is headed by its page as a linked h3 — the Heading component keeps a link
+    inside it looking like a heading — with the pages under it as a List of
+    quiet Links. (TreeList would make a branch a disclosure that opens rather
+    than a page you can go to.)
+
     A page with nothing below it renders the intro and no list: an empty tree
     is a fact about the page, not an error.
 </f:comment>
@@ -26,39 +32,38 @@
 <a:layout.section surface="{data.tone}" class="g-sitemap-tree" columns="{data.columns}">
     <a:layout.container size="{data.width}">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-sitemap-tree__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-sitemap-tree__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+        <a:layout.stack gap="8">
 
-        <f:if condition="{sitemap}">
-            <nav class="g-sitemap-tree__nav" aria-label="{navLabel}">
-                <ul class="g-sitemap-tree__branches">
-                    <f:for each="{sitemap}" as="branch">
-                        <li class="g-sitemap-tree__branch">
-                            <a class="g-sitemap-tree__top" href="{branch.link}" aria-current="{f:if(condition: branch.current, then: 'page', else: 'false')}">{branch.title}</a>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-                            <f:if condition="{branch.children}">
-                                <ul class="g-sitemap-tree__children">
-                                    <f:for each="{branch.children}" as="child">
-                                        <li class="g-sitemap-tree__child">
-                                            <a class="g-sitemap-tree__link" href="{child.link}" aria-current="{f:if(condition: child.current, then: 'page', else: 'false')}">{child.title}</a>
-                                        </li>
-                                    </f:for>
-                                </ul>
-                            </f:if>
-                        </li>
-                    </f:for>
-                </ul>
-            </nav>
-        </f:if>
+            <f:if condition="{sitemap}">
+                <nav aria-label="{navLabel}">
+                    <ul class="g-sitemap-tree__branches">
+                        <f:for each="{sitemap}" as="branch">
+                            <li class="g-sitemap-tree__branch">
+                                <a:layout.stack gap="2">
+                                    <a:atom.heading level="3" type="heading-4"><a href="{branch.link}">{branch.title}</a></a:atom.heading>
 
+                                    <f:if condition="{branch.children}">
+                                        <a:molecule.list density="compact">
+                                            <f:for each="{branch.children}" as="child">
+                                                <li><a:atom.link variant="quiet" href="{child.link}">{child.title}</a:atom.link></li>
+                                            </f:for>
+                                        </a:molecule.list>
+                                    </f:if>
+                                </a:layout.stack>
+                            </li>
+                        </f:for>
+                    </ul>
+                </nav>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

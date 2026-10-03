@@ -10,6 +10,13 @@
     reader who never sees the layout is told what the section is before being
     handed its links. The swap is done by the split's own order rule, which
     only applies from the point where there are two columns to swap.
+
+    The intro is a SectionIntro; its rich text goes into the unnamed fragment,
+    which renders after the heading. The links are Items: an Item given a link
+    field is the link, so the whole row is the target and the chevron in its
+    end region is decoration. A row whose link was left empty is an Item
+    without a link, which is the list item itself and is therefore not wrapped
+    in a second `li`.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
@@ -19,31 +26,46 @@
     <a:layout.container size="{data.width}">
         <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}" class="g-menu-with-intro__grid">
 
-            <div class="g-menu-with-intro__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
+            <a:molecule.sectionIntro>
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment>
+                    <f:if condition="{data.bodytext}">
+                        <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
+                    </f:if>
+                </f:fragment>
+            </a:molecule.sectionIntro>
 
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-                <f:if condition="{data.bodytext}">
-                    <div class="astryx-prose g-menu-with-intro__body"><f:format.html>{data.bodytext}</f:format.html></div>
-                </f:if>
-            </div>
-
-            <nav class="g-menu-with-intro__nav" aria-label="{navLabel}">
-                <a:molecule.list dividers="with-dividers" density="balanced" class="g-menu-with-intro__items">
+            <nav aria-label="{navLabel}">
+                <a:molecule.list dividers="with-dividers">
                     <f:for each="{data.items}" as="item">
-                        <li class="g-menu-with-intro__item">
-                            <a:molecule.item interactive="interactive" class="g-menu-with-intro__link" parameter="{item.link}">
-                                <a:molecule.itemContent>
-                                    <a:molecule.itemLabel class="g-menu-with-intro__title">{item.title}</a:molecule.itemLabel>
-                                    <f:if condition="{item.description}">
-                                        <a:molecule.itemDescription>{item.description}</a:molecule.itemDescription>
-                                    </f:if>
-                                </a:molecule.itemContent>
-                            </a:molecule.item>
-                        </li>
+                        <f:if condition="{item.link.url}">
+                            <f:then>
+                                <li>
+                                    <a:molecule.item parameter="{item.link}" interactive="interactive">
+                                        <f:fragment>
+                                            <a:molecule.itemContent>
+                                                <a:molecule.itemLabel weight="medium">{item.title}</a:molecule.itemLabel>
+                                                <f:if condition="{item.description}">
+                                                    <a:molecule.itemDescription>{item.description}</a:molecule.itemDescription>
+                                                </f:if>
+                                            </a:molecule.itemContent>
+                                        </f:fragment>
+                                        <f:fragment name="end"><a:atom.icon name="chevron-right" size="sm" color="secondary"/></f:fragment>
+                                    </a:molecule.item>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <a:molecule.item>
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel weight="medium">{item -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                        <f:if condition="{item.description}">
+                                            <a:molecule.itemDescription>{item -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                        </f:if>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
+                            </f:else>
+                        </f:if>
                     </f:for>
                 </a:molecule.list>
             </nav>

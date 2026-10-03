@@ -10,8 +10,13 @@
     is rendering on, or when the editor left the link empty — which is the same
     statement made by hand, and the one that survives being copied onto a page
     whose address is not known yet. The current chip loses its link, because a
-    link to here does nothing, and says so with aria-current rather than with
-    the tint alone.
+    link to here does nothing, and says so with aria-current and a line of
+    hidden text rather than with the tint alone.
+
+    Every chip is a Token: `selected` and `ariaCurrent` mark the current one,
+    `size` follows the compact switch. The chips are a horizontal List that
+    wraps; the label above is an Eyebrow, and the nav already carries the same
+    words as its accessible name.
 
     The row wraps instead of scrolling: a taxonomy the reader is choosing from
     has to be readable in full, and a chip hidden past the right edge is a
@@ -20,43 +25,43 @@
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.categories" default="Categories"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="chipSize">{f:if(condition: data.compact, then: 'sm', else: 'md')}</f:variable>
 <f:variable name="selfUri"><f:uri.page/></f:variable>
 
 <a:layout.section spacing="tight" class="g-category-chips" align="{data.align}">
     <a:layout.container size="{data.width}">
-        <nav class="g-category-chips__nav" aria-label="{navLabel}">
+        <nav aria-label="{navLabel}">
+            <a:layout.stack gap="3" align="{f:if(condition: '{data.align} == \'center\'', then: 'center', else: 'start')}">
 
-            <f:if condition="{data.header}">
-                <a:atom.heading level="6" class="g-category-chips__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            </f:if>
+                <f:if condition="{data.header}">
+                    <a:atom.eyebrow>{data -> f:render.text(field: 'header')}</a:atom.eyebrow>
+                </f:if>
 
-            <ul class="g-category-chips__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                <f:for each="{data.chips}" as="chip">
-                    <f:variable name="chipCurrent" value="0"/>
-                    <f:if condition="!{chip.link.url}"><f:variable name="chipCurrent" value="1"/></f:if>
-                    <f:if condition="{chip.link.url}">
-                        <f:variable name="chipUri"><f:uri.typolink parameter="{chip.link}"/></f:variable>
-                        <f:if condition="{chipUri} == {selfUri}"><f:variable name="chipCurrent" value="1"/></f:if>
-                    </f:if>
-
-                    <li class="g-category-chips__item">
-                        <f:if condition="{chipCurrent}">
-                            <f:then>
-                                <a:atom.token selected="selected" class="g-category-chips__chip" ariaCurrent="page">
-                                    <span class="g-category-chips__label">{chip.title}</span>
-                                    <a:atom.visuallyHidden as="span"> — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></a:atom.visuallyHidden>
-                                </a:atom.token>
-                            </f:then>
-                            <f:else>
-                                <a:atom.token class="g-category-chips__chip" parameter="{chip.link}">
-                                    <span class="g-category-chips__label">{chip.title}</span>
-                                </a:atom.token>
-                            </f:else>
+                <a:molecule.list orientation="horizontal" gap="2" class="g-category-chips__list">
+                    <f:for each="{data.chips}" as="chip">
+                        <f:variable name="chipCurrent" value="0"/>
+                        <f:if condition="!{chip.link.url}"><f:variable name="chipCurrent" value="1"/></f:if>
+                        <f:if condition="{chip.link.url}">
+                            <f:variable name="chipUri"><f:uri.typolink parameter="{chip.link}"/></f:variable>
+                            <f:if condition="{chipUri} == {selfUri}"><f:variable name="chipCurrent" value="1"/></f:if>
                         </f:if>
-                    </li>
-                </f:for>
-            </ul>
 
+                        <li>
+                            <f:if condition="{chipCurrent}">
+                                <f:then>
+                                    <a:atom.token selected="selected" size="{chipSize}" ariaCurrent="page">
+                                        {chip.title}<a:atom.visuallyHidden as="span"> — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></a:atom.visuallyHidden>
+                                    </a:atom.token>
+                                </f:then>
+                                <f:else>
+                                    <a:atom.token size="{chipSize}" parameter="{chip.link}">{chip.title}</a:atom.token>
+                                </f:else>
+                            </f:if>
+                        </li>
+                    </f:for>
+                </a:molecule.list>
+
+            </a:layout.stack>
         </nav>
     </a:layout.container>
 </a:layout.section>

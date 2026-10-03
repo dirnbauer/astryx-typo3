@@ -6,14 +6,21 @@
 <f:asset.css identifier="g-nav-carousel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The track is a scroll-snap row and nothing else: dragging, momentum,
-    keyboard scrolling and the snap points are all the browser's, so this
-    element ships no script at all. The scrollbar stays visible on purpose —
-    it is the only thing that tells a mouse user there is more to the side
-    before they try.
+    The row is the Carousel component: a scroll-snap track, so dragging,
+    momentum, keyboard scrolling and the snap points are the browser's, and
+    the scrollbar stays visible because it is the first thing that tells a
+    mouse user there is more to the side.
 
-    The row is a focus stop of its own with a name, because a scroll container
-    a keyboard can reach has to say what it holds.
+    The two arrows exist because they are given names — Carousel renders a
+    control only once it has a label — and the shared runtime pages the track
+    by one card per press, switches an arrow off at its end of the row, and
+    shows the pair only to a fine pointer on a row that does not fit. The
+    status label is what a screen reader hears once a scroll comes to rest:
+    "Card 3 of 8". Without the script the arrows stay hidden and the track
+    still scrolls.
+
+    The track is a focus stop of its own, so it carries a name as well: a
+    scroll container a keyboard can reach has to say what it holds.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.destinations" default="Destinations"/></f:variable>
@@ -21,48 +28,46 @@
 
 <a:layout.section surface="{data.tone}" class="g-nav-carousel">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-nav-carousel__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-nav-carousel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <a:molecule.carousel
-            gap="4"
-            class="g-nav-carousel__carousel"
-            ariaLabel="{navLabel}"
-            trackClass="g-nav-carousel__track">
-            <f:for each="{data.items}" as="item">
-                <a:molecule.carouselItem class="g-nav-carousel__item">
-                    <a:molecule.card clickable="{true}" class="g-nav-carousel__card">
-                        <f:if condition="{item.icon}">
-                            <a:atom.featureIcon icon="{item.icon}" class="g-nav-carousel__icon" />
-                        </f:if>
-
-                        <a:molecule.cardTitle class="g-nav-carousel__title">
-                            <f:if condition="{item.link.url}">
-                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+            <a:molecule.carousel
+                gap="4"
+                ariaLabel="{navLabel}"
+                trackLabel="{navLabel}"
+                previousLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/nav-carousel/language/labels.xlf:carousel.previous', default: 'Show previous cards')}"
+                nextLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/nav-carousel/language/labels.xlf:carousel.next', default: 'Show next cards')}"
+                statusLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/nav-carousel/language/labels.xlf:carousel.status', default: 'Card %1$s of %2$s')}">
+                <f:for each="{data.items}" as="item">
+                    <a:molecule.carouselItem class="g-nav-carousel__item">
+                        <a:molecule.card clickable="{item.link.url}" class="g-nav-carousel__card">
+                            <f:if condition="{item.icon}">
+                                <a:atom.featureIcon icon="{item.icon}" />
                             </f:if>
-                        </a:molecule.cardTitle>
 
-                        <f:if condition="{item.description}">
-                            <a:molecule.cardBody class="g-nav-carousel__text">{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
-                        </f:if>
-                    </a:molecule.card>
-                </a:molecule.carouselItem>
-            </f:for>
-        </a:molecule.carousel>
+                            <a:molecule.cardTitle>
+                                <f:if condition="{item.link.url}">
+                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
 
+                            <f:if condition="{item.description}">
+                                <a:molecule.cardBody>{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                            </f:if>
+                        </a:molecule.card>
+                    </a:molecule.carouselItem>
+                </f:for>
+            </a:molecule.carousel>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

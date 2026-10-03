@@ -1,30 +1,50 @@
 {
     "_type": "navigation",
     "header": "Page numbers for a hand-built series",
-    "note": "A line of your own, such as “Part 3 of 6” or a date",
+    "note": "Chapter 9 of 10: Navigation & Wayfinding",
     "align": "start",
     "width": "md",
     "compact": 0,
     "pages": [
         {
-            "title": "Shows the number",
-            "link": "#part-1"
+            "title": "Hero & Landing Intros",
+            "link": "{{page:components/hero}}"
         },
         {
-            "title": "Reads the title",
-            "link": "#part-2"
+            "title": "Features & Benefits",
+            "link": "{{page:components/features}}"
         },
         {
-            "title": "Unlinked means current",
-            "link": ""
+            "title": "Content & Editorial",
+            "link": "{{page:components/content}}"
         },
         {
-            "title": "Arrows from position",
-            "link": "#part-4"
+            "title": "Plans & Pricing",
+            "link": "{{page:components/pricing}}"
         },
         {
-            "title": "Unmatched: numbers only",
-            "link": "#part-5"
+            "title": "Trust & Social Proof",
+            "link": "{{page:components/social-proof}}"
+        },
+        {
+            "title": "People & Team",
+            "link": "{{page:components/team}}"
+        },
+        {
+            "title": "Data & Dashboards",
+            "link": "{{page:components/data}}"
+        },
+        {
+            "title": "Leads & Conversion",
+            "link": "{{page:components/conversion}}"
+        },
+        {
+            "title": "Navigation & Wayfinding",
+            "link": "{{page:components/navigation}}"
+        },
+        {
+            "title": "Footers & Utility Areas",
+            "link": "{{page:components/footer}}"
         }
     ]
 }

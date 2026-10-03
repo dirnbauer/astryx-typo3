@@ -1,57 +1,11 @@
 /*
  * Jump List
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The lead-in is a Text, the targets a horizontal List of Links
+ * with its own dividers, and a Stack sets the two side by side. The band is
+ * shorter than a section's tight rhythm, because it holds one line.
  */
 
 .g-jump-list {
   --section-gap: var(--spacing-4);
-}
-
-.g-jump-list__nav {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-leading);
-}
-
-.g-jump-list[data-align='center'] .g-jump-list__nav {
-  justify-content: center;
-}
-
-.g-jump-list__nav[data-density="compact"] {
-  font-size: var(--text-supporting-size);
-  line-height: var(--text-supporting-leading);
-}
-
-.g-jump-list__lead-in {
-  color: var(--color-text-secondary);
-}
-
-.g-jump-list__targets {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* The separator is generated, so it is never selected with the text, never
-   read out, and never left dangling at the end of the run. */
-.g-jump-list__target + .g-jump-list__target::before {
-  content: '·';
-  margin-inline-end: var(--spacing-2);
-  color: var(--color-text-secondary);
-  user-select: none;
-}
-
-@media (max-width: 480px) {
-  .g-jump-list__nav {
-    gap: var(--spacing-1);
-  }
 }

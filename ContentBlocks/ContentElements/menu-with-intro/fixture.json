@@ -2,30 +2,30 @@
     "_type": "navigation",
     "eyebrow": "Explained Menu",
     "header": "Text on one side, links on the other",
-    "bodytext": "<p>For a section that needs to explain itself before it lists its pages. The rich text sits in one half and the links in the other. From tablet width upwards, a switch swaps the two sides.</p><p>On smaller screens there is one column, and the intro always comes first. The switch changes the layout, never the reading order.</p>",
+    "bodytext": "<p>For a section that needs to explain itself before it lists its pages. The rich text sits in one half and the links in the other. From tablet width upwards, a switch swaps the two sides.</p><p>On smaller screens there is one column, and the intro always comes first. The switch changes the layout, never the reading order.</p><p>The four links here go to the themes made for long reading.</p>",
     "reverse": 0,
     "width": "lg",
     "tone": "body",
     "items": [
         {
-            "title": "The intro comes first in the code",
-            "description": "Whichever side it appears on",
-            "link": "#"
+            "title": "Linen",
+            "description": "A soft, warm neutral for long articles, reports and documentation",
+            "link": "{{page:themes/linen}}"
         },
         {
-            "title": "The links stay in their column",
-            "description": "They never wrap into the text beside them",
-            "link": "#"
+            "title": "Chocolate",
+            "description": "Warm browns with serif headings, for pages with a printed feel",
+            "link": "{{page:themes/chocolate}}"
         },
         {
-            "title": "Rich text, not a lead",
-            "description": "Made for two or three paragraphs",
-            "link": "#"
+            "title": "Solar",
+            "description": "Cream paper and dark cyan, with low contrast for long reading sessions",
+            "link": "{{page:themes/solar}}"
         },
         {
-            "title": "Two to twelve links",
-            "description": "For more, use a Page List Menu",
-            "link": "#"
+            "title": "Plum",
+            "description": "Deep aubergine for magazines and editorial publications",
+            "link": "{{page:themes/plum}}"
         }
     ]
 }

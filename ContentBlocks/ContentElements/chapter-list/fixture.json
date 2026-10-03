@@ -6,10 +6,35 @@
     "width": "md",
     "tone": "body",
     "chapters": [
-        { "title": "Numbered by position", "description": "Not from a field an editor has to keep up to date", "link": "#" },
-        { "title": "A CSS counter", "description": "So the description lines up with the title", "link": "#" },
-        { "title": "Icons are ignored", "description": "The number is this list's only marker", "link": "#" },
-        { "title": "Rules between chapters", "description": "A thin line, not a gap", "link": "#" },
-        { "title": "2–30 chapters", "description": "Sections of the current page belong in Article Contents", "link": "#" }
+        {
+            "title": "Pick a theme",
+            "description": "25 themes share one set of content, so choosing one changes the look and nothing else.",
+            "link": "{{page:themes}}"
+        },
+        {
+            "title": "Open with a hero",
+            "description": "Say what the product is, who it is for and what to do next.",
+            "link": "{{page:components/hero}}"
+        },
+        {
+            "title": "Show what it does",
+            "description": "Feature grids and comparisons, where the claims get specific.",
+            "link": "{{page:components/features}}"
+        },
+        {
+            "title": "Back it up",
+            "description": "Testimonials, logos and ratings that support the claims.",
+            "link": "{{page:components/social-proof}}"
+        },
+        {
+            "title": "Ask for the next step",
+            "description": "Calls to action, forms and newsletter sign-ups.",
+            "link": "{{page:components/conversion}}"
+        },
+        {
+            "title": "Close the page",
+            "description": "Footers, legal links and contact details.",
+            "link": "{{page:components/footer}}"
+        }
     ]
 }

@@ -11,6 +11,12 @@
     wherever there is one. Each card holds exactly one link and the title
     carries it: that is what lets the whole card become the target without the
     list growing a second link to the same place.
+
+    The grid is a list (Grid as="ul") and every card is its list item (Card
+    as="li"), so a screen reader is told how many destinations there are. The
+    cards are grid items, so they stretch to the tallest card of their row and
+    the icon tiles land on one line; `cols` caps the count, so six cards in
+    three columns never spread into four and an orphan row.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.sectionMenu" default="Section menu"/></f:variable>
@@ -18,48 +24,44 @@
 
 <a:layout.section surface="{data.tone}" class="g-menu-card-grid">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-menu-card-grid__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-menu-card-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <nav class="g-menu-card-grid__nav" aria-label="{navLabel}">
-            <a:layout.grid cols="{data.columns}" class="g-menu-card-grid__items">
-                <f:for each="{data.items}" as="item">
-                    <a:molecule.card clickable="{true}" class="g-menu-card-grid__item">
-                        <f:if condition="{item.icon}">
-                            <f:comment>
-                                The tile carries the semantic key rather than a glyph, so the
-                                day a renderer lands no template has to change.
-                            </f:comment>
-                            <a:atom.featureIcon icon="{item.icon}" class="g-menu-card-grid__icon" />
-                        </f:if>
-
-                        <a:molecule.cardTitle>
-                            <f:if condition="{item.link.url}">
-                                <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
-                                <f:else>{item -> f:render.text(field: 'title')}</f:else>
+            <nav aria-label="{navLabel}">
+                <a:layout.grid as="ul" cols="{data.columns}">
+                    <f:for each="{data.items}" as="item">
+                        <a:molecule.card as="li" clickable="{item.link.url}">
+                            <f:if condition="{item.icon}">
+                                <f:comment>
+                                    The tile carries the semantic key rather than a glyph, so the
+                                    day a renderer lands no template has to change.
+                                </f:comment>
+                                <a:atom.featureIcon icon="{item.icon}" />
                             </f:if>
-                        </a:molecule.cardTitle>
 
-                        <f:if condition="{item.description}">
-                            <a:molecule.cardBody>{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
-                        </f:if>
-                    </a:molecule.card>
-                </f:for>
-            </a:layout.grid>
-        </nav>
+                            <a:molecule.cardTitle>
+                                <f:if condition="{item.link.url}">
+                                    <f:then><f:link.typolink parameter="{item.link}">{item.title}</f:link.typolink></f:then>
+                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
 
+                            <f:if condition="{item.description}">
+                                <a:molecule.cardBody>{item -> f:render.text(field: 'description')}</a:molecule.cardBody>
+                            </f:if>
+                        </a:molecule.card>
+                    </f:for>
+                </a:layout.grid>
+            </nav>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

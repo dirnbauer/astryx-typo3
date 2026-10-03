@@ -1,54 +1,8 @@
 /*
  * Page Card Menu
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Nothing to lay out here: the Stack spaces the intro from the grid, the Grid
+ * sets and caps the columns, the Cards are the list items. The file stays so
+ * the template's asset include has something to point at, and is the place
+ * for a rule this band ever needs of its own.
  */
-
-.g-menu-card-grid__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  /* A band intro that runs the full container width stops introducing and
-     starts being body copy. */
-  max-inline-size: 44rem;
-  margin-block-end: var(--spacing-8);
-}
-
-.g-menu-card-grid__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-menu-card-grid__items {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* Grid children stretch, so every card is as tall as the tallest of its row
-   and the icon tiles land on one optical line whatever the copy does below. */
-.g-menu-card-grid__item {
-  block-size: 100%;
-}
-
-.g-menu-card-grid__icon {
-  margin-block-end: var(--spacing-1);
-}
-
-/* The card title is the accessible name of the whole card, so the link inside
-   it must not underline on hover as if it were the only target. */
-.g-menu-card-grid__item .astryx-card-title a {
-  text-decoration: none;
-}
-
-.g-menu-card-grid[data-surface="accent"] .g-menu-card-grid__lead,
-.g-menu-card-grid[data-surface="accent"] .astryx-eyebrow {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 640px) {
-  .g-menu-card-grid__intro {
-    margin-block-end: var(--spacing-6);
-  }
-}

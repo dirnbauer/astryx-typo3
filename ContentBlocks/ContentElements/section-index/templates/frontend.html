@@ -6,47 +6,63 @@
 <f:asset.css identifier="g-section-index" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    CSS columns rather than a grid: entries flow down one column and then into
-    the next, so a list kept in alphabetical or programme order still reads in
-    that order at two, three and four columns. A grid would put the second
-    entry beside the first and scramble it at every breakpoint.
+    The entries are a List in two to four columns — `columns` is a ceiling, so
+    a narrow column of the page gets fewer — with a rule under every row.
+
+    Each entry is an Item: a title and one line of context, the line cut with
+    an ellipsis if it runs longer, because an index entry that needs a
+    paragraph belongs in a Page List Menu. Given a link field the Item is the
+    link, so the whole entry is the target. An entry whose link is empty is an
+    Item without a link, the list item itself.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.index" default="Index"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
 
-<a:layout.section surface="{data.tone}" class="g-section-index" columns="{data.columns}">
+<a:layout.section surface="{data.tone}" class="g-section-index">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-section-index__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-section-index__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <nav class="g-section-index__nav" aria-label="{navLabel}">
-            <ul class="g-section-index__entries">
-                <f:for each="{data.entries}" as="entry">
-                    <li class="g-section-index__entry">
+            <nav aria-label="{navLabel}">
+                <a:molecule.list columns="{data.columns}" dividers="with-dividers">
+                    <f:for each="{data.entries}" as="entry">
                         <f:if condition="{entry.link.url}">
-                            <f:then><a:atom.link variant="quiet" class="g-section-index__title" parameter="{entry.link}">{entry.title}</a:atom.link></f:then>
-                            <f:else><span class="g-section-index__title">{entry -> f:render.text(field: 'title')}</span></f:else>
+                            <f:then>
+                                <li>
+                                    <a:molecule.item parameter="{entry.link}" interactive="interactive">
+                                        <a:molecule.itemContent>
+                                            <a:molecule.itemLabel weight="medium">{entry.title}</a:molecule.itemLabel>
+                                            <f:if condition="{entry.description}">
+                                                <a:molecule.itemDescription truncate="truncate">{entry.description}</a:molecule.itemDescription>
+                                            </f:if>
+                                        </a:molecule.itemContent>
+                                    </a:molecule.item>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <a:molecule.item>
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel weight="medium">{entry -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                        <f:if condition="{entry.description}">
+                                            <a:molecule.itemDescription truncate="truncate">{entry -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                        </f:if>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
+                            </f:else>
                         </f:if>
+                    </f:for>
+                </a:molecule.list>
+            </nav>
 
-                        <f:if condition="{entry.description}">
-                            <a:atom.text type="supporting" as="span" class="g-section-index__note">{entry -> f:render.text(field: 'description')}</a:atom.text>
-                        </f:if>
-                    </li>
-                </f:for>
-            </ul>
-        </nav>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

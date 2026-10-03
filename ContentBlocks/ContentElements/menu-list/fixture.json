@@ -7,28 +7,29 @@
     "compact": 0,
     "items": [
         {
-            "title": "The whole row is the link",
-            "description": "Not just the title: one row, one page, one link",
-            "link": "#"
+            "title": "Data & Dashboards",
+            "description": "Metrics, progress bars and comparisons, drawn in CSS, so no number waits for a chart library to load.",
+            "link": "{{page:components/data}}"
         },
         {
-            "title": "A row without a description is shorter",
-            "link": "#"
+            "title": "Leads & Conversion",
+            "description": "Calls to action, forms and newsletter sign-ups, so visitors can get in touch.",
+            "link": "{{page:components/conversion}}"
         },
         {
-            "title": "The arrow is drawn in CSS",
-            "description": "Two borders on an empty box, hidden from screen readers",
-            "link": "#"
+            "title": "Navigation & Wayfinding",
+            "description": "Menus, tabs, breadcrumbs and tables of contents that show readers where they are and what else there is.",
+            "link": "{{page:components/navigation}}"
         },
         {
-            "title": "Compact makes rows tighter",
-            "description": "The switch changes the padding and nothing else",
-            "link": "#"
+            "title": "Footers & Utility Areas",
+            "description": "Site footers, legal links and contact details for the end of a page.",
+            "link": "{{page:components/footer}}"
         },
         {
-            "title": "Up to 30 pages",
-            "description": "For more, use the Section Index, which has columns",
-            "link": "#"
+            "title": "Themes",
+            "description": "25 themes, one set of content: every theme rendered live with the same components.",
+            "link": "{{page:themes}}"
         }
     ]
 }

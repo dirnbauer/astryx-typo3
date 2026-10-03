@@ -1,22 +1,74 @@
 {
     "_type": "navigation",
     "header": "Entries grouped by first letter",
-    "lead": "The letters come from the entries themselves, so nobody maintains them by hand. A bar at the top jumps to each letter and stays in view while you scroll.",
+    "lead": "The letters come from the entries themselves, so nobody maintains them by hand. The bar at the top jumps to each letter.",
     "columns": "3",
     "width": "xl",
     "tone": "body",
     "entries": [
-        { "title": "Anchors come from letters", "link": "#" },
-        { "title": "A new letter starts a group", "link": "#" },
-        { "title": "Bar stays under the header", "link": "#" },
-        { "title": "Based on your order", "link": "#" },
-        { "title": "Capital letters for groups", "link": "#" },
-        { "title": "Columns keep A–Z order", "link": "#" },
-        { "title": "Decorative letters", "link": "#" },
-        { "title": "Entries never split", "link": "#" },
-        { "title": "Every entry can link", "link": "#" },
-        { "title": "Letters not read out", "link": "#" },
-        { "title": "Long names are cut off", "link": "#" },
-        { "title": "Scales to 200 entries", "link": "#" }
+        {
+            "title": "Accessibility",
+            "link": "{{page:accessibility}}"
+        },
+        {
+            "title": "All components",
+            "link": "{{page:components}}"
+        },
+        {
+            "title": "Content & Editorial",
+            "link": "{{page:components/content}}"
+        },
+        {
+            "title": "Data & Dashboards",
+            "link": "{{page:components/data}}"
+        },
+        {
+            "title": "Features & Benefits",
+            "link": "{{page:components/features}}"
+        },
+        {
+            "title": "Footers & Utility Areas",
+            "link": "{{page:components/footer}}"
+        },
+        {
+            "title": "Hero & Landing Intros",
+            "link": "{{page:components/hero}}"
+        },
+        {
+            "title": "Imprint",
+            "link": "{{page:imprint}}"
+        },
+        {
+            "title": "Leads & Conversion",
+            "link": "{{page:components/conversion}}"
+        },
+        {
+            "title": "Navigation & Wayfinding",
+            "link": "{{page:components/navigation}}"
+        },
+        {
+            "title": "People & Team",
+            "link": "{{page:components/team}}"
+        },
+        {
+            "title": "Plans & Pricing",
+            "link": "{{page:components/pricing}}"
+        },
+        {
+            "title": "Privacy",
+            "link": "{{page:privacy}}"
+        },
+        {
+            "title": "Search",
+            "link": "{{page:search}}"
+        },
+        {
+            "title": "Themes",
+            "link": "{{page:themes}}"
+        },
+        {
+            "title": "Trust & Social Proof",
+            "link": "{{page:components/social-proof}}"
+        }
     ]
 }

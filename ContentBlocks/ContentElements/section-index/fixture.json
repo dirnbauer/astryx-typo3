@@ -2,19 +2,60 @@
     "_type": "navigation",
     "eyebrow": "Section Index",
     "header": "Every page of a section, in columns",
-    "lead": "Like a mega menu laid out on the page. It lists 6 to 60 pages with one line each, in two to four columns.",
+    "lead": "Like a mega menu laid out on the page: 6 to 60 pages, each with one line of context, in two to four columns.",
     "columns": "3",
     "width": "xl",
     "tone": "body",
     "entries": [
-        { "title": "Columns, not a grid", "description": "Entries run down first, then across", "link": "#" },
-        { "title": "Alphabetical order stays", "description": "At two, three and four columns", "link": "#" },
-        { "title": "One line of context", "description": "Cut off with an ellipsis if it is too long", "link": "#" },
-        { "title": "Entries never split", "description": "An entry never breaks across two columns", "link": "#" },
-        { "title": "Rules between entries", "description": "A thin line, not a gap", "link": "#" },
-        { "title": "Six entries minimum", "description": "For fewer, use a Page List Menu", "link": "#" },
-        { "title": "Sixty entries maximum", "description": "For more, use the A–Z Index", "link": "#" },
-        { "title": "One navigation landmark", "description": "Named by the element's heading", "link": "#" },
-        { "title": "Entries without a link", "description": "Shown as plain text, in their place", "link": "#" }
+        {
+            "title": "Hero & Landing Intros",
+            "description": "The opening section of a page",
+            "link": "{{page:components/hero}}"
+        },
+        {
+            "title": "Features & Benefits",
+            "description": "Feature grids, benefit lists, comparisons",
+            "link": "{{page:components/features}}"
+        },
+        {
+            "title": "Content & Editorial",
+            "description": "Everything a long article needs",
+            "link": "{{page:components/content}}"
+        },
+        {
+            "title": "Plans & Pricing",
+            "description": "Plan tables, tier cards, the small print",
+            "link": "{{page:components/pricing}}"
+        },
+        {
+            "title": "Trust & Social Proof",
+            "description": "Testimonials, logos, ratings, case studies",
+            "link": "{{page:components/social-proof}}"
+        },
+        {
+            "title": "People & Team",
+            "description": "Portraits, role cards, team overviews",
+            "link": "{{page:components/team}}"
+        },
+        {
+            "title": "Data & Dashboards",
+            "description": "Metrics and comparisons drawn in CSS",
+            "link": "{{page:components/data}}"
+        },
+        {
+            "title": "Leads & Conversion",
+            "description": "Calls to action, forms, sign-ups",
+            "link": "{{page:components/conversion}}"
+        },
+        {
+            "title": "Navigation & Wayfinding",
+            "description": "Menus, tabs, breadcrumbs, contents",
+            "link": "{{page:components/navigation}}"
+        },
+        {
+            "title": "Footers & Utility Areas",
+            "description": "Footers, legal links, contact details",
+            "link": "{{page:components/footer}}"
+        }
     ]
 }

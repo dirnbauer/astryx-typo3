@@ -1,36 +1,19 @@
 /*
  * Outline Rail
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
- *
- * The hairline, the indents and the hover tint are .astryx-outline's own; all
- * this file adds is the rail's width and the sticky offset.
+ * Layout only. The hairline, the rows, the indents, the hover tint and the
+ * label are Outline, OutlineItem and Eyebrow; this file sets the rail's width
+ * and pins it while the reader scrolls.
  */
 
 .g-outline-rail__rail {
   max-inline-size: 20rem;
 }
 
+/* The label lines up with the text of the entries, not with the hairline. */
 .g-outline-rail__title {
   margin-block-end: var(--spacing-2);
   padding-inline-start: var(--spacing-3);
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.g-outline-rail__entry {
-  display: flex;
-}
-
-.g-outline-rail__link {
-  inline-size: 100%;
-}
-
-.g-outline-rail[data-surface="accent"] .g-outline-rail__title,
-.g-outline-rail[data-surface="accent"] .g-outline-rail__link {
-  color: currentColor;
 }
 
 /* Sticky only once there is a column to sit beside. On a phone the rail is a

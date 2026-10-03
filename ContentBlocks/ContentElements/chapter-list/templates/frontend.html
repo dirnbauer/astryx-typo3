@@ -10,6 +10,12 @@
     inserting a chapter in the middle renumbers everything under it and no
     editor is left maintaining a column of digits by hand. An icon typed onto a
     chapter is ignored: the number is the marker this list has.
+
+    That is List's `marker="step"`: an ordered list whose numbered tiles the
+    stylesheet counts, aligned with the first line of each chapter. Each
+    chapter is an Item: given a link field it is the link, so the whole row is
+    the target. A chapter whose link is empty is an Item without a link, which
+    is the list item itself and is therefore not wrapped in a second `li`.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.chapters" default="Chapters"/></f:variable>
@@ -17,38 +23,48 @@
 
 <a:layout.section surface="{data.tone}" class="g-chapter-list">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-chapter-list__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <nav class="g-chapter-list__nav" aria-label="{navLabel}">
+                <a:molecule.list marker="step" dividers="with-dividers">
+                    <f:for each="{data.chapters}" as="chapter">
+                        <f:if condition="{chapter.link.url}">
+                            <f:then>
+                                <li>
+                                    <a:molecule.item parameter="{chapter.link}" interactive="interactive">
+                                        <a:molecule.itemContent>
+                                            <a:molecule.itemLabel weight="medium">{chapter.title}</a:molecule.itemLabel>
+                                            <f:if condition="{chapter.description}">
+                                                <a:molecule.itemDescription>{chapter.description}</a:molecule.itemDescription>
+                                            </f:if>
+                                        </a:molecule.itemContent>
+                                    </a:molecule.item>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <a:molecule.item>
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel weight="medium">{chapter -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                        <f:if condition="{chapter.description}">
+                                            <a:molecule.itemDescription>{chapter -> f:render.text(field: 'description')}</a:molecule.itemDescription>
+                                        </f:if>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
+                            </f:else>
+                        </f:if>
+                    </f:for>
+                </a:molecule.list>
+            </nav>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-chapter-list__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <nav class="g-chapter-list__nav" aria-label="{navLabel}">
-            <ol class="g-chapter-list__chapters">
-                <f:for each="{data.chapters}" as="chapter">
-                    <li class="g-chapter-list__chapter">
-                        <span class="g-chapter-list__body">
-                            <f:if condition="{chapter.link.url}">
-                                <f:then><a:atom.link variant="quiet" class="g-chapter-list__title" parameter="{chapter.link}">{chapter.title}</a:atom.link></f:then>
-                                <f:else><span class="g-chapter-list__title">{chapter -> f:render.text(field: 'title')}</span></f:else>
-                            </f:if>
-
-                            <f:if condition="{chapter.description}">
-                                <a:atom.text type="supporting" as="span" class="g-chapter-list__note">{chapter -> f:render.text(field: 'description')}</a:atom.text>
-                            </f:if>
-                        </span>
-                    </li>
-                </f:for>
-            </ol>
-        </nav>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

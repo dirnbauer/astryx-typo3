@@ -8,40 +8,40 @@
     "tone": "body",
     "items": [
         {
-            "icon": "arrow-right",
-            "title": "The whole card is the link",
-            "description": "Each card has one link, and it covers the whole card. There is no second link to the same page.",
-            "link": "#"
-        },
-        {
-            "icon": "menu",
-            "title": "A named navigation area",
-            "description": "A page can hold several menus. Screen readers announce this one by its heading, not just as “navigation”.",
-            "link": "#"
+            "icon": "rocket",
+            "title": "Hero & Landing Intros",
+            "description": "The opening section of a page. It says what the product is, who it is for and what to do next.",
+            "link": "{{page:components/hero}}"
         },
         {
             "icon": "sparkles",
-            "title": "The icon is decoration",
-            "description": "A tinted tile with an icon. Screen readers skip it, because the title already says the same.",
-            "link": "#"
+            "title": "Features & Benefits",
+            "description": "Feature grids, benefit lists and comparisons for the middle of a landing page, where claims get specific.",
+            "link": "{{page:components/features}}"
         },
         {
-            "icon": "layout-sidebar-right",
-            "title": "Two to four columns",
-            "description": "Editors choose the number of columns. The grid adapts to the space it has, not to the screen width.",
-            "link": "#"
+            "icon": "book-open",
+            "title": "Content & Editorial",
+            "description": "Elements for long articles: rich text, quotes, media, accordions and everything else an article needs.",
+            "link": "{{page:components/content}}"
         },
         {
-            "icon": "file-text",
-            "title": "When titles say enough",
-            "description": "If a page needs no description, use a Link Grid instead. It shows the labels without cards.",
-            "link": "#"
+            "icon": "tag",
+            "title": "Plans & Pricing",
+            "description": "Plan tables, tier cards and the small print, for the page where visitors compare prices.",
+            "link": "{{page:components/pricing}}"
         },
         {
-            "icon": "check",
-            "title": "Cards of equal height",
-            "description": "Each card stretches to the tallest card in its row, so the icons line up.",
-            "link": "#"
+            "icon": "star",
+            "title": "Trust & Social Proof",
+            "description": "Testimonials, logos, ratings and case study teasers that back up a claim.",
+            "link": "{{page:components/social-proof}}"
+        },
+        {
+            "icon": "users",
+            "title": "People & Team",
+            "description": "Portraits, role cards and team overviews for pages that introduce the people behind the work.",
+            "link": "{{page:components/team}}"
         }
     ]
 }

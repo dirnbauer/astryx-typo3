@@ -15,6 +15,12 @@
     That fallback is the point of the element: a detail page that gets moved
     to a different section still points home afterwards, and nobody has to
     remember to repoint it.
+
+    The link is a Button, because that is the component that turns a link
+    field into an anchor and draws a pressable target around it: a filled,
+    secondary one by default, a ghost one when "compact" asks for the plain
+    line. The arrow is an Icon in front of the words, hidden from assistive
+    technology — the label already says where the link goes.
 </f:comment>
 
 <f:variable name="parentTitle" value=""/>
@@ -27,23 +33,19 @@
 </f:for>
 
 <f:variable name="backLabel">{f:if(condition: data.cta_label, then: data.cta_label, else: parentTitle)}</f:variable>
+<f:variable name="buttonVariant">{f:if(condition: data.compact, then: 'ghost', else: 'secondary')}</f:variable>
 
 <a:layout.section spacing="tight" surface="{data.tone}" class="g-back-to-parent">
     <a:layout.container size="{data.width}">
-        <nav class="g-back-to-parent__nav" data-variant="{f:if(condition: data.compact, then: 'plain', else: 'boxed')}"
-             aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.backToSection', default: 'Back to the section')}">
+        <nav aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.backToSection', default: 'Back to the section')}">
 
             <f:if condition="{data.cta_link.url}">
                 <f:then>
-                    <f:link.typolink parameter="{data.cta_link}" class="g-back-to-parent__link">
-                        <span class="g-back-to-parent__label">{backLabel}</span>
-                    </f:link.typolink>
+                    <a:atom.button variant="{buttonVariant}" parameter="{data.cta_link}"><a:atom.icon name="arrow-left" size="sm"/>{backLabel}</a:atom.button>
                 </f:then>
                 <f:else>
                     <f:if condition="{parentLink}">
-                        <a class="g-back-to-parent__link" href="{parentLink}">
-                            <span class="g-back-to-parent__label">{backLabel}</span>
-                        </a>
+                        <a:atom.button variant="{buttonVariant}" href="{parentLink}"><a:atom.icon name="arrow-left" size="sm"/>{backLabel}</a:atom.button>
                     </f:if>
                 </f:else>
             </f:if>

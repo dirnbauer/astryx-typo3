@@ -11,44 +11,39 @@
     record and nothing else, so the menu is put on this CType by the theme's
     setup.typoscript rather than inherited from the page template.
 
-    The page the reader is standing on keeps its place in the list but loses
-    its link: a link to here is a link that does nothing, and aria-current
-    plus the marker say why it is different.
+    The rows are SideNavItems in a SideNavSection — the same rows a side
+    navigation is built from, with their height, hover tint and focus ring.
+    The page the reader is standing on keeps its place in the list and is
+    marked as selected, which the item states twice: a tinted row for whoever
+    can see it, aria-current="page" for whoever cannot.
+
+    The heading is the band's own h2, drawn small: it names a list of links,
+    not a section of the page.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.siblings" default="More in this section"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="rowSize">{f:if(condition: data.compact, then: 'sm', else: 'md')}</f:variable>
 
 <f:if condition="{siblings}">
     <a:layout.section spacing="tight" surface="{data.tone}" class="g-sibling-nav">
         <a:layout.container size="{data.width}">
             <nav class="g-sibling-nav__nav" aria-label="{navLabel}">
+                <a:layout.stack gap="2">
 
-                <a:atom.heading level="4" class="g-sibling-nav__title">
-                    <f:if condition="{data.header}">
-                        <f:then>{data -> f:render.text(field: 'header')}</f:then>
-                        <f:else>{navFallback}</f:else>
-                    </f:if>
-                </a:atom.heading>
+                    <a:atom.heading level="2" type="heading-4" color="secondary" class="g-sibling-nav__title">
+                        <f:if condition="{data.header}">
+                            <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                            <f:else>{navFallback}</f:else>
+                        </f:if>
+                    </a:atom.heading>
 
-                <ul class="g-sibling-nav__list" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                    <f:for each="{siblings}" as="page">
-                        <li class="g-sibling-nav__item">
-                            <f:if condition="{page.current}">
-                                <f:then>
-                                    <span class="g-sibling-nav__link g-sibling-nav__link--current" aria-current="page">
-                                        {page.title}
-                                        <a:atom.visuallyHidden as="span"> — <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.current" default="Current page"/></a:atom.visuallyHidden>
-                                    </span>
-                                </f:then>
-                                <f:else>
-                                    <a class="g-sibling-nav__link" href="{page.link}">{page.title}</a>
-                                </f:else>
-                            </f:if>
-                        </li>
-                    </f:for>
-                </ul>
-
+                    <a:molecule.sideNavSection>
+                        <f:for each="{siblings}" as="page">
+                            <a:molecule.sideNavItem label="{page.title}" href="{page.link}" size="{rowSize}" selected="{f:if(condition: page.current, then: 'selected', else: 'default')}"/>
+                        </f:for>
+                    </a:molecule.sideNavSection>
+                </a:layout.stack>
             </nav>
         </a:layout.container>
     </a:layout.section>

@@ -1,77 +1,11 @@
 /*
  * Back to Section
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The link is a Button with an Icon: its surface, type, hover,
+ * press and focus ring are the components'. The band is shorter than a
+ * section's tight rhythm, because it holds one line.
  */
 
 .g-back-to-parent {
   --section-gap: var(--spacing-4);
-}
-
-.g-back-to-parent__nav[data-variant="boxed"] {
-  padding: var(--spacing-3) var(--spacing-4);
-  border-radius: var(--radius-element);
-  background-color: var(--color-background-muted);
-}
-
-.g-back-to-parent__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2);
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-medium);
-  text-decoration: none;
-}
-
-@media (hover: hover) {
-  .g-back-to-parent__link:hover .g-back-to-parent__label {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-}
-
-/* The arrow points back the way the reader came, drawn from two borders so
-   there is no glyph to fall back from and nothing to load. */
-.g-back-to-parent__link::before {
-  content: '';
-  flex-shrink: 0;
-  inline-size: var(--spacing-2);
-  block-size: var(--spacing-2);
-  border-inline-start: 2px solid currentColor;
-  border-block-end: 2px solid currentColor;
-  rotate: 45deg;
-  color: var(--color-icon-secondary);
-  transition: translate var(--duration-fast) var(--ease-standard);
-}
-
-@media (hover: hover) {
-  .g-back-to-parent__link:hover::before {
-    translate: calc(-1 * var(--spacing-0-5)) 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .g-back-to-parent__link::before {
-    transition: none;
-  }
-
-  .g-back-to-parent__link:hover::before {
-    translate: 0;
-  }
-}
-
-.g-back-to-parent[data-surface="accent"] .g-back-to-parent__nav[data-variant="boxed"] {
-  background-color: transparent;
-  box-shadow: inset 0 0 0 var(--border-width) currentColor;
-}
-
-.g-back-to-parent[data-surface="accent"] .g-back-to-parent__link {
-  color: currentColor;
-}
-
-@media (max-width: 480px) {
-  .g-back-to-parent__nav[data-variant="boxed"] {
-    padding: var(--spacing-2) var(--spacing-3);
-  }
 }

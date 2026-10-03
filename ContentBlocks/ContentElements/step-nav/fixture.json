@@ -1,30 +1,30 @@
 {
     "_type": "navigation",
     "header": "A process spread over several pages",
-    "lead": "The step without a link, or with a link to this page, is the current step. Steps before it are marked as done; steps after it stay plain links.",
+    "lead": "The step without a link, or with a link to this page, is the current step. Steps before it are marked as complete; steps after it are still to come.",
     "width": "md",
     "tone": "surface",
     "compact": 0,
     "steps": [
         {
-            "title": "Completed",
-            "description": "Filled marker, still a link",
-            "link": "#step-1"
+            "title": "Pick a theme",
+            "description": "25 themes, one set of content",
+            "link": "{{page:themes}}"
         },
         {
-            "title": "Current",
-            "description": "Outlined marker, no link",
-            "link": ""
+            "title": "Choose the elements",
+            "description": "250 elements in ten groups",
+            "link": "{{page:components}}"
         },
         {
-            "title": "Upcoming",
-            "description": "Plain marker, plain link",
-            "link": "#step-3"
+            "title": "Add the navigation",
+            "description": "Menus, tabs, breadcrumbs and an A–Z index",
+            "link": "{{page:components/navigation}}"
         },
         {
-            "title": "2–10 stages",
-            "description": "Side by side, or stacked on phones",
-            "link": "#step-4"
+            "title": "Close the page",
+            "description": "Footers, legal links and contact details",
+            "link": "{{page:components/footer}}"
         }
     ]
 }

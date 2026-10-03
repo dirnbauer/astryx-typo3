@@ -7,68 +7,106 @@
 
 <f:comment>
     The grouping is derived from the first character of each entry, so the
-    editor keeps the list in order and never maintains the letters by hand: a
-    letter is printed whenever it differs from the one before it, which also
-    makes it the anchor for the bar at the top.
+    editor never maintains the letters by hand. A first pass collects every
+    letter once, in the order the letters first appear; the bar and the groups
+    are both built from that list, and each group then gathers every entry
+    that starts with its letter — so an entry typed out of order still lands
+    in its group instead of opening a second "A".
 
-    The bar therefore lists the letters that ARE used rather than the whole
-    alphabet with the unused ones greyed out — the element has no way of
-    knowing what alphabet its language uses, and a hard-coded A to Z would be
-    wrong the first time somebody indexes something in Greek.
+    The bar lists the letters that ARE used rather than the whole alphabet with
+    the unused ones greyed out: the element has no way of knowing what alphabet
+    its language uses, and a hard-coded A to Z would be wrong the first time
+    somebody indexes something in Greek. It is a SegmentedControl, the
+    component for a rail of jump links.
+
+    Each group is headed by its letter as a real h3, so a screen reader can
+    move from letter to letter the way a sighted reader scans. The entries are
+    Items; given a link field an Item is the link, so the whole row is the
+    target.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.index" default="Index"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
-<f:variable name="barLetter" value=""/>
-<f:variable name="listLetter" value=""/>
+
+<f:variable name="letters" value=""/>
+<f:for each="{data.entries}" as="entry">
+    <f:variable name="letter">{entry.title -> f:format.crop(maxCharacters: 1, append: '') -> f:format.case(mode: 'upper')}</f:variable>
+    <f:contains value="|{letter}|" subject="|{letters}|">
+        <f:else>
+            <f:if condition="{letters}">
+                <f:then><f:variable name="letters">{letters}|{letter}</f:variable></f:then>
+                <f:else><f:variable name="letters">{letter}</f:variable></f:else>
+            </f:if>
+        </f:else>
+    </f:contains>
+</f:for>
 
 <a:layout.section surface="{data.tone}" class="g-directory-index" columns="{data.columns}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <div class="g-directory-index__intro">
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-directory-index__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
-        </div>
 
-        <nav class="g-directory-index__nav" aria-label="{navLabel}">
+            <f:if condition="{letters}">
+                <f:variable name="letterList" value="{f:split(value: letters, separator: '|')}"/>
 
-            <ul class="g-directory-index__letters" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.letters', default: 'Jump to a letter')}">
-                <f:for each="{data.entries}" as="entry">
-                    <f:variable name="letter">{entry.title -> f:format.crop(maxCharacters: 1, append: '') -> f:format.case(mode: 'upper')}</f:variable>
-                    <f:if condition="{letter} != {barLetter}">
-                        <li class="g-directory-index__letter-item">
-                            <a class="g-directory-index__letter-link" href="#g-directory-{data.uid}-{letter}">{letter}</a>
-                        </li>
-                        <f:variable name="barLetter" value="{letter}"/>
-                    </f:if>
-                </f:for>
-            </ul>
+                <nav aria-label="{navLabel}">
+                    <a:layout.stack gap="6">
 
-            <ul class="g-directory-index__entries">
-                <f:for each="{data.entries}" as="entry">
-                    <f:variable name="letter">{entry.title -> f:format.crop(maxCharacters: 1, append: '') -> f:format.case(mode: 'upper')}</f:variable>
-                    <li class="g-directory-index__entry">
-                        <f:if condition="{letter} != {listLetter}">
-                            <f:comment>
-                                Decoration: the entries under it already start with this
-                                letter, so reading it out would only repeat them.
-                            </f:comment>
-                            <span class="g-directory-index__letter" id="g-directory-{data.uid}-{letter}" aria-hidden="true">{letter}</span>
-                            <f:variable name="listLetter" value="{letter}"/>
-                        </f:if>
+                        <div class="g-directory-index__bar">
+                            <a:molecule.segmentedControl ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.letters', default: 'Jump to a letter')}">
+                                <f:for each="{letterList}" as="groupLetter">
+                                    <li class="g-directory-index__jump">
+                                        <a:molecule.segmentedControlItem href="#g-directory-{data.uid}-{groupLetter}" size="sm">{groupLetter}</a:molecule.segmentedControlItem>
+                                    </li>
+                                </f:for>
+                            </a:molecule.segmentedControl>
+                        </div>
 
-                        <f:if condition="{entry.link.url}">
-                            <f:then><a:atom.link variant="quiet" class="g-directory-index__link" parameter="{entry.link}">{entry.title}</a:atom.link></f:then>
-                            <f:else><span class="g-directory-index__link">{entry -> f:render.text(field: 'title')}</span></f:else>
-                        </f:if>
-                    </li>
-                </f:for>
-            </ul>
+                        <div class="g-directory-index__groups">
+                            <f:for each="{letterList}" as="groupLetter">
+                                <a:layout.stack gap="1" class="g-directory-index__group">
+                                    <a:atom.heading level="3" color="accent" id="g-directory-{data.uid}-{groupLetter}" class="g-directory-index__letter">{groupLetter}</a:atom.heading>
 
-        </nav>
+                                    <a:molecule.list>
+                                        <f:for each="{data.entries}" as="entry">
+                                            <f:variable name="letter">{entry.title -> f:format.crop(maxCharacters: 1, append: '') -> f:format.case(mode: 'upper')}</f:variable>
+                                            <f:if condition="{letter} == {groupLetter}">
+                                                <f:if condition="{entry.link.url}">
+                                                    <f:then>
+                                                        <li>
+                                                            <a:molecule.item parameter="{entry.link}" interactive="interactive" density="compact">
+                                                                <a:molecule.itemContent>
+                                                                    <a:molecule.itemLabel truncate="truncate">{entry.title}</a:molecule.itemLabel>
+                                                                </a:molecule.itemContent>
+                                                            </a:molecule.item>
+                                                        </li>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <a:molecule.item density="compact">
+                                                            <a:molecule.itemContent>
+                                                                <a:molecule.itemLabel truncate="truncate">{entry -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                                            </a:molecule.itemContent>
+                                                        </a:molecule.item>
+                                                    </f:else>
+                                                </f:if>
+                                            </f:if>
+                                        </f:for>
+                                    </a:molecule.list>
+                                </a:layout.stack>
+                            </f:for>
+                        </div>
 
+                    </a:layout.stack>
+                </nav>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

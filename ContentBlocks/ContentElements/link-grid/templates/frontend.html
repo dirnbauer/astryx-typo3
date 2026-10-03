@@ -11,40 +11,56 @@
     grew a second line would be a Page List Menu, and this element exists for
     the case where the label is the whole message.
 
-    CSS columns rather than a grid, so a list of sixty still reads top to
-    bottom in each column and stays alphabetical at every width.
+    The links are a List in two to four columns — `columns` is a ceiling, so a
+    narrow column of the page gets fewer — and each link is an Item with a
+    one-line label: given a link field the Item is the link, so the whole row
+    is the target, which a label this short needs to be reachable on a touch
+    screen at all, and a label that is too long is cut with an ellipsis instead
+    of wrapping. A child whose link is empty is an Item without a link, the
+    list item itself.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.linkList" default="Link list"/></f:variable>
 <f:variable name="navLabel">{f:if(condition: data.header, then: data.header, else: navFallback)}</f:variable>
+<f:variable name="rowDensity">{f:if(condition: data.compact, then: 'compact', else: 'default')}</f:variable>
 
-<a:layout.section surface="{data.tone}" class="g-link-grid" columns="{data.columns}">
+<a:layout.section surface="{data.tone}" class="g-link-grid">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-link-grid__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="large" class="g-link-grid__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <nav class="g-link-grid__nav" aria-label="{navLabel}">
-            <ul class="g-link-grid__links" data-density="{f:if(condition: data.compact, then: 'compact')}">
-                <f:for each="{data.links}" as="link">
-                    <li class="g-link-grid__item">
+            <nav aria-label="{navLabel}">
+                <a:molecule.list columns="{data.columns}">
+                    <f:for each="{data.links}" as="link">
                         <f:if condition="{link.link.url}">
-                            <f:then><a:atom.link variant="quiet" class="g-link-grid__link" parameter="{link.link}">{link.title}</a:atom.link></f:then>
-                            <f:else><span class="g-link-grid__link">{link -> f:render.text(field: 'title')}</span></f:else>
+                            <f:then>
+                                <li>
+                                    <a:molecule.item parameter="{link.link}" interactive="interactive" density="{rowDensity}">
+                                        <a:molecule.itemContent>
+                                            <a:molecule.itemLabel truncate="truncate">{link.title}</a:molecule.itemLabel>
+                                        </a:molecule.itemContent>
+                                    </a:molecule.item>
+                                </li>
+                            </f:then>
+                            <f:else>
+                                <a:molecule.item density="{rowDensity}">
+                                    <a:molecule.itemContent>
+                                        <a:molecule.itemLabel truncate="truncate">{link -> f:render.text(field: 'title')}</a:molecule.itemLabel>
+                                    </a:molecule.itemContent>
+                                </a:molecule.item>
+                            </f:else>
                         </f:if>
-                    </li>
-                </f:for>
-            </ul>
-        </nav>
+                    </f:for>
+                </a:molecule.list>
+            </nav>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

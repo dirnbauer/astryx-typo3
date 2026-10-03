@@ -9,7 +9,11 @@
     Capped at eight by the field itself: a list of related reading longer than
     that has stopped being a suggestion and become a section index. Each card
     holds one link, carried by its title, so the card is the target and the
-    title is its accessible name.
+    title is its accessible name. The cards are the items of a list (Grid
+    as="ul", Card as="li"), so a reader is told how many suggestions there are.
+
+    The band's own heading is an h2, drawn at the size of an h3: related
+    reading is a coda to the page, not a section of it.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.related" default="Related pages"/></f:variable>
@@ -17,37 +21,35 @@
 
 <a:layout.section surface="{data.tone}" class="g-related-links">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-related-links__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="3">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-related-links__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro headingType="heading-3" leadType="body">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <nav class="g-related-links__nav" aria-label="{navLabel}">
-            <a:layout.grid cols="{data.columns}" class="g-related-links__items">
-                <f:for each="{data.links}" as="link">
-                    <a:molecule.card clickable="{true}" variant="flat" class="g-related-links__item">
-                        <a:molecule.cardTitle class="g-related-links__title">
-                            <f:if condition="{link.link.url}">
-                                <f:then><f:link.typolink parameter="{link.link}">{link.title}</f:link.typolink></f:then>
-                                <f:else>{link -> f:render.text(field: 'title')}</f:else>
+            <nav aria-label="{navLabel}">
+                <a:layout.grid as="ul" cols="{data.columns}" gap="4">
+                    <f:for each="{data.links}" as="link">
+                        <a:molecule.card as="li" clickable="{link.link.url}" variant="flat">
+                            <a:molecule.cardTitle>
+                                <f:if condition="{link.link.url}">
+                                    <f:then><f:link.typolink parameter="{link.link}">{link.title}</f:link.typolink></f:then>
+                                    <f:else>{link -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:molecule.cardTitle>
+
+                            <f:if condition="{link.description}">
+                                <a:molecule.cardBody>{link -> f:render.text(field: 'description')}</a:molecule.cardBody>
                             </f:if>
-                        </a:molecule.cardTitle>
+                        </a:molecule.card>
+                    </f:for>
+                </a:layout.grid>
+            </nav>
 
-                        <f:if condition="{link.description}">
-                            <a:molecule.cardBody>{link -> f:render.text(field: 'description')}</a:molecule.cardBody>
-                        </f:if>
-                    </a:molecule.card>
-                </f:for>
-            </a:layout.grid>
-        </nav>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

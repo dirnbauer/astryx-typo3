@@ -2,38 +2,39 @@
     "_type": "navigation",
     "eyebrow": "Featured Entry Menu",
     "header": "One featured page, the rest as a list",
-    "subheader": "The featured card uses the element's own fields",
-    "text": "A picture, a subheading, a paragraph and one link set this entry apart. The label below is plain text, not a second link.",
-    "cta_label": "Read the entry",
-    "cta_link": "#",
+    "subheader": "25 themes, one set of content",
+    "text": "Every theme of the catalogue on one page, rendered live with the same components: seven from Astryx and eighteen built on the same contract.",
+    "cta_label": "See all 25 themes",
+    "cta_link": "{{page:themes}}",
     "reverse": 0,
     "width": "lg",
     "tone": "body",
     "items": [
         {
-            "title": "One link per card",
-            "description": "The subheading holds it, so the whole card is clickable",
-            "link": "#"
+            "title": "Gothic",
+            "description": "Near-white on near-black, and dark even in light mode",
+            "link": "{{page:themes/gothic}}"
         },
         {
-            "title": "The list stays simple",
-            "description": "Rows with rules between them, no cards, no pictures",
-            "link": "#"
+            "title": "Matcha",
+            "description": "Deep green with handwritten headings, for craft, food and wellbeing",
+            "link": "{{page:themes/matcha}}"
         },
         {
-            "title": "The sides can swap",
-            "description": "From tablet width upwards, where there are two columns",
-            "link": "#"
+            "title": "Retro",
+            "description": "Warm amber on cream, with the look of a printed manual",
+            "link": "{{page:themes/retro}}"
         },
         {
-            "title": "One to eight more pages",
-            "link": "#"
+            "title": "Y2K",
+            "description": "Lavender and square corners, for playful brands with hard edges",
+            "link": "{{page:themes/y2k}}"
         }
     ],
     "image": [
         {
-            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/training-room.jpg",
-            "alternative": "Black chairs in a circle around a flip chart in a room with brick walls.",
+            "file": "EXT:astryx_typo3/Resources/Public/Images/scene/drawing-review.jpg",
+            "alternative": "Two hands rest on a large building plan beside a scale ruler and a pencil.",
             "title": ""
         }
     ]

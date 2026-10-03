@@ -1,33 +1,49 @@
 {
     "_type": "navigation",
-    "header": "Categories in a wrapping row",
+    "header": "Browse by group",
     "align": "start",
     "width": "md",
     "compact": 0,
     "chips": [
         {
-            "title": "Unlinked means current",
-            "link": ""
+            "title": "Hero",
+            "link": "{{page:components/hero}}"
         },
         {
-            "title": "Self-link means current",
-            "link": "#so-is-one"
+            "title": "Features",
+            "link": "{{page:components/features}}"
         },
         {
-            "title": "Tint, border, weight",
-            "link": "#tint-border-and"
+            "title": "Content",
+            "link": "{{page:components/content}}"
         },
         {
-            "title": "Marked with aria-current",
-            "link": "#aria-current-says"
+            "title": "Pricing",
+            "link": "{{page:components/pricing}}"
         },
         {
-            "title": "Wraps, never scrolls",
-            "link": "#the-row-wraps"
+            "title": "Social proof",
+            "link": "{{page:components/social-proof}}"
         },
         {
-            "title": "2–30 categories",
-            "link": "#two-to-thirty"
+            "title": "Team",
+            "link": "{{page:components/team}}"
+        },
+        {
+            "title": "Data",
+            "link": "{{page:components/data}}"
+        },
+        {
+            "title": "Conversion",
+            "link": "{{page:components/conversion}}"
+        },
+        {
+            "title": "Navigation",
+            "link": "{{page:components/navigation}}"
+        },
+        {
+            "title": "Footer",
+            "link": "{{page:components/footer}}"
         }
     ]
 }

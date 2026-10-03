@@ -1,29 +1,29 @@
 {
     "_type": "navigation",
-    "header": "Quick Links Bar",
+    "header": "Shortcuts",
     "align": "start",
     "width": "md",
     "tone": "muted",
     "links": [
         {
-            "icon": "zap",
-            "title": "Six shortcuts maximum",
-            "link": "#"
+            "icon": "search",
+            "title": "Search the catalogue",
+            "link": "{{page:search}}"
         },
         {
-            "icon": "check",
-            "title": "One line each",
-            "link": "#"
+            "icon": "layers",
+            "title": "Browse all 25 themes",
+            "link": "{{page:themes}}"
         },
         {
-            "icon": "menu",
-            "title": "Wraps, never scrolls",
-            "link": "#"
+            "icon": "layout-grid",
+            "title": "All 250 elements",
+            "link": "{{page:components}}"
         },
         {
-            "icon": "arrow-right",
-            "title": "Full-width on phones",
-            "link": "#"
+            "icon": "accessibility",
+            "title": "Accessibility",
+            "link": "{{page:accessibility}}"
         }
     ]
 }

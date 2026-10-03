@@ -11,36 +11,44 @@
     of a series are exactly where this element earns its keep — and the half
     that is left then spans the band on its own.
 
-    Each half is one link, and the page title is its accessible name; the word
-    "Previous" or "Next" is a label above it rather than part of the link, so
-    nobody hears "next" twice in a row.
+    Each half is a clickable Card with one link, and the page title is its
+    accessible name; the word "Previous" or "Next" is an Eyebrow above it
+    rather than part of the link, so nobody hears "next" twice in a row. The
+    chevron beside it is an Icon in the eyebrow's accent colour and points the
+    way the link goes. The next half is aligned to the far edge (Card
+    align="end"), so the pair reads outwards from the middle. "Compact" swaps
+    the raised card for the flat one.
 </f:comment>
+
+<f:variable name="cardVariant">{f:if(condition: data.compact, then: 'flat', else: 'default')}</f:variable>
 
 <a:layout.section spacing="tight" surface="{data.tone}" class="g-prev-next">
     <a:layout.container size="{data.width}">
         <f:if condition="{data.cta_label} || {data.secondary_label}">
-            <nav class="g-prev-next__nav" data-variant="{f:if(condition: data.compact, then: 'plain')}"
+            <nav class="g-prev-next__nav"
                  aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.pageMoves', default: 'Previous and next page')}">
 
                 <f:if condition="{data.secondary_label}">
-                    <a:molecule.card clickable="{true}" variant="previous" class="g-prev-next__half">
-                        <a:atom.text type="supporting" class="g-prev-next__direction">
-                            <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/>
-                        </a:atom.text>
-                        <p class="g-prev-next__title">
+                    <a:molecule.card clickable="{data.secondary_link.url}" variant="{cardVariant}" class="g-prev-next__half">
+                        <a:layout.stack orientation="horizontal" gap="1">
+                            <a:atom.icon name="chevron-left" size="sm" color="accent"/>
+                            <a:atom.eyebrow as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.previous" default="Previous"/></a:atom.eyebrow>
+                        </a:layout.stack>
+                        <a:atom.text type="large">
                             <f:link.typolink parameter="{data.secondary_link}">{data.secondary_label}</f:link.typolink>
-                        </p>
+                        </a:atom.text>
                     </a:molecule.card>
                 </f:if>
 
                 <f:if condition="{data.cta_label}">
-                    <a:molecule.card clickable="{true}" variant="next" class="g-prev-next__half">
-                        <a:atom.text type="supporting" class="g-prev-next__direction">
-                            <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/>
-                        </a:atom.text>
-                        <p class="g-prev-next__title">
+                    <a:molecule.card clickable="{data.cta_link.url}" variant="{cardVariant}" align="end" class="g-prev-next__half">
+                        <a:layout.stack orientation="horizontal" gap="1">
+                            <a:atom.eyebrow as="span"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.next" default="Next"/></a:atom.eyebrow>
+                            <a:atom.icon name="chevron-right" size="sm" color="accent"/>
+                        </a:layout.stack>
+                        <a:atom.text type="large">
                             <f:link.typolink parameter="{data.cta_link}">{data.cta_label}</f:link.typolink>
-                        </p>
+                        </a:atom.text>
                     </a:molecule.card>
                 </f:if>
 

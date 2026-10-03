@@ -8,8 +8,12 @@
 <f:comment>
     A bar read at a glance rather than word by word, so the label is held to
     one line and cut with an ellipsis if an editor types a sentence into it.
-    The icon tile is decoration and hidden from assistive technology: the
-    label is the name of the shortcut, and it is always there.
+
+    The row is a Toolbar, which becomes a named nav once it is given a label;
+    the shortcuts are a horizontal List that wraps, each a secondary Button
+    with its glyph as an Icon in front of the words. The icon is decoration and hidden from assistive technology:
+    the label is the name of the shortcut, and it is always there. The label
+    in front of the row is an Eyebrow, not a heading.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.quickLinks" default="Quick links"/></f:variable>
@@ -20,21 +24,24 @@
         <a:molecule.toolbar class="g-quick-links__bar" ariaLabel="{navLabel}">
 
             <f:if condition="{data.header}">
-                <a:atom.heading level="5" class="g-quick-links__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.eyebrow>{data -> f:render.text(field: 'header')}</a:atom.eyebrow>
             </f:if>
 
-            <ul class="g-quick-links__items">
+            <a:molecule.list orientation="horizontal" gap="2" class="g-quick-links__items">
                 <f:for each="{data.links}" as="link">
-                    <li class="g-quick-links__item">
-                        <a:atom.button variant="secondary" class="g-quick-links__link" parameter="{link.link}">
-                            <f:if condition="{link.icon}">
-                                <span class="g-quick-links__icon" data-icon="{link.icon}" aria-hidden="true"><g:icon name="{link.icon}"/></span>
-                            </f:if>
-                            <span class="g-quick-links__label">{link.title}</span>
-                        </a:atom.button>
-                    </li>
+                    <f:comment>A shortcut is a destination: one without a link is skipped rather than drawn as a button that does nothing.</f:comment>
+                    <f:if condition="{link.link.url}">
+                        <li class="g-quick-links__item">
+                            <a:atom.button variant="secondary" class="g-quick-links__link" parameter="{link.link}">
+                                <f:if condition="{link.icon}">
+                                    <a:atom.icon name="{link.icon}" size="sm"/>
+                                </f:if>
+                                <span class="g-quick-links__label">{link.title}</span>
+                            </a:atom.button>
+                        </li>
+                    </f:if>
                 </f:for>
-            </ul>
+            </a:molecule.list>
 
         </a:molecule.toolbar>
     </a:layout.container>

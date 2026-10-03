@@ -7,19 +7,19 @@
     "tone": "body",
     "links": [
         {
-            "title": "One link per card",
-            "description": "The title holds the link, so the whole card is clickable and the title names it.",
-            "link": "#"
+            "title": "Footers & Utility Areas",
+            "description": "Footer sitemaps, link columns and legal links carry the navigation on to the end of the page.",
+            "link": "{{page:components/footer}}"
         },
         {
-            "title": "Eight at most",
-            "description": "For more pages, use a Section Index instead.",
-            "link": "#"
+            "title": "Content & Editorial",
+            "description": "Contents boxes and step-by-step guides lead readers through long articles.",
+            "link": "{{page:components/content}}"
         },
         {
-            "title": "Equal weight",
-            "description": "No card stands out. If one suggestion should, use Up Next instead.",
-            "link": "#"
+            "title": "Accessibility",
+            "description": "How the theme works without a mouse and without seeing the layout.",
+            "link": "{{page:accessibility}}"
         }
     ]
 }

@@ -14,6 +14,10 @@
 
     A description typed onto an entry is ignored: the rail is one line per
     heading, and a heading that needs explaining is a section, not an entry.
+
+    The label above the rail is an Eyebrow rather than a heading: it names the
+    rail, which the nav already carries as its accessible name, and a heading
+    here would land at a level the page outline never asked for.
 </f:comment>
 
 <f:variable name="navFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.outline" default="Page contents"/></f:variable>
@@ -23,17 +27,17 @@
     <a:layout.container size="{data.width}">
         <nav class="g-outline-rail__rail" aria-label="{navLabel}">
 
-            <a:atom.heading level="6" class="g-outline-rail__title">
+            <a:atom.eyebrow class="g-outline-rail__title">
                 <f:if condition="{data.header}">
                     <f:then>{data -> f:render.text(field: 'header')}</f:then>
                     <f:else>{navFallback}</f:else>
                 </f:if>
-            </a:atom.heading>
+            </a:atom.eyebrow>
 
             <a:molecule.outline class="g-outline-rail__outline">
                 <f:for each="{data.entries}" as="entry">
-                    <li class="g-outline-rail__entry">
-                        <a:molecule.outlineItem parameter="{entry.link}" class="g-outline-rail__link"><span>{entry.title}</span></a:molecule.outlineItem>
+                    <li>
+                        <a:molecule.outlineItem parameter="{entry.link}"><span>{entry.title}</span></a:molecule.outlineItem>
                     </li>
                 </f:for>
             </a:molecule.outline>

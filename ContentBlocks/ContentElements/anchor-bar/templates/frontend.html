@@ -11,6 +11,12 @@
     taller than the bar. Pinning the band gives it the length of the page to
     travel instead.
 
+    The jumps are a SegmentedControl — a rail of jump links is one of the
+    things that component is for. The label in front of it is an Eyebrow, not
+    a heading: it names the bar, which the nav already carries as its
+    accessible name, and a heading here would sit at a level the page outline
+    never asked for.
+
     No entry is marked as active. Knowing which section a reader is looking at
     is a scroll spy, a scroll spy is a script, and this bar is worth neither —
     it is a set of jumps, not a report on where you are.
@@ -24,14 +30,14 @@
         <nav class="g-anchor-bar__inner" aria-label="{navLabel}">
 
             <f:if condition="{data.header}">
-                <a:atom.heading level="6" class="g-anchor-bar__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:atom.eyebrow class="g-anchor-bar__title">{data -> f:render.text(field: 'header')}</a:atom.eyebrow>
             </f:if>
 
             <div class="g-anchor-bar__scroller">
-                <a:molecule.segmentedControl class="g-anchor-bar__track">
+                <a:molecule.segmentedControl>
                     <f:for each="{data.anchors}" as="anchor">
                         <li class="g-anchor-bar__item">
-                            <a:molecule.segmentedControlItem parameter="{anchor.link}" size="sm" class="g-anchor-bar__link">{anchor.title}</a:molecule.segmentedControlItem>
+                            <a:molecule.segmentedControlItem parameter="{anchor.link}" size="sm">{anchor.title}</a:molecule.segmentedControlItem>
                         </li>
                     </f:for>
                 </a:molecule.segmentedControl>

@@ -1,15 +1,14 @@
 /*
  * Anchor Bar
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
- *
- * The pills are .astryx-segmented-control-item and keep the component's own
- * sizing, weight and focus ring; only the track's scrolling is added here.
+ * Layout only. The label is an Eyebrow and the jumps are a SegmentedControl,
+ * so their type, colours, pills and focus rings are the components'. This
+ * file pins the band and lets the rail scroll.
  */
 
 /* Under the site header, which is itself sticky at the top of the viewport
-   and one stacking level above this. */
+   and one stacking level above this. The rule under the band is what keeps
+   the content scrolling beneath it from running into the bar. */
 .g-anchor-bar {
   position: sticky;
   inset-block-start: var(--astryx-header-height);
@@ -31,10 +30,6 @@
 
 .g-anchor-bar__title {
   flex-shrink: 0;
-  margin: 0;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 /* The bar never wraps: a second row of jumps would push the page content down
@@ -46,23 +41,8 @@
   scrollbar-color: var(--color-track) transparent;
 }
 
-.g-anchor-bar__track {
-  margin: 0;
-  padding: var(--spacing-0-5);
-  list-style: none;
-}
-
 .g-anchor-bar__item {
   display: flex;
-}
-
-.g-anchor-bar__link {
-  text-decoration: none;
-}
-
-.g-anchor-bar[data-surface="accent"] .g-anchor-bar__title {
-  color: currentColor;
-  opacity: 0.85;
 }
 
 @media (max-width: 640px) {

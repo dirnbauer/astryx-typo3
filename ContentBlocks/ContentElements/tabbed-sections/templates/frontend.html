@@ -6,56 +6,59 @@
 <f:asset.css identifier="g-tabbed-sections" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Every panel is written into the page and none of them starts hidden, so the
-    text is indexed, printed and searched in full. The shared runtime is what
-    takes the inactive ones out of the flow and adds the arrow keys the tab
-    pattern owes a keyboard; without it the band is a stack of headed sections,
-    longer but never broken.
+    Tabs, TabList, Tab and TabPanel: the whole control is components. Every
+    panel is in the page and none of them starts hidden, so the text is
+    indexed, printed and searched in full. The shared runtime (`data-g-tabs`
+    on Tabs) selects a tab, hides the panels that are not on show and adds the
+    arrow keys, Home and End the tab pattern owes a keyboard; a strip too wide
+    for a phone scrolls sideways by itself. Without the script the band is a
+    stack of headed sections, divided by rules, longer but never broken.
+
+    Each panel keeps its own heading for that case and for the outline; with
+    titleDisplay="auto" it leaves the screen once the tabs work, because the
+    selected tab already names the panel on show. The title is passed as plain
+    text, which is what the panel's argument takes.
 </f:comment>
+
+<f:variable name="tabsFallback"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.tabs" default="Sections"/></f:variable>
+<f:variable name="tabsLabel">{f:if(condition: data.header, then: data.header, else: tabsFallback)}</f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-tabbed-sections">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <div class="g-tabbed-sections__intro">
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:molecule.tabs class="g-tabbed-sections__tabs">
+                <a:molecule.tabList variant="divided" ariaLabel="{tabsLabel}">
+                    <f:for each="{data.panels}" as="panel" iteration="position">
+                        <a:molecule.tab
+                            id="g-tabbed-sections-{data.uid}-tab-{position.index}"
+                            controls="g-tabbed-sections-{data.uid}-panel-{position.index}"
+                            selected="{position.isFirst}">{panel.title}</a:molecule.tab>
+                    </f:for>
+                </a:molecule.tabList>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-tabbed-sections__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-        </div>
-
-        <a:molecule.tabs class="g-tabbed-sections__tabs">
-            <a:molecule.tabList
-                variant="divided"
-                class="g-tabbed-sections__list"
-                ariaLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:nav.tabs', default: 'Sections')}">
                 <f:for each="{data.panels}" as="panel" iteration="position">
-                    <a:molecule.tab
-                        id="g-tabbed-sections-{data.uid}-tab-{position.index}"
-                        controls="g-tabbed-sections-{data.uid}-panel-{position.index}"
-                        selected="{position.isFirst}">{panel.title}</a:molecule.tab>
+                    <a:molecule.tabPanel
+                        id="g-tabbed-sections-{data.uid}-panel-{position.index}"
+                        ariaLabelledby="g-tabbed-sections-{data.uid}-tab-{position.index}"
+                        title="{panel.title}"
+                        titleDisplay="auto">
+                        <f:if condition="{panel.bodytext}">
+                            <div class="astryx-prose"><f:format.html>{panel.bodytext}</f:format.html></div>
+                        </f:if>
+                    </a:molecule.tabPanel>
                 </f:for>
-            </a:molecule.tabList>
+            </a:molecule.tabs>
 
-            <f:for each="{data.panels}" as="panel" iteration="position">
-                <section class="g-tabbed-sections__panel"
-                         role="tabpanel"
-                         id="g-tabbed-sections-{data.uid}-panel-{position.index}"
-                         aria-labelledby="g-tabbed-sections-{data.uid}-tab-{position.index}"
-                         tabindex="0">
-                    <a:atom.heading level="3" class="g-tabbed-sections__title">{panel -> f:render.text(field: 'title')}</a:atom.heading>
-
-                    <f:if condition="{panel.bodytext}">
-                        <div class="astryx-prose g-tabbed-sections__body"><f:format.html>{panel.bodytext}</f:format.html></div>
-                    </f:if>
-                </section>
-            </f:for>
-        </a:molecule.tabs>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

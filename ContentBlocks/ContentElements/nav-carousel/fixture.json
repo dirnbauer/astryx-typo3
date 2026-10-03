@@ -2,15 +2,57 @@
     "_type": "navigation",
     "eyebrow": "Scrolling Link Row",
     "header": "Many pages in one scrolling row",
-    "lead": "Drag or swipe the row, or tab into it and use the arrow keys. It holds 3 to 20 cards and always takes up one row of height.",
+    "lead": "Drag or swipe the row, use the arrows, or tab into it and use the arrow keys. It holds 3 to 20 cards and always takes up one row of height.",
     "width": "lg",
     "tone": "body",
     "items": [
-        { "icon": "arrow-right", "title": "Scroll snap, no script", "description": "The snapping and the momentum come from the browser.", "link": "#" },
-        { "icon": "check", "title": "A named focus stop", "description": "Keyboard users can reach the row and hear what is in it.", "link": "#" },
-        { "icon": "menu", "title": "The scrollbar stays", "description": "It shows that there is more to the side.", "link": "#" },
-        { "icon": "sparkles", "title": "The next card is half visible", "description": "This is the second sign that the row goes on.", "link": "#" },
-        { "icon": "layout-sidebar-right", "title": "One link per card", "description": "The title holds the link, so the whole card is clickable.", "link": "#" },
-        { "icon": "star", "title": "Three to twenty cards", "description": "If all cards should be visible at once, use a Page Card Menu.", "link": "#" }
+        {
+            "icon": "moon",
+            "title": "Midnight",
+            "description": "Indigo on blue-grey, designed dark first, so its dark mode looks deliberate.",
+            "link": "{{page:themes/midnight}}"
+        },
+        {
+            "icon": "cloud",
+            "title": "Frost",
+            "description": "Calm arctic blue-grey, easy to read in bright office light.",
+            "link": "{{page:themes/frost}}"
+        },
+        {
+            "icon": "chart",
+            "title": "Cobalt",
+            "description": "A strong blue for dashboards and technical documentation.",
+            "link": "{{page:themes/cobalt}}"
+        },
+        {
+            "icon": "building",
+            "title": "Harbour",
+            "description": "Deep navy on cool grey, for public institutions, finance and law firms.",
+            "link": "{{page:themes/harbour}}"
+        },
+        {
+            "icon": "heart",
+            "title": "Rose",
+            "description": "Muted dusty rose with serif headings, for lifestyle, beauty and hospitality.",
+            "link": "{{page:themes/rose}}"
+        },
+        {
+            "icon": "map-pin",
+            "title": "Moss",
+            "description": "Deep forest green for environmental and outdoor organisations.",
+            "link": "{{page:themes/moss}}"
+        },
+        {
+            "icon": "globe",
+            "title": "Lagoon",
+            "description": "Blue-green on a pale page, for health, travel and service sites.",
+            "link": "{{page:themes/lagoon}}"
+        },
+        {
+            "icon": "file-image",
+            "title": "Graphite",
+            "description": "Cool monochrome, so the images supply all the colour.",
+            "link": "{{page:themes/graphite}}"
+        }
     ]
 }
