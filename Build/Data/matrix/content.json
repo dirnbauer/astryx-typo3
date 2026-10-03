@@ -732,7 +732,7 @@
       ],
       "collection": null,
       "js": null,
-      "notes": "caption names the language or file; the panel scrolls sideways rather than wrapping, and there is no copy button because that would need a script."
+      "notes": "caption names the language or file; the panel scrolls sideways rather than wrapping, and a copy button copies the code exactly as typed (without JavaScript the code can still be selected by hand)."
     },
     {
       "id": "callout-note",
@@ -975,9 +975,9 @@
       "id": "quote-carousel",
       "title": "Quote Carousel",
       "titleDe": "Zitat-Karussell",
-      "description": "Renders several quotations in a track that shows one at a time, with dots and arrows to move between them and a swipe on touch. Use it for: a run of customer verdicts, reviews after a conference, alumni voices on a course page, statements from every partner in a consortium. Prefer 'Quote with Portrait' when one voice is enough for the page, and 'Pull Quote' for a line taken from the article itself.",
-      "descriptionDe": "Rendert mehrere Zitate in einer Spur, die jeweils eines zeigt, mit Punkten und Pfeilen zum Blättern und Wischgeste am Touchscreen. Einsetzen für: eine Reihe von Kundenurteilen, Rückmeldungen nach einer Konferenz, Absolventenstimmen auf einer Kursseite, Statements aller Partner eines Konsortiums. Wenn eine Stimme für die Seite genügt, besser 'Zitat mit Porträt' verwenden, für eine Zeile aus dem Artikeltext 'Zitat-Auszug'.",
-      "short": "Several quotations, **one at a time**, with arrows and dots.",
+      "description": "Renders several quotations in a track that shows one at a time, with arrows to move between them, a swipe on touch and a spoken position (‘Quote 2 of 5’). Use it for: a run of customer verdicts, reviews after a conference, alumni voices on a course page, statements from every partner in a consortium. Prefer 'Quote with Portrait' when one voice is enough for the page, and 'Pull Quote' for a line taken from the article itself.",
+      "descriptionDe": "Rendert mehrere Zitate in einer Spur, die jeweils eines zeigt, mit Pfeilen zum Blättern, Wischgeste am Touchscreen und angesagter Position („Zitat 2 von 5“). Einsetzen für: eine Reihe von Kundenurteilen, Rückmeldungen nach einer Konferenz, Absolventenstimmen auf einer Kursseite, Statements aller Partner eines Konsortiums. Wenn eine Stimme für die Seite genügt, besser 'Zitat mit Porträt' verwenden, für eine Zeile aus dem Artikeltext 'Zitat-Auszug'.",
+      "short": "Several quotations, **one at a time**, with arrows and swipe.",
       "shortDe": "Mehrere Zitate, **eines nach dem anderen**, mit Pfeilen.",
       "keywords": [
         "testimonials",
@@ -1051,7 +1051,7 @@
         "max": 12
       },
       "js": "carousel",
-      "notes": "The track is a scroll-snap row that already works as a scroller without JavaScript; the script only adds arrows, dots and the live region."
+      "notes": "The track is a scroll-snap row that already works as a scroller without JavaScript; the script only adds the arrows and the spoken position."
     },
     {
       "id": "statement-band",

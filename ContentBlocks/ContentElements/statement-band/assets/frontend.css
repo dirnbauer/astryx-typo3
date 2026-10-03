@@ -1,42 +1,21 @@
 /*
  * Statement Band
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: two measures and the centring. The display type — fluid and
+ * balanced — and the supporting line are Text's; the band's colour is
+ * Section's.
  */
 
-.g-statement-band__inner {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-5);
-}
-
+/* Narrower than the reading measure on purpose: a display line is read in
+   one or two glances, and a long one stops being a statement. */
 .g-statement-band__statement {
-  /* Narrower than the reading measure on purpose: a display line is read in
-     one or two glances, and a long one stops being a statement. */
   max-inline-size: 26ch;
-  text-wrap: balance;
 }
 
 .g-statement-band__support {
   max-inline-size: 60ch;
-  color: var(--color-text-secondary);
 }
 
 .g-statement-band__inner[data-align="center"] {
-  align-items: center;
   text-align: center;
-}
-
-/* On an accent band the supporting line would otherwise reach for a secondary
-   text colour that is tuned for the page background. */
-.g-statement-band[data-surface="accent"] .g-statement-band__support {
-  color: currentColor;
-  opacity: 0.85;
-}
-
-@media (max-width: 767px) {
-  .g-statement-band__statement {
-    max-inline-size: none;
-  }
 }

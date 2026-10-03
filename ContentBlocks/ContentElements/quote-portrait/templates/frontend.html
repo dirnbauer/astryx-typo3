@@ -6,14 +6,23 @@
 <f:asset.css identifier="g-quote-portrait" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The portrait carries an empty alt: the name is printed directly underneath,
+    The portrait, the Blockquote and the Citation are all direct children of
+    the Figure: a figcaption may only be the figure's first or last child, so
+    the credit cannot sit in a wrapper beside the portrait. The stylesheet
+    places the three on a grid instead.
+
+    The portrait carries an empty alt: the name is printed directly beside it,
     and a screen reader that also announces "photograph of …" reads the person
     out twice for no added information.
+
+    Blockquote sets the words at its featured step and draws the quotation
+    marks of the page's language; the credit lines up with the words, not
+    with the accent rule. Centred, the rule goes and the credit follows.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-quote-portrait">
     <a:layout.container size="{data.width}">
-        <figure class="g-quote-portrait__figure" data-align="{data.align}">
+        <a:molecule.figure align="{data.align}" class="g-quote-portrait__figure">
 
             <f:if condition="{data.image}">
                 <a:atom.avatar size="xl" class="g-quote-portrait__portrait">
@@ -23,22 +32,18 @@
                 </a:atom.avatar>
             </f:if>
 
-            <div class="g-quote-portrait__body">
-                <a:molecule.blockquote class="g-quote-portrait__quote">
-                    <p>{data -> f:render.text(field: 'quote_text')}</p>
-                </a:molecule.blockquote>
+            <a:molecule.blockquote size="lg" marks="auto" class="g-quote-portrait__quote">
+                <p>{data -> f:render.text(field: 'quote_text')}</p>
+            </a:molecule.blockquote>
 
-                <f:if condition="{data.author}">
-                    <a:molecule.citation class="g-quote-portrait__credit">
-                        <span class="g-quote-portrait__name">{data -> f:render.text(field: 'author')}</span>
-                        <f:if condition="{data.role}">
-                            <span class="g-quote-portrait__role">{data -> f:render.text(field: 'role')}</span>
-                        </f:if>
-                    </a:molecule.citation>
-                </f:if>
-            </div>
+            <f:if condition="{data.author}">
+                <a:molecule.citation class="g-quote-portrait__credit">
+                    <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}<f:if condition="{data.role}">,</f:if></a:atom.text>
+                    <f:if condition="{data.role}">{data -> f:render.text(field: 'role')}</f:if>
+                </a:molecule.citation>
+            </f:if>
 
-        </figure>
+        </a:molecule.figure>
     </a:layout.container>
 </a:layout.section>
 

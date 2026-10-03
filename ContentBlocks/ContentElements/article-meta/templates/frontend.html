@@ -6,41 +6,48 @@
 <f:asset.css identifier="g-article-meta" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The dots between the items are pseudo-elements, so a screen reader reads
-    four plain facts rather than "Hanna Vogt middle dot Science editor middle
-    dot 14 March 2026". The portrait's alt stays empty for the same reason: the
-    name is already the next thing in the line.
+    Three facts on one line: who wrote it (portrait, name, role underneath),
+    what it is filed under (a Badge) and when (the dateline). They are told
+    apart by type and by space rather than by typed separators, so a screen
+    reader reads plain facts and nothing is announced that was only drawn.
+
+    The portrait's alt stays empty: the name is printed right beside it, and a
+    description of the photograph would read the person out twice.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-article-meta">
     <a:layout.container>
-        <div class="g-article-meta__strip">
+        <a:layout.stack orientation="horizontal" gap="4" class="g-article-meta__strip">
 
-            <f:if condition="{data.image}">
-                <a:atom.avatar size="sm" class="g-article-meta__portrait">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="" width="48c" height="48c" loading="lazy"/>
-                    </f:for>
-                </a:atom.avatar>
-            </f:if>
-
-            <f:if condition="{data.author}">
-                <a:atom.text type="label" as="span" class="g-article-meta__item g-article-meta__author">{data -> f:render.text(field: 'author')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.role}">
-                <a:atom.text type="supporting" as="span" class="g-article-meta__item">{data -> f:render.text(field: 'role')}</a:atom.text>
+            <f:if condition="{data.image} || {data.author}">
+                <a:layout.stack orientation="horizontal" gap="2" class="g-article-meta__person">
+                    <f:if condition="{data.image}">
+                        <a:atom.avatar size="md">
+                            <f:for each="{data.image}" as="image">
+                                <f:image image="{image}" alt="" width="72c" height="72c" loading="lazy"/>
+                            </f:for>
+                        </a:atom.avatar>
+                    </f:if>
+                    <f:if condition="{data.author}">
+                        <a:layout.stack gap="1">
+                            <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                            <f:if condition="{data.role}">
+                                <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
+                    </f:if>
+                </a:layout.stack>
             </f:if>
 
             <f:if condition="{data.eyebrow}">
-                <a:atom.badge variant="outline" as="span" class="g-article-meta__category">{data -> f:render.text(field: 'eyebrow')}</a:atom.badge>
+                <a:atom.badge variant="outline">{data -> f:render.text(field: 'eyebrow')}</a:atom.badge>
             </f:if>
 
             <f:if condition="{data.note}">
-                <a:atom.text type="supporting" as="span" class="g-article-meta__item">{data -> f:render.text(field: 'note')}</a:atom.text>
+                <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

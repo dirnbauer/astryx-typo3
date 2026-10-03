@@ -1,47 +1,11 @@
 /*
  * Article Contents
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The box is Card, the numbers are List's decimal markers and
+ * the entries are Link and Text; the element caps how wide the box grows, so
+ * a list of short entries does not stretch across a wide band.
  */
 
-.g-contents-box__box {
+.g-contents-box__nav {
   max-inline-size: 44rem;
-  gap: var(--spacing-4);
-}
-
-.g-contents-box__list {
-  counter-reset: g-contents;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.g-contents-box__entry {
-  counter-increment: g-contents;
-  display: grid;
-  grid-template-columns: var(--spacing-6) 1fr;
-  align-items: baseline;
-}
-
-/* The number is drawn from a counter rather than left to the ordered list,
-   because the hint under an entry has to sit in the same column as its link
-   and a native marker cannot be made to leave that column alone. */
-.g-contents-box__entry::before {
-  content: counter(g-contents) '.';
-  color: var(--color-text-secondary);
-  font-size: var(--text-supporting-size);
-}
-
-.g-contents-box__hint {
-  grid-column: 2;
-}
-
-@media (max-width: 639px) {
-  .g-contents-box__box {
-    gap: var(--spacing-3);
-  }
 }

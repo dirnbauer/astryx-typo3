@@ -2,26 +2,34 @@
     "_type": "content",
     "eyebrow": "Numbered Steps",
     "header": "Instructions as a numbered sequence",
-    "lead": "Two to twelve steps in two to four columns. A CSS counter sets the numbers, so reordering the rows in the backend renumbers them.",
+    "lead": "Two to twelve steps in two to four columns. The numbers follow the order of the rows, so reordering them in the backend renumbers the steps.",
     "columns": "2",
     "width": "md",
     "tone": "surface",
     "steps": [
         {
-            "title": "Each step has a heading",
-            "text": "It is a level-three heading, so screen reader users can jump straight to any step."
+            "title": "Pick a chapter",
+            "text": "The catalogue has one page per group of elements, from heroes to footers.",
+            "link": "{{page:components}}",
+            "icon": "layout-grid"
         },
         {
-            "title": "Plus one or two sentences of instruction",
-            "text": "Long enough to explain the step, short enough to fit the whole procedure on one screen."
+            "title": "Compare the themes",
+            "text": "All 25 themes are shown side by side, each card in its own colours.",
+            "link": "{{page:themes}}",
+            "icon": "layers"
         },
         {
-            "title": "The link is optional",
-            "text": "If a step continues on its own page, add a link to it."
+            "title": "Read the accessibility statement",
+            "text": "What the theme does for keyboard and screen reader users, and what it does not.",
+            "link": "{{page:accessibility}}",
+            "icon": "accessibility"
         },
         {
-            "title": "Below 768px the columns collapse",
-            "text": "The steps form a single column and keep their numbers."
+            "title": "Search the site",
+            "text": "The search page looks through every page of this site.",
+            "link": "{{page:search}}",
+            "icon": "search"
         }
     ]
 }

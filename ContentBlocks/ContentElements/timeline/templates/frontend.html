@@ -8,48 +8,59 @@
 <f:comment>
     An ordered list, because the sequence is the content: read without styling —
     in a feed reader, in print, by a screen reader — the entries still arrive in
-    the order they happened. The line down the side is a border on that list,
-    not an element of its own.
+    the order they happened.
+
+    Each entry is a StatusDot and, below it, a vertical Divider that runs to the
+    next entry; the last entry has no rail, so the line can never run past the
+    end of the sequence. The date is accent Text in tabular figures, so years
+    line up down the rail, with its qualifier (a month, a quarter) in
+    supporting Text beside it.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-timeline">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-timeline__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-timeline__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <a:layout.stack as="ol" class="g-timeline__list">
+                <f:for each="{data.entries}" as="item" iteration="entry">
+                    <li class="g-timeline__entry">
 
-        <ol class="g-timeline__list">
-            <f:for each="{data.entries}" as="item">
-                <li class="g-timeline__entry">
-                    <p class="g-timeline__when">
-                        <a:atom.text type="label" as="span" class="g-timeline__date">{item -> f:render.text(field: 'value')}</a:atom.text>
-                        <f:if condition="{item.unit}">
-                            <a:atom.text type="supporting" as="span" class="g-timeline__qualifier">{item -> f:render.text(field: 'unit')}</a:atom.text>
-                        </f:if>
-                    </p>
+                        <div class="g-timeline__marker">
+                            <a:atom.statusDot variant="accent" />
+                            <f:if condition="{entry.isLast}">
+                                <f:else><a:atom.divider orientation="vertical" class="g-timeline__rail" /></f:else>
+                            </f:if>
+                        </div>
 
-                    <f:if condition="{item.title}">
-                        <a:atom.heading level="3" class="g-timeline__title">{item -> f:render.text(field: 'title')}</a:atom.heading>
-                    </f:if>
+                        <a:layout.stack gap="2" class="g-timeline__body">
+                            <a:layout.stack orientation="horizontal" gap="2">
+                                <a:atom.text type="label" color="accent" numeric="tabular" as="span">{item -> f:render.text(field: 'value')}</a:atom.text>
+                                <f:if condition="{item.unit}">
+                                    <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'unit')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
 
-                    <f:if condition="{item.text}">
-                        <a:atom.text type="body" class="g-timeline__text">{item -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
-                </li>
-            </f:for>
-        </ol>
+                            <f:if condition="{item.title}">
+                                <a:atom.heading level="3">{item -> f:render.text(field: 'title')}</a:atom.heading>
+                            </f:if>
 
+                            <f:if condition="{item.text}">
+                                <a:atom.text type="body" color="secondary">{item -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
+
+                    </li>
+                </f:for>
+            </a:layout.stack>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

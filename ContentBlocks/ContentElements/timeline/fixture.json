@@ -14,14 +14,15 @@
         },
         {
             "value": "2019",
-            "title": "The connecting line is a border",
-            "text": "Each entry draws its own part of the line, so the line never runs past the last entry."
+            "unit": "June",
+            "title": "The line runs between the dots",
+            "text": "Each entry draws the stretch of line below its own dot, so the line never runs past the last entry."
         },
         {
             "value": "2026",
             "unit": "Today",
             "title": "The last entry ends the line",
-            "text": "Its border is transparent, and the dot still marks where the sequence stops."
+            "text": "It has a dot but no line below it, so the sequence visibly stops."
         }
     ]
 }

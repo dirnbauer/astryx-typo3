@@ -1,50 +1,10 @@
 /*
  * Key Takeaways
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The box is Card, the points are List and its markers, the
+ * glyphs are Icon; the element keeps the box to a reading measure.
  */
 
 .g-key-takeaways__box {
   max-inline-size: 70ch;
-  gap: var(--spacing-4);
-}
-
-.g-key-takeaways__lead {
-  color: var(--color-text-secondary);
-}
-
-.g-key-takeaways__list {
-  gap: var(--spacing-3);
-}
-
-/* The marker is drawn on the item rather than taken from list-style, because a
-   native bullet cannot be aligned to the first line of a point that runs to
-   three of them. */
-.g-key-takeaways__point::before {
-  content: '';
-  flex-shrink: 0;
-  inline-size: var(--spacing-2);
-  block-size: var(--spacing-2);
-  /* Nudged down so the dot meets the middle of the first line. A token, not
-     `0.45em`, which resolved to 6.3px — beside the scale rather than on it. */
-  margin-block-start: var(--spacing-1-5);
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-}
-
-.g-key-takeaways__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-0-5);
-}
-
-.g-key-takeaways__lineLabel {
-  font-weight: var(--font-weight-medium);
-}
-
-@media (max-width: 639px) {
-  .g-key-takeaways__box {
-    gap: var(--spacing-3);
-  }
 }

@@ -12,30 +12,47 @@
     would copy. In the editor the same field does go through f:render.text, so
     the block becomes an inline plain-text editable — there the breaks are the
     point.
+
+    Long lines scroll sideways inside CodeBlock's own scroll container, which
+    is a named tab stop: the keyboard reaches the overflow without the pre
+    having to become a second scroller. The container is named after the
+    heading, then the caption, then a plain "Code example".
+
+    The copy button in the header strip is CodeBlock's: it copies the listing
+    exactly as typed and announces "Code copied". Without the script it does
+    nothing, and the code is still there to select.
 </f:comment>
+
+<f:variable name="scrollLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/code-block/language/labels.xlf:frontend.scrollLabel" default="Code example"/></f:variable>
+<f:variable name="copyLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/code-block/language/labels.xlf:frontend.copyLabel" default="Copy code"/></f:variable>
+<f:variable name="copiedLabel"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/code-block/language/labels.xlf:frontend.copiedLabel" default="Code copied"/></f:variable>
+<f:if condition="{data.caption}"><f:variable name="scrollLabel" value="{data.caption}"/></f:if>
+<f:if condition="{data.header}"><f:variable name="scrollLabel" value="{data.header}"/></f:if>
 
 <a:layout.section class="g-code-block">
     <a:layout.container size="{data.width}">
+        <a:layout.stack>
 
-        <f:if condition="{data.header}">
-            <a:atom.heading level="2" class="g-code-block__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
-        </f:if>
+            <f:if condition="{data.header}">
+                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            </f:if>
 
-        <a:molecule.codeBlock class="g-code-block__panel">
-            <f:fragment name="header"><f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if></f:fragment>
+            <a:molecule.codeBlock id="g-code-block-{data.uid}" scroll="{true}" scrollLabel="{scrollLabel}" copyLabel="{copyLabel}" copiedLabel="{copiedLabel}">
+                <f:fragment name="header"><f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if></f:fragment>
 
-            <f:fragment>
-                <f:editMode>
-                    <f:then><pre class="g-code-block__pre"><code>{data -> f:render.text(field: 'text')}</code></pre></f:then>
-                    <f:else><pre class="g-code-block__pre" tabindex="0"><code>{data.text -> f:format.htmlspecialchars()}</code></pre></f:else>
-                </f:editMode>
-            </f:fragment>
-        </a:molecule.codeBlock>
+                <f:fragment>
+                    <f:editMode>
+                        <f:then><pre><code>{data -> f:render.text(field: 'text')}</code></pre></f:then>
+                        <f:else><pre><code>{data.text -> f:format.htmlspecialchars()}</code></pre></f:else>
+                    </f:editMode>
+                </f:fragment>
+            </a:molecule.codeBlock>
 
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-code-block__note">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-code-block__note">{data -> f:render.text(field: 'note')}</a:atom.text>
+            </f:if>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

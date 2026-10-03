@@ -13,5 +13,23 @@
         <target>Rendert Quelltext in einem dicktengleichen, horizontal scrollbaren Feld, darüber die Sprache oder der Dateiname, darunter eine Anmerkung. Einsetzen für: Konfigurationsbeispiele, Kommandozeilenbefehle, eine API-Antwort, ein Codebeispiel im Fachartikel, einen Template-Auszug. Für einzelne Wörter Code mitten im Satz besser &apos;Fließtext&apos; verwenden, wenn die Warnung rund um den Code die eigentliche Aussage ist &apos;Hinweisbox&apos;.</target>
       </segment>
     </unit>
+    <unit id="frontend.scrollLabel">
+      <segment state="final">
+        <source>Code example</source>
+        <target>Codebeispiel</target>
+      </segment>
+    </unit>
+    <unit id="frontend.copyLabel">
+      <segment state="final">
+        <source>Copy code</source>
+        <target>Code kopieren</target>
+      </segment>
+    </unit>
+    <unit id="frontend.copiedLabel">
+      <segment state="final">
+        <source>Code copied</source>
+        <target>Code kopiert</target>
+      </segment>
+    </unit>
   </file>
 </xliff>

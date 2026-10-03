@@ -1,80 +1,81 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
-
-<f:asset.css identifier="g-pros-cons" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
     One collection, sorted into two columns by the child's own toggle, so an
     editor moves an argument from one side to the other by flipping a switch
     rather than by cutting and pasting between two lists.
 
-    The two markers are a plus and a minus, not two colours: on a monochrome
-    printout and to anyone who cannot tell the two hues apart, the glyph is the
-    only thing that still says which side a row is on.
+    The two markers are a tick and a cross, not two colours: on a monochrome
+    printout and to anyone who cannot tell two hues apart, the glyph is what
+    still says which side a row is on. Icon tints them in the theme's status
+    colours on top. The glyphs are decoration to a screen reader, which hears
+    the column heading instead.
+
+    Everything here is composed of components, so the element ships no
+    stylesheet of its own.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-pros-cons">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-pros-cons__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-pros-cons__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <div class="g-pros-cons__grid">
+            <a:layout.grid fixed="2" gap="8">
 
-            <div class="g-pros-cons__column" data-side="for">
-                <a:atom.heading level="3" class="g-pros-cons__columnTitle">
-                    <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.prosCons.for">For</f:translate>
-                </a:atom.heading>
-                <a:molecule.list class="g-pros-cons__list">
-                    <f:for each="{data.points}" as="item">
-                        <f:if condition="{item.included}">
-                            <li class="g-pros-cons__point">
-                                <span class="g-pros-cons__body">
-                                    <a:atom.text type="body" as="span">{item -> f:render.text(field: 'title')}</a:atom.text>
-                                    <f:if condition="{item.value}">
-                                        <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'value')}</a:atom.text>
-                                    </f:if>
-                                </span>
-                            </li>
-                        </f:if>
-                    </f:for>
-                </a:molecule.list>
-            </div>
+                <a:layout.stack>
+                    <a:atom.heading level="3">
+                        <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.prosCons.for">For</f:translate>
+                    </a:atom.heading>
+                    <a:atom.divider />
+                    <a:molecule.list density="compact">
+                        <f:for each="{data.points}" as="item">
+                            <f:if condition="{item.included}">
+                                <f:render section="Point" arguments="{item: item, glyph: 'check', tone: 'success'}"/>
+                            </f:if>
+                        </f:for>
+                    </a:molecule.list>
+                </a:layout.stack>
 
-            <div class="g-pros-cons__column" data-side="against">
-                <a:atom.heading level="3" class="g-pros-cons__columnTitle">
-                    <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.prosCons.against">Against</f:translate>
-                </a:atom.heading>
-                <a:molecule.list class="g-pros-cons__list">
-                    <f:for each="{data.points}" as="item">
-                        <f:if condition="{item.included}">
-                            <f:else>
-                                <li class="g-pros-cons__point">
-                                    <span class="g-pros-cons__body">
-                                        <a:atom.text type="body" as="span">{item -> f:render.text(field: 'title')}</a:atom.text>
-                                        <f:if condition="{item.value}">
-                                            <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'value')}</a:atom.text>
-                                        </f:if>
-                                    </span>
-                                </li>
-                            </f:else>
-                        </f:if>
-                    </f:for>
-                </a:molecule.list>
-            </div>
+                <a:layout.stack>
+                    <a:atom.heading level="3">
+                        <f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.prosCons.against">Against</f:translate>
+                    </a:atom.heading>
+                    <a:atom.divider />
+                    <a:molecule.list density="compact">
+                        <f:for each="{data.points}" as="item">
+                            <f:if condition="{item.included}">
+                                <f:else>
+                                    <f:render section="Point" arguments="{item: item, glyph: 'x', tone: 'error'}"/>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                    </a:molecule.list>
+                </a:layout.stack>
 
-        </div>
+            </a:layout.grid>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
+
+<f:section name="Point">
+    <a:molecule.listItem>
+        <a:atom.icon name="{glyph}" color="{tone}"/>
+        <a:layout.stack gap="1">
+            <a:atom.text as="span">{item -> f:render.text(field: 'title')}</a:atom.text>
+            <f:if condition="{item.value}">
+                <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'value')}</a:atom.text>
+            </f:if>
+        </a:layout.stack>
+    </a:molecule.listItem>
+</f:section>
 
 </html>

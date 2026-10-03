@@ -6,28 +6,45 @@
 <f:asset.css identifier="g-callout-note" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    An aside, because the passage is related to the text around it but is not
-    part of its argument — which is exactly what a reader skipping the callout
-    should be able to do without losing the thread.
+    A Banner, which is an aside: the passage is related to the text around it
+    but is not part of its argument, so a reader who skips it loses nothing of
+    the thread.
 
-    The chosen icon is not painted: this theme ships no icon set of its own, and
-    a callout that needs a glyph to be recognised is one that stops working the
-    moment the glyph fails to load. The tinted plate and the accent edge carry
-    the distinction instead.
+    The icon the editor picks also sets the Banner's tone, so the one choice
+    says whether the note informs, reassures, warns or forbids: an info glyph
+    tints it as information, a tick as success, a triangle as a warning and a
+    cross as an error. Any other glyph keeps the neutral tone. The tint carries
+    the meaning on its own; the glyph is decoration and is hidden from screen
+    readers, as Banner's icon slot expects.
+
+    `tone` is the band the note sits on, like every other element's. Compact
+    tightens the band and the Banner together, for a one-line note.
 </f:comment>
+
+<f:variable name="status" value="default"/>
+<f:switch expression="{data.icon}">
+    <f:case value="info"><f:variable name="status" value="info"/></f:case>
+    <f:case value="check-circle"><f:variable name="status" value="success"/></f:case>
+    <f:case value="badge-check"><f:variable name="status" value="success"/></f:case>
+    <f:case value="shield-check"><f:variable name="status" value="success"/></f:case>
+    <f:case value="alert-triangle"><f:variable name="status" value="warning"/></f:case>
+    <f:case value="alert-circle"><f:variable name="status" value="error"/></f:case>
+    <f:case value="x-circle"><f:variable name="status" value="error"/></f:case>
+    <f:defaultCase></f:defaultCase>
+</f:switch>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-callout-note">
     <a:layout.container size="{data.width}">
-        <a:molecule.banner class="g-callout-note__box">
-            <a:molecule.bannerContent>
-
-                <f:if condition="{data.header}">
-                    <a:molecule.bannerTitle level="2" class="g-callout-note__title">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
-                </f:if>
-
-                <a:molecule.bannerBody as="div" class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></a:molecule.bannerBody>
-
-            </a:molecule.bannerContent>
+        <a:molecule.banner status="{status}" density="{f:if(condition: data.compact, then: 'compact', else: 'default')}" class="g-callout-note__box">
+            <f:fragment name="icon"><f:if condition="{data.icon} && {data.icon} != 'none'"><a:atom.icon name="{data.icon}"/></f:if></f:fragment>
+            <f:fragment>
+                <a:molecule.bannerContent>
+                    <f:if condition="{data.header}">
+                        <a:molecule.bannerTitle level="2">{data -> f:render.text(field: 'header')}</a:molecule.bannerTitle>
+                    </f:if>
+                    <a:molecule.bannerBody as="div" class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></a:molecule.bannerBody>
+                </a:molecule.bannerContent>
+            </f:fragment>
         </a:molecule.banner>
     </a:layout.container>
 </a:layout.section>

@@ -6,23 +6,29 @@
 <f:asset.css identifier="g-statement-band" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The sentence is a paragraph in display type, not a heading. It is set large
-    because it is the only thing in the band — not because it opens a section —
-    and a heading here would put a claim into the page outline where a reader
-    jumping between headings expects a place to go.
+    The sentence is a paragraph in Text's display type, not a heading. It is
+    set large because it is the only thing in the band — not because it opens a
+    section — and a heading here would put a claim into the page outline where
+    a reader jumping between headings expects a place to go.
+
+    On an accent band Section redefines the text tokens, so the supporting
+    line's secondary colour already reads on the accent; nothing here has to
+    repaint it.
 </f:comment>
+
+<f:variable name="centred" value="{f:if(condition: '{data.align} == \'center\'', then: 1, else: 0)}"/>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-statement-band">
     <a:layout.container size="{data.width}">
-        <div class="g-statement-band__inner" data-align="{data.align}">
+        <a:layout.stack gap="6" align="{f:if(condition: centred, then: 'center', else: 'default')}" class="g-statement-band__inner">
 
             <a:atom.text type="display-3" class="g-statement-band__statement">{data -> f:render.text(field: 'header')}</a:atom.text>
 
             <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-statement-band__support">{data -> f:render.text(field: 'lead')}</a:atom.text>
+                <a:atom.text type="large" color="secondary" class="g-statement-band__support">{data -> f:render.text(field: 'lead')}</a:atom.text>
             </f:if>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -1,41 +1,17 @@
 /*
  * Accordion
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The introduction is SectionIntro, the rows, rules, chevron and
+ * question type are Collapsible's and CollapsibleGroup's. What is left is the
+ * answer's reading measure, kept clear of the column the chevron sits in.
  */
-
-.g-accordion-faq__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 70ch;
-  margin-block-end: var(--spacing-8);
-}
-
-/* A heading inside a summary is valid and gives the questions an outline; what
-   it must not bring with it is heading typography, because the summary already
-   sets the row's own scale and weight. */
-.g-accordion-faq__question {
-  font: inherit;
-  margin: 0;
-}
 
 .g-accordion-faq__answer {
   max-inline-size: 70ch;
   padding-inline-end: var(--spacing-6);
 }
 
-.g-accordion-faq__group {
-  border-block-start: var(--border-width) solid var(--color-border);
-  border-block-end: var(--border-width) solid var(--color-border);
-}
-
 @media (max-width: 639px) {
-  .g-accordion-faq__intro {
-    margin-block-end: var(--spacing-6);
-  }
-
   .g-accordion-faq__answer {
     padding-inline-end: 0;
   }

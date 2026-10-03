@@ -6,28 +6,34 @@
 <f:asset.css identifier="g-section-break" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The rule is a div and not an hr: the heading under it already announces the
-    break, and an hr would report a second, wordless one to anyone listening
-    rather than looking.
+    The rule is Divider, an hr: a thematic break, which is exactly what this
+    element is. The words under it are a SectionIntro with a real h2, so the
+    break is in the outline as well as on screen and a reader who jumps
+    between headings lands on the new part. The line under the heading is the
+    intro's lead at the supporting step.
+
+    The gap under the rule is larger than the gap between the words, so the
+    line reads as the top edge of what follows rather than as a separator
+    floating between two parts. Centred, the rule shrinks to a short mark over
+    the title: a full-width line over a centred heading reads as a page
+    divider, not as part of the title.
 </f:comment>
+
+<f:variable name="centred" value="{f:if(condition: '{data.align} == \'center\'', then: 1, else: 0)}"/>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-section-break">
     <a:layout.container>
-        <div class="g-section-break__inner" data-align="{data.align}">
+        <a:layout.stack gap="6" align="{f:if(condition: centred, then: 'center', else: 'default')}" class="g-section-break__inner">
 
-            <a:atom.divider class="g-section-break__rule"></a:atom.divider>
+            <a:atom.divider class="g-section-break__rule" />
 
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+            <a:molecule.sectionIntro align="{data.align}" leadType="supporting">
+                <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                <f:fragment name="lead">{data -> f:render.text(field: 'subheader')}</f:fragment>
+            </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.subheader}">
-                <a:atom.text type="supporting" class="g-section-break__sub">{data -> f:render.text(field: 'subheader')}</a:atom.text>
-            </f:if>
-
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -2,23 +2,30 @@
     "_type": "content",
     "header": "The key points a reader should remember",
     "lead": "Two to six lines in a box, for the top of a long report or the end of a guide.",
-    "icon": "",
+    "icon": "check",
     "tone": "body",
     "width": "md",
     "compact": 0,
     "points": [
         {
             "title": "Each point is one line.",
-            "text": "An explanation under it is optional and uses smaller text."
+            "text": "An explanation under it is optional and uses smaller text.",
+            "icon": "check"
         },
         {
-            "title": "No headings, so the page outline stays short."
+            "title": "No headings, so the page outline stays short.",
+            "text": "Six one-line headings would fill the outline with entries that lead nowhere.",
+            "icon": "check"
         },
         {
-            "title": "The marker aligns with the first line."
+            "title": "The block’s icon marks every point.",
+            "text": "A point can pick an icon of its own. Without any icon, each point gets a plain dot.",
+            "icon": "check"
         },
         {
-            "title": "Compact mode fits the box inside other elements."
+            "title": "Compact mode tightens the box.",
+            "text": "Less padding, for a narrow column or the end of a long page.",
+            "icon": "check"
         }
     ]
 }

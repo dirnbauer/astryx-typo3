@@ -9,19 +9,26 @@
     The editor's own markup is handed to .astryx-prose rather than styled here:
     a paragraph inside a rich text block has to read the same on every page,
     and one shared rule is the only way that stays true across the catalog.
+
+    Align is Section's, as an editor's choice the element's stylesheet keys
+    off: centred means the column is centred, and SectionIntro centres the
+    heading with it — the prose inside stays left-aligned, because centred
+    running text begins every line in a different place.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-rich-text">
+<a:layout.section surface="{data.tone}" align="{data.align}" class="g-rich-text">
     <a:layout.container size="{data.width}">
-        <div class="g-rich-text__body" data-align="{data.align}">
+        <a:layout.stack gap="6" class="g-rich-text__body">
 
             <f:if condition="{data.header}">
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:molecule.sectionIntro align="{data.align}">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
             <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
 
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

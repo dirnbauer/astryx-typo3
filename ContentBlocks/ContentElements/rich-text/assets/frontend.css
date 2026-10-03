@@ -1,32 +1,23 @@
 /*
  * Rich Text
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The prose rhythm is .astryx-prose's and the heading is
+ * SectionIntro's; the element sets the reading measure and centres the
+ * column when asked.
  */
 
+/* The width select governs the band; this governs the reading measure. Past
+   about seventy characters the eye loses the start of the next line. */
 .g-rich-text__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-6);
-  /* The width select governs the band; this governs the reading measure. Past
-     about seventy characters the eye loses the start of the next line. */
   max-inline-size: 70ch;
 }
 
-/* Centred means the column is centred — the prose inside it is not. Centred
-   running text begins every line in a different place, which is the one thing
-   a long passage must never do. */
-.g-rich-text__body[data-align="center"] {
+.g-rich-text[data-align="center"] .g-rich-text__body {
   margin-inline: auto;
-}
-
-.g-rich-text__body[data-align="center"] > .astryx-heading {
-  text-align: center;
 }
 
 @media (max-width: 639px) {
   .g-rich-text__body {
-    gap: var(--spacing-4);
+    --stack-gap: var(--spacing-4);
   }
 }

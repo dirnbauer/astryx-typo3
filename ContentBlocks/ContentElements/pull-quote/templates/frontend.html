@@ -6,26 +6,33 @@
 <f:asset.css identifier="g-pull-quote" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The quotation marks are drawn by the stylesheet, so the stored text has none
-    of its own — otherwise an editor who types them gets two sets, and a search
-    index gets a phrase that no longer matches the article it was lifted from.
+    A Figure holding a Blockquote and its Citation — the one pairing HTML
+    sanctions for a quotation with an attribution. The name is not part of the
+    quotation, so it is never inside the blockquote.
+
+    Blockquote draws the quotation marks, in the language of the page, so the
+    stored text has none of its own: an editor who typed them would get two
+    sets, and a search index would get a phrase that no longer matches the
+    article it was lifted from. `xl` is the pull-quote step, in the heading
+    face; centred, the quote drops its accent rule and the credit follows it.
 </f:comment>
 
 <a:layout.section class="g-pull-quote">
     <a:layout.container size="{data.width}">
-        <figure class="g-pull-quote__figure" data-align="{data.align}">
+        <a:molecule.figure align="{data.align}" class="g-pull-quote__figure">
 
-            <a:molecule.blockquote class="g-pull-quote__quote">
+            <a:molecule.blockquote size="xl" marks="auto">
                 <p>{data -> f:render.text(field: 'quote_text')}</p>
             </a:molecule.blockquote>
 
             <f:if condition="{data.author}">
-                <a:molecule.citation class="g-pull-quote__credit">
-                    {data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-pull-quote__role">{data -> f:render.text(field: 'role')}</span></f:if>
+                <a:molecule.citation>
+                    <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}<f:if condition="{data.role}">,</f:if></a:atom.text>
+                    <f:if condition="{data.role}">{data -> f:render.text(field: 'role')}</f:if>
                 </a:molecule.citation>
             </f:if>
 
-        </figure>
+        </a:molecule.figure>
     </a:layout.container>
 </a:layout.section>
 

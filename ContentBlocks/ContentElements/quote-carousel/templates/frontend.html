@@ -6,64 +6,69 @@
 <f:asset.css identifier="g-quote-carousel" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The track is a scroll-snap row, so it already works as a carousel with no
-    script at all — drag, momentum and keyboard scrolling are the browser's.
-    data-g-carousel only adds the two arrows a mouse user has no other way to
-    reach, and the shared runtime disables them at either end.
+    The track is Carousel's scroll-snap row, so it already works with no script
+    at all — drag, momentum and keyboard scrolling are the browser's. The
+    runtime adds the two arrows a mouse user has no other way to reach (shown
+    only where there is something to page to), and says "Quote 2 of 3" to a
+    screen reader once a scroll comes to rest.
+
+    Each card holds a Figure: the words in a plain Blockquote, which needs no
+    accent rule on a card and draws the quotation marks of the page's
+    language, and the person in a Citation with their portrait. The portrait's
+    alt stays empty because the name is printed beside it.
 </f:comment>
+
+<f:variable name="labels">LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf</f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-quote-carousel">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-quote-carousel__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-quote-carousel__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <a:molecule.carousel
-            gap="4"
-            class="g-quote-carousel__carousel"
-            trackClass="g-quote-carousel__track"
-            trackLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.region', default: 'Quotes')}"
-            controlClass="g-quote-carousel__control"
-            previousLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.previous', default: 'Previous quote')}"
-            nextLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.carousel.next', default: 'Next quote')}">
-            <f:for each="{data.quotes}" as="item">
-                <a:molecule.carouselItem class="g-quote-carousel__item">
-                    <a:molecule.card class="g-quote-carousel__card">
-                        <blockquote class="g-quote-carousel__quote">
-                            <p>{item -> f:render.text(field: 'quote_text')}</p>
-                        </blockquote>
-                        <figcaption class="g-quote-carousel__credit">
-                            <f:if condition="{item.image}">
-                                <a:atom.avatar size="md">
-                                    <f:for each="{item.image}" as="portrait">
-                                        <f:image image="{portrait}" alt="" width="72c" height="72c" loading="lazy"/>
-                                    </f:for>
-                                </a:atom.avatar>
-                            </f:if>
-                            <span class="g-quote-carousel__who">
-                                <a:atom.text type="label" as="span">{item -> f:render.text(field: 'author')}</a:atom.text>
-                                <f:if condition="{item.role}">
-                                    <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
-                                </f:if>
-                            </span>
-                        </figcaption>
-                    </a:molecule.card>
-                </a:molecule.carouselItem>
-            </f:for>
+            <a:molecule.carousel
+                gap="4"
+                trackLabel="{f:translate(key: '{labels}:content.carousel.region', default: 'Quotes')}"
+                previousLabel="{f:translate(key: '{labels}:content.carousel.previous', default: 'Previous quote')}"
+                nextLabel="{f:translate(key: '{labels}:content.carousel.next', default: 'Next quote')}"
+                statusLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/quote-carousel/language/labels.xlf:carousel.status', default: 'Quote %1$s of %2$s')}">
+                <f:for each="{data.quotes}" as="item">
+                    <a:molecule.carouselItem class="g-quote-carousel__item">
+                        <a:molecule.card class="g-quote-carousel__card">
+                            <a:molecule.figure class="g-quote-carousel__figure">
+                                <a:molecule.blockquote variant="plain" marks="auto">
+                                    <p>{item -> f:render.text(field: 'quote_text')}</p>
+                                </a:molecule.blockquote>
+                                <a:molecule.citation>
+                                    <a:layout.stack orientation="horizontal" gap="3">
+                                        <f:if condition="{item.image}">
+                                            <a:atom.avatar size="md">
+                                                <f:for each="{item.image}" as="portrait">
+                                                    <f:image image="{portrait}" alt="" width="72c" height="72c" loading="lazy"/>
+                                                </f:for>
+                                            </a:atom.avatar>
+                                        </f:if>
+                                        <a:layout.stack gap="1">
+                                            <a:atom.text type="label" as="span">{item -> f:render.text(field: 'author')}</a:atom.text>
+                                            <f:if condition="{item.role}">
+                                                <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'role')}</a:atom.text>
+                                            </f:if>
+                                        </a:layout.stack>
+                                    </a:layout.stack>
+                                </a:molecule.citation>
+                            </a:molecule.figure>
+                        </a:molecule.card>
+                    </a:molecule.carouselItem>
+                </f:for>
+            </a:molecule.carousel>
 
-        </a:molecule.carousel>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

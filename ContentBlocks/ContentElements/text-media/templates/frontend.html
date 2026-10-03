@@ -6,44 +6,51 @@
 <f:asset.css identifier="g-text-media" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The picture comes first in the source so that a one-column screen shows the
-    thing being explained before the explanation. The two-column order is set
-    with `order` and only exists above 768px, where both are visible at once
-    and reading order no longer follows the DOM.
+    Split is the two-column band, and it is used the way it is written: the
+    copy first in the source, the picture second. Reverse asks Split for
+    `media-first`, which moves the picture to the left in CSS and leaves the
+    source alone — the copy is still read first by a screen reader and is
+    still the first tab stop. On a phone the two columns stack in that order.
+
+    The picture keeps its own proportions: it was chosen for what is in it,
+    and a crop to a shape the element preferred would cut that out. Figure
+    gives it the full column and the container's corners, and its caption.
+
+    The action is a Button, and it is rendered only with both a label and a
+    real target: a label with nowhere to go, or a bare "#" that reloads this
+    page, is not an action. The copy column aligns its parts to the start, so
+    the Button keeps its own width.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-text-media">
     <a:layout.container size="{data.width}">
-        <a:layout.split variant="{f:if(condition: data.reverse, then: 'reverse', else: 'default')}" class="g-text-media__grid">
+        <a:layout.split variant="{f:if(condition: data.reverse, then: 'media-first', else: 'default')}">
 
-            <f:if condition="{data.image}">
-                <figure class="g-text-media__media">
-                    <f:for each="{data.image}" as="image">
-                        <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="800" loading="lazy" class="g-text-media__image"/>
-                    </f:for>
-                    <f:if condition="{data.caption}">
-                        <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
-                    </f:if>
-                </figure>
-            </f:if>
-
-            <div class="g-text-media__copy">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <a:layout.stack align="start" class="g-text-media__copy">
+                <f:if condition="{data.eyebrow} || {data.header}">
+                    <a:molecule.sectionIntro>
+                        <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                        <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    </a:molecule.sectionIntro>
                 </f:if>
 
                 <div class="astryx-prose"><f:format.html>{data.bodytext}</f:format.html></div>
 
-                <f:if condition="{data.cta_label}">
-                    <p class="g-text-media__action">
-                        <a:atom.link variant="cta" parameter="{data.cta_link}">{data.cta_label}</a:atom.link>
-                    </p>
+                <f:if condition="{data.cta_label} && {data.cta_link.url} && {data.cta_link.url} != '#'">
+                    <a:atom.button variant="secondary" parameter="{data.cta_link}">{data.cta_label}</a:atom.button>
                 </f:if>
-            </div>
+            </a:layout.stack>
+
+            <f:if condition="{data.image}">
+                <a:molecule.figure>
+                    <f:fragment>
+                        <f:for each="{data.image}" as="image">
+                            <f:image image="{image}" alt="{image.alternative}" width="800" loading="lazy"/>
+                        </f:for>
+                    </f:fragment>
+                    <f:fragment name="caption">{data -> f:render.text(field: 'caption')}</f:fragment>
+                </a:molecule.figure>
+            </f:if>
 
         </a:layout.split>
     </a:layout.container>

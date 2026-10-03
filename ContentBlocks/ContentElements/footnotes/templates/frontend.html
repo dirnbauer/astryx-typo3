@@ -6,48 +6,55 @@
 <f:asset.css identifier="g-footnotes" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The marker is the note's position in the ordered list, not a number stored
-    on the row: reordering the rows renumbers the list, which is exactly what an
-    editor who inserts a source in the middle of an article needs to happen.
+    The marker is the note's position in List's ordered list, not a number
+    stored on the row: reordering the rows renumbers the list, which is exactly
+    what an editor who inserts a source in the middle of an article needs.
 
-    Each item carries an id keyed to the record and the loop index, so a
+    Each note carries an id keyed to the record and its position, so a
     superscript in the prose above can link straight to it.
+
+    A source note prints the address it points at, because a footnote is often
+    read on paper. It is the resolved, absolute URL — a link to a page of this
+    site prints that page's address, never the t3:// reference behind it.
+
+    Small print takes a tight band by default; Compact takes the band's own
+    padding away altogether and leaves the space to its neighbours.
 </f:comment>
 
-<a:layout.section spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-footnotes" ariaLabelledby="g-footnotes-title-{data.uid}">
+<a:layout.section spacing="{f:if(condition: data.compact, then: 'flush', else: 'tight')}" class="g-footnotes" ariaLabelledby="g-footnotes-title-{data.uid}">
     <a:layout.container size="{data.width}">
+        <a:layout.stack>
 
-        <a:atom.heading level="4" class="g-footnotes__title" id="g-footnotes-title-{data.uid}">
-            <f:if condition="{data.header}">
-                <f:then>{data -> f:render.text(field: 'header')}</f:then>
-                <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.footnotes.label">Notes and sources</f:translate></f:else>
+            <a:atom.divider />
+
+            <a:atom.heading level="2" type="heading-5" id="g-footnotes-title-{data.uid}">
+                <f:if condition="{data.header}">
+                    <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                    <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.footnotes.label">Notes and sources</f:translate></f:else>
+                </f:if>
+            </a:atom.heading>
+
+            <a:molecule.list marker="decimal" density="compact" class="g-footnotes__list">
+                <f:for each="{data.notes}" as="item" iteration="position">
+                    <a:molecule.listItem id="fn-{data.uid}-{position.cycle}">
+                        <a:layout.stack gap="1">
+                            <a:atom.text as="span">{item -> f:render.text(field: 'title')}</a:atom.text>
+                            <f:if condition="{item.description}">
+                                <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'description')}</a:atom.text>
+                            </f:if>
+                            <f:if condition="{item.link.url}">
+                                <a:atom.link class="g-footnotes__link" parameter="{item.link}">{f:uri.typolink(parameter: item.link, absolute: 1)}</a:atom.link>
+                            </f:if>
+                        </a:layout.stack>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
+
+            <f:if condition="{data.note}">
+                <a:atom.text type="supporting" class="g-footnotes__all">{data -> f:render.text(field: 'note')}</a:atom.text>
             </f:if>
-        </a:atom.heading>
 
-        <ol class="g-footnotes__list">
-            <f:for each="{data.notes}" as="item" iteration="position">
-                <li class="g-footnotes__note" id="fn-{data.uid}-{position.cycle}">
-                    <a:atom.text type="supporting" as="span" class="g-footnotes__text">{item -> f:render.text(field: 'title')}</a:atom.text>
-                    <f:if condition="{item.description}">
-                        <a:atom.text type="supporting" as="span" class="g-footnotes__source">{item -> f:render.text(field: 'description')}</a:atom.text>
-                    </f:if>
-                    <f:comment>
-                        A source note prints the address it points at, because a
-                        footnote is often read on paper. That has to be the URL
-                        string — the field itself is a TypolinkParameter object,
-                        and rendering it as text throws.
-                    </f:comment>
-                    <f:if condition="{item.link.url}">
-                        <a:atom.link variant="quiet" class="g-footnotes__link" parameter="{item.link}">{item.link.url}</a:atom.link>
-                    </f:if>
-                </li>
-            </f:for>
-        </ol>
-
-        <f:if condition="{data.note}">
-            <a:atom.text type="supporting" class="g-footnotes__note-all">{data -> f:render.text(field: 'note')}</a:atom.text>
-        </f:if>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -1,62 +1,76 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
-
-<f:asset.css identifier="g-article-header" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
     The title is an h2, not an h1: the page template already prints the page
     title as the document's single h1, and a second one would leave a reader
     who navigates by landmark with two competing answers to "where am I".
+    SectionIntro's headingType is what makes it look like the opening of an
+    article.
+
+    The byline is the author with their role underneath on one side and the
+    dateline on the other, set off from the standfirst by a Divider. Centred,
+    it gathers in the middle.
+
+    The lead image is cropped to the sixteen-by-nine frame of AspectRatio, so
+    every article opens on a picture of the same proportions however the
+    original was shot, and its credit is the Figure's caption. It loads
+    eagerly: it is inside the first screen, and deferring it only delays the
+    largest paint.
+
+    Everything here is composed of components, so the element ships no
+    stylesheet of its own.
 </f:comment>
 
+<f:variable name="centred" value="{f:if(condition: '{data.align} == \'center\'', then: 1, else: 0)}"/>
+
 <a:layout.section surface="{data.tone}" class="g-article-header">
-    <a:layout.container size="md">
-        <div class="g-article-header__intro" data-align="{data.align}">
+    <a:layout.stack gap="8">
 
-            <f:if condition="{data.eyebrow}">
-                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-            </f:if>
+        <a:layout.container size="md">
+            <a:layout.stack>
+                <a:molecule.sectionIntro headingType="heading-1" align="{data.align}">
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
 
-            <a:atom.heading level="2" type="heading-1">{data -> f:render.text(field: 'header')}</a:atom.heading>
-
-            <f:if condition="{data.lead}">
-                <a:atom.text type="large" class="g-article-header__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <f:if condition="{data.author} || {data.note}">
-                <div class="g-article-header__byline">
-                    <f:if condition="{data.author}">
-                        <a:atom.text type="label" class="g-article-header__author">
-                            {data -> f:render.text(field: 'author')}<f:if condition="{data.role}"><span class="g-article-header__role">{data -> f:render.text(field: 'role')}</span></f:if>
-                        </a:atom.text>
-                    </f:if>
-                    <f:if condition="{data.note}">
-                        <a:atom.text type="supporting" class="g-article-header__dateline">{data -> f:render.text(field: 'note')}</a:atom.text>
-                    </f:if>
-                </div>
-            </f:if>
-
-        </div>
-    </a:layout.container>
-
-    <f:if condition="{data.image}">
-        <a:layout.container size="lg" class="g-article-header__figure-layout">
-            <figure class="g-article-header__figure">
-                <f:for each="{data.image}" as="image">
-                    <f:comment>
-                        eager: the lead image is inside the first screen of an
-                        article, so deferring it only delays the largest paint.
-                    </f:comment>
-                    <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="eager" class="g-article-header__image"/>
-                </f:for>
-                <f:if condition="{data.caption}">
-                    <a:atom.text type="supporting" as="figcaption">{data -> f:render.text(field: 'caption')}</a:atom.text>
+                <f:if condition="{data.author} || {data.note}">
+                    <a:atom.divider />
+                    <a:layout.stack orientation="horizontal" gap="3" justify="{f:if(condition: centred, then: 'center', else: 'between')}">
+                        <f:if condition="{data.author}">
+                            <a:layout.stack gap="1" align="{f:if(condition: centred, then: 'center', else: 'default')}">
+                                <a:atom.text type="label" as="span">{data -> f:render.text(field: 'author')}</a:atom.text>
+                                <f:if condition="{data.role}">
+                                    <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'role')}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </f:if>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        </f:if>
+                    </a:layout.stack>
                 </f:if>
-            </figure>
+            </a:layout.stack>
         </a:layout.container>
-    </f:if>
+
+        <f:if condition="{data.image}">
+            <a:layout.container size="lg">
+                <a:molecule.figure>
+                    <f:fragment>
+                        <f:for each="{data.image}" as="image">
+                            <a:atom.aspectRatio>
+                                <f:image image="{image}" alt="{image.alternative}" width="1200c" height="675c" loading="eager" fetchpriority="high"/>
+                            </a:atom.aspectRatio>
+                        </f:for>
+                    </f:fragment>
+                    <f:fragment name="caption">{data -> f:render.text(field: 'caption')}</f:fragment>
+                </a:molecule.figure>
+            </a:layout.container>
+        </f:if>
+
+    </a:layout.stack>
 </a:layout.section>
 
 </html>

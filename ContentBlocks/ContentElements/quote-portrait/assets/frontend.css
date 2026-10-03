@@ -1,66 +1,62 @@
 /*
  * Quote with Portrait
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: where the portrait, the quote and the credit sit. The circle is
+ * Avatar's, the rule, the marks and the type are Blockquote's and Citation's,
+ * the figure's own box is Figure's — this places its three children on a
+ * grid instead of in Figure's column.
  */
 
 .g-quote-portrait__figure {
-  margin: 0;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-6);
+  display: grid;
+  grid-template-columns: minmax(0, 56ch);
+  align-items: start;
+  column-gap: var(--spacing-6);
+}
+
+/* With a portrait, it takes a column of its own and spans the quote and the
+   credit beside it. A max-content track, so the free space of a wide band is
+   not handed to the portrait's column; and the portrait's extra height goes
+   below the credit, so the credit stays right under the words. */
+.g-quote-portrait__figure:has(.g-quote-portrait__portrait) {
+  grid-template-columns: max-content minmax(0, 56ch);
+  grid-template-rows: auto 1fr;
 }
 
 .g-quote-portrait__portrait {
-  /* The shared avatar already crops to a circle and clips the image; only the
-     shrink guard belongs to this element, because the quote beside it will
-     take every pixel it is offered. */
-  flex-shrink: 0;
+  grid-row: span 2;
 }
 
-.g-quote-portrait__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 56ch;
-}
-
-.g-quote-portrait__quote {
-  font-size: var(--text-large-size);
-  line-height: var(--text-large-leading);
-}
-
-.g-quote-portrait__quote > p {
-  margin: 0;
-}
-
-.g-quote-portrait__name {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-semibold);
-}
-
-.g-quote-portrait__role::before {
-  content: ', ';
+.g-quote-portrait__quote,
+.g-quote-portrait__credit {
+  grid-column: -2;
 }
 
 /* Centred, the portrait sits above the words rather than beside them: a
    centred column with something hanging off its start edge is not centred. */
 .g-quote-portrait__figure[data-align="center"] {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin-inline: auto;
+  justify-content: center;
+  justify-items: center;
+  row-gap: var(--spacing-4);
 }
 
-.g-quote-portrait__figure[data-align="center"] .g-quote-portrait__quote {
-  padding-inline-start: 0;
-  border-inline-start: 0;
+.g-quote-portrait__figure[data-align="center"]:has(.g-quote-portrait__portrait) {
+  grid-template-columns: minmax(0, 56ch);
+  grid-template-rows: none;
+}
+
+.g-quote-portrait__figure[data-align="center"] .g-quote-portrait__portrait {
+  grid-row: auto;
 }
 
 @media (max-width: 639px) {
-  .g-quote-portrait__figure {
-    flex-direction: column;
-    gap: var(--spacing-4);
+  .g-quote-portrait__figure:has(.g-quote-portrait__portrait) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    row-gap: var(--spacing-4);
+  }
+
+  .g-quote-portrait__portrait {
+    grid-row: auto;
   }
 }

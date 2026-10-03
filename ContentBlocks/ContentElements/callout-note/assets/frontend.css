@@ -1,35 +1,10 @@
 /*
  * Callout
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. The tint, the padding, the title and the glyph are Banner's;
+ * the element decides how wide the note may grow.
  */
 
 .g-callout-note__box {
-  /* The accent edge is what makes the box read as an interruption rather than
-     as a paragraph on a slightly different background — several themes set the
-     muted surface very close to the page colour. */
-  border-inline-start: var(--spacing-0-5) solid var(--color-accent);
-  padding: var(--spacing-5);
   max-inline-size: 70ch;
-}
-
-.g-callout-note[data-spacing="tight"] .g-callout-note__box {
-  padding: var(--spacing-3);
-}
-
-.g-callout-note__title {
-  font-size: var(--text-heading-4-size);
-  line-height: var(--text-heading-4-leading);
-}
-
-.g-callout-note[data-spacing="tight"] .g-callout-note__box .g-callout-note__title {
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-leading);
-}
-
-@media (max-width: 639px) {
-  .g-callout-note__box {
-    padding: var(--spacing-4);
-  }
 }

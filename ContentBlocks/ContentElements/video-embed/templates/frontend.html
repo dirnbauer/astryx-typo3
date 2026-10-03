@@ -6,62 +6,74 @@
 <f:asset.css identifier="g-video-embed" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    The poster sits behind the iframe rather than in front of it. A click-to-load
-    poster would need a script, and an empty rectangle while the player connects
-    is worse than a still frame that the player simply covers when it arrives.
+    The player is a plain iframe inside AspectRatio's sixteen-by-nine frame, so
+    the page does not jump when it loads and nothing has to run first. The
+    poster sits behind the iframe rather than in front of it: a click-to-load
+    poster would need a script, and an empty rectangle while the player
+    connects is worse than a still frame the player simply covers.
+
+    Without a video address the poster is shown on its own, in the same frame.
+    A bare "#" is not an address: it would embed this very page.
+
+    The iframe is named after the heading, or "Video player" when there is
+    none — an unnamed frame is announced as "frame" and nothing else.
 </f:comment>
 
 <f:variable name="videoUri"><g:embedUrl url="{f:uri.typolink(parameter: data.cta_link)}"/></f:variable>
+<f:variable name="playerTitle"><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/video-embed/language/labels.xlf:frontend.playerTitle" default="Video player"/></f:variable>
+<f:if condition="{data.header}"><f:variable name="playerTitle" value="{data.header}"/></f:if>
+<f:variable name="hasVideo" value="0"/>
+<f:if condition="{data.cta_link.url} && {data.cta_link.url} != '#' && {videoUri}"><f:variable name="hasVideo" value="1"/></f:if>
 
 <a:layout.section surface="{data.tone}" class="g-video-embed">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="6">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-video-embed__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-video-embed__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
-
-        <figure class="g-video-embed__figure">
-            <f:if condition="{data.cta_link.url}">
-                <f:then>
-                    <a:atom.aspectRatio class="g-video-embed__frame">
-                        <f:for each="{data.image}" as="poster">
-                            <span class="g-video-embed__poster" style="--g-poster: url('{f:uri.image(image: poster, width: 1280)}')"></span>
-                        </f:for>
-                        <iframe class="g-video-embed__player"
-                                src="{videoUri}"
-                                title="{data.header}"
-                                loading="lazy"
-                                referrerpolicy="strict-origin-when-cross-origin"
-                                allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
-                                allowfullscreen></iframe>
-                    </a:atom.aspectRatio>
-                </f:then>
-                <f:else>
-                    <f:for each="{data.image}" as="poster">
-                        <f:image image="{poster}" alt="{poster.alternative}" width="1280" loading="lazy" class="g-video-embed__still"/>
-                    </f:for>
-                </f:else>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <f:if condition="{data.caption} || {data.note}">
-                <figcaption class="g-video-embed__caption">
-                    <f:if condition="{data.caption}">
-                        <a:atom.text type="body" as="span">{data -> f:render.text(field: 'caption')}</a:atom.text>
+            <f:if condition="{hasVideo} || {data.image} || {data.caption} || {data.note}">
+                <a:molecule.figure>
+                    <f:if condition="{hasVideo} || {data.image}">
+                        <a:atom.aspectRatio>
+                            <f:if condition="{hasVideo}">
+                                <f:then>
+                                    <f:for each="{data.image}" as="poster">
+                                        <span class="g-video-embed__poster" style="--g-poster: url('{f:uri.image(image: poster, width: 1280)}')"></span>
+                                    </f:for>
+                                    <iframe class="g-video-embed__player"
+                                            src="{videoUri}"
+                                            title="{playerTitle}"
+                                            loading="lazy"
+                                            referrerpolicy="strict-origin-when-cross-origin"
+                                            allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
+                                            allowfullscreen></iframe>
+                                </f:then>
+                                <f:else>
+                                    <f:for each="{data.image}" as="poster">
+                                        <f:image image="{poster}" alt="{poster.alternative}" width="1280c" height="720c" loading="lazy"/>
+                                    </f:for>
+                                </f:else>
+                            </f:if>
+                        </a:atom.aspectRatio>
                     </f:if>
-                    <f:if condition="{data.note}">
-                        <a:atom.text type="supporting" as="span">{data -> f:render.text(field: 'note')}</a:atom.text>
-                    </f:if>
-                </figcaption>
-            </f:if>
-        </figure>
 
+                    <f:if condition="{data.caption} || {data.note}">
+                        <a:atom.text as="figcaption" class="g-video-embed__caption">
+                            <f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if>
+                            <f:if condition="{data.note}">
+                                <a:atom.text type="supporting" as="div">{data -> f:render.text(field: 'note')}</a:atom.text>
+                            </f:if>
+                        </a:atom.text>
+                    </f:if>
+                </a:molecule.figure>
+            </f:if>
+
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

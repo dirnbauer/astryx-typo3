@@ -6,35 +6,47 @@
 <f:asset.css identifier="g-contents-box" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    A nav landmark with its own name, so it can be reached and skipped as one
-    thing. The entries are curated rather than scraped from the headings on the
-    page: an editor decides what belongs in the contents, and renaming a section
-    never silently drops a line from it.
+    A nav landmark named by its own heading, so it can be reached and skipped
+    as one thing. The landmark is the element's, not the Card's: Card is a box
+    and renders a div, and a div is no landmark however it is labelled.
+
+    The entries are curated rather than scraped from the headings on the page:
+    an editor decides what belongs in the contents, and renaming a section
+    never silently drops a line from it. The numbers are List's decimal
+    markers on an ordered list, so they follow the order of the rows. An entry
+    without a link is printed as text rather than as a link that goes nowhere.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" spacing="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-contents-box">
     <a:layout.container size="{data.width}">
-        <a:molecule.card variant="flat" class="g-contents-box__box" ariaLabelledby="g-contents-title-{data.uid}">
+        <nav class="g-contents-box__nav" aria-labelledby="g-contents-title-{data.uid}">
+            <a:molecule.card variant="flat" density="{f:if(condition: data.compact, then: 'tight', else: 'default')}">
 
-            <a:atom.heading level="4" class="g-contents-box__title" id="g-contents-title-{data.uid}">
-                <f:if condition="{data.header}">
-                    <f:then>{data -> f:render.text(field: 'header')}</f:then>
-                    <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.contents.label">On this page</f:translate></f:else>
-                </f:if>
-            </a:atom.heading>
+                <a:atom.heading level="2" type="heading-4" id="g-contents-title-{data.uid}">
+                    <f:if condition="{data.header}">
+                        <f:then>{data -> f:render.text(field: 'header')}</f:then>
+                        <f:else><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.contents.label">On this page</f:translate></f:else>
+                    </f:if>
+                </a:atom.heading>
 
-            <ol class="g-contents-box__list">
-                <f:for each="{data.entries}" as="item">
-                    <li class="g-contents-box__entry">
-                        <a:atom.link variant="quiet" class="g-contents-box__link" parameter="{item.link}">{item.title}</a:atom.link>
-                        <f:if condition="{item.description}">
-                            <a:atom.text type="supporting" as="span" class="g-contents-box__hint">{item.description}</a:atom.text>
-                        </f:if>
-                    </li>
-                </f:for>
-            </ol>
+                <a:molecule.list marker="decimal" density="balanced">
+                    <f:for each="{data.entries}" as="item">
+                        <a:molecule.listItem>
+                            <a:layout.stack gap="1">
+                                <f:if condition="{item.link.url}">
+                                    <f:then><a:atom.link variant="quiet" parameter="{item.link}">{item.title}</a:atom.link></f:then>
+                                    <f:else><a:atom.text as="span">{item.title}</a:atom.text></f:else>
+                                </f:if>
+                                <f:if condition="{item.description}">
+                                    <a:atom.text type="supporting" as="span">{item.description}</a:atom.text>
+                                </f:if>
+                            </a:layout.stack>
+                        </a:molecule.listItem>
+                    </f:for>
+                </a:molecule.list>
 
-        </a:molecule.card>
+            </a:molecule.card>
+        </nav>
     </a:layout.container>
 </a:layout.section>
 

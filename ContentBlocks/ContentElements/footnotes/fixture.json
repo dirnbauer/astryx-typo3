@@ -1,22 +1,24 @@
 {
     "_type": "content",
     "header": "Numbered notes at the foot of an article",
-    "note": "The element's own note sits under the list. Use it for anything that applies to every source.",
+    "note": "The element’s own note sits under the list. Use it for anything that applies to every source.",
     "width": "md",
     "compact": 0,
     "notes": [
         {
             "title": "The number comes from the list position.",
-            "description": "Reorder the rows and the notes renumber themselves, which is what you need when you add a source mid-article."
+            "description": "Reorder the rows and the notes renumber themselves, which is what you need when you add a source mid-article.",
+            "link": "https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element"
         },
         {
             "title": "Each note has an ID to link to.",
-            "description": "A superscript in the text can link straight to it. The target note is highlighted, so readers see where the link went."
+            "description": "A superscript in the text can link straight to it.",
+            "link": "https://html.spec.whatwg.org/multipage/dom.html#the-id-attribute"
         },
         {
-            "title": "Links are optional and show the full URL.",
-            "description": "Printed in full, so the reference still works on paper.",
-            "link": "#"
+            "title": "A link to a page of this site prints its full address.",
+            "description": "The accessibility statement, for example: the reference still works on paper.",
+            "link": "{{page:accessibility}}"
         }
     ]
 }

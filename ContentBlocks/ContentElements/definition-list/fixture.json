@@ -1,6 +1,6 @@
 {
     "_type": "content",
-    "header": "Terms and descriptions, separated by lines",
+    "header": "Terms and descriptions, pair by pair",
     "lead": "A real dl with dt and dd pairs, so screen readers announce each description with its term. Two, three or four columns, up to 40 rows.",
     "columns": "2",
     "width": "md",
@@ -9,7 +9,7 @@
         {
             "title": "The term",
             "value": "Goes in the dt",
-            "text": "It is set in semibold, so the two sides stay easy to tell apart in a long list."
+            "text": "It is set apart in weight and colour, so the two sides stay easy to tell apart in a long list."
         },
         {
             "title": "The value",
@@ -22,9 +22,9 @@
             "text": "When a value is not enough, this longer line sits under it in smaller text."
         },
         {
-            "title": "The line",
-            "value": "One per pair",
-            "text": "It runs under each row, not around the list, so the eye can follow either column."
+            "title": "The wrapper",
+            "value": "One div per pair",
+            "text": "It keeps a term and its description in one grid cell, so a pair never splits across two columns."
         }
     ]
 }

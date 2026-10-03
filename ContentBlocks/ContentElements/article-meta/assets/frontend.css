@@ -1,43 +1,17 @@
 /*
  * Article Meta Strip
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only. A strip under a title is not a band: it takes a fraction of the
+ * page rhythm through Section's own knob, so it reads as part of the article
+ * above it.
  */
 
-/* A strip under a title is not a band: it takes a fraction of the page rhythm
-   so it reads as belonging to the article above it. */
 .g-article-meta {
   --section-gap: var(--spacing-4);
 }
 
+/* Wrapped onto a second line on a phone, the facts sit closer together than
+   the space between them on one line. */
 .g-article-meta__strip {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--spacing-1) var(--spacing-3);
-}
-
-.g-article-meta__portrait {
-  flex-shrink: 0;
-}
-
-/* The separator is drawn between items rather than typed into them, so it
-   never ends up in a copied line or in what a screen reader announces. */
-.g-article-meta__item + .g-article-meta__item::before {
-  content: '\00B7';
-  margin-inline-end: var(--spacing-3);
-  color: var(--color-text-disabled);
-}
-
-.g-article-meta__author {
-  color: var(--color-text-primary);
-}
-
-@media (max-width: 480px) {
-  /* Wrapped onto three lines, a leading dot marks the start of a line instead
-     of a boundary between two facts, so it is dropped. */
-  .g-article-meta__item + .g-article-meta__item::before {
-    content: none;
-  }
+  row-gap: var(--spacing-2);
 }

@@ -9,32 +9,40 @@
     Both column headings are h2, because the two passages are peers. Promoting
     one and demoting the other would tell a reader navigating by heading that
     the second column sits inside the first, which is the opposite of what a
-    comparison says.
+    comparison says. Heading's `type` keeps them at a column's size.
 
-    Reverse swaps the columns with `order`, so the source keeps the left-hand
-    text first and a one-column screen reads them in the stored order.
+    A vertical Divider stands between the two columns on a wide screen; on a
+    phone the columns stack and the rule is left out.
+
+    Reverse swaps the columns with `order`, so the source keeps the first text
+    first and a one-column screen reads them in the stored order.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-text-comparison">
     <a:layout.container size="{data.width}">
+        <a:layout.stack>
 
-        <f:if condition="{data.eyebrow}">
-            <a:atom.eyebrow class="g-text-comparison__eyebrow">{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-        </f:if>
+            <f:if condition="{data.eyebrow}">
+                <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
+            </f:if>
 
-        <div class="g-text-comparison__grid" data-layout="{f:if(condition: data.reverse, then: 'reversed')}">
+            <div class="g-text-comparison__grid" data-layout="{f:if(condition: data.reverse, then: 'reversed', else: 'default')}">
 
-            <div class="g-text-comparison__column" data-column="first">
-                <a:atom.heading level="3" class="g-text-comparison__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                <div class="astryx-prose g-text-comparison__prose"><f:format.html>{data.bodytext}</f:format.html></div>
+                <a:layout.stack gap="3" class="g-text-comparison__first">
+                    <a:atom.heading level="2" type="heading-3">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                    <div class="astryx-prose g-text-comparison__text"><f:format.html>{data.bodytext}</f:format.html></div>
+                </a:layout.stack>
+
+                <a:atom.divider orientation="vertical" class="g-text-comparison__rule" />
+
+                <a:layout.stack gap="3" class="g-text-comparison__second">
+                    <a:atom.heading level="2" type="heading-3">{data -> f:render.text(field: 'subheader')}</a:atom.heading>
+                    <a:atom.text type="body" class="g-text-comparison__text">{data -> f:render.text(field: 'text')}</a:atom.text>
+                </a:layout.stack>
+
             </div>
 
-            <div class="g-text-comparison__column" data-column="second">
-                <a:atom.heading level="3" class="g-text-comparison__title">{data -> f:render.text(field: 'subheader')}</a:atom.heading>
-                <a:atom.text type="body" class="g-text-comparison__plain">{data -> f:render.text(field: 'text')}</a:atom.text>
-            </div>
-
-        </div>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

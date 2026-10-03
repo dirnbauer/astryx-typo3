@@ -1,49 +1,56 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
-<f:asset.css identifier="g-steps-howto" href="{cb:assetPath()}/frontend.css"/>
-
 <f:comment>
-    The number is drawn by a CSS counter rather than stored on the step, so
-    reordering the rows in the backend renumbers them and no editor is ever
-    left maintaining a sequence by hand.
+    An ordered List with numbered tiles, so the sequence survives without
+    styles and the number on each step is its position: reordering the rows
+    in the backend renumbers them, and no editor is ever left maintaining a
+    sequence by hand. The List lays the steps out in two to four columns and
+    reflows to one on a phone.
+
+    The icon is optional and sits above the heading; the number is always
+    shown. A step that continues on a page of its own links its title there,
+    rather than repeating the title as a second link underneath.
+
+    Everything here is composed of components, so the element ships no
+    stylesheet of its own.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-steps-howto">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-steps-howto__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-steps-howto__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <ol class="g-steps-howto__list" data-columns="{data.columns}">
-            <f:for each="{data.steps}" as="item">
-                <li class="g-steps-howto__step">
-                    <a:atom.heading level="3" class="g-steps-howto__title">{item -> f:render.text(field: 'title')}</a:atom.heading>
+            <a:molecule.list marker="step" columns="{data.columns}" gap="6">
+                <f:for each="{data.steps}" as="item">
+                    <a:molecule.listItem>
+                        <a:layout.stack gap="2">
+                            <f:if condition="{item.icon} && {item.icon} != 'none'">
+                                <a:atom.icon name="{item.icon}" color="accent"/>
+                            </f:if>
+                            <a:atom.heading level="3">
+                                <f:if condition="{item.link.url}">
+                                    <f:then><a:atom.link parameter="{item.link}">{item.title}</a:atom.link></f:then>
+                                    <f:else>{item -> f:render.text(field: 'title')}</f:else>
+                                </f:if>
+                            </a:atom.heading>
+                            <f:if condition="{item.text}">
+                                <a:atom.text type="body" color="secondary">{item -> f:render.text(field: 'text')}</a:atom.text>
+                            </f:if>
+                        </a:layout.stack>
+                    </a:molecule.listItem>
+                </f:for>
+            </a:molecule.list>
 
-                    <f:if condition="{item.text}">
-                        <a:atom.text type="body" class="g-steps-howto__text">{item -> f:render.text(field: 'text')}</a:atom.text>
-                    </f:if>
-
-                    <f:if condition="{item.link.url}">
-                        <a:atom.link variant="cta" class="g-steps-howto__link" parameter="{item.link}">{item.title}</a:atom.link>
-                    </f:if>
-                </li>
-            </f:for>
-        </ol>
-
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

@@ -8,33 +8,42 @@
 <f:comment>
     Caption and credit are one figcaption, not two: the credit belongs to the
     same picture, and a second block outside the figure would leave it orphaned
-    for anyone reading the figure on its own.
+    for anyone reading the figure on its own. The caption reads at body size,
+    the credit under it in supporting type.
+
+    The picture keeps its own proportions. A chart or a screenshot cropped to a
+    shape the element preferred would lose exactly the part the caption is
+    about. Figure gives it the full width and the container's corners.
+
+    The heading heads the band, so it sits above the figure as an h2 rather
+    than inside it; SectionIntro centres it with the figure when asked.
 </f:comment>
 
 <a:layout.section class="g-image-caption">
     <a:layout.container size="{data.width}">
-        <figure class="g-image-caption__figure" data-align="{data.align}">
+        <a:layout.stack gap="3">
 
             <f:if condition="{data.header}">
-                <a:atom.heading level="3" class="g-image-caption__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
+                <a:molecule.sectionIntro align="{data.align}">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <f:for each="{data.image}" as="image">
-                <f:image image="{image}" alt="{image.alternative}" title="{image.title}" width="1200" loading="lazy" class="g-image-caption__image"/>
-            </f:for>
+            <a:molecule.figure align="{data.align}">
+                <f:for each="{data.image}" as="image">
+                    <f:image image="{image}" alt="{image.alternative}" width="1200" loading="lazy"/>
+                </f:for>
+                <f:if condition="{data.caption} || {data.note}">
+                    <a:atom.text as="figcaption" class="g-image-caption__caption">
+                        <f:if condition="{data.caption}">{data -> f:render.text(field: 'caption')}</f:if>
+                        <f:if condition="{data.note}">
+                            <a:atom.text type="supporting" as="div">{data -> f:render.text(field: 'note')}</a:atom.text>
+                        </f:if>
+                    </a:atom.text>
+                </f:if>
+            </a:molecule.figure>
 
-            <f:if condition="{data.caption} || {data.note}">
-                <figcaption class="g-image-caption__caption">
-                    <f:if condition="{data.caption}">
-                        <a:atom.text type="body" as="span">{data -> f:render.text(field: 'caption')}</a:atom.text>
-                    </f:if>
-                    <f:if condition="{data.note}">
-                        <a:atom.text type="supporting" as="span" class="g-image-caption__credit">{data -> f:render.text(field: 'note')}</a:atom.text>
-                    </f:if>
-                </figcaption>
-            </f:if>
-
-        </figure>
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

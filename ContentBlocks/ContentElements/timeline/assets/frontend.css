@@ -1,75 +1,49 @@
 /*
  * Timeline
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the marker column beside each entry, the rail running down it
+ * and the space between entries. The introduction is SectionIntro, the dot is
+ * StatusDot, the rail is Divider, the words are Text and Heading.
  */
 
-.g-timeline__intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-3);
-  max-inline-size: 70ch;
-  margin-block-end: var(--spacing-8);
-}
-
+/* No gap between entries: the space belongs to each entry's body, so the rail
+   beside it runs on through that space to the next dot. */
 .g-timeline__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  --stack-gap: 0;
   max-inline-size: 70ch;
 }
 
-/* The connecting line is this border, so it can never run past the last entry
-   the way an absolutely positioned rule of a fixed height would. */
 .g-timeline__entry {
-  position: relative;
-  padding-inline-start: var(--spacing-6);
-  padding-block-end: var(--spacing-8);
-  border-inline-start: var(--border-width) solid var(--color-border);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--spacing-4);
 }
 
-.g-timeline__entry:last-child {
-  border-inline-start-color: transparent;
+/* The dot sits on the middle of the date's line: half a line, less half the
+   dot, above it. */
+.g-timeline__marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding-block-start: calc((var(--text-label-size) * var(--text-label-leading) - var(--spacing-2)) / 2);
+}
+
+.g-timeline__rail {
+  flex: 1;
+  block-size: auto;
+}
+
+.g-timeline__body {
+  padding-block-end: var(--spacing-8);
+}
+
+.g-timeline__entry:last-child .g-timeline__body {
   padding-block-end: 0;
 }
 
-.g-timeline__entry::before {
-  content: '';
-  position: absolute;
-  inset-inline-start: 0;
-  inset-block-start: var(--spacing-1);
-  inline-size: var(--spacing-2);
-  block-size: var(--spacing-2);
-  translate: -50% 0;
-  border-radius: var(--radius-full);
-  background-color: var(--color-accent);
-}
-
-.g-timeline__when {
-  display: flex;
-  align-items: baseline;
-  gap: var(--spacing-2);
-  margin: 0;
-}
-
-.g-timeline__date {
-  color: var(--color-text-accent);
-}
-
-.g-timeline__text {
-  color: var(--color-text-secondary);
-}
-
 @media (max-width: 639px) {
-  .g-timeline__entry {
+  .g-timeline__body {
     padding-block-end: var(--spacing-6);
-  }
-
-  .g-timeline__intro {
-    margin-block-end: var(--spacing-6);
   }
 }

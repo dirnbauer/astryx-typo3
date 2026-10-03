@@ -1,27 +1,29 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:cb="http://typo3.org/ns/TYPO3/CMS/ContentBlocks/ViewHelpers"
       xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"
       data-namespace-typo3-fluid="true">
 
-<f:asset.css identifier="g-lead-paragraph" href="{cb:assetPath()}/frontend.css"/>
-
 <f:comment>
-    The lead is a plain paragraph, not a heading at a smaller weight: it is the
-    first sentence of the piece, and a screen reader that hears it announced as
-    a heading loses the boundary between the title and the text.
+    The lead is a plain paragraph in the large type step, not a heading at a
+    smaller weight: it is the first sentence of the piece, and a screen reader
+    that hears it announced as a heading loses the boundary between the title
+    and the text. SectionIntro sets it in the primary colour here, because it
+    is the text itself rather than a line introducing other text, and keeps it
+    to a reading measure.
+
+    A standfirst is short enough that centring stays legible — which is why
+    this element centres its text when asked and Rich Text does not.
+
+    The band is a tight one: it exists to introduce whatever comes next, so it
+    gives back the air under it. Everything is composed of components, so the
+    element ships no stylesheet of its own.
 </f:comment>
 
-<a:layout.section surface="{data.tone}" class="g-lead-paragraph">
+<a:layout.section surface="{data.tone}" spacing="tight" class="g-lead-paragraph">
     <a:layout.container size="{data.width}">
-        <div class="g-lead-paragraph__body" data-align="{data.align}">
-
-            <f:if condition="{data.header}">
-                <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-            </f:if>
-
-            <a:atom.text type="large" class="g-lead-paragraph__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-
-        </div>
+        <a:molecule.sectionIntro align="{data.align}" leadColor="default">
+            <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+            <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+        </a:molecule.sectionIntro>
     </a:layout.container>
 </a:layout.section>
 

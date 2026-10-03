@@ -9,30 +9,40 @@
     A point is a line of text, not a section, so it gets no heading of its own —
     six one-line headings would fill the page outline with entries that lead
     nowhere. The optional explanation sits under the point in the same item.
+
+    The block's icon is the marker of every point, in the accent colour, and a
+    point that picked an icon of its own shows that one instead. With no icon
+    on the block (or "none"), List draws a plain dot. The glyphs are decoration
+    and hidden from screen readers; the list itself already says these are
+    separate points.
 </f:comment>
+
+<f:variable name="marker" value="{f:if(condition: '{data.icon} && {data.icon} != \'none\'', then: data.icon)}"/>
 
 <a:layout.section surface="{data.tone}" class="g-key-takeaways">
     <a:layout.container size="{data.width}">
         <a:molecule.card density="{f:if(condition: data.compact, then: 'tight', else: 'default')}" class="g-key-takeaways__box">
 
-            <f:if condition="{data.header}">
-                <a:atom.heading level="3" class="g-key-takeaways__title">{data -> f:render.text(field: 'header')}</a:atom.heading>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro headingType="heading-3" leadType="body">
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
             </f:if>
 
-            <f:if condition="{data.lead}">
-                <a:atom.text type="body" class="g-key-takeaways__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-            </f:if>
-
-            <a:molecule.list class="g-key-takeaways__list">
+            <a:molecule.list marker="{f:if(condition: marker, then: 'default', else: 'dot')}" density="balanced">
                 <f:for each="{data.points}" as="item">
-                    <li class="g-key-takeaways__point">
-                        <span class="g-key-takeaways__body">
-                            <a:atom.text type="body" as="span" class="g-key-takeaways__lineLabel">{item -> f:render.text(field: 'title')}</a:atom.text>
+                    <a:molecule.listItem>
+                        <f:if condition="{marker}">
+                            <a:atom.icon name="{f:if(condition: '{item.icon} && {item.icon} != \'none\'', then: item.icon, else: marker)}" color="accent"/>
+                        </f:if>
+                        <a:layout.stack gap="1">
+                            <a:atom.text as="span">{item -> f:render.text(field: 'title')}</a:atom.text>
                             <f:if condition="{item.text}">
                                 <a:atom.text type="supporting" as="span">{item -> f:render.text(field: 'text')}</a:atom.text>
                             </f:if>
-                        </span>
-                    </li>
+                        </a:layout.stack>
+                    </a:molecule.listItem>
                 </f:for>
             </a:molecule.list>
 

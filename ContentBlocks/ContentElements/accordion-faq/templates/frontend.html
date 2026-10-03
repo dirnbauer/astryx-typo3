@@ -12,37 +12,37 @@
     remain the browser's own.
 
     The name is keyed to the record uid so that two accordions on one page do
-    not close each other's rows.
+    not close each other's rows, and the group carries the same name so the
+    group and its rows can be seen to agree. The group draws the rules above
+    the first row and below the last as well as between them.
+
+    Collapsible writes each question as an h3 inside its summary, at the
+    summary's own type: a screen reader can jump between the questions without
+    opening them, and the outline gains no section titles.
 </f:comment>
 
 <a:layout.section surface="{data.tone}" class="g-accordion-faq">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
-            <div class="g-accordion-faq__intro">
-                <f:if condition="{data.eyebrow}">
-                    <a:atom.eyebrow>{data -> f:render.text(field: 'eyebrow')}</a:atom.eyebrow>
-                </f:if>
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-accordion-faq__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.eyebrow} || {data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="eyebrow">{data -> f:render.text(field: 'eyebrow')}</f:fragment>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <a:molecule.collapsibleGroup class="g-accordion-faq__group">
-            <f:for each="{data.questions}" as="item">
-                <a:molecule.collapsible density="spacious" class="g-accordion-faq__item" name="g-accordion-faq-{data.uid}" contentClass="astryx-prose g-accordion-faq__answer">
-                    <f:fragment name="summary">
-                        <h3 class="g-accordion-faq__question">{item -> f:render.text(field: 'title')}</h3>
-                    </f:fragment>
-                    <f:fragment><f:format.html>{item.bodytext}</f:format.html></f:fragment>
-                </a:molecule.collapsible>
-            </f:for>
-        </a:molecule.collapsibleGroup>
+            <a:molecule.collapsibleGroup name="g-accordion-faq-{data.uid}" dividers="all">
+                <f:for each="{data.questions}" as="item">
+                    <a:molecule.collapsible density="spacious" headingLevel="3" name="g-accordion-faq-{data.uid}" contentClass="astryx-prose g-accordion-faq__answer">
+                        <f:fragment name="summary">{item -> f:render.text(field: 'title')}</f:fragment>
+                        <f:fragment><f:format.html>{item.bodytext}</f:format.html></f:fragment>
+                    </a:molecule.collapsible>
+                </f:for>
+            </a:molecule.collapsibleGroup>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

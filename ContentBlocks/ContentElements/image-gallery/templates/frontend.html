@@ -6,45 +6,49 @@
 <f:asset.css identifier="g-image-gallery" href="{cb:assetPath()}/frontend.css"/>
 
 <f:comment>
-    Each thumbnail links to the original file rather than opening a scripted
+    Each thumbnail links to the full-size file rather than opening a scripted
     lightbox. The browser's own image view zooms, rotates and saves, which is
     more than any overlay this element could ship — and it still works when the
-    script does not load.
+    script does not load. The link says, out loud, that it opens a new tab.
+
+    Every picture is cropped to AspectRatio's four-by-three frame, so pictures
+    of mixed proportions still line up as an even grid; the original is one
+    click away for anyone who wants the uncropped frame. A picture's own
+    description becomes its Figure caption.
 </f:comment>
+
+<f:variable name="openOriginal"><f:translate key="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.gallery.openOriginal" default="Open the full-size picture"/></f:variable>
 
 <a:layout.section surface="{data.tone}" class="g-image-gallery">
     <a:layout.container size="{data.width}">
+        <a:layout.stack gap="8">
 
-        <f:if condition="{data.header} || {data.lead}">
-            <div class="g-image-gallery__intro">
-                <f:if condition="{data.header}">
-                    <a:atom.heading level="2">{data -> f:render.text(field: 'header')}</a:atom.heading>
-                </f:if>
-                <f:if condition="{data.lead}">
-                    <a:atom.text type="body" class="g-image-gallery__lead">{data -> f:render.text(field: 'lead')}</a:atom.text>
-                </f:if>
-            </div>
-        </f:if>
+            <f:if condition="{data.header} || {data.lead}">
+                <a:molecule.sectionIntro>
+                    <f:fragment name="heading">{data -> f:render.text(field: 'header')}</f:fragment>
+                    <f:fragment name="lead">{data -> f:render.text(field: 'lead')}</f:fragment>
+                </a:molecule.sectionIntro>
+            </f:if>
 
-        <ul class="g-image-gallery__grid" data-columns="{data.columns}">
-            <f:for each="{data.images}" as="image">
-                <li class="g-image-gallery__cell">
-                    <figure class="g-image-gallery__figure">
-                        <a class="g-image-gallery__link"
-                           href="{f:uri.image(image: image)}"
-                           target="_blank"
-                           rel="noopener"
-                           title="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf:content.gallery.openOriginal', default: 'Open the full-size picture')}">
-                            <f:image image="{image}" alt="{image.alternative}" width="640c" height="480c" loading="lazy" class="g-image-gallery__image"/>
-                        </a>
-                        <f:if condition="{image.description}">
-                            <a:atom.text type="supporting" as="figcaption">{image.description}</a:atom.text>
-                        </f:if>
-                    </figure>
-                </li>
-            </f:for>
-        </ul>
+            <a:layout.grid as="ul" fixed="{data.columns}" gap="4">
+                <f:for each="{data.images}" as="image">
+                    <li>
+                        <a:molecule.figure>
+                            <f:fragment>
+                                <a:atom.link href="{f:uri.image(image: image)}" target="_blank" title="{openOriginal}" class="g-image-gallery__link">
+                                    <a:atom.aspectRatio ratio="landscape">
+                                        <f:image image="{image}" alt="{image.alternative}" width="640c" height="480c" loading="lazy"/>
+                                    </a:atom.aspectRatio>
+                                    <a:atom.visuallyHidden><f:translate key="LLL:EXT:astryx_typo3/ContentBlocks/ContentElements/image-gallery/language/labels.xlf:frontend.newTab" default="(opens in a new tab)"/></a:atom.visuallyHidden>
+                                </a:atom.link>
+                            </f:fragment>
+                            <f:fragment name="caption">{image.description}</f:fragment>
+                        </a:molecule.figure>
+                    </li>
+                </f:for>
+            </a:layout.grid>
 
+        </a:layout.stack>
     </a:layout.container>
 </a:layout.section>
 

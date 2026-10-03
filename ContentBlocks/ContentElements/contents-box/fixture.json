@@ -1,28 +1,29 @@
 {
     "_type": "content",
-    "header": "A boxed list of the page's sections",
+    "header": "Chapters of this catalogue",
     "width": "md",
     "tone": "body",
     "compact": 0,
     "entries": [
         {
-            "title": "Each entry takes an anchor",
-            "description": "The editor types it, for example #part-two",
-            "link": "#part-one"
+            "title": "Hero and landing intros",
+            "description": "What the product is, who it is for and what to do next",
+            "link": "{{page:components/hero}}"
         },
         {
-            "title": "Editors write the list by hand",
-            "description": "Renaming a heading never removes an entry by accident",
-            "link": "#part-two"
+            "title": "Features and benefits",
+            "description": "Grids, lists and comparisons, where claims get specific",
+            "link": "{{page:components/features}}"
         },
         {
-            "title": "The box is a named nav landmark",
-            "description": "Screen reader users can jump to it or skip it",
-            "link": "#part-three"
+            "title": "Content and editorial",
+            "description": "This chapter: text, quotes, media and lists for long articles",
+            "link": "{{page:components/content}}"
         },
         {
-            "title": "Two to twenty entries",
-            "link": "#part-four"
+            "title": "Navigation and wayfinding",
+            "description": "Menus, tabs, breadcrumbs and tables of contents",
+            "link": "{{page:components/navigation}}"
         }
     ]
 }

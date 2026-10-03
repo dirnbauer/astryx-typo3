@@ -1,50 +1,17 @@
 /*
  * Pull Quote
  *
- * Tokens only: no raw colour, no literal font family, no light-dark() and no
- * prefers-color-scheme — the theme carries all four, and the audit enforces it.
+ * Layout only: the quote's measure and its place in the band. The rule, the
+ * marks, the type and the credit are Blockquote's and Citation's; Figure
+ * centres its content when asked.
  */
 
+/* Narrower than the reading measure: a pull quote is read in a glance. */
 .g-pull-quote__figure {
-  margin: 0;
-  max-inline-size: 44ch;
+  max-inline-size: 40rem;
 }
 
-.g-pull-quote__quote {
-  font-size: var(--text-heading-3-size);
-  line-height: var(--text-heading-3-leading);
-  font-family: var(--font-family-heading);
-  text-wrap: balance;
-  quotes: '\201C' '\201D' '\2018' '\2019';
-}
-
-.g-pull-quote__quote > p {
-  margin: 0;
-}
-
-.g-pull-quote__quote > p::before { content: open-quote; }
-.g-pull-quote__quote > p::after { content: close-quote; }
-
-.g-pull-quote__role::before {
-  content: ', ';
-}
-
-/* Centred, the rule on the start edge would sit off to one side of a block
-   that is no longer aligned to it, so the drawn marks carry the quotation on
-   their own. */
+/* Centred, the narrow figure itself has to move to the middle of the band. */
 .g-pull-quote__figure[data-align="center"] {
   margin-inline: auto;
-  text-align: center;
-}
-
-.g-pull-quote__figure[data-align="center"] .g-pull-quote__quote {
-  padding-inline-start: 0;
-  border-inline-start: 0;
-}
-
-@media (max-width: 639px) {
-  .g-pull-quote__quote {
-    font-size: var(--text-heading-4-size);
-    line-height: var(--text-heading-4-leading);
-  }
 }
