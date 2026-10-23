@@ -87,17 +87,10 @@ jobs:
   unit:
     name: Unit tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - php: '8.4'
-            experimental: false
-          # A look-ahead leg. TYPO3 14.3 does not claim PHP 8.5 support yet, so
-          # this one reports without being allowed to block a merge.
-          - php: '8.5'
-            experimental: true
+        php: ['8.4', '8.5']
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -111,10 +104,9 @@ jobs:
           tools: composer:v2
 
       # composer.json pins config.platform.php to 8.4.0 so that resolution is
-      # identical on every leg; --ignore-platform-req=php lets the 8.5 runner
-      # install that same set.
+      # identical on every supported runtime.
       - name: Install dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist --ignore-platform-req=php
+        run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Run unit tests
         run: composer test:unit
