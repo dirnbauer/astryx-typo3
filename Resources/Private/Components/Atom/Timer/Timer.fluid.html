@@ -1,0 +1,11 @@
+<f:comment>
+    Elapsed duration, enhanced once per second without a live region announcing every tick.
+    startTime is a Unix timestamp in milliseconds; omitted, timing begins on initialisation.
+    text and duration provide a server-rendered fallback when JavaScript is unavailable.
+</f:comment>
+<f:argument name="startTime" type="string" optional="{true}" default="" />
+<f:argument name="format" type="string" optional="{true}" default="elapsed" />
+<f:argument name="text" type="string" optional="{true}" default="0s" />
+<f:argument name="duration" type="string" optional="{true}" default="PT0S" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<time class="astryx-timer {class}" datetime="{duration}" data-g-timer="{format}"{g:attribute(name: 'data-g-timer-start', value: startTime)}>{text}</time>

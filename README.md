@@ -7,15 +7,15 @@ Astryx ships as React components styled with StyleX. This extension ships the
 same design system as **Fluid components and plain CSS**: no React, no StyleX,
 no build step between an editor pressing save and a visitor seeing the page.
 What comes from upstream is the part that matters — the token vocabulary and the
-seven official themes, pinned to release `v0.6.2` rather than to a moving branch.
+seven official themes, pinned to release `v0.7.3` rather than to a moving branch.
 
 ## What it is
 
 - **250 content elements** in the ten wizard groups Desiderio already uses, so
   editors read the same shelf labels across both themes.
-- **189 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
+- **205 Fluid components** in four layers — Layout, Atom, Molecule, Organism —
   reached through one namespace: `<a:atom.button variant="primary">`. 159 of
-  upstream's 164 components render through one; the five that do not are React
+  upstream's 173 components render through one; the five that do not are React
   context providers that render no DOM at all, and each is recorded with the
   reason. No template applies a CSS class.
 - **Twenty-five themes**, switchable per site and per page. Switching is a
@@ -114,7 +114,21 @@ and the design review.
 GPL-2.0-or-later, like TYPO3.
 
 Astryx is MIT, © Meta Platforms, Inc. This extension vendors its design tokens
-and component inventory from official release `v0.6.2`; no React or StyleX
+and component inventory from official release `v0.7.3`; no React or StyleX
 runtime is redistributed. The notice is in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The bundled fonts are licensed
 under the SIL Open Font License.
+
+### Astryx 0.7 component checks
+
+The upstream inventory and static theme rules are pinned to 0.7.3. The adapter keeps its
+existing responsive typography and native HTML runtime; upstream React hooks and media
+adaptation APIs are not bundled. Drawer is the native modal side-panel variant.
+
+`Timer` progressively updates elapsed time from its `startTime` (Unix milliseconds), with
+`text`/`duration` as the server fallback. `TableSelectionToolbar` operates only on checked
+`input[data-g-table-row]` controls inside `targetId`; callers supply translated labels,
+including a `%d` placeholder in `countLabel`, and own the bulk actions in the slot.
+
+Run `npm run test:browser:upstream` after `npx playwright install chromium` to check timer
+updates, drawer dismissal and focus return, WCAG AA rules, and scoped table selection.

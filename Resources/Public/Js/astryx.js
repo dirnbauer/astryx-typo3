@@ -1163,6 +1163,79 @@
     });
   }
 
+  /* ------------------------------------------------------ elapsed timers */
+  function initTimers() {
+    each('[data-g-timer]', function (timer) {
+      bind(timer, 'Timer', function (element) {
+        var suppliedStart = element.getAttribute('data-g-timer-start');
+        var start = suppliedStart === null ? Date.now() : Number(suppliedStart);
+        if (!Number.isFinite(start)) start = Date.now();
+        var clock = element.getAttribute('data-g-timer') === 'clock';
+        function pad(value) { return String(value).padStart(2, '0'); }
+        function tick() {
+          if (!element.isConnected) return;
+          var elapsed = Math.max(0, Date.now() - start);
+          var seconds = Math.floor(elapsed / 1000);
+          var minutes = Math.floor(seconds / 60);
+          var hours = Math.floor(minutes / 60);
+          var represented = seconds;
+          if (clock) {
+            element.textContent = hours > 0
+              ? hours + ':' + pad(minutes % 60) + ':' + pad(seconds % 60)
+              : minutes + ':' + pad(seconds % 60);
+          } else if (hours > 0) {
+            element.textContent = hours + 'h ' + pad(minutes % 60) + 'm';
+            represented = minutes * 60;
+          } else if (minutes > 0) {
+            element.textContent = minutes + 'm ' + pad(seconds % 60) + 's';
+          } else {
+            element.textContent = seconds + 's';
+          }
+          element.dateTime = 'PT' + represented + 'S';
+          var precision = !clock && hours > 0 ? 60000 : 1000;
+          window.setTimeout(tick, precision - (elapsed % precision));
+        }
+        tick();
+      });
+    });
+  }
+
+  /* ----------------------------------------------------- table selection */
+  function initTableSelection() {
+    each('[data-g-table-selection]', function (toolbar) {
+      bind(toolbar, 'TableSelection', function (element) {
+        var target = document.getElementById(element.getAttribute('data-g-table-selection'));
+        var counter = element.querySelector('[data-g-selected-count]');
+        var clear = element.querySelector('[data-g-selection-clear]');
+        if (!target || !counter || !clear) return;
+        function controls() {
+          return Array.prototype.slice.call(target.querySelectorAll('input[type="checkbox"][data-g-table-row]'));
+        }
+        function update(notify) {
+          var selected = controls().filter(function (control) { return control.checked; }).length;
+          var label = format(element.getAttribute('data-g-count-label') || '%d', [selected]);
+          element.hidden = selected === 0;
+          if (notify && selected > 0) announce(counter, label);
+          else counter.textContent = label;
+        }
+        target.addEventListener('change', function (event) {
+          if (event.target.matches('input[type="checkbox"][data-g-table-row]')) update(true);
+        });
+        clear.addEventListener('click', function () {
+          controls().forEach(function (control) {
+            if (!control.checked) return;
+            control.checked = false;
+            control.dispatchEvent(new Event('change', {bubbles: true}));
+          });
+          update(false);
+          var first = controls().find(function (control) { return !control.disabled; });
+          if (first) first.focus();
+        });
+        update(false);
+      });
+    });
+  }
+
   function init() {
     initSchemeToggles();
     initMenus();
@@ -1175,6 +1248,8 @@
     initSuggest();
     initCopy();
     initCompare();
+    initTimers();
+    initTableSelection();
   }
 
   if (document.readyState === 'loading') {

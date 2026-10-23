@@ -2,6 +2,15 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.6.0] — 2026-10-23
+
+- Refresh the vendored Astryx inventory and static theme tokens from upstream 0.6.2 to 0.7.3 (commit ca439c8). All existing components and seven official themes remain available.
+- Add Code, Timer, HStack, VStack, Drawer, DrawerHeader, DropdownMenuGroup and TableSelectionToolbar Fluid components; Heading was already available. The new components compose native HTML and the existing library.
+- Keep the existing brand palette and responsive typography. Upstream spacing now uses rem with the same default pixel values, and five syntax-diff colours are added. React-specific and responsive adaptation APIs are not imported into this server-rendered adapter.
+- Update the Fontsource families to 5.3.0 and browser/a11y tooling to Playwright 1.64.1 and axe 4.14.0.
+- Rebuild theme CSS, font assets and the overview; all 2,250 theme colour pairs continue to satisfy the contrast audit. Rendered component semantics and native browser interaction checks cover the additions, including WCAG AA rules.
+- Synchronize Composer/extension/documentation version metadata at 2.6.0 and declare TYPO3 14 package metadata.
+
 ## [2.5.0] - 2026-10-03
 
 A top-down pass over the whole catalogue: the atoms, molecules and layouts

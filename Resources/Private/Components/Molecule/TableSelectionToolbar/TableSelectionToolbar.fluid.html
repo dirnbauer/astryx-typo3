@@ -1,0 +1,14 @@
+<f:comment>
+    Bulk actions for checked input[data-g-table-row] controls inside targetId.
+    The caller supplies translated labels and owns the actions in the default slot.
+    countLabel uses %d for the selected count. No checkbox outside that target is touched.
+    selectedCount is the server fallback; JavaScript reconciles it with the controls.
+</f:comment>
+<f:argument name="targetId" type="string" />
+<f:argument name="ariaLabel" type="string" />
+<f:argument name="countLabel" type="string" />
+<f:argument name="clearLabel" type="string" />
+<f:argument name="selectedCount" type="integer" optional="{true}" default="0" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<f:variable name="emptySelection" value="{f:if(condition: '{selectedCount} == 0', then: true, else: false)}" />
+<div class="astryx-table-selection-toolbar {class}" role="group" aria-label="{ariaLabel}" data-g-table-selection="{targetId}" data-g-count-label="{countLabel}"{g:attribute(name: 'hidden', value: emptySelection)}><f:slot /><span data-g-selected-count="" role="status">{f:format.printf(value: countLabel, arguments: {0: selectedCount})}</span><button type="button" class="astryx-button" data-variant="ghost" data-size="sm" data-g-selection-clear="">{clearLabel}</button></div>

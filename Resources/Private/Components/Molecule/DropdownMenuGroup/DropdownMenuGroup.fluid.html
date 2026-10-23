@@ -1,0 +1,9 @@
+<f:comment>
+    Group related menu commands under a non-interactive heading. The caller owns
+    the heading id so multiple menus never share an invented identifier.
+</f:comment>
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleId" type="string" optional="{true}" default="" />
+<f:argument name="ariaLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<div class="astryx-dropdown-menu-group {class}" role="group"{g:attribute(name: 'aria-labelledby', value: titleId)}{g:attribute(name: 'aria-label', value: ariaLabel)}><f:if condition="{title}"><div class="astryx-dropdown-menu-section-heading"{g:attribute(name: 'id', value: titleId)}>{title}</div></f:if><f:slot /></div>

@@ -1,0 +1,5 @@
+<f:comment>Inline source text. Content stays escaped; fenced listings use CodeBlock.</f:comment>
+<f:argument name="color" type="string" optional="{true}" default="primary" />
+<f:argument name="size" type="string" optional="{true}" default="default" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<code class="astryx-code {class}" data-color="{color}" data-size="{size}"><f:slot /></code>

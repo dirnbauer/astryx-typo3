@@ -1,0 +1,7 @@
+<f:comment>Reuse DialogHeader's named heading and native method=dialog close control.</f:comment>
+<f:argument name="title" type="string" optional="{true}" default="" />
+<f:argument name="titleLevel" type="string" optional="{true}" default="2" />
+<f:argument name="titleId" type="string" optional="{true}" default="" />
+<f:argument name="closeLabel" type="string" optional="{true}" default="" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<a:molecule.dialogHeader title="{title}" titleLevel="{titleLevel}" titleId="{titleId}" closeLabel="{closeLabel}" class="astryx-drawer-header {class}"><f:slot /></a:molecule.dialogHeader>

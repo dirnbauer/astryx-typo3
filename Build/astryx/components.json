@@ -1,9 +1,9 @@
 {
-  "source": "https://github.com/facebook/astryx/releases/tag/v0.6.2",
-  "release": "v0.6.2",
-  "commit": "bc93547cf59532ea6d8c4bea9c70e3d3fb05bcc3",
-  "harvestedBy": "@astryxdesign/cli@0.6.2 component --list --json",
-  "harvested": 164,
+  "source": "https://github.com/facebook/astryx/releases/tag/v0.7.3",
+  "release": "v0.7.3",
+  "commit": "ca439c8fadff5169770bcb1c3bad1092558b08f8",
+  "harvestedBy": "@astryxdesign/cli@0.7.3 component --list --json",
+  "harvested": 173,
   "note": "Exact component inventory from the official release. Runtime React APIs are documentation provenance only and are not shipped by this TYPO3 extension.",
   "components": [
     {
@@ -247,6 +247,12 @@
       "package": "@astryxdesign/core"
     },
     {
+      "component": "Code",
+      "name": "Code",
+      "group": "Code",
+      "package": "@astryxdesign/core"
+    },
+    {
       "component": "CodeBlock",
       "name": "CodeBlock",
       "group": "CodeBlock",
@@ -355,6 +361,18 @@
       "package": "@astryxdesign/core"
     },
     {
+      "component": "Drawer",
+      "name": "Drawer",
+      "group": "Drawer",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "DrawerHeader",
+      "name": "DrawerHeader",
+      "group": "Drawer",
+      "package": "@astryxdesign/core"
+    },
+    {
       "component": "DropdownMenu",
       "name": "DropdownMenu",
       "group": "DropdownMenu",
@@ -369,6 +387,12 @@
     {
       "component": "DropdownMenuDivider",
       "name": "DropdownMenuDivider",
+      "group": "DropdownMenu",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "DropdownMenuGroup",
+      "name": "DropdownMenuGroup",
       "group": "DropdownMenu",
       "package": "@astryxdesign/core"
     },
@@ -445,9 +469,21 @@
       "package": "@astryxdesign/core"
     },
     {
+      "component": "Heading",
+      "name": "Heading",
+      "group": "Heading",
+      "package": "@astryxdesign/core"
+    },
+    {
       "component": "HoverCard",
       "name": "HoverCard",
       "group": "HoverCard",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "HStack",
+      "name": "HStack",
+      "group": "Layout",
       "package": "@astryxdesign/core"
     },
     {
@@ -829,6 +865,12 @@
       "package": "@astryxdesign/core"
     },
     {
+      "component": "TableSelectionToolbar",
+      "name": "TableSelectionToolbar",
+      "group": "Table",
+      "package": "@astryxdesign/core"
+    },
+    {
       "component": "TabList",
       "name": "TabList",
       "group": "Tabs",
@@ -874,6 +916,12 @@
       "component": "TimeInput",
       "name": "TimeInput",
       "group": "TimeInput",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "Timer",
+      "name": "Timer",
+      "group": "Timer",
       "package": "@astryxdesign/core"
     },
     {
@@ -988,6 +1036,12 @@
       "component": "VisuallyHidden",
       "name": "VisuallyHidden",
       "group": "VisuallyHidden",
+      "package": "@astryxdesign/core"
+    },
+    {
+      "component": "VStack",
+      "name": "VStack",
+      "group": "Layout",
       "package": "@astryxdesign/core"
     }
   ]

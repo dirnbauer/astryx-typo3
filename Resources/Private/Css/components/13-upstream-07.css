@@ -1,0 +1,49 @@
+/* Additive Astryx 0.7 components. Existing component recipes stay unchanged. */
+.astryx-code {
+  font-family: var(--font-family-code);
+  font-size: var(--text-code-size);
+  line-height: inherit;
+  color: var(--color-text-primary);
+  background-color: var(--color-background-muted);
+  padding-inline: var(--spacing-1);
+  border-radius: var(--radius-inner);
+  overflow-wrap: anywhere;
+}
+.astryx-code[data-color="secondary"] { color: var(--color-text-secondary); }
+.astryx-code[data-color="inherit"] { color: inherit; }
+.astryx-code[data-size="inherit"] { font-size: inherit; }
+.astryx-timer { font: inherit; font-variant-numeric: tabular-nums; }
+.astryx-dialog.astryx-drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: auto;
+  inset-inline-end: 0;
+  margin: 0;
+  inline-size: min(30rem, calc(100vw - 3.5rem));
+  max-inline-size: 100%;
+  block-size: 100dvh;
+  max-block-size: 100dvh;
+  border-radius: 0;
+  overflow-y: auto;
+}
+.astryx-dialog.astryx-drawer[data-side="start"] { inset-inline-start: 0; inset-inline-end: auto; }
+.astryx-dialog.astryx-drawer[data-size="sm"] { inline-size: min(22rem, calc(100vw - 3.5rem)); }
+.astryx-dialog.astryx-drawer[data-size="lg"] { inline-size: min(42rem, calc(100vw - 3.5rem)); }
+.astryx-dropdown-menu-section-heading {
+  padding-block: var(--spacing-1);
+  padding-inline: var(--spacing-2);
+  font-size: var(--text-supporting-size);
+  line-height: var(--text-supporting-leading);
+  color: var(--color-text-secondary);
+}
+.astryx-table-selection-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2);
+  background-color: var(--color-background-muted);
+  border-radius: var(--radius-element);
+}
+.astryx-table-selection-toolbar[hidden] { display: none; }
+.astryx-table-selection-toolbar [data-g-selected-count] { margin-inline-start: auto; }

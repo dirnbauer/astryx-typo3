@@ -146,6 +146,82 @@ final class ComponentRenderingTest extends FunctionalTestCase
         );
     }
 
+    /** @return iterable<string, array{0: string, 1: list<string>, 2: list<string>}> */
+    public static function upstream073Examples(): iterable
+    {
+        yield 'escaped inline code' => [
+            '<a:atom.code>{value}</a:atom.code>',
+            ['<code', '&lt;b&gt;unsafe&lt;/b&gt;'],
+            ['<b>unsafe</b>'],
+        ];
+        yield 'horizontal stack' => [
+            '<a:layout.hStack>One</a:layout.hStack>',
+            ['astryx-h-stack', 'data-orientation="horizontal"'],
+            [],
+        ];
+        yield 'vertical stack' => [
+            '<a:layout.vStack>One</a:layout.vStack>',
+            ['astryx-v-stack', 'data-orientation="vertical"'],
+            [],
+        ];
+        yield 'drawer with named native close control' => [
+            '<a:molecule.drawer id="inspector" ariaLabel="Details" ariaLabelledby="drawer-title">'
+            . '<a:molecule.drawerHeader title="Details" titleId="drawer-title" closeLabel="Close" />'
+            . '</a:molecule.drawer>',
+            ['<dialog id="inspector"', 'aria-labelledby="drawer-title"', 'id="drawer-title"', 'method="dialog"', 'Close'],
+            [],
+        ];
+        yield 'named menu group' => [
+            '<a:molecule.dropdownMenuGroup title="History" titleId="history-title">Items</a:molecule.dropdownMenuGroup>',
+            ['role="group"', 'aria-labelledby="history-title"', 'id="history-title"', 'History'],
+            [],
+        ];
+        yield 'timer server fallback' => [
+            '<a:atom.timer startTime="1700000000000" format="clock" duration="PT60S" text="1:00" />',
+            ['<time', 'datetime="PT60S"', 'data-g-timer="clock"', 'data-g-timer-start="1700000000000"', '>1:00</time>'],
+            ['aria-live'],
+        ];
+        yield 'populated selection toolbar' => [
+            '<a:molecule.tableSelectionToolbar targetId="records" ariaLabel="Bulk actions" countLabel="%d selected"'
+            . ' clearLabel="Unselect all" selectedCount="2">Actions</a:molecule.tableSelectionToolbar>',
+            ['role="group"', 'aria-label="Bulk actions"', 'data-g-table-selection="records"', '>2 selected</span>', 'Unselect all'],
+            ['hidden="hidden"'],
+        ];
+        yield 'empty selection toolbar' => [
+            '<a:molecule.tableSelectionToolbar targetId="records" ariaLabel="Bulk actions" countLabel="%d selected"'
+            . ' clearLabel="Unselect all" />',
+            ['hidden="hidden"', '>0 selected</span>'],
+            [],
+        ];
+    }
+
+    /**
+     * @param list<string> $present
+     * @param list<string> $absent
+     */
+    #[Test]
+    #[DataProvider('upstream073Examples')]
+    public function upstream073ComponentsRenderTheirSemantics(string $source, array $present, array $absent): void
+    {
+        $context = $this->get(RenderingContextFactory::class)->create([], $this->frontendRequest());
+        $view = new TemplateView($context);
+        $view->getRenderingContext()->getTemplatePaths()->setTemplateSource(
+            '<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"'
+            . ' xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection"'
+            . ' data-namespace-typo3-fluid="true">' . $source . '</html>',
+        );
+        $view->assign('value', '<b>unsafe</b>');
+        $rendered = $view->render();
+        foreach ($present as $expected) {
+            self::assertStringContainsString($expected, $rendered);
+        }
+        foreach ($absent as $unexpected) {
+            self::assertStringNotContainsString($unexpected, $rendered);
+        }
+        self::assertStringNotContainsString('<a:', $rendered);
+        self::assertStringNotContainsString('{f:', $rendered);
+    }
+
     /**
      * Reads the component's own <f:argument> declarations and produces the
      * smallest legal value for every argument that is not optional.

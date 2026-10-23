@@ -32,6 +32,11 @@
       "name": "GridSpan",
       "rootClass": "astryx-grid-span"
     },
+    "layout.hStack": {
+      "layer": "Layout",
+      "name": "HStack",
+      "rootClass": "astryx-h-stack"
+    },
     "layout.layoutContent": {
       "layer": "Layout",
       "name": "LayoutContent",
@@ -72,6 +77,11 @@
       "name": "Stack",
       "rootClass": "astryx-stack"
     },
+    "layout.vStack": {
+      "layer": "Layout",
+      "name": "VStack",
+      "rootClass": "astryx-v-stack"
+    },
     "atom.aspectRatio": {
       "layer": "Atom",
       "name": "AspectRatio",
@@ -111,6 +121,11 @@
       "layer": "Atom",
       "name": "ChatTokenizedText",
       "rootClass": "astryx-chat-tokenized-text"
+    },
+    "atom.code": {
+      "layer": "Atom",
+      "name": "Code",
+      "rootClass": "astryx-code"
     },
     "atom.dateInput": {
       "layer": "Atom",
@@ -276,6 +291,11 @@
       "layer": "Atom",
       "name": "TimeInput",
       "rootClass": "astryx-time-input"
+    },
+    "atom.timer": {
+      "layer": "Atom",
+      "name": "Timer",
+      "rootClass": "astryx-timer"
     },
     "atom.timestamp": {
       "layer": "Atom",
@@ -527,6 +547,16 @@
       "name": "DialogHeader",
       "rootClass": "astryx-dialog-header"
     },
+    "molecule.drawer": {
+      "layer": "Molecule",
+      "name": "Drawer",
+      "rootClass": "astryx-drawer"
+    },
+    "molecule.drawerHeader": {
+      "layer": "Molecule",
+      "name": "DrawerHeader",
+      "rootClass": "astryx-drawer-header"
+    },
     "molecule.dropdownMenu": {
       "layer": "Molecule",
       "name": "DropdownMenu",
@@ -536,6 +566,11 @@
       "layer": "Molecule",
       "name": "DropdownMenuCheckboxItem",
       "rootClass": "astryx-dropdown-menu-checkbox-item"
+    },
+    "molecule.dropdownMenuGroup": {
+      "layer": "Molecule",
+      "name": "DropdownMenuGroup",
+      "rootClass": "astryx-dropdown-menu-group"
     },
     "molecule.dropdownMenuItem": {
       "layer": "Molecule",
@@ -821,6 +856,11 @@
       "layer": "Molecule",
       "name": "TableRow",
       "rootClass": "astryx-table-row"
+    },
+    "molecule.tableSelectionToolbar": {
+      "layer": "Molecule",
+      "name": "TableSelectionToolbar",
+      "rootClass": "astryx-table-selection-toolbar"
     },
     "molecule.tabs": {
       "layer": "Molecule",

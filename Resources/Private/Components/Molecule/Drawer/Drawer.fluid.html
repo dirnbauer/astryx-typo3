@@ -1,0 +1,12 @@
+<f:comment>
+    Modal, full-height side panel. Open with data-g-dialog-open, like Dialog.
+    Native dialog supplies Escape, focus containment and focus restoration.
+    The header can be supplied through the slot using DrawerHeader.
+</f:comment>
+<f:argument name="id" type="string" />
+<f:argument name="ariaLabel" type="string" />
+<f:argument name="ariaLabelledby" type="string" optional="{true}" default="" />
+<f:argument name="side" type="string" optional="{true}" default="end" />
+<f:argument name="size" type="string" optional="{true}" default="md" />
+<f:argument name="class" type="string" optional="{true}" default="" />
+<dialog id="{id}" class="astryx-dialog astryx-drawer {class}" data-side="{side}" data-size="{size}" aria-label="{ariaLabel}"{g:attribute(name: 'aria-labelledby', value: ariaLabelledby)}><f:slot /></dialog>
