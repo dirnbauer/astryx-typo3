@@ -13,6 +13,7 @@ permissions:
 
 env:
   PHP_EXTENSIONS: intl, mbstring, pdo_sqlite, gd, zip
+  COMPOSER_AUTH: '{"github-oauth":{"github.com":"${{ github.token }}"}}'
 
 jobs:
   lint:
