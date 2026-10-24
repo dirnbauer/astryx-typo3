@@ -26,7 +26,8 @@
 }
 
 [data-astryx-theme="butter"] {
-  --color-on-error: light-dark(#ffe3de, #fcfafa);
+  --color-text-accent: light-dark(#1e50e0, #fdee8c);
+  --color-on-error: light-dark(#ffece7, #fbfafa);
 }
 
 [data-astryx-theme="chocolate"] {
@@ -44,32 +45,30 @@
 [data-astryx-theme="matcha"] {
   --color-text-secondary: light-dark(#65713f, #a9b686);
   --color-text-red: light-dark(#b10000, #ff7a7a);
-  --color-text-yellow: light-dark(#855f00, #ffd960);
+  --color-text-yellow: light-dark(#7d6300, #ffe08b);
   --color-text-green: light-dark(#366b00, #80d43a);
   --color-text-orange: light-dark(#885214, #e0a04a);
   --color-text-pink: light-dark(#9b3857, #f08aaa);
-  --color-on-error: light-dark(#FFFFFF, #fbfbfa);
+  --color-on-error: light-dark(#ffffff, #fbfbfa);
   --g-ink-success: light-dark(#3e7a00, #79c43b);
-  --g-ink-warning: light-dark(#8c6400, #ffc940);
+  --g-ink-warning: light-dark(#836800, #f6d066);
   --g-ink-error: light-dark(#dc0000, #ff9292);
 }
 
 [data-astryx-theme="stone"] {
-  --color-on-error: light-dark(#cdc6c5, #fef9f8);
+  --color-on-error: light-dark(#cfc5c3, #fef9f8);
 }
 
 [data-astryx-theme="gothic"] {
-  --color-text-yellow: light-dark(#684d0f, #684d0f);
-  --color-text-pink: light-dark(#6c213a, #6c213a);
   --color-on-error: light-dark(#c8c9c9, #fafafa);
 }
 
 [data-astryx-theme="y2k"] {
   --color-text-secondary: light-dark(#63594f, #a6acd6);
-  --color-on-error: light-dark(#dfc0c2, #fcfafa);
-  --g-ink-success: light-dark(#535f33, #C5E17A);
-  --g-ink-warning: light-dark(#665a37, #FFE08A);
-  --g-ink-error: light-dark(#6b5352, #FFC5C3);
+  --color-on-error: light-dark(#e1bfc8, #fcfafa);
+  --g-ink-success: light-dark(#535f33, #c5e17a);
+  --g-ink-warning: light-dark(#665a37, #fde08f);
+  --g-ink-error: light-dark(#6e5454, #ffc3c3);
 }
 
 [data-astryx-theme="harbour"] {

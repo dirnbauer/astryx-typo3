@@ -2,6 +2,13 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.6.1] — 2026-10-24
+
+- Refresh the pinned Astryx release to 0.7.4 (commit 704757f), including the reviewed Butter, Matcha, Stone, Gothic and Y2K palettes. The 173 upstream components and 263 base tokens are unchanged.
+- Regenerate the theme CSS and contrast overrides; all 2,350 colour pairs pass the expanded contrast audit. Correct accent ink on selected and neutral washes; the Butter component harness has zero axe findings across mobile/desktop, light/dark and RTL. Native drawer, timer and table-selection browser checks remain green.
+- Build with Node 26.12.1 and npm 12.2.1, and resolve current Composer development tools against the actual supported PHP runtime.
+- Keep PHP 8.4 and 8.5 CI coverage; remove a deprecated PHPUnit option and let the functional suite run within the CI job timeout.
+
 ## [2.6.0] — 2026-10-23
 
 - Refresh the vendored Astryx inventory and static theme tokens from upstream 0.6.2 to 0.7.3 (commit ca439c8). All existing components and seven official themes remain available.

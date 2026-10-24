@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -94,7 +94,7 @@ jobs:
         php: ['8.4', '8.5']
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -104,8 +104,6 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      # composer.json pins config.platform.php to 8.4.0 so that resolution is
-      # identical on every supported runtime.
       - name: Install dependencies
         run: composer install --no-interaction --no-progress --prefer-dist
 
@@ -140,7 +138,7 @@ jobs:
       typo3DatabasePassword: funcp
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -161,7 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -178,17 +176,20 @@ jobs:
         run: php Build/Scripts/scaffold-content-elements.php --check
 
   frontend:
-    name: Frontend build (Node 24)
+    name: Frontend build (Node 26.12.1)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '24'
+          node-version: '26.12.1'
           cache: npm
+
+      - name: Use project npm version
+        run: npm install --global npm@12.2.1
 
       - name: Install dependencies
         run: npm ci
@@ -198,3 +199,9 @@ jobs:
 
       - name: Verify generated assets are current
         run: git diff --exit-code
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Check native browser interactions
+        run: npm run test:browser:upstream

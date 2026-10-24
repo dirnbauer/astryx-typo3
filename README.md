@@ -7,7 +7,7 @@ Astryx ships as React components styled with StyleX. This extension ships the
 same design system as **Fluid components and plain CSS**: no React, no StyleX,
 no build step between an editor pressing save and a visitor seeing the page.
 What comes from upstream is the part that matters — the token vocabulary and the
-seven official themes, pinned to release `v0.7.3` rather than to a moving branch.
+seven official themes, pinned to release `v0.7.4` rather than to a moving branch.
 
 ## What it is
 
@@ -114,14 +114,14 @@ and the design review.
 GPL-2.0-or-later, like TYPO3.
 
 Astryx is MIT, © Meta Platforms, Inc. This extension vendors its design tokens
-and component inventory from official release `v0.7.3`; no React or StyleX
+and component inventory from official release `v0.7.4`; no React or StyleX
 runtime is redistributed. The notice is in
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The bundled fonts are licensed
 under the SIL Open Font License.
 
 ### Astryx 0.7 component checks
 
-The upstream inventory and static theme rules are pinned to 0.7.3. The adapter keeps its
+The upstream inventory and static theme rules are pinned to 0.7.4. The adapter keeps its
 existing responsive typography and native HTML runtime; upstream React hooks and media
 adaptation APIs are not bundled. Drawer is the native modal side-panel variant.
 

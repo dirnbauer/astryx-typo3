@@ -40,6 +40,9 @@ const SURFACES = ['--color-background-body', '--color-background-surface', '--co
  * that clears the threshold on both, because CSS gives us one value.
  */
 const CORRECT = [
+  // Links and selected labels also sit on the neutral and accent washes.
+  // Correct ink only: --color-accent remains the original fill/focus colour.
+  {token: '--color-text-accent', on: [...SURFACES, '--color-accent-muted', '--color-neutral']},
   {token: '--color-text-secondary', on: ['--color-background-body', '--color-background-surface', '--color-background-card', '--color-background-muted']},
 
   // Badge labels; three of the hues double as field status messages, which sit

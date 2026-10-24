@@ -144,6 +144,7 @@ const revalued = [...afterTokens.entries()]
 
 const beforeThemes = Object.keys(before[MANIFESTS[1]].themes);
 const afterThemes = Object.keys(after[MANIFESTS[1]].themes);
+const changedThemes = afterThemes.filter(name => beforeThemes.includes(name) && JSON.stringify(before[MANIFESTS[1]].themes[name]) !== JSON.stringify(after[MANIFESTS[1]].themes[name]));
 const removedThemes = beforeThemes.filter(name => !afterThemes.includes(name));
 const addedThemes = afterThemes.filter(name => !beforeThemes.includes(name));
 const themeRuleCounts = afterThemes
@@ -234,6 +235,10 @@ ${bullet(revalued)}
 
 - removed: ${removedThemes.length === 0 ? '_none_' : removedThemes.map(n => `\`${n}\``).join(', ')}
 - added: ${addedThemes.length === 0 ? '_none_' : addedThemes.map(n => `\`${n}\``).join(', ')}
+
+### Changed theme payloads (${changedThemes.length})
+
+${bullet(changedThemes.map(name => `\`${name}\``))}
 
 ### Rule-count changes (${themeRuleCounts.length})
 

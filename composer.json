@@ -1,7 +1,7 @@
 {
     "name": "webconsulting/astryx-typo3",
     "type": "typo3-cms-extension",
-    "description": "Astryx for TYPO3 \u2014 the Astryx design system, server-rendered for TYPO3 14: 250 Content Blocks, 205 Fluid components, 25 runtime-switchable themes, no JavaScript framework",
+    "description": "Astryx for TYPO3 — the Astryx design system, server-rendered for TYPO3 14: 250 Content Blocks, 205 Fluid components, 25 runtime-switchable themes, no JavaScript framework",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
@@ -57,16 +57,13 @@
             "typo3/class-alias-loader": true,
             "typo3/cms-composer-installers": true
         },
-        "platform": {
-            "php": "8.4.0"
-        },
         "sort-packages": true
     },
     "extra": {
         "typo3/cms": {
             "extension-key": "astryx_typo3",
             "web-dir": "public",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "Package": {
                 "providesPackages": {}
             }
@@ -78,7 +75,10 @@
         "cgl:check": "php-cs-fixer fix --dry-run --diff",
         "phpstan": "@php -d memory_limit=-1 vendor/bin/phpstan analyse --configuration=phpstan.neon --no-progress",
         "test:unit": "@php -d memory_limit=-1 vendor/bin/phpunit --configuration=Build/phpunit/UnitTests.xml",
-        "test:functional": "@php -d memory_limit=-1 vendor/bin/phpunit --configuration=Build/phpunit/FunctionalTests.xml",
+        "test:functional": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php -d memory_limit=-1 vendor/bin/phpunit --configuration=Build/phpunit/FunctionalTests.xml"
+        ],
         "test": [
             "@test:unit",
             "@test:functional"
