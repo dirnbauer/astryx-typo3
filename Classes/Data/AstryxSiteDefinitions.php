@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Webconsulting\AstryxTypo3\Data;
 
+use Webconsulting\Desiderio\Data\Showcase\ShowcasePricing;
+
 /**
  * The page tree of the Astryx showcase site, and the copy that fills it.
  *
@@ -409,41 +411,8 @@ final class AstryxSiteDefinitions
                     ],
                 ],
             ],
-            [
-                'ctype' => 'astryx_typo3_pricinglicencetiers',
-                'fixture' => [
-                    'eyebrow' => 'Pricing',
-                    'header' => 'Free to use. Pay for certainty.',
-                    'lead' => 'Astryx for TYPO3 is free under GPL-2.0-or-later, with all 250 elements, 25 themes and every release. Support plans add guaranteed answers and the maintenance promise, and one plan covers Astryx and Desiderio.',
-                    'note' => 'Prices exclude VAT. Plans are billed yearly or monthly, and staging and local installations are always free. Astryx is MIT-licensed, © Meta Platforms, Inc. and affiliates.',
-                    'cta_label' => 'See all elements',
-                    'cta_link' => 't3://page?uid=__HUB__',
-                    'tone' => 'surface',
-                    'width' => 'lg',
-                    'tiers' => [
-                        [
-                            'title' => 'Community',
-                            'value' => '€0',
-                            'text' => 'The complete extension under GPL-2.0-or-later: every element, theme and tool. Unlimited sites and no registration. Questions go to the public issue tracker.',
-                        ],
-                        [
-                            'title' => 'Studio',
-                            'value' => '€590',
-                            'text' => 'Per year, or €59 a month. Support for up to 5 live sites, the maintenance promise and email answers within two business days.',
-                        ],
-                        [
-                            'title' => 'Agency',
-                            'value' => '€1,990',
-                            'text' => 'Per year, or €199 a month. Support for up to 25 live sites, an answer by the next business day (CET) and a yearly onboarding call.',
-                        ],
-                        [
-                            'title' => 'Partner',
-                            'value' => '€4,900',
-                            'text' => 'Per year, five places. Unlimited live sites, critical bugs fixed or worked around within two business days, a half-day workshop and a roadmap call every quarter.',
-                        ],
-                    ],
-                ],
-            ],
+            self::pricingTiers(),
+            self::otherWaysToPay(),
             [
                 'ctype' => 'astryx_typo3_accordionfaq',
                 'fixture' => [
@@ -458,6 +427,7 @@ final class AstryxSiteDefinitions
                         ['title' => 'Can I use it next to Desiderio?', 'bodytext' => '<p>Yes. Both run in the same TYPO3, and each site chooses its theme. The element picker on each site shows only that theme\'s elements.</p>'],
                         ['title' => 'Does every theme meet WCAG 2.2 AA?', 'bodytext' => '<p>Yes. On every build, a script checks all 1,600 colour pairs in 25 themes, in light and dark mode. The build fails if one pair misses the threshold.</p><p>Some original Astryx colours fall short, for example secondary text in a few themes. A generated file darkens only the failing colour, by the smallest step that reaches 4.5:1, so each colour keeps its hue.</p>'],
                         ['title' => 'What happens when Astryx changes?', 'bodytext' => '<p>The design tokens are stored with the upstream commit they came from. One command regenerates them, and nothing changes until you run it.</p>'],
+                        self::invoiceQuestion(),
                     ],
                 ],
             ],
@@ -478,6 +448,122 @@ final class AstryxSiteDefinitions
                     'width' => 'md',
                 ],
             ],
+        ];
+    }
+
+    /**
+     * The four support plans. Prices come from Desiderio's ShowcasePricing,
+     * the single price source: one plan covers Astryx and Desiderio.
+     *
+     * @return array{ctype: string, fixture: array<string, mixed>}
+     */
+    private static function pricingTiers(): array
+    {
+        [$community, $studio, $agency, $partner] = ShowcasePricing::plans();
+
+        return [
+            'ctype' => 'astryx_typo3_pricinglicencetiers',
+            'fixture' => [
+                'eyebrow' => 'Pricing',
+                'header' => 'Free to use. Pay for certainty.',
+                'lead' => 'Astryx for TYPO3 is free under GPL-2.0-or-later, with all 250 elements, 25 themes and every release. Support plans add guaranteed answers and the maintenance promise, and one plan covers Astryx and Desiderio.',
+                'note' => 'Prices exclude VAT. Plans are billed yearly or monthly, and staging and local installations are always free. Astryx is MIT-licensed, © Meta Platforms, Inc. and affiliates.',
+                'cta_label' => 'See all elements',
+                'cta_link' => 't3://page?uid=__HUB__',
+                'tone' => 'surface',
+                'width' => 'lg',
+                'tiers' => [
+                    [
+                        'title' => $community['name'],
+                        'value' => $community['price'],
+                        'text' => 'The complete extension under GPL-2.0-or-later: every element, theme and tool. Unlimited sites and no registration. Questions go to the public issue tracker.',
+                    ],
+                    [
+                        'title' => $studio['name'],
+                        'value' => $studio['price'],
+                        'text' => ucfirst($studio['period']) . '. Support for up to 5 live sites, the maintenance promise and email answers within two business days.',
+                    ],
+                    [
+                        'title' => $agency['name'],
+                        'value' => $agency['price'],
+                        'text' => ucfirst($agency['period']) . '. Support for up to 25 live sites, an answer by the next business day (CET) and a yearly onboarding call.',
+                    ],
+                    [
+                        'title' => $partner['name'],
+                        'value' => $partner['price'],
+                        'text' => 'Per year, five places. Unlimited live sites, critical bugs fixed or worked around within two business days, a half-day workshop and a roadmap call every quarter.',
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * The open-source model: the software is free, our time is paid. Care,
+     * the Supporter, sponsored features and support hours, all priced by
+     * ShowcasePricing, and the seller named in the note.
+     *
+     * @return array{ctype: string, fixture: array<string, mixed>}
+     */
+    private static function otherWaysToPay(): array
+    {
+        $care = ShowcasePricing::care();
+        $supporter = ShowcasePricing::supporter();
+        $sponsored = ShowcasePricing::sponsoredFeature();
+        $hours = ShowcasePricing::service('Support hours');
+
+        return [
+            'ctype' => 'astryx_typo3_pricinglicencetiers',
+            'fixture' => [
+                'eyebrow' => 'Free software, paid time',
+                'header' => 'Care, support hours and sponsored features',
+                'lead' => ShowcasePricing::modelSentence() . ' Astryx follows the same model: every release is free, and you pay only when you want our time.',
+                'note' => sprintf('Prices exclude VAT. %s sends every invoice.', ShowcasePricing::SELLER_NAME),
+                'cta_label' => 'Read the terms',
+                'cta_link' => ShowcasePricing::SELLER_TERMS_URL,
+                'tone' => 'body',
+                'width' => 'lg',
+                'tiers' => [
+                    [
+                        'title' => $care['name'],
+                        'value' => $care['price'],
+                        'text' => sprintf('%s, or %s. %s. %s', ucfirst($care['period']), $care['yearly'], $care['further_sites'], $care['description']),
+                    ],
+                    [
+                        'title' => $hours['title'],
+                        'value' => $hours['rate'],
+                        'text' => sprintf('For %s. %s', $hours['unit'], $hours['description']),
+                    ],
+                    [
+                        'title' => $sponsored['name'],
+                        'value' => $sponsored['price'],
+                        'text' => sprintf('%s. %s', ucfirst($sponsored['period']), $sponsored['description']),
+                    ],
+                    [
+                        'title' => $supporter['name'],
+                        'value' => $supporter['price'],
+                        'text' => sprintf('%s. Recognition only, no support included: we thank you by name in the release notes.', ucfirst($supporter['period'])),
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Who sends the invoice, with links to the seller's legal notice and terms.
+     *
+     * @return array{title: string, bodytext: string}
+     */
+    private static function invoiceQuestion(): array
+    {
+        return [
+            'title' => 'Who sends the invoice?',
+            'bodytext' => sprintf(
+                '<p>%s sends every invoice for plans, Care and services. Its <a href="%s">legal notice</a> and <a href="%s">terms</a> are on webconsulting.at.</p>',
+                ShowcasePricing::SELLER_NAME,
+                ShowcasePricing::SELLER_IMPRINT_URL,
+                ShowcasePricing::SELLER_TERMS_URL,
+            ),
         ];
     }
 
