@@ -8,12 +8,12 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'templates',
     'author' => 'webconsulting studio',
     'state' => 'beta',
-    'version' => '2.6.1',
+    'version' => '2.6.2',
     'constraints' => [
         'depends' => [
             'typo3' => '14.3.7-14.99.99',
             'content_blocks' => '2.2.0-2.99.99',
-            'desiderio' => '4.1.0-4.99.99',
+            'desiderio' => '4.29.0-4.99.99',
         ],
         'conflicts' => [],
         'suggests' => [],

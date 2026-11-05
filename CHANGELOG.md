@@ -2,6 +2,12 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.6.2] — 2026-11-05
+
+- The home page explains the open-source model next to the plans: Care (we run your site), support hours, sponsored features and the Supporter, with the sentence "Desiderio is free with every release. Paid plans add our time." and webconsulting GmbH named as the seller. The FAQ answers "Who sends the invoice?" with links to its legal notice and terms.
+- Every price on the page comes from Desiderio's `ShowcasePricing` (the single price source); `webconsulting/desiderio` is required at `^4.29`. `AstryxPricingTest` checks that no price is typed twice.
+- `.github/FUNDING.yml` shows a "Sponsor" button on GitHub that leads to the How we earn page; GitHub Sponsors is prepared as a comment until the owner has enrolled.
+
 ## [2.6.1] — 2026-10-24
 
 - Refresh the pinned Astryx release to 0.7.4 (commit 704757f), including the reviewed Butter, Matcha, Stone, Gothic and Y2K palettes. The 173 upstream components and 263 base tokens are unchanged.
