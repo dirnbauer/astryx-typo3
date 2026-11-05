@@ -63,13 +63,17 @@ final class AstryxPricingTest extends TestCase
         self::assertDoesNotMatchRegularExpression('/€\s?\d/u', $source, 'Prices come from ShowcasePricing.');
     }
 
-    public function testTheSponsorButtonLeadsToTheHowWeEarnPage(): void
+    /**
+     * The lab site with "How we earn" sits behind basic auth, so the public
+     * Sponsor button leads to the contact page of webconsulting GmbH.
+     */
+    public function testTheSponsorButtonLeadsToThePublicContactPage(): void
     {
         $file = dirname(__DIR__, 2) . '/.github/FUNDING.yml';
         $funding = Yaml::parseFile($file);
 
         self::assertIsArray($funding);
-        self::assertSame(['https://typo3-lab.webconsulting.at/pricing/how-we-earn'], $funding['custom'] ?? null);
+        self::assertSame(['https://www.webconsulting.at/kontakt'], $funding['custom'] ?? null);
         self::assertArrayNotHasKey('github', $funding, 'GitHub Sponsors waits for the owner to enrol.');
     }
 

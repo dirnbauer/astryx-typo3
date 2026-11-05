@@ -11,11 +11,13 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/dirnbauer/desiderio.git"
+            "url": "https://github.com/dirnbauer/desiderio.git",
+            "no-api": true
         },
         {
             "type": "vcs",
-            "url": "https://github.com/dirnbauer/typo3-visual-editor-enhancements.git"
+            "url": "https://github.com/dirnbauer/typo3-visual-editor-enhancements.git",
+            "no-api": true
         }
     ],
     "require": {
