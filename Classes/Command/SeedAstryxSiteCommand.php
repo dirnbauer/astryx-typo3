@@ -12,9 +12,11 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Webconsulting\AstryxTypo3\Data\AstryxSiteDefinitions;
@@ -122,6 +124,8 @@ final class SeedAstryxSiteCommand extends Command
             ]);
             return self::SUCCESS;
         }
+
+        Bootstrap::initializeBackendAuthentication();
 
         $now = time();
         $pageColumns = $this->databaseSchema->getColumnNames('pages');
@@ -715,7 +719,7 @@ final class SeedAstryxSiteCommand extends Command
         // no_index belongs to EXT:seo; without it the translation keeps the default.
         $noIndex = isset($columns['no_index']) ? ', no_index' : '';
         $originals = $connection->fetchAllAssociative(
-            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, is_siteroot' . $noIndex . ' FROM pages'
+            'SELECT uid, pid, title, slug, doktype, sorting, nav_hide, is_siteroot, tx_desiderioastryx_theme' . $noIndex . ' FROM pages'
             . ' WHERE deleted = 0 AND sys_language_uid = 0'
             . ' AND (uid = ? OR pid = ? OR pid IN (SELECT p.uid FROM (SELECT uid FROM pages WHERE pid = ? AND deleted = 0) p))',
             [$rootUid, $rootUid, $rootUid],
@@ -724,6 +728,7 @@ final class SeedAstryxSiteCommand extends Command
         $created = 0;
         $updated = 0;
         $duplicatesRemoved = 0;
+        $dataMap = [];
         foreach ($originals as $page) {
             $uid = (int)$page['uid'];
             $title = (string)$page['title'];
@@ -745,12 +750,13 @@ final class SeedAstryxSiteCommand extends Command
                 'sorting' => (int)$page['sorting'],
                 'nav_hide' => (int)$page['nav_hide'],
                 'no_index' => (int)($page['no_index'] ?? 0),
+                'tx_desiderioastryx_theme' => (string)$page['tx_desiderioastryx_theme'],
                 'tstamp' => $now,
             ], $columns);
 
             if ($existingUids !== []) {
                 $canonicalUid = array_shift($existingUids);
-                $connection->update('pages', $values, ['uid' => $canonicalUid]);
+                $dataMap['pages'][$canonicalUid] = $values;
                 $updated++;
 
                 // Concurrent or interrupted seed runs may have created more
@@ -766,14 +772,31 @@ final class SeedAstryxSiteCommand extends Command
                 continue;
             }
 
-            $connection->insert('pages', array_merge($values, [
+            $dataMap['pages']['NEW_astryx_de_' . $uid] = array_merge($values, [
                 'sys_language_uid' => 1,
                 'l10n_parent' => $uid,
                 'crdate' => $now,
                 'hidden' => 0,
                 'deleted' => 0,
-            ]));
+            ]);
             $created++;
+        }
+
+        // DataHandler synchronizes every l10n_mode=exclude field from the
+        // source, including backend_layout and backend_layout_next_level.
+        // Direct inserts left these blank, causing German pages to select a
+        // different PAGEVIEW template. Updating existing overlays also repairs
+        // records from previous seed runs through the same core mechanism.
+        $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+        $dataHandler->start($dataMap, []);
+        $dataHandler->process_datamap();
+        if ($dataHandler->errorLog !== []) {
+            throw new \RuntimeException('Could not seed German page records: ' . implode('; ', $dataHandler->errorLog), 1791813601);
+        }
+        foreach (array_keys($dataMap['pages'] ?? []) as $id) {
+            if (is_string($id) && str_starts_with($id, 'NEW') && !isset($dataHandler->substNEWwithIDs[$id])) {
+                throw new \RuntimeException('German page record was not created: ' . $id, 1791813602);
+            }
         }
 
         $io->writeln(sprintf(

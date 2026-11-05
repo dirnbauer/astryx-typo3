@@ -22,6 +22,20 @@ import {fileURLToPath} from 'node:url';
 const EXT_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const CSS = path.join(EXT_ROOT, 'Resources/Public/Css/astryx-theme.css');
 const OUT = path.join(EXT_ROOT, 'Resources/Private/Templates/Partials/Pages/ThemeOverview.fluid.html');
+const LABELS = path.join(EXT_ROOT, 'Resources/Private/Language/themes.xlf');
+const labels = new Map();
+
+/** Keep generated copy in TYPO3's translation system, including accessible names. */
+function translate(key, source, args = []) {
+  if (labels.has(key) && labels.get(key) !== source) throw new Error(`Conflicting source for ${key}`);
+  labels.set(key, source);
+  const argumentValues = args.map((value, index) => {
+    const literal = typeof value === 'number' ? value : `'${String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
+    return `${index}: ${literal}`;
+  });
+  const argumentsAttribute = args.length === 0 ? '' : `, arguments: {${argumentValues.join(', ')}}`;
+  return `{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:${key}'${argumentsAttribute})}`;
+}
 
 /**
  * Every theme, from the generated registry — the same list the build scripts,
@@ -79,25 +93,25 @@ const cardFor = r => `
                 <a:atom.badge variant="${r.family === 'astryx' ? 'blue' : 'green'}" as="span" class="g-themes__family">${r.family === 'astryx' ? 'Astryx' : 'webconsulting'}</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">${escape(r.character)}</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">${translate(`theme.${r.id}.character`, r.character)}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the ${escape(r.name)} theme">
+            <div class="g-themes__swatches" role="img" aria-label="${translate('swatches', 'Accent, page and surface colours of the %s theme', [r.name])}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">${translate('sample.primary', 'Primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">${translate('sample.success', 'Success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">${translate('sample.outline', 'Outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">${escape(r.heading)}</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">${escape(r.sans)}</dd>
-                <dt>Corners</dt><dd>${escape(r.radius)}</dd>
-                <dt>Best for</dt><dd>${escape(r.use)}</dd>
+                <dt>${translate('facts.headings', 'Headings')}</dt><dd style="font-family: var(--font-family-heading)">${escape(r.heading)}</dd>
+                <dt>${translate('facts.body', 'Body')}</dt><dd style="font-family: var(--font-family-body)">${escape(r.sans)}</dd>
+                <dt>${translate('facts.corners', 'Corners')}</dt><dd>${escape(r.radius)}</dd>
+                <dt>${translate('facts.bestFor', 'Best for')}</dt><dd>${translate(`theme.${r.id}.use`, r.use)}</dd>
             </dl>
         </article>`;
 
@@ -118,7 +132,7 @@ const tableRows = rows.map(r => `
                         <td>${escape(r.mono)}</td>
                         <td>${escape(r.radius)}</td>
                         <td>${escape(r.size)}</td>
-                        <td>${r.id === 'gothic' ? 'Dark in both schemes' : 'Follows the scheme'}</td>
+                        <td>${r.id === 'gothic' ? translate('scheme.alwaysDark', 'Dark in both schemes') : translate('scheme.follows', 'Follows the scheme')}</td>
                     </tr>`).join('');
 
 const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:a="http://typo3.org/ns/Webconsulting/AstryxTypo3/Components/ComponentCollection" data-namespace-typo3-fluid="true">
@@ -138,24 +152,20 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
 
 <a:layout.section class="g-themes">
     <a:layout.container>
-        <a:atom.eyebrow>Themes</a:atom.eyebrow>
-        <a:atom.heading level="2" type="heading-1">${rows.length} themes, one set of content</a:atom.heading>
+        <a:atom.eyebrow>${translate('intro.eyebrow', 'Themes')}</a:atom.eyebrow>
+        <a:atom.heading level="2" type="heading-1">${translate('intro.heading', '%d themes, one set of content', [rows.length])}</a:atom.heading>
         <a:atom.text type="large" class="g-themes__lead">
-            Every card below is rendered live in its own theme — the same components,
-            the same markup, only different tokens. Switching a theme repaints the site;
-            it never touches a word of content. Pick one per site, or per page.
+            ${translate('intro.lead', 'Every card below is rendered live in its own theme — the same components, the same markup, only different tokens. Switching a theme repaints the site; it never touches a word of content. Pick one per site, or per page.')}
         </a:atom.text>
     </a:layout.container>
 </a:layout.section>
 
 <a:layout.section class="g-themes">
     <a:layout.container>
-        <a:atom.eyebrow>From Astryx</a:atom.eyebrow>
-        <a:atom.heading level="2">The ${astryxRows.length} Meta ships</a:atom.heading>
+        <a:atom.eyebrow>${translate('astryx.eyebrow', 'From Astryx')}</a:atom.eyebrow>
+        <a:atom.heading level="2">${translate('astryx.heading', 'The %d Meta ships', [astryxRows.length])}</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
-            These are Astryx's own themes, token for token: the values come from
-            upstream's theme compiler rather than from anyone's eye. Astryx itself
-            ships seven themes.
+            ${translate('astryx.lead', "These are Astryx's own themes, token for token: the values come from upstream's theme compiler rather than from anyone's eye. Astryx itself ships %d themes.", [astryxRows.length])}
         </a:atom.text>
 
         <div class="g-themes__grid">${astryxCards}
@@ -165,16 +175,10 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
 
 <a:layout.section surface="surface" class="g-themes">
     <a:layout.container>
-        <a:atom.eyebrow>From webconsulting</a:atom.eyebrow>
-        <a:atom.heading level="2">${ourRows.length} more, built on the same contract</a:atom.heading>
+        <a:atom.eyebrow>${translate('webconsulting.eyebrow', 'From webconsulting')}</a:atom.eyebrow>
+        <a:atom.heading level="2">${translate('webconsulting.heading', '%d more, built on the same contract', [ourRows.length])}</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
-            Ours, not Meta's. Each is expanded into exactly the structure Astryx's
-            own generator emits and carries the same token names, so no component
-            can tell the difference — and each passes the same WCAG 2.2 AA audit
-            as the ones above. What they are not is Astryx's work, which is why
-            they are on their own shelf. Five of them adapt palettes published by
-            other open-source projects under the MIT licence — Nord, Catppuccin,
-            Solarized, Gruvbox and Tokyo Night — and say so on their card.
+            ${translate('webconsulting.lead', "Ours, not Meta's. Each is expanded into exactly the structure Astryx's own generator emits and carries the same token names, so no component can tell the difference — and each passes the same WCAG 2.2 AA audit as the ones above. What they are not is Astryx's work, which is why they are on their own shelf. Five of them adapt palettes published by other open-source projects under the MIT licence — Nord, Catppuccin, Solarized, Gruvbox and Tokyo Night — and say so on their card.")}
         </a:atom.text>
 
         <div class="g-themes__grid">${ourCards}
@@ -184,10 +188,9 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
 
 <a:layout.section surface="surface" class="g-themes-table">
     <a:layout.container>
-        <a:atom.heading level="2">What actually differs</a:atom.heading>
+        <a:atom.heading level="2">${translate('comparison.heading', 'What actually differs')}</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
-            Type, corner radius, base size and how each theme treats dark mode.
-            Colour is only part of what a theme decides.
+            ${translate('comparison.lead', 'Type, corner radius, base size and how each theme treats dark mode. Colour is only part of what a theme decides.')}
         </a:atom.text>
 
         <f:comment>
@@ -197,21 +200,20 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
             ScrollableArea, which is a tab stop with a name — a scroll container
             a keyboard cannot reach hides the columns it scrolls to.
         </f:comment>
-            <a:molecule.table class="g-themes__matrix" scroll="{true}" scrollLabel="Theme comparison table">
+            <a:molecule.table class="g-themes__matrix" scroll="{true}" scrollLabel="${translate('comparison.scrollLabel', 'Theme comparison table')}">
                 <a:atom.visuallyHidden as="caption">
-                    Comparison of all ${rows.length} themes by heading font, body font,
-                    monospace font, corner radius, base text size and dark-mode behaviour.
+                    ${translate('comparison.caption', 'Comparison of all %d themes by heading font, body font, monospace font, corner radius, base text size and dark-mode behaviour.', [rows.length])}
                 </a:atom.visuallyHidden>
                 <thead>
                     <tr>
-                        <th scope="col">Theme</th>
-                        <th scope="col">Key</th>
-                        <th scope="col">Headings</th>
-                        <th scope="col">Body</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Corners</th>
-                        <th scope="col">Base size</th>
-                        <th scope="col">Dark mode</th>
+                        <th scope="col">${translate('facts.theme', 'Theme')}</th>
+                        <th scope="col">${translate('facts.key', 'Key')}</th>
+                        <th scope="col">${translate('facts.headings', 'Headings')}</th>
+                        <th scope="col">${translate('facts.body', 'Body')}</th>
+                        <th scope="col">${translate('facts.code', 'Code')}</th>
+                        <th scope="col">${translate('facts.corners', 'Corners')}</th>
+                        <th scope="col">${translate('facts.baseSize', 'Base size')}</th>
+                        <th scope="col">${translate('facts.darkMode', 'Dark mode')}</th>
                     </tr>
                 </thead>
                 <tbody>${tableRows}
@@ -219,12 +221,11 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
             </a:molecule.table>
 
         <a:atom.text type="supporting" class="g-themes__note">
-            Set the theme for a whole site with <code>astryx.theme.default</code>,
-            or for one page and everything beneath it with the <strong>Astryx theme</strong>
-            field in the page properties. The tokens come from
-            <a:atom.link href="https://github.com/facebook/astryx" rel="noreferrer noopener">Meta's Astryx design system</a:atom.link>;
-            this theme renders them server-side in Fluid, with no React and no build step
-            between saving and seeing.
+            ${translate('configuration.site', 'Set the theme for a whole site with')} <code>astryx.theme.default</code>.
+            ${translate('configuration.page', 'For one page and everything beneath it, use the Astryx theme field in the page properties.')}
+            ${translate('configuration.tokens', 'The tokens come from')}
+            <a:atom.link href="https://github.com/facebook/astryx" rel="noreferrer noopener">${translate('configuration.upstream', "Meta's Astryx design system")}</a:atom.link>.
+            ${translate('configuration.rendering', 'This theme renders them server-side in Fluid, with no React and no build step between saving and seeing.')}
         </a:atom.text>
     </a:layout.container>
 </a:layout.section>
@@ -234,4 +235,7 @@ const html = `<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xm
 
 fs.mkdirSync(path.dirname(OUT), {recursive: true});
 fs.writeFileSync(OUT, html);
+const units = [...labels].map(([key, source]) => `    <unit id="${key}">\n      <segment>\n        <source>${escape(source)}</source>\n      </segment>\n    </unit>`).join('\n');
+fs.writeFileSync(LABELS, `<?xml version="1.0" encoding="utf-8"?>\n<!-- GENERATED by Build/Scripts/build-theme-overview.mjs. Translate in de.themes.xlf. -->\n<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.0" srcLang="en">\n  <file id="themes">\n${units}\n  </file>\n</xliff>\n`);
 console.log(`ThemeOverview.fluid.html — ${rows.length} themes, ${(html.length / 1024).toFixed(1)} kB`);
+console.log(`themes.xlf — ${labels.size} translatable labels`);

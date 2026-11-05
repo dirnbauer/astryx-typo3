@@ -15,24 +15,20 @@
 
 <a:layout.section class="g-themes">
     <a:layout.container>
-        <a:atom.eyebrow>Themes</a:atom.eyebrow>
-        <a:atom.heading level="2" type="heading-1">25 themes, one set of content</a:atom.heading>
+        <a:atom.eyebrow>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:intro.eyebrow')}</a:atom.eyebrow>
+        <a:atom.heading level="2" type="heading-1">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:intro.heading', arguments: {0: 25})}</a:atom.heading>
         <a:atom.text type="large" class="g-themes__lead">
-            Every card below is rendered live in its own theme — the same components,
-            the same markup, only different tokens. Switching a theme repaints the site;
-            it never touches a word of content. Pick one per site, or per page.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:intro.lead')}
         </a:atom.text>
     </a:layout.container>
 </a:layout.section>
 
 <a:layout.section class="g-themes">
     <a:layout.container>
-        <a:atom.eyebrow>From Astryx</a:atom.eyebrow>
-        <a:atom.heading level="2">The 7 Meta ships</a:atom.heading>
+        <a:atom.eyebrow>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:astryx.eyebrow')}</a:atom.eyebrow>
+        <a:atom.heading level="2">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:astryx.heading', arguments: {0: 7})}</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
-            These are Astryx's own themes, token for token: the values come from
-            upstream's theme compiler rather than from anyone's eye. Astryx itself
-            ships seven themes.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:astryx.lead', arguments: {0: 7})}
         </a:atom.text>
 
         <div class="g-themes__grid">
@@ -49,25 +45,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Pure greyscale with a near-black accent, so nothing on the page competes with the content.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.neutral.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Neutral theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Neutral'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>0.625rem</dd>
-                <dt>Best for</dt><dd>Documentation, dashboards and sites where the interface should stay in the background.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.625rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.neutral.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="butter">
@@ -83,25 +79,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Cream paper with one bright blue accent.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.butter.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Butter theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Butter'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Outfit</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Marketing pages and product launches with one strong colour.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Outfit</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.butter.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="chocolate">
@@ -117,25 +113,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Warm browns, with serif headings over a sans-serif body.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.chocolate.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Chocolate theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Chocolate'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0.625rem</dd>
-                <dt>Best for</dt><dd>Editorial sites, long reads and pages with a printed feel.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.625rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.chocolate.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="matcha">
@@ -151,25 +147,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Deep green on paper, with headings in a handwriting font and soft, rounded corners.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.matcha.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Matcha theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Matcha'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Playwrite US Trad</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>12px</dd>
-                <dt>Best for</dt><dd>Craft, food and wellbeing sites that should feel handmade.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Playwrite US Trad</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>12px</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.matcha.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="stone">
@@ -185,25 +181,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Cool grey with Montserrat headings over a Figtree body, quiet and formal.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.stone.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Stone theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Stone'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Corporate and professional-services sites that want a restrained look.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.stone.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="gothic">
@@ -219,25 +215,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Near-white text on near-black, and the only theme that stays dark in light mode too.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.gothic.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Gothic theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Gothic'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fustat</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Fustat</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Developer tools, music and products used mostly at night.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fustat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Fustat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.gothic.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="y2k">
@@ -253,25 +249,25 @@
                 <a:atom.badge variant="blue" as="span" class="g-themes__family">Astryx</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Lavender background and square corners with no rounding at all.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.y2k.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Y2K theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Y2K'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Poppins</dd>
-                <dt>Corners</dt><dd>0px</dd>
-                <dt>Best for</dt><dd>Playful brands with a retro look and hard edges.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Poppins</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0px</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.y2k.use')}</dd>
             </dl>
         </article>
         </div>
@@ -280,16 +276,10 @@
 
 <a:layout.section surface="surface" class="g-themes">
     <a:layout.container>
-        <a:atom.eyebrow>From webconsulting</a:atom.eyebrow>
-        <a:atom.heading level="2">18 more, built on the same contract</a:atom.heading>
+        <a:atom.eyebrow>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:webconsulting.eyebrow')}</a:atom.eyebrow>
+        <a:atom.heading level="2">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:webconsulting.heading', arguments: {0: 18})}</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
-            Ours, not Meta's. Each is expanded into exactly the structure Astryx's
-            own generator emits and carries the same token names, so no component
-            can tell the difference — and each passes the same WCAG 2.2 AA audit
-            as the ones above. What they are not is Astryx's work, which is why
-            they are on their own shelf. Five of them adapt palettes published by
-            other open-source projects under the MIT licence — Nord, Catppuccin,
-            Solarized, Gruvbox and Tokyo Night — and say so on their card.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:webconsulting.lead')}
         </a:atom.text>
 
         <div class="g-themes__grid">
@@ -306,25 +296,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Deep navy on a cool grey page, for sites that need to look institutional.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.harbour.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Harbour theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Harbour'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Public institutions, finance and law firms.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.harbour.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="ember">
@@ -340,25 +330,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Warm charcoal with one ember-orange accent, kept for the most important thing on the page.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.ember.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Ember theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Ember'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0.625rem</dd>
-                <dt>Best for</dt><dd>Campaign pages with one clear call to action.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.625rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.ember.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="linen">
@@ -374,25 +364,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">A soft, warm neutral for long reads, with low contrast between page and surfaces so nothing competes with the text.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.linen.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Linen theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Linen'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.375rem</dd>
-                <dt>Best for</dt><dd>Long articles, reports and documentation.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.375rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.linen.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="orchid">
@@ -408,25 +398,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Muted purple on a cool page. Distinctive but calm, and more decorative than corporate.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.orchid.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Orchid theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Orchid'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>0.75rem</dd>
-                <dt>Best for</dt><dd>Culture, events and creative studios.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.75rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.orchid.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="cobalt">
@@ -442,25 +432,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">A strong blue on near-white, for dashboards and documentation where the accent appears many times on a page.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.cobalt.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Cobalt theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Cobalt'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0.375rem</dd>
-                <dt>Best for</dt><dd>Dashboards and technical documentation.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.375rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.cobalt.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="moss">
@@ -476,25 +466,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Deep forest green, cooler and quieter than Matcha, for organisations that want green without a wellness look.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.moss.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Moss theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Moss'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fustat</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Environmental and outdoor organisations.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fustat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.moss.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="clay">
@@ -510,25 +500,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Terracotta and warm stone, with the roundest corners of all the themes.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.clay.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Clay theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Clay'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>1rem</dd>
-                <dt>Best for</dt><dd>Friendly consumer brands and crafts.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>1rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.clay.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="plum">
@@ -544,25 +534,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Deep aubergine on a slightly warm page, suited to a publication rather than a product.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.plum.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Plum theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Plum'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0.25rem</dd>
-                <dt>Best for</dt><dd>Magazines and editorial publications.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.25rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.plum.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="sand">
@@ -578,25 +568,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Dark umber text on pale ochre paper: bright but not white, for sites read outdoors or on low-cost screens.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.sand.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Sand theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Sand'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.625rem</dd>
-                <dt>Best for</dt><dd>Sites read outdoors or on low-cost screens.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.625rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.sand.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="ink">
@@ -612,25 +602,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Near-black on white, for sites that need the highest possible contrast.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.ink.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Ink theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Ink'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Albert Sans</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0rem</dd>
-                <dt>Best for</dt><dd>Sites that need the highest contrast.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.ink.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="lagoon">
@@ -646,25 +636,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Blue-green on a pale page, fresher than Cobalt and warmer than Harbour, but not turquoise.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.lagoon.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Lagoon theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Lagoon'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>0.75rem</dd>
-                <dt>Best for</dt><dd>Health, travel and service sites.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.75rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.lagoon.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="rose">
@@ -680,25 +670,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Muted dusty rose that looks calm rather than sweet, with serif headings over a plain body.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.rose.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Rose theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Rose'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Lifestyle, beauty and hospitality.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.rose.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="graphite">
@@ -714,25 +704,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Cool monochrome with no hue in the brand colours, for sites where the images supply all the colour.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.graphite.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Graphite theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Graphite'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.375rem</dd>
-                <dt>Best for</dt><dd>Portfolios and image-led sites.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.375rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.graphite.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="frost">
@@ -748,25 +738,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Calm arctic blue-grey, adapted from the Nord palette (MIT) and easy to read in bright office light.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.frost.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Frost theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Frost'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.375rem</dd>
-                <dt>Best for</dt><dd>Office tools and intranets.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.375rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.frost.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="latte">
@@ -782,25 +772,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Soft mauve on a cool white page, adapted from Catppuccin Latte (MIT), for products that want to feel friendly.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.latte.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Latte theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Latte'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
-                <dt>Corners</dt><dd>0.75rem</dd>
-                <dt>Best for</dt><dd>Friendly software products.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Poppins</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Figtree</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.75rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.latte.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="solar">
@@ -816,25 +806,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Cream paper and dark cyan, adapted from Ethan Schoonover's Solarized (MIT), with deliberately low contrast for long reading sessions.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.solar.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Solar theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Solar'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
-                <dt>Corners</dt><dd>0.25rem</dd>
-                <dt>Best for</dt><dd>Long reading sessions and documentation.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Fraunces</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">DM Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.25rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.solar.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="retro">
@@ -850,25 +840,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Warm amber on yellowed cream, adapted from Gruvbox (MIT), with the look of a printed manual.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.retro.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Retro theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Retro'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0.25rem</dd>
-                <dt>Best for</dt><dd>Manuals, guides and hobby sites.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Outfit</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.25rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.retro.use')}</dd>
             </dl>
         </article>
         <article class="g-themes__card" data-astryx-theme="midnight">
@@ -884,25 +874,25 @@
                 <a:atom.badge variant="green" as="span" class="g-themes__family">webconsulting</a:atom.badge>
             </header>
 
-            <a:atom.text type="body" class="g-themes__character">Indigo on a pale blue-grey page, adapted from Tokyo Night (MIT). It was designed dark first, so its dark mode looks deliberate.</a:atom.text>
+            <a:atom.text type="body" class="g-themes__character">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.midnight.character')}</a:atom.text>
 
-            <div class="g-themes__swatches" role="img" aria-label="Accent, page and surface colours of the Midnight theme">
+            <div class="g-themes__swatches" role="img" aria-label="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:swatches', arguments: {0: 'Midnight'})}">
                 <span class="g-themes__swatch g-themes__swatch--accent"></span>
                 <span class="g-themes__swatch g-themes__swatch--body"></span>
                 <span class="g-themes__swatch g-themes__swatch--surface"></span>
             </div>
 
             <div class="g-themes__sample">
-                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">Primary</a:atom.button>
-                <a:atom.badge variant="success" as="span">Success</a:atom.badge>
-                <a:atom.badge variant="outline" as="span">Outline</a:atom.badge>
+                <a:atom.button variant="primary" tabindex="-1" ariaHidden="true">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.primary')}</a:atom.button>
+                <a:atom.badge variant="success" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.success')}</a:atom.badge>
+                <a:atom.badge variant="outline" as="span">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:sample.outline')}</a:atom.badge>
             </div>
 
             <dl class="g-themes__facts">
-                <dt>Headings</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
-                <dt>Body</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
-                <dt>Corners</dt><dd>0.5rem</dd>
-                <dt>Best for</dt><dd>Developer tools and dark-first products.</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</dt><dd style="font-family: var(--font-family-heading)">Montserrat</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</dt><dd style="font-family: var(--font-family-body)">Albert Sans</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</dt><dd>0.5rem</dd>
+                <dt>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.bestFor')}</dt><dd>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:theme.midnight.use')}</dd>
             </dl>
         </article>
         </div>
@@ -911,10 +901,9 @@
 
 <a:layout.section surface="surface" class="g-themes-table">
     <a:layout.container>
-        <a:atom.heading level="2">What actually differs</a:atom.heading>
+        <a:atom.heading level="2">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:comparison.heading')}</a:atom.heading>
         <a:atom.text type="body" class="g-themes__lead">
-            Type, corner radius, base size and how each theme treats dark mode.
-            Colour is only part of what a theme decides.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:comparison.lead')}
         </a:atom.text>
 
         <f:comment>
@@ -924,21 +913,20 @@
             ScrollableArea, which is a tab stop with a name — a scroll container
             a keyboard cannot reach hides the columns it scrolls to.
         </f:comment>
-            <a:molecule.table class="g-themes__matrix" scroll="{true}" scrollLabel="Theme comparison table">
+            <a:molecule.table class="g-themes__matrix" scroll="{true}" scrollLabel="{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:comparison.scrollLabel')}">
                 <a:atom.visuallyHidden as="caption">
-                    Comparison of all 25 themes by heading font, body font,
-                    monospace font, corner radius, base text size and dark-mode behaviour.
+                    {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:comparison.caption', arguments: {0: 25})}
                 </a:atom.visuallyHidden>
                 <thead>
                     <tr>
-                        <th scope="col">Theme</th>
-                        <th scope="col">Key</th>
-                        <th scope="col">Headings</th>
-                        <th scope="col">Body</th>
-                        <th scope="col">Code</th>
-                        <th scope="col">Corners</th>
-                        <th scope="col">Base size</th>
-                        <th scope="col">Dark mode</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.theme')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.key')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.headings')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.body')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.code')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.corners')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.baseSize')}</th>
+                        <th scope="col">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:facts.darkMode')}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -953,7 +941,7 @@
                         <td>ui-monospace</td>
                         <td>0.625rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -966,7 +954,7 @@
                         <td>JetBrains Mono</td>
                         <td>0.5rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -979,7 +967,7 @@
                         <td>JetBrains Mono</td>
                         <td>0.625rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -992,7 +980,7 @@
                         <td>JetBrains Mono</td>
                         <td>12px</td>
                         <td>1rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1005,7 +993,7 @@
                         <td>JetBrains Mono</td>
                         <td>0.5rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1018,7 +1006,7 @@
                         <td>JetBrains Mono</td>
                         <td>0.5rem</td>
                         <td>1rem</td>
-                        <td>Dark in both schemes</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.alwaysDark')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1031,7 +1019,7 @@
                         <td>JetBrains Mono</td>
                         <td>0px</td>
                         <td>1rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1044,7 +1032,7 @@
                         <td>ui-monospace</td>
                         <td>0.5rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1057,7 +1045,7 @@
                         <td>ui-monospace</td>
                         <td>0.625rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1070,7 +1058,7 @@
                         <td>ui-monospace</td>
                         <td>0.375rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1083,7 +1071,7 @@
                         <td>ui-monospace</td>
                         <td>0.75rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1096,7 +1084,7 @@
                         <td>ui-monospace</td>
                         <td>0.375rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1109,7 +1097,7 @@
                         <td>ui-monospace</td>
                         <td>0.5rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1122,7 +1110,7 @@
                         <td>ui-monospace</td>
                         <td>1rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1135,7 +1123,7 @@
                         <td>ui-monospace</td>
                         <td>0.25rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1148,7 +1136,7 @@
                         <td>ui-monospace</td>
                         <td>0.625rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1161,7 +1149,7 @@
                         <td>ui-monospace</td>
                         <td>0rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1174,7 +1162,7 @@
                         <td>ui-monospace</td>
                         <td>0.75rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1187,7 +1175,7 @@
                         <td>ui-monospace</td>
                         <td>0.5rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1200,7 +1188,7 @@
                         <td>ui-monospace</td>
                         <td>0.375rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1213,7 +1201,7 @@
                         <td>ui-monospace</td>
                         <td>0.375rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1226,7 +1214,7 @@
                         <td>ui-monospace</td>
                         <td>0.75rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1239,7 +1227,7 @@
                         <td>ui-monospace</td>
                         <td>0.25rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1252,7 +1240,7 @@
                         <td>ui-monospace</td>
                         <td>0.25rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                     <tr>
                         <th scope="row">
@@ -1265,18 +1253,17 @@
                         <td>ui-monospace</td>
                         <td>0.5rem</td>
                         <td>0.875rem</td>
-                        <td>Follows the scheme</td>
+                        <td>{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:scheme.follows')}</td>
                     </tr>
                 </tbody>
             </a:molecule.table>
 
         <a:atom.text type="supporting" class="g-themes__note">
-            Set the theme for a whole site with <code>astryx.theme.default</code>,
-            or for one page and everything beneath it with the <strong>Astryx theme</strong>
-            field in the page properties. The tokens come from
-            <a:atom.link href="https://github.com/facebook/astryx" rel="noreferrer noopener">Meta's Astryx design system</a:atom.link>;
-            this theme renders them server-side in Fluid, with no React and no build step
-            between saving and seeing.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:configuration.site')} <code>astryx.theme.default</code>.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:configuration.page')}
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:configuration.tokens')}
+            <a:atom.link href="https://github.com/facebook/astryx" rel="noreferrer noopener">{f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:configuration.upstream')}</a:atom.link>.
+            {f:translate(key: 'LLL:EXT:astryx_typo3/Resources/Private/Language/themes.xlf:configuration.rendering')}
         </a:atom.text>
     </a:layout.container>
 </a:layout.section>
