@@ -3,8 +3,8 @@
 <f:comment>
     The wordmark falls back to the site title, because a site that never set
     one still has a name and a nameless footer is worse than a repeated one.
-    Everything else is handed straight to SiteFooter: the two menus come from
-    data processors, the rest from site settings.
+    The two menus come from data processors, the rest from site settings.
+    Tagline and copyright support translation references as well as plain text.
 </f:comment>
 
 <f:variable name="labels" value="LLL:EXT:astryx_typo3/Resources/Private/Language/labels.xlf"/>
@@ -14,11 +14,21 @@
     <f:variable name="wordmark" value="{site.configuration.websiteTitle}"/>
 </f:if>
 
+<f:variable name="tagline" value="{site.configuration.settings.astryx.brand.tagline}"/>
+<f:if condition="{tagline}">
+    <f:variable name="tagline" value="{f:translate(key: tagline, default: tagline)}"/>
+</f:if>
+
+<f:variable name="copyrightText" value="{site.configuration.settings.astryx.footer.copyrightText}"/>
+<f:if condition="{copyrightText}">
+    <f:variable name="copyrightText" value="{f:translate(key: copyrightText, default: copyrightText)}"/>
+</f:if>
+
 <a:organism.siteFooter
     homeUrl="{f:uri.page(pageUid: site.rootPageId)}"
     wordmark="{wordmark}"
-    tagline="{site.configuration.settings.astryx.brand.tagline}"
-    copyrightText="{site.configuration.settings.astryx.footer.copyrightText}"
+    tagline="{tagline}"
+    copyrightText="{copyrightText}"
     languages="{languageNavigation}"
     languageLabel="{f:translate(key: '{labels}:chrome.languageNavigation', default: 'Language')}"
     legalMenu="{legalMenu}"

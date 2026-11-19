@@ -7,6 +7,9 @@ namespace Webconsulting\AstryxTypo3\Tests\Functional\Command;
 use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
+use TYPO3\CMS\Core\Page\PageLayoutResolver;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 use Webconsulting\AstryxTypo3\Command\SeedAstryxSiteCommand;
 
@@ -46,6 +49,7 @@ final class SeedAstryxSiteCommandTest extends FunctionalTestCase
     {
         parent::setUp();
         $this->importCSVDataSet(__DIR__ . '/Fixtures/SeedingBase.csv');
+        $this->setUpBackendUser(1);
     }
 
     #[Test]
@@ -64,12 +68,55 @@ final class SeedAstryxSiteCommandTest extends FunctionalTestCase
         self::assertSame($firstChildren, $this->liveChildren(), 'a second run replaces collection items instead of adding copies');
     }
 
-    private function seed(): int
+    #[Test]
+    public function germanPagesRetainLayoutsAndThemesOnCreationAndAfterRepair(): void
+    {
+        self::assertSame(Command::SUCCESS, $this->seed(false));
+        $this->assertGermanPageLayouts();
+
+        // Reproduce translations created by the old seeder: layout and theme
+        // fields were left at their database defaults, overriding the source.
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        $connection->update('pages', [
+            'backend_layout' => '',
+            'backend_layout_next_level' => '',
+            'tx_desiderioastryx_theme' => '',
+        ], ['sys_language_uid' => 1]);
+
+        self::assertSame(Command::SUCCESS, $this->seed(false));
+        $this->assertGermanPageLayouts();
+    }
+
+    private function assertGermanPageLayouts(): void
+    {
+        // The second assertion must read the repaired records, not the
+        // PageRepository overlays cached during the first assertion.
+        $this->get(CacheManager::class)->getCache('runtime')->flush();
+        $connection = $this->getConnectionPool()->getConnectionForTable('pages');
+        $originals = $connection->fetchAllAssociative('SELECT * FROM pages WHERE sys_language_uid = 0 AND uid != 1 AND deleted = 0');
+        self::assertNotEmpty($originals);
+
+        $repository = $this->get(PageRepository::class);
+        $resolver = $this->get(PageLayoutResolver::class);
+        foreach ($originals as $original) {
+            $german = $repository->getPageOverlay($original, 1);
+            self::assertSame(1, (int)$german['sys_language_uid'], $original['title'] . ' has a German page');
+            self::assertSame(
+                $resolver->getLayoutIdentifierForPageWithoutPrefix($original, []),
+                $resolver->getLayoutIdentifierForPageWithoutPrefix($german, []),
+                $original['title'] . ' selects the same PAGEVIEW template in German',
+            );
+            self::assertSame($original['backend_layout_next_level'], $german['backend_layout_next_level'], $original['title']);
+            self::assertSame($original['tx_desiderioastryx_theme'], $german['tx_desiderioastryx_theme'], $original['title']);
+        }
+    }
+
+    private function seed(bool $content = true): int
     {
         $command = $this->get(SeedAstryxSiteCommand::class);
         self::assertInstanceOf(SeedAstryxSiteCommand::class, $command);
         $tester = new CommandTester($command);
-        $exitCode = $tester->execute(['--parent' => '1', '--content' => true]);
+        $exitCode = $tester->execute(['--parent' => '1', '--content' => $content]);
         if ($exitCode !== Command::SUCCESS) {
             self::fail($tester->getDisplay());
         }
