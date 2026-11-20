@@ -2,6 +2,11 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.6.3] — 2026-11-20
+
+- `praetorius/vite-asset-collector` is allowed at `^1.18.4 || ^2.0.1`. Astryx uses only `<vite:asset entry="EXT:…"/>`, which both majors support unchanged. `ViteAssetUsageTest` keeps the templates on that shared tag, and `ViteAssetTagsTest` renders the layout's and the element preview's tags against a manifest under either major. Under 2.x the manifest must be keyed by the unresolved extension path, which `vite-plugin-typo3` 3.x writes; 2.x also adds the CSS with priority by default.
+- The German theme overview: the generator writes its copy as `f:translate` calls backed by `themes.xlf` and `de.themes.xlf` (83 labels), and the Astryx seeder localizes pages through DataHandler so localized pages keep their backend layout and theme. A project that carried this as a Composer patch can drop it.
+
 ## [2.6.2] — 2026-11-05
 
 - The home page explains the open-source model next to the plans: Care (we run your site), support hours, sponsored features and the Supporter, with the sentence "Desiderio is free with every release. Paid plans add our time." and webconsulting GmbH named as the seller. The FAQ answers "Who sends the invoice?" with links to its legal notice and terms.
