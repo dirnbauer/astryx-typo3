@@ -36,8 +36,8 @@ seeding services. This extension supplies all of its own design.
 | TYPO3 | 14.3.7+ |
 | PHP | 8.4+ |
 | Content Blocks | `friendsoftypo3/content-blocks` 2.2+ |
-| Vite assets | `praetorius/vite-asset-collector` 1.18+ |
-| Engine | `webconsulting/desiderio` 4.1+ |
+| Vite assets | `praetorius/vite-asset-collector` 1.18.4+ or 2.x |
+| Engine | `webconsulting/desiderio` 4.29+ |
 
 ## Install
 

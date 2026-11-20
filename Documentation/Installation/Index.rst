@@ -16,8 +16,8 @@ From :file:`composer.json`:
 *   TYPO3 `^14.3.7` (`typo3/cms-core` and `typo3/cms-fluid`).
 *   PHP `^8.4`.
 *   `friendsoftypo3/content-blocks` `^2.2`.
-*   `praetorius/vite-asset-collector` `^1.18`.
-*   `webconsulting/desiderio` `^4.1`.
+*   `praetorius/vite-asset-collector` `^1.18.4 || ^2.0.1`.
+*   `webconsulting/desiderio` `^4.29`.
 
 `friendsoftypo3/visual-editor` is suggested rather than required: it adds inline
 frontend editing and the element-library plus-button, and everything renders
