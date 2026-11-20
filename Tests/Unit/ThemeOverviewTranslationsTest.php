@@ -51,9 +51,13 @@ final class ThemeOverviewTranslationsTest extends TestCase
         $document = simplexml_load_file($path);
         self::assertNotFalse($document, 'Invalid XLIFF: ' . $path);
         $document->registerXPathNamespace('x', 'urn:oasis:names:tc:xliff:document:2.0');
-        self::assertCount(1, $document->xpath('/x:xliff/x:file'));
+        $files = $document->xpath('/x:xliff/x:file');
+        self::assertIsArray($files, 'XPath failed on ' . $path);
+        self::assertCount(1, $files);
+        $units = $document->xpath('/x:xliff/x:file/x:unit');
+        self::assertIsArray($units, 'XPath failed on ' . $path);
         $labels = [];
-        foreach ($document->xpath('/x:xliff/x:file/x:unit') as $unit) {
+        foreach ($units as $unit) {
             $key = (string)$unit['id'];
             self::assertArrayNotHasKey($key, $labels, 'Duplicate label: ' . $key);
             $labels[$key] = [
