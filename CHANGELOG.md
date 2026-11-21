@@ -2,6 +2,12 @@
 
 All notable changes to `webconsulting/astryx-typo3` are documented here.
 
+## [2.7.0] — 2026-11-21
+
+- Requires `praetorius/vite-asset-collector` `^2.0.1` (was `^1.18.4 || ^2.0.1`). A plain `<vite:asset entry="…"/>` changes the page head under 2.x: the theme CSS is added with priority, in front of the stylesheets a site adds through `page.includeCSS`, and every woff2 file it references is preloaded (48 font files on every page). The page layout and the element preview now add `Main.entry.css` with `<vite:asset.css priority="{false}"/>` and `<vite:asset.font preload="{false}"/>`, so the cascade and font loading stay exactly as they were with 1.x. These child ViewHelpers do not exist in 1.x, hence 2.x only.
+- `ViteAssetUsageTest` requires both children on every CSS entry and keeps the deprecated embedding arguments out. `ViteAssetTagsTest` renders the real tags through the PageRenderer next to an `addCssFile()` probe (what `page.includeCSS` does) and checks that the theme stylesheet follows it and that no font is preloaded.
+- Needs a Desiderio release that allows the collector 2.x (Desiderio 4.36.0 still requires `^1.18`).
+
 ## [2.6.3] — 2026-11-20
 
 - `praetorius/vite-asset-collector` is allowed at `^1.18.4 || ^2.0.1`. Astryx uses only `<vite:asset entry="EXT:…"/>`, which both majors support unchanged. `ViteAssetUsageTest` keeps the templates on that shared tag, and `ViteAssetTagsTest` renders the layout's and the element preview's tags against a manifest under either major. Under 2.x the manifest must be keyed by the unresolved extension path, which `vite-plugin-typo3` 3.x writes; 2.x also adds the CSS with priority by default.
