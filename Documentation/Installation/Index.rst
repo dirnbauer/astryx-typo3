@@ -16,7 +16,9 @@ From :file:`composer.json`:
 *   TYPO3 `^14.3.7` (`typo3/cms-core` and `typo3/cms-fluid`).
 *   PHP `^8.4`.
 *   `friendsoftypo3/content-blocks` `^2.2`.
-*   `praetorius/vite-asset-collector` `^1.18.4 || ^2.0.1`.
+*   `praetorius/vite-asset-collector` `^2.0.1`. The manifest must be keyed by
+    the unresolved :file:`vendor/` path of the extension, which
+    `vite-plugin-typo3` 3.x writes (it keeps symlinks unresolved).
 *   `webconsulting/desiderio` `^4.29`.
 
 `friendsoftypo3/visual-editor` is suggested rather than required: it adds inline

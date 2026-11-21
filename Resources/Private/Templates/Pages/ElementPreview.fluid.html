@@ -4,7 +4,16 @@
     data-namespace-typo3-fluid="true"
 >
 
-<vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Main.entry.css"/>
+<f:comment>
+    Version 2 of the Vite asset collector adds entry CSS with priority, ahead
+    of page.includeCSS (site package overrides), and preloads every woff2 file
+    the CSS references (48 font files, most of them only fetched for their
+    unicode-range). Both stay off, as with 1.x.
+</f:comment>
+<vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Main.entry.css">
+    <vite:asset.css priority="{false}"/>
+    <vite:asset.font preload="{false}"/>
+</vite:asset>
 <vite:asset entry="EXT:astryx_typo3/Resources/Private/Assets/Components.entry.js"/>
 
 <f:comment>
